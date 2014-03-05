@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Flipflops bedienen met &#233;&#233;n of meer druktoetsen.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, opamp, flipflop, contactdender, 74HC04, 74HC14, 40106, inverter, BS170, D-flipflop, 4013, SN74LVC1G80, NC7S14, Schmitt-trigger, 555, meekoppel-weerstand, 4050, 4017, naaldpuls">
+<META NAME="description" CONTENT="FFToets">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="BelastingSchakelen.html">Belastingen schakelen.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="FFToets"></A>
+<BR>Flipflops bedienen met &#233;&#233;n of meer druktoetsen.</H2>
+<UL>
+<LI><A HREF="#FFDrOpamp">E&#233;n druktoets en een opamp.</A>
+<LI><A HREF="#FFDrInv">E&#233;n druktoets en 2 inverters.</A>
+<LI><A HREF="#FFDrFet">E&#233;n druktoets en 2 FET's.</A>
+<LI><A HREF="#FFDrRst">Met reset-functie.</A>
+<LI><A HREF="#FFDrFF">E&#233;n druktoets en een &#8220;echte&#8221; flipflop.</A>
+<LI><A HREF="#FFDMini">Mini-uitvoering.</A>
+<LI><A HREF="#FFDPMini">&#8220;Power&#8221; mini-uitvoering.</A>
+<LI><A HREF="#FF555">Met een 555.</A>
+<LI><A HREF="#FFTwDr">Met twee druktoetsen.</A>
+<LI><A HREF="#FFTwSch">Of met een wisselschakelaar.</A>
+<LI><A HREF="#FFTmstd">Met meer dan twee standen.</A>
+</UL><HR>
+
+<P>Flipflops zijn er in alle maten en gewichten. Hier is een poging
+gedaan om, met eenvoudige onderdelen, een verzameling samen te
+stellen waarin iedereen wel iets naar zijn gading kan vinden.<P><BR CLEAR="ALL"><P>
+<H3>E&#233;n druktoets en een opamp.</H3>
+<A NAME="FFDrOpamp"></A><P><IMG ALIGN="LEFT" SRC="1ToetsFlipflop.png"
+ ALT="1ToetsFlipflop.png">
+
+De werking is eenvoudig: R1 en R2 vormen een spanningsdeler, die
+de spanning op <B>A</B> &#8213;de inverterende ingang (pin 2) van
+de <A NAME="opamp1208">opamp</A>&#8213; op de helft van de voedingsspanning houdt. R3
+en R4 zouden hetzelfde doen, ware het niet dat R5 ook zijn zegje
+heeft. Als de uitgang van de opamp hoog is, dan is de spanning
+op <B>B</B> 2/3 van de voedingsspanning; is de uitgang laag,
+dan staat op <B>B</B> 1/3 van de voedingsspanning. Na verloop
+van tijd staat over condensator C1 dezelfde spanning als op de
+uitgang van de opamp. Laten we er van uitgaan, dat deze laag is.
+Bij een ideale opamp is dat 0Volt, maar in de praktijk kan dat
+ook 1V zijn. Op <B>B</B> staat dus 1/3 van de
+voedingsspanning.<BR>
+Wordt er nu op Dr1 gedrukt, dan zakt de spanning op <B>A</B>
+tot onder het niveau op <B>B</B>. Hierdoor wordt de uitgang van
+de opamp hoog, en stijgt het niveau op <B>B</B> tot 2/3 van
+Vcc. Bij het lossen van Dr1 blijft deze toestand behouden. Maar
+ook als DR1 ingedrukt blijft, veranderd er niets meer. Het is
+pas na het lossen van Dr1 dat R6 de kans krijgt C1 op te laden,
+waarna een volgende druk op Dr1 de <A NAME="flipflop1527">flipflop</A> opnieuw zal
+laten omklappen.<P>Een handig dingetje, voor wie bij het bouwen van een schakeling
+nog ergens een opamp te veel heeft.<P><BR CLEAR="ALL"><P>
+<H3>E&#233;n druktoets en 2 inverters.</H3>
+<A NAME="FFDrInv"></A><P><IMG ALIGN="RIGHT" SRC="Druktoets-flipflop.png"
+ ALT="Druktoets-flipflop.png">
+
+Dit werkt ongeveer als de voorgaande. Via R1 wordt de ingang van
+N1 op hetzelfde peil gehouden als de uitgang van N2. N1
+inverteert dat niveau, geeft het door aan N2, die het nogmaals
+inverteert. En zo blijft alles zoals het is...<BR>
+Ondertussen wordt C1 via R2 langzaam opgeladen of ontladen tot
+een niveau dat het tegenovergestelde is aan hetgeen op de ingang
+van N1 staat. Een korte druk op Dr1 laat N1 omklappen, waardoor
+ook N2 omklapt en via R1 deze nieuwe toestand stabiel houdt.<BR>
+Ook hier heeft het langer indrukken van Dr1 geen verder effect,
+evenmin als mogelijke <A NAME="contactdende2041">contactdender</A>.<P>Bruikbare inverters zijn de <A NAME="74HC041013">74HC04</A> en de <A NAME="74HC141014">74HC14</A> voor
+5V-toepassingen, of de 4049 en de <A NAME="40106918">40106</A> voor spanningen tot
+15V. Een stel NAND-poorten kan ook dienst doen; de tweede ingang
+kan met de positieve voedingsrail verbonden worden of simpelweg
+samen met de andere ingang. En met NOR-poorten gaat het
+uiteraard ook, als de tweede ingang met GND verbonden wordt.<P><BR CLEAR="ALL"><P>
+<H3>E&#233;n druktoets en 2 FET's.</H3>
+<A NAME="FFDrFet"></A><P><IMG ALIGN="LEFT" SRC="Druktoets-flipflopII.png"
+ ALT="Druktoets-flipflopII.png">
+
+<IMG ALIGN="RIGHT" SRC="Druktoets-flipflopIII.png"
+ ALT="Druktoets-flipflopIII.png">
+
+De schakeling links is in wezen hetzelfde als de schakeling met twee
+<A NAME="inverter1546">inverter</A>s, met dit verschil dat de inverters gevormd worden
+door een stel FET's; een <A NAME="BS170968">BS170</A> doet het goed in een
+toepassing als deze.<BR>
+Deze variant kan meer stroom sinken dan de overige schakelingen,
+maar minder stroom sourcen. Een voordeel is, dat R4 kan vervangen
+worden door een kleine belasting - de spoel van een
+relais<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A>,
+bijvoorbeeld. Een tweede voordeel is het feit dat de
+voedingsspanning tot 12V<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A> mag
+bedragen voor de BS170.<P>Als we zwaardere FET's gebruiken zoals het schema rechts toont,
+kan &#233;&#233;n van hen rechstreeks een zwaardere belasting
+schakelen, en dat op een hogere spanning. Enkele zener-dioden
+moeten beletten dat de gate/source-spanning hoger wordt dan
+toegestaan.<P>
+En nee, je kan de FET's niet zomaar vervangen door
+NPN-transistors! Stel, dat je op de plaats van T2 een
+NPN-torretje zou plaatsen. De basis/emitter-overgang zal dan
+beletten dat de spanning op de basis hoger wordt dan 0.6V. Het
+gevolg hiervan is, dat de spanning over C1 evenmin hoger wordt
+dan 0.6V.<BR>
+Onmogelijk is het echter niet. T1 en T2 moeten dan elk een eigen
+basisweerstand krijgen.
+Anderzijds is de prijs van een BS170 amper hoger dan die van een
+BC550...<P>
+<BR CLEAR="ALL"><P>
+<H3>Met reset-functie.</H3>
+<A NAME="FFDrRst"></A><P><IMG ALIGN="RIGHT" SRC="AND-FF.png"
+ ALT="AND-FF.png">
+
+Als we NAND-poorten gebruiken, kunnen we een extra-functie
+toevoegen. Bij de voorafgaande schakelingen weten we niet, welke
+toestand deze zullen aannemen na het inschakelen van de
+voedingsspanning. Soms heeft dat geen belang, maar voor bepaalde
+toepassingen kan het een dwingende eis zijn, dat de uitgang v/d
+flipflop bij het inschakelen laag is.<BR>
+Het schema hiernaast toont hoe dat kan opgelost worden: op het
+ogenblik dat de schakeling spanning krijgt is C2 ontladen. Pin 1
+van N1 is dus laag, zodat de uitgang van N1 hoog wordt. N2
+inverteert deze toestand, waardoor de uitgang laag wordt en zo
+blijft. Na korte tijd is C2 opgeladen door R1 en fungeert de
+schakeling op dezelfde manier als zijn companen.<P>Indien de uitgang om een bepaalde reden hoog moet zijn bij het
+inschakelen, volstaat het om Pin 1 van N1 aan Vcc te leggen en
+Pin 4 van N2 met het R1/C2 te verbinden.<P><BR CLEAR="ALL"><P>
+<H3>E&#233;n druktoets en een &#8220;echte&#8221; flipflop.</H3>
+<A NAME="FFDrFF"></A><P><IMG ALIGN="LEFT" SRC="MotorSturing2.png"
+ ALT="MotorSturing2.png">
+
+We zouden haast vergeten dat het met een echte flipflop ook kan.
+Ditmaal met een <A NAME="Dflipflop1640">D-flipflop</A> uit de 4000-serie, de
+<A NAME="4013867">4013</A><A NAME="pros3" HREF="#ft3"><SUP>3</SUP></A>. Hiernaast een schakeling die, bij elke druk op de
+toets, een motortje-met-vertraging de andere kant opstuurt tot
+de eindstop aldaar bereikt is.<BR>
+R2 en C2 zorgen voor een reset bij het inschakelen van de
+voedingsspanning. Na die reset zijn de in- en uitgangen van de
+4013 zoals ze in het blauw zijn aangegeven. Bij het indrukken
+van Dr1 wordt het niveau op D1 ingeklokt en doorgegeven naar Q1.
+_Q1 klapt ook om, zodat aan D1 het tegeovergestelde niveau komt
+te staan, dat bij een volgende druk op Dr1 aan Q1 zal worden
+doorgegeven.<P><BR CLEAR="ALL"><P>
+<H3>Mini-uitvoering.</H3>
+<A NAME="FFDMini"></A><P><IMG ALIGN="RIGHT" SRC="D-FF.png"
+ ALT="D-FF.png">
+
+Als het allemaal erg klein moet zijn, kan de <A NAME="SN74LVC1G801388">SN74LVC1G80</A>
+goede diensten bewijzen. Dit is een D-flipflop in
+mini-verpakking. De gebruikelijke Q-uitgang ontbreekt. Maar
+gelukkig is diens ge&#239;nverteerde tegenpool wel aanwezig, die we
+op dezelfde manier als hierboven gebruiken om de uitgang bij
+elke druk op de toets te doen omklappen.<P><BR CLEAR="ALL"><P>
+<H3>&#8220;Power&#8221; mini-uitvoering.</H3>
+<A NAME="FFDPMini"></A><P><IMG ALIGN="LEFT" SRC="Druktoets-flipflopIV.png"
+ ALT="Druktoets-flipflopIV.png">
+
+Deze bevat wat meer onderdelen dan de voorgaande, maar daar
+staat tegenover dat hij een niet al te grote belasting
+rechtstreeks kan schakelen.<BR>
+Hier zien we weerom twee inverters, een meekoppeling waar R2
+voor zorgt, en een weerstand (R1) die condensator C1 van een
+tegenovergestelde spanning voorziet. Niets nieuws, dus.<BR>
+Ook de FET, die niet enkel als inverter fungeert maar tevens
+een belasting schakelt, hebben we al gezien.<P>Nieuw is de <A NAME="NC7S141051">NC7S14</A>. Dat is &#233;&#233;n inverter met een
+<A NAME="Schmitttrigg2200">Schmitt-trigger</A> ingang, die verpakt zit in een minuscule
+behuizing. Ware SMD-liefhebbers kiezen voor T1 uiteraard ook een
+SMD-exemplaar. Liefst een type dat aan 5V gate/source-spanning
+genoeg heeft om volop in geleiding te gaan.<BR>
+Alhoewel, de NC7S14 mag desnoods met 6V gevoed worden...<P><BR CLEAR="ALL"><P>
+<H3>Met een 555.</H3>
+<A NAME="FF555"></A><P><IMG ALIGN="RIGHT" SRC="Druktoets555.png"
+ ALT="Druktoets555.png">
+
+Ook een <A NAME="555826">555</A> is voor het doel geschikt.<BR>
+We kunnen de interne flipflop immers setten door de spanning op
+de TRIGGER-ingang lager te maken dan 1/3 van de
+voedingsspanning, en we kunnen hem resetten door de spanning op
+de THRESHOLD-ingang hoger te maken dan 2/3 van de
+voedingsspanning. Doordat R2 en R3 beide ingangen op de helft
+van de voedingsspanning houden, blijven die inactief.<BR>
+Bij het inschakelen van de voedingsspanning zorgt C2 er voor,
+dat de interne flipflop gereset wordt, waardoor er 0Volt op de
+uitgang komt te staan. Ook over C1 staat er geen spanning.<P>Drukken we nu op Dr1, dan krijgt de TRIGGER-ingang een
+neergaande puls<A NAME="pros4" HREF="#ft4"><SUP>4</SUP></A>, hetgeen tot gevolg heeft dat de uitgang hoog
+wordt. Via R1 wordt C1 nu opgeladen. Bij een volgende druk op
+Dr1 is het de THRESHOLD-ingang die reageert, en de uitgang terug
+laag maakt.<P><BR CLEAR="ALL"><P>
+<H3>Met twee druktoetsen.</H3>
+<A NAME="FFTwDr"></A><P><IMG ALIGN="LEFT" SRC="2ToetsenFlipflopII.png"
+ ALT="2ToetsenFlipflopII.png">
+
+Met 2 toetsen, &#233;&#233;n voor het inschakelen en &#233;&#233;n voor het
+uitschakelen, wordt het nog een stuk eenvoudiger. Hiernaast zien
+we buffer<A NAME="pros5" HREF="#ft5"><SUP>5</SUP></A> N1, die zijn toestand stabiel houdt met
+<A NAME="meekoppelwee2647">meekoppel-weerstand</A> R1. Drukken op de &#8220;ON&#8221; toets forceert
+het geheel naar een hoog niveau; drukken op de &#8220;OFF&#8221; toets
+doet net het tegenovergestelde.<BR>
+Een <A NAME="4050868">4050</A> doet het uitstekend bij een voedingsspanning
+tussen 3Volt en 15Volt.<P>Ook de opamp uit <A HREF="FFToets.html#FFDrOpamp">de eerste schakeling</A> kan
+op deze wijze ingezet worden. R6 en C1 vallen dan weg, en naast
+Dr1 komt een tweede toets tussen Vcc en <B>A</B>.<BR>
+Er is echter een belangrijk verschil: drukken op de toets die
+met Vcc verbonden is zorgt er voor dat de uitgang laag wordt!
+Het kan natuurlijk anders, door de toetsen met <B>B</B> te
+verbinden.<P>Daarnaast is het niet onverstandig, in serie met elke toets een
+weerstand op te nemen, teneinde kortsluiting te voorkomen als
+iemand beide toetsen gelijktijdig indrukt. Eén weerstand in serie
+met de ON-toets is wellicht nog beter. Dan gaat de schakeling op
+&#8220;uit&#8221; als iemand beide toetsen gelijktijdig indrukt.<BR>
+470R is een goede uitgangswaarde, maar kleiner of groter kan
+natuurlijk ook, zolang R1 maar kleiner is dan de helft van R2.<P>
+<BR CLEAR="ALL"><P>
+<H3>Of met een wisselschakelaar.</H3>
+<A NAME="FFTwSch"></A><P><IMG ALIGN="RIGHT" SRC="AntiDenderFF.png"
+ ALT="AntiDenderFF.png">
+
+Die druktoetsen kunnen uiteraard vervangen worden door een
+wisselschakelaar. We hebben dan een prima anti-dender schakeling,
+waarvan de uitgang alle mogelijke contactdender negeert.<BR>
+De schakelaar kan uiteraard een druktoets met wisselcontacten zijn.<P>Hier is gebruik gemaakt van twee inverters in plaats van de buffer
+bij de vorige schakeling.<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="AntiDenderFF-Fet.png"
+ ALT="AntiDenderFF-Fet.png">
+
+<IMG ALIGN="RIGHT" SRC="AntiDenderFF-Tor.png"
+ ALT="AntiDenderFF-Tor.png">
+
+ Die twee inverters kunnen ook twee FET's
+zijn, bijgestaan door enkele weerstanden.<P>Door het toevoegen van een extra-weerstand, kunnen ook bipolaire
+transistors ingezet worden.<P><BR CLEAR="ALL"><P>
+<H3>Met meer dan twee standen.</H3>
+<A NAME="FFTmstd"></A><P>Wie niet tot de Arduino-generatie behoort, heeft vast een
+<A NAME="4017871">4017</A> op voorraad liggen. Ook die kan ook ingezet worden.
+<IMG ALIGN="RIGHT" SRC="4017-FF.png"
+ ALT="4017-FF.png">
+
+Het schema hiernaast toont een 3-standen schakelaar.<BR>
+C2 zorgt er voor, dat de 4017 een korte reset-puls (op CLR)
+krijgt bij het inschakelen van de voedingsspanning, zodat
+uitgang Y0 hoog wordt.<BR>
+Bij elke druk op Dr1 worden achtereenvolgens Y1 en Y2
+hoog. Zodra Y3 hoog wordt, maakt die CLR hoog, waardoor Y0 terug
+aan de beurt is.<BR>
+Door CLR met een andere uitgang te verbinden, kan het aantal
+tellerstanden uitgebreid of ingekrompen worden. <BR>
+CLR verbinden met Y1 kan ook. Op Y1 verschijnt dan een
+kortstondige <A NAME="naaldpuls1631">naaldpuls</A>, telkens Dr1 contact maakt.<P>
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...relais</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+vergeet de vrijloopdiode niet!</DD>
+<DT><A NAME="ft2">...12V</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+maximum 15V gate-source spanning volgens de datasheet, maar een verstandig ontwerper blijft daar enkele Volts onder</DD>
+<DT><A NAME="ft3">...<A NAME="4013867">4013</A></A>
+<A HREF="#pros3"><SUP>3</SUP></A></DT>
+<DD>
+voor TTL-schakelingen is een 74HC74 beter geschikt</DD>
+<DT><A NAME="ft4">...puls</A>
+<A HREF="#pros4"><SUP>4</SUP></A></DT>
+<DD>
+de THRESHOLD-ingang krijgt die puls ook, maar reageert er niet op</DD>
+<DT><A NAME="ft5">...buffer</A>
+<A HREF="#pros5"><SUP>5</SUP></A></DT>
+<DD>
+G&#233;&#233;n inverter! Twee inverters in serie kan w&#232;l</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="BelastingSchakelen.html">Belastingen schakelen.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

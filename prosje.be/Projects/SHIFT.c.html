@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>SHIFT.c</title>
+		<meta name="generator" content="c2html 1.1.0" >
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" >
+		<meta http-equiv="Content-Script-Type" content="text/javascript" >
+		<meta http-equiv="Content-Style-Type" content="text/css" >
+	</head>
+	<body text="#000000">
+		<font face="Monospace">
+<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;SHIFT<br>
+<br>
+&nbsp;&nbsp;Routines,&nbsp;die&nbsp;Madwizard&nbsp;aansturen&nbsp;als&nbsp;een&nbsp;schuifregister<br>
+<br>
+&nbsp;&nbsp;Pros&nbsp;2007<br>
+*/</i></font><br>
+<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">shift2MW</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">command</font>,&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">data</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">cnt</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">DEL</font>,&nbsp;<font color="#000000">INT</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">double</font>&nbsp;<font color="#000000">tmp</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#000000">DDS_frequency</font>&nbsp;/&nbsp;<font color="#800080">1000.0</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;6250000&nbsp;-&gt;&nbsp;6250<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#800080">2000000.0</font>&nbsp;/&nbsp;<font color="#000000">tmp</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;2000000&nbsp;/&nbsp;6250&nbsp;=&nbsp;320<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">tmp</font>&nbsp;&gt;&nbsp;<font color="#800080">65535.0</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#800080">65535.0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">tmp</font>&nbsp;&lt;&nbsp;<font color="#800080">400.0</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#800080">400.0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DEL</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>)&nbsp;<font color="#000000">tmp</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">INT</font>&nbsp;=&nbsp;<font color="#000000">DEL</font>&nbsp;/&nbsp;<font color="#0000FF">400</font>;<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">4</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;4&nbsp;command-bits<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">command</font>&nbsp;&amp;&nbsp;<font color="#008080">0x08</font>)&nbsp;==&nbsp;<font color="#008080">0x08</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">SHIFTPORT</font>,&nbsp;<font color="#000000">MW_DATA</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Data-bit&nbsp;=&nbsp;1<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">SHIFTPORT</font>,&nbsp;<font color="#000000">MW_DATA</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Data-bit&nbsp;=&nbsp;0<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">INT</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">SHIFTPORT</font>,&nbsp;<font color="#000000">MW_INT0</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;INT0&nbsp;van&nbsp;Madwizard&nbsp;laag&nbsp;maken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">INT</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">SHIFTPORT</font>,&nbsp;<font color="#000000">MW_INT0</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;INT0&nbsp;van&nbsp;Madwizard&nbsp;terug&nbsp;hoog&nbsp;maken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">DEL</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">command</font>&nbsp;=&nbsp;<font color="#000000">command</font>&nbsp;&lt;&lt;&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">16</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;16&nbsp;data-bits<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">data</font>&nbsp;&amp;&nbsp;<font color="#008080">0x8000</font>)&nbsp;==&nbsp;<font color="#008080">0x8000</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">SHIFTPORT</font>,&nbsp;<font color="#000000">MW_DATA</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Data-bit&nbsp;=&nbsp;1<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">SHIFTPORT</font>,&nbsp;<font color="#000000">MW_DATA</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Data-bit&nbsp;=&nbsp;0<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">INT</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">SHIFTPORT</font>,&nbsp;<font color="#000000">MW_INT0</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;INT0&nbsp;van&nbsp;Madwizard&nbsp;laag&nbsp;maken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">INT</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">SHIFTPORT</font>,&nbsp;<font color="#000000">MW_INT0</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;INT0&nbsp;van&nbsp;Madwizard&nbsp;terug&nbsp;hoog&nbsp;maken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">DEL</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;=&nbsp;<font color="#000000">data</font>&nbsp;&lt;&lt;&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">SHIFTPORT</font>,&nbsp;<font color="#000000">MW_INT1</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;INT1&nbsp;van&nbsp;Madwizard&nbsp;laag&nbsp;maken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">INT</font>);;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">SHIFTPORT</font>,&nbsp;<font color="#000000">MW_INT1</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;INT1&nbsp;van&nbsp;Madwizard&nbsp;terug&nbsp;hoog&nbsp;maken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">DEL</font>&nbsp;*&nbsp;<font color="#0000FF">2</font>);<br>
+}<br>
+		</font>
+	</body>
+</html>

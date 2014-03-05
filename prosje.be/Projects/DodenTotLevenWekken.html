@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Doden tot leven wekken.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, oscillator, 74HC14, 74HC132, 74HC04, 74HC00, ATtiny2313, 74HC4040, AVR">
+<META NAME="description" CONTENT="DodenTotLevenWekken">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="BezuinigenOpPinnen.html">Bezuinigen op pinnen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="AvrTips.html">AVR-tips.</A> &nbsp;
+<B> Volgende:</B> <A HREF="HysteresisToevoegen.html">Hysteresis toevoegen.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="DodenTotLevenWekken"></A>
+<BR>Doden tot leven wekken.</H2>
+<UL>
+<LI><A HREF="#dtlvclk">De CPU-klok.</A>
+<UL><LI><A HREF="#dtlvosc">De externe oscillator.</A>
+<LI><A HREF="#dtlv7414osc">74HC14 oscillator.</A>
+<LI><A HREF="#dtlv7404osc">74HC04 oscillator.</A>
+<LI><A HREF="#dtlvavrosc">Een AVR als oscillator.</A>
+<LI><A HREF="#dtlvxtalosc">Een kristaloscillator.</A>
+</UL>
+<LI><A HREF="#dtlvrst">De RESET-pin.</A>
+</UL><HR>
+<P>Zowat elke maand komt er iemand in <A NAME="pros4"  HREF="http://www.circuitsonline.net/forum/active">mijn favoriete forum</A>
+ op
+de proppen met een AVR die &#8220;dood&#8221; is. De meest-voorkomende
+oorzaak is het foutief instellen van de fuse-bits.<P>
+<H3>De CPU-klok.</H3>
+<A NAME="dtlvclk"></A><P>IMHO is het voornamelijk Avr Studio die voor verwarring zorgt.
+Als je een optie kan aanvinken als &#8220;Ext. Crystal Osc. 8.0-
+Mhz...&#8221; is dat <I>onzin</I>. Je kan de fuses helemaal niet
+instellen op een externe kristal-oscillator!<BR>
+Je kan ze w&#233;l instellen op een extern kristal. En je kan ze
+instellen op een extern kloksignaal, waarbij het niet uitmaakt
+wat de bron van dat signaal is - voorwaarde is wel, dat de
+puls/pause-verhoudingen nagenoeg gelijk zijn.<P>De nietsvermoedende AVR-adept ziet een eindeloze lijst van
+mogelijkheden voor zijn ogen verschijnen, en vinkt argeloos iets
+aan, waar het woord &#8220;Crystal&#8221; in voorkomt, zonder notie te
+nemen van de &#8220;Osc&#8221; die er op volgt. En dan zit er plots geen
+leven  meer in het beestje...<P>Wat nu?<BR>
+Geef de AVR wat hij verwacht: een extern kloksignaal.<P>Een fabrieksnieuwe AVR draait intern op 8MHz of op 9.6MHz.<BR>
+Daarnaast is het CKDIV8-bit geactiveerd, zodat de uiteindelijke
+systeemklok 1MHz of 1.2MHz bedraagt.<BR>
+Een extern kloksignaal van 1MHz volstaat dan niet, omdat de
+systeemklok in dat geval terugvalt naar 125kHz. Dat is
+waarschijnlijk te traag voor de programmer, als die op zijn
+standaard-snelheid draait.<BR><P>
+
+<H4>De externe oscillator.</H4>
+<A NAME="dtlvosc"></A><P>Wie over een functiegenerator beschikt, is er snel van af. Stel
+die in op een blokgolf van 8MHz die varieert tussen 0V en 5V (of
+tussen 0V en Vcc als de AVR op een lagere spanning werkt),
+verbind de uitgang met de XTAL1-pin
+van de AVR, en zet vervolgens de fuses naar wens.<P>Geen functiegenerator? Dan maar een <A NAME="oscillator3004">oscillator</A> bouwen.<BR><P><BR CLEAR="ALL"><P>
+<H4>74HC14 oscillator.</H4>
+<A NAME="dtlv7414osc"></A><P><IMG ALIGN="LEFT" SRC="HC14-oscillator.png"
+ ALT="HC14-oscillator.png">
+
+Een <A NAME="74HC142267">74HC14</A> leent zich uitstekend tot het bouwen van een
+oscillator.<BR>
+Een proefopstelling als hiernaast levert nagenoeg 9MHz. Het
+gebruikte IC is in dit geval een product van ST. Ik maak daar
+melding van, omdat andere fabrikaten iets kunnen afwijken wat de
+behaalde frequentie betreft. Die hangt immers samen met de
+boven- en de ondergrens waarbij de Schmitt-trigger ingangen
+omklappen - hoe groter het verschil tussen die grenzen, hoe
+langer het duurt om C2 te laden of te ontladen, en hoe lager de
+frequentie.<P>Een <A NAME="74HC1322316">74HC132</A> &#8213;vier NAND-poorten met Schmitt-trigger ingangen&#8213;
+kan op gelijkaardige wijze ingezet worden. Knoop daarbij
+ongebruikte ingangen aan Vcc.<P>Het gebruik van een 74HCT14 of een 74HCT132 valt af te raden.
+Het schakelpunt van de HC-versies ligt ongeveer op de helft van
+de voedingsspanning: 2.5V bij Vcc = 5V.<BR>
+Bij de HCT-versies ligt dat schakelpunt ergens tussen 1.6V en
+1.7V. Het gevolg daarvan is, dat de puls/pause-verhouding van
+het uitgangssignaal te sterk afwijkt van de ideale
+50/50&#37;.<P><BR CLEAR="ALL"><P>
+<H4>74HC04 oscillator.</H4>
+<A NAME="dtlv7404osc"></A><P><IMG ALIGN="RIGHT" SRC="HC04-oscillator.png"
+ ALT="HC04-oscillator.png">
+
+Met een <A NAME="74HC042266">74HC04</A> valt ook een oscillator te maken, als is de
+aanpak iets anders.<BR>
+Ook hier is de uitgangsfrequentie ongeveer 9MHz.<P>Weerom kan de schakeling uitgevoerd worden met NAND-poorten
+(<A NAME="74HC002262">74HC00</A>), als men de ongebruikte ingangen met Vcc
+verbindt.<BR>
+En ook hier valt het gebruik van de HCT-versie af te raden.<P><BR CLEAR="ALL"><P>
+<H4>Een AVR als oscillator.</H4>
+<A NAME="dtlvavrosc"></A><P>Ook een andere AVR kan als oscillator dienst doen.<P>Sommige typen &#8213;de ATtiny2313 bijvoorbeeld&#8213; zijn voorzien van
+een CKOUT-pin. Daarbij kunnen de fuse-bits zodanig ingesteld
+worden, dat de systeem-klok op die CKOUT-pin verschijnt.<BR>
+Bij de genoemde <A NAME="ATtiny23132722">ATtiny2313</A> hoeft men enkel het CKDIV8-bit op '1' te
+zetten, en het CKOUT-bit op '0', <I>zonder wat aan de CKSEL-bits te wijzigen</I> om een nette 8MHz-klok op de CKOUT-pin
+te zien verschijnen. Er hoeft niet eens een programma te
+draaien.<P>Een andere aanpak bestaat er in, een timer in CTC-mode te
+schakelen en in het compare-register 0x01 te plaatsen.
+Op de bijbehorende PWM-uitgang komt dan de helft van de
+systeemklok te staan.<BR>
+Hierbij is het wel noodzakelijk, een kristal van 16MHz of meer
+te gebruiken om een uitgangsfrequentie van 8MHz te bekomen.<BR>
+Bij het instellen van de fuse-bits maakt men liefst niet opnieuw
+de fout om voor &#8220;Ext. Crystal Osc.&#8221; te kiezen!!!<P>
+<H4>Een kristaloscillator.</H4>
+<A NAME="dtlvxtalosc"></A><P>Wie, zoals ik, regelmatig componenten uit afgedankte
+elektronica-spullen sloopt, heeft vast wel enkele
+kristaloscillators in een voorraadbakje liggen.<BR>
+Niet zelden is de frequentie van zo'n ding veel hoger dan
+gewenst. Een binaire deler, een <A NAME="74HC40402366">74HC4040</A> bijvoorbeeld, kan
+dan soelaas brengen.<P>
+<H3>De RESET-pin.</H3>
+<A NAME="dtlvrst"></A><P>Bij kleinere AVR's ligt nog ander onheil op de loer: vaak kan
+men de RESET-pin als gewone I/O-pin instellen.<BR>
+Dat is handig, als men een extra I/O-pin nodig heeft. Het gevolg
+is echter, dat het niet meer mogelijk is de <A NAME="AVR2153">AVR</A> via
+ISP<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A> te benaderen, omdat daarvoor
+de RESET-funtie noodzakelijk is!
+Er zit dan weinig anders op, dan een HVSP<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A> te bouwen of te kopen.<P>Er bestaat overigens een truuk om de RESET-pin binnen bepaalde
+grenzen <A HREF="ResetPinAlsIngang.html#ResetPinAlsIngang">als ingangspin te gebruiken</A>
+zonder de RESET-functie op te geven.<P>
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...ISP</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+In System Programming</DD>
+<DT><A NAME="ft2">...HVSP</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+High Voltage Serial Programmer</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="BezuinigenOpPinnen.html">Bezuinigen op pinnen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="AvrTips.html">AVR-tips.</A> &nbsp;
+<B> Volgende:</B> <A HREF="HysteresisToevoegen.html">Hysteresis toevoegen.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

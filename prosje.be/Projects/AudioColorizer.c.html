@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>AudioColorizer.c</title>
+		<meta name="generator" content="c2html 1.1.0" >
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" >
+		<meta http-equiv="Content-Script-Type" content="text/javascript" >
+		<meta http-equiv="Content-Style-Type" content="text/css" >
+	</head>
+	<body text="#000000">
+		<font face="Monospace">
+<font color="#800080"><i>//&nbsp;AudioColorizer.<br></i></font>
+<font color="#800080"><i>//&nbsp;Pros&nbsp;2010<br></i></font>
+<br>
+<font color="#008000">#define&nbsp;F_CPU&nbsp;16000000UL<br></font>
+<font color="#008000">#define&nbsp;UART<br></font>
+<br>
+<font color="#008000">#ifndef&nbsp;PRG_RDB<br></font>
+<font color="#008000">#define&nbsp;PRG_RDB(x)&nbsp;pgm_read_byte(x)<br></font>
+<font color="#008000">#endif<br></font>
+<br>
+<font color="#008000">#ifndef&nbsp;P<br></font>
+<font color="#008000">#define&nbsp;P(s)&nbsp;({static&nbsp;const&nbsp;char&nbsp;c[]&nbsp;__attribute__&nbsp;((progmem))&nbsp;=&nbsp;s;c;})<br></font>
+<font color="#008000">#endif<br></font>
+<br>
+<font color="#008000">#include&nbsp;&lt;avr/io.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;avr/pgmspace.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;avr/interrupt.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;stdio.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;stdlib.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;string.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;util/delay.h&gt;<br></font>
+<br>
+<font color="#008000">#include&nbsp;&quot;ffft.h&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;Defs&nbsp;for&nbsp;using&nbsp;Fixed-point&nbsp;FFT&nbsp;module<br></i></font>
+<font color="#008000">#ifdef&nbsp;UART<br></font>
+<font color="#008000">#include&nbsp;&quot;UART.c&quot;<br></font>
+<font color="#008000">#endif<br></font>
+<br>
+<br>
+<font color="#800000">int</font>1<font color="#0000FF">6</font><font color="#000000">_t</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">capture</font>[<font color="#000000">FFT_N</font>];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Wave&nbsp;captureing&nbsp;buffer<br></i></font>
+<font color="#000000">complex_t</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">bfly_buff</font>[<font color="#000000">FFT_N</font>];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;FFT&nbsp;buffer<br></i></font>
+<font color="#000000">uint16_t</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">spectrum</font>[<font color="#000000">FFT_N</font>&nbsp;/&nbsp;<font color="#0000FF">2</font>];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Spectrum&nbsp;output&nbsp;buffer<br></i></font>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">4</font>];<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cnt</font>,&nbsp;<font color="#000000">ch</font>;<br>
+<font color="#800000">int</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>,&nbsp;<font color="#000000">tmp</font>;<br>
+<br>
+<font color="#800000">int</font>&nbsp;<font color="#000000">main</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">int</font>1<font color="#0000FF">6</font><font color="#000000">_t</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#000000">buffer</font>;<br>
+<font color="#008000">#ifdef&nbsp;UART<br></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">char</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">txt</font>[<font color="#0000FF">32</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uint16_t</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">m</font>,&nbsp;<font color="#000000">n</font>,&nbsp;<font color="#000000">uart_flag</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+<font color="#008000">#endif<br></font>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADCSRA</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADMUX</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">REFS0</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Ref&nbsp;=&nbsp;5V;&nbsp;ADC0&nbsp;=&nbsp;ingang<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR0</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">WGM00</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">COM01</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">CS00</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">CS01</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR0</font>&nbsp;=&nbsp;<font color="#0000FF">128</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDRB</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB0</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB3</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR1A</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">COM1A1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">COM1B1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">WGM10</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR1B</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">CS10</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">CS11</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1A</font>&nbsp;=&nbsp;<font color="#0000FF">128</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1B</font>&nbsp;=&nbsp;<font color="#0000FF">128</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDRD</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PD4</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PD5</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PD7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR2</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">WGM20</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">COM21</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">CS22</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR2</font>&nbsp;=&nbsp;<font color="#0000FF">128</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCNT0</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCNT1</font>&nbsp;=&nbsp;<font color="#0000FF">80</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCNT2</font>&nbsp;=&nbsp;<font color="#0000FF">160</font>;<br>
+<font color="#008000">#ifdef&nbsp;UART<br></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_init</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sei</font>();<br>
+<font color="#008000">#endif<br></font>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#0000FF">1</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PORTB</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">buffer</font>&nbsp;=&nbsp;<font color="#000000">capture</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#000000">FFT_N</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADCSRA</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADEN</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADSC</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADATE</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADIF</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADPS2</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADPS1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">bit_is_clear</font>(<font color="#000000">ADCSRA</font>,&nbsp;<font color="#000000">ADIF</font>));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Sampelen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#000000">buffer</font>&nbsp;=&nbsp;<font color="#000000">ADC</font>&nbsp;-&nbsp;<font color="#0000FF">32768</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">buffer</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADCSRA</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PORTB</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">fft_input</font>(<font color="#000000">capture</font>,&nbsp;<font color="#000000">bfly_buff</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bewerken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">fft_execute</font>(<font color="#000000">bfly_buff</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">fft_output</font>(<font color="#000000">bfly_buff</font>,&nbsp;<font color="#000000">spectrum</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PORTB</font>&nbsp;&amp;=&nbsp;~(<font color="#000000">_BV</font>(<font color="#000000">PB0</font>));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">spectrum</font>[<font color="#0000FF">2</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">spectrum</font>[<font color="#0000FF">3</font>]&nbsp;&gt;&nbsp;<font color="#000000">sample</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Voor&nbsp;elke&nbsp;groep<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">spectrum</font>[<font color="#0000FF">3</font>];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;de&nbsp;hoogste&nbsp;waarde&nbsp;opzoeken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">0</font>]&nbsp;=&nbsp;<font color="#000000">sample</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">spectrum</font>[<font color="#0000FF">4</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">n</font>&nbsp;=&nbsp;<font color="#0000FF">5</font>;&nbsp;<font color="#000000">n</font>&nbsp;&lt;&nbsp;<font color="#0000FF">8</font>;&nbsp;<font color="#000000">n</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">spectrum</font>[<font color="#000000">n</font>]&nbsp;&gt;&nbsp;<font color="#000000">sample</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">spectrum</font>[<font color="#000000">n</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">1</font>]&nbsp;=&nbsp;<font color="#000000">sample</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">spectrum</font>[<font color="#0000FF">8</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">n</font>&nbsp;=&nbsp;<font color="#0000FF">9</font>;&nbsp;<font color="#000000">n</font>&nbsp;&lt;&nbsp;<font color="#0000FF">16</font>;&nbsp;<font color="#000000">n</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">spectrum</font>[<font color="#000000">n</font>]&nbsp;&gt;&nbsp;<font color="#000000">sample</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">spectrum</font>[<font color="#000000">n</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">2</font>]&nbsp;=&nbsp;<font color="#000000">sample</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">spectrum</font>[<font color="#0000FF">17</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">n</font>&nbsp;=&nbsp;<font color="#0000FF">18</font>;&nbsp;<font color="#000000">n</font>&nbsp;&lt;&nbsp;<font color="#0000FF">51</font>;&nbsp;<font color="#000000">n</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">spectrum</font>[<font color="#000000">n</font>]&nbsp;&gt;&nbsp;<font color="#000000">sample</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">spectrum</font>[<font color="#000000">n</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">3</font>]&nbsp;=&nbsp;<font color="#000000">sample</font>;<br>
+<font color="#008000">#ifdef&nbsp;UART<br></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_flag</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">uart_linecomplete</font>&nbsp;!=&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;RS232-input?<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">strncmp</font>(<font color="#000000">uart_outbuf</font>,&nbsp;<font color="#008000">&quot;Who&quot;</font>,&nbsp;<font color="#0000FF">3</font>)&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Wie&nbsp;heb&nbsp;ik&nbsp;aan&nbsp;de&nbsp;lijn?<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr_P</font>(<font color="#008000">&quot;&nbsp;&nbsp;AudioColorizer\n&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>switch</b></font>&nbsp;(<font color="#000000">uart_outbuf</font>[<font color="#0000FF">0</font>])&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#FF00FF">'w'</font>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;w:&nbsp;show&nbsp;waveform&nbsp;<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">n</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">n</font>&nbsp;&lt;&nbsp;<font color="#000000">FFT_N</font>;&nbsp;<font color="#000000">n</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">capture</font>[<font color="#000000">n</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;(<font color="#000000">sample</font>&nbsp;+&nbsp;<font color="#0000FF">32768</font>)&nbsp;/&nbsp;<font color="#0000FF">10</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">m</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">m</font>&nbsp;&lt;&nbsp;<font color="#000000">sample</font>;&nbsp;<font color="#000000">m</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'*'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'\n'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#FF00FF">'s'</font>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;s:&nbsp;show&nbsp;spectrum<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_flag</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">n</font>&nbsp;=&nbsp;<font color="#0000FF">2</font>;&nbsp;<font color="#000000">n</font>&nbsp;&lt;&nbsp;<font color="#000000">FFT_N</font>&nbsp;/&nbsp;<font color="#0000FF">2</font>;&nbsp;<font color="#000000">n</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sprintf</font>(<font color="#000000">txt</font>,&nbsp;<font color="#008000">&quot;%4u&nbsp;&nbsp;&quot;</font>,&nbsp;<font color="#000000">n</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr</font>(<font color="#000000">txt</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">m</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">m</font>&nbsp;&lt;&nbsp;<font color="#000000">spectrum</font>[<font color="#000000">n</font>];&nbsp;<font color="#000000">m</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'*'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'\n'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">n</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">n</font>&nbsp;&lt;&nbsp;<font color="#0000FF">4</font>;&nbsp;<font color="#000000">n</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sprintf</font>(<font color="#000000">txt</font>,&nbsp;<font color="#008000">&quot;Ch[%u]&nbsp;=&nbsp;&nbsp;&quot;</font>,&nbsp;<font color="#000000">n</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr</font>(<font color="#000000">txt</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">m</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">m</font>&nbsp;&lt;&nbsp;<font color="#000000">channel</font>[<font color="#000000">n</font>];&nbsp;<font color="#000000">m</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'*'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'\n'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'\n'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>default</b></font>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Unknown&nbsp;command<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'?'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'\n'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_linecomplete</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<font color="#008000">#endif<br></font>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">0</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ch</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">4</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;channel&nbsp;met&nbsp;de&nbsp;hoogste&nbsp;waarde&nbsp;zoeken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">channel</font>[<font color="#000000">cnt</font>]&nbsp;&gt;&nbsp;<font color="#000000">sample</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">channel</font>[<font color="#000000">cnt</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ch</font>&nbsp;=&nbsp;<font color="#000000">cnt</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#000000">ch</font>]&nbsp;=&nbsp;<font color="#0000FF">250</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Die&nbsp;zetten&nbsp;we&nbsp;op&nbsp;maximum<br></i></font>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">0</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ch</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">4</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;channel&nbsp;met&nbsp;de&nbsp;laagste&nbsp;waarde&nbsp;zoeken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">channel</font>[<font color="#000000">cnt</font>]&nbsp;&lt;&nbsp;<font color="#000000">sample</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sample</font>&nbsp;=&nbsp;<font color="#000000">channel</font>[<font color="#000000">cnt</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ch</font>&nbsp;=&nbsp;<font color="#000000">cnt</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#000000">ch</font>]&nbsp;=&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Die&nbsp;zetten&nbsp;we&nbsp;op&nbsp;minimum<br></i></font>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">channel</font>[<font color="#0000FF">0</font>]&nbsp;&lt;&nbsp;<font color="#0000FF">20</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">0</font>]&nbsp;=&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">channel</font>[<font color="#0000FF">0</font>]&nbsp;&gt;&nbsp;<font color="#0000FF">150</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">0</font>]&nbsp;=&nbsp;<font color="#0000FF">253</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">channel</font>[<font color="#0000FF">1</font>]&nbsp;&lt;&nbsp;<font color="#0000FF">20</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">1</font>]&nbsp;=&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">channel</font>[<font color="#0000FF">1</font>]&nbsp;&gt;&nbsp;<font color="#0000FF">150</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">1</font>]&nbsp;=&nbsp;<font color="#0000FF">253</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">channel</font>[<font color="#0000FF">2</font>]&nbsp;&lt;&nbsp;<font color="#0000FF">20</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">2</font>]&nbsp;=&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">channel</font>[<font color="#0000FF">2</font>]&nbsp;&gt;&nbsp;<font color="#0000FF">150</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">2</font>]&nbsp;=&nbsp;<font color="#0000FF">253</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">channel</font>[<font color="#0000FF">3</font>]&nbsp;&lt;&nbsp;<font color="#0000FF">20</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">3</font>]&nbsp;=&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">channel</font>[<font color="#0000FF">3</font>]&nbsp;&gt;&nbsp;<font color="#0000FF">150</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">3</font>]&nbsp;=&nbsp;<font color="#0000FF">253</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">0</font>]&nbsp;/=&nbsp;<font color="#0000FF">4</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Van&nbsp;de&nbsp;nieuwe&nbsp;waarde&nbsp;nemen&nbsp;we&nbsp;1/4<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">0</font>]&nbsp;+=&nbsp;<font color="#000000">OCR0</font>&nbsp;*&nbsp;<font color="#0000FF">3</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Van&nbsp;de&nbsp;oude&nbsp;waarde&nbsp;3/4<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR0</font>&nbsp;=&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">0</font>]&nbsp;/&nbsp;<font color="#0000FF">4</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Uitmiddelen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">1</font>]&nbsp;/=&nbsp;<font color="#0000FF">4</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">1</font>]&nbsp;+=&nbsp;<font color="#000000">OCR1A</font>&nbsp;*&nbsp;<font color="#0000FF">3</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1A</font>&nbsp;=&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">1</font>]&nbsp;/&nbsp;<font color="#0000FF">4</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">2</font>]&nbsp;/=&nbsp;<font color="#0000FF">4</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">2</font>]&nbsp;+=&nbsp;<font color="#000000">OCR1B</font>&nbsp;*&nbsp;<font color="#0000FF">3</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1B</font>&nbsp;=&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">2</font>]&nbsp;/&nbsp;<font color="#0000FF">4</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">3</font>]&nbsp;/=&nbsp;<font color="#0000FF">4</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">3</font>]&nbsp;+=&nbsp;<font color="#000000">OCR2</font>&nbsp;*&nbsp;<font color="#0000FF">3</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR2</font>&nbsp;=&nbsp;<font color="#000000">channel</font>[<font color="#0000FF">3</font>]&nbsp;/&nbsp;<font color="#0000FF">4</font>;<br>
+<font color="#008000">#ifdef&nbsp;UART<br></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">uart_flag</font>&nbsp;!=&nbsp;<font color="#0000FF">0</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sprintf</font>(<font color="#000000">txt</font>,&nbsp;<font color="#008000">&quot;OCR0&nbsp;=&nbsp;&nbsp;%3u\n&quot;</font>,&nbsp;<font color="#000000">OCR0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr</font>(<font color="#000000">txt</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sprintf</font>(<font color="#000000">txt</font>,&nbsp;<font color="#008000">&quot;OCR1A&nbsp;=&nbsp;%3u\n&quot;</font>,&nbsp;<font color="#000000">OCR1A</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr</font>(<font color="#000000">txt</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sprintf</font>(<font color="#000000">txt</font>,&nbsp;<font color="#008000">&quot;OCR1B&nbsp;=&nbsp;&nbsp;%3u\n&quot;</font>,&nbsp;<font color="#000000">OCR1B</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr</font>(<font color="#000000">txt</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sprintf</font>(<font color="#000000">txt</font>,&nbsp;<font color="#008000">&quot;OCR2&nbsp;=&nbsp;&nbsp;%3u\n&quot;</font>,&nbsp;<font color="#000000">OCR2</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr</font>(<font color="#000000">txt</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_flag</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<font color="#008000">#endif<br></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PORTB</font>&nbsp;&amp;=&nbsp;~(<font color="#000000">_BV</font>(<font color="#000000">PB1</font>));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+		</font>
+	</body>
+</html>

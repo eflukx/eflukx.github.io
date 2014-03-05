@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+<TITLE>stdout</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+<PRE WIDTH="106">
+/*
+  DisplayEprom
+
+  Dit tooltje is ontworpen om een eprom voor de SpanningsMeter
+  te vullen met de nodige bytes.
+  Bij het starten kan het hoogste cijfer meegegeven worden
+  in de vorm van een float.
+  Gebeurt dit niet, dan zal het programma daar zelf om vragen.
+
+  Pros 2002
+*/
+
+
+<FONT COLOR=#A020F0>#include &lt;sys/types.h&gt;</FONT>
+<FONT COLOR=#A020F0>#include &lt;stdio.h&gt;</FONT>
+<FONT COLOR=#A020F0>#include &lt;stdlib.h&gt;</FONT>
+<FONT COLOR=#A020F0>#include &lt;sys/stat.h&gt;</FONT>
+<FONT COLOR=#A020F0>#include &lt;unistd.h&gt;</FONT>
+<FONT COLOR=#A020F0>#include &lt;fcntl.h&gt;</FONT>
+<FONT COLOR=#A020F0>#include &lt;math.h&gt;</FONT>
+
+
+<STRONG><FONT COLOR=#228B22>#define DEBUG_</FONT></STRONG>
+
+/*
+  De definities voor een display.
+  Voor de elementen a, b, c, d ,e ,f en g
+  worden bits 0 ... 6 gebruikt.
+  Voor de decimale punt doet bit 7 dienst.
+*/
+<STRONG><FONT COLOR=#228B22>#define A 0x02</FONT></STRONG>
+<STRONG><FONT COLOR=#228B22>#define B 0x40</FONT></STRONG>
+<STRONG><FONT COLOR=#228B22>#define C 0x20</FONT></STRONG>
+<STRONG><FONT COLOR=#228B22>#define D 0x10</FONT></STRONG>
+<STRONG><FONT COLOR=#228B22>#define E 0x08</FONT></STRONG>
+<STRONG><FONT COLOR=#228B22>#define F 0x04</FONT></STRONG>
+<STRONG><FONT COLOR=#228B22>#define G 0x80</FONT></STRONG>
+<STRONG><FONT COLOR=#228B22>#define DP 0x01</FONT></STRONG>
+
+
+unsigned int led[] = {A | B | C | D | E | F,
+		      B | C,
+		      A | B | G | E | D,
+		      A | B | C | D | G,
+		      B | C | F | G,
+		      A | F | G | C | D,
+		      A | F | G | C | D | E,
+		      A | B | C,
+		      A | B | C | D | E | F | G,
+		      A | B | C | D | F | G
+};
+
+char *d1, *d2, *d3, *d4;
+char *p;
+char tmp[100];
+double maxvalue, step, v;
+int cnt, dp, a, b, c, fd, x;
+unsigned char eprom[16384];
+unsigned int mx;
+
+
+<FONT COLOR=#B22222><STRONG>int main(int argc, char *argv[])</STRONG></FONT>
+{
+    <FONT COLOR=#B22222>if</FONT> (argc == 2) {
+	maxvalue = atof(argv[1]);
+	/*
+	  We willen weten hoeveel cijfers er voor de komma zijn.
+	  De opgegeven float wordt intern immers als een integer
+	  verwerkt (12.34 = 1234; 5.2 = 5200; 3456.7 = 3456; 234567.8 = 2345).
+	  Daarom zoeken we uit, waar zich de decimale punt bevindt.
+	*/
+	dp = 0;
+	p = argv[1];
+	<FONT COLOR=#B22222>while</FONT> ((*p != '.') &amp;&amp; (*p != '\n') &amp;&amp; (*p != 0)) {
+	    dp++;
+	    p++;
+	}
+    } <FONT COLOR=#B22222>else</FONT> {
+	<FONT COLOR=#B22222>printf</FONT>(<FONT COLOR=#10BB10>"Geef de maximale display-waarde op, a.u.b.\n  : "</FONT>);
+	fgets(tmp, sizeof(tmp), stdin);
+	maxvalue = atof(tmp);
+	dp = 0;
+	p = tmp;
+	<FONT COLOR=#B22222>while</FONT> ((*p != '.') &amp;&amp; (*p != '\n') &amp;&amp; (*p != 0)) {
+	    dp++;
+	    p++;
+	}
+    }
+
+    /* Nu de opgegeven waarde omtoveren in een integer */
+    <FONT COLOR=#B22222>if</FONT> (dp == 4) {
+	/* niets na de komma */
+	mx = maxvalue;
+    } <FONT COLOR=#B22222>else</FONT> <FONT COLOR=#B22222>if</FONT> (dp &lt; 4) {
+	a = 4 - dp;
+	mx = maxvalue * pow(10.0, (double) a);
+    } <FONT COLOR=#B22222>else</FONT> {
+	/* de opgegeven komma is onbruikbaar */
+	a = dp - 4;
+	mx = maxvalue / pow(10.0, (double) a);
+	dp = 4;
+    }
+
+    /*
+      Er zijn 4096 waarden beschikbaar, gaande van 0000 tot mx (4 cijfers).
+      Even het verschil tussen 2 stappen uitrekenen...
+    */
+    step = (double) mx / 4096.0;
+    
+<FONT COLOR=#A020F0>#ifdef DEBUG</FONT>
+    <FONT COLOR=#B22222>printf</FONT>(<FONT COLOR=#10BB10>"Max value = %f\n"</FONT>, maxvalue);
+    <FONT COLOR=#B22222>printf</FONT>(<FONT COLOR=#10BB10>"%d cijfers voor de komma\n"</FONT>, dp);
+    <FONT COLOR=#B22222>printf</FONT>(<FONT COLOR=#10BB10>"Decimaal: %d\n"</FONT>, mx);
+    <FONT COLOR=#B22222>printf</FONT>(<FONT COLOR=#10BB10>"Step = %f\n"</FONT>, step);
+<FONT COLOR=#A020F0>#endif</FONT>
+
+    /*
+      Nu weten we alles dat we weten moeten,
+      en kunnen we aan de slag.
+
+      Om te beginnen plaatsen we 4 pointers elk aan het begin
+      van het datablok van 1 display
+    */
+    d1 = eprom;
+    d2 = eprom + 4096;
+    d3 = eprom + 8192;
+    d4 = eprom + 12288;
+    /* v is de waarde <FONT COLOR=#B22222>die</FONT> in 4096 stappen van 0 tot max gaat */
+    v = 0.0;
+    <FONT COLOR=#B22222>for</FONT> (b = 0; b &lt; 4096; b++) {
+	/*
+	  Een getal als bv 1357 omtoveren naar 4 digits: 1, 3, 5 en 7
+
+	  1357 / 1000 = 1
+	  1357 - (1 * 1000) = 357
+	  357 / 100 = 3
+	  357 - (3 * 100) = 57
+	  57 / 10 = 5
+	  57 - (5 * 10) = 7
+	*/
+	x = v;
+<FONT COLOR=#A020F0>#ifdef DEBUG</FONT>
+	c = (int) x / 1000;
+	*d1 = c + '0';
+	d1++;
+	x -= (c * 1000);
+	c = (int) x / 100;
+	*d2 = c + '0';
+	d2++;
+	x -= (c * 100);
+	c = (int) x / 10;
+	*d3 = c + '0';
+	d3++;
+	x -= (c * 10);
+	c = (int) x;
+	*d4 = c + '0';
+	d4++;
+<FONT COLOR=#A020F0>#else</FONT>
+	c = (int) x / 1000;
+	<FONT COLOR=#B22222>if</FONT> (dp == 1) {
+	    *d1 = led[c] | DP;
+	} <FONT COLOR=#B22222>else</FONT> {
+	*d1 = led[c];
+	}
+	d1++;
+	x -= (c * 1000);
+	c = (int) x / 100;
+	<FONT COLOR=#B22222>if</FONT> (dp == 2) {
+	    *d2 = led[c] | DP;
+	} <FONT COLOR=#B22222>else</FONT> {
+	*d2 = led[c];
+	}
+	d2++;
+	x -= (c * 100);
+	c = (int) x / 10;
+	<FONT COLOR=#B22222>if</FONT> (dp == 3) {
+	    *d3 = led[c] | DP;
+	} <FONT COLOR=#B22222>else</FONT> {
+	*d3 = led[c];
+	}
+	d3++;
+	x -= (c * 10);
+	c = (int) x;
+	*d4 = led[c];
+	d4++;
+<FONT COLOR=#A020F0>#endif</FONT>
+	v += step;
+    }
+
+    /* Nu alles wegschrijven... */
+    fd = <FONT COLOR=#B22222>open</FONT>(<FONT COLOR=#10BB10>"eprom"</FONT>, O_WRONLY | O_CREAT | O_TRUNC);
+    <FONT COLOR=#B22222>if</FONT> (fd != -1) {
+	write(fd, eprom, 16384);
+	close(fd);
+    }
+}
+			
+</PRE>
+</BODY>
+
+</HTML>

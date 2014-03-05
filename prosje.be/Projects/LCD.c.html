@@ -1,0 +1,368 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>LCD.c</title>
+		<meta name="generator" content="c2html 1.1.0" >
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" >
+		<meta http-equiv="Content-Script-Type" content="text/javascript" >
+		<meta http-equiv="Content-Style-Type" content="text/css" >
+	</head>
+	<body text="#000000">
+		<font face="Monospace">
+<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;Routines&nbsp;om&nbsp;de&nbsp;LCD-module&nbsp;te&nbsp;bedienen<br>
+<br>
+&nbsp;&nbsp;Pros&nbsp;2007<br>
+*/</i></font><br>
+<br>
+<br>
+<font color="#008000">#define&nbsp;LCD_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRC<br></font>
+<font color="#008000">#define&nbsp;LCD_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC<br></font>
+<font color="#008000">#define&nbsp;LCD_RS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC4<br></font>
+<font color="#008000">#define&nbsp;LCD_E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC5<br></font>
+<font color="#008000">#define&nbsp;LCD_E_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRC<br></font>
+<font color="#008000">#define&nbsp;LCD_RS_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC<br></font>
+<font color="#008000">#define&nbsp;LCD_E_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC<br></font>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;instruction&nbsp;register&nbsp;bit&nbsp;positions<br></i></font>
+<font color="#008000">#define&nbsp;LCD_CLR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB0:&nbsp;clear&nbsp;display<br></i></font>
+<font color="#008000">#define&nbsp;LCD_HOME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB1:&nbsp;return&nbsp;to&nbsp;home&nbsp;position<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ENTRY_MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB2:&nbsp;set&nbsp;entry&nbsp;mode<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ENTRY_INC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB1:&nbsp;1=increment,&nbsp;0=decrement<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ENTRY_SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB2:&nbsp;1=display&nbsp;shift&nbsp;on<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB3:&nbsp;turn&nbsp;lcd/cursor&nbsp;on<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ON_DISPLAY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB2:&nbsp;turn&nbsp;display&nbsp;on<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ON_CURSOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB1:&nbsp;turn&nbsp;cursor&nbsp;on<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ON_BLINK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB0:&nbsp;blinking&nbsp;cursor&nbsp;?<br></i></font>
+<font color="#008000">#define&nbsp;LCD_MOVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB4:&nbsp;move&nbsp;cursor/display<br></i></font>
+<font color="#008000">#define&nbsp;LCD_MOVE_DISP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB3:&nbsp;move&nbsp;display&nbsp;(0-&gt;&nbsp;cursor)&nbsp;?<br></i></font>
+<font color="#008000">#define&nbsp;LCD_MOVE_RIGHT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB2:&nbsp;move&nbsp;right&nbsp;(0-&gt;&nbsp;left)&nbsp;?<br></i></font>
+<font color="#008000">#define&nbsp;LCD_FUNCTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB5:&nbsp;function&nbsp;set<br></i></font>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_8BIT&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB4:&nbsp;set&nbsp;8BIT&nbsp;mode&nbsp;(0-&gt;4BIT&nbsp;mode)<br></i></font>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_2LINES&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB3:&nbsp;two&nbsp;lines&nbsp;(0-&gt;one&nbsp;line)<br></i></font>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_10DOTS&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB2:&nbsp;5x10&nbsp;font&nbsp;(0-&gt;5x7&nbsp;font)<br></i></font>
+<font color="#008000">#define&nbsp;LCD_CGRAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB6:&nbsp;set&nbsp;CG&nbsp;RAM&nbsp;address<br></i></font>
+<font color="#008000">#define&nbsp;LCD_DDRAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB7:&nbsp;set&nbsp;DD&nbsp;RAM&nbsp;address<br></i></font>
+<font color="#008000">#define&nbsp;LCD_BUSY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DB7:&nbsp;LCD&nbsp;is&nbsp;busy<br></i></font>
+<br>
+<font color="#800080"><i>//&nbsp;set&nbsp;entry&nbsp;mode:&nbsp;display&nbsp;shift&nbsp;on/off,&nbsp;dec/inc&nbsp;cursor&nbsp;move&nbsp;direction<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ENTRY_DEC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;display&nbsp;shift&nbsp;off,&nbsp;dec&nbsp;cursor&nbsp;move&nbsp;dir<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ENTRY_DEC_SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;display&nbsp;shift&nbsp;on,&nbsp;&nbsp;dec&nbsp;cursor&nbsp;move&nbsp;dir<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ENTRY_INC_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x06&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;display&nbsp;shift&nbsp;off,&nbsp;inc&nbsp;cursor&nbsp;move&nbsp;dir<br></i></font>
+<font color="#008000">#define&nbsp;LCD_ENTRY_INC_SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x07&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;display&nbsp;shift&nbsp;on,&nbsp;&nbsp;inc&nbsp;cursor&nbsp;move&nbsp;dir<br></i></font>
+<br>
+<font color="#800080"><i>//&nbsp;display&nbsp;on/off,&nbsp;cursor&nbsp;on/off,&nbsp;blinking&nbsp;char&nbsp;at&nbsp;cursor&nbsp;position<br></i></font>
+<font color="#008000">#define&nbsp;LCD_DISP_OFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;display&nbsp;off<br></i></font>
+<font color="#008000">#define&nbsp;LCD_DISP_ON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x0C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;display&nbsp;on,&nbsp;cursor&nbsp;off<br></i></font>
+<font color="#008000">#define&nbsp;LCD_DISP_ON_BLINK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x0D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;display&nbsp;on,&nbsp;cursor&nbsp;off,&nbsp;blink&nbsp;char<br></i></font>
+<font color="#008000">#define&nbsp;LCD_DISP_ON_CURSOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x0E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;display&nbsp;on,&nbsp;cursor&nbsp;on<br></i></font>
+<font color="#008000">#define&nbsp;LCD_DISP_ON_CURSOR_BLINK&nbsp;0x0F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;display&nbsp;on,&nbsp;cursor&nbsp;on,&nbsp;blink&nbsp;char<br></i></font>
+<br>
+<font color="#800080"><i>//&nbsp;move&nbsp;cursor/shift&nbsp;display<br></i></font>
+<font color="#008000">#define&nbsp;LCD_MOVE_CURSOR_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;move&nbsp;cursor&nbsp;left&nbsp;&nbsp;(decrement)<br></i></font>
+<font color="#008000">#define&nbsp;LCD_MOVE_CURSOR_RIGHT&nbsp;&nbsp;&nbsp;&nbsp;0x14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;move&nbsp;cursor&nbsp;right&nbsp;(increment)<br></i></font>
+<font color="#008000">#define&nbsp;LCD_MOVE_DISP_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;shift&nbsp;display&nbsp;left<br></i></font>
+<font color="#008000">#define&nbsp;LCD_MOVE_DISP_RIGHT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x1C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;shift&nbsp;display&nbsp;right<br></i></font>
+<br>
+<font color="#800080"><i>//&nbsp;function&nbsp;set:&nbsp;set&nbsp;interface&nbsp;data&nbsp;length&nbsp;and&nbsp;number&nbsp;of&nbsp;display&nbsp;lines<br></i></font>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_4BIT_2LINES&nbsp;0x28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;4-bit&nbsp;interface,&nbsp;dual&nbsp;line,&nbsp;5x7&nbsp;dots<br></i></font>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_8BIT_1LINE&nbsp;&nbsp;0x30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;8-bit&nbsp;interface,&nbsp;single&nbsp;line,&nbsp;5x7&nbsp;dots<br></i></font>
+<font color="#008000">#define&nbsp;LCD_MODE_DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((1&lt;&lt;LCD_ENTRY_MODE)&nbsp;|&nbsp;(1&lt;&lt;LCD_ENTRY_INC))<br></font>
+<br>
+<font color="#800080"><i>//&nbsp;normally&nbsp;you&nbsp;do&nbsp;not&nbsp;change&nbsp;the&nbsp;following<br></i></font>
+<font color="#008000">#define&nbsp;LCD_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;visible&nbsp;lines<br></i></font>
+<font color="#008000">#define&nbsp;LCD_LINE_LENGTH&nbsp;&nbsp;0x40&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;internal&nbsp;line&nbsp;length<br></i></font>
+<font color="#008000">#define&nbsp;LCD_START_LINE1&nbsp;&nbsp;0x00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DDRAM&nbsp;address&nbsp;of&nbsp;first&nbsp;char&nbsp;of&nbsp;line&nbsp;1<br></i></font>
+<font color="#008000">#define&nbsp;LCD_START_LINE2&nbsp;&nbsp;0x40&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;DDRAM&nbsp;address&nbsp;of&nbsp;first&nbsp;char&nbsp;of&nbsp;line&nbsp;2<br></i></font>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;LCD_FUNCTION_4BIT_2LINES<br></font>
+<br>
+<font color="#008000">#define&nbsp;lcd_puts_P(__s)&nbsp;lcd_puts_p(P(__s))<br></font>
+<font color="#008000">#define&nbsp;lcd_cmd_mode()&nbsp;&nbsp;cbi(LCD_RS_PORT,&nbsp;LCD_RS)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;RS=0&nbsp;&nbsp;command&nbsp;mode<br></i></font>
+<font color="#008000">#define&nbsp;lcd_data_mode()&nbsp;sbi(LCD_RS_PORT,&nbsp;LCD_RS)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;RS=1&nbsp;&nbsp;data&nbsp;mode<br></i></font>
+<font color="#008000">#define&nbsp;lcd_command(x)&nbsp;&nbsp;lcd_write(x,&nbsp;0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;Geef&nbsp;LCD-commando<br></i></font>
+<font color="#008000">#define&nbsp;lcd_putc(x)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lcd_write(x,&nbsp;1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>//&nbsp;Stuur&nbsp;karakter&nbsp;naar&nbsp;LCD<br></i></font>
+<br>
+<br>
+<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_out_low</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">d</font>)<br>
+{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;output&nbsp;low&nbsp;nibble<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_E_PORT</font>,&nbsp;<font color="#000000">LCD_E</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;E&nbsp;hoog<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;&amp;=&nbsp;<font color="#008080">0xF0</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bit0&nbsp;...&nbsp;Bit3&nbsp;=&nbsp;0<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">d</font>&nbsp;&amp;=&nbsp;<font color="#008080">0x0F</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;|=&nbsp;<font color="#000000">d</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay</font>(<font color="#0000FF">4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_E_PORT</font>,&nbsp;<font color="#000000">LCD_E</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;E&nbsp;laag<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">d</font>)<br>
+{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;output&nbsp;high&nbsp;nibble<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_E_PORT</font>,&nbsp;<font color="#000000">LCD_E</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;E&nbsp;hoog<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;&amp;=&nbsp;<font color="#008080">0xF0</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bit0&nbsp;...&nbsp;Bit3&nbsp;=&nbsp;0<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">d</font>&nbsp;=&nbsp;<font color="#000000">d</font>&nbsp;&gt;&gt;&nbsp;<font color="#0000FF">4</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;D7&nbsp;...&nbsp;D4&nbsp;-&gt;&nbsp;D3&nbsp;...&nbsp;D0<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">d</font>&nbsp;&amp;=&nbsp;<font color="#008080">0x0F</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;|=&nbsp;<font color="#000000">d</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay</font>(<font color="#0000FF">4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_E_PORT</font>,&nbsp;<font color="#000000">LCD_E</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;E&nbsp;laag<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_write</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">data</font>,&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">rs</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">rs</font>&nbsp;==&nbsp;<font color="#000000">TXT</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">data</font>&nbsp;==&nbsp;<font color="#008080">0xB5</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;µ?<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;=&nbsp;<font color="#008080">0xE4</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Daar&nbsp;gebruikt&nbsp;de&nbsp;LCD-module&nbsp;een&nbsp;ander&nbsp;teken&nbsp;voor<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_data_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;RS=1:&nbsp;write&nbsp;data<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_cmd_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;RS=0:&nbsp;write&nbsp;instruction&nbsp;&nbsp;&nbsp;&nbsp;<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">data</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;output&nbsp;high&nbsp;nibble&nbsp;first<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay</font>(<font color="#0000FF">4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_low</font>(<font color="#000000">data</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;output&nbsp;low&nbsp;nibble<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#0000FF">40</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_clrscr</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_CLR</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;clear&nbsp;lcd&nbsp;and&nbsp;set&nbsp;cursor&nbsp;to&nbsp;home&nbsp;position<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">2</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_home</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_HOME</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;set&nbsp;cursor&nbsp;to&nbsp;home&nbsp;position<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">2</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_puts</font>(<font color="#800000">const</font>&nbsp;<font color="#800000">char</font>&nbsp;*<font color="#000000">s</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(*<font color="#000000">s</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;print&nbsp;string&nbsp;on&nbsp;lcd<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(*<font color="#000000">s</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">s</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_puts_p</font>(<font color="#800000">const</font>&nbsp;<font color="#000000">prog_char</font>&nbsp;*&nbsp;<font color="#000000">progmem_s</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">register</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">c</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;((<font color="#000000">c</font>&nbsp;=&nbsp;<font color="#000000">PRG_RDB</font>(<font color="#000000">progmem_s</font>++)))&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;print&nbsp;string&nbsp;from&nbsp;program&nbsp;memory&nbsp;on&nbsp;lcd<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(<font color="#000000">c</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Ga&nbsp;naar&nbsp;regel&nbsp;y&nbsp;(1&nbsp;...&nbsp;4),&nbsp;karakter&nbsp;x&nbsp;(1&nbsp;...&nbsp;20)<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_gotoyx</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">y</font>,&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">x</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font>--;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font>&nbsp;+=&nbsp;<font color="#000000">linestart</font>[<font color="#000000">y</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>((<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_DDRAM</font>)&nbsp;+&nbsp;<font color="#000000">x</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;goto&nbsp;position&nbsp;(x,y)<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_clearline</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">line</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>((<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_DDRAM</font>)&nbsp;+&nbsp;<font color="#000000">linestart</font>[<font color="#000000">line</font>]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">line</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">line</font>&nbsp;&lt;&nbsp;<font color="#0000FF">20</font>;&nbsp;<font color="#000000">line</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(<font color="#FF00FF">'&nbsp;'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Print&nbsp;een&nbsp;string&nbsp;op&nbsp;regel&nbsp;y,&nbsp;plaats&nbsp;x<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_puts_at</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">y</font>,&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">x</font>,&nbsp;<font color="#800000">const</font>&nbsp;<font color="#800000">char</font>&nbsp;*<font color="#000000">s</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font>--;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font>&nbsp;+=&nbsp;<font color="#000000">linestart</font>[<font color="#000000">y</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>((<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_DDRAM</font>)&nbsp;+&nbsp;<font color="#000000">x</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;goto&nbsp;position&nbsp;(x,y)<br></i></font>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(*<font color="#000000">s</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;print&nbsp;string&nbsp;on&nbsp;lcd<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(*<font color="#000000">s</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">s</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;initialize&nbsp;display&nbsp;and&nbsp;select&nbsp;type&nbsp;of&nbsp;cursor<br></i></font>
+<font color="#800080"><i>//&nbsp;dispAttr:&nbsp;LCD_DISP_OFF,&nbsp;LCD_DISP_ON,&nbsp;LCD_DISP_ON_CURSOR,&nbsp;LCD_DISP_CURSOR_BLINK<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_init</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">dispAttr</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_DDR</font>&nbsp;|=&nbsp;<font color="#008080">0x3F</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PB7&nbsp;...&nbsp;PB4&nbsp;=&nbsp;lcd_data<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_E_DDR</font>,&nbsp;<font color="#000000">LCD_E</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_E_DDR</font>,&nbsp;<font color="#000000">LCD_RS</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_E_PORT</font>,&nbsp;<font color="#000000">LCD_E</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;E&nbsp;hoog<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_cmd_mode</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">24</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;wait&nbsp;16ms&nbsp;or&nbsp;more&nbsp;after&nbsp;power-on<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">LCD_FUNCTION_8BIT_1LINE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;initial&nbsp;write&nbsp;to&nbsp;lcd&nbsp;is&nbsp;8bit<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">6</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;delay,&nbsp;busy&nbsp;flag&nbsp;can't&nbsp;be&nbsp;checked&nbsp;here<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">LCD_FUNCTION_8BIT_1LINE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#0000FF">110</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;delay,&nbsp;busy&nbsp;flag&nbsp;can't&nbsp;be&nbsp;checked&nbsp;here<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">LCD_FUNCTION_8BIT_1LINE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#0000FF">64</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;delay,&nbsp;busy&nbsp;flag&nbsp;can't&nbsp;be&nbsp;checked&nbsp;here<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">LCD_FUNCTION_4BIT_2LINES</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;set&nbsp;IO&nbsp;mode&nbsp;to&nbsp;4bit<br></i></font>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;from&nbsp;now&nbsp;the&nbsp;lcd&nbsp;only&nbsp;accepts&nbsp;4&nbsp;bit&nbsp;I/O,&nbsp;we&nbsp;can&nbsp;use&nbsp;lcd_command()<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#000000">LCD_FUNCTION_DEFAULT</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;function&nbsp;set:&nbsp;display&nbsp;lines<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#000000">LCD_DISP_OFF</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;display&nbsp;off<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_clrscr</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;display&nbsp;clear<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#000000">LCD_MODE_DEFAULT</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;set&nbsp;entry&nbsp;mode<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#000000">dispAttr</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;display/cursor&nbsp;control<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">display_dat_item</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">item</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">tientallen</font>,&nbsp;<font color="#000000">eenheden</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tientallen</font>&nbsp;=&nbsp;<font color="#000000">item</font>&nbsp;/&nbsp;<font color="#0000FF">10</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">eenheden</font>&nbsp;=&nbsp;<font color="#000000">item</font>&nbsp;-&nbsp;(<font color="#000000">tientallen</font>&nbsp;*&nbsp;<font color="#0000FF">10</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_write</font>(<font color="#000000">tientallen</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>,&nbsp;<font color="#000000">TXT</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Tientallen&nbsp;op&nbsp;scherm&nbsp;plaatsen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_write</font>(<font color="#000000">eenheden</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>,&nbsp;<font color="#000000">TXT</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Eenheden&nbsp;op&nbsp;scherm&nbsp;plaatsen<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Verstuur&nbsp;een&nbsp;unsigned&nbsp;int&nbsp;als&nbsp;ascii-string&nbsp;naar&nbsp;de&nbsp;LCD-module<br></i></font>
+<font color="#800080"><i>//&nbsp;dp&nbsp;bepaalt&nbsp;hoeveel&nbsp;decimale&nbsp;tekens&nbsp;er&nbsp;na&nbsp;de&nbsp;dp&nbsp;moeten&nbsp;komen&nbsp;(0&nbsp;=&nbsp;geen&nbsp;dp)<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">dec2LCD</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">getal</font>,&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">dp</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">tmp</font>,&nbsp;<font color="#000000">deeltal</font>&nbsp;=&nbsp;<font color="#0000FF">10000</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">cnt</font>,&nbsp;<font color="#000000">zeroflag</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">5</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&gt;&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>--)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">dp</font>&nbsp;==&nbsp;<font color="#000000">cnt</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;dp&nbsp;plaatsen?<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">zeroflag</font>&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;reeds&nbsp;cijfers&nbsp;verzonden?<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_write</font>(<font color="#FF00FF">'0'</font>,&nbsp;<font color="#000000">TXT</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;nee,&nbsp;dan&nbsp;eerst&nbsp;een&nbsp;0<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_write</font>(<font color="#FF00FF">'.'</font>,&nbsp;<font color="#000000">TXT</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">zeroflag</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;na&nbsp;dp&nbsp;alle&nbsp;nullen&nbsp;afdrukken<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">deeltal</font>&nbsp;&gt;&nbsp;<font color="#000000">getal</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">getal</font>&nbsp;-=&nbsp;<font color="#000000">deeltal</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">tmp</font>&nbsp;&gt;&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;als&nbsp;dat&nbsp;geen&nbsp;0&nbsp;is<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">zeroflag</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;worden&nbsp;alle&nbsp;volgende&nbsp;decaden&nbsp;afgedrukt<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_write</font>(<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>,&nbsp;<font color="#000000">TXT</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;ascii-teken&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">zeroflag</font>&nbsp;==&nbsp;<font color="#0000FF">1</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Is&nbsp;dit&nbsp;de&nbsp;eerste&nbsp;0?<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_write</font>(<font color="#FF00FF">'0'</font>,&nbsp;<font color="#000000">TXT</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;nee;&nbsp;'0'&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">deeltal</font>&nbsp;/=&nbsp;<font color="#0000FF">10</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;deeltal&nbsp;aanpassen&nbsp;voor&nbsp;volgende&nbsp;decade<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<font color="#800080"><i>//&nbsp;Plaats&nbsp;een&nbsp;unsigned&nbsp;long&nbsp;op&nbsp;het&nbsp;LCD<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">UL2LCD</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">getal</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">deeltal</font>&nbsp;=&nbsp;<font color="#0000FF">1000000000</font><font color="#000000">UL</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">tmp</font>,&nbsp;<font color="#000000">cnt</font>,&nbsp;<font color="#000000">zeroflag</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">10</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&gt;&nbsp;<font color="#0000FF">1</font>;&nbsp;<font color="#000000">cnt</font>--)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;&gt;=&nbsp;<font color="#000000">deeltal</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">getal</font>&nbsp;-=&nbsp;<font color="#000000">deeltal</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;decade&nbsp;berekenen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">tmp</font>&nbsp;&gt;&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;als&nbsp;dat&nbsp;geen&nbsp;0&nbsp;is<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">zeroflag</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;worden&nbsp;alle&nbsp;volgende&nbsp;decaden&nbsp;afgedrukt<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;ascii-teken&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">zeroflag</font>&nbsp;==&nbsp;<font color="#0000FF">1</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Is&nbsp;dit&nbsp;de&nbsp;eerste&nbsp;0?<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(<font color="#FF00FF">'0'</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;nee;&nbsp;'0'&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">deeltal</font>&nbsp;/=&nbsp;<font color="#0000FF">10</font><font color="#000000">UL</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;deeltal&nbsp;aanpassen&nbsp;voor&nbsp;volgende&nbsp;decade<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>((<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>)&nbsp;<font color="#000000">getal</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Verstuur&nbsp;de&nbsp;cijfers&nbsp;na&nbsp;de&nbsp;komma&nbsp;(duizendsten)&nbsp;op&nbsp;het&nbsp;LCD<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">DS2LCD</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">getal</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">tmp</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;&gt;&nbsp;<font color="#0000FF">999</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;&gt;=&nbsp;<font color="#0000FF">100</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">getal</font>&nbsp;-=&nbsp;<font color="#0000FF">100</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;decade&nbsp;berekenen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;ascii-teken&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;&gt;=&nbsp;<font color="#0000FF">10</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">getal</font>&nbsp;-=&nbsp;<font color="#0000FF">10</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;decade&nbsp;berekenen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;ascii-teken&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>((<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>)&nbsp;<font color="#000000">getal</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#800000">float</font>2<font color="#000000">LCD</font>(<font color="#800000">double</font>&nbsp;<font color="#000000">getal</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">eenheden</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">duizendsten</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">eenheden</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>)&nbsp;<font color="#000000">getal</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">getal</font>&nbsp;-=&nbsp;(<font color="#800000">double</font>)&nbsp;<font color="#000000">eenheden</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">duizendsten</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>)&nbsp;(<font color="#000000">getal</font>&nbsp;*=&nbsp;<font color="#800080">1000.0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UL2LCD</font>(<font color="#000000">eenheden</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(<font color="#FF00FF">'.'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DS2LCD</font>((<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>)&nbsp;<font color="#000000">duizendsten</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Toon&nbsp;alle&nbsp;gegevens&nbsp;op&nbsp;het&nbsp;display<br></i></font>
+<br>
+<font color="#800080"><i>//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F:&nbsp;12345678.90Hz<br></i></font>
+<font color="#800080"><i>//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P:&nbsp;50%<br></i></font>
+<font color="#800080"><i>//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDS:&nbsp;15000000Hz<br></i></font>
+<font color="#800080"><i>//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mode:&nbsp;frequency<br></i></font>
+<font color="#800080"><i>//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mode:&nbsp;duty-cycle<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">display_ALL</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_clrscr</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_P</font>(<font color="#008000">&quot;Fr:&nbsp;&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">float</font>2<font color="#000000">LCD</font>(<font color="#000000">OutputFrequency</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_P</font>(<font color="#008000">&quot;Hz&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_at</font>(<font color="#0000FF">2</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#008000">&quot;Pb:&nbsp;&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">float</font>2<font color="#000000">LCD</font>(<font color="#000000">pulsbreedte</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(<font color="#FF00FF">'%'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>switch</b></font>&nbsp;(<font color="#000000">KB_mode</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#000000">FREQ</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_at</font>(<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#008000">&quot;Frequentie:&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#000000">PULS</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_at</font>(<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#008000">&quot;Pulsbreedte:&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#000000">SW_START</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_at</font>(<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#008000">&quot;Sweep-frequentie&nbsp;1:&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#000000">SW_END</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_at</font>(<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#008000">&quot;Sweep-frequentie&nbsp;2:&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#000000">SW_DELAY</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_at</font>(<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#008000">&quot;Sweep-delay&nbsp;in&nbsp;µS:&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#000000">SW_STEP</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_at</font>(<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#008000">&quot;Sweep-step&nbsp;in&nbsp;Hz:&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#000000">SWEEP</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_at</font>(<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#008000">&quot;Start&nbsp;sweep&nbsp;now?&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>default</b></font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_at</font>(<font color="#0000FF">4</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#008000">&quot;&nbsp;&quot;</font>);<br>
+}<br>
+		</font>
+	</body>
+</html>

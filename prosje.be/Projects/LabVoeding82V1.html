@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Labvoeding82 V1.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, 1982, Elektuur, DAC, ATmega88">
+<META NAME="description" CONTENT="LabVoeding82V1">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="labvoeding.html">LabVoeding.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Voedingen.html">Voedingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="bijlagen.html">Bijlagen.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="LabVoeding82V1"></A>
+<BR>Labvoeding82 V1.</H2>
+<UL>
+<LI><A HREF="#LV82V1vs">Voorstelling.</A>
+<LI><A HREF="#LV82V1pu">Praktische uitvoering.</A>
+<UL><LI><A HREF="#LV82V1rst">Reset1.</A>
+<LI><A HREF="#LV82V1rst2">Reset2.</A>
+<LI><A HREF="#LV82V1oa">Offset-adjust.</A>
+<LI><A HREF="#LV82V1sr">De spanningsregeling.</A>
+<LI><A HREF="#LV82V1sb">De stroombegrenzing.</A>
+</UL>
+<LI><A HREF="#LV82V1st">De sturing.</A>
+<UL><LI><A HREF="#LV82V1dac">De DAC's</A>
+<LI><A HREF="#LV82V1rs232">RS232-communicatie.</A>
+<LI><A HREF="#LV82V1mw">Meten is weten.</A>
+</UL>
+</UL><HR>
+<P>
+<H3>Voorstelling.</H3>
+<A NAME="LV82V1vs"></A><P>Wie enigzins bekend is met voedingen, en het getal &#8220;82&#8221; ziet
+staan, weet meteen waarover het gaat. In het decembernummer van
+<A NAME="19821588">1982</A> publiceerde <A NAME="Elektuur2225">Elektuur</A> een labvoeding die
+&#8213;ondanks haar eenvoud&#8213; bijzonder goed presteert.<P>Bovendien is deze voeding eenvoudig aan te passen, zodat ze
+digitaal kan aangestuurd worden. Om te begrijpen hoe dat kan
+uitgevoerd worden, kan een sterk-vereenvoudigd schema meer
+duidelijkheid verschaffen:<P><IMG ALIGN="LEFT" SRC="ElektuurvoedingEenvoudig.png"
+ ALT="ElektuurvoedingEenvoudig.png">
+<P>Links zien we een symmetrische hulpvoeding, die tevens een
+stabiele referentiespanning levert. Merk op, dat de GND van deze
+hulpvoeding verbonden is met de <B>positieve</B> uitgang van
+de voeding. <P>De inverterende ingang van de opamp (IC1) is met GND
+verbonden. Dat betekent, dat de opamp zijn uitgang zodanig zal
+bijregelen, tot er ook op de niet-inverterende ingang 0Volt komt
+te staan.<BR>
+De meest-eenvoudige situatie is deze: stel P1 zodanig in, dat
+zijn weerstand precies 10k bedraagt. Aan de &#8220;hete&#8221; kant van R1
+staat 7.15V. De opamp zal nu T1 zodanig opensturen, dat de
+uitgangsspanning &#243;&#243;k 7.15V bedraagt. De spanningen over R1
+en over P1 zijn dan gelijk, en de spanning op de
+niet-inverterende ingang van de opamp is gelijk aan de spanning
+op zijn inverterende ingang: 0Volt.<BR>
+Verhoog de weerstand van P1 tot 20k, en de opamp zal de spanning
+daarover, en tevens de uitgangsspanning, verdubbelen tot 14.3V
+om de spanning op de niet-inverterende ingang op 0Volt te
+brengen.<P>Hoe maak je daar nu een digitaal-gestuurde regeling van?<BR>
+Niet door P1 te vervangen door een digitale potmeter. Digitale
+potmeters die zoiets aankunnen ga je nergens vinden<BR>
+Wat w&#232;l kan, is P1 vervangen door een vaste weerstand, en de
+referentiespanning instelbaar maken. Dat laatste is een
+eenvoudige klus met behulp van een
+<A NAME="DAC1576">DAC</A><A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A>. <P><BR CLEAR="ALL"><P>
+<H3>Praktische uitvoering.</H3>
+<A NAME="LV82V1pu"></A><P><IMG ALIGN="RIGHT" SRC="LV82V1Analoog.png"
+ ALT="LV82V1Analoog.png">
+<P>Dit ziet er heel wat ingewikkelder uit dan het voorgaande
+schema. Maar loop niet weg, het is eenvoudiger dan het lijkt.<BR>
+Misschien kunnen we eerst de functie van enkele delen verklaren,
+die niet rechtstreeks bij de spanningsregeling betrokken zijn.
+Die kunnen we dan verder negeren.<P>
+<H4>Reset1.</H4>
+<A NAME="LV82V1rst"></A><P>R8, R9, C4, D2, D3 en T2 vormen samen een reset-schakeling. Ze
+zorgen er voor, dat de uitgangsspanning gegarandeerd 0v is, en
+dat enige tijd blijft na het inschakelen van de voeding.<BR>
+Bij dat inschakelen krijgt T2 voldoende basisstroom om de basis
+van T1 kort te sluiten naar GND, zodat deze de eindtrap niet kan
+opensturen. Zodra C4 opgeladen is, hebben deze componenten geen
+invloed meer op de voeding.<BR>
+D2 zorgt er voor, dat C4 snel ontladen wordt bij het
+uitschakelen van de voedingsspanning. D3 zal daarbij beletten,
+dat er op de basis van T2 een negatieve spanning komt te staan.<P>
+<H4>Reset2.</H4>
+<A NAME="LV82V1rst2"></A><P>Dr1 en Rel1 vormen samen een tweede reset.<P>Als er wat misloopt, is het altijd handig wanneer er een knop
+voorhanden is, die de uitgangsspanning van de voeding
+onmiddelijk naar 0Volt terugbrengt.<BR>
+Dat is hier de taak van Dr1. Hij activeert relais Rel1, dat vier
+taken vervult:
+
+<UL>
+ <LI> De basis van T1 wordt &#8213;via D4&#8213; laag gemaakt.
+ <LI> De uitgang wordt &#8213;via R20&#8213; extra belast, zodat de
+ spanning daar sneller inzakt.
+ <LI> DAC1 krijgt een reset-puls, zodat hij z'n uitgang laag
+ maakt.
+ <LI> De &#956;C krijgt een reset-puls, en begint met een schone
+ lei.
+
+</UL>
+Rel1 mag een 12V-relais zijn. Door Dr1 in te drukken komt er
+weliswaar 15V over de relaisspoel te staan, maar een 12V-relais
+kan die kortstondige overspanning met gemak aan.<BR>
+Er moet wel gekozen worden voor een relais dat 10A of meer kan
+schakelen. Bij gebrek aan een 4-polig relais kunnen meerdere
+stuks parallel geplaatst worden.<P>
+<H4>Offset-adjust.</H4>
+<A NAME="LV82V1oa"></A><P>Met P1 kan een mogelijke offset-fout aan de ingangen van IC1
+bijgesteld worden, zodat die de uitgang van de voeding precies
+0Volt is als de uitgang van de DAC1 0Volt bedraagt.<BR>
+P2 doet hetzelfde, maar dan voor IC2.<P>
+<H4>De spanningsregeling.</H4>
+<A NAME="LV82V1sr"></A><P>Nu kunnen we aan de eigenlijke spanningsregeling beginnen.<P>DAC1 levert een spanning tussen 0Volt en 5Volt. Het hoeft geen
+betoog, dat die spanning stabiel moet zijn - er dient dan ook de
+nodige zorg besteed te worden aan de voeding waaruit de DAC zijn
+stroom betrekt.<BR>
+De uitgangsspanning van DAC1 komt op de niet-inverterende ingang
+van IC1 terecht.
+IC1 gaat nu de basisstroom van T1 zodanig afknijpen, dat de
+spanning op zijn inverterende ingang gelijk wordt aan de
+spanning op de niet-inverterende ingang.<BR>
+Met behulp van P3 stellen we de maximum uitgangsspanning in.
+Daartoe wordt eerst de uitgangsspanning van DAC1 op 5Volt
+gebracht. P3 wordt nu zodanig ingesteld, dat de uitgangsspanning
+van de voeding 32767mV bedraagt. Dat lijkt een rare spanning,
+tot we het hexadecimaal uitdrukken: 0x7FFF. Als we nu een
+15-bits DAC gebruiken, komt 1 bit precies overeen met 1mV.<P>C2 moet beletten dat er tijdens het regelproces overshoot
+ontstaat. Zoiets zou al snel oscillaties kunnen opleveren.<BR>
+Anderzijds zorgen C1 en R3 er voor, dat IC1 afdoende kan
+reageren op snelle belastingsvariaties aan de uitgang van de
+voeding.<P>Dan zijn er nog D6 en D7. Deze dioden beletten dat het
+spanningsverschil tussen de ingangen van de opamp groter wordt
+dan 0.7Volt. Daarmee wordt voorkomen, dat dit spanningsverschil
+groter wordt dan hetgeen de opamp aankan.<P>De uitgangstrap bestaat hier uit vijf stuks TIP142, elk met een
+eigen emitterweerstand. Mits afdoende gekoeld, kunnen die samen
+zo'n 10A leveren. Men kan zondermeer eindtransistors weglaten of
+toevoegen, naargelang men minder of meer stroom wil kunnen
+afnemen. <P>
+<H4>De stroombegrenzing.</H4>
+<A NAME="LV82V1sb"></A><P>Ook de stroombegrenzing is grotendeels gebaseerd op het originele
+Elektuur-artikel.<P>R21 ... R24 vormen samen een shuntweerstand. IC2 vergelijkt de
+spanning over deze shunt met de uitgangsspanning van DAC2.
+Zodra de uitgangsstroom groter wordt dan is toegestaan, grijpt
+IC2 in. De manier van ingrijpen verschilt enigzins van de
+Elektuur- voeding. Daar beperkte IC2 de basisstroom van T1, net
+zoals IC1 doet. Ik laat IC2 de uitgangsspanning van DAC1
+verlagen. Dat levert een rustiger gedrag op, maar de reactietijd
+wordt wel groter.<BR>
+Net als bij de spanningsregeling is er een condensator voorzien
+(C3) die oscillatieneigingen moet onderdrukken.<P>T3 en de omringende componenten laten LED D9 oplichten, zodra
+IC2 actief wordt en zijn uitgang laag maakt.<P>
+<H3>De sturing.</H3>
+<A NAME="LV82V1st"></A><P>De details van de sturing laat ik buiten beschouwing. Het is
+duidelijk, dat er een microcontroller en 2 DAC's aan te pas
+moeten komen. Zelf heb ik een <A NAME="ATmega882047">ATmega88</A> gebruikt, maar ook
+andere &#956;C's zijn geschikt voor de taak.<P>
+<H4>De DAC's</H4>
+<A NAME="LV82V1dac"></A><P><IMG ALIGN="LEFT" SRC="LV82V1-R2R-ladders.png"
+ ALT="LV82V1-R2R-ladders.png">
+
+Dan de DAC's. Wie wil, kan gebruik maken van een kant-en-klare
+DAC. 15-bits is ideaal, want dan kunnen we de uitgangsspanning
+instellen &#224; rato van 1mV per bit. Wie tevreden is met minder, kan b.v.
+een 12-bits DAC gebruiken. Dat levert stappen op van 8mV,
+hetgeen nog steeds een bruikbare resolutie is.<P>Als alternatief kan met zelf een DAC samenstellen met twee
+schuifregisters en een handvol weerstanden, die als een
+R2R-netwerk geschakeld worden.<P>Dat ziet er dan zo uit. Belangrijk hierbij is, dat er
+precisie-weerstanden gebruikt worden. Ook moet er de nodige zorg
+besteed worden aan de voeding van de IC's.<P>Het deel rond T4 en T5 zorgt er voor, dat de schuifregisters hun
+uitgangen laag maken bij het inschakelen van de
+voedingsspanning.<P><BR CLEAR="ALL"><P>
+<H4>RS232-communicatie.</H4>
+<A NAME="LV82V1rs232"></A><P><IMG ALIGN="RIGHT" SRC="OptoRS232.png"
+ ALT="OptoRS232.png">
+<P>Wie een &#956;C gebruikt, komt al snel op het idee om er mee te
+communiceren via een RS232-verbinding. Het is vaak handig,
+commando's te geven of gegevens op te vragen met de PC.<P>Hier zit wel een addertje onder het gras! Vooraan in dit artikel
+werd al aangegeven dat de GND van de sturing verbonden is met de
+positieve uitgang van de voeding. Dat houdt in, dat ook de GND
+van de &#956;C en de GND van de RS232-verbinding daarmee verbonden
+is.<BR>
+En dat kan voor problemen zorgen. Stel, dat je met een scoop aan
+de uitgang wil meten. De negatieve uitgang is, via de probe en
+de scoop, verbonden met de aarding van het lichtnet. De
+positieve uitgang is, via de RS232-verbinding en de PC, eveneens
+met die aarding verbonden. Moet ik nog meer zeggen?<BR>
+Gelukkig valt dat probleem eenvoudig op te lossen door een
+optische koppeling aan te brengen in de RS232-verbinding:<P>Dat vergt slechts enkele onderdelen, maar helaas ook een
+afzonderlijke voeding. <P>Om dezelfde reden is het ook noodzakelijk, dat &#8213;bij gebruik
+van een metalen behuizing&#8213; deze geen galvanisch contact maakt
+met de voeding!<P>
+<H4>Meten is weten.</H4>
+<A NAME="LV82V1mw"></A><P>Bij een labvoeding hoort een uitlezing. We willen immers zowel
+de uitgangsspanning als de uitgangsstroom kennen.<P>Het meten van de stroom is eenvoudig; de spanning over
+shuntweerstanden R21 ... R24 is immers een maat voor de stroom.
+Dat is een waarde die de &#956;C kan meten en op zijn display
+tonen, als hij over een ADC-ingang beschikt.<P>De spanning is wat moeilijker. De spanning op het punt waar we
+moeten meten, is immers negatief t.o.v. de GND.<BR>
+Dat kan echter opgelost worden, door eerst de uitgangsspanning
+te vertalen naar een spanning tussen 0Volt en -5Volt met behulp
+van een spanningsdeler, en vervolgens deze spanning te voeden
+aan een opamp die als inverterende 1X-versterker geschakeld
+is.<BR>
+Een alternatief bestaat er in, enkele kant-en-klare digitale
+paneelmeters in te zetten. Dat verhoogt de kosten (ze hebben elk
+een eigen voeding nodig), maar ze zijn wel nauwkeuriger dan
+hetgeen met de doorsnee-ADC ingang van een &#956;C gemeten kan
+worden. Die laatste zijn doorgaans maar 10-bits.<P>Wat kunnen we nog meten? De temperatuur van de koelplaat
+wellicht? Dat laat ons toe, actieve koeling te gebruiken en de
+fan enkel aan het werk te zetten als dat echt nodig is.
+Daardoor kunnen de afmetingen van de ganse voeding
+teruggedrongen worden.<BR>
+Daarnaast kan de &#956;C botweg de uitgangsspanning naar 0Volt
+terugbrengen, als blijkt dat de temperatuur van de koelplaat
+niet meer in de hand te houden is.
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...<A NAME="DAC1576">DAC</A></A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+Digital/Analog-Convertor</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="labvoeding.html">LabVoeding.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Voedingen.html">Voedingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="bijlagen.html">Bijlagen.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

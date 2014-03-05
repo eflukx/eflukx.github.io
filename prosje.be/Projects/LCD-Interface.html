@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Zuinige LCD-Interface.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, 74HC595, schuifregister, LCD-module, monoflop, ATtiny2313">
+<META NAME="description" CONTENT="LCD-Interface">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="BelastingSchakelen.html">Belastingen schakelen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="LichtDimmer.html">LichtDimmer.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="LCD-Interface"></A>
+<BR>Zuinige LCD-Interface.</H2>
+<UL>
+<LI><A HREF="#ZLCD">Klassieke aanpak.</A>
+<LI><A HREF="#ZLCD3">Met 3 stuurlijnen.</A>
+<UL><LI><A HREF="#ZLCDWerking">Werking.</A>
+</UL>
+<LI><A HREF="#ZLCD2">Met 2 stuurlijnen.</A>
+<LI><A HREF="#ZLCD1">Met 1 stuurlijn.</A>
+<LI><A HREF="#W1uc">E&#233;ndraads-interface met een &#956;C.</A>
+<UL><LI><A HREF="#W1Cnt">Tellen.</A>
+<LI><A HREF="#W1C">Een brokje broncode.</A>
+</UL>
+<LI><A HREF="#ZLCDPL">De print-layouts</A>
+<UL><LI><A HREF="#ZLCDPL3">De 3-draads uitvoering, de onderzijde en de bovenzijde van de 2-draads uitvoering.</A>
+<LI><A HREF="#ZLCDPL1">De onderzijde en de bovenzijde van de 1-draads uitvoering.</A>
+<LI><A HREF="#W1prnt">De 1-draads &#956;C-versie.</A>
+</UL>
+<LI><A HREF="#ZLCDPF">Tot slot nog wat foto's van de opgebouwde printjes.</A>
+<UL><LI><A HREF="#ZLCDPF3">De 3-draads uitvoering.</A>
+<LI><A HREF="#ZLCDPF2">De 2-draads uitvoering.</A>
+<LI><A HREF="#ZLCDPF1">De 1-draads uitvoering.</A>
+<LI><A HREF="#W1prtn">De &#956;C 1-draads uitvoering.</A>
+</UL>
+</UL><HR>
+<P>
+<H3>Klassieke aanpak.</H3>
+<A NAME="ZLCD"></A><P>Voor het aansturen van een klassieke karakter LCD-module hebben
+we &#8213;naast de voedingslijnen&#8213; 11 stuurlijnen nodig: 8
+data-lijnen, <I>R/W</I>, <I>RS</I> en <I>E</I>. Als zo'n
+LCD-module aangesloten wordt op de bus van een 8-bits
+microprocessor is dat geen probleem. De datalijnen van de module
+worden verbonden met de databus van de &#956;P, <I>R/W</I> aan
+<I>R/W</I> en <I>RS</I> wordt verbonden met A0. Er is dan
+enkel een adresdecoder nodig om <I>E</I> aan te sturen.<P>Willen we echter zo'n module aansturen met een microcontroller,
+dan kost die klassieke aanpak meestal meer pinnen dan we willen
+missen. Zo'n module kent gelukkig ook een 4-bits mode, en als de
+&#956;P de nodige wachttijden in acht neemt, kan <I>R/W</I>
+permanent met GND verbonden worden. Het aantal benodigde pinnen
+is dan gedaald van 11 tot 6; een flinke besparing.<P><P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+<H3>Met 3 stuurlijnen.</H3>
+<A NAME="ZLCD3"></A><P><IMG ALIGN="LEFT" SRC="LCD-interface3.png"
+ ALT="LCD-interface3.png">
+
+Het kan nog zuiniger. Zuiniger wat het aantal stuurlijnen
+betreft, want er moet wel een prijs voor betaald worden in de
+vorm van een IC.<BR>
+Het schema hiernaast toont een eenvoudige interface.
+Er wordt gebruik gemaakt van een <A NAME="74HC5951578">74HC595</A>, een 8-bits
+<A NAME="schuifregiste2680">schuifregister</A>. Bij deze aanpak zijn er maar 3
+stuurlijnen nodig om het schuifregister te sturen.<P>
+<H4>Werking.</H4>
+<A NAME="ZLCDWerking"></A><P>In rust zijn zowel <I>Latch</I> als <I>S-clk</I> laag.
+Willen we een karakter of een commando naar de <A NAME="LCDmodule2071">LCD-module</A> versturen, dan worden de
+bits &#8213;D7 eerst&#8213; &#233;&#233;n voor &#233;&#233;n op de <I>Data</I>
+ingang geplaatst, waarna telkens <I>S-clk</I> kortstondig hoog
+en terug laag gemaakt wordt.<BR>
+Zodra D0 ingeklokt is, moet er beslist worden welke toestand de
+<I>Data</I>-lijn moet aannemen: hoog als we een karakter
+versturen; laag als het om een commando gaat. De
+<I>Data</I>-lijn is immers verbonden met de <I>RS</I>-pin
+van de LCD-module.<BR>
+De laatste stap is het hoog en weer laag maken van de
+<I>E</I>-lijn.<P>Tussen het versturen van 2 karakters moet er minstens 40&#956;S
+gewacht worden. Bij het versturen van sommige commando's (clear
+display bijvoorbeeld) bedraagt de wachttijd 1.2mS.<P><A NAME="pros4"  HREF="3W-LCD.c.html">Hier staat een brokje c-source, geschikt voor een AVR</A>
+. <P>
+<P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+<H3>Met 2 stuurlijnen.</H3>
+<A NAME="ZLCD2"></A><P><IMG ALIGN="RIGHT" SRC="LCD-interface2.png"
+ ALT="LCD-interface2.png">
+
+Wat gedaan, als de &#956;C maar 2 pinnen beschikbaar heeft om een
+LCD-module aan te sturen? Wel, met twee draden lukt het ook, maar
+de interface wordt er niet eenvoudiger op, zoals hiernaast te
+zien is.<BR>
+De <I>E</I>-lijn, die bij het versturen van een karakter of
+commando enkel hoog wordt nadat de 8 data-bits verzonden zijn,
+kunnen we door de interface zelf laten sturen.<BR> Dat gaat zo: in
+rust is CLK laag. Daardoor wordt T1 in geleiding gestuurd, die
+op zijn beurt C4 zal opladen. N1 inverteert die toestand, en
+maakt de <I>Latch</I>-pin (RCK) van het schuifregister laag. Tijdens
+het inklokken van de data zal T1 bij elk bit even sperren, maar
+die periode is z&#243; kort, dat R7 niet de kans krijgt om C4 te
+ontladen.<BR> Nadat de 8 data-bits ingeklokt zijn, houden we
+&#8213;zoals bij de 3-draads interface&#8213; de data-lijn hoog bij het
+versturen van een karakter en laag als het een commando
+betreft.<BR><P>Het belangrijkste verschil is echter, dat we de
+<I>CLK</I>-lijn hoog houden. Nu krijgt R7 w&#233;l de kans, C4 te
+ontladen. Het gevolg is, dat de uitgang van N1 hoog wordt,
+hetgeen de <I>Latch</I>-pin van IC1 activeert.<BR>
+Daarnaast wordt C3 opgeladen via R5, zodat na korte tijd ook N2
+gaat omklappen, en zijn uitgang laag maakt.
+Van daar gaat het naar N3 en N4, die samen een <A NAME="monoflop2043">monoflop</A>
+vormen. Die monoflop zal uiteindelijk een korte positieve puls
+op de <I>E</I>-pin van de LCD-module zetten, waarmee de cyclus
+afgerond is.<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="LCDI1W-signalen.png"
+ ALT="LCDI1W-signalen.png">
+
+Een plaatje maakt wellicht meer duidelijk dan woorden kunnen.<P>Naast een extra-IC betalen we nog een andere prijs voor het
+overbodig zijn van de derde stuurdraad: vermits de timing nu
+een belangrijke rol speelt, zijn we verplicht interrupts uit te
+schakelen als we met de LCD-module communiceren. Immers, als er
+een interrupt optreedt nadat we <I>CLK</I> hoog gemaakt hebben,
+kan het gebeuren dat R7 de tijd krijgt C4 te ontladen. Het
+gevolg is dan, dat de meest willekeurige data wordt aangeboden
+aan de LCD-module.<P><BR CLEAR="ALL"><P>Hieronder zien we het tijdsverloop op de punten <B>A</B>,
+<B>B</B> en <B>D</B>, nadat CLK hoog gehouden wordt, en C4
+de kans kreeg zich te ontladen. <B>B</B> activeert
+<I>RCK</I> door die een opgaande flank te geven, terwijl
+<I>E</I> geactiveerd wordt door de neergaande flank van
+<B>D</B>.<P><IMG ALIGN="LEFT" SRC="LCDI-scoopAB.jpg"
+ ALT="LCDI-scoopAB.jpg">
+
+<IMG ALIGN="LEFT" SRC="LCDI-scoopAD.jpg"
+ ALT="LCDI-scoopAD.jpg">
+<P><P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+<H3>Met 1 stuurlijn.</H3>
+<A NAME="ZLCD1"></A><P><IMG ALIGN="LEFT" SRC="LCD-interface1.png"
+ ALT="LCD-interface1.png">
+
+Heb je maar &#233;&#233;n pin vrij om een LCD-module te sturen?
+Geen nood, met de schakeling hiernaast lukt dat prima.<P>N1 en N2 vormen een monoflop, die getriggerd wordt door een
+hoog-naar-laag flank op de DATA-lijn, en die zowel de seri&#235;le
+klok als de Latch van IC1 activeert als de monoflop-tijd
+verlopen is. Willen we een '1' inklokken, dan maken we DATA
+kortstondig laag. Bij een '0' moeten we DATA laag houden tot de
+monoflop-tijd verstreken is.<BR> Bij het gelijktijdig aansturen
+van RCK en SRCK loopt de toestand op de uitgangen steeds 1 bit
+achter t.o.v. de data in het schuifregister. We moeten dus,
+nadat het 8e bit in het schuifregister &#8220;geschoven&#8221; is, nog een
+extra klokpuls geven en vervolgens DATA laag maken als het om
+een commando gaat.<P>Ook N3 en N4 vormen enigzins een monoflop, die ditmaal de <I>E</I>-pin
+van de LCD-module voor zijn rekening neemt. Dat gaat zo:<BR>
+Tijdens het inklokken van de bits wordt T1 telkens even in
+geleiding gestuurd. Die zal C3 ontladen, zodat de uitgang van N3
+hoog wordt. Zodra alle bits ingeklokt zijn, blijft de uitgang
+van N1 laag, gaat T1 sperren, en krijgt C3 de kans zich op te
+laden via R3.<BR>
+Eens dat gebeurt is, klapt N3 om, en geeft hij een kortstondige
+negatieve puls aan N4. De uitgang van die laatste maakt
+<I>E</I> even hoog, en daarmee is de taak volbracht.<P><BR CLEAR="ALL"><P>Het spreekt voor zich, dat ook bij deze interface de timing
+een belangrijke factor is. Het volledig tijdsverloop kan gevolgd
+worden op onderstaand plaatje:<P><IMG ALIGN="LEFT" SRC="LCD-interface2.Grafiek1.png"
+ ALT="LCD-interface2.Grafiek1.png">
+<P><BR CLEAR="ALL"><P>De code, die het aansturen op zich neemt, is eenvoudiger dan
+verwacht:
+<P><PRE>
+
+<font color="#008000">#define&nbsp;COM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</font>
+<font color="#008000">#define&nbsp;LCD_PORT&nbsp;&nbsp;PORTB</font>
+<font color="#008000">#define&nbsp;LCD_DDR&nbsp;&nbsp;&nbsp;DDRB</font>
+<font color="#008000">#define&nbsp;LCD_PIN&nbsp;&nbsp;&nbsp;PB0</font>
+<font color="#008000">#define&nbsp;TXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</font>
+
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">z</font>;
+<font color="#008000">#define&nbsp;smalldelay(x)&nbsp;z&nbsp;=&nbsp;x;\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(z&nbsp;&gt;&nbsp;0)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;z--</font>
+
+<font color="#800080"><i>//&nbsp;Voor&nbsp;een&nbsp;14745600Hz-kristal</i></font>
+<font color="#800000">void</font>&nbsp;<font color="#800000">char</font>2<font color="#000000">LCD1</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">karakter</font>,&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">RS</font>)
+{
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">cnt</font>,&nbsp;<font color="#000000">sreg</font>;
+
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sreg</font>&nbsp;=&nbsp;<font color="#000000">SREG</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Status&nbsp;van&nbsp;het&nbsp;interrupt-register&nbsp;bewaren</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cli</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;We&nbsp;willen&nbsp;niet&nbsp;onderbroken&nbsp;worden</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">8</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">karakter</font>&nbsp;&amp;&nbsp;<font color="#008080">0x80</font>)&nbsp;==&nbsp;<font color="#008080">0x80</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;een&nbsp;'1'</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT</font>,&nbsp;<font color="#000000">LCD_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;LCD_PIN&nbsp;kortstondig&nbsp;laag</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">smalldelay</font>(<font color="#0000FF">2</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT</font>,&nbsp;<font color="#000000">LCD_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;en&nbsp;dan&nbsp;weer&nbsp;hoog</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">smalldelay</font>(<font color="#0000FF">10</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;een&nbsp;'0'</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT</font>,&nbsp;<font color="#000000">LCD_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;LCD_PIN&nbsp;laag&nbsp;houden&nbsp;tot&nbsp;de&nbsp;uitgang&nbsp;van&nbsp;N2&nbsp;terug&nbsp;hoog&nbsp;is</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">smalldelay</font>(<font color="#0000FF">10</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT</font>,&nbsp;<font color="#000000">LCD_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;en&nbsp;dan&nbsp;weer&nbsp;hoog</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">smalldelay</font>(<font color="#0000FF">2</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">karakter</font>&nbsp;=&nbsp;<font color="#000000">karakter</font>&nbsp;&lt;&lt;&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bits&nbsp;een&nbsp;plaatsje&nbsp;naar&nbsp;rechts&nbsp;schuiven</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">RS</font>&nbsp;==&nbsp;<font color="#000000">TXT</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Tekst,&nbsp;RS&nbsp;moet&nbsp;hoog</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT</font>,&nbsp;<font color="#000000">LCD_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;LCD_PIN&nbsp;kortstondig&nbsp;laag&nbsp;...</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">smalldelay</font>(<font color="#0000FF">2</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT</font>,&nbsp;<font color="#000000">LCD_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;...&nbsp;en&nbsp;dan&nbsp;weer&nbsp;hoog,&nbsp;voor&nbsp;de&nbsp;E-puls&nbsp;geactiveerd&nbsp;wordt</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">smalldelay</font>(<font color="#0000FF">64</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Wachten&nbsp;tot&nbsp;de&nbsp;E-puls&nbsp;is&nbsp;gegenereerd</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Instruktie,&nbsp;RS&nbsp;moet&nbsp;laag</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT</font>,&nbsp;<font color="#000000">LCD_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;LCD_PIN&nbsp;laag</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">smalldelay</font>(<font color="#0000FF">66</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Wachten&nbsp;tot&nbsp;de&nbsp;E-puls&nbsp;is&nbsp;gegenereerd</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT</font>,&nbsp;<font color="#000000">LCD_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;en&nbsp;pas&nbsp;dan&nbsp;weer&nbsp;hoog</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">smalldelay</font>(<font color="#0000FF">10</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">SREG</font>&nbsp;=&nbsp;<font color="#000000">sreg</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Status&nbsp;van&nbsp;het&nbsp;interrupt-register&nbsp;herstellen</i></font>
+}
+<P></PRE>
+
+<BR CLEAR="ALL"><P>
+<H3>E&#233;ndraads-interface met een &#956;C.</H3>
+<A NAME="W1uc"></A><P><IMG ALIGN="LEFT" SRC="1W-LCD-interface.png"
+ ALT="1W-LCD-interface.png">
+
+Het grote nadeel van de bovenstaande versie is de timing.
+Die geeft weinig ruimte voor speling.<P>Als we het schuifregister en het timing-gedeelte vervangen door
+een &#956;C als de <A NAME="ATtiny23131971">ATtiny2313</A>, zijn we (bijna) verlost van
+alle timing-problemen.<BR>
+Er moet wel een bitje bij: een startbit. Dat is altijd '1', en
+het geeft de &#956;C de mogelijkheid om na te rekenen wat hij kan
+verwachten. Hij meet de lengte van het startbit, deelt dat door
+twee, en gebruikt die maat om het verschil tussen een lange en
+een korte puls te bepalen.<BR>
+Na het startbit volgen 8 databits, waarbij een korte puls een
+'0' representeert en een lange puls voor een '1' staat.<BR>
+Als de zendende partij er zorg voor draagt om een lange puls
+vier maal zo lang te maken als een korte puls, kan er weinig
+misgaan - behalve dan wanneer een interrupt er voor zorgt dat
+een korte puls merkelijk langer duurt dan voorzien.<P>In zo'n situatie kan je twee kanten op:<BR>
+Of je schakelt interrupts uit als je data naar de E&#233;ndraads
+LCD-interface stuurt. Of je maakt alle pulsen langer, zodat de
+interrupt-vertraging geen nefaste invloed meer heeft.<P>Het gebruik van een &#956;C als interface heeft een bijkomend
+voordeel: hij kan het initialiseren van de LCD-module geheel
+zelfstandig uitvoeren. <P>
+<H4>Tellen.</H4>
+<A NAME="W1Cnt"></A><P>Naast de standaard-functie &#8213;als LCD-interface&#8213; kan de
+ATtiny2313 ook als teller of als frequentiemeter fungeren.
+Dat kan in sommige situaties handig van pas komen, al is
+de frequentiemeting beperkt wat nauwkeurigheid en bereik
+betreft.<P><BR CLEAR="ALL"><P>
+<H4>Een brokje broncode.</H4>
+<A NAME="W1C"></A><P>Meer dan het onderstaande is er niet nodig om een karakter naar de
+LCD-interface te sturen.<BR>
+Hier is PB0 als uitgangspin gebruikt.
+<P><PRE>
+
+<font color="#800080"><i>//&nbsp;De&nbsp;lengte&nbsp;van&nbsp;een&nbsp;korte&nbsp;puls&nbsp;in&nbsp;µS</i></font>
+<font color="#008000">#define&nbsp;PW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100</font>
+<font color="#800000">void</font>&nbsp;<font color="#800000">char</font>2<font color="#000000">lcd</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">d</font>)
+{
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cnt</font>;
+
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PORTB</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB0</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;De&nbsp;startpuls</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">PW</font>&nbsp;*&nbsp;<font color="#0000FF">4</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;is&nbsp;altijd&nbsp;lang</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PORTB</font>&nbsp;&amp;=&nbsp;~(<font color="#000000">_BV</font>(<font color="#000000">PB0</font>));
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">8</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">PW</font>&nbsp;*&nbsp;<font color="#0000FF">4</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PORTB</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB0</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x80</font>)&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bit&nbsp;=&nbsp;0?</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">PW</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Dan&nbsp;korte&nbsp;puls</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Anders</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">PW</font>&nbsp;*&nbsp;<font color="#0000FF">4</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Lange&nbsp;puls</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PORTB</font>&nbsp;&amp;=&nbsp;~(<font color="#000000">_BV</font>(<font color="#000000">PB0</font>));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">d</font>&nbsp;*=&nbsp;<font color="#0000FF">2</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bits&nbsp;naar&nbsp;links&nbsp;opschuiven</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">PW</font>&nbsp;*&nbsp;<font color="#0000FF">6</font>);
+}
+<P></PRE>
+Merk op, dat bit 7 als eerste wordt verstuurd.
+<BR CLEAR="ALL">
+<P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+<H3>De print-layouts</H3>
+<A NAME="ZLCDPL"></A><P>
+<H4>De 3-draads uitvoering, de onderzijde en de bovenzijde van de 2-draads uitvoering.</H4>
+<A NAME="ZLCDPL3"></A><P><IMG ALIGN="LEFT" SRC="3draadsLCD-interface.png"
+ ALT="3draadsLCD-interface.png">
+
+<IMG ALIGN="LEFT" SRC="2draadsLCD-interfaceO.png"
+ ALT="2draadsLCD-interfaceO.png">
+
+<IMG ALIGN="LEFT" SRC="2draadsLCD-interfaceB.png"
+ ALT="2draadsLCD-interfaceB.png">
+<P><BR CLEAR="ALL"><P>
+<H4>De onderzijde en de bovenzijde van de 1-draads uitvoering.</H4>
+<A NAME="ZLCDPL1"></A><P><IMG ALIGN="LEFT" SRC="1draadsLCD-interfaceO.png"
+ ALT="1draadsLCD-interfaceO.png">
+
+<IMG ALIGN="LEFT" SRC="1draadsLCD-interfaceB.png"
+ ALT="1draadsLCD-interfaceB.png">
+<P><BR CLEAR="ALL"><P>
+<H4>De 1-draads &#956;C-versie.</H4>
+<A NAME="W1prnt"></A><P><IMG ALIGN="LEFT" SRC="1W-LCD-interfaceLayout.png"
+ ALT="1W-LCD-interfaceLayout.png">
+
+(Vergroot)<P><BR CLEAR="ALL">
+<P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+<H3>Tot slot nog wat foto's van de opgebouwde printjes.</H3>
+<A NAME="ZLCDPF"></A><P>
+<H4>De 3-draads uitvoering.</H4>
+<A NAME="ZLCDPF3"></A><P><IMG ALIGN="LEFT" SRC="LCD-interface3Print.png"
+ ALT="LCD-interface3Print.png">
+<P><BR CLEAR="ALL"><P>
+<H4>De 2-draads uitvoering.</H4>
+<A NAME="ZLCDPF2"></A><P><IMG ALIGN="LEFT" SRC="LCDI2W-bestukt.jpg"
+ ALT="LCDI2W-bestukt.jpg">
+<P><BR CLEAR="ALL"><P>
+<H4>De 1-draads uitvoering.</H4>
+<A NAME="ZLCDPF1"></A><P><IMG ALIGN="LEFT" SRC="LCDI1W-bestukt.jpg"
+ ALT="LCDI1W-bestukt.jpg">
+<P><BR CLEAR="ALL"><P>
+<H4>De &#956;C 1-draads uitvoering.</H4>
+<A NAME="W1prtn"></A><P><IMG ALIGN="LEFT" SRC="1W-LCD-interfacePrintB.jpg"
+ ALT="1W-LCD-interfacePrintB.jpg">
+
+<IMG ALIGN="LEFT" SRC="1W-LCD-interfacePrintO.jpg"
+ ALT="1W-LCD-interfacePrintO.jpg">
+<P><P><UL>
+</UL><P><P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="BelastingSchakelen.html">Belastingen schakelen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="LichtDimmer.html">LichtDimmer.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

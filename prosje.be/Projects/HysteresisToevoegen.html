@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Hysteresis toevoegen.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, hysteresis">
+<META NAME="description" CONTENT="HysteresisToevoegen">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="DodenTotLevenWekken.html">Doden tot leven wekken.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="AvrTips.html">AVR-tips.</A> &nbsp;
+<B> Volgende:</B> <A HREF="ResetPinAlsIngang.html">RESET-pin als ingang gebruiken.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="HysteresisToevoegen"></A>
+<BR>Hysteresis toevoegen.</H2>
+<P>Als er een top-tien bestond van meestgebouwde
+mictocontroller-projecten, zouden klokken daar zeker in
+voorkomen. En niet zelden wordt de frequentie van het lichtnet
+daarbij als tijdbasis gebruikt. Geen slechte keus, want ondanks
+het feit dat deze frequentie op korte termijn enige afwijking
+kan vertonen, is ze op langere termijn heel stabiel.<P><IMG ALIGN="LEFT" SRC="uC-hysteresis.png"
+ ALT="uC-hysteresis.png">
+
+Nu lijkt de netspanning helemaal niet op een mooie sinus.
+Dimmers, motorregelingen, CAB-signalen<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A> en andere stoorbronnen maken er
+een rommeltje van.<BR>
+Die ongeregeldheden kan men er uitfilteren door
+bijvoorbeeld een opamp in de signaallijn op te nemen, en er voor
+te zorgen dat die een flinke <A NAME="hysteresis3122">hysteresis</A> aan zijn ingang
+heeft.<BR>
+Het schema hiernaast toont een andere aanpak.<P>De ingangspin wordt zodanig ingesteld, dat er een interrupt
+optreedt bij elke op- of neergaande flank. Het eerste dat de
+ISR<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A> doet, is de status van
+de ingangspin controleren. Is deze hoog, dan wordt ook &#8220;UIT&#8221;
+hoog gemaakt. Nu moet de spanning op de secundaire
+trafo-wikkeling tot bijna 0V zakken, voor de ingang een
+negatieve flank ziet. Bij een interrupt op de neergaande flank
+wordt &#8220;UIT&#8221; laag gemaakt, waardoor de trafospanning tot 6V
+moet stijgen, alvorens er een opgaande flank gedetecteerd wordt.<P>Hierdoor hebben stoorpulsen tot enkele Volt geen vat op de goede
+werking van het geheel. Wie het onderste uit de kan wil halen,
+kan R3 en D6 toevoegen. Hierdoor moet de trafospanning tot 9V
+stijgen om een interrupt te veroorzaken. De waarde van R3 is
+hierbij afhankelijk van de trafo-spanning.<P>Het is aan te bevelen, om enkel de opgaande flanken (of enkel de
+neergaande flanken) als tijdbasis te gebruiken. De
+puls/pauze-verhouding is immers niet 50/50.
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...CAB-signalen</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+Centrale AfstandsBediening waarmee de openbare verlichting en dag/nacht kWh-meters geschakeld worden</DD>
+<DT><A NAME="ft2">...ISR</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+Interrupt Service Routine</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="DodenTotLevenWekken.html">Doden tot leven wekken.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="AvrTips.html">AVR-tips.</A> &nbsp;
+<B> Volgende:</B> <A HREF="ResetPinAlsIngang.html">RESET-pin als ingang gebruiken.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

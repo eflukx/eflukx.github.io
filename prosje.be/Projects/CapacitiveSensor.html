@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Naderingssensor.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, Schmitt-trigger, ATtiny45">
+<META NAME="description" CONTENT="CapacitiveSensor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="ARDVM.html">Autoranging DVM</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="FrequentieStandaard.html">FrequentieStandaard.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="CapacitiveSensor"></A>
+<BR>Naderingssensor.</H2>
+<UL>
+<LI><A HREF="#NSWIH">Voorstelling.</A>
+<LI><A HREF="#NSO">Oscillator met capacitieve sensor.</A>
+<LI><A HREF="#NSM">De microcontroller.</A>
+<LI><A HREF="#NSOP">Het opgebouwde printje.</A>
+</UL><HR>
+<P>
+<H3>Voorstelling.</H3>
+<A NAME="NSWIH"></A><P>Wat is er mooier, dan lichten die automatisch gaan branden als
+men in het donker door de woning loopt?<BR>
+Daarvoor zijn wel sensors nodig, die de nabijheid van een
+menselijk lichaam kunnen vaststellen. En dan nog liefst een
+sensor die we verborgen kunnen opstellen zodat hij zijn omgeving
+niet ontsiert.<BR>
+Dit artikel beschrijft de bouw en de werking van zo'n sensor.<P>
+<H3>Oscillator met capacitieve sensor.</H3>
+<A NAME="NSO"></A><P><IMG ALIGN="LEFT" SRC="CapacitieveSensorII.png"
+ ALT="CapacitieveSensorII.png">
+
+Het schema hiernaast toont een inverter met een
+<A NAME="Schmitttriggnsor3184">Schmitt-trigger</A> ingang (IC1), waarbij een spoel (L1),
+geholpen door een condensator, de inverter doet oscilleren.
+De frequentie waarop dit gebeurt wordt bepaald door de
+resonatiefrequentie van de L/C-combinatie.<P>De spoel kennen we, het is een gewone RF-choke van 1000&#956;H.
+De condensator is een ander verhaal.<P>Enerzijds bestaat die uit een vel aluminium-folie, dat op dik
+papier is gekleefd. Dit geheel krijgt een plaatse onder het
+tapijt. De folie vormt een condensator in combinatie
+met zijn omgeving. De capaciteit van die &#8220;condensator&#8221; kan
+heel klein zijn, denk maar aan een droge woning, opgebouwd uit
+baksteen en hout. Of hij kan juist (relatief) groot zijn, als er gewapend
+beton in de nabijheid is.<BR>
+Anderzijds is er ook nog de paracitaire capaciteit die bij de
+ingang van IC1 hoort. Die bedraagt &#8213;volgend de datasheet van
+de NC7S14&#8213; 10pF. Erg weinig, maar niet te verwaarlozen.<P>Een praktijkopstelling ten huize van ondergetekende toont aan
+dat IC1 op een frequentie van iets minder dan 1MHz oscilleert.
+De capaciteit zou bijgevolg (ongeveer) 28pF moeten bedragen.
+Als we daar de ingangscapaciteit van IC1 aftrekken, blijft er
+18pF over.<BR>
+Zodra een hand (of een ander lichaamsdeel) de ALU-folie tot
+minder dan 1cm nadert, zakt de frequentie naar &#177;800kHz.
+Dat betekent, dat de capaciteit stijgt naar 40pF waarvan 30pF
+voor rekening van de ALU-folie is.<P>
+<H3>De microcontroller.</H3>
+<A NAME="NSM"></A><P>Die frequentiezwaai kan met eenvoudige hulpmiddelen gedetecteerd
+worden. Een monoflop, die als pulsverkorter fungeert, en een
+R/C-filter volstaan om de frequentie te vertalen naar een
+analoge spanning. Een comparator volstaat dan, om variaties in
+die analoge spanning vast te stellen.<P>Die comparator moet dan wel precies ingesteld worden. En juist
+daar kan het fout gaan. Allerlei omgevingsfactoren kunnen de
+capaciteit van de ALU-folie be&#239;nvloeden, en dus ook de
+frequentie.
+Ik denk dan voornamelijk aan de luchtvochtigheid en de
+temperatuur.<BR>
+Dat kan tot gevolg hebben, dat de comparator regelmatig moet
+bijgesteld worden.<P>Als we het detecteren aan een kleine microcontroller overlaten,
+kan die anticiperen op kleine, langzame frequentievariaties.<P>De &#956;C in kwestie is een <A NAME="ATtiny452357">ATtiny45</A>.<BR>
+De uitgang van de oscillator gaat naar PB2. Deze pin kan als
+externe klok geconfigureerd worden, en stuurt Timer0 aan.
+Timer0 doet weinig meer dan tellen - zonder ingrijpen gaat TCNT0
+van 0 naar 255 om vervolgens weer naar 0 te springen.<BR>
+De &#956;C beschikt over een tweede timer/counter: Timer1.
+Timer1 geven we een klok van 2MHz &#8213;zowat het dubbele van
+Timer0, dus&#8213; en we laten hem een interrupt produceren als zijn
+tellerstand van 255 naar 0 gaat.<BR>
+Als de ISR<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A> telkens TCNT0
+uitleest en vervolgens op 0 zet, kennen we de frequentie die de
+oscillator produceert. Door de gemeten frequentie uit te
+middelen worden ongewenste externe invloeden uitgeschakeld.
+Enkel wanneer een plotse frequentiedaling van meer dan 1/16e
+wordt vastgesteld, gaat de &#956;C daar op reageren.<P><A NAME="pros4"  HREF="CapacitiveSensor.c.html">De volledige code kan hier bekeken worden.</A>
+<P>
+<H3>Het opgebouwde printje.</H3>
+<A NAME="NSOP"></A><P><IMG ALIGN="LEFT" SRC="CapacitieveSensorTraphalBoven.jpg"
+ ALT="CapacitieveSensorTraphalBoven.jpg">
+
+<BR CLEAR="ALL">
+Veel valt er op de print niet te bespeuren - enkel de &#956;C en
+het spoeltje. En ja, ook nog een LED'je dat zijn licht door een
+opening laat schijnen.<BR>
+De overige onderdelen zijn SMD-componenten die zich aan de
+onderzijde bevinden:
+<BR CLEAR="ALL">
+<IMG ALIGN="LEFT" SRC="CapacitieveSensorTraphalOnder.jpg"
+ ALT="CapacitieveSensorTraphalOnder.jpg">
+
+<BR CLEAR="ALL">
+Het kan uiteraard nog kleiner, als ook voor de ATtiny45 en de
+spoel SMD-uitvoeringen gebruikt worden. Maar het huidige printje
+is al kleing genoeg om een plaatsje te vinden achter een plint
+of een deurstijl.<P>
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...ISR</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+Interrupt Service Routine</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="ARDVM.html">Autoranging DVM</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="FrequentieStandaard.html">FrequentieStandaard.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

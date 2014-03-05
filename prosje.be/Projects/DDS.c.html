@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>DDS.c</title>
+		<meta name="generator" content="c2html 1.1.0" >
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" >
+		<meta http-equiv="Content-Script-Type" content="text/javascript" >
+		<meta http-equiv="Content-Style-Type" content="text/css" >
+	</head>
+	<body text="#000000">
+		<font face="Monospace">
+<br>
+<font color="#800080"><i>//&nbsp;DDS.c<br></i></font>
+<font color="#800080"><i>//&nbsp;DDS-routines<br></i></font>
+<font color="#800080"><i>//&nbsp;Pros&nbsp;2008<br></i></font>
+<br>
+<br>
+<font color="#008000">#define&nbsp;FSEL0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x6000<br></font>
+<font color="#008000">#define&nbsp;FSEL1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x6800<br></font>
+<font color="#008000">#define&nbsp;DDS_STOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0xF800<br></font>
+<font color="#008000">#define&nbsp;DDS_START&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0xC000<br></font>
+<font color="#008000">#define&nbsp;SET_SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0xB000<br></font>
+<font color="#008000">#define&nbsp;FREG0_L_LSB&nbsp;&nbsp;&nbsp;0x3000<br></font>
+<font color="#008000">#define&nbsp;FREG0_L_MSB&nbsp;&nbsp;&nbsp;0x2100<br></font>
+<font color="#008000">#define&nbsp;FREG0_H_LSB&nbsp;&nbsp;&nbsp;0x3200<br></font>
+<font color="#008000">#define&nbsp;FREG0_H_MSB&nbsp;&nbsp;&nbsp;0x2300<br></font>
+<font color="#008000">#define&nbsp;FREG1_MASK&nbsp;&nbsp;&nbsp;&nbsp;0x0400<br></font>
+<font color="#008000">#define&nbsp;PHASE0_L_LSB&nbsp;&nbsp;&nbsp;0x1800<br></font>
+<font color="#008000">#define&nbsp;PHASE0_L_MSB&nbsp;&nbsp;&nbsp;0x0900<br></font>
+<font color="#008000">#define&nbsp;PHASE0_H_LSB&nbsp;&nbsp;&nbsp;0x1A00<br></font>
+<font color="#008000">#define&nbsp;PHASE0_H_MSB&nbsp;&nbsp;&nbsp;0x0B00<br></font>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">data</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">cnt</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">DDS_C_PORT</font>,&nbsp;<font color="#000000">DDS_CLK</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;CLK&nbsp;hoog<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">DDS_E_PORT</font>,&nbsp;<font color="#000000">DDS_EN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;FSYNC&nbsp;laag<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay</font>(<font color="#0000FF">5</font>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">16</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">data</font>&nbsp;&amp;&nbsp;<font color="#008080">0x8000</font>)&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">DDS_D_PORT</font>,&nbsp;<font color="#000000">DDS_D</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">DDS_D_PORT</font>,&nbsp;<font color="#000000">DDS_D</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay</font>(<font color="#0000FF">5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">DDS_C_PORT</font>,&nbsp;<font color="#000000">DDS_CLK</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;CLK&nbsp;laag<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;=&nbsp;<font color="#000000">data</font>&nbsp;&lt;&lt;&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay</font>(<font color="#0000FF">5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">DDS_C_PORT</font>,&nbsp;<font color="#000000">DDS_CLK</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;CLK&nbsp;hoog<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">DDS_E_PORT</font>,&nbsp;<font color="#000000">DDS_EN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;FSYNC&nbsp;hoog<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay</font>(<font color="#0000FF">5</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Stel&nbsp;een&nbsp;nieuwe&nbsp;dds_frequentie&nbsp;in.<br></i></font>
+<font color="#800080"><i>//&nbsp;Om&nbsp;zonder&nbsp;haperen&nbsp;over&nbsp;te&nbsp;gaan&nbsp;van&nbsp;de&nbsp;ene&nbsp;naar&nbsp;de&nbsp;andere&nbsp;frequentie,<br></i></font>
+<font color="#800080"><i>//&nbsp;plaatsen&nbsp;we&nbsp;de&nbsp;nieuwe&nbsp;gegevens&nbsp;in&nbsp;het&nbsp;frequentie-register&nbsp;dat&nbsp;momenteel<br></i></font>
+<font color="#800080"><i>//&nbsp;niet&nbsp;in&nbsp;gebruik&nbsp;is,&nbsp;waarna&nbsp;we&nbsp;switchen<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">FREQ_WORD_WRITE</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">freq_word</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">BYTE</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">FSEL</font>&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">FSEL</font>&nbsp;=&nbsp;<font color="#000000">FREG1_MASK</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">FSEL</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">BYTE</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>)&nbsp;(<font color="#000000">freq_word</font>&nbsp;&amp;&nbsp;<font color="#008080">0x000000FF</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#000000">FREG0_L_LSB</font>&nbsp;|&nbsp;<font color="#000000">FSEL</font>&nbsp;|&nbsp;<font color="#000000">BYTE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;FREG-L-LSB&nbsp;in&nbsp;defer-register<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">BYTE</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>)&nbsp;((<font color="#000000">freq_word</font>&nbsp;&gt;&gt;&nbsp;<font color="#0000FF">8</font>)&nbsp;&amp;&nbsp;<font color="#008080">0x000000FF</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#000000">FREG0_L_MSB</font>&nbsp;|&nbsp;<font color="#000000">FSEL</font>&nbsp;|&nbsp;<font color="#000000">BYTE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;FREG-L-MSB&nbsp;+&nbsp;defer-register<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">BYTE</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>)&nbsp;((<font color="#000000">freq_word</font>&nbsp;&gt;&gt;&nbsp;<font color="#0000FF">16</font>)&nbsp;&amp;&nbsp;<font color="#008080">0x000000FF</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#000000">FREG0_H_LSB</font>&nbsp;|&nbsp;<font color="#000000">FSEL</font>&nbsp;|&nbsp;<font color="#000000">BYTE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;FREG-H-LSB&nbsp;in&nbsp;defer-register<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">BYTE</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>)&nbsp;((<font color="#000000">freq_word</font>&nbsp;&gt;&gt;&nbsp;<font color="#0000FF">24</font>)&nbsp;&amp;&nbsp;<font color="#008080">0x000000FF</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#000000">FREG0_H_MSB</font>&nbsp;|&nbsp;<font color="#000000">FSEL</font>&nbsp;|&nbsp;<font color="#000000">BYTE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;FREG-H-MSB&nbsp;+&nbsp;defer-register<br></i></font>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">FSEL</font>&nbsp;==&nbsp;<font color="#000000">FREG1_MASK</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#000000">FSEL1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#000000">FSEL0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Schrijf&nbsp;naar&nbsp;een&nbsp;PHASE-register<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">PHASE_WORD_WRITE</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">freq_word</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">BYTE</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">BYTE</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>)&nbsp;(<font color="#000000">freq_word</font>&nbsp;&amp;&nbsp;<font color="#008080">0x000000FF</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#000000">PHASE0_L_LSB</font>&nbsp;|&nbsp;<font color="#000000">BYTE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PHASE-L-LSB&nbsp;in&nbsp;defer-register<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">BYTE</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>)&nbsp;((<font color="#000000">freq_word</font>&nbsp;&gt;&gt;&nbsp;<font color="#0000FF">8</font>)&nbsp;&amp;&nbsp;<font color="#008080">0x000000FF</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#000000">PHASE0_L_MSB</font>&nbsp;|&nbsp;<font color="#000000">BYTE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PHASE-L-MSB&nbsp;+&nbsp;defer-register<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">BYTE</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>)&nbsp;((<font color="#000000">freq_word</font>&nbsp;&gt;&gt;&nbsp;<font color="#0000FF">16</font>)&nbsp;&amp;&nbsp;<font color="#008080">0x000000FF</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#000000">PHASE0_H_LSB</font>&nbsp;|&nbsp;<font color="#000000">BYTE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PHASE-H-LSB&nbsp;in&nbsp;defer-register<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">BYTE</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Er&nbsp;zijn&nbsp;maar&nbsp;12&nbsp;bits<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_WRITE</font>(<font color="#000000">PHASE0_H_MSB</font>&nbsp;|&nbsp;<font color="#000000">BYTE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PHASE-H-MSB&nbsp;+&nbsp;defer-register<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;De&nbsp;gewenste&nbsp;frequentie&nbsp;wordt&nbsp;opgegeven&nbsp;in&nbsp;(Hz&nbsp;*100),&nbsp;en&nbsp;wordt&nbsp;eerst<br></i></font>
+<font color="#800080"><i>//&nbsp;met&nbsp;2&nbsp;vermenigvuldigd,&nbsp;omdat&nbsp;de&nbsp;DDS&nbsp;gevolgd&nbsp;wordt&nbsp;door&nbsp;een&nbsp;tweedeler.<br></i></font>
+<font color="#800080"><i>//&nbsp;DDS_word&nbsp;=&nbsp;((DDS_frequency&nbsp;/&nbsp;MCLK)&nbsp;*&nbsp;PH_MAX&nbsp;+&nbsp;0.5);<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">set_DDS</font>(<font color="#800000">double</font>&nbsp;<font color="#000000">freq</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">freq</font>&nbsp;*=&nbsp;<font color="#800080">171.79869184</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;DDS_word&nbsp;=&nbsp;dds_frequentie&nbsp;*&nbsp;(((2^32&nbsp;/&nbsp;50000000)&nbsp;/&nbsp;100)&nbsp;*&nbsp;2)<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">freq</font>&nbsp;+=&nbsp;<font color="#800080">0.5</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDS_word</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>)&nbsp;<font color="#000000">freq</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">FREQ_WORD_WRITE</font>(<font color="#000000">DDS_word</font>);<br>
+}<br>
+		</font>
+	</body>
+</html>

@@ -1,0 +1,763 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Gullinbursti II.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, pulsgenerator, Gullinbursti, everzwijn, VCO, DDS, Amiga, Turbokeu, AD9835, 74HC74, Madwizard, Grotendikken, Doolittle, GAL16V8, schuifregister, 74HC595, ATtiny2313, ICR1">
+<META NAME="description" CONTENT="GB">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="4040-timer.html">Lange tijden timer.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Oscillatoren.html">Oscillatoren.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Sturingen.html">Sturingen.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="GB"></A>
+<BR>Gullinbursti II.</H2>
+<UL>
+<LI><A HREF="#GBV">Voorstelling.</A>
+<LI><A HREF="#GBS">De schema's.</A>
+<UL><LI><A HREF="#GBBS">Het blokschema.</A>
+<LI><A HREF="#GBDS">Een meer gedetailleerd schema.</A>
+<LI><A HREF="#GBDDS">De DDS en omringende componenten.</A>
+<LI><A HREF="#GBVU">De uitgangstrap.</A>
+<LI><A HREF="#GBVD">Het voedingsgedeelte.</A>
+</UL>
+<LI><A HREF="#GBFW">De firmware.</A>
+<UL><LI><A HREF="#GBMWC">Madwizard.</A>
+<LI><A HREF="#GBGDC">Grotendikken</A>
+<LI><A HREF="#GBDLC">Doolittle.</A>
+</UL>
+<LI><A HREF="#GBBD">De bediening.</A>
+<UL><LI><A HREF="#GBTB">Met het toetsenbord.</A>
+<LI><A HREF="#GBTBRS">Via een RS232-verbinding.</A>
+</UL>
+<LI><A HREF="#GBHW">De hardware.</A>
+<UL><LI><A HREF="#GBPL">De print-layout.</A>
+<LI><A HREF="#GBCL">De componentenlijst.</A>
+<LI><A HREF="#GBP">De originele print.</A>
+<LI><A HREF="#GBT">Het toetsenbord.</A>
+</UL>
+</UL><HR>
+<P>
+<H3>Voorstelling.</H3>
+<A NAME="GBV"></A><P>Even voorstellen: een <A NAME="pulsgenerato1556">pulsgenerator</A>,
+<A NAME="Gullinbursti1421">Gullinbursti</A><A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A>
+genaamd &#8213; omdat een serie naaldpulsen op de scoop enige
+gelijkenis vertonen met
+de borstelharen van een <A NAME="everzwijn1133">everzwijn</A>:<P><IMG ALIGN="MIDDLE" SRC="GullinburstiMedium.jpg"
+ ALT="GullinburstiMedium.jpg">
+<P>De originele versie was voorzien van een 74LS624, die als
+spanningsgestuurde klokgenerator (<A NAME="VCO369">VCO</A>) fungeerde. Dat
+werkte redelijk goed, maar het instellen van de gewenste
+frequentie was nogal omslachtig en tijdrovend.<BR>
+Grotendikken, de microcontroller die verantwoordelijk was voor
+de besturing, moest telkens een gelijkspanning genereren met
+behulp van een PWM-uitgang en een laagdoorlaatfilter. Met deze
+gelijkspanning werd de frequentie van de 74LS624 ingesteld.<BR>
+Nadeel hierbij was, dat het lineair verband tussen beiden te
+wensen overliet, zodat Grotendikken telkens de frequentie moest
+meten, zijn PWM aanpassen, opnieuw meten, enz. tot het beoogde
+resultaat bekomen werd.<P>Hierom, en ook omdat het gedrag van de 74LS624 nogal
+temperatuur-afhankelijk was, werd besloten over te stappen op
+een <A NAME="DDS356">DDS</A>.<P>
+
+<H3>De schema's.</H3>
+<A NAME="GBS"></A><P>
+<H4>Het blokschema.</H4>
+<A NAME="GBBS"></A><P>Om de opzet te verduidelijken, een vereenvoudigd blokschema. De
+belangrijkste onderdelen hebben een naam gekregen, naar aloude
+<A NAME="Amiga616">Amiga</A>-gewoonte.<P><IMG ALIGN="MIDDLE" SRC="BlokSchema.png"
+ ALT="BlokSchema.png">
+<P><BR CLEAR="ALL"><P><A NAME="Turbokeu986">Turbokeu</A>, de DDS, een <A NAME="AD9835487">AD9835</A>, produceert een sinus
+met een nauwkeurig-instelbare frequentie. Die sinus gaat via een
+laagdoorlaatfilter naar een versterkertrapje. Vandaar gaat het
+naar een <A NAME="74HC74490">74HC74</A>. Deze fungeert als tweedeler, en levert een
+uitgangsfrequentie met een puls/pauze-verhouding
+van precies 50&#37;.<BR>
+Dat laatste is nodig, omdat we hiermee <A NAME="Madwizard1068">Madwizard</A> van een
+externe klok voorzien.<P>Een van Madwizard's PWM-uitgangen levert een symmetrische
+blokspanning, van een tweede PWM-uitgang is de duty-cycle
+instelbaar. De frequentie van beide uitgangen is gelijk, en kan
+varieren van 2MHz tot 0.001Hz. Naar buiten toe zijn beide
+uitgangen beschikbaar als TTL-signaal (5V) en tevens als een
+variabele spanning, instelbaar met (oh, schande!) een
+potmeter.<BR>
+De bovengrens wordt bepaald door de DDS en zijn
+ingangsfrequentie. Die laatste bedraagt 50MHz, waardoor de DDS
+nog een bruikbare uitgangsfrequentie van 20MHz kan produceren.
+Doordat deze uitgangsfrequentie door de 74HC74 wordt gehalveerd,
+komen we op 10MHz terecht.<BR>
+Dat betekent nog niet, dat Madwizard een frequentie van 10MHz op
+zijn PWM-uitgangen kan zetten! Om te beginnen kan die nooit
+hoger zijn dan de helft van zijn systeem-klok; 5MHz, dus. Maar
+bij die PWM-frequentie is er van &#8220;echte&#8221; PWM uiteraard geen
+sprake; de puls/pauze-verhouding kan enkel 50/50 zijn.<BR>
+Om die reden maken we een boogje rond Madwizard bij frequenties
+van 2MHz of meer.<P><A NAME="Grotendikken1390">Grotendikken</A> regelt het verkeer op de print. Hij
+communiceert via een RS232-lijn met de PC, leest het toetsenbord
+uit, stelt de DDS in, geeft instellingen door aan Madwizard,
+vertelt <A NAME="Doolittle1081">Doolittle</A> &#8213;een <A NAME="GAL16V8594">GAL16V8</A>&#8213; welk van zijn ingangen
+die naar de uitgangen moet doorspelen, en toont daarnaast
+verschillende gegevens op een LCD.<P>Omdat Madwizard's klok varieert, is er gekozen voor een ietwat
+afwijkende vorm van communicatie: Madwizard gedraagt zich &#8213;wat
+dat betreft&#8213; als een <A NAME="schuifregist1648">schuifregister</A> (de <A NAME="74HC595546">74HC595</A>
+bijvoorbeeld): databit klaarzetten, INT0 activeren, volgend
+databit klaarzetten, enz... Als alle bits ingeklokt zijn, wordt
+INT1 even laag gemaakt, zodat Madwizard weet dat alle bits
+ingelezen zijn.<P><BR CLEAR="ALL"><P>
+<H4>Een meer gedetailleerd schema.</H4>
+<A NAME="GBDS"></A><P><IMG ALIGN="LEFT" SRC="GullinburstiSchemaDDS.png"
+ ALT="GullinburstiSchemaDDS.png">
+<P><BR CLEAR="ALL"><P>Waarom 2 AVR's en een DDS, hoor ik U vragen.<P>Wel, de <A NAME="ATtiny2313939">ATtiny2313</A> beschikt over verschillende PWM-kanalen,
+waarvan zowel de frequentie als de puls/pauze-verhouding
+instelbaar is. Dat zou al volstaan, om een instelbare
+uitgangsfrequentie met een variabele pulsbreedte te bekomen.<BR>
+Maar, de mate waarin deze frequentie kan gewijzigd worden is
+nogal beperkt - ze wordt bepaald door de systeem-klok van de AVR
+te delen door een geheel getal: 2, 3, 4, 5, enz...<BR>
+Daaruit volgt, dat met een systeem-klok van 20MHz wel een
+PWM-frequentie van 1MHz of 500kHz kan bekomen worden, maar een
+frequentie als bv. 123456.7Hz is uitgesloten.<BR>
+Als we nu de de systeem-klok van Madwizard regelbaar maken, en
+we laten die zakken tot 6172835Hz, dan kan deze AVR die
+eenvoudig door 50 delen om de gewenste 123456.7Hz te bekomen.<P>Het produceren van die systeemklok is de taak van Turbokeu (de
+DDS). Diens uitgangsfrequentie kunnen we &#8213;in heel kleine
+stapjes&#8213; vari&#235;ren tussen 10MHz en 20MHz, zodat Madwizard
+&#8213;na deling door twee&#8213; aangedreven kan worden met een
+systeem-klok tussen 5MHz en 10MHz.<BR><P>Tijdens het wisselen van de DDS-klok zal Grotendikken de
+reset-pin van Madwizard even laag maken, zodat die niet in de
+war geraakt. Daarnaast krijgt ook Doolittle het bevel zich even
+stil te houden. Zo wordt vermeden dat er willekeurige pulsen op
+de uitgang komen te staan.<P>Naast de frequentie van zijn PWM-kanalen kan de Madwizard ook
+de puls-pauze-verhouding wijzigen. Hier doet zich dezelfde
+beperking voor als bij het instellen van de frequentie: bij hoge
+frequenties is het instelbereik beperkt. Immers, als de CLK door
+4 gedeeld wordt zijn er slechts 3 mogelijkheden: 1/3, 2/2 en
+3/1. <P>
+<H4>De DDS en omringende componenten.</H4>
+<A NAME="GBDDS"></A><P><IMG ALIGN="LEFT" SRC="DDS.png"
+ ALT="DDS.png">
+<P><BR CLEAR="ALL"><P>De uitgangsfrequentie van Turbokeu kan ingesteld worden met een
+32-bits getal. Bij het berekenen daarvan gaan we uit van een
+default-systeemfrequentie van 8333kHz. Dit is de
+uitgangsfrequentie van de 74HC74; de uitgangsfrequentie van
+Turbokeu is dus het dubbele, zijnde 16666kHz. Dat komt neer op
+50MHz/3.  Die delen we door de gewenste uitgangs-frequentie. Het
+resultaat van die deling komt in het <A NAME="ICR1408">ICR1</A>-register van
+Madwizard te staan. Dit fungeert als topwaarde voor de 16-bits
+counter - het getal, waardoor Madwizard zijn systeem-klok
+deelt.<BR>
+De volgende stap bestaat er in, de ICR1-waarde &#8213;een integer,
+dus&#8213; terug te vermenigvuldigen met de gewenste
+uitgangsfrequentie. Dat levert de helft van de gewenste
+DDS-frequentie op. Het getal dat we naar de DDS moeten
+schrijven, valt z&#243; te berekenen:<BR>
+<TT>DDS-WORD = DDS-frequentie * (((2^32 / 50000000) / 100) * 2<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A>)</TT><BR> In de praktijk vermenigvuldigen we de
+gewenste DDS-frequentie met 171.79869184, tellen daar
+0.5<A NAME="pros3" HREF="#ft3"><SUP>3</SUP></A>
+bij, en zetten we het om naar een 32-bits integer.<P>Alle berekeningen worden door Grotendikken als floating-point
+uitgevoerd. Met tussendoor omzettingen naar een integer,
+waar dat nodig is. Als we die 123456.5Hz uit het voorbeeld hierboven
+willen bekomen, ziet de bewerking er zo uit:<P><TT>6250000.00 / 123456.7 = 50.62503695627697808<BR> ICR1 = 50<BR> 50 * 123456.7 = 6172835<BR> 6172835 * 171.79869184 = 1060484977.9441664<BR> 1060484977.9441664 + 0.5 = 1060484978.4441664<BR> DDS-WORD = 1060484978</TT><P>Nog een woordje over <B>P1</B>: hoewel de ingang van een
+74HCxx-IC ongeveer rond de halve voedingsspanning schakelt, is
+toch een mogelijkheid voorzien om afwijkingen bij te regelen
+door middel van P1. Hiermee wordt het ook mogelijk, een 74HCT74
+als tweedeler te gebruiken.<P>
+<H4>De uitgangstrap.</H4>
+<A NAME="GBVU"></A><P><IMG ALIGN="LEFT" SRC="UitgangsTrap.png"
+ ALT="UitgangsTrap.png">
+<P><BR CLEAR="ALL"><P>Er zijn 4 uitgangen beschikbaar:<BR>
+Een uitgang met variabele amplitude en puls/pauze-verhouding van
+50&#37;.<BR>
+Een TTL- uitgang met een puls/pauze-verhouding van
+50&#37;.<BR>
+Een uitgang met variabele amplitude en instelbare
+puls/pauze-verhouding.<BR>
+Een TTL- uitgang met instelbare puls/pauze-verhouding.<P>
+<H4>Het voedingsgedeelte.</H4>
+<A NAME="GBVD"></A><P>Op de print is geen plaats voorzien voor de voedingstrafo's,
+gelijkrichters en buffer-elco's. Daarvoor ontbreekt de plaats,
+maar daarnaast is er zo'n verscheidenheid in de pin-layout van
+verschillende (merken) printtrafo's, dat het helemaal geen zin
+heeft er een algemeen-bruikbare print-layout voor te ontwerpen.<P><IMG ALIGN="MIDDLE" SRC="GBVoeding.png"
+ ALT="GBVoeding.png">
+<P><BR CLEAR="ALL"><P>Tr1 levert stroom voor de logica en voor de negatieve
+hulpspanning van de uitgangstrap. Hier kunnen desgewenst twee
+afzonderlijke trafo's ingezet worden.<BR>
+Tr2 levert stroom voor de variabele spanning van de
+uitgangstrap. IC53 moet flink gekoeld worden, maar ook de andere
+spanningsregelaars kunnen een beetje koeling gebruiken. Daartoe
+kan een aluminium plaatje van 5cm hoog en 1mm dik geplooid
+worden, zoals op de print-layout te zien is. De drie regelaars
+moeten wel ge&#239;soleerd op dit koelplaatje bevestigd worden.<BR>
+Zorg er ook voor, dat het koelplaatje geen kortsluiting
+veroorzaakt tussen GND en de uitgang van de 7805 (IC51). Die
+uitgang loopt immers onder het koelplaatje door.<P>D55, D56 en D61 zijn toegevoegd om de schade te beperken als de
+voeding fout op de print wordt aangesloten. Wie gezegend is met
+een overschot aan zelfvertrouwen kan ze weglaten...<P>C55, C56 en C58 zijn locale buffer-elco's. Als de afstand tussen
+trafo/gelijkrichter/buffer-elco en hoofdprint relatief groot is
+(> 10cm) kunnen ze best een maatje groter genomen worden. De
+spanningsregelaars zullen dat in dank afnemen.<P>
+
+<H3>De firmware.</H3>
+<A NAME="GBFW"></A><P>De broncode voor de firmware is verdeeld over veschillende
+bestanden.<P>
+<H4>Madwizard.</H4>
+<A NAME="GBMWC"></A><P><A NAME="pros4"  HREF="Madwizard.c.html">Madwizard.c</A>
+<P>Voor Madwizard is een
+<A NAME="pros5"  HREF="Madwizard.hex">hex-bestand</A>
+
+beschikbaar.<P>
+<H4>Grotendikken</H4>
+<A NAME="GBGDC"></A><P><A NAME="pros6"  HREF="Main.h.html">Main.h</A>
+<BR>
+<A NAME="pros7"  HREF="Main.c.html">Main.c</A>
+<BR>
+<A NAME="pros8"  HREF="DDS.c.html">DDS.c</A>
+<BR>
+<A NAME="pros9"  HREF="LCD.c.html">LCD.c</A>
+<BR>
+<A NAME="pros10"  HREF="SHIFT.c.html">SHIFT.c</A>
+<BR>
+<A NAME="pros11"  HREF="Routines.c.html">Routines.c</A>
+<BR>
+<A NAME="pros12"  HREF="UART.c.html">UART.c</A>
+<BR>
+<A NAME="pros13"  HREF="Version.c.html">Version.c</A>
+<P>Ook voor Grotendikken is een
+<A NAME="pros14"  HREF="Main.hex">hex-bestand</A>
+ beschikbaar.<P>
+<H4>Doolittle.</H4>
+<A NAME="GBDLC"></A><P><A NAME="pros15"  HREF="PG.BOOL.m4.html">De GAL16V8-broncode</A>
+<P>
+<H3>De bediening.</H3>
+<A NAME="GBBD"></A><P>
+<H4>Met het toetsenbord.</H4>
+<A NAME="GBTB"></A><P>Waartoe de cijfertoetsen dienen, zal wel duidelijk zijn. Daarmee
+kan de gebruiker een bepaalde waarde intikken. Dat kan de
+frequentie zijn, maar ook de pulsbreedte (in percent) of een
+waarde voor een andere functie.<BR>
+Ook de &#8629; toets behoeft geen uitleg.<BR>
+Met de mode-toets worden verschillende modes doorlopen:<P><I>Frequentie-mode.</I><A NAME="GBTBF"></A><P>Hiermee kan de uitgangsfrequentie ingesteld worden tot op
+0.001Hz nauwkeurig voor de lagere frequenties.<BR>
+Bij hogere frequenties wordt de resolutie kleiner, maar ze
+blijft groter dan 1Hz over het ganse bereik.<BR>
+Bij erg lage frequenties kan zich een raar verschijnsel
+voordoen: bij het opgeven van bv. 0.005Hz lijkt het alsof
+Gullinbursti niet reageert. Geen paniek, daar is een reden voor:
+de DDS-frequentie is dan gedaald tot een 300kHz, en de
+communicatie met Madwizard moet gelijke tred houden met diens
+systeem-frequentie.<P>Naast de cijfertoetsen is er ook een UP- en een DOWN-toets
+voorzien. Daarmee wordt de <I>DDS-frequentie</I> telkens met
+1Hz verhoogd of verlaagt. Of &#8213;beter gezegd&#8213; de
+uitgangsfrequentie van tweedeler <TT>IC2</TT>, hetgeen betekent
+dat de DDS stapjes van 2Hz moet nemen.<BR>
+Grotendikken berekent bij elke UP- of DOWN-actie opnieuw de
+uitgangsfrequentie, en toont deze op het scherm. Dat betekent
+geenszins, dat de gebruiker daar iets van merkt! Bij lagere
+uitgangsfrequenties is de verandering immers kleiner dan
+0.001Hz. Het komt er dan op aan, de UP- of DOWN-toets ingedrukt
+te houden. Het aanpassen van de frequentie gaat dan sneller en
+sneller.<P><I>Pulsbreedte-mode.</I><A NAME="GBTBP"></A><P>De pulsbreedte wordt voorgesteld als de verhouding tussen een
+puls en een pause; in percent, dus. Dat kan 1&#37; zijn,
+maar ook 0.01&#37; of 99.9&#37;.<BR>
+De hoogst-haalbare resolutie hangt af van de uitgangsfrequentie.
+Bij frequenties, lager dan 80kHz, bedraagt de resolutie 1/100 of
+meer. Bij hogere frequenties daalt de resolutie - bij
+frequenties boven 2MHz valt de pulsbreedte niet meer in te
+stellen.<P>Uiteraard kan men bij hogere frequenties nog steeds
+0.01&#37; opgeven; Gullinbursti doet zijn best om dat
+zoveel mogelijk te benaderen.<P><I>Sweep-mode.</I><A NAME="GBSM"></A><P>Zolang we de mode-toets kortstondig indrukken, wisselt de mode
+tussen &#8220;Frequentie&#8221; en &#8220;Pulsbreedte&#8221;. Dat zijn immers de
+meest-gebruikte modes.<BR>
+Pas als we in Pulsbreedte-mode zijn, <B>&#233;n</B> we houden de
+mode-toets langer dan 1.5 seconden ingedrukt, komen we in de
+sweep-mode terecht.<P>Deze mode laat toe, Gullinbursti doorheen een bepaald
+frequentiegebied te laten sweepen.<BR>
+Het werkt, maar verkeert nog in een experimenteel stadium.<P>
+<H4>Via een RS232-verbinding.</H4>
+<A NAME="GBTBRS"></A><P>Het is mogelijk, met Gullinbursti te communiceren over een
+RS232-lijn aan 38400bd (8N1). Dat levert meer mogelijkheden op
+dan het toetsenbord.<BR>
+Naast de gebruikelijke zaken (frequentie, puls/pauze-verhouding,
+enz.) kunnen ook verschillende registers rechtstreeks ingesteld
+worden:
+
+<BLOCKQUOTE><BR>
+Het DDS-woord<BR>
+ICR1 van Madwizard (Madwizard_maxcount)<BR>
+OCR1B van Madwizard (Madwizard_ocr1b)<BR>
+De prescaler van Madwizard (Madwizard_prescaler)<BR>
+<BR>
+</BLOCKQUOTE>
+<P>
+Daarnaast kan men ook de DDS-frequentie rechtstreeks opgeven.
+Hierbij, en bij het instellen van het DDS-woord, is het oppassen
+geblazen! Wijzigt met de bestaande instellingen te sterk, dan
+bestaat de mogelijkheid dat Madwizard zich verslikt. Het is
+immers diens systeemklok die dan grote sprongen maakt!<P>Wie alle commando's wil kennen, drukt op [ENTER]. Gullinbursti
+zal ze dan tonen.<BR>
+De regel is, dat een letter, gevolgd door een gelijk-teken
+(&#8220;f=&#8221; bv.) een vraag naar de huidige instelling is, terwijl
+men deze instelling wijzigd door er een getal bij te voegen, bv.
+&#8220;f=1234.56&#8221;.<P><P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+<H3>De hardware.</H3>
+<A NAME="GBHW"></A><P>
+<H4>De print-layout.</H4>
+<A NAME="GBPL"></A><P><I>De komponent-zijde.</I><A NAME="GBPLK"></A><P><IMG ALIGN="MIDDLE" SRC="GullinburstiDDSF.png"
+ ALT="GullinburstiDDSF.png">
+<P><BR CLEAR="ALL"><P><A NAME="pros16"  HREF="GB-layout_front.pdf">In pdf-formaat</A>
+<P><BR CLEAR="ALL"><P><I>Het DDS-gedeelte in detail</I><A NAME="GBPLKD"></A><P><IMG ALIGN="MIDDLE" SRC="DDSF.png"
+ ALT="DDSF.png">
+<P><BR CLEAR="ALL">
+Het moeilijkste soldeerwerk wordt gevormd door de DDS zelf.
+Daarbij kan deze vergroting wellicht hulp bieden.<P><IMG ALIGN="MIDDLE" SRC="AD9835.jpg"
+ ALT="AD9835.jpg">
+<P><BR CLEAR="ALL"><P>Een loep kan ook handig zijn voor zo'n klein ding!<P>Rondom de DDS zijn enkele soldeereilandjes te zien, waarvan het
+doel niet meteen duidelijk is. Daar ligt de volgende
+gedachtengang achter:<BR>
+Als een IC stuk gaat, haal je die gewoon uit zijn voetje, en je
+vervangt hem. Als echter de DDS stuk gaat, zit je met een
+probleem. Wie over een SMD-reworkstation beschikt, zal met het
+verwijderen wellicht niet al te veel moeite hebben. Maar wie
+enkel over een soldeerbout en een tinzuiger beschikt, loopt kans
+dat er bij het verwijderen van de DDS enkele van die miniscule
+printspoortjes sneuvelen.<BR>
+Dat is vervelend, maar een ramp is het niet. Er kan immers een
+nieuw printje gemaakt worden, dat er uitziet als de vergroting
+hierboven. En nu wordt het doel van die eilandjes meteen
+duidelijk: ze laten toe, dat het nieuwe printje op eenvoudige
+wijze met de hoofdprint verbonden kan worden.<P>Deze aanpak maakt het ook mogelijk, een opsteekprintje te maken
+voor een ander type DDS. De signaal- en de voedings-eilandjes
+(Vcc, GND, GND, IN, UIT, FSYNC, SDATA en SCLK)
+zijn aangeduid op het silk-screen.<P><BR CLEAR="ALL"><P><I>De soldeer-zijde.</I><A NAME="GBPLS"></A><P><IMG ALIGN="MIDDLE" SRC="GullinburstiDDSB.png"
+ ALT="GullinburstiDDSB.png">
+<P><BR CLEAR="ALL"><P><A NAME="pros17"  HREF="GB-layout_back.pdf">In pdf-formaat</A>
+<P><BR CLEAR="ALL"><P><I>Het silk-screen.</I><P><IMG ALIGN="MIDDLE" SRC="GullinburstiDDS_silk.png"
+ ALT="GullinburstiDDS_silk.png">
+<P>Hier hoort een woordje uitleg bij: C8 en C9 worden onder het
+IC-voetje van IC6 geplaatst om ruimte te besparen. Men kan
+uiteraard ook twee SMD-condensatortjes aan de soldeerzijde
+plaatsen.<P><BR CLEAR="ALL"><P><A NAME="pros18"  HREF="GB-layout_silk.pdf">In pdf-formaat</A>
+<P><BR CLEAR="ALL"><P>
+<H4>De componentenlijst.</H4>
+<A NAME="GBCL"></A><P><table width="99%" border="0" cellpadding="0">
+<TR>
+<td width="1%"></td>
+<td width="41%" valign="top">
+<I>Halfgeleiders.</I><BR>
+<TABLE CELLPADDING=4 BORDER="1">
+
+<TR>
+<TD ALIGN="LEFT">IC1&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;AD9835</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">IC2&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;74HC74</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">IC3&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;ATtiny2313</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">IC4&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;74HC14</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">IC5&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;GAL16V8</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">IC6&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;ATmega32</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">IC7&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;MAX232</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">IC8&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;50MHz-oscillator</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">IC51&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;7805</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">IC52&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;7905</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">IC53&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;LM317</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">T1&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;BC547</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">T2&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;BC557</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">T3&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;BF494</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">T41,&nbsp;T44&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;BS170</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">T42,&nbsp;T45&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;2N2219A</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">T43,&nbsp;T46&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;2N2905A</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">D1&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;BAT85</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">D41,&nbsp;D42&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;1N4148</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">D51&nbsp;...&nbsp;D61&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;1N4007</TD>
+</TR>
+
+</TABLE>
+
+<BR CLEAR="ALL">
+<I>Allerlei onderdelen.</I>
+<TABLE CELLPADDING=4 BORDER="1">
+
+<TR>
+<TD ALIGN="LEFT">LCD-module&nbsp;4&nbsp;regels&nbsp;x&nbsp;20&nbsp;karakters</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">Trafo&nbsp;2&nbsp;x&nbsp;9V,&nbsp;4VA&nbsp;(Tr1)</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">Trafo&nbsp;1&nbsp;x&nbsp;24V,&nbsp;10VA&nbsp;(Tr2)</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">Een&nbsp;netschakelaar</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">Een&nbsp;Euro-chassisdeel&nbsp;(male)&nbsp;+&nbsp;zekering</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">Koelvinnetjes&nbsp;voor&nbsp;T42&nbsp;en&nbsp;T45&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">4&nbsp;BNC-connectors,&nbsp;female&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">9-polige&nbsp;female&nbsp;sub-D&nbsp;connector&nbsp;voor&nbsp;RS232</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">16&nbsp;(miniatuur)&nbsp;druktoetsen</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">10-polige&nbsp;header&nbsp;voor&nbsp;LCD-aansluiting</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">Twee&nbsp;5-polige&nbsp;headers&nbsp;voor&nbsp;ISP</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">Een&nbsp;(metalen)&nbsp;behuizing</TD>
+</TR>
+
+</TABLE>
+
+<td width="1%">&nbsp;</td>
+<td width="41%" valign="top"><a name="top"></a>
+<I>Passieve componenten.</I>
+<TABLE CELLPADDING=4 BORDER="1">
+
+<TR>
+<TD ALIGN="LEFT">R1,&nbsp;R2,&nbsp;R11,&nbsp;R12,&nbsp;R13&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;10k</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R3,&nbsp;R4,&nbsp;R5,&nbsp;R8,&nbsp;R9,&nbsp;R10&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;470R</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R6,&nbsp;R7,&nbsp;R25,&nbsp;R50&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;220R</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R21&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;SMD-weerstand&nbsp;3k9</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R22&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;330R</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R23&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;47k</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R24&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;1k</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R26&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;220k</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R27&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;3k9</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R41,&nbsp;R46,&nbsp;R43,&nbsp;R48&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;220R&nbsp;1W</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R42,&nbsp;R47&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;2k2</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">R44,&nbsp;R45,&nbsp;R49,&nbsp;R50&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;weerstand&nbsp;100R&nbsp;1W</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">P1&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;instel-potmeter&nbsp;25k</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">P2&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;instel-potmeter&nbsp;100k</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">P50&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;potmeter&nbsp;5k</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C1,&nbsp;C2,&nbsp;C28,&nbsp;C34&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;condensator&nbsp;100nF</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C3&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;elco&nbsp;10&#956;F&nbsp;16V</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C4,&nbsp;C5,&nbsp;C6,&nbsp;C7&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;elco&nbsp;1&#956;F&nbsp;16V</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C8,&nbsp;C9&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;condensator&nbsp;15pF</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C10&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;condensator&nbsp;470nF</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C21&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;SMD-condensator&nbsp;10nF</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C22,&nbsp;C25,&nbsp;C26&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;SMD-condensator&nbsp;100nF</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C23,&nbsp;C24,&nbsp;C27,&nbsp;C52,&nbsp;C52&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;tantaal-elco&nbsp;10&#956;F&nbsp;16V</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C29,&nbsp;C30,&nbsp;C31,&nbsp;C32&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;condensator&nbsp;100pF</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C33&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;condensator&nbsp;220nF</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C51&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;elco&nbsp;2200&#956;F&nbsp;16V</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C51&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;elco&nbsp;1000&#956;F&nbsp;16V</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C55,&nbsp;C56&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;elco&nbsp;220&#956;F&nbsp;16V</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C57&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;elco&nbsp;1000&#956;F&nbsp;40V</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C58&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;elco&nbsp;220&#956;F&nbsp;40V</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">C59,&nbsp;C60&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;elco&nbsp;10&#956;F&nbsp;40V</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">L1,&nbsp;L2&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;spoel&nbsp;22&#956;H</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">L3,&nbsp;L4,&nbsp;L5&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;spoel&nbsp;2.2&#956;H</TD>
+</TR>
+
+<TR>
+<TD ALIGN="LEFT">Xtal1&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;kristal&nbsp;16MHz</TD>
+</TR>
+
+</TABLE>
+
+
+</table>
+<P>Nabij de aansluiting voor de LCD-module is &#8220;Rx&#8221; terug te
+vinden. Deze weerstand is enkel nodig, als de LCD-module niet
+over een serieweerstand voor de achtergrond-verlichting
+beschikt.<BR>
+Als dat wel zo is, kan hier een draadbrug geplaatst worden.<P>Verder is er bij elk IC plaats voorzien voor een
+ontkoppelcondensator van 100n (3 stuks bij IC6). Die staan niet
+allenaal op het schema vermeld.<P>
+<H4>De originele print.</H4>
+<A NAME="GBP"></A><P><IMG ALIGN="MIDDLE" SRC="GullinburstiPrintMedium.jpg"
+ ALT="GullinburstiPrintMedium.jpg">
+<P>
+<H4>Het toetsenbord.</H4>
+<A NAME="GBT"></A><P>Het toetsenbord bestaat uit 16 toetsen, opgesteld in een matrix
+van 4 rijen (uitgangen) x 4 kolommen (ingangen). Het afscannen
+van het toetsenbord gebeurt op traditionele wijze: Grotendikken
+maakt &#233;&#233;n voor &#233;&#233;n de lijnen laag, en gaat vervolgens na
+of &#233;&#233;n van de kolom-ingangen daarop reageert. Is dat zo, dan
+bepaalt de combinatie van rij-nummer en kolom-nummer welke toets
+is ingedrukt.<P><IMG ALIGN="LEFT" SRC="GBToetsen.png"
+ ALT="GBToetsen.png">
+
+<IMG ALIGN="LEFT" SRC="GBToetsLayout.png"
+ ALT="GBToetsLayout.png">
+
+<IMG ALIGN="LEFT" SRC="GBTBedrading.png"
+ ALT="GBTBedrading.png">
+<P><BR CLEAR="ALL"><P>De layout hierboven is ontworpen voor miniatuur-druktoetsen.
+Merk op, dat er bij de twee middenste kolommen nog draadbruggen
+gelegd moeten worden, aangegeven met een blauwe lijn.<P><IMG ALIGN="LEFT" SRC="MiniDruktoets1.jpg"
+ ALT="MiniDruktoets1.jpg">
+
+<IMG ALIGN="LEFT" SRC="MiniDruktoets2.jpg"
+ ALT="MiniDruktoets2.jpg">
+<P>Zowel trough-hole als SMD-varianten kunnen gebruikt worden.<P>Ook een pdf-versie van <A NAME="pros19"  HREF="GBToetsLayout.pdf">de layout</A>
+ mag niet ontbreken.<P><BR CLEAR="ALL"><P><I>De opbouw.</I>
+<BR CLEAR="ALL">
+<IMG ALIGN="LEFT" SRC="FrontplaatDoorsnede.png"
+ ALT="FrontplaatDoorsnede.png">
+
+<BR CLEAR="ALL">
+Meer details over de opbouw zijn te vinden bij <A HREF="PulsTeller.html#PuTToetsen">het Pulsteller-project</A>.<P><BR CLEAR="ALL">
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...<A NAME="Gullinbursti1421">Gullinbursti</A></A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+Goudborstel, Frey's vervoermiddel</DD>
+<DT><A NAME="ft2">...2</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+Vermenigvuldigen met 2 om de tweedeling door de 74HC74 te compenseren</DD>
+<DT><A NAME="ft3">...0.5</A>
+<A HREF="#pros3"><SUP>3</SUP></A></DT>
+<DD>
+Om afrondingsfouten tot een minimum te beperken</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="4040-timer.html">Lange tijden timer.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Oscillatoren.html">Oscillatoren.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Sturingen.html">Sturingen.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

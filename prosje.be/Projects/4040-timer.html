@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Lange tijden timer.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, 4017">
+<META NAME="description" CONTENT="4040-timer">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="Oscillatoren.html">Oscillatoren.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Oscillatoren.html">Oscillatoren.</A> &nbsp;
+<B> Volgende:</B> <A HREF="GB.html">Gullinbursti II.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="4040-timer"></A>
+<BR>Lange tijden timer.</H2>
+<P>Timers bestaan er in vele maten en gewichten, maar voor korte
+tijden is het vaak de 555 die aan het werk wordt gezet.<BR>
+Wie echter een timer wil die minuten &#8213;of zelfs uren&#8213; kan
+aftellen, loopt al snel tegen een beperking aan: de
+R/C-combinatie vergt een grote weerstand en een grote
+elko, hetgeen gans de schakeling onnauwkeurig maakt.<P>Velen zullen al snel naar een microcontroller grijpen, maar
+onderstaand schema bewijst dat het ook met een stel binaire
+tellers te doen is.<P><IMG ALIGN="LEFT" SRC="4040-timer2.png"
+ ALT="4040-timer2.png">
+
+<BR CLEAR="ALL"><P>Tr1, D1 ... D4, C1 ... C3 en IC1 vormen samen een klassieke
+5Volt-voeding. Uitleg hierover lijkt me overbodig.<P>IC2 is de eerste binaire teller. Hij krijgt zijn klokpulsen
+&#8213;via R1&#8213; van de voedingstrafo - 50Hz, dus. D5 beveiligt de
+CLK-ingang tegen te hoge en tegen negatieve spanningen. Vermits
+IC1 een 12-bits teller is, zou hij van 0 naar 4095 tellen, ware
+het niet dat enkele dioden dat gedrag be&#239;nvloeden. Immers,
+zodra de tellerstand 3000<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A> bereikt is, krijgt R2 de kans om de RESET-ingang hoog te
+maken, zodat de tellerstand onmiddelijk op 0 springt.<BR>
+Bij het inschakelen van de voedingsspanning is het C4 die voor
+een resetpuls zorgt.<P>Het gevolg van dit alles is, dat Q11 elke minuut een klokpuls
+geeft aan IC3, de tweede teller.<P>Bij IC3 passen we dezelfde &#8220;truuk met de dioden&#8221; toe, met dit
+verschil dat T1 in geleiding gaat als de ingestelde tellerstand
+bereikt is, dat de LED oplicht, en dat er vervolgens niets meer
+gebeurt, omdat T1 de CLK-ingang van IC2 kortsluit.<BR>
+Enkel het indrukken van Dr1 of het uit- en terug inschakelen van
+de voedingsspanning kan daar verandering in brengen.<P>Vermits IC3 om de minuut een klokpuls krijgt, is het eenvoudig
+de gewenste tijd in te stellen: vertaal het aantal gewenste
+minuten naar een binaire voorstelling, en plaats een
+diode<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A> op
+elke uitgang die overeenkomt met een hoog bit.<BR>
+Voorbeeld:<BR>
+Gewenste tijd = 1408 minuten = 0101 1000 0000<BR>
+Dus moet er een diode aan Q10, Q8 en Q7 (zoals het schema laat
+zien).<P>Het maximum bedraagt 4095 minuten, owel 68 uur en 15 minuten.
+Wie meer wil, kan een tienteller (<A NAME="40171290">4017</A>) tussen IC2 en IC3
+plaatsen.<P>Voor een praktische toepassing kan T1 uiteraard andere zaken
+schakelen dan een LED. T1 dient daarbij aangepast te worden aan
+de stroom die hij moet schakelen.
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...3000</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+Q3, Q4, Q5, Q7, Q8, Q9 en Q11 hoog</DD>
+<DT><A NAME="ft2">...diode</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+liefst een Schottky-diode als de BAT85, zodat de basisspanning van T1 gegarandeerd lager dan 0.6V is</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="Oscillatoren.html">Oscillatoren.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Oscillatoren.html">Oscillatoren.</A> &nbsp;
+<B> Volgende:</B> <A HREF="GB.html">Gullinbursti II.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

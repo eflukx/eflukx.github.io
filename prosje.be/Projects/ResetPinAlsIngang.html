@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: RESET-pin als ingang gebruiken.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, ATtiny13, ATtiny45, Atmel, RESET, spanningsdeler">
+<META NAME="description" CONTENT="ResetPinAlsIngang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="HysteresisToevoegen.html">Hysteresis toevoegen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="AvrTips.html">AVR-tips.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Allerlei.html">Allerlei.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="ResetPinAlsIngang"></A>
+<BR>RESET-pin als ingang gebruiken.</H2>
+<UL>
+<LI><A HREF="#RPI-prob">Het probleem.</A>
+<LI><A HREF="#RPI-opl">De oplossing.</A>
+</UL><HR>
+<P>
+<H3>Het probleem.</H3>
+<A NAME="RPI-prob"></A><P>Kleine AVR's als de <A NAME="ATtiny132395">ATtiny13</A> en de <A NAME="ATtiny452400">ATtiny45</A> zijn
+handige hulpmiddelen voor allerlei klusjes. Maar het gebeurt,
+dat de vijf I/O-pinnen van deze achtpoters n&#232;t niet
+volstaan.<BR>
+Voor zulke situaties heeft <A NAME="Atmel2193">Atmel</A> de mogelijkheid voorzien
+om de RESET-pin als gewone I/O-pin te configureren. Dat heeft
+echter een nadeel: door het wegvallen van de <A NAME="RESET2081">RESET</A>-functie
+kan de AVR niet meer met de gebruikelijke
+ICP-methode<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A> geprogrammeerd
+worden. Nu is een HVSP<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A>
+programmer niet zo moeilijk zelf te bouwen, maar dan blijft het
+probleem dat de AVR telkenmale uit zijn voetje moet genomen
+worden.<P>
+<H3>De oplossing.</H3>
+<A NAME="RPI-opl"></A><P><IMG ALIGN="LEFT" SRC="RST-pinAlsIngang.png"
+ ALT="RST-pinAlsIngang.png">
+
+De RESET-pin bij deze AVR's heeft een onverwachte eigenschap: je
+kan ze als ADC-ingang gebruiken, <I>terwijl de RESET-functie behouden blijft</I>.<BR>
+Uiteraard kan je nooit lage ingangsspanningen meten, want dat
+komt de RESET in actie. Maar je kan zonder probleem spanningen
+tussen 3V en 5V meten (met Vcc als ADC-referentie, uiteraard).
+De schakeling hiernaast maakt daar handig gebruik van. Een
+ingangsspanning van 0V wordt door <A NAME="spanningsdelngang3195">spanningsdeler</A> R1/R2
+vertaald naar een spanning van 3.8V, terwijl een ingangsspanning
+van 5V resulteert in ... 5V.<BR>
+De waarde van R2 mag enigzins afwijken; zowel 22k als 47k
+leveren een bruikbaar resultaat op.<P>Het spreekt voor zich, dat het inlezen van een &#8220;digitale&#8221;
+ingang via de ADC heel wat trager verloopt dan wanneer de
+gebruikelijke gang van zaken gevolgd wordt.
+Maar als je een extra-ingangspin bekomt voor de prijs van 1
+weerstand<A NAME="pros3" HREF="#ft3"><SUP>3</SUP></A> en wat processortijd, is dat mooi
+meegenomen.<BR>
+Tussen de RESET-pin en GND kan uiteraard een condensator van
+100nF geplaatst worden. Er is dan wel enige vertraging tussen
+het veranderen van de ingang, en het ogenblik dat deze
+verandering meetbaar wordt.<P>Verder blijft ICP zonder meer mogelijk.
+Wie het eens wil proberen, kan aan de slag met deze
+<A NAME="pros4"  HREF="ResetPinAlsIngang.c.html">avr-gcc broncode</A>
+,
+die D1 laat oplichten als de RESET-ingang &#8220;hoog&#8221; is, en dooft
+D1 in het andere geval.
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...ICP-methode</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+In Circuit Programming</DD>
+<DT><A NAME="ft2">...HVSP</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+High-Voltage Serial Programming</DD>
+<DT><A NAME="ft3">...weerstand</A>
+<A HREF="#pros3"><SUP>3</SUP></A></DT>
+<DD>
+R1 is de gebruikelijke pull-up weerstand, die ik zelf steevast voorzie</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="HysteresisToevoegen.html">Hysteresis toevoegen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="AvrTips.html">AVR-tips.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Allerlei.html">Allerlei.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Autoranging DVM</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, labvoeding, DVM-module, autoranging, spanningsdeler, wisselschakelaar">
+<META NAME="description" CONTENT="ARDVM">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="CapacitiveSensor.html">Naderingssensor.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="ARDVM"></A>
+<BR>Autoranging DVM</H2>
+<UL>
+<LI><A HREF="#ARDVMS-meten">Stroom meten.</A>
+</UL><HR>
+
+<P>Wie zelf een <A NAME="labvoeding1429">labvoeding</A> bouwt, wil graag een aanduiding van
+de ingestelde spanning en de stroom die het apparaat levert. En
+dan liefst met een digitale uitlezing.<BR>
+Dat is geen probleem; Digitale VoltMeters (DVM) zijn
+tegenwoordig voor weinig geld te koop. Ze vereisen meestal een
+afzonderlijke voeding, en daarnaast een spanningsdeler die
+netjes wordt ingesteld zodat de weergegeven waarde overeenkomt
+met de werkelijke waarde. Maar het kan nog beter, door de
+<A NAME="DVMmodule1300">DVM-module</A> te voorzien van een <A NAME="autoranging1561">autoranging</A>-circuit.
+Dit voorbeeld is ontworpen voor een DVM-module die spanningen
+tot 199.9mV kan meten.<P>Vaak kan een DVM-module op z'n display slechts getallen tonen
+van 0 tot 1999. Voor spanningen tot 19.99V komt dat mooi uit: je
+kan de waarde uitlezen in stapjes van 10mV. Wil men echter een
+labvoeding die 25V of meer kan leveren,  dan dient de
+<A NAME="spanningsdel1879">spanningsdeler</A> tussen voeding en DVM-module met een factor
+10 vergroot te worden, wat de resolutie beperkt tot 100mV.<BR>
+Nu is dat niet een groot probleem bij hogere spanningen. Vaak
+maakt het weinig uit of een ingestelde spanning van 28.5V in
+werkelijkheid 28.46 of 28.54V is. Maar bij lagere spanningen kan
+het wel belangrijk zijn, de uitgang tot op 10mV precies in te
+stellen.<P>Een eenvoudige oplossing bestaat er in, twee spanningsdelers te
+maken: &#233;&#233;n die de ingangsspanning door 100 deelt en &#233;&#233;n
+die de ingangsspanning door 1000 deelt. Met een wisselschakelaar
+kan dan tussen beide spanningsdelers gekozen worden. Als het een
+meerpolige <A NAME="wisselschake2080">wisselschakelaar</A> is, kunnen daar meteen de
+gepaste decimale punten mee geactiveerd worden.<BR>
+Maar erg vlot werkt dat niet. Een handvol weerstanden en twee
+IC's kunnen die taak overnemen, zodat de gebruiker er geen
+omkijken naar heeft.<P><IMG ALIGN="MIDDLE" SRC="AutorangingDVM.png"
+ ALT="AutorangingDVM.png">
+<P>In het schema hiernaast vormen P1, R1, R2 en R3 samen met R10 de
+spanningsdeler voor lage spanningen. Met P1 wordt het geheel
+zodanig afgeregeld, dat er bij een ingangsspanning van 19.5V
+precies 195mV op punt <B>A</B> komt te staan. Als de
+DVM-module over een eigen regeling beschikt, mogen P1 en R1
+vervallen; R2 wordt dan 220k en R3 wordt 180k. De potmeter op
+het DVM-printje wordt nu z&#243; ingested, dat er &#8220;1950&#8221; op het
+display verschijnt.<BR>
+Bij het regelen van dit deel kan IC2 best uit zijn voetje
+gehaald worden.<P>Nu is het de beurt aan het deel dat de hogere spanningen voor
+zijn rekening neemt. R5 en R6 zorgen er voor, dat op punt
+<B>B</B> 1/100 van de ingangsspanning komt te staan. P2 dient
+nu zodanig ingesteld te worden, dat de uitgang van IC1 hoog
+wordt zodra de ingangsspanning hoger wordt dan 19.9V. Op dat
+ogenblik sluit S1, en worden R9 en P3<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A> parallel geschakeld
+aan R10, zodat de DVM-module niet 1/100e maar 1/1000e van de
+ingangsspanning aan zijn ingang ziet. Het instellen van P3
+gebeurt best met de hoogste uitgangsspanning die de voeding kan
+leveren.<BR>
+S2, S3 en S4 sturen de gewenste decimale punt op het display
+aan. Daarnaast doet S2 nog wat anders: via R12 maakt hij de
+spanning op het knooppunt R3-R7 een tikkeltje lager, hetgeen
+voor enige hysteresis zorgt zodat IC1 niet heen-en-weer gaat
+klapperen bij een ingangsspanning van 19.9V.<P>De nauwkeurigheid van de weergave op het display hangt af van de
+zorg waarmee P1 en P3 ingesteld worden. Hoewel het instelbereik
+van beide instelpotjes begrensd wordt door de nabijgelegen
+weerstanden, verdient het toch aanbeveling hiervoor 10-slags
+trimmers te gebruiken.<P>Mocht blijken dat de uitlezing enigzins onrustig is, kan het
+nuttig zijn, C2 toe te voegen. Ik ben er echter niet zeker van,
+dat dit voor alle digitale paneelmeters opgaat.<P>Nog een woordje over IC1: in het schema zijn de aansluitpinnen
+aangegeven van de klassieke opamp in een 8-pins behuizing.
+Hoewel de meeste opamps kunnen ingezet worden, verdient het toch
+aanbeveling om een type te kiezen met een hoge
+ingangsimpedantie. Een &#8220;echte&#8221; comparator zal het ook goed
+doen, maar omdat de meesten over een open-collector uitgang
+beschikken, dient er nog een weerstand van 1k tussen uitgang en
+Vcc geplaatst te worden. Hou in dat geval ook rekening met een
+afwijkende pinbezetting!<P>
+<H3>Stroom meten.</H3>
+<A NAME="ARDVMS-meten"></A><P>Voor de volledigheid: een iets afwijkend schema voor de
+stroommeting.<P><IMG ALIGN="MIDDLE" SRC="AutorangingDVM-I.png"
+ ALT="AutorangingDVM-I.png">
+<P>Vermits we &#8213;bij het meten van een stroom&#8213; met kleinere
+spanningen werken, is de verhouding voor de spanningsdelers iets
+anders gekozen.<BR>
+Hier bestaat de shunt-weerstand uit 3 stuks van 0.47R, parallel
+geschakeld. Bij een andere waarde voor de shunt moeten ook P1,
+P3, R2, R5, R6, R9 en R10 aangepast worden.<BR>
+Ook <P><P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...P3</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+bedenk, dat de ON-weerstand van S1 typisch 30R bedraagt.<BR> Het is evenwel aan te raden, die eerst te testen op een bread-bordje, en zonodig R9 en P3 aan te passen.</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="CapacitiveSensor.html">Naderingssensor.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

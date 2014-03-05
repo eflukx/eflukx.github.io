@@ -1,0 +1,389 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: LabVoeding.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, meerslags-potmeter, CA3160, spanningsdeler, stroombegrenzing, RS232, R2R-ladder, Atmel, AT90S4433, R2R-ladder, reset, AT90S4433, ttydevinit">
+<META NAME="description" CONTENT="labvoeding">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="Voedingen.html">Voedingen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Voedingen.html">Voedingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="LabVoeding82V1.html">Labvoeding82 V1.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="labvoeding"></A>
+<BR>LabVoeding.</H2>
+<UL>
+<LI><A HREF="#LabvWaarom">Weeral een nieuwe voeding?</A>
+<LI><A HREF="#LabvHoofdprint">De hoofdprint.</A>
+<UL><LI><A HREF="#LabvWerking">Werking.</A>
+<LI><A HREF="#LabvTerugk">Spanningsdeler terugkoppeling.</A>
+<LI><A HREF="#LabvStrmbg">De stroombegrenzing.</A>
+<LI><A HREF="#LabvPrint">De print-layout.</A>
+</UL>
+<LI><A HREF="#LabvSpstuur">SpStuur - de stuurprint.</A>
+<UL><LI><A HREF="#LabvOpzet">Opzet.</A>
+<LI><A HREF="#LabvBediening">Bediening.</A>
+</UL>
+<LI><A HREF="#SpStRev">Revisie 2008.</A>
+<LI><A HREF="#LabvSpstuurLayo">De print-layout van SpStuur.</A>
+<UL><LI><A HREF="#SpStSoft">De software voor de AT90S4433.</A>
+</UL>
+<LI><A HREF="#LabvPrestaties">De prestaties.</A>
+<LI><A HREF="#LabvOpm">Opmerkingen.</A>
+</UL><HR>
+
+<P>
+
+<H3>Weeral een nieuwe voeding?</H3>
+<A NAME="LabvWaarom"></A><P><IMG ALIGN="RIGHT" SRC="FrontColor.jpg"
+ ALT="FrontColor.jpg">
+
+Het betreft een oudere voeding, die enige revisie nodig had.
+Twee nadelen in het oude ontwerp dienden verbeterd te worden:
+<OL>
+   <LI> De stroombegrenzing werkte niet naar behoren.
+   <LI> Het was moeilijk de spanning precies te regelen.
+</LI>
+</OL>
+
+Teneinde het eerste probleem op te lossen, werd een opamp aan
+het werk gezet i.p.v. een stel transistors. Meer uitleg
+hierover bij het hoofdstuk
+<A HREF="labvoeding.html#LabvStrmbg">stroombegrenzing</A>.<P>Het tweede probleem was te wijten aan de potmeter waarmee
+de gewenste spanning werd ingesteld. Zelfs bij gebruik van
+een <A NAME="meerslagspotes2939">meerslags-potmeter</A> is de resolutie te klein om de
+spanning tot op 0.1Volt moeiteloos te regelen.<BR>
+De potmeter werd bijgevolg vervangen door een <A HREF="labvoeding.html#LabvSpstuur">stel toetsen</A>, waarmee een spanningsregeling tot op
+0.001Volt probleemloos kan verwezenlijkt worden. Daarnaast kan
+de voeding nu vanuit een PC bediend worden.<P>De spanning- en stroomuitlezing van de originele voeding werd
+ongewijzigd herbruikt. Ook de eindtransistoren met hun koeling,
+de trafo, de gelijkrichter en de afvlakcondensators konden dienst
+blijven doen.<P><BR CLEAR="ALL"><P>
+<H3>De hoofdprint.</H3>
+<A NAME="LabvHoofdprint"></A><P>
+
+<H4>Werking.</H4>
+<A NAME="LabvWerking"></A><P><A NAME="LbvSch"></A>
+<IMG ALIGN="MIDDLE" SRC="LabVoeding.png"
+ ALT="LabVoeding.png">
+<A NAME="LabvSchema"></A><P><BR CLEAR="ALL"><P>Het schema hierboven laat zien, dat dit een eenvoudige
+voeding is, met uitzondering van het kader &#8220;SpStuur&#8221;,
+waarover we het in een volgend hoofdstuk hebben.<P>C1 ... C3 zijn de buffer-elco's voor het vermogensgedeelte. De
+spanning hierover bedraagt &#8213;in onbelaste toestand&#8213;  zo'n
+35Volt.<BR>
+R1 zorgt er voor, dat IC1 een wat lagere spanning (27Volt)
+aangeboden krijgt. C4 vlakt die spanning nog verder af. IC1 en
+omringende componenten (C5, C6) leveren een strakke spanning van
+15Volt voor IC2, die hier de hoofdrol vervult. IC2, een
+<A NAME="CA31601385">CA3160</A>, zal steeds trachten de spanning op zijn inverterende
+ingang gelijk te maken aan die op zijn niet-inverterende ingang.
+Is de spanning op pin 2 lager dan op pin 3, dan wordt de uitgang
+hoger. Via de <A NAME="spanningsdeles2552">spanningsdeler</A> R2/R3 krijgt T2 een hogere
+spanning aan zijn basis, waardoor hij meer stroom gaat leveren
+aan de eindtrap (T3 ... T6). Dit stel gaat op zijn beurt ook meer
+stroom<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A> leveren, waardoor de uitgangsspanning stijgt. Dit
+gaat zo lang door, tot de spanningsdeler-combinatie R17, R18, R19
+en P1 er voor zorgt dat op pin 2 dezelfde spanning staat als op
+pin 3.<P>
+
+<H4>Spanningsdeler terugkoppeling.</H4>
+<A NAME="LabvTerugk"></A><P>SpStuur levert maximaal 5Volt; op de uitgangsbuffer staat dan
+0xFFFF (65535). Hiermee moet een uitgangsspanning van iets meer
+dan 30Volt geregeld worden.<BR>
+Als we een waarde van 60000 (0xEA60) laten overeenkomen met
+30Volt, kunnen we de uitgangsspanning regelen in stapjes van
+0.5mVolt. Om dit te bereiken, is het noodzakelijk dat de
+spanningsdeler in de terugkoppeling heel precies kan
+ingesteld worden. Laten we in het onderstaande R17 benoemen als
+RH, en R18, R19 en P1 als RL.<P>Even berekenen:<BR>
+Als 65535 overeen komt met 5.000Volt, komt
+60000 overeen met een stuurspanning van 4.577Volt.
+En we willen dat die 4.577Volt stuurspanning resulteert in
+een uitgangsspanning van 30.0Volt.<BR>
+De verhouding tussen beide weerstanden van de spanningsdeler
+moet dus zijn: 4.577 / (30 - 4.577) = 4.577 / 25.423.<BR>
+Als we voor RH een weerstand van 4700R kiezen, moet RL
+een weerstand van ((4700 * 4.777) / 25.423) = 846R bezitten.<BR>
+<I>Parser</I> leert ons dat een parallelschakeling van
+1000R en 5600R een weerstand van 848.48R (Afwijking =
++0.29&#37;) oplevert.<BR>
+Dat is iets te veel, maar daar doen we ons voordeel mee door
+5600R te vervangen door een serieschakeling van 4700R en (een
+instelpot) 1000R. Daarmee kunnen we RL vari&#235;ren tussen 824R en
+850R.<P>
+
+<H4>De stroombegrenzing.</H4>
+<A NAME="LabvStrmbg"></A><P>Bij een voeding die probleemloos 10Ampere kan leveren, is een
+instelbare <A NAME="stroombegrenes2794">stroombegrenzing</A> onontbeerlijk.<BR>
+Dit is de taak van het gedeelte rond IC4. Dit geheel beschikt
+over een eigen voeding, waarvan de massa verbonden is met de
+plus-pool van de buffer-elco's die de spanningsregeling
+afvlakken.<BR>
+De loper van P2 is verbonden met de inverterende ingang van
+opamp IC4. Hiermee wordt de maximum stroom bepaald. R28, D3 en
+D4
+leggen de &#8220;bovenzijde&#8221; van P2 vast op 1.2Volt. Zo kan de
+spanning op pin2 geregeld worden tussen 0Volt en 1.2Volt. Laten
+we aannemen dat de loper van P2 in het midden staat. Op pin2
+van IC4 staat dan een spanning van 0.6Volt.<BR>
+R30, D5 en D6 zorgen er voor, dat de niet-inverterende ingang
+van IC4 1.2Volt hoger ligt dan de positieve voedingsrail van de
+spanningsregeling, echter <I>na</I> serieweerstand R24. Zolang
+er geen stroom door deze weerstanden loopt, staat er op pin3
+bijgevolg een spanning van 1.2Volt. De uitgang van IC4 is nu
+hoog, en T7 zal sperren.<BR>
+Zodra er stroom door R24 gaat vloeien, ontstaat er over deze
+weerstand een spanningsval. Hierdoor zakt ook de spanning op
+pin3 van de opamp. Zodra die spanning lager wordt dan deze op
+pin2, maakt IC4 zijn uitgang laag, en komt T7 in geleiding. Via
+R20 en R21 wordt ook T1 opengestuurd, die op zijn beurt de
+ingestelde spanning naar beneden trekt.<BR>
+Een lagere spanning betekent ook minder stroom en minder
+spanningsval over R24; en een hogere spanning op pin3 - tot
+alles in evenwicht is.<BR>
+Met schakelaars S1 en S2 kunnen hogere stroombereiken gekozen
+worden.<P>Een mooie eigenschap van een opamp als de CA3140 is het feit dat
+hij overweg kan met ingangsspanningen die iets lager zijn dan de
+negatieve voedingsrail. Hierdoor zal IC4 ook zijn werk doen, als
+de loper van P2 helemaal &#8220;naar beneden&#8221; gedraais is.<P>
+<H4>De print-layout.</H4>
+<A NAME="LabvPrint"></A><P>
+<IMG ALIGN="MIDDLE" SRC="LabVoeding_overzicht.png"
+ ALT="LabVoeding_overzicht.png">
+<A NAME="LabvPrintLayout"></A><P>De nummers op de printkies komen overeen met de nummers in de
+gele cirkels, zoals die op het <A HREF="labvoeding.html#LabvSchema">schema</A>
+terug te vinden zijn.<P><P><P>
+<H3>SpStuur - de stuurprint.</H3>
+<A NAME="LabvSpstuur"></A><P>Een volbestukte printplaat van 8 op 10 cm om een potmeter te vervangen;
+'t is me wat!<BR>
+Maar we krijgen daar heel wat gebruiksgemak voor terug:
+<OL>
+   <LI> Bij het inschakelen van de voeding wordt de spanning steeds op
+    0Volt ingesteld, ongeacht wat de ingestelde spanning was bij het uitschakelen.<BR>
+   <LI> De spanning kan --naar keuze-- in stapjes van 1mVolt, 500mVolt
+    of 5Volt verhoogd of verlaagd worden.
+   <LI> De gewenste spanning kan ook met de PC (via een <A NAME="RS2321367">RS232</A>-lijn)
+    ingesteld worden. Ook met een resolutie van 1mVolt, uiteraard.
+   <LI> Als de stroombegrenzing ingrijpt, kunnen we zowel de ingestelde
+    als de werkelijke spanning aflezen.
+   <LI> Bovendien kunnen we het gedrag van de stuurprint wijzigen,
+    zonder de hele voeding te ontmantelen. Meer zelfs: we hoeven de
+    voeding niet eens uit te schakelen!
+</LI>
+</OL>
+
+
+<H4>Opzet.</H4>
+<A NAME="LabvOpzet"></A><P>Er bestaan meerdere manieren om een digitaal getal te vertalen
+naar een analoge spanning. Men kan een D/A-converter
+inschakelen; men kan pulsbreedte-modulatie overwegen; en dan is
+er nog de <A NAME="R2Rladder1930">R2R-ladder</A>.<BR>
+Er werd gekozen voor de laatste oplossing. Er kleven weliswaar
+enkele bezwaren aan:<P><OL>
+ <LI> De voedingsspanning van de IC's die de
+R2R-ladder aandrijven moet stabiel en onveranderlijk zijn.
+Anders komt de uitgangsspanning niet meer overeen met de
+ingestelde spanning.
+ <LI> De weerstanden moeten zo nauwkeurig mogelijk zijn. Dat kan
+deels opgelost worden door weerstanden uit &#233;&#233;n en dezelfde
+serie te benutten.
+ <LI> Op het <A HREF="labvoeding.html#LbvSch">schema van de hoofdprint</A> is
+te zien dat de stuurspanning gebufferd wordt door een elko, C6.
+Deze dient absoluut lekvrij te zijn! Is dat niet het geval, dan
+zal hij een spanningsdeler vormen met de R2R-ladder en zal de
+uitgangsspanning lager zijn dan hetgeen ingesteld is.<BR>
+Voor C6 is dan ook een 50V-exemplaar ingezet, dat enkele dagen
+lang opgeladen werd tot 48V.
+</LI>
+</OL>
+
+De resolutie is echter quasi onbeperkt, voorzover de
+afwijkingen t.g.v. bovengenoemde bezwaren niet zwaarder wegen
+dan het LSB<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A> van de sturing.<BR>
+Maar de praktijk wijst uit, dat het allemaal best meevalt; hoe
+dan ook, hier kan geen potmeter tegenop, noch wat
+gebruiksgemak, noch wat nauwkeurigheid betreft!<P><IMG ALIGN="MIDDLE" SRC="SpStuur.png"
+ ALT="SpStuur.png">
+<P>Centraal in het schema hierboven bevindt zich het kloppend hart
+van deze print, een microcontroller van <A NAME="Atmel1550">Atmel</A>: een
+<A NAME="AT90S44331594">AT90S4433</A>. Tussen de uC en de <A NAME="R2Rladder1930">R2R-ladder</A> bevinden
+zich 4 buffers.
+Buffer 1 en buffer 2 worden elk om beurt geladen met een 8-bits
+getal(bit 0 ... 7 en bit 8 ... 15). Eens dat gebeurt is, wordt
+de inhoud van deze buffers in 1 mep doorgegeven aan buffers
+3 en 4, die op hun beurt de R2R-ladder aansturen.<BR>
+Zo wordt vermeden
+dat een verhoging met 1 bit (b.v. van 01111111 11111111 naar
+10000000 00000000) rare spanningssprongen gaat veroorzaken, wat
+zeker het geval zou zijn, moesten we de R2R-ladder rechtstreeks met buffers 1
+en 2 verbinden.<P>Wat vinden we verder op de print?<BR>
+Het groepje componenten rond IC1 en T1 zorgt voor een gestabiliseerde
+voedingsspanning en een nette <A NAME="reset1598">reset</A> bij het opstarten.<BR>
+Vlak daarnaast vinden we de
+connector, waarmee de uC geprogrammeerd kan worden. Deze connector wordt
+hiertoe verbonden met de printer-poort van de PC, die het programmeren
+voor zijn rekening neemt.<BR>
+Linksonder zien we een tweede connector. Deze laat toe, de voeding
+via een seri&#235;le lijn te besturen vanuit de PC. Tussen deze connector
+en de uC merken we een MAX232 (IC2). Dit IC produceert de positieve
+en negatieve spanningen die nodig zijn om dat over een seri&#235;le
+lijn te verzenden en te ontvangen.<BR>
+Tenslotte is er nog een LCD-module met het geheel verbonden.
+Hierop toont de uC de ingestelde spanning. Deze kan (sterk) afwijken van
+de spanning die de ingebouwde voltmeter aanduidt. Zulks zal
+namelijk het geval zijn, als de stroombegrenzing ingrijpt.<P>
+
+<H4>Bediening.</H4>
+<A NAME="LabvBediening"></A><P>
+<H5>Toetsen.</H5>
+<A NAME="LabvToetsen"></A><P><IMG ALIGN="MIDDLE" SRC="SpToetsen_Fig.png"
+ ALT="SpToetsen_Fig.png">
+<P>Zoals het schema hierboven laat zien, misbruiken we een
+A/D-ingang van de <A NAME="AT90S44331594">AT90S4433</A> om een toetsenbordje uit te
+lezen. R101 vormt samen met 1 van de weerstanden R102 ... R107
+een spanningsdeler, zodra er een toets wordt ingedrukt. De
+spanning hierover wordt doorgegeven aan PC5 van de AT90S4433.
+De <A NAME="pros4"  HREF="SpStuur.c.html">software</A>
+ gaat de
+spanning op deze pin regelmatig uitlezen. Het resultaat van een
+meting ligt tussen 0 en 1023; het betreft immers een 10-bits
+A/D-omzetter. Is de spanning lager dan pakweg 950, dan is er
+zeker een toets ingedrukt. Welke dat is, valt af te lezen uit
+de gemeten spanning.<P>De toetsen zijn opgesteld in twee kolommen met elk 3 toetsen. De
+linker kolom dient om de ingestelde spanning te verlagen,
+terwijl men met de rechter kolom de spanning kan verhogen.<BR> Dat
+gaat in stapjes van 1mVolt (bovenste rij), 0.5Volt (midden) of
+5Volt (onder). Blijft men een toets indrukken, dan gaat de
+software de gewenste actie herhalen met tussenpozen, die alsmaar
+korter worden. Het ritme wordt hierbij hoorbaar gemaakt met
+behulp van een luidsprekertje, dat via een een eenvoudig
+klasse-C trapje door PD3 gestuurd wordt.
+Dat is vooral handig met de 1mVolt-toetsen; 100 maal drukken
+teneinde de spanning 100mVolt op te krikken is ook niet
+ideaal...<P>
+<H5>De PC als spanningsregelaar.</H5>
+<P>Bedienen vanuit de PC is ook eenvoudig.<P>Nadat de gewenste seri&#235;le poort op gepaste wijze is ingesteld
+(<TT><A NAME="ttydevinit2159">ttydevinit</A> /dev/ttySnn</TT>), kan de PC met SpStuur
+communiceren.<BR>
+De belangrijkste opdrachten zijn: u=-, u=+ en u=nn<A NAME="pros3" HREF="#ft3"><SUP>3</SUP></A>. u=- en u=+
+verlagen/verhogen de ingestelde spanning met 1 mVolt. Met u=nn
+wordt meteen de gewenste spanning ingesteld. Dat kan in mVolt
+(b.v. u=5100) of in Volt (b.v u=5.100 of u=5,1); als de
+software een komma (een punt mag ook) in het cijfer merkt, gaat
+hij er van uit dat de gebruiker een spanning in Volt heeft
+opgegeven.<P>Enkel voor het instellen van de gewenste stroombegrenzing is de
+gebruiker verplicht om alsnog aan een potmeterknop te
+draaien...<P>
+<H3>Revisie 2008.</H3>
+<A NAME="SpStRev"></A><P>Na 4 jaar trouwe dienst verdient de LabVoeding wel een
+opknapbeurt.<P>Wat meest in het oog springt is het frontpaneel.
+Het eentonig zilver-grijs werd vervangen door een kleurige
+uitvoering. Wat daarbij meteen opvalt is de noodstop. Loopt er
+iets mis (rook die uit een component verdwijnt), dan volstaat
+een druk op die knop om de uitgangsspanning onmiddelijk naar
+0Volt terug te brengen.<BR>
+De knop bedient een relais met 4 contacten. E&#233;n contact sluit
+de referentiespanning (de uitgang van de R2R-ladder) kort met
+GND. Een tweede contact geeft de ATmega8 een interrupt; deze
+reageert hierop door de referentiespanning naar 0Volt terug te
+schroeven (anders stijgt de uitgangsspanning opnieuw na het
+loslaten van de noodstop). De overige twee contacten belasten de
+uitgang met een weerstand van 1R, zodat ook de uitgangs-elko
+snel ontladen wordt.<P>Hetgeen van buitenaf niet zichtbaar is: de AT90S4433 heeft
+plaats moeten ruimen voor een ATmega8. De reden hiervoor was het
+feit dat een ATmega8 op een klok van 14745600Hz kan draaien, wat
+een snellere en betrouwbare RS232-communicatie mogelijk maakt.<BR>
+Uiteraard is ook de <A NAME="pros5"  HREF="SpStuur.c.html">firmware</A>
+
+aangepast.<P><P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+
+<H3>De print-layout van SpStuur.</H3>
+<A NAME="LabvSpstuurLayo"></A><P>
+<H5>De component-opstelling op SpStuur.</H5>
+<P><IMG ALIGN="MIDDLE" SRC="SpStuur_overzicht.png"
+ ALT="SpStuur_overzicht.png">
+<A NAME="SpStL"></A><P><P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+<H5>De bovenzijde van SpStuur.</H5>
+<P><IMG ALIGN="MIDDLE" SRC="SpStuur_boven.png"
+ ALT="SpStuur_boven.png">
+<P><P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+<H5>De onderzijde. van SpStuur</H5>
+<P><IMG ALIGN="MIDDLE" SRC="SpStuur_onder.png"
+ ALT="SpStuur_onder.png">
+<P><P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+<H4>De software voor de AT90S4433.</H4>
+<A NAME="SpStSoft"></A><P><A NAME="pros6"  HREF="SpStuur.c.html">Die vindt u hier.</A>
+<P>
+<H3>De prestaties.</H3>
+<A NAME="LabvPrestaties"></A><P><IMG ALIGN="MIDDLE" SRC="DS1.png"
+ ALT="DS1.png">
+<P><IMG ALIGN="MIDDLE" SRC="DS2.png"
+ ALT="DS2.png">
+<P>Ondanks de eenvoud van het ontwerp, zijn de prestaties bevredigend.
+Bij normaal gebruik bedraagt de rimpel niet meer dan 10mVolt,
+zoals hierboven te zien is.<P>Enkel als de stroombegrenzing ingrijpt, werd het minder fraai;
+de scoop toonde oscillaties die tot meer dan 100mV opliepen.<BR>
+Dit werd verholpen door parallel aan C6 (origineel 100nF) een elko te plaatsen van
+100uF. Oscillaties komen niet meer voor; enkel een rimpel die
+duidelijk afkomstig is van de &#8220;ruwe&#8221; voedingsspanning.
+Die rimpel blijft nu op 60mVolt steken (zie hieronder).
+Dat kan wellicht nog verbeterd worden...<P><IMG ALIGN="MIDDLE" SRC="DS3.png"
+ ALT="DS3.png">
+<P>
+<H3>Opmerkingen.</H3>
+<A NAME="LabvOpm"></A><P>De voeding kan zowel 30V leveren als 10A.
+Maar niet beiden tegelijk; daar is de trafo nu eenmaal te klein
+voor.<P>De vermogenstorren zijn flink overgedimensioneerd. 6 eindtorren
+gebruiken, waar in pricipe 1 tor het werk kan doen, lijkt
+gekkenwerk. Maar ik wou de voeding absoluut foolproof maken.
+En dat is me tot nu toe aardig gelukt.<P><B>S1</B> en <B>S2</B> zijn automatische zekeringen
+(respectievelijk 4A en 10A). En zowel Tr1 als Tr2 zijn beveiligd
+met een passende zekering, die niet in het schema terug te
+vinden is.<P>Beide opamps zijn plaatselijk ontkoppeld met een 100nF-C, die
+niet in het schema terug te vinden is.<P><P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...stroom</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+zowel T2 als T3 ... T6 zijn als stroombron geschakeld</DD>
+<DT><A NAME="ft2">...LSB</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+Least Significant Bit; minst belangrijke bit</DD>
+<DT><A NAME="ft3">...u=nn</A>
+<A HREF="#pros3"><SUP>3</SUP></A></DT>
+<DD>
+Wie alle opdrachten wil weten, drukt gewoon '?' in.</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="Voedingen.html">Voedingen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Voedingen.html">Voedingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="LabVoeding82V1.html">Labvoeding82 V1.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

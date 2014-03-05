@@ -1,0 +1,391 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Perimeter.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, perimeter, ATtiny45, LM567, MLCC, MKP, PLL">
+<META NAME="description" CONTENT="PerimeterZenderOntvanger">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="FrequentieStandaard.html">FrequentieStandaard.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="PulsTeller.html">PulsTeller.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="PerimeterZenderOntvanger"></A>
+<BR>Perimeter.</H2>
+<UL>
+<LI><A HREF="#PMZ">De zender.</A>
+<UL><LI><A HREF="#PMBr">De broncode.</A>
+<LI><A HREF="#PMZPr">Het zender-printje.</A>
+</UL>
+<LI><A HREF="#PMOntv">De Ontvangers.</A>
+<UL><LI><A HREF="#PMOpS">Het oppikspoeltje.</A>
+<LI><A HREF="#PMOntvS">Het schema van de ontvanger.</A>
+<LI><A HREF="#PMOPr">Het ontvanger-printje.</A>
+</UL>
+<LI><A HREF="#PMGbA">Gebruiksaanwijzing.</A>
+<UL><LI><A HREF="#PMGbAZ">De zender.</A>
+<LI><A HREF="#PMGbAO">De ontvangers.</A>
+</UL>
+<LI><A HREF="#PMGFV">Fouten en verbeteringen.</A>
+<UL><LI><A HREF="#PMGFVCK">Condensator-keuze.</A>
+<LI><A HREF="#PMGFVPZ">Intermitterend zenden.</A>
+<LI><A HREF="#PMGFVAM">Afstand meten.</A>
+</UL>
+</UL><HR>
+<P>Om een robot-grasmaaier duidelijk te maken waar zijn grenzen
+liggen, wordt een <A NAME="perimeter3478">perimeter</A> gebruikt.<BR>
+Die bestaat enerzijds uit een draad die enkele centimeters onder
+de grond wordt gelegd. De zender stuurt een signaal door deze
+draad.<BR>
+Anderzijds is de robot uitgerust met enkele sensors, die een
+seintje geven als ze het signaal van de draad oppikken.<P>
+<H3>De zender.</H3>
+<A NAME="PMZ"></A><P>De zender moet een klokvast signaal op de perimeter-draad
+zetten, dat liefst zo goed mogelijk op een sinus gelijkt.<BR>
+Wie &#8220;klokvast&#8221; zegt, denkt onmiddelijk aan een kristal.
+Het motto &#8220;waarom moeilijk maken, als het ook met een
+AVR kan?&#8221; indachtig, hebben we hiervoor een <A NAME="ATtiny453211">ATtiny45</A>
+aan het werk gezet. Diens systeem-klok wordt uit een
+20MHz-kristal betrokken, hetgeen een stabiele frequentie
+waarborgt.
+<BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="PerimeterZender.png"
+ ALT="PerimeterZender.png">
+<P><BR CLEAR="ALL">
+Zoals in het schema hierboven te zien is, gebruikt de 'tiny drie
+uitgangen om een signaal te produceren. PB0, PB1 en PB2 worden
+in deze volgorde aangestuurd:
+<P><PRE>
+
+PB2   PB1   PB0
+ 0     0     0
+ 0     0     1
+ 0     1     1
+ 1     1     1
+ 1     1     1
+ 0     1     1
+ 0     0     1
+ 0     0     0
+<P></PRE>
+<IMG ALIGN="LEFT" SRC="Trapspanning.png"
+ ALT="Trapspanning.png">
+
+<IMG ALIGN="RIGHT" SRC="AfgevlakteTrapspanning.png"
+ ALT="AfgevlakteTrapspanning.png">
+
+Het resultaat (zonder C13) ziet er uit zoals het plaatje
+links toont. C13 haalt de scherpe kantjes weg, hetgeen
+resulteert in iets dat al wat meer op een sinus lijkt.
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<IMG ALIGN="LEFT" SRC="TrapspanningNaLC-filter.png"
+ ALT="TrapspanningNaLC-filter.png">
+
+L1 en C4 doen ook hun duit in het zakje, en verfraaien het
+signaal nog wat meer. Het is niet 100&#37; een sinus te
+noemen, maar de gelijkenis volstaat voor een goede werking.<P>Het deel, rechts van L1, vormt een eenvoudige eindversterker.<BR>
+Met P1 kan het gewenste uitgangsniveau naar wens ingesteld
+worden. Een oscilloscoop is bij het instellen wel handig.
+Als de uitgangsspanning in de buurt van de voedingsspanning
+komt, worden de toppen afgekot en lijkt het signaal helemaal
+niet meer op een sinus.<P><BR CLEAR="ALL">
+
+<H4>De broncode.</H4>
+<A NAME="PMBr"></A><P><P><PRE>
+
+<font color="#800080"><i>/*
+&nbsp;&nbsp;Sinusoscillator&nbsp;(of:&nbsp;iets&nbsp;dat&nbsp;er&nbsp;op&nbsp;lijkt)&nbsp;met&nbsp;een&nbsp;ATtiny45
+
+&nbsp;&nbsp;Pros&nbsp;2012
+*/</i></font>
+
+
+<font color="#008000">#define&nbsp;F_CPU&nbsp;20000000UL</font>
+
+<font color="#008000">#include&nbsp;&lt;avr/io.h&gt;</font>
+<font color="#008000">#include&nbsp;&lt;avr/interrupt.h&gt;</font>
+<font color="#008000">#include&nbsp;&lt;util/delay.h&gt;</font>
+
+
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;&nbsp;<font color="#000000">set</font>[<font color="#0000FF">8</font>]&nbsp;=&nbsp;{&nbsp;<font color="#0000FF">0</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">7</font>,&nbsp;<font color="#0000FF">7</font>,&nbsp;<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#0000FF">0</font>&nbsp;};
+<font color="#800000">register</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">bits</font>&nbsp;<font color="#000000">asm</font>(<font color="#008000">&quot;r2&quot;</font>);
+<font color="#800000">register</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">setcnt</font>&nbsp;<font color="#000000">asm</font>(<font color="#008000">&quot;r3&quot;</font>);
+
+<font color="#000000">ISR</font>(<font color="#000000">TIM0_COMPA_vect</font>,&nbsp;<font color="#000000">ISR_NAKED</font>)
+{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Compare-interrupt</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PORTB</font>&nbsp;=&nbsp;<font color="#000000">bits</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Uitgang&nbsp;aanpassen</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">setcnt</font>++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Counter&nbsp;verhogen</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">setcnt</font>&nbsp;&amp;=&nbsp;<font color="#0000FF">7</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;setcnt&nbsp;=&nbsp;0&nbsp;...&nbsp;7</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">bits</font>&nbsp;=&nbsp;<font color="#000000">set</font>[<font color="#000000">setcnt</font>];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Klaar&nbsp;zetten&nbsp;voor&nbsp;volgende&nbsp;interrupt</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">reti</font>();
+}
+
+
+<font color="#800000">int</font>&nbsp;<font color="#000000">main</font>(<font color="#800000">void</font>)
+{
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">CLKPR</font>&nbsp;=&nbsp;(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">CLKPCE</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">CLKPR</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Set&nbsp;max.&nbsp;system-clk</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCNT0</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR0A</font>&nbsp;=&nbsp;<font color="#0000FF">61</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;20000000&nbsp;/&nbsp;(62&nbsp;*&nbsp;8)&nbsp;=&nbsp;40000Hz</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR0A</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">WGM01</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;CTC&nbsp;mode</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR0B</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">CS00</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Geen&nbsp;prescaler</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TIMSK</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">OCIE0A</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDRB</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB0</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB2</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PB0,&nbsp;PB1&nbsp;en&nbsp;PB2&nbsp;=&nbsp;uitgangen</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_ms</font>(<font color="#0000FF">5</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Even&nbsp;wachten</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sei</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Enable&nbsp;global&nbsp;interrupts</i></font>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#0000FF">1</font>)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}
+</font>
+<P></PRE>
+
+Als we een uitgangssignaal van 40kHz willen bekomen in 8
+stappen, hebben we voor elke stap iets meer dan 3&#956;S ter
+beschikking. Veel is dat niet.<BR>
+Om die reden is er gekozen voor een &#8220;Naked&#8221; ISR, en zijn de
+variabelen &#8220;bits&#8221; en &#8220;setcnt&#8221; aan een register toegewezen.<P>
+<H4>Het zender-printje.</H4>
+<A NAME="PMZPr"></A><P><IMG ALIGN="LEFT" SRC="PerMetZenderPrintOnder.JPG"
+ ALT="PerMetZenderPrintOnder.JPG">
+
+<BR CLEAR="ALL"><P>Tja, &#8220;Periferiemeter&#8221; in plaats van &#8220;Perimeter&#8221;...<BR>
+Zullen we het maar op een vlaag van verstrooidheid houden? <img src="smile.gif" alt="">
+<BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="PerMetZenderPrintOpgebouwd.JPG"
+ ALT="PerMetZenderPrintOpgebouwd.JPG">
+
+<BR CLEAR="ALL"><P>
+<H3>De Ontvangers.</H3>
+<A NAME="PMOntv"></A><P>
+<H4>Het oppikspoeltje.</H4>
+<A NAME="PMOpS"></A><P><IMG ALIGN="LEFT" SRC="PerMetSpoelNaakt.JPG"
+ ALT="PerMetSpoelNaakt.JPG">
+
+Het signaal wordt opgepikt door een standaard 10mH spoeltje.<BR>
+Nu is zo'n ding niet helemaal geschikt voor deze taak - daarvoor
+is de ferriet-kern te klein. Daar kunnen we een mouw aanpassen,
+door er een groter stuk ferriet op te kleven. De zelfinductie
+wordt daardoor wat groter: 14mH.
+<BR CLEAR="ALL">
+<IMG ALIGN="LEFT" SRC="PerMetSpoelIngepakt.JPG"
+ ALT="PerMetSpoelIngepakt.JPG">
+
+Teneinde de spoel weerbestendig te maken, krijgt hij een jasje
+dat samengesteld is uit smeltlijm en krimpkous.
+<BR CLEAR="ALL"><P>
+
+<H4>Het schema van de ontvanger.</H4>
+<A NAME="PMOntvS"></A><P><IMG ALIGN="LEFT" SRC="PerimeterOntvanger.png"
+ ALT="PerimeterOntvanger.png">
+<P>Als we Cx even wegdenken, is de L1/C1-combinatie het gevoeligst
+voor een frequentie van 42.844kHz.<BR>
+Dat is iets te hoog, maar op de print is plaats voorzien voor
+enkele extra-condensators (Cx), waarmee we de resonantiefrequentie
+dichter bij de zendfrequentie (40kHz) kunnen brengen.<P>T1, R1, R2, R3 en C3 vormen een simpel versterkertrapje.<BR>
+De <A NAME="LM5672820">LM567</A> &#8213;een toondetector&#8213; heeft geen nood aan een sterk
+ingangssignaal, maar het signaal dat L1 produceert is toch wat
+zwak voor een goede werking.<P>Het rechterdeel van het schema is een standaard-toepassing voor
+de LM567. Dat hoeft geen toelichting.<P>Wat wel toelichting behoeft, is de aanwezigheid van R8 en C4.<BR>
+De LM567 bevat een oscillator. C9 en C6 kunnen niet helemaal beletten dat
+er op de positieve voedingsrail sporen van die oscillator terug
+te vinden zijn. Die kunnen dan &#8213;via het versterkertrapje rond
+T1&#8213; de ingang van de LM567 bereiken.
+L3 en C4 vormen een effectieve blokkade voor dergelijke
+stoorpulsen.<P><BR CLEAR="ALL">
+
+<H4>Het ontvanger-printje.</H4>
+<A NAME="PMOPr"></A><P><IMG ALIGN="LEFT" SRC="PMeterOntvangerprintjeBoven.JPG"
+ ALT="PMeterOntvangerprintjeBoven.JPG">
+
+<BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="PMeterOntvangerprintjeOnder.JPG"
+ ALT="PMeterOntvangerprintjeOnder.JPG">
+
+<BR CLEAR="ALL"><P>
+<H3>Gebruiksaanwijzing.</H3>
+<A NAME="PMGbA"></A><P>
+<H4>De zender.</H4>
+<A NAME="PMGbAZ"></A><P><IMG ALIGN="LEFT" SRC="PerimeterZenderAansluiting.png"
+ ALT="PerimeterZenderAansluiting.png">
+
+Vermits de zender met een gelijkrichterbrug is uitgevoerd, kan
+hij zowel met gelijkspanning als met wisselspanning gevoed
+worden. Bij voeding met gelijkspanning speelt de polariteit geen
+rol - dat spreekt voor zich.<BR>
+De opgegeven spanningen mogen een beetje overschreden worden,
+zowel naar beneden als naar boven, maar liefst niet te veel.<P>De stroom, die de zender door de perimeter-draad stuurt, kan
+ingesteld worden met P1. Het is evenwel niet mogelijk, met P1
+de stroom tot 0mA terug te brengen.<BR>
+Als blijkt dat de stroom, met P1 op zijn laagste stand, nog
+steeds te groot is, kan er met de kniptang ingegrepen worden.
+Tussen de beide connectors bevindt zich de tweelingweerstand
+R13. Door &#233;&#233;n van die weerstanden weg te knippen, wordt de
+stroom gehalveerd.<P><BR CLEAR="ALL"><P>
+<H4>De ontvangers.</H4>
+<A NAME="PMGbAO"></A><P><IMG ALIGN="LEFT" SRC="PerimeterOntvangerAansluiting.png"
+ ALT="PerimeterOntvangerAansluiting.png">
+
+De ontvangers worden gevoed met 5V DC. De LM567 mag maximaal met
+9V gevoed worden, maar dan zijn er wijzigingen nodig, wil men de
+uitgang van de ontvangers met een &#956;C verbinden.<P>Merk op, dat de uitgang <I>hoog</I> is, als er geen signaal
+wordt waargenomen.<BR>
+De LM567 beschikt over een open-collector uitgang. Daar hoort
+bijgevolg een pull-up weerstand bij. Die bestaat enerzijds uit
+een LED met een serieweerstand van 560R, en anderzijds uit een
+weerstand van 10k. Die tweede weerstand is een noodzaak, omdat
+de spanningsval over de LED belet dat de uitgangsspanning hoger
+wordt dan 3.5V.<BR><P>
+<BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="PerimeterSpoelOpstelling.png"
+ ALT="PerimeterSpoelOpstelling.png">
+
+<IMG ALIGN="RIGHT" SRC="PerimeterSpoelOpstellingII.png"
+ ALT="PerimeterSpoelOpstellingII.png">
+
+De gevoeligheid van de oppikspoel hangt nauw samen met de stand
+van die spoel t.o.v. de perimeter-draad.<BR>
+Links toont de situatie waarbij de perimeter-draad in het
+verlengde van de spoel ligt. Hierbij blijft de spoel redelijk
+&#8220;doof&#8221; voor het signaal van de perimeter-draad.<BR>
+Bij de situatie rechts is de spoel juist heel gevoelig.<BR><P><BR CLEAR="ALL"><P>
+<H3>Fouten en verbeteringen.</H3>
+<A NAME="PMGFV"></A><P>
+<H4>Condensator-keuze.</H4>
+<A NAME="PMGFVCK"></A><P>Teneinde de ontvanger-printjes zo compact mogelijk te houden,
+werd voor C10, de frequentiebepalende condensator, een
+<A NAME="MLCC2792">MLCC</A>-type gebruikt. Dat was dom, heel dom.<BR>
+MLCC's zijn eersteklas ontkoppelcondensators, maar bij deze
+toepassing was het vrijwel onmogelijk een stabiele centrale
+frequentie te bekomen.<P>Met wat kunst-en-vliegwerk is het gelukt C10 te vervangen door
+een <A NAME="MKP2737">MKP</A>-type. Dat maakt een hemel van verschil!<P>
+<H4>Intermitterend zenden.</H4>
+<A NAME="PMGFVPZ"></A><P>Wanneer een oppik-spoel de zender-draad nadert, zal op zeker
+ogenblik (bijvoorbeeld op 15cm afstand) de <A NAME="PLL2737">PLL</A> van de LM567 locken. De uitgang wordt dan
+laag.<BR>
+Wanneer nu de afstand terug groter wordt, blijft de PLL in
+gelockte toestand, ook als de afstand groter is dan de 15cm uit
+ons voorbeeld. Pas bij 20cm (nog steeds een voorbeeld) houdt hij
+het voor bekeken, en wordt de uitgang terug hoog.<BR>
+Een vorm van hysteresis, dus. Ongewenste hysteresis, in dit
+geval.<P>Wat, als we nu bij de zender korte onderbrekingen inlassen? De
+LM567 ziet dan telkens het signaal verdwijnen. Dat gebeurt ook
+wanneer de spoel zich van de lus verwijdert. Eens de afstand
+groter is dan de 15cm uit ons voorbeeld, lockt de PLL niet meer
+in.<BR>
+Gevolg: weg hysteresis.<P>Voor testdoeleinden is het ideaal, dat de zender naar keuze
+continue danwel intermitterend kan zenden. Maar hoe maak je die
+keuze bekend aan de microcontroller, als alle I/O-pinnen bezet
+zijn?<BR>
+<A HREF="ResetPinAlsIngang.html#ResetPinAlsIngang">Daar bestaat een slimme truuk voor.</A>
+De RESET-pin kan immers &#8213;met de nodige omzichtigheid&#8213; als
+ingang gebruikt worden. Een 3k9-weerstand tussen RESET en GND
+volstaat om aan te geven dat er intermitterend moet gezonden
+worden. De bijbehorende broncode ziet u hieronder.<P><P><PRE>
+
+<font color="#800080"><i>/*
+&nbsp;&nbsp;Sinusoscillator&nbsp;(of:&nbsp;iets&nbsp;dat&nbsp;er&nbsp;op&nbsp;lijkt)&nbsp;met&nbsp;een&nbsp;ATtiny45
+
+&nbsp;&nbsp;Pros&nbsp;2012
+*/</i></font>
+
+
+<font color="#008000">#define&nbsp;F_CPU&nbsp;20000000UL</font>
+
+<font color="#008000">#include&nbsp;&lt;avr/io.h&gt;</font>
+<font color="#008000">#include&nbsp;&lt;avr/interrupt.h&gt;</font>
+<font color="#008000">#include&nbsp;&lt;util/delay.h&gt;</font>
+
+<font color="#800000">register</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">bits</font>&nbsp;<font color="#000000">asm</font>(<font color="#008000">&quot;r2&quot;</font>);
+<font color="#800000">register</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">setcnt</font>&nbsp;<font color="#000000">asm</font>(<font color="#008000">&quot;r3&quot;</font>);
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;&nbsp;<font color="#000000">set</font>[<font color="#0000FF">8</font>]&nbsp;=&nbsp;{&nbsp;<font color="#0000FF">0</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">7</font>,&nbsp;<font color="#0000FF">7</font>,&nbsp;<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#0000FF">0</font>&nbsp;};
+
+<font color="#000000">ISR</font>(<font color="#000000">TIM0_COMPA_vect</font>,&nbsp;<font color="#000000">ISR_NAKED</font>)
+{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Compare-interrupt</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PORTB</font>&nbsp;=&nbsp;<font color="#000000">bits</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Uitgang&nbsp;aanpassen</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">setcnt</font>++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Counter&nbsp;verhogen</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">setcnt</font>&nbsp;&amp;=&nbsp;<font color="#0000FF">7</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;setcnt&nbsp;=&nbsp;0&nbsp;...&nbsp;7</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">bits</font>&nbsp;=&nbsp;<font color="#000000">set</font>[<font color="#000000">setcnt</font>];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Klaar&nbsp;zetten&nbsp;voor&nbsp;volgende&nbsp;interrupt</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">reti</font>();
+}
+
+
+<font color="#000000">ISR</font>(<font color="#000000">TIM1_OVF_vect</font>,&nbsp;<font color="#000000">ISR_NAKED</font>)
+{
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR0B</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#0000FF">500</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR0B</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">CS00</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TIFR</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">TOV1</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">reti</font>();
+}
+
+
+<font color="#800000">int</font>&nbsp;<font color="#000000">main</font>(<font color="#800000">void</font>)
+{
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">adc</font>;
+
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">CLKPR</font>&nbsp;=&nbsp;(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">CLKPCE</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">CLKPR</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Set&nbsp;max.&nbsp;system-clk</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCNT0</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR0A</font>&nbsp;=&nbsp;<font color="#0000FF">61</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;20000000&nbsp;/&nbsp;(62&nbsp;*&nbsp;8)&nbsp;=&nbsp;40322Hz</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR0A</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">WGM01</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;CTC&nbsp;mode</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR0B</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">CS00</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Geen&nbsp;prescaler</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TIMSK</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">OCIE0A</font>);
+
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Nagaan&nbsp;of&nbsp;we&nbsp;continue&nbsp;danwel&nbsp;intermitterend&nbsp;moeten&nbsp;zenden</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADMUX</font>&nbsp;=&nbsp;<font color="#008080">0x00</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;ADC0&nbsp;(PB5,&nbsp;RESET)&nbsp;=&nbsp;ADC-ingang</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADCSRA</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADEN</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADPS0</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADPS1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADPS2</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_ms</font>(<font color="#0000FF">200</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Even&nbsp;wachten</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADCSRA</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADSC</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Start&nbsp;dummy&nbsp;conversie</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;((<font color="#000000">ADCSRA</font>&nbsp;&amp;&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADSC</font>))&nbsp;!=&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Wachten&nbsp;tot&nbsp;conversie&nbsp;voltooid&nbsp;is</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_ms</font>(<font color="#0000FF">200</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADCSRA</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADSC</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Start&nbsp;conversie</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;((<font color="#000000">ADCSRA</font>&nbsp;&amp;&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADSC</font>))&nbsp;!=&nbsp;<font color="#0000FF">0</font>)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">adc</font>&nbsp;=&nbsp;<font color="#000000">ADC</font>;
+
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADCSRA</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;ADC&nbsp;uitschakelen</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">adc</font>&nbsp;&lt;&nbsp;<font color="#0000FF">900</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Jumper&nbsp;gesloten?</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR1</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">CS10</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">CS13</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;CLK&nbsp;=&nbsp;F_CPU&nbsp;/&nbsp;128</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1A</font>&nbsp;=&nbsp;<font color="#0000FF">255</font>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1B</font>&nbsp;=&nbsp;<font color="#0000FF">255</font>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1C</font>&nbsp;=&nbsp;<font color="#0000FF">255</font>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TIMSK</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">TOIE1</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Enable&nbsp;overflow-interrupt</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DDRB</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB0</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">PB2</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PB0,&nbsp;PB1&nbsp;en&nbsp;PB2&nbsp;=&nbsp;uitgangen</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_ms</font>(<font color="#0000FF">5</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Even&nbsp;wachten</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sei</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Enable&nbsp;global&nbsp;interrupts</i></font>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#0000FF">1</font>)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}
+                </font>
+<P></PRE>
+
+
+<H4>Afstand meten.</H4>
+<A NAME="PMGFVAM"></A><P>Het intermitterend zenden brengt een onverwacht voordeel. Zodra
+de spoel dicht genoeg in de buurt van de lus is, wordt de
+uitgang met korte tussenpozen laag.<BR>
+Maar ... hoe korter de afstand, hoe korter de tussenpozen. Door
+nu een eenvoudig R/C-laagdoorlaatfilter (10k/10&#956;F) achter elke LM567 te
+plaatsen, bekomen we telkens een analoge spanning die lager
+wordt naarmate de afstand verkleint.<BR>
+Dat laat on toe, op een ruwe manier die afstand in te schatten.<P>
+<P><UL>
+</UL><P><P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="FrequentieStandaard.html">FrequentieStandaard.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="PulsTeller.html">PulsTeller.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

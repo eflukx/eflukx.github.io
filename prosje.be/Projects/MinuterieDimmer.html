@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Minuteriedimmer.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, CA3140, opamp, Triac">
+<META NAME="description" CONTENT="MinuterieDimmer">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="LichtDimmer.html">LichtDimmer.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="NetSlaaf.html">NetSlaaf.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="MinuterieDimmer"></A>
+<BR>Minuteriedimmer.</H2>
+<UL>
+<LI><A HREF="#MDVoorst">Voorstelling.</A>
+<LI><A HREF="#MDWerking">Werking.</A>
+<UL><LI><A HREF="#MDAfst">Afstellen.</A>
+<LI><A HREF="#MDDienst">In dienst stellen.</A>
+</UL>
+<LI><A HREF="#MDOntst">Ontstoring.</A>
+<LI><A HREF="#MDLayo">De print-layout (vergroot).</A>
+</UL><HR>
+
+<P>
+<H3>Voorstelling.</H3>
+<A NAME="MDVoorst"></A><P><table width="99%" border="0" cellpadding="0">
+<TR>
+<td width="1%"></td>
+<td width="41%" valign="top">
+Zoals de naam suggereert, betreft dit ontwerp een dimmer die de
+taak van een klassieke trappenhuisautomaar (minuterie) overneemt.
+Trappenhuisautomaten zijn nuttige dingen, maar ze hebben de
+neiging om zonder verwittiging de lampen te doven zodra iemand zich midden
+op de trap bevindt. Tussendoor een knopje indrukken helpt niet;
+het inschakelen van de verlichting gaat meestal gepaard met het
+uitschakelen van de drukknoppen.<BR>
+Onze dimmer doet het anders: na een (flinke) druk op de knop
+laat hij het licht op volle sterkte branden.
+<td width="1%">&nbsp;</td>
+<td width="41%" valign="top"><a name="top"></a>
+Na een periode gaat
+het licht steeds zwakker en zwakker branden, tot de lampen
+volledig gedoofd zijn. Tussendoor indrukken van de knop heeft
+telkens tot gevolg dat het licht weer op volle sterkte gaat
+branden.<BR> Daarnaast kan de gebruiker &#8213;als de lampen volledig
+gedoofd
+zijn&#8213; heel kort de knop indrukken. In dat geval gaat de
+verlichting niet op volle sterkte branden, maar slechts zwakjes;
+ruim voldoende om snel de trap op te lopen. Een mooie
+energiebesparing, dus (voor wie nog snel te been is).
+
+</table>
+<P>
+<H3>Werking.</H3>
+<A NAME="MDWerking"></A><P>Een waarschuwing vooraf is hier wel op zijn plaats: de ganse
+schakeling is verbonden met het <B>lichtnet</B>! Hou daar
+rekening mee bij het testen of meten.
+Om dit duidelijk te maken, zijn de 230V-lijnen donkerrood
+afgebeeld.<P><IMG ALIGN="MIDDLE" SRC="MinuterieDimmer_Fig.png"
+ ALT="MinuterieDimmer_Fig.png">
+<P><table width="99%" border="0" cellpadding="0">
+<TR>
+<td width="1%"></td>
+<td width="41%" valign="top">
+In het schema hierboven zien we uiterst links een aantal
+weerstanden<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A>
+(R101 ... R105) die in serie geschakeld zijn. Ze vormen met R106 een
+spanningsdeler. Op het knooppunt hiervan staat een
+wisselspanning van 9Volt, die via R107 en R108 naar de basissen van
+T1 en T3 gevoerd wordt. Is de spanning positief t.o.v. GND, dan
+gaat T1 geleiden. Is ze negatief, dan gaat T3 &#8213;en bijgevolg
+ook T2&#8213; in geleiding. In beide gevallen wordt de basis van T4
+&#8213;die voorspanning krijgt via R109&#8213; naar GND getrokken, waardoor
+T4 gaat sperren.
+<td width="1%">&nbsp;</td>
+<td width="41%" valign="top"><a name="top"></a>
+Het gevolg hiervan is, dat T4 100 x per seconde &#8213;tijdens de
+nuldoorgang van de netspanning, als zowel T1 als T3/T2
+sperren&#8213; kortstondig in geleiding gaat. In die periode zal hij
+C4 bijna geheel<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A> ontladen. Tussendoor
+wordt C4 terug opgeladen door de stroombron die gevormd wordt
+door R111, D2, T6, R112 en P2. Het gevolg van dit alles is, dat
+op de niet-inverterende ingang van <A NAME="opamp2093">opamp</A> IC2 een
+zaagtandspanning staat van 100Hz, die syncroon<A NAME="pros3" HREF="#ft3"><SUP>3</SUP></A> loopt
+met de netspanning.
+
+</table>
+<P><IMG ALIGN="LEFT" SRC="MDGrafiek.png"
+ ALT="MDGrafiek.png">
+
+Op de inverterende ingang van dezelfde opamp komt de stuurspanning
+te staan. Is deze hoger dan de hoogste waarde die de spanning over
+C4 bereikt, dan blijft de uitgang van de opamp laag, en gebeurt er
+verder niets. Dat zal het geval zijn, als de schakeling een
+tijdlang in dienst is; de stroombron rond T5 zal dan C2 tot 10Volt
+opgeladen hebben. 10Volt, vanwege de aanwezigheid van zenerdiode
+Z2.<BR>
+Stel nu, dat een gebruiker drukknop K1 indrukt. In dat geval wordt
+C2 ontladen via R114 en D1. Bij een korte druk geschiedt die
+ontlading slechts gedeeltelijk; drukt men langer, dan stopt de
+ontlading op 0.6Volt; daar zorgt D1 voor.<BR>
+In dat laatste geval zal de spanning op de inverterende ingang van de opamp
+steeds lager zijn dan op de niet-inverterende ingang. C4 wordt
+immers niet volledig ontladen door toedoen van Z1. De
+uitgangsspanning van de opamp wordt positief, en T7 voorziet
+<A NAME="Triac2051">Triac</A> Tr1 van de benodigde stuurspanning: het licht gaat op volle
+sterkte branden.<P>Ondertussen wordt C2 langzaam weer opgeladen; na een tijdje zal
+diens spanning hoger worden dan de laagste spanning over C4. Een
+en ander is op de grafiek duidelijk te volgen.<BR>
+Het voorbeeld hierboven schetst de situatie die zich voordoet als
+de spanning over C2 zo'n 5Volt bedraagt (halfweg tussen volle
+lichtsterkte en minimum lichtsterkte). Na elke nuldoorgang van
+de netspanning is de spanning over C4 lager dan over C2; de
+uitgang van de opamp is bijgevolg laag, en Triac1 spert. Na
+&#177; 1/200 van een seconde is C4 zover opgeladen, dat zijn
+spanning die van C2 overtreft. Gevolg: de uitgang van IC2 wordt
+hoog en Triac1 gaat in geleiding. Dat alles gebeurt zo'n 100 maal per
+seconde.<P>
+<H4>Afstellen.</H4>
+<A NAME="MDAfst"></A><P>De aanwezigheid van instelpotmeters P1 en P2 doet vermoeden, dat
+er &#233;&#233;n en ander moet ingesteld worden.<BR>
+De taak van P1 is eenvoudig: hiermee wordt bepaald hoe lang het
+duurt, voor het licht weer gedoofd is.<BR>
+Met P2 stellen we de stroom in, waarmee C4 wordt opgeladen. Een
+hoge stroom heeft als resultaat dat het licht langer voluit gaat
+branden. Bij een kleinere stroom gaat de schakeling sneller over
+op de dim-modus.<BR>
+Maar er is meer: men kan de stroom z&#243; hoog instellen, dat de
+topspanning van C4 die van C2 <I>altijd</I> overschrijdt; deze laatste
+is immers begrensd tot 10Volt door toedoen van Z2. In dat geval
+zal het licht nooit volledig uitgaan! Het blijft altijd een
+beetje zwak branden. Het is aan de gebruiker, te bepalen of hij
+deze mogelijkheid als &#8220;nuttig&#8221; dan wel als
+&#8220;energieverspilling&#8221; bestempelt.<P>
+
+<H4>In dienst stellen.</H4>
+<A NAME="MDDienst"></A><P>Wie bovenstaande <A HREF="MinuterieDimmer.html#MDWerking">uitleg</A> gevolgd heeft, zal
+beseffen dat &#8213;bij het in dienst stellen van de schakeling&#8213; het
+licht onmiddelijk voluit gaat branden. C2 is dan immers volledig
+ontladen.<BR>
+Niets om van te schrikken, dus...<BR>
+Verder kan de schakeling zonder probleem een bestaande
+trappenhuisautomaat vervangen. Voor het relais (Rel1) is geen
+plaats voorzien op de print; hierdoor is zowat elk 230Volt-relais
+bruikbaar, maar men zal zelf een bevestigingsmethode moeten
+verzinnen. Een relais, dat op een bevestigingsrail kan geklikt
+worden, is ideaal.<P>
+<H3>Ontstoring.</H3>
+<A NAME="MDOntst"></A><P>Wie dimmer zegt, denkt meteen aan de storing die zulk een toestel
+kan veroorzaken. Bij dit project wordt zulks voorkomen door de
+heilzame invloed van ontstoorspoel L1 en ontstoorcondensator C5.
+Bedenk wel dat C5 ofwel een 630Volt(DC)-exemplaar moet zijn,
+ofwel een exemplaar waarop duidelijk vermeld staat dat het voor
+250V <B>wisselspanning</B> geschikt is!<P>
+<H3>De print-layout (vergroot).</H3>
+<A NAME="MDLayo"></A><P><IMG ALIGN="MIDDLE" SRC="MinuterieDimmerPcb.png"
+ ALT="MinuterieDimmerPcb.png">
+<P><P><P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...weerstanden</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+vervang de 5 weerstanden R101 ... R105 nooit door 1 weerstand! Deze serieschakeling zorgt er voor dat elke weerstand slechts 1/5 van de netspanning te verwerken krijgt, wat een veilige waarde is voor een &#188;W-weerstand.</DD>
+<DT><A NAME="ft2">...geheel</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+bijna geheel, omdat zenerdiode Z1 een volledige ontlading belet. Door te beletten dat de ingangen van de opamp tot 0Volt terugvallen, vervalt de verplichting om een opamp te kiezen die ingangsspanningen kan verwerken die nabij de negatieve voedingsrail komen. Hoewel de gebruikte <A NAME="CA31401884">CA3140</A> zelfs ingangsspanningen aankan die lichtjes negatief zijn, is hier het zekere v&#243;&#243;r het onzekere genomen.<BR> Zoals op de print-layout te zien is, kan ook een serieschakeling van 2 dioden de rol van &#8220;zenerdiode&#8221; spelen.</DD>
+<DT><A NAME="ft3">...syncroon</A>
+<A HREF="#pros3"><SUP>3</SUP></A></DT>
+<DD>
+het vervangen van R101 ... R105 door een weerstand die afgetakt is van de secundaire wikkeling van trafo Tr1 is <B>geen</B> goede inval! Zeker bij kleine trafo'tjes ijlt de secundaire wikkeling na op de primaire, wat het ganse schema in de war stuurt.</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="LichtDimmer.html">LichtDimmer.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="NetSlaaf.html">NetSlaaf.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

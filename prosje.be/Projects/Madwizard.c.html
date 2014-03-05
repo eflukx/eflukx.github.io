@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>Madwizard.c</title>
+		<meta name="generator" content="c2html 1.1.0" >
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" >
+		<meta http-equiv="Content-Script-Type" content="text/javascript" >
+		<meta http-equiv="Content-Style-Type" content="text/css" >
+	</head>
+	<body text="#000000">
+		<font face="Monospace">
+<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;Madwizard<br>
+<br>
+&nbsp;&nbsp;Frequentiedeler&nbsp;en&nbsp;pulsvormer<br>
+&nbsp;&nbsp;We&nbsp;sturen&nbsp;deze&nbsp;avr&nbsp;aan&nbsp;als&nbsp;een&nbsp;schuifregister:&nbsp;data-bit&nbsp;klaarzetten&nbsp;op&nbsp;PD6&nbsp;en&nbsp;vervolgens<br>
+&nbsp;&nbsp;INT0&nbsp;even&nbsp;laag&nbsp;en&nbsp;terug&nbsp;hoog&nbsp;maken.&nbsp;Er&nbsp;moeten&nbsp;20&nbsp;bit's&nbsp;verzonden&nbsp;worden,&nbsp;eerst&nbsp;4&nbsp;bits&nbsp;die&nbsp;de&nbsp;opdracht<br>
+&nbsp;&nbsp;bepalen,&nbsp;en&nbsp;vervolgens&nbsp;16&nbsp;bits&nbsp;die&nbsp;als&nbsp;data&nbsp;bedoeld&nbsp;zijn.<br>
+&nbsp;&nbsp;Als&nbsp;laatste&nbsp;stap:&nbsp;INT1&nbsp;even&nbsp;laag-&nbsp;en&nbsp;terug&nbsp;hoog&nbsp;maken.<br>
+<br>
+&nbsp;&nbsp;Bereik:<br>
+&nbsp;&nbsp;Geen&nbsp;prescaler;&nbsp;maxcnt&nbsp;=&nbsp;1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F_CPU&nbsp;/&nbsp;2<br>
+&nbsp;&nbsp;Prescaler&nbsp;=&nbsp;1024;&nbsp;maxcnt&nbsp;=&nbsp;65535:&nbsp;&nbsp;&nbsp;F_CPU&nbsp;/&nbsp;67107840<br>
+<br>
+<br>
+&nbsp;&nbsp;Pros&nbsp;2007<br>
+*/</i></font><br>
+<br>
+<font color="#800080"><i>//&nbsp;Dit&nbsp;moet&nbsp;overeenkomen&nbsp;met&nbsp;de&nbsp;define's&nbsp;in&nbsp;Main.h&nbsp;van&nbsp;Grotendikken<br></i></font>
+<font color="#008000">#define&nbsp;PWM&nbsp;0x02<br></font>
+<font color="#008000">#define&nbsp;MAXCNT&nbsp;0x03<br></font>
+<font color="#008000">#define&nbsp;PRESC&nbsp;0x04<br></font>
+<br>
+<font color="#008000">#include&nbsp;&lt;avr/io.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;compat/deprecated.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;avr/interrupt.h&gt;<br></font>
+<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">command</font>,&nbsp;<font color="#000000">data</font>;<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">maxcnt</font>,&nbsp;<font color="#000000">pwm</font>;<br>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">tccr1b</font>;<br>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">vlag</font>;<br>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">schuifregister</font>;<br>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">settings</font>;<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Bij&nbsp;het&nbsp;initialiseren&nbsp;starten&nbsp;we&nbsp;de&nbsp;PWM-klok&nbsp;nog&nbsp;niet.<br></i></font>
+<font color="#800080"><i>//&nbsp;We&nbsp;wachten&nbsp;op&nbsp;een&nbsp;signaal&nbsp;van&nbsp;Grotendikken.<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">init</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tccr1b</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">WGM13</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">WGM12</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Fast&nbsp;PWM;&nbsp;ICR1&nbsp;=&nbsp;TOP;&nbsp;no&nbsp;CLK<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">maxcnt</font>&nbsp;=&nbsp;<font color="#0000FF">1000</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">pwm</font>&nbsp;=&nbsp;<font color="#0000FF">50</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">vlag</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">DDRB</font>,&nbsp;<font color="#000000">PB3</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PB3&nbsp;(OC1A)&nbsp;=&nbsp;PWMA-uitgang<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">DDRB</font>,&nbsp;<font color="#000000">PB4</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PB4&nbsp;(OC1B)&nbsp;=&nbsp;PWMB-uitgang<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR1A</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">COM1A1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">COM1B1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">WGM11</font>);&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Clear&nbsp;AC1A&nbsp;on&nbsp;compare&nbsp;match,&nbsp;set&nbsp;on&nbsp;TOP<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR1B</font>&nbsp;|=&nbsp;<font color="#000000">tccr1b</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Fast&nbsp;PWM,&nbsp;TOP&nbsp;=&nbsp;ICR1<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ICR1</font>&nbsp;=&nbsp;<font color="#000000">maxcnt</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PWM&nbsp;TOP<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1A</font>&nbsp;=&nbsp;<font color="#000000">maxcnt</font>&nbsp;/&nbsp;<font color="#0000FF">2</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PWM&nbsp;duty&nbsp;cycle&nbsp;A&nbsp;=&nbsp;50%<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1B</font>&nbsp;=&nbsp;<font color="#000000">pwm</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PWM&nbsp;duty&nbsp;cycle&nbsp;B&nbsp;=&nbsp;variabel<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">DDRD</font>,&nbsp;<font color="#000000">PD2</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PD2&nbsp;=&nbsp;INT0<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">PORTD</font>,&nbsp;<font color="#000000">PD2</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Pull-up&nbsp;weerstand&nbsp;activeren<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">DDRD</font>,&nbsp;<font color="#000000">PD3</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PD3&nbsp;=&nbsp;INT1<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">PORTD</font>,&nbsp;<font color="#000000">PD3</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Pull-up&nbsp;weerstand&nbsp;activeren<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">MCUCR</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ISC11</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ISC01</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">GIMSK</font>&nbsp;|=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">INT0</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">INT1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">DDRA</font>,&nbsp;<font color="#000000">PA1</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PD6&nbsp;=&nbsp;data-ingang<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">PORTA</font>,&nbsp;<font color="#000000">PA1</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Pull-up&nbsp;weerstand&nbsp;activeren<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sei</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Global&nbsp;interrupts&nbsp;on<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#000000">ISR</font>(<font color="#000000">SIG_INTERRUPT0</font>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;een&nbsp;interrupt&nbsp;op&nbsp;PD2<br></i></font>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">schuifregister</font>&nbsp;=&nbsp;<font color="#000000">schuifregister</font>&nbsp;&lt;&lt;&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;schuifregister&nbsp;1&nbsp;plaatsje&nbsp;naar&nbsp;links<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">bit_is_set</font>(<font color="#000000">PINA</font>,&nbsp;<font color="#000000">PINA1</font>))&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Als&nbsp;PD6&nbsp;hoog&nbsp;is,<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">schuifregister</font>&nbsp;|=&nbsp;<font color="#008080">0x00000001</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;maken&nbsp;we&nbsp;bit&nbsp;0&nbsp;van&nbsp;schuifregister&nbsp;hoog<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#000000">ISR</font>(<font color="#000000">SIG_INTERRUPT1</font>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;een&nbsp;interrupt&nbsp;op&nbsp;PD3<br></i></font>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">settings</font>&nbsp;=&nbsp;<font color="#000000">schuifregister</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Sata-tranfer&nbsp;is&nbsp;compleet<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">vlag</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Geef&nbsp;een&nbsp;seintje&nbsp;aan&nbsp;main<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Met&nbsp;maxcnt&nbsp;=&nbsp;1&nbsp;en&nbsp;pwm&nbsp;=&nbsp;0&nbsp;is&nbsp;de&nbsp;uitgangsfrequentie&nbsp;gelijk&nbsp;aan&nbsp;de&nbsp;helft&nbsp;v/d&nbsp;CPU_CLK<br></i></font>
+<font color="#800000">int</font>&nbsp;<font color="#000000">main</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">init</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#0000FF">1</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">vlag</font>&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Lekker&nbsp;nietsdoen,&nbsp;zolang&nbsp;vlag&nbsp;0&nbsp;is...<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;=&nbsp;<font color="#000000">settings</font>&nbsp;&amp;&nbsp;<font color="#008080">0xFFFF</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bit&nbsp;15&nbsp;...&nbsp;0&nbsp;van&nbsp;settings&nbsp;=&nbsp;data<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">command</font>&nbsp;=&nbsp;(<font color="#000000">settings</font>&nbsp;&gt;&gt;&nbsp;<font color="#0000FF">16</font>)&nbsp;&amp;&nbsp;<font color="#008080">0x0F</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bit&nbsp;19&nbsp;...&nbsp;16&nbsp;van&nbsp;settings&nbsp;=&nbsp;command<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>switch</b></font>&nbsp;(<font color="#000000">command</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#000000">PWM</font>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PWM-verhouding&nbsp;instellen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">pwm</font>&nbsp;=&nbsp;<font color="#000000">data</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">pwm</font>&nbsp;&gt;&nbsp;<font color="#000000">maxcnt</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">pwm</font>&nbsp;=&nbsp;<font color="#000000">maxcnt</font>&nbsp;-&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1B</font>&nbsp;=&nbsp;<font color="#000000">pwm</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1A</font>&nbsp;=&nbsp;<font color="#000000">maxcnt</font>&nbsp;/&nbsp;<font color="#0000FF">2</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PWM&nbsp;duty&nbsp;cycle&nbsp;A&nbsp;=&nbsp;50%<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#000000">MAXCNT</font>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Max.&nbsp;count&nbsp;instellen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">maxcnt</font>&nbsp;=&nbsp;<font color="#000000">data</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">maxcnt</font>&nbsp;&lt;&nbsp;<font color="#000000">pwm</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">maxcnt</font>&nbsp;=&nbsp;<font color="#000000">pwm</font>&nbsp;+&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ICR1</font>&nbsp;=&nbsp;<font color="#000000">maxcnt</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OCR1A</font>&nbsp;=&nbsp;<font color="#000000">maxcnt</font>&nbsp;/&nbsp;<font color="#0000FF">2</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PWM&nbsp;duty&nbsp;cycle&nbsp;A&nbsp;=&nbsp;50%<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#000000">PRESC</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tccr1b</font>&nbsp;&amp;=&nbsp;<font color="#008080">0xF8</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bits&nbsp;0,&nbsp;1&nbsp;en&nbsp;2&nbsp;van&nbsp;TCCR1B&nbsp;bepalen&nbsp;de&nbsp;CLK-bron<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tccr1b</font>&nbsp;|=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>)&nbsp;(<font color="#000000">data</font>&nbsp;&amp;&nbsp;<font color="#008080">0x07</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TCCR1B</font>&nbsp;=&nbsp;<font color="#000000">tccr1b</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>default</b></font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">vlag</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>&nbsp;<font color="#0000FF">0</font>;<br>
+}<br>
+		</font>
+	</body>
+</html>

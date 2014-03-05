@@ -1,0 +1,489 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Specht.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, Z80, stappenmotor, Amiga">
+<META NAME="description" CONTENT="Specht">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="NetSlaaf.html">NetSlaaf.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Voedingen.html">Voedingen.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="Specht"></A>
+<BR>Specht.</H2>
+<UL>
+<LI><A HREF="#SpechtV">Voorstelling.</A>
+<UL><LI><A HREF="#SpechtWIH">Wat is het?</A>
+<LI><A HREF="#SpMK">De MeetKabel</A>
+<LI><A HREF="#SpechtH">Opbouw.</A>
+<LI><A HREF="#SpechtFotos">Foto's.</A>
+</UL>
+<LI><A HREF="#SpechtBS">De besturing.</A>
+<UL><LI><A HREF="#SpechtS">Schema.</A>
+<LI><A HREF="#SpechtASM">De CPU-software.</A>
+</UL>
+<LI><A HREF="#SpechtPL">De print-layout.</A>
+<UL><LI><A HREF="#SpechtCPUPCB">De CPU-print.</A>
+<LI><A HREF="#SpechtDRPCB">De druktoetsen-print.</A>
+<LI><A HREF="#SpechtBMSPCB">De boormachine-sturing.</A>
+</UL>
+</UL><HR>
+<P>
+<H3>Voorstelling.</H3>
+<A NAME="SpechtV"></A><P>
+<H4>Wat is het?</H4>
+<A NAME="SpechtWIH"></A><P><IMG ALIGN="LEFT" SRC="Woodpecker.jpg"
+ ALT="Woodpecker.jpg">
+
+De <B>Specht</B> is een processor-gestuurde printboormachine.
+De processor (een <A NAME="Z80809">Z80</A>-CPU) ontvangt de gegevens van de te
+boren gaten van een PC via een <A HREF="Specht.html#SpMK">MeetKabel</A>.
+Die gegevens zijn vectors, uitgedrukt in stappen voor de X- en
+de Y-<A NAME="stappenmotor1939">stappenmotor</A>en.
+Nadat <B>Specht</B> alle data heeft ontvangen, begint hij
+onmiddelijk aan zijn taak, werkt die af, en gaat vervolgens
+wachten op een volgende opdracht...<P>Naast het traditionele gebruik bestaat ook de mogelijkheid
+<B>Specht</B> manueel te besturen.
+Daarvoor zijn een aantal toetsen voorzien; de namen spreken voor
+zich.
+Wordt een X- of een Y-toets kort ingedrukt, dan beweegt
+<B>Specht</B> de bijbehorende motor 1 stap, wat &#8220;twee keer
+niks&#8221; is.
+Door een toets ingedrukt te houden, gaat de motor sneller en
+sneller draaien, tot hij zijn maximum snelheid bereikt heeft.
+Hoe dat in zijn werk gaat, wordt duidelijk als je de
+<A NAME="pros4"  HREF="SpechtRom.asm.html#CheckKeys">broncode</A>
+
+bekijkt.<BR><P><TABLE CELLPADDING=4 BORDER="1">
+
+<TR>
+<TD ALIGN="CENTER">&nbsp;Home&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;Y--&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="CENTER">&nbsp;X--&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;Boor&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;X++&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;Y++&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+
+</TABLE>
+
+
+De &#8220;Home&#8221; en de &#8220;Boor&#8221; toetsen hoeven maar kortstondig
+ingedrukt te worden. De eerste brengt het boormachientje naar zijn
+beginpunt en schakelt het uit; de tweede laat het
+boormachientje op volle kracht draaien, boort een gat, haalt het
+boormachientje naar boven en laat het verder op halve kracht
+draaien.<P><IMG ALIGN="RIGHT" SRC="Toetsen.png"
+ ALT="Toetsen.png">
+
+Op het schema hiernaast valt te zien dat we, door een beetje te
+goochelen met dioden, 6 toetsen kunnen aansluiten op 3 ingangen
+van de CPU-kaart.<BR>
+Naast de toetsen zijn er nog twee LED's aanwezig, waarmee
+<B>Specht</B> zijn status bekend maakt: een rode LED in de
+&#8220;Boor&#8221; toets die oplicht als er een gat geboord wordt, en een
+twee-kleuren LED, die van groen naar rood springt als de
+<A NAME="pros5"  HREF="SpechtRom.asm.html#Interrupt">interrupt-routine</A>
+
+uitgevoerd wordt.<BR>
+Meer info wordt weergegeven door een LCD-display.<P><BR CLEAR="ALL"><P>
+<H4>De MeetKabel</H4>
+<A NAME="SpMK"></A><P>De naam &#8220;MeetKabel&#8221; stamt ergens uit de tweede helft van de
+jaren '80, toen het (op de <A NAME="Amiga1094">Amiga</A>) gebruikt werd om allerlei
+meettoestellen aan te sturen. De opzet is vergelijkbaar met een
+(paralelle) printer-kabel, met dit verschil dat er twee
+exemplaren met de uitbreidingsprint verbonden zijn.<BR>
+Om te weten met welke kabel het te bedienen toestel verbonden
+is, beschikt ieder apparaat over een unieke &#8220;elektronische
+handtekening&#8221;.<BR>
+Hier de pinbezetting van de 25-polige connector (aan de PC-zijde
+is de kabel aangesloten via een 15-polige connector):<P><table width="99%" border="0" cellpadding="0">
+<TR>
+<td width="1%"></td>
+<td width="41%" valign="top">
+<TABLE CELLPADDING=4 BORDER="1">
+
+<TR>
+<TD ALIGN="RIGHT"><B>MK-pin</B>&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;<B>Kleur</B>&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;<B>Funktie</B>&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;<B>IO-Conn.</B>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">&nbsp;1&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;BRUIN&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;SHIELD&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">&nbsp;2&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;ROOD&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">&nbsp;3&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;ORANJE&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;GND&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;1&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">&nbsp;4&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;GEEL&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;GND&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;9&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">&nbsp;5&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;DONKERGROEN&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;D7&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;2&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">&nbsp;6&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;DONKERBLAUW&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;B3&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;6&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">&nbsp;7&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;PURPER&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;B0&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;15&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">&nbsp;8&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;GRIJS&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;B2&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;14&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">&nbsp;9&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;WIT&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;B1&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;7&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">10&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;ZWART&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;GND&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;8&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">11&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;CREME&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;GND&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;8&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">12&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;LICHT-DONKERGROEN&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">13&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;LICHTGROEN&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;&nbsp;</TD>
+</TR>
+
+</TABLE>
+
+<td width="1%">&nbsp;</td>
+<td width="41%" valign="top"><a name="top"></a>
+<TABLE CELLPADDING=4 BORDER="1">
+
+<TR>
+<TD ALIGN="RIGHT"><B>MK-pin</B>&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;<B>Kleur</B>&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;<B>Funktie</B>&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;<B>IO-Conn.</B>&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">14&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;ROOD-ZWART&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">15&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;ORANJE-ZWART&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">16&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;GEEL-ZWART&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;D6&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;10&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">17&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;GROEN-ZWART&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;D5&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;3&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">18&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;GRIJS-ZWART&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;D4&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;11&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">19&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;ZWART-GRIJS&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;D3&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;4&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">20&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;CREME-ZWART&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;D2&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;12&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">21&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;ROOD-WIT&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;D1&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;5&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">22&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;ORANJE-WIT&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;D0&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;13&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">23&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;BRUIN-WIT&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">24&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;BLAUW-WIT&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;&nbsp;</TD>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">25&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;PURPER-WIT&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;&nbsp;</TD>
+</TR>
+
+</TABLE>
+
+
+</table>
+<P>Zoals in de
+<A NAME="pros6"  HREF="SpechtRom.asm.html#Interrupt">broncode</A>
+
+te zien is, wordt er geen gebruik gemaakt van handshaking of
+iets dergelijks.
+De PC plaatst een byte op de databus (D0 ... D7), geeft met 2
+bits aan, om welke data het gaat (X-L, X-H, Y-L of Y-H), en
+maakt de <B>INT</B>-pin kortstondig laag. Let wel: de
+<B>INT</B>-pin, niet de <B>NMI</B>-pin!
+Dat betekent dat de <B>Specht</B> interrupts kan uitschakelen.
+En dat do&#233;t hij ook, als hij een print aan het boren is.<P>
+<H4>Opbouw.</H4>
+<A NAME="SpechtH"></A><P><IMG ALIGN="LEFT" SRC="PrintBoorMachine.png"
+ ALT="PrintBoorMachine.png">
+<P><BR CLEAR="ALL"><P>De opbouw van <B>Specht</B> is vrij eenvoudig van opzet:<BR>
+Een onderstel waarop een wagentje zich in X-richting kan
+bewegen.<BR>
+Op dit wagentje bevindt zich een tweede exemplaar, dat zich in
+Y-richting kan verplaatsen.<BR>
+Hierop dan weer een gemodificeerde mini-boorkolom waarin het
+eigenlijke boormachientje een plaats vindt. Dit laatste kan zich
+in Z-richting bewegen.<P>De aandrijving van beide wagentjes en boormachientje gebeurt
+door middel van 3 stappenmotoren. Verder zijn er 6 contacten
+voorzien: 2 per beweegbaar deel, die de software toelaten zowel
+begin- als eindpunt te dedecteren.<BR>
+Het boormachientje kan niet enkel in- en uitgeschakeld worden;
+het kan ook aan een laag toerental draaien, zodat het van
+hieruit op korte tijd zijn maximum snelheid kan ontwikkelen.<P>
+<H4>Foto's.</H4>
+<A NAME="SpechtFotos"></A><P>Hieronder nog wat foto's van het opgebouwde geheel:<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="SpechtPicII.jpg"
+ ALT="SpechtPicII.jpg">
+<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="SpechtPicIII.jpg"
+ ALT="SpechtPicIII.jpg">
+<P><BR CLEAR="ALL"><P>
+
+<H3>De besturing.</H3>
+<A NAME="SpechtBS"></A><P>
+<H4>Schema.</H4>
+<A NAME="SpechtS"></A><P>Het schema hieronder lijkt uitgebreid, maar bij nader onderzoek
+valt het op te delen in enkele eenvoudige blokken.<P><IMG ALIGN="LEFT" SRC="Specht_Fig.png"
+ ALT="Specht_Fig.png">
+
+<BR CLEAR="ALL"><P>Bovenaan zien we de processor (IC1, een Z80-CPU), vergezeld van RAM
+(IC2, een62256) en ROM (IC3, een 27128-eprom).<BR>
+De rechterzijde wordt geheel in beslag genomen door 3 ingangs- en
+4 uitgangs-buffers (IC6 ... IC12).<BR>
+Aan de linkerzijde bevinden zich &#8213;naast de klokgenerator(IC13,
+een 74HC04)&#8213; 2 GAL's (IC4 en IC5, beiden een GAL16V8), die het
+dataverkeer op de print regelen.<BR>
+Wat rest (in het midden) is een reset-schakeling, die eveneens
+deel uitmaakt van IC13.<P>IC4, de M-GAL, regelt het dataverkeer tussen CPU en diens
+geheugen-blokken, ROM en RAM. Daarnaast geeft de M-GAL een
+seintje aan zijn collega, de IO-GAL. Die bedient op zijn beurt
+de ingangs- en uitgangsbuffers.<BR>
+Hieronde de broncode voor beide GAL's:<P><P><PRE>
+
+GAL16V8
+IDNT		MGAL
+datum		20-05-2003
+
+SYN	1
+AC0	1
+
+!
+	RD		Vcc
+	WR		ORES1
+	MREQ		RAMRW
+	A13		RAMOE
+	A12		RAMCS
+	A11		ROMOE
+	A15		ORES2
+	A14		IOEN
+	IRES1		ORES3
+	GND		IRES2
+
+@ /RAMRW	AC1 1	RD
+
+@ /RAMOE	AC1 1	A15 * /MREQ * /RD
+
+@ /RAMCS	AC1 1	A15 * /MREQ
+
+@ /ROMOE	AC1 1	/MREQ * /A15 * /A14
+		    +   /MREQ * /A15 * /A13
+		    +	/MREQ * /A15 * /A12
+		    +	/MREQ * /A15 * /A11
+
+@ IOEN		AC1 1	/MREQ * /A15 * A14 * A13 * A12 * A11
+
+
+
+GAL16V8
+IDNT		IOGAL
+datum		20-05-2003
+
+SYN	1
+AC0	1
+
+!
+	RD		Vcc
+	WR		I1
+	A02		I2
+	A13		I3
+	A12		O1
+	A11		O2
+	A01		O3
+	IOEN		O4
+	A00		ORES1
+	GND		IRES1
+
+@ /I1		AC1 1	IOEN * /RD * /A00 * /A01 * /A02
+@ /I2		AC1 1	IOEN * /RD * A00 * /A01 * /A02
+@ /I3		AC1 1	IOEN * /RD * /A00 * A01 * /A02
+
+@ /O1		AC1 1	IOEN * /WR * A00 * A01 * /A02
+@ /O2		AC1 1	IOEN * /WR * /A00 * /A01 * A02
+@ /O3		AC1 1	IOEN * /WR * A00 * /A01 * A02
+@ /O4		AC1 1	IOEN * /WR * /A00 * A01 * A02
+
+<P></PRE>
+
+<BR CLEAR="ALL"><P>
+<H4>De CPU-software.</H4>
+<A NAME="SpechtASM"></A><P>De software voor de Z80-CPU is in assembler geschreven.
+<A NAME="pros7"  HREF="SpechtRom.asm.html">Hier</A>
+ staat de
+listing, een html-bestand dat automatisch opgemaakt wordt
+tijdens het assembleren van de broncode.<BR>
+De eerste kolom geeft het adres weer en de tweede de code,
+beiden hexadecimaal. De rest van elke regel wordt ingenomen door
+de broncode.<P>
+<H3>De print-layout.</H3>
+<A NAME="SpechtPL"></A><P>
+<H4>De CPU-print.</H4>
+<A NAME="SpechtCPUPCB"></A><P><IMG ALIGN="LEFT" SRC="SpechtLayout.png"
+ ALT="SpechtLayout.png">
+
+<BR CLEAR="ALL">
+<IMG ALIGN="LEFT" SRC="SpechtPcb.png"
+ ALT="SpechtPcb.png">
+
+<BR CLEAR="ALL">
+
+<H4>De druktoetsen-print.</H4>
+<A NAME="SpechtDRPCB"></A>
+<BR CLEAR="ALL">
+<IMG ALIGN="LEFT" SRC="DruktoetsenPcb.png"
+ ALT="DruktoetsenPcb.png">
+
+<BR CLEAR="ALL">
+
+<H4>De boormachine-sturing.</H4>
+<A NAME="SpechtBMSPCB"></A>
+<BR CLEAR="ALL">
+<IMG ALIGN="LEFT" SRC="BoormachineSturingPcb.png"
+ ALT="BoormachineSturingPcb.png">
+
+<BR CLEAR="ALL"><P><P><UL>
+</UL><P><P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="NetSlaaf.html">NetSlaaf.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Voedingen.html">Voedingen.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

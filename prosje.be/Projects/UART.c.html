@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>UART.c</title>
+		<meta name="generator" content="c2html 1.1.0" >
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" >
+		<meta http-equiv="Content-Script-Type" content="text/javascript" >
+		<meta http-equiv="Content-Style-Type" content="text/css" >
+	</head>
+	<body text="#000000">
+		<font face="Monospace">
+<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;UART-stuff&nbsp;voor&nbsp;de&nbsp;ATmega32<br>
+<br>
+&nbsp;&nbsp;Pros&nbsp;2007<br>
+*/</i></font><br>
+<br>
+<br>
+<font color="#008000">#define&nbsp;UART_RX_BUFFER_SIZE&nbsp;129<br></font>
+<font color="#008000">#define&nbsp;uart_sendstr_P(__s)&nbsp;uart_sendstr_p(P(__s))<br></font>
+<font color="#008000">#define&nbsp;reply_err()&nbsp;uart_sendstr_P(&quot;Err\n&quot;)<br></font>
+<font color="#800080"><i>//&nbsp;&nbsp;Wait&nbsp;until&nbsp;tx&nbsp;holding&nbsp;register&nbsp;is&nbsp;empty,&nbsp;then&nbsp;send&nbsp;character&nbsp;c&nbsp;down&nbsp;the&nbsp;UART&nbsp;Tx.<br></i></font>
+<font color="#008000">#define&nbsp;uart_sendchar(x)&nbsp;loop_until_bit_is_set(UCSRA,&nbsp;UDRE);\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;UDR&nbsp;=&nbsp;x<br></font>
+<font color="#008000">#define&nbsp;nl()&nbsp;loop_until_bit_is_set(UCSRA,&nbsp;UDRE);\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;UDR&nbsp;=&nbsp;'\n'<br></font>
+<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">uart_outbuf</font>[<font color="#000000">UART_RX_BUFFER_SIZE</font>&nbsp;+&nbsp;<font color="#0000FF">1</font>];<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">uart_rxbuf</font>[<font color="#000000">UART_RX_BUFFER_SIZE</font>&nbsp;+&nbsp;<font color="#0000FF">1</font>];<br>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">static</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">uart_rx_pos</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;end&nbsp;of&nbsp;string&nbsp;in&nbsp;rx<br></i></font>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">static</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">uart_rx_linecomplete</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;one&nbsp;complete&nbsp;line&nbsp;in&nbsp;buffer<br></i></font>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Deze&nbsp;functie&nbsp;wordt&nbsp;aangeroepen,&nbsp;telkens&nbsp;er&nbsp;een&nbsp;karakter&nbsp;binnenkomt<br></i></font>
+<font color="#000000">ISR</font>(<font color="#000000">SIG_UART_RECV</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">c</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">c</font>&nbsp;=&nbsp;<font color="#000000">UDR</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rxbuf</font>[<font color="#000000">uart_rx_pos</font>]&nbsp;=&nbsp;<font color="#000000">c</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">c</font>&nbsp;==&nbsp;<font color="#FF00FF">'\n'</font>)&nbsp;||&nbsp;(<font color="#000000">uart_rx_pos</font>&nbsp;&gt;&nbsp;<font color="#000000">UART_RX_BUFFER_SIZE</font>&nbsp;-&nbsp;<font color="#0000FF">1</font>))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rxbuf</font>[<font color="#000000">uart_rx_pos</font>]&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">strcpy</font>(<font color="#000000">uart_outbuf</font>,&nbsp;<font color="#000000">uart_rxbuf</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rx_linecomplete</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rx_pos</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">uart_init</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rx_pos</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rx_linecomplete</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UCSRA</font>&nbsp;=&nbsp;<font color="#008080">0x00</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UCSRB</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">TXEN</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">RXEN</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">RXCIE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;enable&nbsp;tx/rx&nbsp;and&nbsp;interrupt&nbsp;on&nbsp;rx<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UCSRC</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">URSEL</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">USBS</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">UCSZ1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">UCSZ0</font>);&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Set&nbsp;frame&nbsp;format:&nbsp;8data,&nbsp;2stop&nbsp;bit<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UBRRH</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UBRRL</font>&nbsp;=&nbsp;(<font color="#000000">F_CPU</font>&nbsp;/&nbsp;(<font color="#0000FF">16</font>&nbsp;*&nbsp;<font color="#0000FF">38400</font><font color="#000000">UL</font>))&nbsp;-&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;set&nbsp;baudrate&nbsp;-&nbsp;38400bd<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">ok</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">loop_until_bit_is_set</font>(<font color="#000000">UCSRA</font>,&nbsp;<font color="#000000">UDRE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UDR</font>&nbsp;=&nbsp;<font color="#FF00FF">'O'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">loop_until_bit_is_set</font>(<font color="#000000">UCSRA</font>,&nbsp;<font color="#000000">UDRE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UDR</font>&nbsp;=&nbsp;<font color="#FF00FF">'K'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">loop_until_bit_is_set</font>(<font color="#000000">UCSRA</font>,&nbsp;<font color="#000000">UDRE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UDR</font>&nbsp;=&nbsp;<font color="#FF00FF">'\n'</font>;<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">err</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">loop_until_bit_is_set</font>(<font color="#000000">UCSRA</font>,&nbsp;<font color="#000000">UDRE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UDR</font>&nbsp;=&nbsp;<font color="#FF00FF">'E'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">loop_until_bit_is_set</font>(<font color="#000000">UCSRA</font>,&nbsp;<font color="#000000">UDRE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UDR</font>&nbsp;=&nbsp;<font color="#FF00FF">'r'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">loop_until_bit_is_set</font>(<font color="#000000">UCSRA</font>,&nbsp;<font color="#000000">UDRE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UDR</font>&nbsp;=&nbsp;<font color="#FF00FF">'r'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">loop_until_bit_is_set</font>(<font color="#000000">UCSRA</font>,&nbsp;<font color="#000000">UDRE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UDR</font>&nbsp;=&nbsp;<font color="#FF00FF">'\n'</font>;<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;send&nbsp;string&nbsp;to&nbsp;the&nbsp;rs232<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">uart_sendstr</font>(<font color="#800000">char</font>&nbsp;*<font color="#000000">s</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(*<font color="#000000">s</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(*<font color="#000000">s</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">s</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;print&nbsp;string&nbsp;from&nbsp;program&nbsp;memory&nbsp;on&nbsp;rs232<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">uart_sendstr_p</font>(<font color="#800000">const</font>&nbsp;<font color="#000000">prog_char</font>&nbsp;*&nbsp;<font color="#000000">progmem_s</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">c</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#0000FF">1</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">c</font>&nbsp;=&nbsp;<font color="#000000">PRG_RDB</font>(<font color="#000000">progmem_s</font>++);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">c</font>&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;||&nbsp;(<font color="#000000">c</font>&nbsp;&gt;&nbsp;<font color="#0000FF">252</font>))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#000000">c</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">reply</font>(<font color="#800000">int</font>&nbsp;<font color="#000000">r</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">r</font>&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr_P</font>(<font color="#008000">&quot;Err:&nbsp;&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr</font>(<font color="#000000">uart_outbuf</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'\n'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Verstuur&nbsp;een&nbsp;(16-bits)&nbsp;unsigned&nbsp;int&nbsp;over&nbsp;de&nbsp;RS232-lijn<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">dec2RS232</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">getal</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">deeltal</font>&nbsp;=&nbsp;<font color="#0000FF">10000</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">tmp</font>,&nbsp;<font color="#000000">cnt</font>,&nbsp;<font color="#000000">zeroflag</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'0'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'&nbsp;'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">5</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;&gt;=&nbsp;<font color="#000000">deeltal</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">getal</font>&nbsp;-=&nbsp;<font color="#000000">deeltal</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;decade&nbsp;berekenen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">tmp</font>&nbsp;&gt;&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;als&nbsp;dat&nbsp;geen&nbsp;0&nbsp;is<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">zeroflag</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;worden&nbsp;alle&nbsp;volgende&nbsp;decaden&nbsp;afgedrukt<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;ascii-teken&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">zeroflag</font>&nbsp;==&nbsp;<font color="#0000FF">1</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Is&nbsp;dit&nbsp;de&nbsp;eerste&nbsp;0?<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'0'</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;nee;&nbsp;'0'&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">deeltal</font>&nbsp;/=&nbsp;<font color="#0000FF">10</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;deeltal&nbsp;aanpassen&nbsp;voor&nbsp;volgende&nbsp;decade<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'&nbsp;'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Verstuur&nbsp;een&nbsp;unsigned&nbsp;long&nbsp;over&nbsp;de&nbsp;RS232-lijn<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">UL2RS232</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">getal</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">deeltal</font>&nbsp;=&nbsp;<font color="#0000FF">1000000000</font><font color="#000000">UL</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">tmp</font>,&nbsp;<font color="#000000">cnt</font>,&nbsp;<font color="#000000">zeroflag</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;==&nbsp;<font color="#0000FF">0</font><font color="#000000">UL</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'0'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'.'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">10</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;&gt;=&nbsp;<font color="#000000">deeltal</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">getal</font>&nbsp;-=&nbsp;<font color="#000000">deeltal</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;decade&nbsp;berekenen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">tmp</font>&nbsp;&gt;&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;als&nbsp;dat&nbsp;geen&nbsp;0&nbsp;is<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">zeroflag</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;worden&nbsp;alle&nbsp;volgende&nbsp;decaden&nbsp;afgedrukt<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;ascii-teken&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">zeroflag</font>&nbsp;==&nbsp;<font color="#0000FF">1</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Is&nbsp;dit&nbsp;de&nbsp;eerste&nbsp;0?<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'0'</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;nee;&nbsp;'0'&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">deeltal</font>&nbsp;/=&nbsp;<font color="#0000FF">10</font><font color="#000000">UL</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;deeltal&nbsp;aanpassen&nbsp;voor&nbsp;volgende&nbsp;decade<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'.'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Verstuur&nbsp;de&nbsp;cijfers&nbsp;na&nbsp;de&nbsp;komma&nbsp;(duizendsten)&nbsp;over&nbsp;de&nbsp;RS232-lijn<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">DS2RS232</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">getal</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">tmp</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;&gt;&nbsp;<font color="#0000FF">999</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;&gt;=&nbsp;<font color="#0000FF">100</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">getal</font>&nbsp;-=&nbsp;<font color="#0000FF">100</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;tienden&nbsp;berekenen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;ascii-teken&nbsp;verzenden<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">getal</font>&nbsp;&gt;=&nbsp;<font color="#0000FF">10</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">getal</font>&nbsp;-=&nbsp;<font color="#0000FF">10</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;honderdsten&nbsp;berekenen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>((<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>)&nbsp;<font color="#000000">getal</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Duizendsten&nbsp;verzenden<br></i></font>
+}<br>
+<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Voorbeeld:&nbsp;123.056<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#800000">float</font>2<font color="#000000">RS232</font>(<font color="#800000">double</font>&nbsp;<font color="#000000">getal</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">eenheden</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">duizendsten</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">eenheden</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>)&nbsp;<font color="#000000">getal</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;eenheden&nbsp;=&nbsp;123<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">getal</font>&nbsp;-=&nbsp;(<font color="#800000">double</font>)&nbsp;<font color="#000000">eenheden</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;getal&nbsp;=&nbsp;0.056<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">duizendsten</font>&nbsp;=&nbsp;(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>)&nbsp;(<font color="#000000">getal</font>&nbsp;*=&nbsp;<font color="#800080">1000.0</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;duizendsten&nbsp;=&nbsp;56<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UL2RS232</font>(<font color="#000000">eenheden</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//uart_sendchar('.');<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">DS2RS232</font>((<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>)&nbsp;<font color="#000000">duizendsten</font>);<br>
+}<br>
+		</font>
+	</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: PulsTeller.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, ATmega32, MAX232, 47HC4040, Power-Pritt, polyester-folie">
+<META NAME="description" CONTENT="PulsTeller">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="PerimeterZenderOntvanger.html">Perimeter.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Ratatosk.html">Ratatosk, een pulsbreedtemeter.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="PulsTeller"></A>
+<BR>PulsTeller.</H2>
+<UL>
+<LI><A HREF="#PuTVoorwoord">Voorwoord.</A>
+<LI><A HREF="#PuTSchakeling">De schakeling.</A>
+<LI><A HREF="#PuTPrint">De print.</A>
+<LI><A HREF="#PuTBehuizing">De behuizing.</A>
+<UL><LI><A HREF="#PuTFront">Het frontpaneel.</A>
+<LI><A HREF="#PuTToetsen">De toetsen.</A>
+<LI><A HREF="#PuTFrontII">Frontpaneel II.</A>
+<LI><A HREF="#PuTGeheel">Het geheel.</A>
+<LI><A HREF="#PuTFrezen">Frezen.</A>
+</UL>
+</UL><HR>
+<P>
+<H3>Voorwoord.</H3>
+<A NAME="PuTVoorwoord"></A>
+Zoals velen vul ik een deel van mijn vrije tijd met
+zelfbouw-elektronica: schakeling ontwerpen; print ontwerpen;
+layout afdrukken; print belichten, ontwikkelen, etsen, boren,
+bestukken; testfase. Wie over enige ervaring en handigheid
+beschikt, heeft daar weinig moeite mee. Maar dan komt het: het
+geheel moet in een behuizing, liefst met een mooie frontplaat,
+en voorzien van de nodige draaiknoppen, toetsen, in- en
+uitgangen, display, enz...<BR>
+Nu is een behuizing niet zelden
+duurder dan de inhoud. Voor een kunststof-bakje, weinig groter
+dan een brooddoos, ben je al snel meer dan 10 euro kwijt. Zelf
+een behuizing bouwen is dan ook een lonende bezigheid. Maar het
+moet wel professioneel ogen, wil je enige bewondering wekken.<P>
+<H3>De schakeling.</H3>
+<A NAME="PuTSchakeling"></A>
+In dit voorbeeld gaat het om een pulsteller. Die kan als
+frequentiemeter ingezet worden, maar hij is net zo goed geschikt
+om gedurende een week (of voor eeuwig) pulsen te tellen.<BR>
+Het schema<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A> toont, dat er
+erg weinig nodig is om dat te verwezenlijken:<P><BR CLEAR="ALL"><P><IMG ALIGN="MIDDLE" SRC="PulsTellerSchema.png"
+ ALT="PulsTellerSchema.png">
+<P><BR CLEAR="ALL"><P>Het hart van de schakeling wordt gevormd door een
+microcontroller: een <A NAME="ATmega321696">ATmega32</A>.<BR>
+Links daarvan zien we de traditionele <A NAME="MAX2321417">MAX232</A>.
+Die zorgt er voor, dat de microcontroller kan communiceren met
+een PC, zodat metingen geautomatiseerd kunnen worden.<BR>
+Onmiddelijk rechts van de &#956;C trekt een <A NAME="47HC40401482">47HC4040</A> de
+aandacht. Dat is een 12-stage teller, die toelaat hogere
+frequenties &#8213;tot zo'n 75MHz&#8213; te meten dan de &#956;C aankan.
+Vermits die laatste alle uitgangen van de teller kan uitlezen,
+gaat er geen puls verloren.<BR>
+Uiterst rechts zien we nog twee buffers uit een 74F125, waarmee
+de &#956;C tussen twee ingangen kan kiezen: een
+TTL-compatiebele ingang of een ingang die voorzien is van een
+voorversterker.<BR>
+Wat niet op het schema te zien valt, is een <A HREF="LCD-Interface.html#ZLCD3">3-draads LCD-interface</A> en de bijbehorende LCD-module.<P>Verder zijn enkele weerstanden (R3, R4) niet in het schema terug
+te vinden. Het zijn, net als R2, vermomde draadbruggen. Op de
+layout zijn ze toegevoegd om het grondvlak zoveel mogelijk
+&#8220;doorgang te verlenen&#8221;.<P>
+<H3>De print.</H3>
+<A NAME="PuTPrint"></A><P>De (enkelzijdige) print is ontworpen met een programma dat naar
+de veelzeggende naam
+<A NAME="pros4"  HREF="http://www.geda.seul.org/tools/pcb/">pcb</A>
+
+luistert. Ik toon even een screenshot:
+<IMG ALIGN="LEFT" SRC="PCB.png"
+ ALT="PCB.png">
+<P><BR CLEAR="ALL"><P>De komponentenopstelling komt aardig overeen met het schema.<P>Na afdrukken, belichten, ontwikkelen en etsen is dit het
+resultaat:<P><IMG ALIGN="LEFT" SRC="PT-print.jpg"
+ ALT="PT-print.jpg">
+
+<BR CLEAR="ALL">
+Dit is &#8213;in tegenstelling tot het vorige plaatje&#8213; van de
+onderzijde gezien. 
+<BR CLEAR="ALL">
+De volgende stappen zijn: boren, bestukken en solderen. En dan
+ziet het er zo uit:<P><IMG ALIGN="RIGHT" SRC="BestuktePrint.jpg"
+ ALT="BestuktePrint.jpg">
+<P><BR CLEAR="ALL"><P>
+<H3>De behuizing.</H3>
+<A NAME="PuTBehuizing"></A><P>Zo, dat was het eenvoudige deel. Nu de behuizing nog...<P>Na het nodige zaag- en freeswerk liggen enkele onderdelen klaar
+om samengevoegd te worden:<P><IMG ALIGN="MIDDLE" SRC="PTBeh1.jpg"
+ ALT="PTBeh1.jpg">
+<P><BR CLEAR="ALL"><P>De bodem bestaat uit MDF-plaat met een dikte van 12mm.
+Voor de zijkanten en de achterkant werd gekozen voor HDF;
+laminaat, om precies te zijn. Dat is steviger en het oppervlak
+is van een harde bekleding voorzien.<BR>
+Om later een goede lijmverbinding tussen de HDF-platen te
+bekomen, is het nodig de harde oppervlaktelaag weg te frezen op
+de plaatsen waar de lijm aangebracht moet worden. Dat zie je op
+bovenstaande foto bij de zijpanelen, helemaal achteraan.<P>De frontplaat bestaat uit twee lagen: ALU-plaat en MDF. Maar
+daar hebben we het later over...<P><BR CLEAR="ALL"><P><IMG ALIGN="MIDDLE" SRC="PTBeh2.jpg"
+ ALT="PTBeh2.jpg">
+<P><BR CLEAR="ALL"><P>Houtlijm is al wat nodig is, om er een stevig geheel van te
+maken. Werkwijze: alle te lijmen oppervlakten van een dun laagje
+houtlijm voorzien - een tiental minuten laten drogen - de
+onderdelen op- en tegen mekaar plaatsen en goed positioneren -
+stevig aandrukken en vervolgens de lijm laten harden.<P>De bodemplaat is met opzet iets te groot gemaakt; een
+frees zoals <A HREF="PulsTeller.html#DeFreesjes">de tweede van rechts op de foto</A> maakt met de uitstekende rand korte metten
+nadat de lijm uitgehard is.<P><BR CLEAR="ALL"><P><IMG ALIGN="MIDDLE" SRC="PTBeh5.jpg"
+ ALT="PTBeh5.jpg">
+<P><BR CLEAR="ALL"><P>Een andere frees werkt ook de hoekige kanten weg. Ondertussen is
+ook het deksel er bij gekomen. Dit is MDF-plaat met een dikte
+van 6mm.<P>Nu is MDF niet al te sterk. Vooral de zijkanten zijn zacht en
+stootgevoelig. Als we dan ook nog eens sleuven gaan frezen nabij
+de zijkant, wordt die plaats wel erg kwetsbaar. Er bestaat
+echter een eenvoudige remedie om het geheel wat meer stevigheid
+te geven: meng (witte) houtlijm met een beetje water, zodat een
+goed-uitstrijkbaar papje ontstaat. &#8220;Schilder&#8221; hiermee de
+zijkanten en de zwakke delen. De verdunde lijm zal enigzins in
+de MDF-plaat dringen en, na verharding, voor een hard oppervlak
+zorgen.<BR>
+De plaat zal door deze bewerking een tikkeltje uitzetten, zodat
+de frees er weer bij te pas moet komen.<P><BR CLEAR="ALL"><P>Wat volgt is: plamuren waar nodig, schuren, grondlaag aanbrengen
+en toplaag aanbrengen. Het resultaat ziet er dan zo uit:<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="BehuizingGespoten.jpg"
+ ALT="BehuizingGespoten.jpg">
+<P><BR CLEAR="ALL"><P>
+<H4>Het frontpaneel.</H4>
+<A NAME="PuTFront"></A><P>Hoe knap een schakeling ook ontworpen is, en hoe goed ze ook
+gebouwd is, de toevallige bewonderaar zal zijn eerste oordeel
+laten leiden door datgene wat het meest in het ook springt: het
+frontpaneel.<BR>
+Ziet dat er wat rommelig of amateuristisch uit, dan zal ook de
+knapste schakeling weinig of geen indruk op hem maken. Ik denk
+hierbij aan een ALU-plaat, waar wat gaten in geboord zijn voor
+potmeters, schakelaars, connectors e.d. naast een rechthoekige
+opening voor een display of zo. Om dat display te bevestigen
+worden dan nog wat extra-gaten geboord, zodat de voorkant
+ontsiert wordt door de koppen van de schroefjes. Het geheel
+wordt vervolgens afgewerkt met labeltjes die &#8213;op z'n best&#8213;
+afkomstig zijn van een Dymo-labelmaker.<P>Dat kan beter. Het kan v&#233;&#233;l beter, zonder diep in de
+geldbeugel te tasten.<BR>
+Als we de frontplaat samenstellen uit een ALU-plaat met een
+dikte van 1mm en een MDF-plaat van 6mm dikte, kunnen we die
+laatste gebruiken om allerlei onderdelen te bevestigen.
+Die twee onderdelen worden &#8213;na bewerking&#8213; op mekaar gelijmd,
+en vervolgens in de sleuf geschoven die we voordien in de
+behuizing uitgefreesd hadden.<P>Eerst nemen we de ALU-plaat onder handen. Aluminium is erg
+krasgevoelig, daarom wordt op de voorkant eerst een vel dun
+karton gekleeft met behulp van <A NAME="PowerPritt2137">Power-Pritt</A>. Dat geeft een goede
+hechting, en we kunnen alles nadien moeiteloos verwijderen door
+het een tijdje in water te laten weken.<BR>
+Teken nu met een grafisch programma naar keuze de layout voor
+het frontpaneel. Een vector-geori&#235;nteerd tekenpakket, waar je
+de afmetingen meteen in mm kan aflezen, lijkt me wel het
+handigst. Voor het nodige zaag- en boorwerk kunnen tijdelijk
+extra-aanduidingen aangebracht worden.<BR>
+Dat ziet er dan zo uit:<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="ALU-afgetekend.jpg"
+ ALT="ALU-afgetekend.jpg">
+<P><BR CLEAR="ALL"><P>In de MDF-plaat voorzien we de nodige uitsparingen. Een
+voorbeeld toont de uitsparing voor het display:<P><BR CLEAR="ALL"><P><IMG ALIGN="RIGHT" SRC="Display-uitsparing.jpg"
+ ALT="Display-uitsparing.jpg">
+<P><BR CLEAR="ALL"><P>Nu kunnen we de bevestigingsschroefjes enkel door de MDF-plaat
+steken, zonder dat daar op de frontplaat iets van te merken
+valt. Even testen of alles netjes past:<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="DisplayInUitsparing.jpg"
+ ALT="DisplayInUitsparing.jpg">
+<P><BR CLEAR="ALL"><P>Wel, <I>toen</I> paste het netjes. Nu niet meer...
+De bedoeling was namelijk, een 2 x 16 karakter-display met
+backlight te gebruiken voor de uitlezing. Ik had er enkele
+besteld, en dacht ondertussen slim te zijn door voorlopig een 2
+x 16 display <I>zonder</I> backlight te gebruiken, in de
+veronderstelling dat het eigenlijke scherm wel dezelfde
+afmetingen zou hebben.<BR>
+Niet dus. Het scherm is niet alleen breder, maar ook minder
+hoog...<P>Afin, lesje geleerd.<P><BR CLEAR="ALL"><P>
+<H4>De toetsen.</H4>
+<A NAME="PuTToetsen"></A><P><IMG ALIGN="LEFT" SRC="FrontplaatDoorsnede.png"
+ ALT="FrontplaatDoorsnede.png">
+
+<IMG ALIGN="LEFT" SRC="3Drukknopjes.jpg"
+ ALT="3Drukknopjes.jpg">
+<P><BR CLEAR="ALL"><P>Voor de toetsen maken we gebruik van miniatuur-drukknopjes,
+geschikt voor printmontage. Voor elke toets wordt in het
+frontpaneel een gat geboord van 13mm doorsnee. Over de ganse
+frontplaat wordt eerst een vel <A NAME="polyesterfoliels2607">polyester-folie</A> gekleefd.
+Dat is sterk materiaal, maar veerkrachtig genoeg om de druk van
+een vinger door te geven aan de toetsen. Dat ziet er dan z&#243;
+uit:<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="FrontMetPolyesterpapier.jpg"
+ ALT="FrontMetPolyesterpapier.jpg">
+<P><BR CLEAR="ALL"><P>Daarover komt dan weer
+de afwerkingslaag in de vorm van bedrukt fotopapier, hetgeen dit
+resultaat oplevert:<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="FrontMetBedrukking.jpg"
+ ALT="FrontMetBedrukking.jpg">
+<P><BR CLEAR="ALL"><P>Teneinde beschadiging bij de verdere bewerking en later gebruik
+te voorkomen, krijgt het front enkele laagjes transparante lak
+uit een spuitbus over zich heen. Het is daarbij belangrijk, te
+beginnen met dunne laagjes, die vanop ruime afstand (50cm)
+opgespoten worden. Het oplosmiddel van de lak kan zowel toner
+uit een laserprinter als inkt doen uitvloeien! <P>Om &#233;&#233;n en ander tegen mekaar te lijmen, is gebruik gemaakt
+van Power-Pritt. Dat is lijm in stiftvorm, en dus eenvoudig aan
+te brengen op beide te lijmen vlakken. Vervolgens de vlakken op
+mekaar plaatsen en aandrukken...<BR>
+Ook om de ALU-plaat op het MDF te kleven is eveneens gemaakt van
+dezelfde lijmstift, zij het enkel aan de ALU-zijde. De MDF-kant werd
+bedekt met een dun laagje houtlijm, die eerst een tiental
+minuten mocht drogen. Hoe raar het ook mag klinken: die twee
+lijmsoorten vormen een hechte verbintenis.<P>De toetsen worden z&#243; geplaatst, dat ze net de
+polyester-folie raken. Nu volstaat een lichte druk op het
+frontpaneel, om een toetsje te activeren.<BR>
+Ook hier komt de MDF-plaat goed van pas, om er de printjes op te
+bevestigen. Tijd om er de nodige bedrading aan te solderen:<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="BedradingFrontplaat.jpg"
+ ALT="BedradingFrontplaat.jpg">
+<P><BR CLEAR="ALL"><P>En toen liep het mis...<P><BR CLEAR="ALL">
+<IMG ALIGN="LEFT" SRC="DrukknopBevestiging.png"
+ ALT="DrukknopBevestiging.png">
+
+Ik had dit bedacht om de printjes met de druktoetsen te
+bevestigen: boor bij elke hoek 2 gaatjes naast mekaar door de
+print en de MDF-plaat - snij
+vooraan een beetje MDF weg - plooi een koperdraadje en stop
+beide uiteinden door de gaten - positioneer het printje, zodat
+de druktoets tegen het polyester-papier aanleunt - soldeer de
+draadjes vast op de print.<BR>
+Dat is op zich een bruikbare manier, maar als je een ALU-plaat
+tegen de voorzijde lijmt moet je er wel voor zorgen dat die geen
+contact maakt met de draadjes!<P>Herstellen was wellicht te doen, maar verre van eenvoudig. De
+ALU-plaat valt niet meer te verwijderen zonder ze te
+beschadigen. En de niet-passende opening voor het display zat me
+ook al niet lekker.<BR>
+Kortom, tijd voor:<P>
+<H4>Frontpaneel II.</H4>
+<A NAME="PuTFrontII"></A><P>Een jonge snaak, die luistert naar de naam Technojunk, had me al
+eens gevraagd of die ALU-plaat een noodzaak was. Nu heb je voor
+sommige onderdelen absoluut een dunne plaat nodig. Denk maar aan
+BNC-chassisdelen of een sub-D connector. Maar ook het LCD-scherm
+is beter afleesbaar als het helemaal vooraan zit.<BR>
+Toch, als die ALU-plaat kan weggelaten worden, scheelt dat een
+boel werk en is het tevens goedkoper. Tijd voor een
+experiment...<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="PTFront2Achter.jpg"
+ ALT="PTFront2Achter.jpg">
+<P><BR CLEAR="ALL"><P>Men neme een stuk HDF-plaat. Men freest op de punten waar dit
+nodig is het materiaal achteraan weg, zodat er 2mm overblijft.
+Men &#8220;schildert&#8221; dit met verdunde houtlijm.<BR>
+Het resultaat is &#8213;zolang het niet om grote oppervlakten
+gaat&#8213; stevig genoeg voor z'n doel. De harde oppervlaktelaag is
+hierbij meer dan welkom.<P>Een dik uur later ziet het er zo uit:<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="PTFront2Bedraad.jpg"
+ ALT="PTFront2Bedraad.jpg">
+<P><BR CLEAR="ALL"><P>En als alles op z'n plaats zit, krijgen we dit:<P><BR CLEAR="ALL"><P>
+<H5>Binnenzicht</H5>
+<A NAME="RechtsBovenNiels"></A><P><IMG ALIGN="LEFT" SRC="PTBedrading.jpg"
+ ALT="PTBedrading.jpg">
+<P><BR CLEAR="ALL"><P>
+<H4>Het geheel.</H4>
+<A NAME="PuTGeheel"></A><P><IMG ALIGN="LEFT" SRC="PTVooraanzicht.jpg"
+ ALT="PTVooraanzicht.jpg">
+<P><BR CLEAR="ALL"><P>Wel, die twee komen alvast overeen wat de frequentie betreft.
+Dat is hoopgevend.<P>Wat de onderste behuizing betreft: dat is geen zelfbouw, maar
+het toonbeeld van een commerci&#235;le behuizing die meer kost dan
+de inhoud...<P>
+<H4>Frezen.</H4>
+<A NAME="PuTFrezen"></A><P>Zelf beschik ik niet over een professionele freesbank, maar met
+een topfrees en wat inventiviteit kan ook veel bereikt worden.<P><BR CLEAR="ALL"><P><IMG ALIGN="RIGHT" SRC="Freesbank-opstelling.jpg"
+ ALT="Freesbank-opstelling.jpg">
+<P><BR CLEAR="ALL"><P><A NAME="DeFreesjes"></A>
+<IMG ALIGN="RIGHT" SRC="Freesjes.jpg"
+ ALT="Freesjes.jpg">
+
+Hierboven is te zien, hoe de topfrees ondersteboven in een stuk
+meubelpaneel bevestigd is. De foto toont een opstelling, die
+gebruikt werd om het &#8220;venster&#8221; voor de LCD-module in de
+frontplaat uit te frezen.<P>Belangrijk bij deze aanpak is: <B>hou je vingers uit de buurt van de frees!</B> Zorg tevens voor een goede afzuiging. Zorg
+er voor, dat die automatisch in werking treedt als je de
+freesmachine aanzet. Daar is weinig voor nodig, zoals de
+<A HREF="NetSlaaf.html#NetSlaaf">NetSlaaf</A> laat zien. Draag geen loszittende
+kledij. Bescherm je ogen!<P>Hiernaast enkele freesjes, die bij het project gebruikt werden.
+Van links naar rechts: om af te ronden, om de uitstekende
+bodemplaat te trimmen, algemeen gebruik en om af te schuinen.<P>
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...schema</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+Het schema is getekend met <A NAME="pros5"  HREF="http://www.xfig.org/">xfig</A>
+</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="PerimeterZenderOntvanger.html">Perimeter.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Ratatosk.html">Ratatosk, een pulsbreedtemeter.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

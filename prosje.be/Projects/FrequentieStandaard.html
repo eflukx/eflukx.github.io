@@ -1,0 +1,376 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: FrequentieStandaard.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, duty-cycle, ATmega88, U4224B, Low Fuse Byte, CKDIV8, BD651">
+<META NAME="description" CONTENT="FrequentieStandaard">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="CapacitiveSensor.html">Naderingssensor.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="PerimeterZenderOntvanger.html">Perimeter.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="FrequentieStandaard"></A>
+<BR>FrequentieStandaard.</H2>
+<UL>
+<LI><A HREF="#FSV">Voorstelling.</A>
+<LI><A HREF="#FSW">Praktische uitwerking.</A>
+<UL><LI><A HREF="#FsOSC">De oscillator</A>
+<LI><A HREF="#FsVd">De voeding.</A>
+<LI><A HREF="#FSTR">De temperatuurregeling.</A>
+</UL>
+<LI><A HREF="#FsUc">De microcontroller.</A>
+<UL><LI><A HREF="#FsRr">De regellus.</A>
+<LI><A HREF="#FsFw">De firmware.</A>
+</UL>
+<LI><A HREF="#FSC">Communicatie.</A>
+<LI><A HREF="#FSPL">Plaatjes.</A>
+</UL><HR>
+<P><IMG ALIGN="MIDDLE" SRC="FS-FrontPaneel.jpg"
+ ALT="FS-FrontPaneel.jpg">
+<P><BR CLEAR="ALL"><P>
+<H3>Voorstelling.</H3>
+<A NAME="FSV"></A><P>Ik had nood aan een frequentiestandaard, voornamelijk ten
+behoeve van een zelfbouw-frequentiemeter. Die betrekt zijn
+tijdbasis momenteel uit een gewone kristaloscillator in DIP-14
+formaat, en die
+dingen laten wat te wensen over wat nauwkeurigheid betreft.<P>De eisen zijn niet bijzonder hoog:
+
+<UL>
+ <LI> Maximale afwijking van 0.1ppm<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A>, zodat frequenties tot 10MHz nauwkeurig kunnen gemeten
+worden.
+ <LI> Geen exotische onderdelen.
+
+</UL>
+Het kloppend hart van de frequentiestandaard bestaat uit een
+inverter, die als kristaloscillator geschakeld is. Deze wordt
+opgesloten in een blikken behuizing, die omgeven wordt met een
+flinke laag thermische isolatie.<BR>
+Naast de oscillator zit er een temperatuurregeling in de
+behuizing; een gelijkmatige temperatuur is immers een must voor
+een stabiele werking.<BR>
+Verder is er ook een instelbare spanningsregelaar aanwezig.
+De frequentie van zo'n oscillator kan enigzins bijgesteld worden
+door de voedingsspanning te wijzigen.<P>Het &#8213;zonodig&#8213; bijregelen van de oscillator wordt
+toevertrouwd aan een microcontroller, die zijn referentie uit
+een DCF77-module betrekt.<P><P>
+<H3>Praktische uitwerking.</H3>
+<A NAME="FSW"></A><P>
+<H4>De oscillator</H4>
+<A NAME="FsOSC"></A><P><IMG ALIGN="LEFT" SRC="Oscillator.png"
+ ALT="Oscillator.png">
+
+Zoals het schema toont, bestaat de oscillator uit weinig meer
+dan een inverter, twee weerstanden, een kristal en enkele condensators. Een
+klassiek ontwerp, dus.<BR>
+Teneinde de werking van de oscillator zo min mogelijk te
+be&#239;nvloeden, is aan zijn uitgang een buffer geplaatst. Voor
+deze buffer is doelbewust een afzonderlijk IC gebruikt, zodat de
+overige inverters in de 74HC04 zich rustig houden. Met P11 kan
+de gelijkspanning op de ingang van IC15 halfweg tussen zijn
+omslagpunten ingesteld worden, zodat aan zijn uitgang een
+evenwichtige blokgolf te voorschijn komt.
+Dat is noodzakelijk, omdat deze blokgolf dienst doet als klok
+voor een microcontroller.<P>Met behulp van C20 en C21 dient de oscillator ingesteld te
+worden op &#8213;zo precies mogelijk&#8213; 16MHz, en dit terwijl de
+puls/pause-verhouding van het <A HREF="FrequentieStandaard.html#FsPwm">PWM-kanaal</A> op
+50&#37; ingesteld staat.<BR>
+Kandidaad-nabouwers kunnen hierbij tegen de beperking aanlopen,
+dat de gewenste frequentie niet gehaald kan worden. In dat geval
+kunnen voor C18 en C19 (en desnoods voor C22 en C23) andere
+waarden gekozen worden.<P><BR CLEAR="ALL"><P>
+<H4>De voeding.</H4>
+<A NAME="FsVd"></A><P>Vermits we de temperatuur constant houden, en de
+voedingsspanning regelen, is dit een onderdeel waar we niet
+lichtzinnig mee omspringen.<BR>
+Een spanningsregelaar als de 7805 of de LM317 doet zijn werk
+naar behoren - tenzij we hoge eisen gaan stellen aan de
+nauwkeurigheid. Zowat alles &#8213;ingangsspanning, temperatuur,
+uitgangsstroom&#8213; heeft invloed op de uitgangsspanning.<BR>
+Wat metingen aan een 7805 leveren dit op:<P><P><PRE>
+
+IN      LOAD            I       OUT             T
+
+ 8V     470R             16mA   5.04726V        20°C
+10V     470R             16mA   5.04756V        20°C
+15V     470R             16mA   5.04775V        20°C
+ 8V     470R || 20R     262mA   5.04664V        20°C
+10V     470R || 20R     262mA   5.04685V        20°C
+15V     470R || 20R     262mA   5.04692V        20°C
+10V     470R || 20R     262mA   5.04079V        40°C <<
+<P></PRE>
+
+Als we de uitersten vergelijken, komen we op een verschil van
+meer dan 6mV.  Gelukkig wordt het wat gunsiger, als we alle
+spanningsregelaars mee in de oven stoppen - dan zijn we alvast
+verzekerd van een gelijkmatige temperatuur.<BR>
+Daarnaast is het verbruik van de LM317 sowieso gelijkmatig. Hij hoeft
+enkel de oscillator van stroom te voorzien.<BR>
+Wat blijft, is de ingangsspanning. Daar passen we een mouw aan,
+door de ruwe ingangsspanning om te toveren naar 12V door middel
+van een 7812. Diens uitgangsspanning zal wel een beetje
+vari&#235;ren &#8213;hij zit immers niet mee in de oven&#8213;
+maar vermits er nog een 7809 tussen de 7812 en de
+LM317 zit, kunnen we er van uitgaan dat de ingangsspanning van
+die laatste nooit meer dan 1mV kan vari&#235;ren.<BR>
+Dan die weerstanden rondom de LM317. Zijn die niet
+temperatuurgevoelig? Ja, dat zijn ze zeker. Maar ze zitten mee
+in de oven, zodat hun gedrag gelijkmatig blijft.<P>Dan het regelen zelf.<BR>
+Als de FET op de &#956;C-print spert, stelt IC12 zijn
+uitgangsspanning in op 5.4V.<BR>
+Wanneer de FET constant in geleiding is, daalt de
+voedingsspanning naar 4.4V<BR>
+Dat spanningsverschil van 1V vertaalt zich in een frequentieverschil
+van 7ppm.<BR>
+Door nu een PWM-signaal<A NAME="FsPwm"></A> op de gate van de FET te plaatsen,
+kunnen we de uitgangsspanning van IC12 in kleine stapjes
+bijstellen door de <A NAME="dutycycle2989">duty-cycle</A> te wijzigen.
+C13, C14 en C15 moeten daarbij beletten dat er
+sporen van het PWM-signaal terug te vinden zijn op de ADJ-pin
+van IC12, en bijgevolg ook op diens uitgang. Op het eerste zicht
+lijkt het dat ze danig overgedimensioneerd zijn, maar de
+PWM-frequentie bedraagt slechts 246Hz, en dat valt niet weg te
+filteren met kleine elco's.<BR>
+Bij een 16-bits PWM-kanaal beschikken we over meer
+dan 65000 stapjes. E&#233;n stapje komt dan in theorie overeen met
+15&#956;V. Vermits we over een bereik van amper 7ppm beschikken,
+zouden we &#8213;nog steeds in theorie&#8213; de frequentie met een
+nauwkeurigheid van 0.0001ppm moeten kunnen instellen.<BR>
+De praktijk zal er uiteraard minder gunstig uitzien...<P><BR CLEAR="ALL"><P>
+<H4>De temperatuurregeling.</H4>
+<A NAME="FSTR"></A><P><IMG ALIGN="RIGHT" SRC="Temperatuurregeling.png"
+ ALT="Temperatuurregeling.png">
+
+De temperatuurregeling is analoog en werkt geheel zelfstandig - het is een
+PI-regelaar<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A> De
+&#956;C kan de temperatuur wel uitlezen en op een scherm tonen ter
+controle.
+Opamp IC3 vergelijkt de uitgangsspanning van temperatuursensor
+IC2 met een instelbare spanning, die afgeleid is van
+spanningsreferentie IC1.<BR>
+Als die niet volkomen gelijk zijn, wordt T1 &#8213;die samen met R9
+als stroombron fungeert&#8213; meer of minder opengestuurd. Voor DC
+is de versterking v/d opamp bijna oneindig, maar voor hogere
+frequenties (lees:  kleine afwijkingen) blijft de versterking
+beperkt to 300 x.<P>Niet zichtbaar op dit schema, maar wel op het voedingsschema, is
+IC11, de 9V spanningsregelaar. Die voedt gans de
+temperatuurregeling, en dus ook T1. Dat houdt in, dat de 7809
+&#243;&#243;k deelneemt aan het verwarmingsproces.<BR>
+Stel, dat de uitgang van de opamp 3V bedraagt. Op de emitter van
+T1 staat dan &#177;1.8V. Door R9 gaat dus een stroom lopen van
+180mA. We hebben dan de volgende verbruikers:
+
+<UL>
+    <LI> R9: 1.8V * 0.18A = 0.324W
+    <LI> T1: (9V - 1.8V) * 0.18A = 1.296W
+    <LI> De 7809: (12V - 9V) * 0.18A = 0.54W
+
+</UL>De 7809 neemt bijgevolg 1/3 van het opwarmen voor zijn rekening.
+Doordat hij zich aan het tegenovergestelde uiteinde van de
+<A HREF="FrequentieStandaard.html#FSPL">&#8220;verwarminsbalk&#8221;</A> bevindt, is de warmteverdeling wat
+gelijkmatiger.<P>
+<H3>De microcontroller.</H3>
+<A NAME="FsUc"></A><P>Als de oscillator het kloppend hart van de schakeling is, dan is
+de microcontroller het brein.<BR>
+Hier is gekozen voor een <A NAME="ATmega882633">ATmega88</A>, maar andere types zijn
+uiteraard ook bruikbaar.<P>Zoals reeds aangehaald, kan de &#956;C de frequentie van de
+oscillator bijstellen door de puls/pause-verhouding van een
+PWM-kanaal te wijzigen. Om dit te kunnen doen, is er wel een
+referentie nodig. Die referentie wordt betrokken uit een
+DCF77-module.<P>
+<H4>De regellus.</H4>
+<A NAME="FsRr"></A><P>De uitgangsfrequentie van de oscillator wordt door de &#956;C benut
+als systeem-klok. Een timer (Timer0) distilleert hier frequentie van 1Hz
+uit, waarmee de &#956;C een &#8220;eigen&#8221; tijdsaanduiding aandrijft.<BR>
+Ook de DCF77-module levert elke seconde (behalve de 59e) een
+puls. Die wordt gebruikt om een DCF77-tijdsaanduiding te
+sturen.<P>Het DCF77-signaal kan bij tijd en wijle flink gestoord zijn, dus
+is het een must om dit ter dege te controleren, en bij de minste
+twijfel als &#8220;onbruikbaar&#8221; te bestempelen.<BR>
+Na het opstarten wacht de &#956;C tot er twee voorwaarden vervuld
+zijn:
+
+<UL>
+  <LI> De temperatuur van de oven moet hoog genoeg en stabiel
+  zijn.
+  <LI> De DCF77-ontvangst moet een tijdlang vlekkeloos
+  verlopen.
+
+</UL>Zodra deze voorwaarden vervuld zijn, wordt de eigen
+tijdsaanduiding <I>&#233;&#233;nmalig</I> gelijk gezet met de DCF77-tijd.
+Vanaf dat ogenblik worden beide tijden constant vergeleken. Is
+er een verschil, dan wordt de frequentie van de oscillator
+aangepast.<P>Merk op, dat het hierbij niet enkel om de seconden gaat - dat
+zou maar een resolutie van 1/86400 (per dag) opleveren. Als
+vergelijkingsmateriaal wordt het begin van een
+DCF77-secondenpuls gebruikt. Als de frequentie van de oscillator
+heel precies 16MHz bedraagt, zal de tellerstand van Timer0
+(TCNT0) bij het begin van elke DCF77-secondenpuls gebruikt
+steeds dezelfde waarde hebben.<P>Hier doet zich wel een probleem voor: de DCF77-zender in
+Mainflingen laat elke puls precies bij het begin van een seconde
+beginnen, maar dat betekent geenszins dat de DCF77-ontvanger dat
+nauwkeurig volgt. Goedkope modules zijn vaak gebaseerd op een
+<A NAME="U4224B2317">U4224B</A>. Volgens de datasheet van dit IC kan er tussen het
+begin van een zender-puls en het tijdtip waarop de uitgang hoog
+wordt een verschil tussen 30mS en 60mS zitten.<BR>
+De software dient hier rekening mee te houden. <P>
+<H4>De firmware.</H4>
+<A NAME="FsFw"></A><P>
+<H5>Low Fuse Byte.</H5>
+<A NAME="FSLFB"></A><P>De <A NAME="LowFuseByte3139">Low Fuse Byte</A> van de AVR stellen we in op &#8220;External
+Oscillator&#8221;.<BR>
+Dat wordt dan 0x60 voor een ATmega88.<BR>
+<A NAME="CKDIV82387">CKDIV8</A>, die de klok door 8 deelt, schakelen we ook uit.<P>
+<H5>Timer/counter0.</H5>
+<A NAME="FST0"></A><P>Timer0 tikt de seconden weg. Die klokken we via een prescaler
+die op 1024 staat. Hij krijgt dus &#8213;bij een systeemklok van
+16MHz&#8213; een klok aangeboden van 15625Hz.<BR>
+We laten Timer0 tellen van 0 tot en met 124<A NAME="pros3" HREF="#ft3"><SUP>3</SUP></A>. Dat doen we zo:<P><P><PRE>
+
+    TCCR0A = _BV(WGM01);					// CTC-mode
+    TCCR0B = _BV(CS00) | _BV(CS02);				// 16000000 / 1024 = 15625
+    OCR0A = 124;						// 15625 / 125 = 125
+    TCNT0 = 0;							// Hij houdt de seconden bij
+    TIMSK0 = _BV(OCIE0A);					// Enable compare-interrupt
+<P></PRE>
+
+De bijpassende compare-match ISR wordt dus 125 maal per seconde
+aan het werk gezet - hij kan main() waarschuwen als er een
+seconde voorbij is - daartoe houdt hij een tellertje (ovf_cnt)
+bij.<BR>
+Dat vergt slechts enkele regels code:<P><P><PRE>
+
+ISR(TIMER0_COMPA_vect)
+{								// Hier komen we 125 maal per seconde voorbij
+    ovf_cnt++;							// overflow-counter verhogen
+    if (ovf_cnt == 60) {					// Staat de tellerstand op 60,
+	secondenflag = 1;					// dan geven we main() een seintje,
+	PORTB |= _BV(PB0);					// en maken we PB0 hoog, de LED licht op
+    } else if (ovf_cnt == 70) {					// Als die op 15 staat
+	PORTB &= ~(_BV(PB0));					// maken we PB0 laag - de LED dooft
+    } else if (ovf_cnt == 125) {				// Als de overflow-counter op 125 staat
+	ovf_cnt = 0;						// Maken we hem terug 0,
+    }
+}
+<P></PRE>
+
+Merk op, dat we de seconden niet verhogen als <I>ovf_cnt</I> van
+125 naar 0 springt, maar op het ogenblik dat die van 59 naar 60
+springt. Ook bij het instellen van de initiele tijd wordt
+<I>ovf_cnt</I> op 60 gezet.<BR>
+Dat heeft het voordeel, dat we bij elke puls van de DCF77-module
+kunnen verwachten dat <I>ovf_cnt</I> ergens halfweg van zijn
+minimale/maximale tellerstand zit, en we er geen rekening mee
+moeten houden dat hij van 0 naar 124 (een verschil van -1) kan
+springen.<BR><P>Wie de volledige broncode wil inzien, kan <A                                                             
+HREF="FrequentieStandaard.c.html">hier een kijkje nemen</A><P>
+<H5>Timer/counter1.</H5>
+<A NAME="FST1"></A><P>Timer1 laten we een PWM-signaal genereren. Daarmee regelen we de
+voedingsspanning van de oscillator.<BR>
+Initialiseren doen we zo:<P><P><PRE>
+
+    TCCR1A = _BV(WGM11) | _BV(COM1A1);				// 16-bit fast-PWM
+    ICR1 = 59999;						// Resolutie = 1/60000 = 0.013mV
+    TCCR1B = _BV(CS10) | _BV(WGM12) | _BV(WGM13);		// geen prescaler
+    OCR1A = 30000;						// puls/pauze-verhouding = 50%
+    DDRB |= _BV(PB1);						// OC1A (PB1) = PWM-uitgang
+<P></PRE>
+<P>
+<H5>Timer/counter2.</H5>
+<A NAME="FST2"></A><P>Timer2 wordt gebruikt om de breedte van een DCF77-puls te meten.
+We zorgen er voor, dat hij elke milliseconde een interrupt
+veroorzaakt:<P><P><PRE>
+
+    TCNT2 = 0;
+    TCCR2A = _BV(WGM21);					// CTC-mode
+    TCCR2B = _BV(CS22);						// Prescaler = 64; CLK = 250kHz
+    OCR2A = 249;						// 250kHz / 250 = 1kHz
+    TIMSK2 = _BV(OCIE2A);					// Interrupt bij compare-match
+<P></PRE>
+
+De taak van de bijbehorende ISR vergt slechts &#233;&#233;n regel
+code:<P><P><PRE>
+
+ISR(TIMER2_COMPA_vect)
+{								// Timer2 is zodanig ingesteld,
+    milliseconden++;						// dat hij elke milliseconde een interrupt produceert
+}
+<P></PRE>
+
+De DCF77-pulsen komen op de INT0-pin terecht. Zowel de opgaande
+als de neergaande flank veroorzaken een interrupt. Bij elke
+flank wordt eerst de stand van de variabele &#8220;milliseconden&#8221; naar
+een andere variabele gecopieerd. Vervolgens wordt
+"milliseconden" terug op nul gezet.<BR>
+Bij een neergaande flank weten we nu, hoeveel mS de laatste puls
+duurde, waaruit we kunnen afleiden of het een korte, een lange
+of een &#8220;foute&#8221; (te kort of te lang) puls was.<BR>
+Bij een opgaande flank kennen we het tijdsverloop tussen de
+vorige puls en de huidige. Is dat &#8213;bij benadering&#8213; 1800 &#224;
+1900 mS, dan ontbrake er een seconde en geeft de huidige puls
+het begin van een nieuwe minuut aan.<P>
+<H3>Communicatie.</H3>
+<A NAME="FSC"></A><P>Als ik een stuk elektronica ontwerp, stop ik er graag een
+microcontroller in.<BR>
+En als er ergens een microcontroller inzit, communiceer ik daar
+graag mee.<P>Zo ook hier. Een galvanische scheiding met de PC was daarbij
+meer dan gewenst. Dat is de reden waarom er op het
+<A HREF="FrequentieStandaard.html#FSMUP">&#956;C-printje</A> een tweede trafo en wat
+optocouplers terug te vinden zijn.<BR>
+De werking is gelijk aan die van de
+<A HREF="LabVoeding82V1.html#LV82V1rs232">Labvoeding82</A>.<P>
+<H3>Plaatjes.</H3>
+<A NAME="FSPL"></A><P>Enkele plaatjes van de opbouw:<P>Het oscillatorprintje, reeds in zijn blikken verpakking, maar
+zonder de isolatie:<P><IMG ALIGN="MIDDLE" SRC="FS-OscillatorPrintje.jpg"
+ ALT="FS-OscillatorPrintje.jpg">
+<P><BR CLEAR="ALL"><P>Centraal is een koperen balkje te zien, waarmee alle
+spanningsregelaars alsmede de <A NAME="BD6512252">BD651</A> thermisch zijn
+verbonden.<BR>
+In het balkje is een uitsparing gemaakt voor het kristal. Het
+ALU-hoekprofiel houdt het kristal op zijn plaats.<BR>
+De LM35 heeft eveneens een plaatsje <I>in</I> het balkje,
+teneinde een goed thermisch contact te bekomen.<P><BR CLEAR="ALL">
+<BR CLEAR="ALL"><P>Het &#956;processor-printje:<P><IMG ALIGN="MIDDLE" SRC="FS-uC-PrintBoven.jpg"
+ ALT="FS-uC-PrintBoven.jpg">
+<A NAME="FSMUP"></A><P>Een belangrijk onderdeel ontbreekt op de foto: een GAL16V8, die
+als frequentiekiezer dienst doet.<BR>
+Daarnaast is het koellichaam in de definitieve versie veel
+groter. Niet, omdat er geweldig veel warmte moet afgevoerd
+worden, maar omdat er zo weinig ruimte is tussen het koellichaam
+en de buffer-elco's. Door het koellichaam groter te maken kan
+het zijn warmte beter kwijt en blijft zijn temperatuur draaglijk
+voor de elco's.<P><P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...0.1ppm</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+parts per million</DD>
+<DT><A NAME="ft2">...PI-regelaar</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+Proportioneel Integrerende Regelaar</DD>
+<DT><A NAME="ft3">...124</A>
+<A HREF="#pros3"><SUP>3</SUP></A></DT>
+<DD>
+Dat is delen door 125!</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="CapacitiveSensor.html">Naderingssensor.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="PerimeterZenderOntvanger.html">Perimeter.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

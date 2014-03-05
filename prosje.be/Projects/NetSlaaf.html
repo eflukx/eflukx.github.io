@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: NetSlaaf.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, stroomtrafo, opamp, bistabiel relais, BAT85">
+<META NAME="description" CONTENT="NetSlaaf">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="MinuterieDimmer.html">Minuteriedimmer.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Specht.html">Specht.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="NetSlaaf"></A>
+<BR>NetSlaaf.</H2>
+<UL>
+<LI><A HREF="#NSDoel">Doel.</A>
+<LI><A HREF="#NSV1">Versie I</A>
+<UL><LI><A HREF="#NSWerk">Werking.</A>
+<LI><A HREF="#NSLayo">De print-layout</A>
+</UL>
+<LI><A HREF="#NSV2">Versie II</A>
+<UL><LI><A HREF="#NSIIS">Werking.</A>
+<LI><A HREF="#NSIIPR">De print.</A>
+<LI><A HREF="#NSIIFTS">Foto's.</A>
+</UL>
+<LI><A HREF="#NSIII">Versie III.</A>
+<LI><A HREF="#NSASS">Alternatieve stroomsensor.</A>
+</UL><HR>
+
+<P>
+<H3>Doel.</H3>
+<A NAME="NSDoel"></A><P>Wie graag met hout aan de slag gaat, weet dat zijn werkzaamheden
+vaak een flinke hoeveelheid stof veroorzaken. Vooral schuren en
+frezen zijn op dit punt bekende booswichten. De bekende oplossing
+hiervoor bestaat uit een flinke stofzuiger, die op het
+houtbewerkingsapparaat aangesloten wordt, en zoveel mogelijk van
+het geproduceerde stof wegzuigt. Men moet dan wel de moeite nemen,
+naast het apparaat ook de stofzuiger in- en uit te schakelen...<BR>
+Het is precies die laatste taak, die overgenomen wordt door onze
+NetSlaaf: zodra een apparaat ingeschakeld wordt, start automatisch
+de stofzuiger; even na het uitschakelen van het apparaat, valt ook
+de stofzuiger stil.<P>
+<H3>Versie I</H3>
+<A NAME="NSV1"></A><P>
+<H4>Werking.</H4>
+<A NAME="NSWerk"></A><P>Het eerste dat we moeten doen, is dedecteren of er stroom vloeit
+door de leiding waarop het &#8220;Master&#8221; apparaat is aangesloten.
+Dat doen we met behulp van een <A NAME="stroomtrafo1998">stroomtrafo</A>; een trafo waarvan
+de primaire wikkeling uit 1 winding dikke draad bestaat, en de
+secundaire wikkeling vele windingen telt. De primaire wikkeling
+kan dan in serie met het &#8220;Master&#8221; apparaat geplaatst worden,
+zonder merkbaar spanningsverlies te veroorzaken.<BR>
+Wie graag wikkelt, weet dus wat hem te doen staat. Zelf heb ik een
+niet-ingegoten trafo'tje uit de telefoniewereld genomen, en in
+de beschikbare ruimte tussen de wikkelingen en de buitenkant van
+de kern een wikkeling in draad van voldoende dikte gewurmd.<P><IMG ALIGN="MIDDLE" SRC="NetSlaaf_Fig.png"
+ ALT="NetSlaaf_Fig.png">
+<P>Op het schema hierboven is Tr1 de stoomtrafo. C1 laat enkel de
+wisselstroomcomponent door. D1 en D2 beschermen <A NAME="opamp1323">opamp</A> N1
+tegen te hoge piekspanningen. Dit is beslist geen overbodige
+luxe<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A>
+Bij het inschakelen (of het vastlopen) van een electromotor kunnen
+immers stromen vloeien die aanzienlijk hoger liggen dan de
+nominale stroom. Zolang de rotor niet draait, wordt er ook geen
+tegen-emk<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A> opgewekt,
+zodat de stroom hoofdzakelijk begrensd wordt door de ohmse
+weerstand van de rotor- en de stator-wikkelingen.<BR>
+N1 is als wisselspanningsversterker geschakeld; hij versterkt de
+spanning van de stroomtrafo &#177; 10 x. Het versterkte
+ingangssignaal laadt via C3 en diodepomp D4/D5 C4 op. N2
+vergelijkt de spanning over C4 met een ingestelde waarde. Is de
+spanning over C4 groter dan die op de loper van P1, dan wordt de
+uitgang van N1 laag. Teneinde heen-en-weer klapperen te vermijden,
+is R9 toegevoegd. Deze weerstand zorgt voor een zekere
+hysteresis. R8 zorgt er op zijn beurt voor, dat C4 terug ontladen
+wordt nadat het ingangssignaal is weggevallen.<P>De uitgang van N2 activeert &#8213;naargelang hij hoog of laag wordt&#8213;
+of N3 of N4. In beide gevallen zorgen een elko (C6, C5) en een
+weerstand (R10, R5) er voor, dat die actieve toestand in de tijd
+beperkt wordt. D6 en D3 zorgen er voor, dat de spanning op de
+respectievelijke ingangen niet negatief kan worden.
+N3 en N4 drijven elk, via een transistor,
+een der wikkelingen van een bipolair relais aan. Een kortstondige puls
+op &#233;&#233;n der wikkelingen van zo'n relais heeft tot gevolg dat
+het de bijpassende stand aanneemt, en deze behoudt, ook nadat de
+puls is verdwenen.<P>
+
+<H4>De print-layout</H4>
+<A NAME="NSLayo"></A><P><IMG ALIGN="MIDDLE" SRC="NetSlaaf_overzicht.png"
+ ALT="NetSlaaf_overzicht.png">
+<P>
+<H3>Versie II</H3>
+<A NAME="NSV2"></A><P>Versie I werd voor een <A NAME="bistabielrel2397">bistabiel relais</A> ontworpen, omdat ik
+daar enkele exemplaren van in voorraad had. Nu is een gewoon
+relais eenvoudiger te bedienen, en tevens goedkoper.
+Daarom deze versie.<P>
+<H4>Werking.</H4>
+<A NAME="NSIIS"></A><P><IMG ALIGN="MIDDLE" SRC="NetSlaafII.png"
+ ALT="NetSlaafII.png">
+<P>De stroomsensor bestaat hier uit de spoel van een 230V~ relais.
+Deze spoel vormt de secundaire wikkeling.<BR>
+De primaire wikkeling bestaat uit twee wikkelingen, waarvoor een
+soort <I>dikke</I> flatcable gebruikt is. Deze is afkomstig
+uit een afgedankte flatbed-scanner; de aders zijn heel wat
+dikker dan bij een "gewone" flatcable. Samen zijn ze ruim
+1.5mm<SUP>2</SUP> dik, voldoende voor de aangesloten master - een
+afkort-cirkelzaag in dit geval.<BR>
+Na gelijkrichting door D1 ... D4 komt de opgewekte spanning over
+C1 en C2 te staan.<P>Misschien is een woordje uitleg over C1 en D5
+hier op zijn plaats:<BR>
+Er werd gekozen voor een goedkope opamp, de LM741. Deze heeft
+wel het nadeel, dat hij niet met lage ingangsspanningen overweg
+kan. Door C1 en D5 toe te voegen worden de ingangsspanningen
+1.8V omhoog getild (C1 wordt opgeladen door R1/P2), zodat de 741
+tevreden gesteld wordt.<BR>
+Als men gebruik maakt van een opamp die w&#232;l overweg kan met
+lage ingangsspanningen (CA3140, AD820) zijn C1 en D5 overbodig.
+P1 en C2 worden dan rechtstreeks met GND verbonden.<P>P1 vormt de belasting voor diodebrug D1 ... D4. De opgewekte
+spanning hangt immers af van de stroom die door de master vloeit
+en van de karakteristieken van Tr1. Met P1 is het mogelijk, de
+opgewekte spanning over C2 naar wens in te stellen.<BR>
+Als blijkt, dat de stroomsensor een te lage spanning opwekt,
+kunnen verschillende maatregelen genomen worden:
+
+<UL>
+<LI> Voor D1 ... D4 kunnen er Schottky-dioden gebruikt worden.
+Bijvoorbeeld <A NAME="BAT851106">BAT85</A>.
+<LI> De anode's van de &#8220;onderste&#8221; twee dioden kunnen met de
+anode van D5 verbonden worden in plaats van GND. Op die manier
+hoeft de stroom-sensor de klemspanning van D5 niet te
+overwinnen.
+
+</UL>Met P2 wordt ingesteld, bij welke spanning het relais moet
+aangetrokken worden. R2 zorgt daarbij voor enige hysteresis.<P>Deze uitgebreide instelmogelijkheden waren een noodzaak, omdat
+het master-apparaat voorzien is van een laser-uitlijning.
+Daardoor wordt er sowieso stroom verbruikt, en moet de NetSlaaf
+in staat zijn het verschil tussen deze ruststroom en die van een
+draaiende motor te herkennen.<P>
+
+<H4>De print.</H4>
+<A NAME="NSIIPR"></A><P><IMG ALIGN="MIDDLE" SRC="NetSlaafIIpcb.png"
+ ALT="NetSlaafIIpcb.png">
+<P>Op de print vinden we nog enkele onderdelen terug, die niet op
+het schema te zien zijn: een 9V-trafo, een glaszekering, een
+gelijkrichterbrug en een elco (1000&#956;F, 16V).<BR>
+Een spanningsstabilisator is voor een toepassing als deze
+overbodig.<P>De layout is ook beschikbaar in pdf-vorm:<P><A NAME="pros4"  HREF="NetSlaafII_back.pdf">De soldeerzijde</A>
+<BR>
+<A NAME="pros5"  HREF="NetSlaafII_silk.pdf">De componenten</A>
+<BR><P>
+<H4>Foto's.</H4>
+<A NAME="NSIIFTS"></A><P><IMG ALIGN="MIDDLE" SRC="NetSlaafII-BestuktePrint.jpg"
+ ALT="NetSlaafII-BestuktePrint.jpg">
+<P>Het bestukte printje.<P><IMG ALIGN="MIDDLE" SRC="NetSlaafIIBehuizingBinnen.jpg"
+ ALT="NetSlaafIIBehuizingBinnen.jpg">
+<P>Het geheel zit in een eenvoudige behuizing.<P>Wat opvalt, zijn de "stopcontacten". Deze vrouwelijke
+netsnoer-stekkers zijn heel wat goedkoper dan een
+inbouw-stopcontact, en voldoen net zo goed voor deze toepassing.<P><IMG ALIGN="MIDDLE" SRC="NetSlaafIIBehuizingBuiten.jpg"
+ ALT="NetSlaafIIBehuizingBuiten.jpg">
+<P>Zo ziet het er aan de buitenkant uit. Deze NetSlaaf hangt
+helemaal uit het zicht, dus kon een fancy afwerking achterwege
+blijven.<P><BR CLEAR="ALL"><P>
+<H3>Versie III.</H3>
+<A NAME="NSIII"></A><P><IMG ALIGN="MIDDLE" SRC="NetSlaafIII.png"
+ ALT="NetSlaafIII.png">
+<P>Als we <A HREF="WisselstroomDetector.html#WisselstroomDetector">deze stroomsensor</A> en
+<A HREF="BelastingSchakelen.html#BSSTAP">deze Schmitt-trigger</A> aan mekaar knopen, hebben
+we een derde versie.<BR>
+Wie even op de links klikt, kan daar lezen hoe beide onderdelen
+werken.
+<BR CLEAR="ALL"><P>
+<H3>Alternatieve stroomsensor.</H3>
+<A NAME="NSASS"></A><P>De gebruikte stroomsensor heeft het voordeel, dat hij praktisch
+geen weerstand vormt in de stroomleiding. Wie geen gepaste spoel
+bij de hand heeft, of er weinig voor voelt om zoiets in mekaar
+te knutselen, kan dit alternatief overwegen:<P><IMG ALIGN="LEFT" SRC="StroomSensorMetDioden.png"
+ ALT="StroomSensorMetDioden.png">
+
+Hierbij wordt gebruik gemaakt van een kleine laagspanningstrafo,
+waarbij de laagspanningswikkeling over de dioden wordt
+aangesloten. Deze dioden beperken de ingangsspanning
+&#8213;afhankelijk van het type en de stroom door de netleiding&#8213;
+tot &#177;1V. Het trafo'tje kan ook een 24V type zijn.<P>Nadeel bij deze methode is de spanningsval over de dioden. Deze
+dienen uiteraard geschikt te zijn voor de stroom die de master
+opneemt. Hou hierbij rekening met de startstroom bij motoren!<P><P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...luxe</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+D1 en D2 zijn niet terug te vinden op de <A HREF="NetSlaaf.html#NSLayo">print-layout</A>. De auteur heeft met scha en schande het nut van deze componenten moeten ondervinden... ;-)</DD>
+<DT><A NAME="ft2">...tegen-emk</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+emk = electro motorische kracht</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="MinuterieDimmer.html">Minuteriedimmer.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Specht.html">Specht.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,442 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Belastingen schakelen.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, BC517, darlington, 2N2219, verzadiging, Schottky-diode, BS170, logic-level FET, RDS(on), gate/source-capaciteit, FET-driver, TC427, dead-time generator, hysteresis, Schmitt-trigger, lawineeffect, IRF530, IRFP064N">
+<META NAME="description" CONTENT="BelastingSchakelen">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="FFToets.html">Flipflops bedienen met &#233;&#233;n of meer druktoetsen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="LCD-Interface.html">Zuinige LCD-Interface.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="BelastingSchakelen"></A>
+<BR>Belastingen schakelen.</H2>
+<UL>
+<LI><A HREF="#BSBT">Met een bipolaire transistor.</A>
+<UL><LI><A HREF="#BSSPNP">Met een snelle NPN.</A>
+</UL>
+<LI><A HREF="#BSKF">Met een FET'je.</A>
+<LI><A HREF="#BSGF">Met een vermogens-FET.</A>
+<UL><LI><A HREF="#BSSLF">Sturen met een lichte FET.</A>
+<LI><A HREF="#BSSED">Sturen met een echte FET-driver.</A>
+</UL>
+<LI><A HREF="#BSHB1">H-bruggen.</A>
+<UL><LI><A HREF="#BSHBS">Eenvoudige versie.</A>
+<LI><A HREF="#BSHBSB">Betere versie.</A>
+<LI><A HREF="#BSHBR">Met een relais.</A>
+<LI><A HREF="#BSHBFA">Met FET's, maar dan anders.</A>
+<LI><A HREF="#BSHBBT">Met bipolaire transistors.</A>
+</UL>
+<LI><A HREF="#BSSH">Schakelen met hysteresis.</A>
+<LI><A HREF="#BSIB">Inductieve belastingen schakelen</A>
+</UL><HR>
+<P>
+<H3>Met een bipolaire transistor.</H3>
+<A NAME="BSBT"></A><P><IMG ALIGN="LEFT" SRC="NPN-schakelaar.png"
+ ALT="NPN-schakelaar.png">
+ <IMG ALIGN="RIGHT" SRC="BC517.png"
+ ALT="BC517.png">
+
+Dat je met een transistor belastingen in- en uit kan schakelen,
+is niets nieuws. En meestal werkt dat zoals verwacht.<BR>
+Echter, zodra de schakelfrequentie wat hoog wordt, loopt het
+fout. Dat is goed te zien op het plaatje links: de groene
+lijn toont dat T1 goed inschakelt, maar dat er ruim 2.5&#956;s
+verloopt alvorens het knooppunt T1/R2 terug hoog is nadat de
+ingangsspanning laag werd.<P>We proberen het dan maar met een darlington, een <A NAME="BC5172121">BC517</A>, in
+dezelfde opstelling. Maar, zoals je rechts kan zien, het wordt
+er niet beter op...<BR>
+De spanning begint sneller te stijgen nadat de basis laag
+gemaakt wordt, maar de rest van het spanningsverloop is veel trager.<BR>
+Daar komt bij, dat de collector/emitter-spanning bij een
+<A NAME="darlington2905">darlington</A> nooit lager dan 0.6V kan worden, hetgeen duidelijk te
+zien is op het scoop-plaatje.<P><BR CLEAR="ALL"><P>
+<H4>Met een snelle NPN.</H4>
+<A NAME="BSSPNP"></A><P><IMG ALIGN="LEFT" SRC="2N2219-B.png"
+ ALT="2N2219-B.png">
+ <IMG ALIGN="RIGHT" SRC="NPN-schakelaarII.png"
+ ALT="NPN-schakelaarII.png">
+
+Misschien moeten we maar eens een echte schakeltor nemen, een
+<A NAME="2N22192165">2N2219</A> bijvoorbeeld. Links zien we, wat deze doet bij een
+testopstelling als hierboven. Dat is al een stuk beter, maar het
+is nog verre van ideaal.<P>Dit gedrag wordt veroorzaakt door het feit dat T1 in
+<A NAME="verzadiging3009">verzadiging</A> gestuurd wordt, en enige tijd nodig heeft om
+uit die toestand te ontwaken.<BR>
+Daar valt wel een mouw aan te passen, ondermeer door een kleine
+condensator over R1 te plaatsen. Die zorgt er voor dat de basis
+bij het uitschakelen kortstondig negatief wordt.<BR>
+Ook kan tussen basis en collector een <A NAME="Schottkydiodakelen3250">Schottky-diode</A>
+geplaatst worden, met de anode aan de basis.<BR>
+Rechts zien we, dat de grafiek nu geen flauwe flanken meer
+vertoont. Het wordt alsmaar beter...<P>Die laatste maatregel is echter niet aan te bevelen bij
+toepassingen waar grote stromen moeten geschakeld worden - de
+diode zorgt er voor dat de transistor niet in verzadiging
+gestuurd wordt, waardoor hij sneller uitschakelt. Maar nu gaat
+de transistor niet meer optimaal geleiden, hetgeen
+extra-warmteontwikkeling tot gevolg heeft.<BR>
+Rechts is goed te zien, dat de onderkant van de groene blokgolf
+niet lager wordt dan ongeveer +0.5V - hetzelfde verschijnsel dat
+zich ook bij de darlington hierboven voordoet.<P>Dit is dus toch niet zo goed als verwacht...<P><BR CLEAR="ALL"><P>
+<H3>Met een FET'je.</H3>
+<A NAME="BSKF"></A><P><IMG ALIGN="RIGHT" SRC="FET-schakelaar.png"
+ ALT="FET-schakelaar.png">
+
+Als we nou een kleine FET nemen, wordt het plaatje n&#243;g mooier,
+en dat zonder al die condensators en dioden om het schakelgedrag te
+verbeteren. Op punt '1' is nog enige vertraging te merken, maar
+die bedraagt slechts enkele ns. Daarnaast schakelt de FET
+helemaal door. We zijn er bijna...<P>Willen we grote stromen schakelen, dan lukt dat niet meer met
+een <A NAME="BS1702132">BS170</A>. We hebben een zwaardere FET nodig.<BR>
+Nu bestaan er wel type's, die genoegen nemen met 5V aan hun
+ingang, de zogenaamde <A NAME="logiclevelFEakelen3193">logic-level FET</A>'s. Die kunnen zonder
+meer de BS170 vervangen. Maar wie op zoek gaat naar een type met
+een erg lage <A NAME="RDS(on)2366">RDS(on)</A> komt al snel tot de vaststelling dat
+die een hogere spanning op hun gate nodig hebben.<P>Wil je zo'n FET met 5V sturen, dan heb je een driver nodig die
+5V vertaalt naar een hogere stuurspanning voor de gate.<P><BR CLEAR="ALL"><P>
+<H3>Met een vermogens-FET.</H3>
+<A NAME="BSGF"></A><P>
+<H4>Sturen met een lichte FET.</H4>
+<A NAME="BSSLF"></A><P><IMG ALIGN="LEFT" SRC="FetStuurTrap.png"
+ ALT="FetStuurTrap.png">
+
+Vermits de BS170 zo goed schakelt, kunnen we overwegen om
+daarmee een zwaardere FET aan te sturen. Uit het plaatje
+hiernaast blijkt, dat dit geen goed idee is.
+De spanning op de drain van T1, die er hierboven nog zo mooi
+uitzag, lijkt nergens meer op.<P>Het is de parasitaire <A NAME="gate/sourcecakelen4044">gate/source-capaciteit</A> van T2, die voor dit
+ongewenst gedrag zorgt. T1 slaagt er wel in deze capaciteit
+snel te ontladen, maar het is R1 die voor het opladen instaat.
+En de stroom door R1 is nu eenmaal beperkt.<BR>
+Er kan uiteraard gekozen worden voor een kleinere weerstand,
+maar ook een exemplaar van 100&#937; heeft een bepaalde tijd
+nodig om de gate-capaciteit op te laden.<BR>
+Doordat de gate van T2 niet goed gestuurd wordt, is ook zijn
+schakelgedrag niet optimaal. Daardoor komt hij telkens voor
+korte tijd in zijn lineair gebied terecht, hetgeen voor
+ongewenste warmteontwikkeling zorgt. Merk op, dat T2 in dit
+voorbeeld maar 150mA schakelt. Bij een belasting van 15A zal de
+spanning op de drain (blauwe grafiek) er nog veel ongunstiger
+uitzien.<P><BR CLEAR="ALL"><P><IMG ALIGN="RIGHT" SRC="FET-schakelaarII.png"
+ ALT="FET-schakelaarII.png">
+
+Gelukkig valt daar wat aan te doen met... jawel, een bipolaire
+transistor<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A>.
+Het schema rechts toont, hoe we die bij het circuit
+betrekken.<P>Zodra T1 geleidt, zal hij de gate (-capaciteit) van T3 ontladen
+via D1.
+Daarnaast wordt ook de basis van T2 laag gemaakt. De
+aanwezigheid van D1 zorgt er voor, dat de spanning op de basis
+van T2 0.6V lager is dan de spanning op diens emitter.
+T2 kan dus zeker geen stroom leveren aan de gate van T3.<BR>
+D1 zal ook beletten, dat de gate-spanning van T3 lager wordt dan
+0.6V, maar die spanning is laag genoeg om deze FET te laten sperren.<P>Zodra T1 terug spert, krijgt R1 de kans om T2 van basisstroom
+te voorzien. De invloed van D1 valt immers weg. En nu is het
+geen weerstandje dat de gate van T3 moet opladen, maar een heuse
+schakeltor. <BR>
+Het resultaat mag gezien worden.<P>Misschien nog even opmerken, dat alle proefopstellingen op een
+breadboard uitgevoerd zijn. Dat is verre van ideaal, als je aan
+100kHz gaat schakelen, en het verklaart ten dele de uitschieters
+op de scoopplaatjes.<P><BR CLEAR="ALL"><P>
+<H4>Sturen met een echte FET-driver.</H4>
+<A NAME="BSSED"></A><P><IMG ALIGN="LEFT" SRC="DriverStuurTrap.png"
+ ALT="DriverStuurTrap.png">
+
+Laten we nu maar eens een echte <A NAME="FETdriver2751">FET-driver</A> aan het werk zetten.
+Een <A NAME="TC4272139">TC427</A> bijvoorbeeld.<BR>
+Dat ziet er ook prima uit. Er is nog een minieme
+vertraging te merken, maar de flanken zijn behoorlijk steil,
+zowel op de gate van T2 als op diens drain.<P>Merk op, dat er in de praktijk nog een condensator van 1&#956;F
+naast C1 moet geplaatst worden. G&#233;&#233;n elco! IC-voetjes zijn
+af te raden. En wie slim is, neemt voor C1 een SMD-exemplaar dat
+aan de soldeerzijde tussen de voedingspinnen van de FET-driver
+geplaatst wordt. De prestaties van de driver kunnen er enkel wel
+bij varen.<P><BR CLEAR="ALL"><P>
+<H3>H-bruggen.</H3>
+<A NAME="BSHB1"></A><P>
+<H4>Eenvoudige versie.</H4>
+<A NAME="BSHBS"></A><P><IMG ALIGN="RIGHT" SRC="H-brugI.png"
+ ALT="H-brugI.png">
+
+Er zwerven nogal wat schema's van H-bruggen op het internet
+rond, de ene al wat beter dan de andere. Hiernaast is een
+voorbeeld afgebeeld.<BR>
+De werking is eenvoudig: maakt men de gate van T1 hoog en die
+van T2 laag, dan wordt de motor gestuurd met Vcc aan zijn
+linkerzijde en met GND aan zijn rechterzijde. Maakt men de
+gate van T1 laag en die van T2 hoog, dan zal de motor andersom
+draaien. Maakt men beide gate's hoog (of laag), dan is de
+spanning aan beide zijden van de motor gelijk, en zal hij niet
+draaien.<P>Wil men echter de motor niet enkel links of rechts laten
+draaien, maar bovendien zijn vermogen regelen door een
+PWM-signaal op T1 (of T2) te plaatsen, dan is deze
+schakeling een slechte keuze.<BR>
+Immers, als T1 in geleiding gestuurd wordt, zal deze de gates
+van T3 en T5 vrij snel laag maken. Maar zodra T1 terug spert
+zullen die gates er de tijd voor nemen om van laag naar hoog te
+gaan. Het gevolg daarvan is, dat zowel T3 als T5 gedurende een
+korte periode beiden in geleiding zijn. Als dat 1000 maal per
+seconde gebeurt, kan het een vroegtijdig einde van de FET's
+betekenen.<P><BR CLEAR="ALL"><P>
+<H4>Betere versie.</H4>
+<A NAME="BSHBSB"></A><P><IMG ALIGN="LEFT" SRC="VerbeterdeH-brug.png"
+ ALT="VerbeterdeH-brug.png">
+
+De truuk met de bipolaire transistor kan ook hier soelaas
+bieden, zolang de schakelfrequentie maar niet te hoog is.<BR>
+Ook nu zullen T3 en T5 tijdens elke schakel-flank even samen
+geleiden, maar die tijd is veel korter dan bij het vorige
+schema.<P>Teneinde de theorie aan de praktijk te toetsen, werd de
+linker-helft van de H-brug opgebouwd, gevoed met 18V, en
+aangestuurd met een 50/50&#37; PWM-signaal.<BR>
+Het stroomverbruik - zonder belasting, voor alle duidelijkheid:
+<P><PRE>
+
+    100Hz      10mA
+     1kHz      12mA
+    10kHz      29mA
+    20kHz      50mA
+    50kHz     111mA
+   100kHz     210mA
+<P></PRE>
+Van deze stromen moet telkens 9mA afgetrokken worden - dat is
+hetgeen R1 voor zijn rekening neemt.<P>Ik zou durven stellen dat de schakeling het uitstekend doet tot
+1kHz. Iets meer mag ook, maar dan wordt het schakelgedrag minder
+gunstig.<BR>
+Voor 50kHz en meer is de schakeling volkomen
+ongeschikt.<P>
+<BR CLEAR="ALL"><P>
+<H4>Met een relais.</H4>
+<A NAME="BSHBR"></A><P><IMG ALIGN="RIGHT" SRC="H-brugVII.png"
+ ALT="H-brugVII.png">
+
+&#8220;Met een relais?!&#8221; hoor ik u al roepen. Jazeker, een relais is
+geen aftands product uit de 20e eeuw. Nou goed, het maakt wat
+geluid bij het schakelen, maar de overgangsweerstand van de
+contacten is stukken beter dan de RDS(on) van menig FET.<BR>
+En het is voor deze taak &#8213;ompolen en vermogen regelen&#8213; een
+prima bouwsteen.<P>De spanning op de gate van T1 bepaalt in welke richting de motor
+zal draaien. Een PWM-signaal op de gate van T2 regelt het
+vermogen. Zowel T1 als T2 zijn in dit geval logic-level FET's,
+die rechtstreeks met 5V kunnen aangestuurd worden.<BR>
+Bij zware motoren kan het gebeuren dat een geschikte logic-level
+FET niet voorhanden is. In dat geval zal er een
+<A HREF="BelastingSchakelen.html#BSSED">FET-driver</A> aan te pas moeten komen.<P>Wie verstandig is, schakelt eerst T2 uit, en laat de motor tot
+stilstand komen alvorens hem om te polen. Op die manier hoeft
+het relais geen belasting te schakelen, hetgeen zijn levensduur
+ten goede komt.<P><BR CLEAR="ALL"><P>
+<H4>Met FET's, maar dan anders.</H4>
+<A NAME="BSHBFA"></A><P><IMG ALIGN="LEFT" SRC="H-brugVI.png"
+ ALT="H-brugVI.png">
+
+Als we de <A HREF="BelastingSchakelen.html#BSHBS">eerste FET-versie</A> van FET-drivers
+voorzien, kunnen we daarmee de FET's op een goede manier
+aansturen teneinde het vermogen te regelen. Maar het
+kan beter.<BR>
+Als we er voor zorgen dat de bovenste FET ingeschakeld blijft,
+hoeven we enkel de onderste FET van een PWM-signaal te voorzien.<P>Het schema hiernaast toont wat ik bedoel.<BR>
+Stel dat men ingang <B>B</B> laag maakt, en op <B>A</B> een
+PWM-signaal zet. Zodra de drain van T1 laag wordt, zal deze via
+D6 ook T4 open sturen. C2 zorgt er voor dat T4 blijft geleiden
+tijdens de korte ogenblikken dat T1 terug spert.<BR>
+T1 is dus de enige component die actief schakelt, en voor
+schakelverliezen kan zorgen. Bij gebruik van FET-drivers
+volstaat het dan ook, die enkel in te zetten voor T1 en T2.<P>Deze H-brug heeft wel een nadeel dat de eerste niet heeft: men
+mag nooit T1 en T2 gelijktijdig aansturen. Als dat wel gebeurt,
+is een kortsluiting het gevolg!<P><BR CLEAR="ALL"><P><IMG ALIGN="RIGHT" SRC="H-brugPrint.jpg"
+ ALT="H-brugPrint.jpg">
+
+In tegenstelling tot de voorgaande proefopstellingen, is deze
+H-brug definitief opgebouwd, zoals de foto toont.<BR>
+Het scoop-plaatje laat het schakelgedrag zien bij een
+voedingsspanning van 12V, een ohmse belasting<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A> van 3&#937;,
+een schakelfrequentie van 100kHz en een puls/pause-verhouding
+van 25/75.<P>De aanwezige koelplaten zijn sterk overdreven - ze worden
+niet voelbaar warm. Maar omdat deze schakeling gebouwd is voor
+experimenteerdoeleinden, kunnen ze vroeg of laat hun dienst
+bewijzen.<P><BR CLEAR="ALL"><P>
+<H4>Met bipolaire transistors.</H4>
+<A NAME="BSHBBT"></A><P><IMG ALIGN="RIGHT" SRC="NPN-PNP-GeaardeEmittersSlecht.png"
+ ALT="NPN-PNP-GeaardeEmittersSlecht.png">
+
+Met bipolaire torren kan je uiteraard ook een H-brug
+samenstellen. Wie zich daaraan waagt, komt voor andere problemen
+te staan.<P>Kijk even naar het plaatje hiernaast. Het is maar een halve
+H-brug, en bovendien opgebouwd met signaal-transistors die amper
+vermogen kunnen leveren. Maar dat volstaat om e.e.a. te
+verduidelijken.<BR>
+Als T1 in geleiding wordt gestuurd, krijgt T3 basisstroom.
+Die gaat daardoor eveneens geleiden.
+Spert T1, dan is het T2 die basisstroom krijgt.<BR>
+Wie het begin van dit artikel heeft gelezen, ziet al meteen dat
+zoiets fout gaat. De ingeschakelde tor wordt immers in
+verzadiging gestuurd, en zal nog even blijven geleiden als de
+basisstroom wegvalt <I>en de andere tor basisstroom krijgt</I>.<P>Dat is duidelijk te zien op het bijgaande scoop-plaatje.
+Hoewel er helemaal geen belasting aanwezig is, komt er bij het
+schakelen een flinke spanningsval over R4 te staan, hetgeen
+bewijst dat de schakeling gedurende 1&#956;S bijna 100mA slikt.<BR>
+Het feit dat de piek bij een opgaande flank aanmerkelijk korter
+is, valt te wijten aan R4, die belet dat T3 helemaal in
+verzadiging gaat.<P>Dat probleem kan opgelost worden, door er voor te zorgen dat
+T2/T3 niet in verzadiging gestuurd worden. Maar daardoor gaan ze
+meer vermogen (warmte) dissiperen omdat de
+collector/emitter-spanning hoger blijft.<BR>
+Je kan ze ook als emittervolger schakelen. Dan schakelen ze ook
+snel, maar gaan ze nog meer vermogen dissiperen.<P>Heel vervelend, allemaal. Maar we kunnen die nare eigenschappen
+van een bipolaire transistor ook benutten...<P><BR CLEAR="ALL"><P><IMG ALIGN="LEFT" SRC="NPN-PNP-GeaardeEmitters.png"
+ ALT="NPN-PNP-GeaardeEmitters.png">
+
+Om te beginnen plaatsen we tussen T2 en T3 een weerstand, zodat
+ze geen kortsluiting kunnen veroorzaken.<BR>
+Vervolgens gaan we die weerstand gebruiken om een stel zwaardere
+(darlington-) transistors van basisstroom te voorzien.<P>De werking laat zich het best verklaren door T2 en T3 niet als
+&#8220;stroomleveranciers&#8221; te beschouwen, maar eerder als
+&#8220;stroomafknijpers&#8221;.<BR>
+T3 zal &#8213;als hij in geleiding is&#8213; T4 van basisstroom
+onthouden. T2 doet hetzelfde met T5. En we weten dat T2 en T3
+tijdens het omschakelen gedurende een korte periode allebei in
+geleiding zijn. Daaruit volgt, dat T4 en T5 gedurende die korte
+periode gespert blijven. Het bijgaande scoop-plaatje laat zien
+dat na elke flank de spanning op meetpunt <B>2</B> gedurende 3
+&#224; 4 &#956;S 6V bedraagt, een spanning die afkomstig is van
+spanningsdeler R5/R6. Zowel T4 als T5 sperren op dat ogenblik.<BR>
+T2 en T3 fungeren hier als <A NAME="deadtimegeneakelen3704">dead-time generator</A>.<P><BR CLEAR="ALL"><P>
+<H3>Schakelen met hysteresis.</H3>
+<A NAME="BSSH"></A><P><IMG ALIGN="RIGHT" SRC="SchmT-1.png"
+ ALT="SchmT-1.png">
+
+In de bovenstaande situaties gingen we steeds uit van een
+stuursignaal dat maar twee toestanden kan aannemen: ofwel laag,
+ofwel hoog.<BR>
+In de praktijk is dat niet altijd het geval. Er kan ruis op het
+signaal zitten, of het signaal kan zondermeer analoog zijn.
+Als we in zo'n geval een duidelijk schakelpunt willen, zullen we
+<A NAME="hysteresis2938">hysteresis</A> moeten inbouwen. Traditionele middelen hiervoor
+zijn buffers met een <A NAME="Schmitttriggakelen3364">Schmitt-trigger</A> ingang of een
+comparator met meekoppeling van uit- naar ingang.<BR>
+Dat het vaak op te lossen valt met een extra-transistor en wat
+weerstanden, toont het schema rechts.<P>De werking valt eenvoudig te verklaren, als we starten met een
+ingangsspanning van 0V. T1 spert dan, en R2 voorziet T2 van
+basisstroom. Die laatste zal geleiden, en zijn emitterstroom zal
+een kleine spanningsval over R3 veroorzaken.<BR>
+Laten we nu de ingangsspanning langzaam stijgen, dan gebeurt er
+niets tot die groter is dan de basis/emitter-overgang van
+T1 <I>plus</I> de spanningsval over R3. Op dat ogenblijk gaat T1
+een beetje geleiden. Dat betekent, dat hij een beetje
+basisstroom wegsnoept van T2. Die gaat hierdoor wat minder
+geleiden, waardoor de spanningsval over R3 lager wordt.<BR>
+Op dat ogenblik treedt een <A NAME="lawineeffect3092">lawineeffect</A> op: het
+spanningsverschil tussen de ingang en de emitter van T1 wordt
+groter, waardoor die beter gaat geleiden en nog meer basisstroom
+aan T2 onttrekt, zodat die laatste n&#243;g minder stroom doorlaat,
+de spanning over R3 n&#243;g verder daalt, enz...<BR>
+Laten we de ingangsspanning terug zakken, dan zal zich op zeker
+ogenblik het tegenovergestelde effect voordoen. Dat gebeurt pas
+bij een spanning die aanmerkelijk lager is. Op het scoop-plaatje
+zien we, dat er een verschil is van bijna 500mV.<P><IMG ALIGN="LEFT" SRC="SchmT-2.png"
+ ALT="SchmT-2.png">
+ De aanwezigheid van R3 zorgt er wel voor, dat
+R4, de belasting, niet de volle voedingsspanning krijgt. Een
+deel blijft immers over R3 staan. Niet geschikt om zware
+belastingen te schakelen, dus. En bovendien inverteert de
+schakeling - de ingang moet immers laag zijn om de belasting van
+stroom te voorzien.<P><A NAME="BSSTAP"></A>
+Tijd voor een andere aanpak.<BR>
+Deze is samengesteld uit een NPN/PNP-koppel. Dat heeft alvast
+tot gevolg dat de schakeling niet meer inverteert. We moeten dus
+de ingang hoog maken, om de belasting van stroom te voorzien.<BR>
+Hier is het R5 die voor meekoppeling zorgt. Als de ingang laag
+is, is R5 a.h.w. met GND verbonden (via de belasting). Stijgt de
+ingansspanning, dan zal een deel van de stroom door R1 via R5
+naar GND vloeien.<BR>
+Zodra T1 enigzins gaat geleiden, krijgt T2 basisstroom. T2
+begint dus ook te geleiden, en de spanning aan zijn collector
+stijgt. R5 gaat nu geen stroom meer naar GND afleiden, maar
+juist het tegenovergestelde doen: hij gaat stroom <I>leveren</I>
+aan T1. Die gaat daardoor meer geleiden, T2 krijgt meer
+basisstroom, en het lawine-effect is een feit.<P>Ook hier wordt T2 pas uitgeschakeld op een ingangsniveau dat
+duidelijk lager is dan bij het inschakelen - het scoop-plaatje
+toont dat dit 500mV bedraagt.<BR>
+Willen we meer hysteresis, dan zouden we R5 een maatje kleiner
+kunnen nemen. Dat levert echter een probleem op: de
+ingangsspanning moet dan <B>negatief</B> worden om T2 uit te
+schakelen. Daar valt echter een mouw aan te passen door tussen
+de emitter van T1 en GND &#233;&#233;n of meerdere dioden te plaatsen.
+Met elke diode veschuiven de omslagpunten 0.6V naar boven.<P>Bij deze schakeling kan T2 vervangen worden door een P-FET.
+PWM-bedrijf valt sterk af te raden. Daarvoor is de schakeling te
+traag.<P><BR CLEAR="ALL"><P>
+<H3>Inductieve belastingen schakelen</H3>
+<A NAME="BSIB"></A><P><IMG ALIGN="RIGHT" SRC="Ind-D-1kHz.png"
+ ALT="Ind-D-1kHz.png">
+
+Als we een inductieve belasting <I>uit</I>schakelen,
+veroorzaakt de stroom door de zelfinductie een flinke
+spanningspiek. Die piek vangen we op met behulp van een
+vrijloopdiode, zoals D1 in het schema hiernaast, en dat was het
+dan...<P>Of toch niet? Als we even naar het scoop-beeld kijken, merken we
+dat de piek &#8213;ondanks D1&#8213; nog steeds een veelvoud is van de
+voedingsspanning<A NAME="pros3" HREF="#ft3"><SUP>3</SUP></A>.<BR>
+Zolang de FET geschikt is voor die spanning, zoals de
+<A NAME="IRF5302208">IRF530</A> hiernaast, is er geen probleem - die is immers goed
+voor 100V.<P>En er zijn FET's verkrijgbaar die 500V en meer
+aankunnen. Maar als er flinke stromen moeten geschakeld worden,
+willen we een FET met een lage R<sub>DS</sub>(ON). Bij de IRF530
+is dat 0.160&#937;, waardoor de FET bij een stroom van 20A al
+snel 64W in warmte moet omzetten - als je er in slaagt zijn
+temperatuur op 25&#176;C te houden! Want bij hogere
+temperaturen mag je ook een hogere R<sub>DS</sub>(ON)
+verwachten, waardoor de FET nog meer vermogen te verwerken
+krijgt, enz...<P><IMG ALIGN="LEFT" SRC="Ind-DRC-1kHz.png"
+ ALT="Ind-DRC-1kHz.png">
+
+Nu, dan nemen we een FET met een lage R<sub>DS</sub>(ON). Een
+<A NAME="IRFP064N2368">IRFP064N</A>, bijvoorbeeld. De fabrikant geeft 0.008&#937; op,
+hetgeen heel wat gunstiger is: bij 20A verstookt de FET nog maar
+3W. En er bestaan FET's die n&#243;g beter presteren.<BR>
+Als we even verder in de datasheet van de IRFP064N kijken,
+merken we echter dat hij slechts geschikt is voor spanningen tot
+55V. Dat zou betekenen, dat hij onbruikbaar is voor deze
+testopstelling - de piek bij het uitschakelen loopt immers op
+tot bijna 65V! En de IRFP064N is hierop geen uitzondering -
+FET's met een erg lage R<sub>DS</sub>(ON) zijn doorgaans niet
+geschikt voor hogere spanningen.<P>Wat nu?<BR>
+Misschien een R/C-netwerkje zoals R2/C1 op het schema aan de
+linkerzijde? Dat beperkt de piek alvast tot minder dan 16V - een
+hele verbetering.
+Nu is deze R/C-combinatie maar lukraak gekozen. 
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...transistor</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+hier is een 2N2219 gebruikt, maar een kleinere tor als de BSX21 zal het net zo goed doen - BSX20 kan ook bij spanningen onder 15V</DD>
+<DT><A NAME="ft2">...belasting</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+de RVS-draad waaraan de probes bevestigd zijn</DD>
+<DT><A NAME="ft3">...voedingsspanning</A>
+<A HREF="#pros3"><SUP>3</SUP></A></DT>
+<DD>
+zonder D1 mag je een piek van 500V en meer verwachten!</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="FFToets.html">Flipflops bedienen met &#233;&#233;n of meer druktoetsen.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="LCD-Interface.html">Zuinige LCD-Interface.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

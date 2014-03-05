@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Ratatosk, een pulsbreedtemeter.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, N&#237;&#240;h&#246;ggr, bedrijfsmodes, MAN74A, tiptoets, CD4026, CD4040, CD4017">
+<META NAME="description" CONTENT="Ratatosk">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="PulsTeller.html">PulsTeller.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Spanningsmeter.html">Een zelfbouw-spanningsmeter</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="Ratatosk"></A>
+<BR>Ratatosk, een pulsbreedtemeter.</H2>
+<UL>
+<LI><A HREF="#RtskVoorst">Voorstelling.</A>
+<LI><A HREF="#RtskMogel">Mogelijkheden.</A>
+<UL><LI><A HREF="#RtskTellen">E&#233;nmalig of sommerend tellen.</A>
+<LI><A HREF="#RtskHL">Hoog of laag.</A>
+<LI><A HREF="#RtskReset">Reset.</A>
+<LI><A HREF="#RtskDisplay">Display.</A>
+</UL>
+<LI><A HREF="#RtskWerking">Werking.</A>
+<UL><LI><A HREF="#RtskTelP">De telpuls-generator.</A>
+<LI><A HREF="#Rtskdisplay">De teller/display-drivers.</A>
+<LI><A HREF="#RtskBedien">Bediening.</A>
+<LI><A HREF="#RtskGAL">Een brokje logica: de GAL</A>
+<LI><A HREF="#RtskVoed">De voeding.</A>
+</UL>
+<LI><A HREF="#RtskLayo">De print-layouts.</A>
+<UL><LI><A HREF="#RtskLayoDispl">De Display-print.</A>
+<LI><A HREF="#RtskLayoTel">De Teller-print.</A>
+<LI><A HREF="#RtskLayoFreq">Het printje met de frequentiekiezer.</A>
+<LI><A HREF="#RtskLayoVoed">De Voeding.</A>
+</UL>
+</UL><HR>
+
+<P>
+<H3>Voorstelling.</H3>
+<A NAME="RtskVoorst"></A><P><IMG ALIGN="RIGHT" SRC="ratatosk.jpg"
+ ALT="ratatosk.jpg">
+
+Ratatosk<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A> is een teller, die op een serie LED-displays
+aangeeft hoelang een bepaalde TTL-toestand actief was. Deze
+toestand kan &#8213;naar keuze&#8213; een laag- of een hoog niveau aan
+zijn ingang zijn. Dit niveau kan afkomstig zijn van een digitale
+schakeling. Maar &#8213;door een gepaste voorzetschakeling te
+gebruiken&#8213; kan zowat alles gemeten worden: de lengte van een
+regenbui, het aantal uren daglicht per etmaal, de capaciteit van
+een NiCd-cel, enz...<P>Vermits het display uit 10 decaden is samengesteld, kan er
+geteld worden van 0 tot 9.999.999.999 Met behulp van een
+draaischakelaar kan de snelheid waarmee geteld wordt ingesteld
+worden tussen 1MHz en 1Hz. Als voor de laagste snelheid gekozen
+wordt, duurt het meer dan 115.740 dagen voor de maximum
+tellerstand bereikt is; als er continu geteld wordt,
+welteverstaan. Voor de meeste praktische doeleinden zal
+dit wel toereikend zijn...<P>Aangezien de IC's die de telpulsen verwerken en de LED-displays
+aandrijven (<TT><A NAME="CD40261180">CD4026</A></TT>) er zo'n 100nSec over doen om de
+tellerstand bij te werken, duurt het 1 &#956;Sec, v&#243;&#243;r het ganse
+display de tellerstand aangepast heeft. Hierdoor is het weinig
+zinvol om kloksnelheden te gebruiken die hoger dan 1MHz liggen.<P><BR CLEAR="ALL"><P>
+<H3>Mogelijkheden.</H3>
+<A NAME="RtskMogel"></A><P><IMG ALIGN="LEFT" SRC="Ratatosk_Fig.png"
+ ALT="Ratatosk_Fig.png">
+
+<BR CLEAR="ALL">
+Teneinde Ratatosk zo universeel mogelijk te maken, zijn er
+verschillende instelmogelijkheden voorzien.<P>
+<H4>E&#233;nmalig of sommerend tellen.</H4>
+<A NAME="RtskTellen"></A><P>Door middel van twee aanraakschakelaars kan gekozen
+worden uit even zoveel <A NAME="bedrijfsmode2218">bedrijfsmodes</A>.<P>
+<DL>
+<DT><STRONG>1-Shot</STRONG></DT>
+<DD> Ratatosk telt &#233;&#233;nmaal, en behoudt daarna zijn
+tellerstand. Verdere niveau-veranderingen aan zijn ingang worden
+genegeerd.
+</DD>
+<DT><STRONG>Continu</STRONG></DT>
+<DD> Ratatosk blijft zijn tellerstand aanpassen, zolang
+het gekozen niveau zich voordoet. Als dit niveau verandert, wordt
+het tellen onderbroken tot het niveau weer &#8220;goed&#8221; is.
+</DD>
+</DL>
+
+
+<H4>Hoog of laag.</H4>
+<A NAME="RtskHL"></A><P>Voorts zijn er twee aanraakschakelaars die de gebruiker de
+mogelijkheid geven om de lengte van een laag- danwel een hoog
+niveau op de ingang van Ratatosk te meten.<P>
+<H4>Reset.</H4>
+<A NAME="RtskReset"></A><P>Om het even in welke bedrijfsmode Ratatosk opereert, hij zal
+nooit uit eigen beweging het display op nul zetten. Hierdoor blijft de
+laatst-gelezen tellerstand op het display staan. Het is hierdoor
+ook mogelijk verschillende metingen na mekaar te doen, waarbij
+het resultaat van elke meting netjes bij de vorige opgeteld wordt.<P>Teneinde het display op nul te zetten is er een tiptoets
+voorzien. Die be&#239;nvloedt niet enkel het display, maar ook de
+werking van de teller. Na het loslaten van de reset-toets gebeurt
+het volgende:<P><A NAME="NaReset"></A>
+<OL>
+ <LI> Drie vlaggen worden op ``off'' gezet: Ready, Start en Stop.
+ <LI> Ratatosk wacht tot het gekozen niveau <I>niet</I> overeenkomt met
+het ingangsniveau. Zo wordt vermeden dat het tellen een aanvang neemt
+op een ongewenst ogenblik. Nu wordt de Ready-vlag gezet.
+ <LI> Vervolgens wacht Ratatosk tot het gekozen niveau
+<I>wel</I> overeenkomt met het ingangsniveau. Hierop wordt de
+Start-vlag gezet, en worden de telpulsen doorgegeven.
+ <LI> Als er gekozen is voor 1Shot-mode, wordt de Stop-vlag
+gezet, zodra het gekozen niveau niet meer overeenkomt met het
+ingangsniveau. Hierna vallen alle werkzaamheden stil; enkel een
+druk op de reset-toets kan Ratatosk weer tot leven wekken...
+</LI>
+</OL>
+
+
+<H4>Display.</H4>
+<A NAME="RtskDisplay"></A><P>De gebruikte LED-displays hebben een redelijke ouderdom; hun
+lichtopbrengst is dan ook vrij gering. Teneinde een goede
+leesbaarheid te bekomen &#8213;ook bij sterk omgevingslicht&#8213; zijn de
+LED-displays enigzins achteruit geschoven ten opzichte van het
+bedieningspaneel. Dit schermt ze terdege af van
+omgevingslicht.<BR>
+Om energie te sparen, kan het display uitgeschakeld worden. De
+overige komponenten van Ratatosk blijven &#8213;met uitgeschakeld
+display&#8213; gewoon hun werk doen.<P>
+
+<H3>Werking.</H3>
+<A NAME="RtskWerking"></A><P>
+<H4>De telpuls-generator.</H4>
+<A NAME="RtskTelP"></A><P><IMG ALIGN="MIDDLE" SRC="ClkGenerator_Fig.png"
+ ALT="ClkGenerator_Fig.png">
+<P>Het kloppend hart van Ratatosk is een kant-en-klare
+4MHz-oscillator. Dit type oscillators is weliswaar ook
+verkrijgbaar in een 1MHz-uitvoering, maar die is aanzienlijk
+duurder dan de <TT><A NAME="CD40401176">CD4040</A></TT>, die nu gebruikt wordt om het
+kloksignaal door vier te delen. Na de <TT>CD4040</TT> volgen een
+serie tiendelers van het type <TT><A NAME="CD40171180">CD4017</A></TT>. De carry-out (CO)
+uitgang van iedere tiendeler is verbonden met de CLK-ingang van
+de volgende. Tevens is er telkens een aftakking gemaakt naar een
+buffer, wiens uitgang hoogohmig is als aan zijn stuuringang een
+hoog niveau staat. Alle stuuringangen worden &#8213;via een
+weerstand&#8213; hoog gehouden. Door middel van een draaischakelaar
+wordt de gewenste buffer vrijgegeven.<P>
+
+<H4>De teller/display-drivers.</H4>
+<A NAME="Rtskdisplay"></A><P><IMG ALIGN="RIGHT" SRC="Teller_Fig.png"
+ ALT="Teller_Fig.png">
+
+Zoals bijgaande figuur laat zien, is er weinig nodig om
+een aantal telpulsen zichtbaar te maken op een LED-display.
+De <TT>CD4026</TT> is bijzonder geschikt voor deze taak,
+daar het al de nodige logica aan boord heeft.
+Op pin1 komen de klokpulsen binnen. Het IC reageert
+op de opgaande flank van iedere puls. De frequentie die
+we op pin5 terugvinden, bedraagt 1/10e van de ingangsfrequentie.
+Telkens de tellerstand van 9 naar 0 verspringt, verschijnt een
+opgaande flank op pin5.
+Door telkens pin5 van iedere teldecade naar pin1 van de volgende
+decade door te verbinden, kunnen we de rij zo lang maken
+als we willen.<BR>
+Naast een deel dat de klokpulsen verwerkt, beschikt de <TT>CD4026</TT>
+ook over een display-driver. Deze is geschikt om
+LED-displays met een gemeenschappelijke kathode
+(zoals de <A NAME="MAN74A1233">MAN74A</A>) aan te sturen.<P>Ondanks het feit dat de stroom-begrenzende weerstanden niet
+noodzakelijk zijn, werden die toch aan de schakeling toegevoegd
+om zodoende de warmte-dissipatie van de IC's te beperken. De
+warmteontwikkeling van de ganse schakeling is trouwens niet
+gering. Vermits er tien displays aanwezig zijn, kunnen er
+maximaal 70 LED's gezamenlijk oplichten. Aan 5mA per segment
+komen we dan al snel op 350mA voor het totaal. Ook de trafo en
+de spanningsregelaar dragen hun steentje bij, wat
+warmteontwikkeling betreft. Wat extra koeling, onder de vorm van
+een ventilatortje, is dan ook geen overbodige luxe.
+<BR CLEAR="ALL"><P>
+
+<H4>Bediening.</H4>
+<A NAME="RtskBedien"></A><P><IMG ALIGN="LEFT" SRC="TipToets_Fig.png"
+ ALT="TipToets_Fig.png">
+
+Het kiezen van de meetfrequentie geschiedt met behulp van een
+draaischakelaar. Voor de overige functies zijn er
+<I>tiptoetsen</I> voorzien. Doordat zowel de HCT-serie als de GAL
+over hoogohmige ingangen beschikken, is het een koud kunstje deze
+van een <A NAME="tiptoets1733">tiptoets</A> te voorzien. Het volstaat een weerstand van 10
+MOhm tussen de ingang en Vcc te plaatsen, en een diode tussen
+ingang en tiptoets aan te brengen. Het schema hiernaast toont hoe
+met behulp van 2 NAND-poorten, 2 weerstanden en 2 diodes een
+tiptoets-flipflop kan samengesteld worden. Het Display-pritje
+bevat twee van dergelijke flipflops. E&#233;n van deze flipflops
+schakelt het display aan en uit. Met behulp van de andere kan het
+te-meten niveau gekozen worden.<P>Daarnaast zijn er nog drie tiptoetsen voorzien, die rechtstreeks
+met een ingang van de GAL verbonden zijn. Twee van deze
+tiptoetsen geven de mogelijkheid een keuze te maken tussen
+&#233;&#233;nmalig meten en continu meten. De derde tiptoets start een
+meting.<P>Voor de tiptoetsen zelf werden vergulde kontaktpinnen gebruikt,
+afkomstig uit een vrouwelijke D-connector.<P>
+<H4>Een brokje logica: de GAL</H4>
+<A NAME="RtskGAL"></A><P><IMG ALIGN="RIGHT" SRC="GAL_Fig.png"
+ ALT="GAL_Fig.png">
+
+Het enige dat nog ontbreekt om Ratatosk tot een bruikbaar instrument
+te maken, is een stuk logica dat beslist wanneer (en wanneer niet)
+de klokpulsen worden doorgegeven aan de tellers.<P>Een GAL van het type 16V8
+is hiervoor bijzonder geschikt. Zelfs de traagste GAL
+&#8213;met een signaal-doorlooptijd van 20 nSec&#8213;
+is meer dan snel genoeg om met een klokfrequentie
+van 1MHz om te springen.<P>Hoofdstuk <A HREF="Ratatosk.html#NaReset">Reset</A> laat een deel van de taken zien, die de GAL moet verrichten.
+De GAL-source brengt meer duidelijkheid.<P><P><PRE>
+
+GAL16V8
+IDNT            TelGAL
+datum           27-07-1997
+bestemming      Ratatosk, een teller
+
+SYN     1
+AC0     1
+
+!
+        RstFB   Vcc
+        HiLo    Res1
+        Low     1ShotOut
+        Res2    ContOut
+        RstIn   Ready
+        1Shot   Start
+        Cont    Stop
+        Mod3    RstOut
+        IN      ClkOut
+        GND     ClkIn
+
+
+; Een druk op de Reset-knop zet de teller op nul
+@ RstOut        AC1 1 /RstIn            ; Resetten als er op de RstIn-knop gedrukt wordt
+
+; Na een reset wacht Ready tot (IN != HiLo),
+; dit om een foutieve (onvolledige) meting te vermijden.
+@ Ready         AC1 1 RstIn * IN * /HiLo
+                + RstIn * /IN * HiLo
+; Eens geaktiveerd, houdt Ready zichzelf in stand
+                + Ready * RstIn
+
+; Start wordt aktief zodra Ready hoog is, EN als (IN == HiLo)
+@ Start         AC1 1 RstIn * Ready * IN * HiLo ; Starten als (IN == HiLo)
+                + Ready * RstIn * /IN * /HiLo
+; Start houdt zichzelf in stand tot de volgende reset
+                + Start * RstIn
+
+; In de 1Shot-mode stoppen we als Start reeds aktief was, en als (IN != HiLo)
+@ Stop          AC1 1 Start * 1ShotOut * RstIn * IN * /HiLo
+                + Start * 1ShotOut * RstIn * /IN * HiLo
+; Dat blijft zo tot de volgende reset
+                + Stop * RstIn
+
+; De twee volgenden vormen een soort flipflop, waarbij 1Shot default is
+@ 1ShotOut      AC1 1 /1Shot
+                + 1ShotOut * Cont
+                + /ContOut
+
+@ ContOut       AC1 1 /Cont
+                + ContOut * 1Shot
+
+; Het kloksignaal wordt doorgegeven als Start hoog is en Stop laag
+@ ClkOut        AC1 1 ClkIn * Start * /Stop
+
+#
+
+<P></PRE>
+<P>
+<H4>De voeding.</H4>
+<A NAME="RtskVoed"></A><P><IMG ALIGN="LEFT" SRC="Voeding_Fig.png"
+ ALT="Voeding_Fig.png">
+
+Over de voeding valt nog het minst te zeggen. Een trafo, gevolgd
+door een gelijkrichterbrug en een elco leveren een ruwe
+gelijkspanning van meer dan 13Volt. Onder de trafo zijn
+verbindingspunten voorzien, waarmee de meest-gepaste ruwe
+spanning kan gekozen worden.<BR>
+Een 7810 maakt hier een nette 10Volt van, geschikt voor de
+tellers/display-drivers. De tweede regelaar &#8213;een 7805&#8213; levert
+de nodige 5Volt voor de overige IC's.<BR>
+Daarnaast is er een geforceerde koeling voorzien in de vorm van
+een miniatuur-ventilatortje. De reden hiervoor staat beschreven
+in hoofdstuk <A HREF="Ratatosk.html#RtskDisplay">De teller/display-drivers</A>.<P><P>
+<BR CLEAR="ALL">
+<HR>
+<P><P>
+<H3>De print-layouts.</H3>
+<A NAME="RtskLayo"></A><P>Alle layouts zijn afgedrukt op schaal 2/1.<P>
+<H4>De Display-print.</H4>
+<A NAME="RtskLayoDispl"></A><P><IMG ALIGN="MIDDLE" SRC="LedDisplay_overzicht.png"
+ ALT="LedDisplay_overzicht.png">
+<P><IMG ALIGN="MIDDLE" SRC="LedDisplay_printsporen.png"
+ ALT="LedDisplay_printsporen.png">
+<P>
+<H4>De Teller-print.</H4>
+<A NAME="RtskLayoTel"></A><P><IMG ALIGN="MIDDLE" SRC="Teller_overzicht.png"
+ ALT="Teller_overzicht.png">
+<P><IMG ALIGN="MIDDLE" SRC="Teller_printsporen.png"
+ ALT="Teller_printsporen.png">
+<P>
+<H4>Het printje met de frequentiekiezer.</H4>
+<A NAME="RtskLayoFreq"></A><P><IMG ALIGN="LEFT" SRC="Frequentiekiezer_overzicht.png"
+ ALT="Frequentiekiezer_overzicht.png">
+
+<IMG ALIGN="RIGHT" SRC="Frequentiekiezer_printsporen.png"
+ ALT="Frequentiekiezer_printsporen.png">
+
+<BR CLEAR="ALL"><P>
+<H4>De Voeding.</H4>
+<A NAME="RtskLayoVoed"></A><P><IMG ALIGN="LEFT" SRC="Voeding_overzicht.png"
+ ALT="Voeding_overzicht.png">
+
+<IMG ALIGN="RIGHT" SRC="Voeding_printsporen.png"
+ ALT="Voeding_printsporen.png">
+
+<BR CLEAR="ALL"><P>
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...Ratatosk</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+Ratatosk ("borende tand") is het eekhoorntje, dat de stam van Yggdrasil op-en-neer rent om het serpent <A NAME="Niapplehoggr2686">N&#237;&#240;h&#246;ggr</A> (dat tussen de wortels leeft) te vertellen welke onheuse dingen de arend Ve&#240;rf&#246;lnir (die in de top van de boom zit) over hem gezegd heeft &#8213; en omgekeerd.</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="PulsTeller.html">PulsTeller.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Spanningsmeter.html">Een zelfbouw-spanningsmeter</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

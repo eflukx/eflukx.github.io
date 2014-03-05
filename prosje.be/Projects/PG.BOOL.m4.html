@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>PG.BOOL.m4</title>
+		<meta name="generator" content="c2html 1.1.0" >
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" >
+		<meta http-equiv="Content-Script-Type" content="text/javascript" >
+		<meta http-equiv="Content-Style-Type" content="text/css" >
+	</head>
+	<body text="#000000">
+		<font face="Monospace">
+;&nbsp;<font color="#000000">PG</font>.<font color="#000000">BOOL</font>.<font color="#000000">mtx</font><br>
+;&nbsp;<font color="#000000">De</font>&nbsp;<font color="#000000">frequentiekiezer</font>&nbsp;<font color="#000000">voor</font>&nbsp;<font color="#000000">de</font>&nbsp;<font color="#000000">PulsGenerator</font><br>
+;<br>
+;&nbsp;<font color="#000000">Dit</font>&nbsp;<font color="#000000">bestand</font>&nbsp;<font color="#000000">dient</font>&nbsp;<font color="#000000">eerst</font>&nbsp;<font color="#000000">behandeld</font>&nbsp;<font color="#000000">te</font>&nbsp;<font color="#000000">worden</font>&nbsp;<font color="#000000">door</font>&nbsp;<font color="#000000">m4</font><br>
+;&nbsp;<font color="#000000">z</font>ó:&nbsp;<font color="#000000">m4</font>&nbsp;-<font color="#000000">P</font>&nbsp;&lt;&nbsp;<font color="#000000">PG</font>.<font color="#000000">BOOL</font>.<font color="#000000">m4</font>&nbsp;|&nbsp;<font color="#000000">grep</font>&nbsp;-<font color="#000000">v</font>&nbsp;<font color="#008000">&quot;;&quot;</font>&nbsp;|&nbsp;<font color="#000000">grep</font>&nbsp;-<font color="#000000">v</font>&nbsp;'^$'&nbsp;&gt;&nbsp;<font color="#000000">PG</font>.<font color="#000000">BOOL</font><br>
+;&nbsp;<font color="#000000">Of</font>,&nbsp;<font color="#000000">in</font>&nbsp;éé<font color="#000000">n</font>&nbsp;<font color="#000000">ruk</font>:<br>
+;&nbsp;<font color="#000000">m4</font>&nbsp;-<font color="#000000">P</font>&nbsp;&lt;&nbsp;<font color="#000000">PG</font>.<font color="#000000">BOOL</font>.<font color="#000000">m4</font>&nbsp;|&nbsp;<font color="#000000">grep</font>&nbsp;-<font color="#000000">v</font>&nbsp;<font color="#008000">&quot;;&quot;</font>&nbsp;|&nbsp;<font color="#000000">grep</font>&nbsp;-<font color="#000000">v</font>&nbsp;'^$'&nbsp;|&nbsp;<font color="#000000">eq2mtx</font>&nbsp;&gt;&nbsp;<font color="#000000">PG</font>.<font color="#000000">mtx</font><br>
+;&nbsp;<font color="#000000">Programmeren</font>:&nbsp;<font color="#000000">mtx2gal</font>&nbsp;<font color="#000000">PG</font>.<font color="#000000">mtx</font><br>
+;<br>
+;&nbsp;<font color="#000000">m4</font>-<font color="#000000">defines</font>:<br>
+;<br>
+<font color="#000000">m4_define</font>(`ADR0',&nbsp;`/<font color="#000000">PA2</font>&nbsp;*&nbsp;/<font color="#000000">PA1</font>&nbsp;*&nbsp;/<font color="#000000">PA0</font>')<br>
+<font color="#000000">m4_define</font>(`ADR1',&nbsp;`/<font color="#000000">PA2</font>&nbsp;*&nbsp;/<font color="#000000">PA1</font>&nbsp;*&nbsp;&nbsp;<font color="#000000">PA0</font>')<br>
+<font color="#000000">m4_define</font>(`ADR2',&nbsp;`/<font color="#000000">PA2</font>&nbsp;*&nbsp;&nbsp;<font color="#000000">PA1</font>&nbsp;*&nbsp;/<font color="#000000">PA0</font>')<br>
+<font color="#000000">m4_define</font>(`ADR3',&nbsp;`/<font color="#000000">PA2</font>&nbsp;*&nbsp;&nbsp;<font color="#000000">PA1</font>&nbsp;*&nbsp;&nbsp;<font color="#000000">PA0</font>')<br>
+<font color="#000000">m4_define</font>(`ADR4',&nbsp;`&nbsp;<font color="#000000">PA2</font>&nbsp;*&nbsp;/<font color="#000000">PA1</font>&nbsp;*&nbsp;/<font color="#000000">PA0</font>')<br>
+<font color="#000000">m4_define</font>(`ADR5',&nbsp;`&nbsp;<font color="#000000">PA2</font>&nbsp;*&nbsp;/<font color="#000000">PA1</font>&nbsp;*&nbsp;&nbsp;<font color="#000000">PA0</font>')<br>
+<font color="#000000">m4_define</font>(`ADR6',&nbsp;`&nbsp;<font color="#000000">PA2</font>&nbsp;*&nbsp;&nbsp;<font color="#000000">PA1</font>&nbsp;*&nbsp;/<font color="#000000">PA0</font>')<br>
+<font color="#000000">m4_define</font>(`ADR7',&nbsp;`&nbsp;<font color="#000000">PA2</font>&nbsp;*&nbsp;&nbsp;<font color="#000000">PA1</font>&nbsp;*&nbsp;&nbsp;<font color="#000000">PA0</font>')<br>
+;<br>
+<font color="#000000">GAL16V8</font><br>
+<font color="#000000">IDNT</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PG</font>.<font color="#000000">GAL</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<font color="#000000">bestemming</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PulsGenerator</font><br>
+<font color="#000000">datum</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000FF">16</font>-<font color="#008080">04</font>-<font color="#0000FF">09</font><br>
+<br>
+<font color="#000000">SYN</font>&nbsp;<font color="#0000FF">1</font><br>
+<font color="#000000">AC0</font>&nbsp;<font color="#0000FF">1</font><br>
+<br>
+!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PA0</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Vcc</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PA1</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">NC1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OC1B</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">NC2</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">OC1A</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">VAR1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PB2</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">NC3</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PB1</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">TTL</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">CLK2</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">NC4</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PLS1</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">VAR2</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">CLK1</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">NC5</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">GND</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">PA2</font><br>
+<br>
+<br>
+;&nbsp;<font color="#000000">VAR1</font>&nbsp;<font color="#000000">levert</font>&nbsp;<font color="#000000">een</font>&nbsp;<font color="#000000">signaal</font>&nbsp;<font color="#000000">met</font>&nbsp;<font color="#000000">instelbare</font>&nbsp;<font color="#000000">puls</font>/<font color="#000000">pauze</font>-<font color="#000000">verhouding</font><br>
+;&nbsp;<font color="#000000">CLK</font>@&nbsp;=&nbsp;<font color="#0000FF">1</font>/<font color="#0000FF">2</font>&nbsp;<font color="#000000">CLK1</font><br>
+@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">VAR1</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">AC1</font>&nbsp;<font color="#0000FF">1</font>&nbsp;&nbsp;&nbsp;<font color="#000000">ADR0</font>&nbsp;*&nbsp;<font color="#000000">OC1B</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR1</font>&nbsp;*&nbsp;<font color="#000000">PB2</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR2</font>&nbsp;*&nbsp;<font color="#000000">CLK1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR3</font>&nbsp;*&nbsp;/<font color="#000000">CLK1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR4</font>&nbsp;*&nbsp;<font color="#000000">CLK1</font>&nbsp;*&nbsp;<font color="#000000">CLK2</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR5</font>&nbsp;*&nbsp;<font color="#000000">CLK1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR5</font>&nbsp;*&nbsp;<font color="#000000">CLK2</font><br>
+<br>
+;&nbsp;<font color="#000000">VAR2</font>&nbsp;<font color="#000000">levert</font>&nbsp;<font color="#000000">een</font>&nbsp;<font color="#000000">signaal</font>&nbsp;<font color="#000000">met</font>&nbsp;<font color="#000000">een</font>&nbsp;<font color="#000000">puls</font>/<font color="#000000">pauze</font>-<font color="#000000">verhouding</font>&nbsp;<font color="#000000">van</font>&nbsp;<font color="#0000FF">1</font>/<font color="#0000FF">1</font><br>
+@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">VAR2</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">AC1</font>&nbsp;<font color="#0000FF">1</font>&nbsp;&nbsp;&nbsp;<font color="#000000">ADR0</font>&nbsp;*&nbsp;<font color="#000000">OC1A</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR1</font>&nbsp;*&nbsp;<font color="#000000">PB1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR2</font>&nbsp;*&nbsp;<font color="#000000">CLK1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR3</font>&nbsp;*&nbsp;<font color="#000000">CLK1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR4</font>&nbsp;*&nbsp;<font color="#000000">CLK2</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR5</font>&nbsp;*&nbsp;<font color="#000000">CLK2</font><br>
+<br>
+;&nbsp;<font color="#000000">TTL</font>&nbsp;<font color="#000000">levert</font>&nbsp;<font color="#000000">hetzelfde</font>&nbsp;<font color="#000000">signaal</font>&nbsp;<font color="#000000">als</font>&nbsp;<font color="#000000">VAR1</font>,&nbsp;<font color="#000000">het</font>&nbsp;<font color="#000000">moet</font>&nbsp;<font color="#000000">wel</font>&nbsp;<font color="#000000">ge</font>ï<font color="#000000">nverteerd</font>&nbsp;<font color="#000000">worden</font>!!!<br>
+@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/<font color="#000000">TTL</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">AC1</font>&nbsp;<font color="#0000FF">1</font>&nbsp;&nbsp;&nbsp;<font color="#000000">ADR0</font>&nbsp;*&nbsp;<font color="#000000">OC1B</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR1</font>&nbsp;*&nbsp;<font color="#000000">PB2</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR2</font>&nbsp;*&nbsp;<font color="#000000">CLK1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR3</font>&nbsp;*&nbsp;/<font color="#000000">CLK1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR4</font>&nbsp;*&nbsp;<font color="#000000">CLK1</font>&nbsp;*&nbsp;<font color="#000000">CLK2</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR5</font>&nbsp;*&nbsp;<font color="#000000">CLK1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADR5</font>&nbsp;*&nbsp;<font color="#000000">CLK2</font><br>
+<br>
+<font color="#008000">#<br></font>
+<br>
+		</font>
+	</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Bezuinigen op pinnen.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, 74HC595">
+<META NAME="description" CONTENT="BezuinigenOpPinnen">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="AvrTips.html">AVR-tips.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="AvrTips.html">AVR-tips.</A> &nbsp;
+<B> Volgende:</B> <A HREF="DodenTotLevenWekken.html">Doden tot leven wekken.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="BezuinigenOpPinnen"></A>
+<BR>Bezuinigen op pinnen.</H2>
+<UL>
+<LI><A HREF="#BZPsch">Een schuifregister</A>
+<LI><A HREF="#BZPdl">Een duo-LED.</A>
+</UL><HR>
+<P>
+<H3>Een schuifregister</H3>
+<A NAME="BZPsch"></A><P>Als een &#956;C over onvoldoende I/O-pinnen beschikt om het nodige
+te sturen, wordt al snel naar een expansie-IC gegrepen.<BR>
+De <A NAME="74HC5952256">74HC595</A> is een voorbeeld van betaalbaar, goed
+verkrijgbaar IC dat hiervoor kan gebruikt worden. Met slechts 3
+stuurlijnen kunnen 8 uitgangen naar wens hoog of laag gemaakt
+worden.<P>Maar wat, als er geen 3 I/O pinnen beschikbaar zijn om de
+74HC595 te sturen? Wel, met twee pinnen en 4 simpele
+componentjes kan het ook.<P><IMG ALIGN="LEFT" SRC="2Wire595-sturing.png"
+ ALT="2Wire595-sturing.png">
+
+De werking is eenvoudig:<BR><P>&#8226; Bij de start is Clk laag. Via D1 wordt ook de LATCH van
+het IC (RCK) laag gehouden.<BR>
+&#8226; Data wordt nu hoog of laag gemaakt.<BR>
+&#8226; Er wordt een kleine pause ingelast, zodat C1 zich kan
+ontladen in het geval Data hoog is.<BR>
+&#8226; Clk wordt kortstondig hoog en terug laag gemaakt.<BR><P>Dit wordt 7 maal herhaald. Het 8e bit pakken we iets anders
+aan:<BR>
+&#8226; nadat het bit klaargezet is, maken we Clk hoog, en
+<I>houden we hem hoog</I>.<BR>
+&#8226; In het geval Data hoog was, maken we die eerst laag.<BR>
+&#8226; Nu maken we Data hoog. Dat resulteert in een korte
+puls op RCK, waardoor de ingeklokte bits op de uitgangen van de
+74HC595 verschijnen.<P><BR CLEAR="ALL">
+Dit is een brokje code, dat precies doet wat hierboven beschreven
+wordt:<P><P><PRE>
+
+<font color="#008000">#define&nbsp;SPI_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTD</font>
+<font color="#008000">#define&nbsp;SPI_D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_BV(PD2)</font>
+<font color="#008000">#define&nbsp;SPI_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_BV(PD3)</font>
+
+<font color="#800000">void</font>&nbsp;<font color="#000000">spi_w</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">data</font>)
+{
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cnt</font>;
+
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">SPI_PORT</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">8</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;8&nbsp;bits,&nbsp;MSB&nbsp;eerst</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">data</font>&nbsp;&amp;&nbsp;<font color="#008080">0x80</font>)&nbsp;!=&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bit&nbsp;7&nbsp;=&nbsp;hoog?</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">SPI_PORT</font>&nbsp;|=&nbsp;<font color="#000000">SPI_D</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Dan&nbsp;D&nbsp;hoog</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#0000FF">50</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Even&nbsp;wachten&nbsp;-&nbsp;C&nbsp;moet&nbsp;zijn&nbsp;lading&nbsp;kwijt</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Anders</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">SPI_PORT</font>&nbsp;&amp;=&nbsp;~(<font color="#000000">SPI_D</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;D&nbsp;laag</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#0000FF">10</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">SPI_PORT</font>&nbsp;|=&nbsp;<font color="#000000">SPI_CLK</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;CLK&nbsp;hoog</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;==&nbsp;<font color="#0000FF">7</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Was&nbsp;dit&nbsp;het&nbsp;laatste&nbsp;bit?</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">data</font>&nbsp;&amp;&nbsp;<font color="#008080">0x80</font>)&nbsp;!=&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Als&nbsp;D&nbsp;hoog&nbsp;was,</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">SPI_PORT</font>&nbsp;&amp;=&nbsp;~(<font color="#000000">SPI_D</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;maken&nbsp;we&nbsp;die&nbsp;eerst&nbsp;laag</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#0000FF">20</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">SPI_PORT</font>&nbsp;|=&nbsp;<font color="#000000">SPI_D</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Nu&nbsp;kan&nbsp;SPI_D&nbsp;de&nbsp;LATCH&nbsp;inklokken</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#0000FF">20</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">SPI_PORT</font>&nbsp;&amp;=&nbsp;~(<font color="#000000">SPI_D</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Eerst&nbsp;D&nbsp;terug&nbsp;laag,</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">SPI_PORT</font>&nbsp;&amp;=&nbsp;~(<font color="#000000">SPI_CLK</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;en&nbsp;vervolgens&nbsp;CLK</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Dat&nbsp;was&nbsp;het&nbsp;dan...</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#0000FF">10</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Korte&nbsp;pause</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">SPI_PORT</font>&nbsp;&amp;=&nbsp;~(<font color="#000000">SPI_CLK</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;CLK&nbsp;terug&nbsp;laag</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#0000FF">10</font>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;*=&nbsp;<font color="#0000FF">2</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;data&nbsp;naar&nbsp;links&nbsp;opschuiven</i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}
+<P></PRE>
+
+<BR CLEAR="ALL"><P>
+<H3>Een duo-LED.</H3>
+<A NAME="BZPdl"></A><P>Twee LED's sturen met &#233;&#233;n IO-pin, waarbij ofwel de ene
+danwel de andere LED brandt, is een makkie. Plaats beide LED's,
+elk met een stroombegrenzende weerstand, in serie tussen Vcc en
+GND. De I/O-pin wordt op het knooppunt tussen beide LED's
+aangesloten.<BR>
+Is de pin laag, dan brandt de LED die met Vcc verbonden is. Is
+de pin hoog, dan is het de andere LED die oplicht.<P><IMG ALIGN="LEFT" SRC="DuoLedSturing.png"
+ ALT="DuoLedSturing.png">
+
+Met een duo-LED lukt dat niet, omdat die doorgaans over een
+gemeenschappelijke kathode of een gemeenschappelijke anode
+beschikken.<BR>
+Maar met een transistor en een diode valt daar een mouw aan te
+passen, zoals het plaatje hiernaast toont.<P>Als de transistor spert, krijgt de groene LED stroom - dat hoeft
+geen verklaring.<BR>
+Zodra de transistor gaat geleiden, is het de rode LED die stroom
+krijgt. Maar hierdoor daalt de spanning over de groene LED,
+waardoor deze dooft. D2 helpt daarbij een handje.<P><P><UL>
+</UL><P><P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="AvrTips.html">AVR-tips.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="AvrTips.html">AVR-tips.</A> &nbsp;
+<B> Volgende:</B> <A HREF="DodenTotLevenWekken.html">Doden tot leven wekken.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

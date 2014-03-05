@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Een zelfbouw-spanningsmeter</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, teller, 74HC4040, R2R-ladder, trapspanning, opamp, spanningsdeler, 74HC574, binaire deler, LED-display, GAL16V8, tijdschema, spookcijfers, R2R-ladder, 74HC4040, eprom, LED-display">
+<META NAME="description" CONTENT="Spanningsmeter">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="Ratatosk.html">Ratatosk, een pulsbreedtemeter.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Spanningsreferentie.html">Spanningsreferentie.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="Spanningsmeter"></A>
+<BR>Een zelfbouw-spanningsmeter</H2>
+<UL>
+<LI><A HREF="#SpMt">Voorstelling.</A>
+<LI><A HREF="#SpMtWerking">Hoe werkt het?</A>
+<UL><LI><A HREF="#SpMtMeten">Meten.</A>
+<LI><A HREF="#SpMtWeten">Weten.</A>
+<LI><A HREF="#SpMtLayo">De print-layouts.</A>
+</UL>
+<LI><A HREF="#SpMtDetails">Details.</A>
+<UL><LI><A HREF="#SpMtDigRes">Digitale resolutie.</A>
+<LI><A HREF="#SpMtAnRes">Analoge resolutie.</A>
+<LI><A HREF="#SpMtFreq">De frequentie's.</A>
+<LI><A HREF="#SpMtPraktijk">De praktijk.</A>
+</UL>
+</UL><HR>
+
+<P>
+
+<H3>Voorstelling.</H3>
+<A NAME="SpMt"></A><P>Deze spanningsmeter is in de eerste plaats bedoeld
+om dienst te doen als spannings- en stroomuitlezing
+in een regelbare voeding.<P>Waarom een spanningsmeter ontwerpen, als er toch
+voldoende IC's in de handel zijn, die speciaal voor
+deze taak ontworpen zijn, om van kant-en-klare
+modules maar te zwijgen?<BR>
+Het antwoord op deze vraag luidt: omdat (bijna) alle benodigde
+onderdelen in ruime mate gratis beschikbaar zijn. Inderdaad, het werd
+hoog tijd al die eproms en LED-displays die hier liggen te
+niksen eens voor een nuttig doel in te zetten.<BR>
+Daar komt bij dat het uitleesgedeelte (IC3, IC4, IC5, IC6 en de
+LED-displays) een bruikbare basis vormt voor andere
+toepassingen. Denken we maar aan een hexadecimaal display dat 12
+bits kan weergeven, bijvoorbeeld (hierbij volstaan dan 3
+displays).<P>
+
+<H3>Hoe werkt het?</H3>
+<A NAME="SpMtWerking"></A><P><IMG ALIGN="LEFT" SRC="BlokSchema_Fig.png"
+ ALT="BlokSchema_Fig.png">
+<P>De schakeling is zo eenvoudig van opzet, dat het blokschema
+hiernaast de werking grotendeels verduidelijkt.<BR>
+Dit blokschema kan gescheiden worden in twee delen.<P>
+<H4>Meten.</H4>
+<A NAME="SpMtMeten"></A><P>Links zien we een <A NAME="teller2134">teller</A> (IC1, een <A NAME="74HC40401932">74HC4040</A>) en een
+<A NAME="R2Rladder2365">R2R-ladder</A>, die samen een <A NAME="trapspanning2787">trapspanning</A> produceren. Deze
+laatste komt op de niet-inverterende ingang van een <A NAME="opamp2027">opamp</A>
+(IC7) terecht. De te meten spanning wordt &#8213;via een
+<A NAME="spanningsdel2987">spanningsdeler</A> (Ra en Rb)&#8213; verbonden met de inverterende
+ingang van deze opamp.<BR>
+De uitgang van de opamp wordt hoog, zodra de spanning van de
+R2R-ladder hoger wordt dan de te meten spanning. Deze positieve
+flank wordt gebruikt om een buffer (IC2/IC2', twee maal een
+<A NAME="74HC5741892">74HC574</A>) te &#8220;klokken&#8221;, zodat de tellerstand van de
+<A NAME="binairedeler2772">binaire deler</A> opgeslagen wordt. Deze tellerstand is nu
+een maat voor de gemeten spanning.<P>
+<H4>Weten.</H4>
+<A NAME="SpMtWeten"></A><P>Rechts van het meetgedeelte zien we het deel dat de gemeten
+spanning zichtbaar maakt.<BR>
+Om te beginnen is er (IC3), een Eprom die de tellerstand
+(A00 ... A11) omzet naar data voor de <A NAME="LEDdisplay2502">LED-display</A>s. Hij
+wordt bij die taak geholpen door een <A NAME="GAL16V81943">GAL16V8</A> (IC5), die het
+multiplexen voor zijn rekening neemt. De adreslijnen A00 ... A11
+van de Eprom zijn verbonden met de uitgangen van buffer IC2. A12
+en A13 worden gestuurd door IC5, die alzo een keuze maakt uit
+&#233;&#233;n van de vier datablokken, en tevens het bijpassende
+LED-display activeert.<P><IMG ALIGN="RIGHT" SRC="Tijdschema_Fig.png"
+ ALT="Tijdschema_Fig.png">
+<P>Zoals het <A NAME="tijdschema2538">tijdschema</A> hiernaast toont, wordt er een korte
+pauze in acht genomen tussen het omschakelen van het ene display
+naar het andere. Dit voorkomt mogelijke &#8220;<A NAME="spookcijfers2784">spookcijfers</A>&#8221; die
+kunnen verschijnen tengevolge van de traagheid van de Eprom.<P>
+<BR CLEAR="ALL"><P>
+<H4>De print-layouts.</H4>
+<A NAME="SpMtLayo"></A><P><IMG ALIGN="LEFT" SRC="SpanningsMeter_overzicht.png"
+ ALT="SpanningsMeter_overzicht.png">
+
+<IMG ALIGN="LEFT" SRC="SpanningsMeter_printsporen.png"
+ ALT="SpanningsMeter_printsporen.png">
+
+<IMG ALIGN="LEFT" SRC="SpanningsMeter_boven.png"
+ ALT="SpanningsMeter_boven.png">
+<P>
+<BR CLEAR="ALL"><P>
+<H3>Details.</H3>
+<A NAME="SpMtDetails"></A><P>
+<H4>Digitale resolutie.</H4>
+<A NAME="SpMtDigRes"></A><P><IMG ALIGN="LEFT" SRC="R2R-ladder_Fig.png"
+ ALT="R2R-ladder_Fig.png">
+<P>De digitale resolutie hangt af van het aantal stappen dat het
+teller-IC, dat de <A NAME="R2Rladder2365">R2R-ladder</A> aandrijft, nodig heeft om de
+maximale waarde te bereiken. In het geval van een <A NAME="74HC40401932">74HC4040</A>
+zijn dat 4096 stappen. Daaraan valt weinig te veranderen.<P>Hoe die 4096 stappen verdeeld worden, is afhankelijk van de
+<A NAME="eprom2033">eprom</A>, die de <A NAME="LEDdisplay2502">LED-display</A>s stuurt. In het geval we
+spanningen willen meten tot 4Volt of tot 40Volt, volstaat het
+de eprom te vullen met cijfers van 0-0-0-0 tot 4-0-9-5, waarbij
+we de decimale punt op de juiste plaats zetten.<BR>
+Willen we echter spanningen tot 60Volt meten &#8213;zoals in de
+50V-voeding het geval is&#8213; dan is 40 als hoogste waarde
+ontoereikend, terwijl het verkwisting zou zijn, 400.9 als
+hoogste waarde te programmeren. Daarom is er een eenvoudig
+tooltje (<B>DisplayEprom</B>) ontwikkeld, dat slechts &#233;&#233;n
+argument behoeft: de hoogste spanning die we verwachten te
+meten, in de vorm van een float (123.4 60.00 ...).
+<B>DisplayEprom</B> zal dan een bestand, &#8220;eprom&#8221; genaamd,
+aanmaken, dat zonder verdere bewerking in een 27128 kan
+geplaatst worden.<BR>
+<A NAME="pros4"  HREF="DisplayEpromC.html">De broncode van DisplayEprom vindt u hier.</A>
+<P>
+
+<H4>Analoge resolutie.</H4>
+<A NAME="SpMtAnRes"></A><P><IMG ALIGN="RIGHT" SRC="MAN74A_Fig.png"
+ ALT="MAN74A_Fig.png">
+<P>Eens we bepaald hebben, welke de hoogste spanning is, die het
+display moet kunnen weergeven, komt het er op aan, de analoge
+spanningen aan de ingangen van de opamp op een passend niveau te
+brengen.<P>De eenvoudigste werkwijze bestaat er in, de spanning van de
+R2R-ladder rechtstreeks naar de opamp te voeren, en de te meten
+spanning langs een spanningsdeler om te leiden.<BR>
+Indien het apparaat als stroommeter moet ingezet worden, lukt
+deze aanpak niet. Er dienen dan namelijk kleine spanningen (>
+5Volt) gemeten te worden. In dit geval wordt de te meten spanning
+rechtstreeks naar de opamp geleid, en verlagen we de spanning van
+de R2R-ladder via een spanningsdeler.<P>Het spreekt vanzelf, dat hiervoor de print-layout
+moet aangepast worden.<P>
+
+<H4>De frequentie's.</H4>
+<A NAME="SpMtFreq"></A><P>Globaal kunnen we stellen dat 1 &#225; 2 spanningsmetingen
+per seconde meer dan voldoende zijn.<BR>
+Het multiplexen van de uitlezing dient uiteraard sneller te
+gebeuren. Hier wordt de voorkeur gegeven aan minstens 100
+cyclussen per seconde. Dat betekent, dat op Q7 van IC4 een
+frequentie moet staan van 200Hz.
+IC4 &#8213;een 74HC4060&#8213; is een binaire teller als de 74HC4040,
+met dit verschil dat hij een oscillator aan boord heeft. De
+oscillatiefrequentie wordt bepaald door C<SUP>t</SUP> en R<SUP>t</SUP>,
+waarbij ook R<SUP>2</SUP> een bescheiden rol speelt.<BR>
+De oscillatiefrequentie van IC4 moet dus 200 * 2<SUP>8</SUP>,
+zijnde 25600Hz (of iets meer) bedragen.
+De frequentie van een 74HC4060 wordt als volgt berekend:<P><IMG ALIGN="LEFT" SRC="HC4060_Fig.png"
+ ALT="HC4060_Fig.png">
+
+freq = 1/(2.5 * C<SUP>t</SUP> * R<SUP>t</SUP>)<BR>
+R<SUP>2</SUP> mag hierbij een waarde hebben van 2 * R<SUP>t</SUP> tot
+10 * R<SUP>t</SUP><BR>
+Als we dat verder uitrekenen, komen we op:<BR>
+1/(freq * 2.5) = C<SUP>t</SUP> * R<SUP>t</SUP><BR>
+Drukken we C uit in nF, en R in k, dan wordt het:<BR>
+1000000/(freq * 2.5) = C<SUP>t</SUP> * R<SUP>t</SUP><BR>
+Of:<BR>
+1000000/(25600 * 2.5) = 15.625<BR>
+Nemen we 2k7 voor R, en 4n7 voor C, dan wordt de uiteindelijke formule:<BR>
+freq = 1000000/(2.5 * 4.7 * 2.7) = 31520Hz<BR>
+Op Q3 van IC4 staat dan een frequentie van 3940Hz, hetgeen ideaal
+is om IC1 aan te sturen.<P>
+
+<H4>De praktijk.</H4>
+<A NAME="SpMtPraktijk"></A><P>In theorie ziet alles er eenvoudig uit, maar hoe gedraagt
+het meettoestel zich in de praktijk? Dat valt best mee;
+vergelijkingen met een digitale multimeter wijzen uit
+dat de afwijking over het ganse bereik kleiner dan 1&#37; blijft.<P>Anderzijds verwacht ik niet dat velen zich geroepen zullen
+voelen om zoiets na te bouwen. Met een &#956;C kan hetzelfde (of
+zelfs een beter) resultaat bereikt worden op een print die
+slechts een fractie bedraagt van dit project.<BR>
+Maar het was leuk, iets dergelijks te ontwerpen, en dat is het
+belangrijkste...
+<P><UL>
+</UL><P><P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="Ratatosk.html">Ratatosk, een pulsbreedtemeter.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Spanningsreferentie.html">Spanningsreferentie.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

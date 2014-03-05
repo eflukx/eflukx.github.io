@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: WisselstroomDetector.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer">
+<META NAME="description" CONTENT="WisselstroomDetector">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="VochtMeter.html">VochtMeter.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Oscillatoren.html">Oscillatoren.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="WisselstroomDetector"></A>
+<BR>WisselstroomDetector.</H2>
+<P>Er bestaan verschillende manieren om na te gaan of een apparaat
+al-dan niet stroom opneemt uit het elektriciteitsnet.<BR>
+Men kan een shunt-weerstand in serie met de verbruiker plaatsen,
+en de spanning daarover meten. Dat heeft als nadeel, dat de
+schakeling rechtstreeks met het lichtnet verbonden is.<BR>
+Men kan ook een laagspanningstrafo "andersom" in serie met de
+verbruiker plaatsen, en zijn ingangsspanning beperken met twee
+dioden die in 69-positie zijn aangesloten.
+Een voorbeeld daarvan is te zien bij de
+<A HREF="NetSlaaf.html#NSASS">NetSlaaf</A>.
+De spanningsval over
+de dioden is te verwaarlozen, maar bij grotere stromen heb je
+wel dikke exemplaren nodig. En ook het kleinste trafo'tje neemt
+aardig wat printruimte in beslag.<P><IMG ALIGN="RIGHT" SRC="1.6mH.jpg"
+ ALT="1.6mH.jpg">
+
+Derde optie: een &#8220;echte&#8221; stroomtrafo gebruiken. Neem een spoel
+als deze. Dit is een 1.6mH-spoeltje.
+Eén van de leidingen, die naar de verbruiker gaan,
+laat je door het midden van de spoel lopen. De opgewekte
+spanning is gering - enkele mV. En daarnaast pikt de spoel
+allerlei rotzooi op uit de omgeving. Er moet dus flink versterkt
+worden, vanaf een bepaalde grens. Dat kan zo:<P><IMG ALIGN="LEFT" SRC="WisselstroomDetector.png"
+ ALT="WisselstroomDetector.png">
+<P>Er is geen terugkoppeling - de opamp versterkt het verschil
+tussen zijn ingangen dus maximaal. Ook de spanningen die
+geïnduceerd worden door nabijgelegen verbruikers, of door het
+lichtnet zelf.<BR>
+Edoch, we kunnen de ingangs-offset bijstellen met
+behulp van een potmeter. Zodra die offset groter is dan de
+ongewenste storing, verschijnt die niet meer aan de uitgang.
+De wisselspanning, die de spoel produceert als er verbruik is,
+overstijgt de offset en wordt door de opamp vertaald tot een
+blokgolf.<P>Met een 25W-lamp (100mA) als verbruiker, en een stel TL-lampen
+in de buurt, werkt het geheel betrouwbaar op een breadboard.<BR>
+Het verdient aanbeveling, om de verbinding tussen spoel en opamp
+met afgeschermde draad uit te voeren. In een omgeving met veel
+storing kan overwogen worden, de spoel in te blikken.<BR>
+De rechtstreekse uitgang (OUT1) kan bv. gebruikt worden om een
+interrupt-pin van een µC te triggeren - daar moet dan wel een R
+tussen, vergezeld van een passende zener. De D/C/R-combinatie
+(OUT2) kan voor andere doeleinden ingezet worden.<P>Desgewenst kan P1 zodanig ingesteld worden, dat de uitgang hoog
+is wanneer er geen verbuik gedetecteerd wordt.<BR>
+Wil men uitgang OUT2 gebruiken, dan moet R3 tussen Vcc en OUT2,
+en moet D1 omgepoold worden.<P><P><UL>
+</UL><P><P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="VochtMeter.html">VochtMeter.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Oscillatoren.html">Oscillatoren.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

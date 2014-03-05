@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Loki.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, zenerdiode, Loki, AVR">
+<META NAME="description" CONTENT="Loki">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="AudioColorizer.html">AudioColorizer.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Ludiek.html">Ludiek.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="Loki"></A>
+<BR>Loki.</H2>
+<UL>
+<LI><A HREF="#LokiVrst">Voorstelling.</A>
+<LI><A HREF="#LokiWrk">Werking.</A>
+<LI><A HREF="#LokiPL">De print-layouts.</A>
+<UL><LI><A HREF="#LokiuCL">De &#181;C-print en een display-print.</A>
+<LI><A HREF="#LokiAVRL">De AVR-print.</A>
+</UL>
+<LI><A HREF="#LokiFotos">Nog enkele foto's.</A>
+</UL><HR>
+<P>
+<H3>Voorstelling.</H3>
+<A NAME="LokiVrst"></A><P><IMG ALIGN="LEFT" SRC="1LedBlak.png"
+ ALT="1LedBlak.png">
+
+Hoeveel verschillende VU-meters er in de loop der jaren
+ontworpen zijn, zal wel nooit achterhaald worden. Dat neemt
+echter niet weg, dat het gewoon leuk is, weer eens een originele
+VU-meter te bedenken en te bouwen.<BR>
+Een krachtige gestabiliseerde voeding met een onmeetbare
+rimpel, of een eindversterker met een onmeetbare vervorming;
+het mogen dan al huzarenstukjes zijn. Echter, niets verblijdt het
+hart zozeer als een stel kleurige LED's, die op-en-neer dansen
+in de maat van de muziek.<P>In dit ontwerp zijn dat blauwe LED's, verdeeld over twee
+kolommen van 40 stuks elk. Geen verstandig mens zou er &#8213;pakweg
+vijf jaar geleden&#8213; aan gedacht hebben, zijn duurverdiende
+centjes uit te geven aan 80 blauwe LED's. Maar nu die dingen
+aangeboden worden voor minder dan 0.5 euro, vormt de
+aankoopprijs geen belemmering meer. Daar komt bij, dat de
+lichtopbrengst van deze blauwe rakkers z&#243; hoog is, dat ze
+meteen als verlichtingsbron dienst kunnen doen...<P>Een kolom van 40 LED's biedt daarbij heel wat meer mogelijkheden
+dan een soortgenoot die slechts 8 LED's tot zijn beschikking
+heeft. In het voorbeeld hiernaast zie je enkele LED's die fel
+oplichten, gevolgd door een &#8220;staart&#8221; van LED's die minder en
+minder licht afgeven. Als er slechts 8 LED's ter beschikking
+staan, is zoiets ondoenbaar.<P>Wat de naam van het project betreft: <TT><A NAME="Loki798">Loki</A></TT> toont zich hier in
+de gedaante van vuurgod, niet als de listige bedrieger; alhoewel...
+<BR CLEAR="ALL"><P>
+<H3>Werking.</H3>
+<A NAME="LokiWrk"></A><P>Het inkomend audio-signaal dient eerst naar een gelijkspanning
+omgezet te worden. Omdat we in de eerste plaats leuke effecten
+willen bereiken, en minder (of helemaal niet) ge&#239;nteresseerd
+zijn in absolute metingen, is de AC-DC omzetter voorzien van een
+Automatische Volume-Regeling (<TT><A NAME="AVR632">AVR</A></TT><A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A>).
+<BR CLEAR="ALL"> <A NAME="AVR-werking"></A>
+<IMG ALIGN="MIDDLE" SRC="AVR.png"
+ ALT="AVR.png">
+<BR CLEAR="ALL">
+De eerste trap in het schema hierboven bestaat uit een stel doodnormale
+wisselstroomversterkers, opgebouwd rond N1 en N2. 
+Rond N3 en N4 is telkens de eigenlijke AC-DC omzetter
+opgebouwd.<BR>
+De AVR bevindt zich tussen die twee trappen, en wordt gestuurd
+door de laatste trap. Wat er gebeurt is dit: het
+gelijkspanningsniveau aan de uitgang gaat tevens naar de basis
+van een BC517 (T2), wiens emitter een elko (C5) oplaadt. Een
+deel van de spanning over deze elko (instelbaar met P1) stuurt
+op zijn beurt de basis van een tweede BC517 (T1). Via een stel
+weerstanden (R105 en R105') laat T1 een stroom vloeien door een
+stel dioden, die strategisch opgesteld staan tussen de eerste en
+de tweede trap van de AVR. Hoe groter deze stroom, hoe meer het
+signaal tussen N1 (N2) en N4 (N3) wordt onderdrukt.<P>
+Deze werkwijze verminkt het audiosignaal geen klein beetje, en
+is bijgevolg volkomen ongeschikt voor audio-toepassingen. maar
+voor ons doel &#8213;het bepalen van het audio-volume&#8213; is deze AVR
+meer dan geschikt.<BR>
+Ten overvloede is elke DC-uitgang voorzien van een
+<A NAME="zenerdiode1464">zenerdiode</A>, die moet beletten dat de uitgangsspanning hoger
+wordt dan 5Volt.<P><IMG ALIGN="LEFT" SRC="Sturing.png"
+ ALT="Sturing.png">
+ <BR CLEAR="ALL">
+Hier verlaten we het analoge pad, en geven we de voorkeur aan
+het digitale gebeuren. De twee uitgangen (DC OUT) van de AVR
+gaan immers naar een ATmega8 (IC1), een handige &#181;-Controller
+die ondermeer over een stel A-D omzetters beschikt. Deze
+micro-processor stuurt op zijn beurt 2 stellen van telkens 5
+8-bits schuifregisters die in serie geschakeld zijn. Elk van
+deze schuifregisters kan 8 LED's laten oplichten of
+doven.<BR>
+Om een ledbalk te sturen volstaan 3 signaallijnen: data,
+seri&#235;le klok en paralelle klok. Te beginnen met de "verste"
+LED (in dit geval de bovenste van de ledbalk) wordt op de
+data-lijn een hoog niveau geplaatst als deze moet oplichten.
+Vervolgens krijgt de seri&#235;le lijn een opgaande puls. Dan komt
+de tweede LED aan de beurt, enz...<BR>
+Als alle 40 LEDS op deze manier zijn doorgegeven, wordt de
+paralelle lijn even hoog gemaakt; dit heeft tot gevolg dat de
+inhoud van elk seri&#235;el schuifregister doorgegeven wordt aan de
+bijbehorende paralelle uitgangsbuffer, waarop de opgegeven data
+zichtbaar wordt door het al-dan-niet oplichten van de LED's.<P>Zo eenvoudig kan het leven zijn...<P>
+
+<H3>De print-layouts.</H3>
+<A NAME="LokiPL"></A><P>
+<H4>De &#181;C-print en een display-print.</H4>
+<A NAME="LokiuCL"></A><P><IMG ALIGN="LEFT" SRC="uP.png"
+ ALT="uP.png">
+
+<IMG ALIGN="RIGHT" SRC="1Display.png"
+ ALT="1Display.png">
+ <BR CLEAR="ALL"><P>
+<H4>De AVR-print.</H4>
+<A NAME="LokiAVRL"></A><P><IMG ALIGN="LEFT" SRC="AVR-gelijkrichter.png"
+ ALT="AVR-gelijkrichter.png">
+ <BR CLEAR="ALL"><P>
+<H3>Nog enkele foto's.</H3>
+<A NAME="LokiFotos"></A><P><IMG ALIGN="LEFT" SRC="SturingFoto.jpg"
+ ALT="SturingFoto.jpg">
+<P><IMG ALIGN="RIGHT" SRC="BinnenwerkLedbalk.jpg"
+ ALT="BinnenwerkLedbalk.jpg">
+
+<BR CLEAR="ALL"><P>Links, de sturing in zijn behuizing; rechts, een blik in het
+binnenwerk van een ledbalk.<P>
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...(<TT><A NAME="AVR632">AVR</A></TT></A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+niet te verwarren met de ATmega8, die immers ook naar de naam &#8220;avr&#8221; luistert</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="AudioColorizer.html">AudioColorizer.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Ludiek.html">Ludiek.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: Spanningsreferentie.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, ADC, spanningsstabilisator , LM385-2.5, LM35">
+<META NAME="description" CONTENT="Spanningsreferentie">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="Spanningsmeter.html">Een zelfbouw-spanningsmeter</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="VochtMeter.html">VochtMeter.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="Spanningsreferentie"></A>
+<BR>Spanningsreferentie.</H2>
+<UL>
+<LI><A HREF="#SrW">Waarom?</A>
+<LI><A HREF="#SrS">Het schema.</A>
+<LI><A HREF="#SrP">De prestaties.</A>
+<LI><A HREF="#SrL">De layout</A>
+<LI><A HREF="#SrF">Foto's.</A>
+</UL><HR>
+<P>
+<H3>Waarom?</H3>
+<A NAME="SrW"></A><P>E&#233;n van de problemen die ik bij zelfbouw-projecten regelmatig
+tegenkom, is het produceren van een stabiele
+spanningsreferentie.
+Zowat alle standaard-componenten (zener, spanningsregelaar,
+shuntregelaar) delen hetzelfde gebrek: ze zijn
+temperatuur-afhankelijk.<BR>
+Voor het voeden van een microcontroller of een opamp maakt dat
+weinig uit. Een µC werkt net zo goed op 4.995V als op 5.005V.
+Maar een verschil van 10mV is erg veel, als die spanning
+gebruikt wordt als referentie bij een 22-bit <A NAME="ADC2210">ADC</A>!<P>Tijd dus, om eens na te gaan in hoeverre de uitgangsspanning van
+een doorsnee-<A NAME="spanningsstaerentie4316">spanningsstabilisator </A> stabiel blijft als we
+zijn ingangsspanning, zijn belasting, en zijn temperatuur
+stabiel kunnen houden.<P><BR CLEAR="ALL"><P>
+<H3>Het schema.</H3>
+<A NAME="SrS"></A><P>Tijd voor een schema:
+<BR CLEAR="ALL">
+<IMG ALIGN="MIDDLE" SRC="Spanningsreferentie.png"
+ ALT="Spanningsreferentie.png">
+
+<BR CLEAR="ALL">
+Dat is een makkie: plaats drie spanningsregelaars in serie, en
+de laatste is verzekerd van een stabiele ingangsspanning.<BR>
+R1 vormt de enige belasting &#8213; het is de bedoeling dat de
+uitgang verder niet (of miniem) belast wordt.<P><BR CLEAR="ALL">
+<BR CLEAR="ALL"><P>Nu moeten we de temperatuur nog onder controle krijgen. Dat kan
+zo:
+<BR CLEAR="ALL">
+<IMG ALIGN="MIDDLE" SRC="SprefTemperatuurregeling.png"
+ ALT="SprefTemperatuurregeling.png">
+
+<BR CLEAR="ALL">
+Voor de werking verwijs ik even door naar <A HREF="FrequentieStandaard.html#FSTR">de temperatuurregeling van de Frequentiestandaard</A>.<P>
+<H3>De prestaties.</H3>
+<A NAME="SrP"></A><P>Doet het nou wat het zou moeten doen?<P>We zetten even een multimeter aan het werk, een Fluke8845.
+Dit is een telnet-uitdraai; hetgeen tussen haakjes staat heb ik
+er zelf bijgeplaatst.<P><P><PRE>
+
+bifrost/pros: telnet 192.168.1.8 3490
+Trying 192.168.1.8...
+Connected to 192.168.1.8.
+Escape character is '^]'.
+
+(We nemen eerst 2000 samples bij een verse Duracell-batterij)
+CALC:AVER:AVER?
++1.61262900E+00
+CALC:AVER:MIN?
++1.61261100E+00
+CALC:AVER:MAX?
++1.61265400E+00    (0.043mV verschil)
+
+(Vervolgens 2000 samples bij de Spanningsreferentie)
+CALC:AVER:AVER?
++5.01909600E+00
+CALC:AVER:MIN?
++5.01908200E+00
+CALC:AVER:MAX?
++5.01910800E+00    (0.026mV verschil)
+
+(Na een uurtje meten we nogmaals aan de Spanningsreferentie)
+CALC:AVER:AVER?
++5.01908500E+00
+CALC:AVER:MIN?
++5.01907300E+00
+CALC:AVER:MAX?
++5.01909600E+00    (0.023mV verschil)
+<P></PRE>
+
+
+<H3>De layout</H3>
+<A NAME="SrL"></A><P><BR CLEAR="ALL">
+<IMG ALIGN="MIDDLE" SRC="SpanningsreferentiePCB.png"
+ ALT="SpanningsreferentiePCB.png">
+
+<BR CLEAR="ALL"><P>Zowel de <A NAME="LM3852.52517">LM385-2.5</A> als de <A NAME="LM352267">LM35</A> bevinden zich
+<B>in</B> het koelblok. De LM35 zit darenboven naast het
+koelplaatje van de 7805 &#8213; dat is immers het onderdeel wiens
+temperatuur we het meest in de hand willen houden.<P>
+<H3>Foto's.</H3>
+<A NAME="SrF"></A><P><IMG ALIGN="MIDDLE" SRC="SpanningsreferentieOpbouwBoven.JPG"
+ ALT="SpanningsreferentieOpbouwBoven.JPG">
+<P><BR CLEAR="ALL"><P><IMG ALIGN="MIDDLE" SRC="SpanningsreferentieOpbouwOnder.JPG"
+ ALT="SpanningsreferentieOpbouwOnder.JPG">
+<P><P><UL>
+</UL><P><P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="Spanningsmeter.html">Een zelfbouw-spanningsmeter</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="VochtMeter.html">VochtMeter.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

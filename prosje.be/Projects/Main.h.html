@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>Main.h</title>
+		<meta name="generator" content="c2html 1.1.0" >
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" >
+		<meta http-equiv="Content-Script-Type" content="text/javascript" >
+		<meta http-equiv="Content-Style-Type" content="text/css" >
+	</head>
+	<body text="#000000">
+		<font face="Monospace">
+<br>
+<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;Main.h<br>
+&nbsp;&nbsp;Definities,&nbsp;vars&nbsp;en&nbsp;includes&nbsp;voor&nbsp;Grotendikken's&nbsp;brein<br>
+<br>
+&nbsp;&nbsp;Pros&nbsp;2007&nbsp;...&nbsp;2008<br>
+*/</i></font><br>
+<br>
+<font color="#008000">#define&nbsp;F_CPU&nbsp;16000000UL<br></font>
+<br>
+<font color="#008000">#define&nbsp;delay(x)&nbsp;_delay_loop_1(x)<br></font>
+<br>
+<font color="#008000">#define&nbsp;reply_OK()&nbsp;uart_sendstr_P(&quot;OK\n&quot;)<br></font>
+<font color="#008000">#define&nbsp;PRG_RDB(x)&nbsp;pgm_read_byte(x)<br></font>
+<br>
+<br>
+<font color="#008000">#define&nbsp;EENHEDEN&nbsp;88<br></font>
+<font color="#008000">#define&nbsp;ERR&nbsp;77<br></font>
+<font color="#008000">#define&nbsp;HONDERDSTEN&nbsp;99<br></font>
+<font color="#008000">#define&nbsp;MS100&nbsp;13<br></font>
+<font color="#008000">#define&nbsp;MS1000&nbsp;128<br></font>
+<font color="#008000">#define&nbsp;OFF&nbsp;33<br></font>
+<font color="#008000">#define&nbsp;OK&nbsp;0<br></font>
+<font color="#008000">#define&nbsp;ON&nbsp;&nbsp;22<br></font>
+<font color="#008000">#define&nbsp;FREQ&nbsp;60<br></font>
+<font color="#008000">#define&nbsp;PULS&nbsp;61<br></font>
+<font color="#008000">#define&nbsp;SW_START&nbsp;62<br></font>
+<font color="#008000">#define&nbsp;SW_END&nbsp;63<br></font>
+<font color="#008000">#define&nbsp;SW_DELAY&nbsp;64<br></font>
+<font color="#008000">#define&nbsp;SW_STEP&nbsp;65<br></font>
+<font color="#008000">#define&nbsp;SWEEP&nbsp;66<br></font>
+<font color="#008000">#define&nbsp;TXT&nbsp;1<br></font>
+<br>
+<font color="#800080"><i>//&nbsp;Commando's&nbsp;voor&nbsp;Madwizard;&nbsp;ze&nbsp;moeten&nbsp;gelijk&nbsp;zijn&nbsp;aan&nbsp;hetgeen&nbsp;in&nbsp;Madwizard.c&nbsp;gedefinieerd&nbsp;is!<br></i></font>
+<font color="#008000">#define&nbsp;PWM&nbsp;0x02<br></font>
+<font color="#008000">#define&nbsp;MAXCNT&nbsp;0x03<br></font>
+<font color="#008000">#define&nbsp;PRESC&nbsp;0x04<br></font>
+<br>
+<font color="#008000">#define&nbsp;SHIFTDDR&nbsp;&nbsp;DDRB<br></font>
+<font color="#008000">#define&nbsp;SHIFTPORT&nbsp;PORTB<br></font>
+<font color="#008000">#define&nbsp;MW_DATA&nbsp;PB4<br></font>
+<font color="#008000">#define&nbsp;MW_INT0&nbsp;PB3<br></font>
+<font color="#008000">#define&nbsp;MW_INT1&nbsp;PB2<br></font>
+<font color="#008000">#define&nbsp;MW_RST&nbsp;&nbsp;PB1<br></font>
+<br>
+<font color="#008000">#define&nbsp;MCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50000000UL<br></font>
+<font color="#008000">#define&nbsp;PH_MAX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4294967296UL<br></font>
+<font color="#008000">#define&nbsp;DDS_MAX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1800000000UL<br></font>
+<font color="#008000">#define&nbsp;DDS_MIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;800000000UL<br></font>
+<font color="#008000">#define&nbsp;DDS_D_PORT&nbsp;&nbsp;PORTB<br></font>
+<font color="#008000">#define&nbsp;DDS_D_DDR&nbsp;&nbsp;&nbsp;DDRB<br></font>
+<font color="#008000">#define&nbsp;DDS_C_PORT&nbsp;&nbsp;PORTB<br></font>
+<font color="#008000">#define&nbsp;DDS_C_DDR&nbsp;&nbsp;&nbsp;DDRB<br></font>
+<font color="#008000">#define&nbsp;DDS_E_PORT&nbsp;&nbsp;PORTD<br></font>
+<font color="#008000">#define&nbsp;DDS_E_DDR&nbsp;&nbsp;&nbsp;DDRD<br></font>
+<font color="#008000">#define&nbsp;DDS_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PB6<br></font>
+<font color="#008000">#define&nbsp;DDS_D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PB7<br></font>
+<font color="#008000">#define&nbsp;DDS_EN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PD4<br></font>
+<br>
+<font color="#008000">#include&nbsp;&lt;avr/interrupt.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;avr/io.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;avr/pgmspace.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;avr/sleep.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;compat/deprecated.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;util/delay.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;inttypes.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;stdio.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;stdlib.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;string.h&gt;<br></font>
+<br>
+<font color="#008000">#ifndef&nbsp;P<br></font>
+<font color="#008000">#define&nbsp;P(s)&nbsp;({static&nbsp;const&nbsp;char&nbsp;c[]&nbsp;__attribute__&nbsp;((progmem))&nbsp;=&nbsp;s;c;})<br></font>
+<font color="#008000">#endif<br></font>
+<br>
+<br>
+<font color="#800000">char</font>&nbsp;*<font color="#000000">val</font>,&nbsp;*<font color="#000000">ptr</font>,&nbsp;<font color="#000000">cmd</font>;<br>
+<font color="#800000">char</font>&nbsp;<font color="#000000">txt_buffer</font>[<font color="#0000FF">128</font>];<br>
+<font color="#800000">char</font>&nbsp;<font color="#000000">key_buffer</font>[<font color="#0000FF">32</font>];<br>
+<font color="#800000">char</font>&nbsp;*<font color="#000000">key_ptr</font>;<br>
+<font color="#800000">int</font>&nbsp;<font color="#000000">result</font>;<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">FSEL</font>,&nbsp;<font color="#000000">pause_time</font>,&nbsp;<font color="#000000">key_time</font>;<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">W_DDS</font>,&nbsp;<font color="#000000">W_DDS_start</font>,&nbsp;<font color="#000000">W_DDS_end</font>,&nbsp;<font color="#000000">new_freq</font>;<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">KB</font>[<font color="#0000FF">16</font>]&nbsp;=&nbsp;{&nbsp;<font color="#0000FF">3</font>,&nbsp;<font color="#0000FF">6</font>,&nbsp;<font color="#0000FF">9</font>,&nbsp;<font color="#FF00FF">'C'</font>,&nbsp;<font color="#0000FF">2</font>,&nbsp;<font color="#0000FF">5</font>,&nbsp;<font color="#0000FF">8</font>,&nbsp;<font color="#0000FF">0</font>,&nbsp;<font color="#0000FF">1</font>,&nbsp;<font color="#0000FF">4</font>,&nbsp;<font color="#0000FF">7</font>,&nbsp;<font color="#FF00FF">'.'</font>,&nbsp;<font color="#FF00FF">'u'</font>,&nbsp;<font color="#FF00FF">'d'</font>,&nbsp;<font color="#FF00FF">'M'</font>,&nbsp;<font color="#FF00FF">'E'</font>&nbsp;};<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">linestart</font>[<font color="#0000FF">5</font>]&nbsp;=&nbsp;{&nbsp;<font color="#0000FF">0</font>,&nbsp;<font color="#0000FF">0</font>,&nbsp;<font color="#0000FF">44</font>,&nbsp;<font color="#0000FF">20</font>,&nbsp;<font color="#0000FF">84</font>&nbsp;};<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">hextekens</font>[<font color="#0000FF">16</font>]&nbsp;=&nbsp;<font color="#008000">&quot;0123456789ABCDEF&quot;</font>;<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">KB_mode</font>&nbsp;=&nbsp;<font color="#000000">FREQ</font>;<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">i</font>,&nbsp;<font color="#000000">j</font>,&nbsp;<font color="#000000">x</font>,&nbsp;<font color="#000000">y</font>,&nbsp;<font color="#000000">rxresult</font>,&nbsp;<font color="#000000">status</font>,&nbsp;<font color="#000000">Key</font>,&nbsp;<font color="#000000">F_mode</font>,&nbsp;<font color="#000000">F_honderdsten</font>,&nbsp;<font color="#000000">FH_vlag</font>;<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">t</font>,&nbsp;<font color="#000000">sweepdelay</font>;<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">long</font>&nbsp;<font color="#000000">F_eenheden</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Gewenste&nbsp;frequentie,&nbsp;via&nbsp;het&nbsp;KB&nbsp;opgegeven<br></i></font>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">M_maxcnt</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Instelling&nbsp;voor&nbsp;Madwizard&nbsp;(ICR1)<br></i></font>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">M_presc</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Instelling&nbsp;voor&nbsp;Madwizard&nbsp;(TCCR1B)<br></i></font>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">M_pwm</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Instelling&nbsp;voor&nbsp;Madwizard&nbsp;(OCR1B)<br></i></font>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">double</font>&nbsp;<font color="#000000">F_OUT</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Gewenste&nbsp;frequentie<br></i></font>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">double</font>&nbsp;<font color="#000000">F_DDS</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;DDS-frequentie<br></i></font>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">double</font>&nbsp;<font color="#000000">FLOAT</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;tmp&nbsp;voor&nbsp;floats<br></i></font>
+<font color="#800000">double</font>&nbsp;<font color="#000000">pulsbreedte</font>,&nbsp;<font color="#000000">sweep_start</font>,&nbsp;<font color="#000000">sweep_end</font>,&nbsp;<font color="#000000">sweep_step</font>;<br>
+<br>
+<font color="#008000">#include&nbsp;&quot;Routines.c&quot;<br></font>
+<font color="#008000">#include&nbsp;&quot;UART.c&quot;<br></font>
+<font color="#008000">#include&nbsp;&quot;LCD.c&quot;<br></font>
+<font color="#008000">#include&nbsp;&quot;SHIFT.c&quot;<br></font>
+<font color="#008000">#include&nbsp;&quot;DDS.c&quot;<br></font>
+<font color="#008000">#include&nbsp;&quot;Version.c&quot;<br></font>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+		</font>
+	</body>
+</html>

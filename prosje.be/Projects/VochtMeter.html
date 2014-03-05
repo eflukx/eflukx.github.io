@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: VochtMeter.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, blokgolf, diodepomp, Schottky-diode, BAT85, hysteresis, PWM, ATtiny13, vochtsensor">
+<META NAME="description" CONTENT="VochtMeter">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="Spanningsreferentie.html">Spanningsreferentie.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="WisselstroomDetector.html">WisselstroomDetector.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="VochtMeter"></A>
+<BR>VochtMeter.</H2>
+<UL>
+<LI><A HREF="#VMEV">Eenvoudig.</A>
+<LI><A HREF="#VM2OA">Met twee opamps.</A>
+<LI><A HREF="#VMMC">Met een microcontroller.</A>
+<LI><A HREF="#VMS">De sensor.</A>
+</UL><HR>
+<P>
+<H3>Eenvoudig.</H3>
+<A NAME="VMEV"></A><P><IMG ALIGN="LEFT" SRC="VochtMeterSimpel.png"
+ ALT="VochtMeterSimpel.png">
+<A NAME="VMfig1"></A>
+Vocht detecteren met enkele elektronische onderdelen is
+eenvoudig, zoals het schema hiernaast toont.<BR>
+Zodra de contacten van de sensor in aanraking komen met water,
+gaat die stroom doorlaten. Die stroom vloeit de basis van
+<B>T1</B> in, waardoor deze in geleiding gaat en de LED
+(<B>D1</B>) laat oplichten.<P>Voila, dat was het dan, over naar iets anders.<BR>
+Of toch niet?<BR><P>Wel, als het om een vocht<B>detector</B> gaat, die
+bijvoorbeeld moet waarschuwen voor een lekkende wasmachine, is
+deze schakeling uitstekend geschikt.<BR>
+Enkel in zeldzame gevallen zal er vocht op de sensor
+terechtkomen. En of dat weinig danwel veel vocht is, maakt
+weinig uit; er lekt iets en dat moet hersteld worden.<P>Voor andere toepassingen &#8213;denk aan het meten van de
+neerslag&#8213; is zo'n schakeling ongeschikt. Om te beginnen kan je
+er niet echt mee <I>meten</I>, maar bovendien zorgen
+elektrolytische processen er voor, dat het metaal van de sensor
+na enige tijd &#8220;verdwenen&#8221; is.<BR>
+Teneinde dat laatste zoveel mogelijk tegen te gaan, wordt er een
+wisselspanning op de sensor gezet. Maar dat maakt het meten dan
+weer minder eenvoudig. Hoe dan ook, je hebt op z'n minst een
+oscillator nodig voor het opwekken van de wisselstroom, en je
+hebt een actieve gelijkrichter nodig om de wisselstroom aan de
+&#8220;andere kant&#8221; van de sensor weer om te zetten naar een
+gelijkspanning.<P><BR CLEAR="ALL">
+
+<H3>Met twee opamps.</H3>
+<A NAME="VM2OA"></A><P><IMG ALIGN="RIGHT" SRC="VochtMeterOpamp.png"
+ ALT="VochtMeterOpamp.png">
+<A NAME="VMfig2"></A>
+Met twee opamps lukt dat aardig.<BR>
+<B>N1</B> vormt &#8213;samen met zijn omgeving&#8213; een typische oscillator,
+die aan zijn uitgang een <A NAME="blokgolf1873">blokgolf</A> produceert. <B>C2</B> maakt van die
+blokgolf een &#8220;zuivere&#8221; wisselspanning; zonder
+gelijkstroomcomponent, dus.
+<B>R5</B> doet dienst als belasting voor de sensor, terwijl
+<B>D1</B> belet, dat er negatieve spanningen op de
+inverterende ingang van <B>N2</B><A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A> komen te staan.<BR>
+<B>R6, R7 en D2</B> zorgen er voor, dat de positieve helften
+van de ingangsspanning zowat 10 x versterkt worden. <B>R8</B>
+en <B>C3</B> vertalen deze pulsen naar een nette
+gelijkspanning.<P><IMG ALIGN="LEFT" SRC="VochtMeterOpampII.png"
+ ALT="VochtMeterOpampII.png">
+
+Als er niet echt gemeten moet worden, maar een ja/nee-signaal
+volstaat, kan het schema links gebruikt worden.<BR>
+Het zender-gedeelte is identiek aan het vorige schema.<BR>
+<B>D1</B> en <B>D2</B> fungeren hier als <A NAME="diodepomp1986">diodepomp</A>. Ze
+zetten de inkomende wisselspanning om in een gelijkspanning,
+waarmee <B>C3</B> opgeladen wordt. Dat houdt in, dat de
+wisselspanning hoger moet zijn dan 0.6V. De gevoeligheid kan
+iets verhoogd worden door <A NAME="Schottkydiod2444">Schottky-diode</A>n te gebruiken,
+bijvoorbeeld de <A NAME="BAT851349">BAT85</A>. Daarnaast kan voor <B>R5</B> een
+grotere weerstand gebruikt worden - 47k, om maar iets te noemen.<BR>
+Met behulp van <B>P1</B> kan men instellen, bij welk niveau
+<B>N2</B> zijn uitgang hoog moet maken. &#8220;Hoog&#8221; staat hier
+voor &#8220;droog&#8221; - daar kan ondermeer een bevochtigingsinstallatie
+mee gestuurd worden.<BR>
+Door de inverterende en de
+niet-inverterende ingangen van <B>N2</B> om te wisselen, zal
+de uitgang juist hoog worden bij toenemende vochtigheid - daar
+kan dan weer een pomp mee gestuurd worden.<BR>
+<B>R7</B> zorgt voor enige <A NAME="hysteresis2132">hysteresis</A>. Dat is
+noodzakelijk, wil men beletten dat de uitgang heen-en-weer gaat
+klapperen als de spanning over <B>C3</B> nagenoeg gelijk is
+aan de ingestelde spanning. Ook als de beide ingangen van
+<B>N2</B> omgewisseld worden, moet <B>R7</B> met de
+niet-inverterende ingang verbonden blijven!<P>
+<BR CLEAR="ALL">
+
+<H3>Met een microcontroller.</H3>
+<A NAME="VMMC"></A><P><IMG ALIGN="RIGHT" SRC="VochtMeter.png"
+ ALT="VochtMeter.png">
+<A NAME="VMfig3"></A>
+Zoals hiernaast te zien is, wordt het allemaal veel eenvoudiger
+als we een microcontroller het werk laten doen.<BR>
+Voor het meten heeft die &#8213;naast de sensor&#8213; enkel twee
+weerstanden nodig. De werking is heel eenvoudig:<P><TT> PB3 wordt als ADC-ingang geschakeld.<BR> PB4 wordt als uitgang geschakeld.<BR> PB4 wordt hoog gemaakt.<BR> De spanning op PB3 wordt gemeten.<BR> PB4 wordt als ADC-ingang geschakeld.<BR> PB3 wordt als uitgang geschakeld.<BR> PB3 wordt hoog gemaakt.<BR> De spanning op PB4 wordt gemeten.<BR> Enz...</TT><P>Op die manier kan de microcontroller de <I>gelijkstroom</I>
+meten, die door de sensor vloeit, terwijl door de sensor zelf een
+<I>wisselstroom</I> vloeit.<P>Daar komt nog een belangrijk voordeel bij, als het er om gaat de
+levensduur van de sensors te verlengen: een meting uitvoeren
+duurt niet lang - laten we zeggen 1 milliseconde.
+Als we nu elke seconde &#233;&#233;n meting uitvoeren, en in
+tussentijd beide elektroden op hetzelfde potentiaal brengen,
+verlengen we de levensduur van die elektroden zowat duizend
+maal! Als dat niet volstaat, zou er zelfs elke minuut
+&#8213;afhankelijk van de toepassing&#8213; kunnen gemeten worden. Een
+sensor, die het bij normaal bedrijf 1 jaar volhoudt, kan dan
+60.000 jaar mee...<P>In dit voorbeeld vertaalt de microcontroller de gemeten spanning
+naar een <A NAME="PWM1269">PWM</A>-signaal, dat door R4 en C2 uitgemiddeld wordt
+naar een gelijkspanning. Maar de gemeten waarden kunnen
+uiteraard ook op andere manieren verwerkt worden.<BR>
+De firmware van de <A NAME="ATtiny131726">ATtiny13</A> stelt weinig voor, zoals in de
+<A NAME="pros4"  HREF="VochtMeter.c.html">broncode</A>
+ te zien is.<P><BR CLEAR="ALL">
+
+<H3>De sensor.</H3>
+<A NAME="VMS"></A><P><IMG ALIGN="LEFT" SRC="VochtSensor.png"
+ ALT="VochtSensor.png">
+
+De vorm en de afmetingen van de sensor hangt af van de
+toepassing.<P>Dat kan bv. een stukje printplaat zijn, dat ge&#235;tst
+is als hiernaast. Nadeel is, dat het dunne koperen laagje
+waarschijnlijk geen lang leven beschoren is.<BR>
+Andere matrialen, zoals RVS-plaat of RVS-draad, zijn beter
+geschikt om er een <A NAME="vochtsensor2239">vochtsensor</A> mee te bouwen.<P>Daarnaast bepalen de vorm en de afmetingen van de sensor de
+waarde van enkele weerstanden, zoals R1 in <A HREF="VochtMeter.html#VMfig1">het eerste schema</A>. Hoe kleiner de weerstand van de (vochtige)
+sensor, hoe groter R1 moet zijn. Kritisch is R1 in deze
+schakeling niet.<P>Anders is het gesteld met R5 in <A HREF="VochtMeter.html#VMfig2">het tweede schema</A> en
+R1/R2 in <A HREF="VochtMeter.html#VMfig3">het derde schema</A>. Deze weerstanden
+vormen een belasting, en moeten dus kleiner gekozen worden
+naargelang de sensor meer stroom doorlaat.<BR>
+Een algemeen-bruikbare formule valt daar niet voor te bedenken.
+Try-and-error is de aangewezen weg...
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...<B>N2</B></A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+Voor N1 is zowat elke opamp geschikt. N2 moet absoluut een opamp zijn, die met ingangsspanningen overweg kan die gelijk zijn aan zijn negatieve voeding. De TLC272 bv. herbergt 2 opamps, die het prima doen in een schakeling als deze.</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="Spanningsreferentie.html">Spanningsreferentie.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Meettoestellen.html">Meettoestellen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="WisselstroomDetector.html">WisselstroomDetector.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

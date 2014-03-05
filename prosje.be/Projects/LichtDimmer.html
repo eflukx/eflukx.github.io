@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: LichtDimmer.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, Triac, Diac, LC-filter, rate-effect, snubber-netwerk, TIC226, optotriac, MOC3023">
+<META NAME="description" CONTENT="LichtDimmer">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="LCD-Interface.html">Zuinige LCD-Interface.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="MinuterieDimmer.html">Minuteriedimmer.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="LichtDimmer"></A>
+<BR>LichtDimmer.</H2>
+<UL>
+<LI><A HREF="#DMEENV">Eenvoudig</A>
+<LI><A HREF="#DMONTST">Ontstoring.</A>
+<LI><A HREF="#DMIB">Inductieve belastingen.</A>
+<LI><A HREF="#DMHY">Hysteresis.</A>
+<LI><A HREF="#DMFL">Flikkeren.</A>
+<LI><A HREF="#DMUC">Dimmen met microcontrollers.</A>
+<UL><LI><A HREF="#DM4Q">De vierde quadrant.</A>
+<LI><A HREF="#DMUCI">Inductieve belastingen.</A>
+</UL>
+</UL><HR>
+<P>
+<H3>Eenvoudig</H3>
+<A NAME="DMEENV"></A><P><IMG ALIGN="LEFT" SRC="LichtDimmerEenvoudig.png"
+ ALT="LichtDimmerEenvoudig.png">
+
+De meest-eenvoudige lichtdimmer bevat maar 4 onderdelen: een
+<A NAME="Triac1605">Triac</A><A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A>,
+een <A NAME="Diac1475">Diac</A>, een condensator en een potentiometer.<P>De werking is snel uitgelegd: na elke nuldoorgang wordt C1
+opgeladen via P1. Hoe kleiner de waarde waarop P1 staat
+ingesteld, hoe sneller dat opladen gebeurt.<BR>
+Zodra de spanning over C1 30V bereikt, wordt de
+doorslagspanning van de Diac overschreden<A NAME="pros2" HREF="#ft2"><SUP>2</SUP></A>.
+Deze zal nu C1 snel ontladen, en die lading vloeit in de gate
+van de Triac. Hierdoor gaat de Triac op zijn beurt in geleiding,
+en dat blijft hij doen tot de volgende nuldoorgang.<P>Hoe groter de ingestelde weerstand van P1, hoe langer het duurt
+voor de spanning over P1 30V bereikt, en hoe korter de tijd
+tussen het ontsteekpunt en de volgende nuldoorgang, en hoe
+minder licht de lamp uitstraalt.<P><BR CLEAR="ALL"><P>
+<H3>Ontstoring.</H3>
+<A NAME="DMONTST"></A><P><IMG ALIGN="RIGHT" SRC="LichtDimmerOntstoord.png"
+ ALT="LichtDimmerOntstoord.png">
+
+Het eenvoudig schema hierboven zal werken, maar het is beslist geen
+aanrader.<P>De Triac schakelt namelijk heel snel in. De stroom door de
+belasting gaat daardoor van nul naar maximum op heel korte tijd.
+En dat herhaalt zich 100 maal per seconde!<BR>
+Het gevolg zijn stoorsignalen die door de bedrading, die als
+antenne fungeert, de ether ingezonden worden.<P>Daaraan valt wat te doen door een condensator (C2) en een kleine
+spoel (L1) aan de schakeling toe te voegen, zoals rechts te
+zien is. Merk op, dat de condensator geschikt moet zijn voor een
+<I>wisselspanning</I> van 250V of &#8213;nog beter&#8213; 275V.
+Condensators die gemarkeerd zijn voor een gelijkspanning van
+400V zijn ongeschikt.<P><IMG ALIGN="LEFT" SRC="LichtDimmerGedemptOntstoord.png"
+ ALT="LichtDimmerGedemptOntstoord.png">
+<P>Wat opvalt, is het feit dat L1 in serie met A1 is geplaatst.
+Het lijkt logischer, L1 tussen lamp en A2 op te nemen, maar dat
+is geen goed idee. A2 is immers verbonden met het koelplaatje
+van de Triac. Dit vormt een paracitaire capaciteit met de aarde,
+zeker als het op een koelprofiel geschroefd is. En die
+paracitaire capaciteit zal de werking van het <A NAME="LCfilter1940">LC-filter</A>
+nadelig be&#239;nvloeden.<P>De opgegeven waarden zijn geschikt voor belastingen tussen 150W
+en 1000W.<BR>
+Bij belastingen, kleiner dan 150W, kan het ontstoorfilter
+oscillaties veroorzaken, die tot gevolg hebben dat de Triac
+terug spert.<BR>
+In het schema links wordt het ontstoorfilter
+gedempt door de aanwezigheid van R1.<P><BR CLEAR="ALL"><P>
+<H3>Inductieve belastingen.</H3>
+<A NAME="DMIB"></A><P><IMG ALIGN="RIGHT" SRC="LichtDimmerInductief.png"
+ ALT="LichtDimmerInductief.png">
+
+Wanneer de belasting een inductief karakter heeft &#8213;ik denk
+hierbij aan een draadgewonde trafo voor halogeenverlichting&#8213;
+gelden er andere regels. Het heeft dan weinig zin, om een
+LC-filter te plaatsen - het inductief karakter van de belasting
+zal sowieso beletten dat de stroom snel van nul naar maximum
+gaat.<P>Hier doen zich twee andere problemen voor:<BR>
+Het feit dat spanning en stroom niet in fase zijn, brengt de
+Triac in de war. Immers, zodra de volgende nuldoorgang bereikt
+is, wil de triac sperren. Op dat ogenblik vloeit er nog steeds
+stroom - stroom die nergens heen kan! Dat veroorzaakt een plotse
+spanningsstijging, die er kan voor zorgen dat de triac spontaan
+ontsteekt - het zogenaamde <A NAME="rateeffect2200">rate-effect</A>.<BR>
+Daarnaast kan het vertraagd opkomen van de stroom bij het
+ontsteken hinderlijk zijn. De Diac levert een korte maar
+krachtige stroompuls op de gate van de Triac. Als de minimum
+houdstroom nog niet bereikt is op het ogenblik dat die puls
+wegvalt, zal de triac terug sperren.<P>Gelukkig kunnen beide problemen opgelost worden door een
+<A NAME="snubbernetwe2672">snubber-netwerk</A>, bestaande uit R1 en C2.<BR>
+Enerzijds biedt dit netwerk een uitweg aan de stroom, wanneer de
+triac bij een nuldoorgang spert. En anderzijds zal C2 zich bij
+het ontsteken ontladen over R1, en alzo kortstondig voor de
+nodige houdstroom zorgen tot de belasting het overneemt.<P>Ook hier <I>moet</I> C2 minstens een 250V~ type zijn.<BR>
+R2 mag een gewone 1/4W weerstand zijn. C2 laat hoogstens 7.2mA
+door. Dat betekent dat er over R2 maar 0.72V komt te staan, en
+dat hij in dat geval maar 5mW verstookt.<P><BR CLEAR="ALL"><P>
+<H3>Hysteresis.</H3>
+<A NAME="DMHY"></A><P><IMG ALIGN="LEFT" SRC="Dimmer-OhmseLast.png"
+ ALT="Dimmer-OhmseLast.png">
+
+Er is n&#243;g wat mis met de schakelingen hierboven. Wanneer we P1
+instellen op zijn maximum weerstand, blijft de lamp gedoofd. De
+stroom die P1 doorlaat volstaat niet om C1 op te laden tot de
+benodigde ontsteekspanning van 30V.<BR>
+Dat betekent niet, dat C1 geen lading krijgt. Het betekent
+w&#233;l, dat C1 niet ontladen wordt zoals dat zou gebeuren op het
+ogenblik dat de Diac ontsteekt.<BR>
+Het gevolg is, dat de spanning over C1 gaat naijlen op de
+netspanning. Verdraaien we nu P1, dan wordt de laadstroom
+groter. De lamp blijft echter gedoofd - het naijlen zorgt er
+voor dat C1 eerst moet ontladen worden alvorens het laden een
+aanvang kan nemen.<P>Blijven we P1 verdraaien, dan zal de laadstroom op zeker moment
+wel groot genoeg zijn om C1 tot de nodige 30V op te laden.
+De Diac ontsteekt, waardoor C1 ontladen wordt.<BR>
+Vanaf dat ogenblik ijlt de spanning over C1 niet meer na ten
+opzichte van de netspanning. Het gevolg is, dat de lamp plots
+van 0&#37; naar bijna 50&#37; springt.<P><IMG ALIGN="RIGHT" SRC="Dimmer-InductieveLast.png"
+ ALT="Dimmer-InductieveLast.png">
+<P>Vanaf dit punt kunnen we P1 terugdraaien, zodat de lamp zachter
+gaat branden, maar fraai is het allemaal niet.<BR>
+We hebben &#8220;iets&#8221; nodig, dat C1 bij elke nuldoorgang ontlaadt,
+ook als de Diac niet ontsteekt. En dat is precies wat R1, R2 en
+D1 ... D4 in de schemas hiernaast doen.<P>Stel, dat de netspanning op A positief is tov. B, en dat de
+Triac niet ontstoken wordt.<BR>
+Op het knooppunt R1/D1/D3 staat een spanning van +0.7V. C1 kan
+langs die weg niet opgeladen worden - over D3 zou immers &#243;&#243;k
+0.7V vallen, waardoor er geen spanning overblijft. D4 staat in
+sperrichting - langs deze weg vloeit er evenmin stroom.<BR>
+C1 wordt wel opgeladen via P1, maar als deze ingesteld staat op
+500k is de laadstroom te klein om C1 tot 30V op te laden.
+Wanneer nu de volgende nuldoorgang bereikt wordt, zal er over C1
+nog steeds een positieve spanning staan.<P>Na de volgende nuldoorgang wordt A negatief tov. B.
+Nu komt er op het knooppunt R2/D2/D4 een spanning van -0.7V te
+staan. Dat geeft C1 de gelegenheid zich te ontladen
+over D4 en R2.<BR>
+R1, D1 en D3 hebben tijdens deze fase geen invloed, omdat het nu
+D3 is die in sperrichting staat voor de aangelegde spanning.<P>Dit mechanisme maakt het mogelijk de lamp te regelen van
+0&#37; naar de gewenste lichtsterkte zonder ongewenste
+sprongen.<P>Wellicht ten overvloede: de rechtse schakeling is geschikt voor
+ohmse belastingen, en de linkse voor inductieve belastingen.<P><BR CLEAR="ALL"><P>
+<H3>Flikkeren.</H3>
+<A NAME="DMFL"></A><P>Het kan gebeuren, dat een gedimde lamp meerdere malen per dag
+kortstondig begint te flikkeren. De kans is groot, dat
+CAB<A NAME="pros3" HREF="#ft3"><SUP>3</SUP></A>-signalen hiervan de
+oorzaak zijn. Dat zijn toonfrequent-signalen die de netbeheerder
+superponeert op de 50Hz van het lichtnet.<BR>
+In de regel is de
+frequentie daarvan net geen veelvoud van 50Hz. In Antwerpen en
+ogeving is dat 1347Hz. Het gevolg hiervan is, dat het tijdstip
+van de nuldoorgang een beetje heen-en-weer schommelt, en dat is
+merkbaar aan de lichtsterkte van de lamp.<P>In principe valt daar wat aan te verhelpen. Er bestaan immers
+filters die bedoeld zijn als voorzet voor condensatorbatterijen.
+In de praktijk is zo'n filter veel te duur om de aanschaf zelfs maar te
+overwegen.<BR>
+&#8220;Leer er mee leven&#8221; zou ik zeggen... <img src="biggrin.png" alt=""><P><BR CLEAR="ALL"><P>
+<H3>Dimmen met microcontrollers.</H3>
+<A NAME="DMUC"></A><P>De taak van C1, P1 en de Diac in voorgaande schemas kan
+overgenomen worden door een &#956;C. Over de werkwijze zal ik niet
+dieper ingaan, maar ik wil wel een tweetal kanttekeningen maken.<P>
+<H4>De vierde quadrant.</H4>
+<A NAME="DM4Q"></A><P><IMG ALIGN="RIGHT" SRC="uC-triacsturingA.png"
+ ALT="uC-triacsturingA.png">
+
+Je zou een Triac kunnen aansturen zoals op het plaatje rechts.
+Met een TIC206, een TIC216, of een vergelijkbare Triac zal dat naar behoren
+werken - die zijn tevreden met een gatestroom van 10mA.<BR>
+Maar bij een TIC226 kan het al fout lopen. Dit, omdat de vierde
+quadrant doorgaans twee maal zoveel stroom vergt als de overige
+drie.<P>Een Triac kan immers op vier manieren gestuurd worden.
+Hier de vier quadranten, met de benodigde gate-stroom voor een
+<A NAME="TIC2261484">TIC226</A>:
+<OL>
+   <LI> Belasting positief en gate positief tov. A1 - 2mA
+   <LI> Belasting positief en gate negatief tov. A1 - -12mA
+   <LI> Belasting negatief en gate negatief tov. A1 - -9mA
+   <LI> Belasting negatief en gate positief tov. A1 - 20mA
+</LI>
+</OL>
+Vermits we de gate altijd positief sturen, gebruiken we enkel 1
+en 4. Die 20mA kan de gemiddelde &#956;C nog net leveren, maar het
+is wel op het randje.<BR>
+Daar valt wat aan te verhelpen door een transistor als
+stroomversterker in te schakelen, maar als we een zwaardere
+Triac willen gebruiken zitten we al snel aan 50mA voor die
+vierde quadrant.
+<IMG ALIGN="LEFT" SRC="uC-triacsturingB.png"
+ ALT="uC-triacsturingB.png">
+
+Willen we daarvan verlost zijn, dan doen we er beter aan de gate
+altijd negatief te sturen, zoals het linkse plaatje toont.
+Nu moeten we enkel rekening houden met quadranten 2 en 3.<P>Merk op, dat de Triac in het schema &#8220;ondersteboven&#8221; getekend staat!<P>
+<H4>Inductieve belastingen.</H4>
+<A NAME="DMUCI"></A><P>Als we een lamp sturen, en de Triac krijgt onvoldoende
+gate-stroom, kan het zijn dat hij de belastingsstroom maar in
+&#233;&#233;n richting doorlaat. Dat is flink vervelend, want de lamp
+zal dan merkbaar flikkeren.<P>Als de belasting een draadgewonden halogeen-trafo is, wordt het
+nog veel erger. Die krijgt immers geen wisselstroom meer, maar
+een pulserende gelijkstroom.<BR>
+En die stroom kan behoorlijk oplopen, want het inductieve
+karakter van de trafo valt bijna geheel weg. Met wat geluk
+grijpt er ergens een zekering in. Gebeurt dat niet, dan kan je
+een doorgebrande primaire wikkeling verwachten - als het daarbij
+blijft...<P>Het gebruik van een <A NAME="optotriac2087">optotriac</A> zoals de <A NAME="MOC30231529">MOC3023</A> is dan
+ook een aanrader. Vermits deze tevreden is met 5mA aan zijn
+ingang, kan hij rechtstreeks door een &#956;C gestuurd worden.<BR>
+Daarnaast wordt de gate van de Triac steeds met dezelfde
+polariteit gestuurd als de belasting. Dat zijn quadranten 1 en 3
+- de zuinigste van het stel.<P>
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...<A NAME="Triac1605">Triac</A></A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+A1 en A2 zijn oudere benamingen. Moderne datasheets maken melding van MT1 en MT2</DD>
+<DT><A NAME="ft2">...overschreden</A>
+<A HREF="#pros2"><SUP>2</SUP></A></DT>
+<DD>
+er bestaan ook Diac's met een doorslagspanning van 60V</DD>
+<DT><A NAME="ft3">...CAB</A>
+<A HREF="#pros3"><SUP>3</SUP></A></DT>
+<DD>
+Centrale AfstandsBesturing</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="LCD-Interface.html">Zuinige LCD-Interface.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Sturingen.html">Sturingen.</A> &nbsp;
+<B> Volgende:</B> <A HREF="MinuterieDimmer.html">Minuteriedimmer.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>

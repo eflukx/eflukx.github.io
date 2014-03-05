@@ -1,0 +1,1066 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>SpStuur.c</title>
+		<meta name="generator" content="c2html 1.1.0" >
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" >
+		<meta http-equiv="Content-Script-Type" content="text/javascript" >
+		<meta http-equiv="Content-Style-Type" content="text/css" >
+	</head>
+	<body text="#000000">
+		<font face="Monospace">
+<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;SpStuuur<br>
+<br>
+&nbsp;&nbsp;De&nbsp;software&nbsp;voor&nbsp;SpStuur<br>
+<br>
+&nbsp;&nbsp;Pros&nbsp;2003&nbsp;...&nbsp;2008<br>
+*/</i></font><br>
+<br>
+<font color="#008000">#define&nbsp;F_CPU&nbsp;14745600UL<br></font>
+<br>
+<font color="#008000">#include&nbsp;&lt;avr/interrupt.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;avr/io.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;avr/pgmspace.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;avr/sleep.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;compat/deprecated.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;inttypes.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;stdio.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;stdlib.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;string.h&gt;<br></font>
+<font color="#008000">#include&nbsp;&lt;util/delay.h&gt;<br></font>
+<br>
+<br>
+<font color="#000000"><b>typedef</b></font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">u08</font>;<br>
+<font color="#000000"><b>typedef</b></font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">short</font>&nbsp;<font color="#000000">u16</font>;<br>
+<br>
+<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;Weerstanden&nbsp;47k&nbsp;15k&nbsp;8k2&nbsp;4k7&nbsp;1k5&nbsp;100R<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;Spanningen<br>
+&nbsp;&nbsp;950,&nbsp;854,&nbsp;714,&nbsp;580,&nbsp;379,&nbsp;134<br>
+*/</i></font><br>
+<br>
+<font color="#008000">#define&nbsp;V1&nbsp;1000<br></font>
+<font color="#008000">#define&nbsp;V5&nbsp;(V1&nbsp;*&nbsp;10)<br></font>
+<font color="#008000">#define&nbsp;Uplus&nbsp;854<br></font>
+<font color="#008000">#define&nbsp;UV1plus&nbsp;714<br></font>
+<font color="#008000">#define&nbsp;UV5plus&nbsp;580<br></font>
+<font color="#008000">#define&nbsp;Umin&nbsp;379<br></font>
+<font color="#008000">#define&nbsp;UV1min&nbsp;134<br></font>
+<font color="#008000">#define&nbsp;UV5min&nbsp;134<br></font>
+<br>
+<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;De&nbsp;uitgangen<br>
+*/</i></font><br>
+<br>
+<font color="#008000">#define&nbsp;BIT0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC3<br></font>
+<font color="#008000">#define&nbsp;BIT1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC2<br></font>
+<font color="#008000">#define&nbsp;BIT2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC1<br></font>
+<font color="#008000">#define&nbsp;BIT3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PD4<br></font>
+<font color="#008000">#define&nbsp;BIT4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC0<br></font>
+<font color="#008000">#define&nbsp;BIT5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PD5<br></font>
+<font color="#008000">#define&nbsp;BIT6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PD6<br></font>
+<font color="#008000">#define&nbsp;BIT7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PD7<br></font>
+<br>
+<font color="#008000">#define&nbsp;BIT0_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC<br></font>
+<font color="#008000">#define&nbsp;BIT1_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC<br></font>
+<font color="#008000">#define&nbsp;BIT2_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC<br></font>
+<font color="#008000">#define&nbsp;BIT3_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTD<br></font>
+<font color="#008000">#define&nbsp;BIT4_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC<br></font>
+<font color="#008000">#define&nbsp;BIT5_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTD<br></font>
+<font color="#008000">#define&nbsp;BIT6_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTD<br></font>
+<font color="#008000">#define&nbsp;BIT7_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTD<br></font>
+<br>
+<font color="#008000">#define&nbsp;BIT0_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRC<br></font>
+<font color="#008000">#define&nbsp;BIT1_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRC<br></font>
+<font color="#008000">#define&nbsp;BIT2_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRC<br></font>
+<font color="#008000">#define&nbsp;BIT3_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRD<br></font>
+<font color="#008000">#define&nbsp;BIT4_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRC<br></font>
+<font color="#008000">#define&nbsp;BIT5_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRD<br></font>
+<font color="#008000">#define&nbsp;BIT6_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRD<br></font>
+<font color="#008000">#define&nbsp;BIT7_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRD<br></font>
+<br>
+<font color="#008000">#define&nbsp;BEEP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PD3<br></font>
+<font color="#008000">#define&nbsp;BUFCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PB2<br></font>
+<font color="#008000">#define&nbsp;BUFCLK_L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC4<br></font>
+<font color="#008000">#define&nbsp;BUFCLK_H&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PB1<br></font>
+<font color="#008000">#define&nbsp;BEEP_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTD<br></font>
+<font color="#008000">#define&nbsp;BUFCLK_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTB<br></font>
+<font color="#008000">#define&nbsp;BUFCLK_L_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC<br></font>
+<font color="#008000">#define&nbsp;BUFCLK_H_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTB<br></font>
+<font color="#008000">#define&nbsp;BEEP_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRD<br></font>
+<font color="#008000">#define&nbsp;BUFCLK_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRB<br></font>
+<font color="#008000">#define&nbsp;BUFCLK_L_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRC<br></font>
+<font color="#008000">#define&nbsp;BUFCLK_H_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRB<br></font>
+<br>
+<font color="#800080"><i>//&nbsp;De&nbsp;pinnen&nbsp;die&nbsp;het&nbsp;LCD-display&nbsp;bedienen<br></i></font>
+<br>
+<font color="#008000">#define&nbsp;LCD_PORT_D7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTD<br></font>
+<font color="#008000">#define&nbsp;LCD_PORT_D6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTD<br></font>
+<font color="#008000">#define&nbsp;LCD_PORT_D5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTD<br></font>
+<font color="#008000">#define&nbsp;LCD_PORT_D4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC<br></font>
+<br>
+<font color="#008000">#define&nbsp;LCD_PIN_D7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PIND<br></font>
+<font color="#008000">#define&nbsp;LCD_PIN_D6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PIND<br></font>
+<font color="#008000">#define&nbsp;LCD_PIN_D5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PIND<br></font>
+<font color="#008000">#define&nbsp;LCD_PIN_D4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PINC<br></font>
+<br>
+<font color="#008000">#define&nbsp;LCD_DDR_D7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRD<br></font>
+<font color="#008000">#define&nbsp;LCD_DDR_D6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRD<br></font>
+<font color="#008000">#define&nbsp;LCD_DDR_D5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRD<br></font>
+<font color="#008000">#define&nbsp;LCD_DDR_D4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRC<br></font>
+<br>
+<font color="#008000">#define&nbsp;LCD_D7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PD7<br></font>
+<font color="#008000">#define&nbsp;LCD_D6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PD6<br></font>
+<font color="#008000">#define&nbsp;LCD_D5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PD5<br></font>
+<font color="#008000">#define&nbsp;LCD_D4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC0<br></font>
+<br>
+<font color="#008000">#define&nbsp;LCD_RS_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;port&nbsp;for&nbsp;RS&nbsp;line&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_RS_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;ddr&nbsp;for&nbsp;RS&nbsp;line&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_RS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC3<br></font>
+<font color="#008000">#define&nbsp;LCD_RW_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;port&nbsp;for&nbsp;RW&nbsp;line&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_RW_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;ddr&nbsp;for&nbsp;RW&nbsp;line&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_RW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC2<br></font>
+<font color="#008000">#define&nbsp;LCD_E_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;port&nbsp;for&nbsp;Enable&nbsp;line&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_E_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;ddr&nbsp;for&nbsp;Enable&nbsp;line&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PB0<br></font>
+<br>
+<font color="#800080"><i>/*&nbsp;instruction&nbsp;register&nbsp;bit&nbsp;positions&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_CLR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB0:&nbsp;clear&nbsp;display&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_HOME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB1:&nbsp;return&nbsp;to&nbsp;home&nbsp;position&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ENTRY_MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB2:&nbsp;set&nbsp;entry&nbsp;mode&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ENTRY_INC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB1:&nbsp;1=increment,&nbsp;0=decrement&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ENTRY_SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB2:&nbsp;1=display&nbsp;shift&nbsp;on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB3:&nbsp;turn&nbsp;lcd/cursor&nbsp;on&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ON_DISPLAY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB2:&nbsp;turn&nbsp;display&nbsp;on&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ON_CURSOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB1:&nbsp;turn&nbsp;cursor&nbsp;on&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ON_BLINK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB0:&nbsp;blinking&nbsp;cursor&nbsp;?&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_MOVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB4:&nbsp;move&nbsp;cursor/display&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_MOVE_DISP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB3:&nbsp;move&nbsp;display&nbsp;(0-&gt;&nbsp;cursor)&nbsp;?&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_MOVE_RIGHT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB2:&nbsp;move&nbsp;right&nbsp;(0-&gt;&nbsp;left)&nbsp;?&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_FUNCTION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB5:&nbsp;function&nbsp;set&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_8BIT&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB4:&nbsp;set&nbsp;8BIT&nbsp;mode&nbsp;(0-&gt;4BIT&nbsp;mode)&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_2LINES&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB3:&nbsp;two&nbsp;lines&nbsp;(0-&gt;one&nbsp;line)&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_10DOTS&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB2:&nbsp;5x10&nbsp;font&nbsp;(0-&gt;5x7&nbsp;font)&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_CGRAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB6:&nbsp;set&nbsp;CG&nbsp;RAM&nbsp;address&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_DDRAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB7:&nbsp;set&nbsp;DD&nbsp;RAM&nbsp;address&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_BUSY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DB7:&nbsp;LCD&nbsp;is&nbsp;busy&nbsp;*/</i></font><br>
+<br>
+<font color="#800080"><i>/*&nbsp;set&nbsp;entry&nbsp;mode:&nbsp;display&nbsp;shift&nbsp;on/off,&nbsp;dec/inc&nbsp;cursor&nbsp;move&nbsp;direction&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ENTRY_DEC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;display&nbsp;shift&nbsp;off,&nbsp;dec&nbsp;cursor&nbsp;move&nbsp;dir&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ENTRY_DEC_SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;display&nbsp;shift&nbsp;on,&nbsp;&nbsp;dec&nbsp;cursor&nbsp;move&nbsp;dir&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ENTRY_INC_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x06&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;display&nbsp;shift&nbsp;off,&nbsp;inc&nbsp;cursor&nbsp;move&nbsp;dir&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_ENTRY_INC_SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x07&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;display&nbsp;shift&nbsp;on,&nbsp;&nbsp;inc&nbsp;cursor&nbsp;move&nbsp;dir&nbsp;*/</i></font><br>
+<br>
+<font color="#800080"><i>/*&nbsp;display&nbsp;on/off,&nbsp;cursor&nbsp;on/off,&nbsp;blinking&nbsp;char&nbsp;at&nbsp;cursor&nbsp;position&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_DISP_OFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;display&nbsp;off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_DISP_ON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x0C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;display&nbsp;on,&nbsp;cursor&nbsp;off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_DISP_ON_BLINK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x0D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;display&nbsp;on,&nbsp;cursor&nbsp;off,&nbsp;blink&nbsp;char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_DISP_ON_CURSOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x0E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;display&nbsp;on,&nbsp;cursor&nbsp;on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_DISP_ON_CURSOR_BLINK&nbsp;0x0F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;display&nbsp;on,&nbsp;cursor&nbsp;on,&nbsp;blink&nbsp;char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<br>
+<font color="#800080"><i>/*&nbsp;move&nbsp;cursor/shift&nbsp;display&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_MOVE_CURSOR_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;move&nbsp;cursor&nbsp;left&nbsp;&nbsp;(decrement)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_MOVE_CURSOR_RIGHT&nbsp;&nbsp;&nbsp;&nbsp;0x14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;move&nbsp;cursor&nbsp;right&nbsp;(increment)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_MOVE_DISP_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;shift&nbsp;display&nbsp;left&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_MOVE_DISP_RIGHT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x1C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;shift&nbsp;display&nbsp;right&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<br>
+<font color="#800080"><i>/*&nbsp;function&nbsp;set:&nbsp;set&nbsp;interface&nbsp;data&nbsp;length&nbsp;and&nbsp;number&nbsp;of&nbsp;display&nbsp;lines&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_4BIT_1LINE&nbsp;&nbsp;0x20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;4-bit&nbsp;interface,&nbsp;single&nbsp;line,&nbsp;5x7&nbsp;dots&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_4BIT_2LINES&nbsp;0x28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;4-bit&nbsp;interface,&nbsp;dual&nbsp;line,&nbsp;&nbsp;&nbsp;5x7&nbsp;dots&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_8BIT_1LINE&nbsp;&nbsp;0x30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;8-bit&nbsp;interface,&nbsp;single&nbsp;line,&nbsp;5x7&nbsp;dots&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_8BIT_2LINES&nbsp;0x38&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;8-bit&nbsp;interface,&nbsp;dual&nbsp;line,&nbsp;&nbsp;&nbsp;5x7&nbsp;dots&nbsp;*/</i></font><br>
+<br>
+<font color="#008000">#define&nbsp;LCD_MODE_DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((1&lt;&lt;LCD_ENTRY_MODE)&nbsp;|&nbsp;(1&lt;&lt;LCD_ENTRY_INC))<br></font>
+<br>
+<font color="#800080"><i>/*&nbsp;normally&nbsp;you&nbsp;do&nbsp;not&nbsp;change&nbsp;the&nbsp;following&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;visible&nbsp;lines&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_LINE_LENGTH&nbsp;&nbsp;0x28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;internal&nbsp;line&nbsp;length&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_START_LINE1&nbsp;&nbsp;0x00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DDRAM&nbsp;address&nbsp;of&nbsp;first&nbsp;char&nbsp;of&nbsp;line&nbsp;1&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;LCD_START_LINE2&nbsp;&nbsp;0x28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;DDRAM&nbsp;address&nbsp;of&nbsp;first&nbsp;char&nbsp;of&nbsp;line&nbsp;2&nbsp;*/</i></font><br>
+<br>
+<font color="#008000">#define&nbsp;UART_RX_BUFFER_SIZE&nbsp;23<br></font>
+<br>
+<br>
+<font color="#008000">#define&nbsp;P(s)&nbsp;({static&nbsp;const&nbsp;char&nbsp;c[]&nbsp;__attribute__&nbsp;((progmem))&nbsp;=&nbsp;s;c;})<br></font>
+<font color="#008000">#define&nbsp;lcd_puts_P(__s)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lcd_puts_p(P(__s))<br></font>
+<br>
+<br>
+<font color="#008000">#define&nbsp;lcd_e_delay()&nbsp;&nbsp;&nbsp;_delay_us(1);<br></font>
+<font color="#008000">#define&nbsp;lcd_e_high()&nbsp;&nbsp;&nbsp;&nbsp;sbi(LCD_E_PORT,&nbsp;LCD_E)<br></font>
+<font color="#008000">#define&nbsp;lcd_e_low()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cbi(LCD_E_PORT,&nbsp;LCD_E)<br></font>
+<font color="#008000">#define&nbsp;lcd_e_toggle()&nbsp;&nbsp;toggle_e()<br></font>
+<br>
+<font color="#008000">#define&nbsp;lcd_cmd_mode()&nbsp;&nbsp;cbi(LCD_RS_PORT,&nbsp;LCD_RS)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;RS=0&nbsp;&nbsp;command&nbsp;mode&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;lcd_data_mode()&nbsp;sbi(LCD_RS_PORT,&nbsp;LCD_RS)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;RS=1&nbsp;&nbsp;data&nbsp;mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;lcd_wr_mode()&nbsp;&nbsp;&nbsp;cbi(LCD_RW_PORT,&nbsp;LCD_RW)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;RW=0&nbsp;&nbsp;write&nbsp;mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<font color="#008000">#define&nbsp;lcd_rd_mode()&nbsp;&nbsp;&nbsp;sbi(LCD_RW_PORT,&nbsp;LCD_RW)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#800080"><i>/*&nbsp;RW=1&nbsp;&nbsp;read&nbsp;mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<br>
+<br>
+<font color="#008000">#define&nbsp;LCD_FUNCTION_DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;LCD_FUNCTION_4BIT_2LINES<br></font>
+<br>
+<br>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">static</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">ADC_in</font>;<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">uart_outbuf</font>[<font color="#000000">UART_RX_BUFFER_SIZE</font>&nbsp;+&nbsp;<font color="#0000FF">1</font>];<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">uart_rxbuf</font>[<font color="#000000">UART_RX_BUFFER_SIZE</font>&nbsp;+&nbsp;<font color="#0000FF">1</font>];<br>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">static</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">uart_rx_pos</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;end&nbsp;of&nbsp;string&nbsp;in&nbsp;rx&nbsp;*/</i></font><br>
+<font color="#800000">volatile</font>&nbsp;<font color="#800000">static</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">uart_rx_linecomplete</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;one&nbsp;complete&nbsp;line&nbsp;in&nbsp;buffer&nbsp;*/</i></font><br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">Spanning</font>;<br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">i</font>,&nbsp;<font color="#000000">j</font>,&nbsp;<font color="#000000">rxresult</font>,&nbsp;<font color="#000000">status</font>,&nbsp;<font color="#000000">InitDisplay</font>;<br>
+<font color="#800000">char</font>&nbsp;<font color="#000000">cmd</font>;<br>
+<font color="#800000">char</font>&nbsp;*<font color="#000000">val</font>;<br>
+<font color="#800000">char</font>&nbsp;<font color="#000000">asciistring</font>[<font color="#0000FF">10</font>];<br>
+<br>
+<br>
+<font color="#008000">#define&nbsp;delay(x)&nbsp;_delay_loop_1(x)<br></font>
+<font color="#008000">#define&nbsp;disable_INT0()&nbsp;cbi(GICR,&nbsp;INT0)<br></font>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">delay_ms</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">ms</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(;&nbsp;<font color="#000000">ms</font>&nbsp;&gt;&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">ms</font>--)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_ms</font>(<font color="#800080">0.98</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">delay_us</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">us</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(;&nbsp;<font color="#000000">us</font>&nbsp;&gt;&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">us</font>--)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">_delay_us</font>(<font color="#800080">0.9</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Init&nbsp;PD2&nbsp;als&nbsp;INT0<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">enable_INT0</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">DDRD</font>,&nbsp;<font color="#000000">PD2</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;PD2&nbsp;=&nbsp;ingang<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">PORTD</font>,&nbsp;<font color="#000000">PD2</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Pull-up&nbsp;weerstand&nbsp;activeren<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">MCUCR</font>,&nbsp;<font color="#000000">ISC01</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;The&nbsp;falling&nbsp;edge&nbsp;of&nbsp;INT0&nbsp;generates&nbsp;an&nbsp;interrupt&nbsp;request.<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">GICR</font>,&nbsp;<font color="#000000">INT0</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">u2ascii</font>(<font color="#000000">u16</font>&nbsp;<font color="#000000">d</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">tmp</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transformeer&nbsp;een&nbsp;unsigned&nbsp;short&nbsp;naar&nbsp;ascii,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uitgedrukt&nbsp;in&nbsp;mVolt.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123&nbsp;&nbsp;wordt&nbsp;00.123mV<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4567&nbsp;wordt&nbsp;04.567mV<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;d&nbsp;omzetten&nbsp;naar&nbsp;mVolt&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">d</font>&nbsp;/=&nbsp;<font color="#0000FF">2</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#000000">d</font>&nbsp;/&nbsp;<font color="#0000FF">10000</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">asciistring</font>[<font color="#0000FF">0</font>]&nbsp;=&nbsp;<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">d</font>&nbsp;-=&nbsp;(<font color="#000000">tmp</font>&nbsp;*&nbsp;<font color="#0000FF">10000</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#000000">d</font>&nbsp;/&nbsp;<font color="#0000FF">1000</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;tmp&nbsp;=&nbsp;1&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">asciistring</font>[<font color="#0000FF">1</font>]&nbsp;=&nbsp;<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">asciistring</font>[<font color="#0000FF">2</font>]&nbsp;=&nbsp;<font color="#FF00FF">'.'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">d</font>&nbsp;-=&nbsp;(<font color="#000000">tmp</font>&nbsp;*&nbsp;<font color="#0000FF">1000</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;d&nbsp;=&nbsp;234&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#000000">d</font>&nbsp;/&nbsp;<font color="#0000FF">100</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;tmp&nbsp;=&nbsp;2&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">asciistring</font>[<font color="#0000FF">3</font>]&nbsp;=&nbsp;<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">d</font>&nbsp;-=&nbsp;(<font color="#000000">tmp</font>&nbsp;*&nbsp;<font color="#0000FF">100</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;d&nbsp;=&nbsp;34&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;<font color="#000000">d</font>&nbsp;/&nbsp;<font color="#0000FF">10</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;tmp&nbsp;=&nbsp;3&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">asciistring</font>[<font color="#0000FF">4</font>]&nbsp;=&nbsp;<font color="#000000">tmp</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">d</font>&nbsp;-=&nbsp;(<font color="#000000">tmp</font>&nbsp;*&nbsp;<font color="#0000FF">10</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;d&nbsp;=&nbsp;4&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">asciistring</font>[<font color="#0000FF">5</font>]&nbsp;=&nbsp;<font color="#000000">d</font>&nbsp;+&nbsp;<font color="#FF00FF">'0'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">asciistring</font>[<font color="#0000FF">6</font>]&nbsp;=&nbsp;<font color="#FF00FF">'m'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">asciistring</font>[<font color="#0000FF">7</font>]&nbsp;=&nbsp;<font color="#FF00FF">'V'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">asciistring</font>[<font color="#0000FF">8</font>]&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>/*&nbsp;return&nbsp;analog&nbsp;value&nbsp;of&nbsp;a&nbsp;given&nbsp;channel.&nbsp;You&nbsp;must&nbsp;enable&nbsp;interrupt&nbsp;with<br>
+*&nbsp;sei()&nbsp;in&nbsp;the&nbsp;main&nbsp;program&nbsp;*/</i></font><br>
+<font color="#800000">int</font>&nbsp;<font color="#000000">convertanalog</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">ADCSRA</font>,&nbsp;<font color="#000000">ADSC</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;start&nbsp;conversion<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;((<font color="#000000">ADCSRA</font>&nbsp;&amp;&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADSC</font>))&nbsp;!=&nbsp;<font color="#0000FF">0</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Effe&nbsp;wachten&nbsp;tot&nbsp;ADSC&nbsp;laag&nbsp;is<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADC_in</font>&nbsp;=&nbsp;<font color="#000000">ADC</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>&nbsp;(<font color="#000000">ADC_in</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>/*&nbsp;defines&nbsp;all&nbsp;data&nbsp;pins&nbsp;as&nbsp;input&nbsp;*/</i></font><br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_data_port_in</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_DDR_D7</font>,&nbsp;<font color="#000000">LCD_D7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_DDR_D6</font>,&nbsp;<font color="#000000">LCD_D6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_DDR_D5</font>,&nbsp;<font color="#000000">LCD_D5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_DDR_D4</font>,&nbsp;<font color="#000000">LCD_D4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_RS_DDR</font>,&nbsp;<font color="#000000">LCD_RS</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_RW_DDR</font>,&nbsp;<font color="#000000">LCD_RW</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_E_DDR</font>,&nbsp;<font color="#000000">LCD_E</font>);<br>
+}<br>
+<br>
+<font color="#800080"><i>/*&nbsp;defines&nbsp;all&nbsp;data&nbsp;pins&nbsp;as&nbsp;output&nbsp;*/</i></font><br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_data_port_out</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_DDR_D7</font>,&nbsp;<font color="#000000">LCD_D7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_DDR_D6</font>,&nbsp;<font color="#000000">LCD_D6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_DDR_D5</font>,&nbsp;<font color="#000000">LCD_D5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_DDR_D4</font>,&nbsp;<font color="#000000">LCD_D4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_RS_DDR</font>,&nbsp;<font color="#000000">LCD_RS</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_RW_DDR</font>,&nbsp;<font color="#000000">LCD_RW</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_E_DDR</font>,&nbsp;<font color="#000000">LCD_E</font>);<br>
+}<br>
+<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_out_low</font>(<font color="#000000">u08</font>&nbsp;<font color="#000000">d</font>)<br>
+{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;output&nbsp;low&nbsp;nibble&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x08</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT_D7</font>,&nbsp;<font color="#000000">LCD_D7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT_D7</font>,&nbsp;<font color="#000000">LCD_D7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x04</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT_D6</font>,&nbsp;<font color="#000000">LCD_D6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT_D6</font>,&nbsp;<font color="#000000">LCD_D6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x02</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT_D5</font>,&nbsp;<font color="#000000">LCD_D5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT_D5</font>,&nbsp;<font color="#000000">LCD_D5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x01</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT_D4</font>,&nbsp;<font color="#000000">LCD_D4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT_D4</font>,&nbsp;<font color="#000000">LCD_D4</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">u08</font>&nbsp;<font color="#000000">d</font>)<br>
+{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;output&nbsp;high&nbsp;nibble&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x80</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT_D7</font>,&nbsp;<font color="#000000">LCD_D7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT_D7</font>,&nbsp;<font color="#000000">LCD_D7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x40</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT_D6</font>,&nbsp;<font color="#000000">LCD_D6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT_D6</font>,&nbsp;<font color="#000000">LCD_D6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x20</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT_D5</font>,&nbsp;<font color="#000000">LCD_D5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT_D5</font>,&nbsp;<font color="#000000">LCD_D5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x10</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_PORT_D4</font>,&nbsp;<font color="#000000">LCD_D4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">LCD_PORT_D4</font>,&nbsp;<font color="#000000">LCD_D4</font>);<br>
+}<br>
+<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">void</font>&nbsp;<font color="#000000">toggle_e</font>(<font color="#800000">void</font>)<br>
+<font color="#800080"><i>/*&nbsp;toggle&nbsp;Enable&nbsp;Pin&nbsp;*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_high</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_delay</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_low</font>();<br>
+}<br>
+<br>
+<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_write</font>(<font color="#000000">u08</font>&nbsp;<font color="#000000">data</font>,&nbsp;<font color="#000000">u08</font>&nbsp;<font color="#000000">rs</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;configure&nbsp;data&nbsp;pins&nbsp;as&nbsp;output&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_data_port_out</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;output&nbsp;high&nbsp;nibble&nbsp;first&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">data</font>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">rs</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_data_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RS=1:&nbsp;write&nbsp;data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_cmd_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RS=0:&nbsp;write&nbsp;instruction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_wr_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RW=0&nbsp;&nbsp;write&nbsp;mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_toggle</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;output&nbsp;low&nbsp;nibble&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_low</font>(<font color="#000000">data</font>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">rs</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_data_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RS=1:&nbsp;write&nbsp;data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_cmd_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RS=0:&nbsp;write&nbsp;instruction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_wr_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RW=0&nbsp;&nbsp;write&nbsp;mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_toggle</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;all&nbsp;data&nbsp;pins&nbsp;high&nbsp;(inactive)&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_data_port_in</font>();<br>
+}<br>
+<br>
+<br>
+<br>
+<font color="#800000">static</font>&nbsp;<font color="#000000">u08</font>&nbsp;<font color="#000000">lcd_read</font>(<font color="#000000">u08</font>&nbsp;<font color="#000000">rs</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">register</font>&nbsp;<font color="#000000">u08</font>&nbsp;<font color="#000000">data</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;configure&nbsp;data&nbsp;pins&nbsp;as&nbsp;input&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_data_port_in</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">rs</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_data_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RS=1:&nbsp;read&nbsp;data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_cmd_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RS=0:&nbsp;read&nbsp;busy&nbsp;flag&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_rd_mode</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RW=1&nbsp;&nbsp;read&nbsp;mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_high</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_delay</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;read&nbsp;high&nbsp;nibble&nbsp;first&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;=&nbsp;<font color="#000000">bit_is_set</font>(<font color="#000000">LCD_PIN_D7</font>,&nbsp;<font color="#000000">LCD_D7</font>)&nbsp;?&nbsp;<font color="#008080">0x80</font>&nbsp;:&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;|=&nbsp;<font color="#000000">bit_is_set</font>(<font color="#000000">LCD_PIN_D6</font>,&nbsp;<font color="#000000">LCD_D6</font>)&nbsp;?&nbsp;<font color="#008080">0x40</font>&nbsp;:&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;|=&nbsp;<font color="#000000">bit_is_set</font>(<font color="#000000">LCD_PIN_D5</font>,&nbsp;<font color="#000000">LCD_D5</font>)&nbsp;?&nbsp;<font color="#008080">0x20</font>&nbsp;:&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;|=&nbsp;<font color="#000000">bit_is_set</font>(<font color="#000000">LCD_PIN_D4</font>,&nbsp;<font color="#000000">LCD_D4</font>)&nbsp;?&nbsp;<font color="#008080">0x10</font>&nbsp;:&nbsp;<font color="#0000FF">0</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_low</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_delay</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;Enable&nbsp;low&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_high</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_delay</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;read&nbsp;low&nbsp;nibble&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;|=&nbsp;<font color="#000000">bit_is_set</font>(<font color="#000000">LCD_PIN_D7</font>,&nbsp;<font color="#000000">LCD_D7</font>)&nbsp;?&nbsp;<font color="#008080">0x08</font>&nbsp;:&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;|=&nbsp;<font color="#000000">bit_is_set</font>(<font color="#000000">LCD_PIN_D6</font>,&nbsp;<font color="#000000">LCD_D6</font>)&nbsp;?&nbsp;<font color="#008080">0x04</font>&nbsp;:&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;|=&nbsp;<font color="#000000">bit_is_set</font>(<font color="#000000">LCD_PIN_D5</font>,&nbsp;<font color="#000000">LCD_D5</font>)&nbsp;?&nbsp;<font color="#008080">0x02</font>&nbsp;:&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">data</font>&nbsp;|=&nbsp;<font color="#000000">bit_is_set</font>(<font color="#000000">LCD_PIN_D4</font>,&nbsp;<font color="#000000">LCD_D4</font>)&nbsp;?&nbsp;<font color="#008080">0x01</font>&nbsp;:&nbsp;<font color="#0000FF">0</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_low</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>&nbsp;(<font color="#000000">data</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">static</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">lcd_waitbusy</font>(<font color="#800000">void</font>)<br>
+<font color="#800080"><i>/*&nbsp;loops&nbsp;while&nbsp;lcd&nbsp;is&nbsp;busy,&nbsp;reads&nbsp;address&nbsp;counter&nbsp;*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">register</font>&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">c</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;((<font color="#000000">c</font>&nbsp;=&nbsp;<font color="#000000">lcd_read</font>(<font color="#0000FF">0</font>))&nbsp;&amp;&nbsp;(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_BUSY</font>))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>&nbsp;(<font color="#000000">c</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;return&nbsp;address&nbsp;counter=position<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_command</font>(<font color="#000000">u08</font>&nbsp;<font color="#000000">cmd</font>)<br>
+<font color="#800080"><i>/*&nbsp;send&nbsp;commando&nbsp;&lt;cmd&gt;&nbsp;to&nbsp;LCD&nbsp;*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_data_port_out</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;all&nbsp;data&nbsp;port&nbsp;bits&nbsp;as&nbsp;output&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_waitbusy</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_write</font>(<font color="#000000">cmd</font>,&nbsp;<font color="#0000FF">0</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_gotoxy</font>(<font color="#000000">u08</font>&nbsp;<font color="#000000">x</font>,&nbsp;<font color="#000000">u08</font>&nbsp;<font color="#000000">y</font>)<br>
+<font color="#800080"><i>/*&nbsp;goto&nbsp;position&nbsp;(x,y)&nbsp;*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">y</font>&nbsp;==&nbsp;<font color="#0000FF">0</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>((<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_DDRAM</font>)&nbsp;+&nbsp;<font color="#000000">LCD_START_LINE1</font>&nbsp;+&nbsp;<font color="#000000">x</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>((<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_DDRAM</font>)&nbsp;+&nbsp;<font color="#000000">LCD_START_LINE2</font>&nbsp;+&nbsp;<font color="#000000">x</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_clrscr</font>(<font color="#800000">void</font>)<br>
+<font color="#800080"><i>/*&nbsp;clear&nbsp;lcd&nbsp;and&nbsp;set&nbsp;cursor&nbsp;to&nbsp;home&nbsp;position&nbsp;*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_CLR</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_home</font>(<font color="#800000">void</font>)<br>
+<font color="#800080"><i>/*&nbsp;set&nbsp;cursor&nbsp;to&nbsp;home&nbsp;position&nbsp;*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_HOME</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_putc</font>(<font color="#800000">char</font>&nbsp;<font color="#000000">c</font>)<br>
+<font color="#800080"><i>/*&nbsp;print&nbsp;character&nbsp;at&nbsp;current&nbsp;cursor&nbsp;position&nbsp;*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_waitbusy</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;read&nbsp;busy-flag&nbsp;and&nbsp;address&nbsp;counter<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_write</font>((<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>)&nbsp;<font color="#000000">c</font>,&nbsp;<font color="#0000FF">1</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_puts</font>(<font color="#800000">const</font>&nbsp;<font color="#800000">char</font>&nbsp;*<font color="#000000">s</font>)<br>
+<font color="#800080"><i>/*&nbsp;print&nbsp;string&nbsp;on&nbsp;lcd&nbsp;&nbsp;*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(*<font color="#000000">s</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(*<font color="#000000">s</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">s</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_puts_p</font>(<font color="#800000">const</font>&nbsp;<font color="#000000">prog_char</font>&nbsp;*&nbsp;<font color="#000000">progmem_s</font>)<br>
+<font color="#800080"><i>/*&nbsp;print&nbsp;string&nbsp;from&nbsp;program&nbsp;memory&nbsp;on&nbsp;lcd&nbsp;&nbsp;*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">register</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">c</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;((<font color="#000000">c</font>&nbsp;=&nbsp;<font color="#000000">pgm_read_byte</font>(<font color="#000000">progmem_s</font>++)))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_putc</font>(<font color="#000000">c</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;Een&nbsp;soort&nbsp;atof(),&nbsp;waarbij&nbsp;het&nbsp;resultaat&nbsp;een&nbsp;int&nbsp;is.<br>
+&nbsp;&nbsp;We&nbsp;verwachten&nbsp;0&nbsp;tot&nbsp;3&nbsp;cijfers&nbsp;na&nbsp;de&nbsp;komma;&nbsp;als&nbsp;er&nbsp;meer<br>
+&nbsp;&nbsp;zijn,&nbsp;worden&nbsp;die&nbsp;genegeerd.<br>
+*/</i></font><br>
+<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">my_atoi</font>(<font color="#800000">const</font>&nbsp;<font color="#800000">char</font>&nbsp;*<font color="#000000">s</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">tmp</font>,&nbsp;<font color="#000000">x</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">komma</font>&nbsp;=&nbsp;<font color="#FF00FF">'n'</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(*<font color="#000000">s</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((*<font color="#000000">s</font>&nbsp;&gt;=&nbsp;<font color="#FF00FF">'0'</font>)&nbsp;&amp;&amp;&nbsp;(*<font color="#000000">s</font>&nbsp;&lt;=&nbsp;<font color="#FF00FF">'9'</font>))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">tmp</font>&nbsp;=&nbsp;*<font color="#000000">s</font>&nbsp;-&nbsp;<font color="#FF00FF">'0'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font>&nbsp;=&nbsp;(<font color="#000000">x</font>&nbsp;*&nbsp;<font color="#0000FF">10</font>)&nbsp;+&nbsp;<font color="#000000">tmp</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">s</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">komma</font>&nbsp;&lt;&nbsp;<font color="#0000FF">4</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">komma</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">komma</font>&nbsp;==&nbsp;<font color="#0000FF">4</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((*<font color="#000000">s</font>&nbsp;==&nbsp;<font color="#FF00FF">','</font>)&nbsp;||&nbsp;(*<font color="#000000">s</font>&nbsp;==&nbsp;<font color="#FF00FF">'.'</font>))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">komma</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">s</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>switch</b></font>&nbsp;(<font color="#000000">komma</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#0000FF">0</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#FF00FF">'n'</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font>&nbsp;*=&nbsp;<font color="#0000FF">1000</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#0000FF">1</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font>&nbsp;*=&nbsp;<font color="#0000FF">100</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#0000FF">2</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font>&nbsp;*=&nbsp;<font color="#0000FF">10</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>break</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">x</font>&nbsp;&gt;&nbsp;<font color="#008080">0x7FF</font>e)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">x</font>&nbsp;=&nbsp;<font color="#008080">0x7FFE</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>&nbsp;(<font color="#000000">x</font>&nbsp;*&nbsp;<font color="#0000FF">2</font>);<br>
+}<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">io_out</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT7_DDR</font>,&nbsp;<font color="#000000">BIT7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT6_DDR</font>,&nbsp;<font color="#000000">BIT6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT5_DDR</font>,&nbsp;<font color="#000000">BIT5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT4_DDR</font>,&nbsp;<font color="#000000">BIT4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT3_DDR</font>,&nbsp;<font color="#000000">BIT3</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT2_DDR</font>,&nbsp;<font color="#000000">BIT2</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT1_DDR</font>,&nbsp;<font color="#000000">BIT1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT0_DDR</font>,&nbsp;<font color="#000000">BIT0</font>);<br>
+}<br>
+<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">lcd_init</font>(<font color="#000000">u08</font>&nbsp;<font color="#000000">dispAttr</font>)<br>
+<font color="#800080"><i>/*&nbsp;initialize&nbsp;display&nbsp;and&nbsp;select&nbsp;type&nbsp;of&nbsp;cursor<br>
+&nbsp;dispAttr:&nbsp;LCD_DISP_OFF,&nbsp;LCD_DISP_ON,&nbsp;LCD_DISP_ON_CURSOR,&nbsp;LCD_DISP_CURSOR_BLINK<br>
+*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*------&nbsp;Initialize&nbsp;lcd&nbsp;to&nbsp;4&nbsp;bit&nbsp;i/o&nbsp;mode&nbsp;-------*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_data_port_out</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;all&nbsp;data&nbsp;port&nbsp;bits&nbsp;as&nbsp;output&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_RS_DDR</font>,&nbsp;<font color="#000000">LCD_RS</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RS&nbsp;pin&nbsp;as&nbsp;output&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_RW_DDR</font>,&nbsp;<font color="#000000">LCD_RW</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;RW&nbsp;pin&nbsp;as&nbsp;output&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">LCD_E_DDR</font>,&nbsp;<font color="#000000">LCD_E</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;E&nbsp;&nbsp;pin&nbsp;as&nbsp;output&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#0000FF">16000</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;wait&nbsp;16ms&nbsp;or&nbsp;more&nbsp;after&nbsp;power-on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;initial&nbsp;write&nbsp;to&nbsp;lcd&nbsp;is&nbsp;8bit&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">LCD_FUNCTION_8BIT_1LINE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_toggle</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#0000FF">4992</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;delay,&nbsp;busy&nbsp;flag&nbsp;can't&nbsp;be&nbsp;checked&nbsp;here&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">LCD_FUNCTION_8BIT_1LINE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_toggle</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#0000FF">64</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;delay,&nbsp;busy&nbsp;flag&nbsp;can't&nbsp;be&nbsp;checked&nbsp;here&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">LCD_FUNCTION_8BIT_1LINE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_toggle</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#0000FF">64</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;delay,&nbsp;busy&nbsp;flag&nbsp;can't&nbsp;be&nbsp;checked&nbsp;here&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_out_high</font>(<font color="#000000">LCD_FUNCTION_4BIT_1LINE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;set&nbsp;IO&nbsp;mode&nbsp;to&nbsp;4bit&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_toggle</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;from&nbsp;now&nbsp;the&nbsp;lcd&nbsp;only&nbsp;accepts&nbsp;4&nbsp;bit&nbsp;I/O,&nbsp;we&nbsp;can&nbsp;use&nbsp;lcd_command()&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#000000">LCD_FUNCTION_DEFAULT</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;function&nbsp;set:&nbsp;display&nbsp;lines&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#000000">LCD_DISP_OFF</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;display&nbsp;off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_clrscr</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;display&nbsp;clear&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#000000">LCD_MODE_DEFAULT</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;set&nbsp;entry&nbsp;mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_command</font>(<font color="#000000">dispAttr</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;display/cursor&nbsp;control&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+}<br>
+<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Deze&nbsp;functie&nbsp;wordt&nbsp;aangeroepen,&nbsp;telkens&nbsp;er&nbsp;een&nbsp;karakter&nbsp;ontvangen&nbsp;werd<br></i></font>
+<font color="#000000">SIGNAL</font>(<font color="#000000">SIG_UART_RECV</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rxbuf</font>[<font color="#000000">uart_rx_pos</font>]&nbsp;=&nbsp;<font color="#000000">UDR</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">uart_rxbuf</font>[<font color="#000000">uart_rx_pos</font>]&nbsp;==&nbsp;<font color="#FF00FF">'\n'</font>)&nbsp;||&nbsp;(<font color="#000000">uart_rx_pos</font>&nbsp;&gt;&nbsp;<font color="#000000">UART_RX_BUFFER_SIZE</font>&nbsp;-&nbsp;<font color="#0000FF">1</font>))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rxbuf</font>[<font color="#000000">uart_rx_pos</font>]&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">strcpy</font>(<font color="#000000">uart_outbuf</font>,&nbsp;<font color="#000000">uart_rxbuf</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rx_linecomplete</font>&nbsp;=&nbsp;<font color="#0000FF">1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rx_pos</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rx_pos</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">uart_init</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rx_pos</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rx_linecomplete</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UCSRB</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">TXEN</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">RXEN</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">RXCIE</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;enable&nbsp;tx/rx&nbsp;and&nbsp;interrupt&nbsp;on&nbsp;rx<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UCSRC</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">URSEL</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">UCSZ1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">UCSZ0</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Set&nbsp;frame&nbsp;format:&nbsp;8N1<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UBRRH</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;set&nbsp;baudrate&nbsp;(9600,&nbsp;19200,&nbsp;38400,&nbsp;57600,&nbsp;76800,&nbsp;115200,&nbsp;230400)<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UBRRL</font>&nbsp;=&nbsp;(<font color="#000000">F_CPU</font>&nbsp;/&nbsp;(<font color="#0000FF">16</font>&nbsp;*&nbsp;<font color="#0000FF">38400</font><font color="#000000">UL</font>))&nbsp;-&nbsp;<font color="#0000FF">1</font>;<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;&nbsp;Wait&nbsp;until&nbsp;tx&nbsp;holding&nbsp;register&nbsp;is&nbsp;empty,&nbsp;then&nbsp;send&nbsp;character&nbsp;c&nbsp;down&nbsp;the&nbsp;UART&nbsp;Tx.<br></i></font>
+<font color="#800000">void</font>&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">c</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">loop_until_bit_is_set</font>(<font color="#000000">UCSRA</font>,&nbsp;<font color="#000000">UDRE</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">UDR</font>&nbsp;=&nbsp;<font color="#000000">c</font>;<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>/*&nbsp;send&nbsp;string&nbsp;to&nbsp;the&nbsp;rs232&nbsp;*/</i></font><br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">uart_sendstr</font>(<font color="#800000">char</font>&nbsp;*<font color="#000000">s</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(*<font color="#000000">s</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(*<font color="#000000">s</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">s</font>++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">uart_sendstr_p</font>(<font color="#800000">const</font>&nbsp;<font color="#000000">prog_char</font>&nbsp;*&nbsp;<font color="#000000">progmem_s</font>)<br>
+<font color="#800080"><i>/*&nbsp;print&nbsp;string&nbsp;from&nbsp;program&nbsp;memory&nbsp;on&nbsp;rs232&nbsp;*/</i></font><br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">c</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;((<font color="#000000">c</font>&nbsp;=&nbsp;<font color="#000000">pgm_read_byte</font>(<font color="#000000">progmem_s</font>++)))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#000000">c</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<font color="#008000">#define&nbsp;uart_sendstr_P(__s)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uart_sendstr_p(P(__s))<br></font>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">reply</font>(<font color="#800000">int</font>&nbsp;<font color="#000000">r</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">r</font>&nbsp;==&nbsp;<font color="#0000FF">1</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr_P</font>(<font color="#008000">&quot;ok\n&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">r</font>&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr_P</font>(<font color="#008000">&quot;\n\nGeldige&nbsp;opdrachten:\n\n&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr_P</font>(<font color="#008000">&quot;u=x&nbsp;of&nbsp;s=x&nbsp;zet&nbsp;de&nbsp;spanning&nbsp;op&nbsp;x\n&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr_P</font>(<font color="#008000">&quot;u=+&nbsp;u=-&nbsp;vermeerder&nbsp;of&nbsp;verminder&nbsp;de&nbsp;spanning&nbsp;met&nbsp;1mV\n&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr_P</font>(<font color="#008000">&quot;u=?&nbsp;toon&nbsp;de&nbsp;ingestelde&nbsp;spanning\n&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">beep</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">freq</font>,&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">dur</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">cnt</font>,&nbsp;<font color="#000000">del</font>,&nbsp;<font color="#000000">times</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We&nbsp;gebruiken&nbsp;bit&nbsp;7&nbsp;om&nbsp;de&nbsp;beeper&nbsp;te&nbsp;sturen.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;freq&nbsp;wordt&nbsp;uitgedrukt&nbsp;in&nbsp;Hz<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dur&nbsp;wordt&nbsp;uitgedrukt&nbsp;in&nbsp;mSec<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;del&nbsp;is&nbsp;de&nbsp;delay&nbsp;tussen&nbsp;2&nbsp;flanken<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;times&nbsp;is&nbsp;het&nbsp;aantal&nbsp;cycli<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resolutie&nbsp;=&nbsp;1µSec<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voorbeeld:&nbsp;freq&nbsp;=&nbsp;2000<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dur&nbsp;=&nbsp;5000<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;del&nbsp;=&nbsp;500000&nbsp;/&nbsp;2000&nbsp;=&nbsp;250<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dur&nbsp;=&nbsp;dur&nbsp;*&nbsp;1000&nbsp;=&nbsp;5000000<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;times&nbsp;=&nbsp;5000000&nbsp;/&nbsp;500&nbsp;=&nbsp;10000<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">del</font>&nbsp;=&nbsp;<font color="#0000FF">500000</font>&nbsp;/&nbsp;<font color="#000000">freq</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">dur</font>&nbsp;*=&nbsp;<font color="#0000FF">10</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">times</font>&nbsp;=&nbsp;<font color="#000000">dur</font>&nbsp;/&nbsp;(<font color="#000000">del</font>&nbsp;/&nbsp;<font color="#0000FF">50</font>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BEEP_DDR</font>,&nbsp;<font color="#000000">BEEP</font>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#000000">times</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BEEP_PORT</font>,&nbsp;<font color="#000000">BEEP</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">del</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BEEP_PORT</font>,&nbsp;<font color="#000000">BEEP</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#000000">del</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">bip</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">cnt</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BEEP_DDR</font>,&nbsp;<font color="#000000">BEEP</font>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">6</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BEEP_PORT</font>,&nbsp;<font color="#000000">BEEP</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#0000FF">1000</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BEEP_PORT</font>,&nbsp;<font color="#000000">BEEP</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_us</font>(<font color="#0000FF">1000</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">Sp2Displ</font>(<font color="#000000">u16</font>&nbsp;<font color="#000000">d</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">InitDisplay</font>&nbsp;==&nbsp;<font color="#FF00FF">'y'</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">InitDisplay</font>&nbsp;=&nbsp;<font color="#FF00FF">'n'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_clrscr</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_P</font>(<font color="#008000">&quot;Ingestelde&nbsp;spanning:&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_gotoxy</font>(<font color="#0000FF">33</font>,&nbsp;<font color="#0000FF">1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">u2ascii</font>(<font color="#000000">d</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts</font>(<font color="#000000">asciistring</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>/*&nbsp;Zet&nbsp;de&nbsp;spanning&nbsp;op&nbsp;0&nbsp;*/</i></font><br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">out0</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">io_out</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BUFCLK_H_PORT</font>,&nbsp;<font color="#000000">BUFCLK_H</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BUFCLK_PORT</font>,&nbsp;<font color="#000000">BUFCLK</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BUFCLK_L_PORT</font>,&nbsp;<font color="#000000">BUFCLK_L</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT7_PORT</font>,&nbsp;<font color="#000000">BIT7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT6_PORT</font>,&nbsp;<font color="#000000">BIT6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT5_PORT</font>,&nbsp;<font color="#000000">BIT5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT4_PORT</font>,&nbsp;<font color="#000000">BIT4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT3_PORT</font>,&nbsp;<font color="#000000">BIT3</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT2_PORT</font>,&nbsp;<font color="#000000">BIT2</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT1_PORT</font>,&nbsp;<font color="#000000">BIT1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT0_PORT</font>,&nbsp;<font color="#000000">BIT0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_H_PORT</font>,&nbsp;<font color="#000000">BUFCLK_H</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_L_PORT</font>,&nbsp;<font color="#000000">BUFCLK_L</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_PORT</font>,&nbsp;<font color="#000000">BUFCLK</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">u16</font>&nbsp;<font color="#000000">d</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">io_out</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;Eerst&nbsp;D15&nbsp;...&nbsp;D08&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BUFCLK_H_PORT</font>,&nbsp;<font color="#000000">BUFCLK_H</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x8000</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT7_PORT</font>,&nbsp;<font color="#000000">BIT7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT7_PORT</font>,&nbsp;<font color="#000000">BIT7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x4000</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT6_PORT</font>,&nbsp;<font color="#000000">BIT6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT6_PORT</font>,&nbsp;<font color="#000000">BIT6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x2000</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT5_PORT</font>,&nbsp;<font color="#000000">BIT5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT5_PORT</font>,&nbsp;<font color="#000000">BIT5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x1000</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT4_PORT</font>,&nbsp;<font color="#000000">BIT4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT4_PORT</font>,&nbsp;<font color="#000000">BIT4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0800</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT3_PORT</font>,&nbsp;<font color="#000000">BIT3</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT3_PORT</font>,&nbsp;<font color="#000000">BIT3</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0400</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT2_PORT</font>,&nbsp;<font color="#000000">BIT2</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT2_PORT</font>,&nbsp;<font color="#000000">BIT2</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0200</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT1_PORT</font>,&nbsp;<font color="#000000">BIT1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT1_PORT</font>,&nbsp;<font color="#000000">BIT1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0100</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT0_PORT</font>,&nbsp;<font color="#000000">BIT0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT0_PORT</font>,&nbsp;<font color="#000000">BIT0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_H_PORT</font>,&nbsp;<font color="#000000">BUFCLK_H</font>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;Vervolgens&nbsp;D07&nbsp;...&nbsp;D00&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BUFCLK_PORT</font>,&nbsp;<font color="#000000">BUFCLK</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BUFCLK_L_PORT</font>,&nbsp;<font color="#000000">BUFCLK_L</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0080</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT7_PORT</font>,&nbsp;<font color="#000000">BIT7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT7_PORT</font>,&nbsp;<font color="#000000">BIT7</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0040</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT6_PORT</font>,&nbsp;<font color="#000000">BIT6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT6_PORT</font>,&nbsp;<font color="#000000">BIT6</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0020</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT5_PORT</font>,&nbsp;<font color="#000000">BIT5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT5_PORT</font>,&nbsp;<font color="#000000">BIT5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0010</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT4_PORT</font>,&nbsp;<font color="#000000">BIT4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT4_PORT</font>,&nbsp;<font color="#000000">BIT4</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0008</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT3_PORT</font>,&nbsp;<font color="#000000">BIT3</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT3_PORT</font>,&nbsp;<font color="#000000">BIT3</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0004</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT2_PORT</font>,&nbsp;<font color="#000000">BIT2</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT2_PORT</font>,&nbsp;<font color="#000000">BIT2</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0002</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT1_PORT</font>,&nbsp;<font color="#000000">BIT1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT1_PORT</font>,&nbsp;<font color="#000000">BIT1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">d</font>&nbsp;&amp;&nbsp;<font color="#008080">0x0001</font>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BIT0_PORT</font>,&nbsp;<font color="#000000">BIT0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>else</b></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">cbi</font>(<font color="#000000">BIT0_PORT</font>,&nbsp;<font color="#000000">BIT0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_L_PORT</font>,&nbsp;<font color="#000000">BUFCLK_L</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_e_delay</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_PORT</font>,&nbsp;<font color="#000000">BUFCLK</font>);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Sp2Displ</font>(<font color="#000000">d</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">bip</font>();<br>
+}<br>
+<br>
+<br>
+<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;Initialiseer&nbsp;input&nbsp;en&nbsp;output.<br>
+*/</i></font><br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">io_init</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;We&nbsp;moeten&nbsp;zo&nbsp;snel&nbsp;mogelijk&nbsp;0x0000&nbsp;op&nbsp;de&nbsp;uitgangsbuffer&nbsp;plaatsen.<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">io_out</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_DDR</font>,&nbsp;<font color="#000000">BUFCLK</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_L_DDR</font>,&nbsp;<font color="#000000">BUFCLK_L</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_H_DDR</font>,&nbsp;<font color="#000000">BUFCLK_H</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_H_PORT</font>,&nbsp;<font color="#000000">BUFCLK_H</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_L_PORT</font>,&nbsp;<font color="#000000">BUFCLK_L</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">BUFCLK_PORT</font>,&nbsp;<font color="#000000">BUFCLK</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;&nbsp;&nbsp;&nbsp;out0();<br></i></font>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">init</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">io_init</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;io-poorten&nbsp;initialiseren,&nbsp;spanning&nbsp;op&nbsp;0&nbsp;zetten<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_init</font>(<font color="#000000">LCD_DISP_ON</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;initialize&nbsp;display,&nbsp;cursor&nbsp;off<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_init</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;initialize&nbsp;rs232<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">enable_INT0</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;De&nbsp;noodstop-knop&nbsp;komt&nbsp;op&nbsp;INT0<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sei</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;enable&nbsp;global&nbsp;interrupt&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_clrscr</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADCSRA</font>&nbsp;=&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADEN</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADIF</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADPS2</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADPS1</font>)&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">ADPS0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">ADMUX</font>&nbsp;=&nbsp;<font color="#0000FF">5</font>&nbsp;|&nbsp;<font color="#000000">_BV</font>(<font color="#000000">REFS0</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Init&nbsp;ADC<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">sbi</font>(<font color="#000000">ADCSRA</font>,&nbsp;<font color="#000000">ADSC</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;start&nbsp;dummy&nbsp;conversion<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">beep</font>(<font color="#0000FF">1000</font>,&nbsp;<font color="#0000FF">200</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_P</font>(<font color="#008000">&quot;SpStuur&nbsp;init&nbsp;done.&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_gotoxy</font>(<font color="#0000FF">35</font>,&nbsp;<font color="#0000FF">1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_puts_P</font>(<font color="#008000">&quot;Pros&nbsp;2004&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">InitDisplay</font>&nbsp;=&nbsp;<font color="#FF00FF">'y'</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">beep</font>(<font color="#0000FF">800</font>,&nbsp;<font color="#0000FF">200</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">5000</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#000000">SIGNAL</font>(<font color="#000000">SIG_INTERRUPT0</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">out0</font>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Uitgangsspanning&nbsp;op&nbsp;0&nbsp;zetten<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Sp2Displ</font>(<font color="#0000FF">0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">beep</font>(<font color="#0000FF">1200</font>,&nbsp;<font color="#0000FF">220</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">1000</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">bit_is_clear</font>(<font color="#000000">PIND</font>,&nbsp;<font color="#000000">PIND2</font>))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">100</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">1000</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">beep</font>(<font color="#0000FF">1200</font>,&nbsp;<font color="#0000FF">220</font>);<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">check_ADC</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">int</font>&nbsp;<font color="#000000">wt</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We&nbsp;gebruiken&nbsp;PC5&nbsp;als&nbsp;analoge&nbsp;ingang.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deze&nbsp;is&nbsp;via&nbsp;een&nbsp;pull-up&nbsp;weerstand&nbsp;verbonden&nbsp;met&nbsp;Vcc.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;toetsen&nbsp;trekken&nbsp;-&nbsp;ieder&nbsp;via&nbsp;hun&nbsp;eigen&nbsp;specifieke&nbsp;weerstand&nbsp;-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;de&nbsp;spanning&nbsp;op&nbsp;PC5&nbsp;naar&nbsp;beneden.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dus,&nbsp;als&nbsp;het&nbsp;resultaat&nbsp;van&nbsp;convertanalog()&nbsp;kleiner&nbsp;is&nbsp;dan<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pakweg&nbsp;950&nbsp;(1023&nbsp;is&nbsp;de&nbsp;maximum),&nbsp;kunnen&nbsp;we&nbsp;er&nbsp;van&nbsp;uitgaan<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dat&nbsp;iemand&nbsp;een&nbsp;toets&nbsp;indrukte.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voor&nbsp;alle&nbsp;zekerheid&nbsp;wachten&nbsp;we&nbsp;even,&nbsp;en&nbsp;testen&nbsp;nogmaals.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;Wacht&nbsp;enkele&nbsp;mSec&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">100</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wt</font>&nbsp;=&nbsp;<font color="#0000FF">500</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#000000">convertanalog</font>()&nbsp;&lt;&nbsp;<font color="#0000FF">950</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*&nbsp;Nu&nbsp;zijn&nbsp;we&nbsp;zeker:&nbsp;er&nbsp;is&nbsp;een&nbsp;knop&nbsp;ingedrukt.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;De&nbsp;pull-up&nbsp;weerstand&nbsp;bedraagt&nbsp;4k7.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;De&nbsp;toets-weerstanden&nbsp;zijn:&nbsp;47k,&nbsp;15k,&nbsp;8k2,&nbsp;4k7,&nbsp;1k5,&nbsp;100R&nbsp;en&nbsp;27R&nbsp;voor&nbsp;de&nbsp;noodstop<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dat&nbsp;levert&nbsp;de&nbsp;volgende&nbsp;metingen&nbsp;op:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;930,&nbsp;779,&nbsp;650,&nbsp;511,&nbsp;247,&nbsp;21<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;De&nbsp;grensovergangen&nbsp;hiertussen&nbsp;zijn:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;854,&nbsp;714,&nbsp;580,&nbsp;379,&nbsp;134<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">ADC_in</font>&nbsp;&gt;&nbsp;<font color="#000000">Uplus</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">Spanning</font>&nbsp;&lt;&nbsp;<font color="#008080">0xFFFE</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;+=&nbsp;<font color="#0000FF">2</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">ADC_in</font>&nbsp;&gt;&nbsp;<font color="#000000">UV1plus</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">Spanning</font>&nbsp;&lt;&nbsp;(<font color="#008080">0xFFFE</font>&nbsp;-&nbsp;<font color="#000000">V1</font>))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;+=&nbsp;<font color="#000000">V1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;=&nbsp;<font color="#008080">0xFFFE</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">ADC_in</font>&nbsp;&gt;&nbsp;<font color="#000000">UV5plus</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">Spanning</font>&nbsp;&lt;&nbsp;(<font color="#008080">0xFFFE</font>&nbsp;-&nbsp;<font color="#000000">V5</font>))&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;+=&nbsp;<font color="#000000">V5</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Als&nbsp;we&nbsp;de&nbsp;spanning&nbsp;met&nbsp;5Volt&nbsp;verhogen,&nbsp;gaan&nbsp;we&nbsp;wat&nbsp;omzichtiger&nbsp;te&nbsp;werk.&nbsp;Even&nbsp;te&nbsp;lang<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;de&nbsp;knop&nbsp;indrukken&nbsp;als&nbsp;we&nbsp;een&nbsp;TTL-circuit&nbsp;met&nbsp;5V&nbsp;willen&nbsp;voeden,&nbsp;kan&nbsp;nare&nbsp;gevolgen&nbsp;hebben!<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">800</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;=&nbsp;<font color="#008080">0xFFFE</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">ADC_in</font>&nbsp;&gt;&nbsp;<font color="#000000">Umin</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">Spanning</font>&nbsp;&gt;&nbsp;<font color="#0000FF">1</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;-=&nbsp;<font color="#0000FF">2</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">ADC_in</font>&nbsp;&gt;&nbsp;<font color="#000000">UV1min</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">Spanning</font>&nbsp;&gt;&nbsp;<font color="#000000">V1</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;-=&nbsp;<font color="#000000">V1</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">Spanning</font>&nbsp;&gt;&nbsp;<font color="#000000">V5</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;-=&nbsp;<font color="#000000">V5</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>return</b></font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">wt</font>&nbsp;&gt;&nbsp;<font color="#0000FF">1</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#000000">wt</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wt</font>&nbsp;*=&nbsp;<font color="#0000FF">9</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wt</font>&nbsp;/=&nbsp;<font color="#0000FF">10</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">delay_ms</font>(<font color="#0000FF">1</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#000000">check_RS232</font>(<font color="#800000">void</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>/*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Geldige&nbsp;opdrachten:<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u=x&nbsp;of&nbsp;s=x&nbsp;zet&nbsp;de&nbsp;spanning&nbsp;op&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u=+&nbsp;u=-&nbsp;vermeerder&nbsp;of&nbsp;verminder&nbsp;de&nbsp;spanning&nbsp;met&nbsp;1mV<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u=?&nbsp;toon&nbsp;de&nbsp;ingestelde&nbsp;spanning<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</i></font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">strncmp</font>(<font color="#000000">uart_outbuf</font>,&nbsp;<font color="#008000">&quot;Who&quot;</font>,&nbsp;<font color="#0000FF">3</font>)&nbsp;==&nbsp;<font color="#0000FF">0</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr_P</font>(<font color="#008000">&quot;SpStuur\n&quot;</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">uart_outbuf</font>[<font color="#0000FF">1</font>]&nbsp;!=&nbsp;<font color="#FF00FF">'='</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">reply</font>(<font color="#0000FF">0</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">val</font>&nbsp;=&nbsp;&amp;(<font color="#000000">uart_outbuf</font>[<font color="#0000FF">2</font>]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">status</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>switch</b></font>&nbsp;(<font color="#000000">uart_outbuf</font>[<font color="#0000FF">0</font>])&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#FF00FF">'u'</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#FF00FF">'U'</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#FF00FF">'s'</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>case</b></font>&nbsp;<font color="#FF00FF">'S'</font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">Spanning</font>&nbsp;&lt;&nbsp;<font color="#008080">0xFFFD</font>)&nbsp;&amp;&amp;&nbsp;(*<font color="#000000">val</font>&nbsp;==&nbsp;<font color="#FF00FF">'+'</font>))&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Spanning&nbsp;verhogen&nbsp;met&nbsp;1&nbsp;mV<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;+=&nbsp;<font color="#0000FF">2</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">status</font>&nbsp;=&nbsp;<font color="#0000FF">3</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">Spanning</font>&nbsp;&gt;&nbsp;<font color="#0000FF">1</font>)&nbsp;&amp;&amp;&nbsp;(*<font color="#000000">val</font>&nbsp;==&nbsp;<font color="#FF00FF">'-'</font>))&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Spanning&nbsp;verlagen&nbsp;met&nbsp;1&nbsp;mV<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>--;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">status</font>&nbsp;=&nbsp;<font color="#0000FF">3</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((*<font color="#000000">val</font>&nbsp;&gt;=&nbsp;<font color="#FF00FF">'0'</font>)&nbsp;&amp;&amp;&nbsp;(*<font color="#000000">val</font>&nbsp;&lt;=&nbsp;<font color="#FF00FF">'9'</font>))&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;De&nbsp;opgegeven&nbsp;spanning&nbsp;instellen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;=&nbsp;<font color="#000000">my_atoi</font>(<font color="#000000">val</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">Spanning</font>&nbsp;&gt;&nbsp;<font color="#008080">0xFFFE</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Spanning</font>&nbsp;=&nbsp;<font color="#008080">0xFFFE</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">wr_spanning</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">status</font>&nbsp;=&nbsp;<font color="#0000FF">2</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">u2ascii</font>(<font color="#000000">Spanning</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendstr</font>(<font color="#000000">asciistring</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;&nbsp;De&nbsp;ingestelde&nbsp;spanning&nbsp;over&nbsp;de&nbsp;seriele&nbsp;lijn&nbsp;versturen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_sendchar</font>(<font color="#FF00FF">'\n'</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">status</font>&nbsp;=&nbsp;<font color="#0000FF">2</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">reply</font>(<font color="#000000">status</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+<br>
+<br>
+<font color="#800000">int</font>&nbsp;<font color="#000000">main</font>(<font color="#800000">void</font>)<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">init</font>();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>while</b></font>&nbsp;(<font color="#0000FF">1</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">convertanalog</font>()&nbsp;&lt;&nbsp;<font color="#0000FF">950</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Toetsen&nbsp;testen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">check_ADC</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">uart_rx_linecomplete</font>&nbsp;==&nbsp;<font color="#0000FF">1</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;RS232&nbsp;testen<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">check_RS232</font>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">uart_rx_linecomplete</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br>
+		</font>
+	</body>
+</html>

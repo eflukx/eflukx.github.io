@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>3W-LCD.c</title>
+		<meta name="generator" content="c2html 1.1.0" >
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" >
+		<meta http-equiv="Content-Script-Type" content="text/javascript" >
+		<meta http-equiv="Content-Style-Type" content="text/css" >
+	</head>
+	<body text="#000000">
+		<font face="Monospace">
+<br>
+<font color="#008000">#define&nbsp;COM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br></font>
+<font color="#008000">#define&nbsp;LCD_PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTD<br></font>
+<font color="#008000">#define&nbsp;LCD_DDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDRD<br></font>
+<font color="#008000">#define&nbsp;LCD_DATA_PIN&nbsp;&nbsp;PD4<br></font>
+<font color="#008000">#define&nbsp;LCD_CLK_PIN&nbsp;&nbsp;&nbsp;PD6<br></font>
+<font color="#008000">#define&nbsp;LCD_E_PIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PD5<br></font>
+<font color="#008000">#define&nbsp;TXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1<br></font>
+<br>
+<br>
+<font color="#800080"><i>//&nbsp;Dit&nbsp;is&nbsp;de&nbsp;bediening&nbsp;v/d&nbsp;3-draads&nbsp;seriele&nbsp;interface.<br></i></font>
+<font color="#800080"><i>//&nbsp;LCD_DATA_PIN&nbsp;wordt&nbsp;verbonden&nbsp;met&nbsp;de&nbsp;Data-ingang&nbsp;van&nbsp;een&nbsp;74HC595&nbsp;en&nbsp;met&nbsp;RS&nbsp;v/d&nbsp;LCD-module.<br></i></font>
+<font color="#800080"><i>//&nbsp;LCD_CLK_PIN&nbsp;wordt&nbsp;verbonden&nbsp;met&nbsp;de&nbsp;schuifregisterklok&nbsp;v/d&nbsp;74HC595<br></i></font>
+<font color="#800080"><i>//&nbsp;LCD_E_PIN&nbsp;wordt&nbsp;verbonden&nbsp;met&nbsp;de&nbsp;Latch-ingang&nbsp;v/d&nbsp;74HC595&nbsp;en&nbsp;met&nbsp;de&nbsp;E-pin&nbsp;v/d&nbsp;LCD-module.<br></i></font>
+<br>
+<font color="#800080"><i>//&nbsp;Werking:<br></i></font>
+<font color="#800080"><i>//&nbsp;LCD_E_PIN&nbsp;laag<br></i></font>
+<font color="#800080"><i>//&nbsp;LCD_CLK_PIN&nbsp;laag<br></i></font>
+<font color="#800080"><i>//&nbsp;Bit&nbsp;7&nbsp;klaarzetten<br></i></font>
+<font color="#800080"><i>//&nbsp;LCD_CLK_PIN&nbsp;hoog&nbsp;en&nbsp;terug&nbsp;laag<br></i></font>
+<font color="#800080"><i>//&nbsp;Bit&nbsp;6&nbsp;klaarzetten<br></i></font>
+<font color="#800080"><i>//&nbsp;LCD_CLK_PIN&nbsp;hoog&nbsp;en&nbsp;terug&nbsp;laag<br></i></font>
+<font color="#800080"><i>//&nbsp;...<br></i></font>
+<font color="#800080"><i>//&nbsp;...<br></i></font>
+<font color="#800080"><i>//&nbsp;Bit&nbsp;0&nbsp;klaarzetten<br></i></font>
+<font color="#800080"><i>//&nbsp;LCD_CLK_PIN&nbsp;hoog&nbsp;en&nbsp;terug&nbsp;laag<br></i></font>
+<font color="#800080"><i>//&nbsp;RS&nbsp;klaarzetten<br></i></font>
+<font color="#800080"><i>//&nbsp;LCD_E_PIN&nbsp;hoog&nbsp;en&nbsp;terug&nbsp;laag<br></i></font>
+<br>
+<br>
+<font color="#008000">#define&nbsp;lcd_delay(x)&nbsp;_delay_loop_1(x)<br></font>
+<font color="#008000">#define&nbsp;lcd_command(x)&nbsp;char2LCD3(x,&nbsp;COM)<br></font>
+<font color="#008000">#define&nbsp;lcd_putchar(x)&nbsp;char2LCD3(x,&nbsp;TXT)<br></font>
+<br>
+<br>
+<font color="#800000">void</font>&nbsp;<font color="#800000">char</font>2<font color="#000000">LCD3</font>(<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">karakter</font>,&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">RS</font>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">unsigned</font>&nbsp;<font color="#800000">char</font>&nbsp;<font color="#000000">cnt</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>for</b></font>&nbsp;(<font color="#000000">cnt</font>&nbsp;=&nbsp;<font color="#0000FF">0</font>;&nbsp;<font color="#000000">cnt</font>&nbsp;&lt;&nbsp;<font color="#0000FF">8</font>;&nbsp;<font color="#000000">cnt</font>++)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;((<font color="#000000">karakter</font>&nbsp;&amp;&nbsp;<font color="#008080">0x80</font>)&nbsp;==&nbsp;<font color="#008080">0x80</font>)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;een&nbsp;'1'<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;|=&nbsp;(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_DATA_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;LCD_DATA_PIN&nbsp;hoog<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;een&nbsp;'0'<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;&amp;=&nbsp;~(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_DATA_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;LCD_DATA_PIN&nbsp;laag<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_delay</font>(<font color="#0000FF">5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;|=&nbsp;(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_CLK_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Seriele&nbsp;klok&nbsp;hoog<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_delay</font>(<font color="#0000FF">5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;&amp;=&nbsp;~(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_CLK_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Seriele&nbsp;klok&nbsp;terug&nbsp;laag<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">karakter</font>&nbsp;=&nbsp;<font color="#000000">karakter</font>&nbsp;&lt;&lt;&nbsp;<font color="#0000FF">1</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Bits&nbsp;een&nbsp;plaatsje&nbsp;naar&nbsp;rechts&nbsp;schuiven<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000"><b>if</b></font>&nbsp;(<font color="#000000">RS</font>&nbsp;==&nbsp;<font color="#000000">TXT</font>)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;|=&nbsp;(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_DATA_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Tekst,&nbsp;RS&nbsp;moet&nbsp;hoog<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<font color="#000000"><b>else</b></font>&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;&amp;=&nbsp;~(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_DATA_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;Instructie,&nbsp;RS&nbsp;moet&nbsp;laag<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_delay</font>(<font color="#0000FF">5</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;|=&nbsp;(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_E_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;schuifregister&nbsp;-&gt;&nbsp;par.&nbsp;uitgang<br></i></font>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">lcd_delay</font>(<font color="#0000FF">20</font>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">LCD_PORT</font>&nbsp;&amp;=&nbsp;~(<font color="#0000FF">1</font>&nbsp;&lt;&lt;&nbsp;<font color="#000000">LCD_E_PIN</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080"><i>//&nbsp;par.&nbsp;uitgang&nbsp;-&gt;&nbsp;LCD-module<br></i></font>
+}<br>
+		</font>
+	</body>
+</html>

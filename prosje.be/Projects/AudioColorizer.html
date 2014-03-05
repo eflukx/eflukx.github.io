@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Projects: AudioColorizer.</TITLE>
+<META NAME="keywords" CONTENT="Pros Robaer, ATmega32, FFT, PWM, diodepomp, elektreet-microfoon, frequentiespectrum, LDR">
+<META NAME="description" CONTENT="AudioColorizer">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY bgcolor=#FFF5EE >
+<B> Vorige:</B> <A HREF="Ludiek.html">Ludiek.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Ludiek.html">Ludiek.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Loki.html">Loki.</A>
+<BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><H2><A NAME="AudioColorizer"></A>
+<BR>AudioColorizer.</H2>
+<UL>
+<LI><A HREF="#ACV">Voorstelling.</A>
+<LI><A HREF="#ACVd">De voeding</A>
+<LI><A HREF="#ACAI">De audio-ingang.</A>
+<LI><A HREF="#ACMC">De microcontroller.</A>
+<LI><A HREF="#ACPL">De print-layout</A>
+<LI><A HREF="#ACR">Het resultaat.</A>
+</UL><HR>
+<P>
+<H3>Voorstelling.</H3>
+<A NAME="ACV"></A><P>Dit project maakt gebruik van een boel LED's om muziek om te
+zetten in kleur. Voor het bepalen van de overheersende
+frequenties werd geen gebruik gemaakt van analoge filters. Het
+is een microcontroller (een <A NAME="ATmega322111">ATmega32</A>) die het
+omgevingsgeluid sampled, en op die samples een <A NAME="FFT1675">FFT</A>-routine
+loslaat. Vier groepen LED's met elk een eigen kleur worden
+vervolgens aangestuurd via de <A NAME="PWM1695">PWM</A>-uitgangen van de &#956;C.<P>
+<H3>De voeding</H3>
+<A NAME="ACVd"></A><P><IMG ALIGN="LEFT" SRC="AdCo-Voeding.png"
+ ALT="AdCo-Voeding.png">
+
+Het deel voor de positieve voedingsspanningen is traditioneel.
+Dat behoeft geen uitleg.<P>Bij de negatieve spanning hoort een verklaring:<BR>
+C1, D5 en D6 vormen een <A NAME="diodepomp2412">diodepomp</A>.<BR>
+Als C1 ontladen is, en
+de onderste aansluiting van Tr1 is negatief t.o.v. de bovenste,
+wordt C3 negatief &#8220;opgeladen&#8221; via D6.
+Zodra de onderste aansluiting van Tr1 positief wordt t.o.v. de
+bovenste zal D6 sperren, en kan C1 zich ontladen via D5. R1 doet
+daarbij dienst als stroombegrenzer.<P><BR CLEAR="ALL"><P>
+<H3>De audio-ingang.</H3>
+<A NAME="ACAI"></A><P><IMG ALIGN="RIGHT" SRC="AdCo-Microfoonversterker.png"
+ ALT="AdCo-Microfoonversterker.png">
+
+We hadden het bij de voorstelling al over &#8220;omgevingsgeluid&#8221;.
+Daar hoort dus een microfoon bij. Een <A NAME="elektreetmicer3433">elektreet-microfoon</A>
+is hier een logische keuze. De prijs is miniem, en de prestaties
+volstaan ruimschoots voor ons doel.<P>Vermits we minder belangstelling hebben voor het geluidsniveau,
+maar des te meer voor het <A NAME="frequentiesper3414">frequentiespectrum</A>, willen we het
+volume opkrikken tot een formaat waar de ADC-ingang van de &#956;C
+wat aan heeft, waarbij clipping vermeden moet worden.<BR>
+Daarbij komen de LDR en D2 ons ter hulp.<P>N1 en N4 versterken het microfoonsignaal meer dan 500x. Dat
+volstaat om ook het geluid in een rustige omgeving voldoende te
+versterken.<BR>
+Zodra iemand het geluid van de audio-installatie open draait (of
+zelf luidkeels gaat zingen), is die versterking te hoog. Op dit
+ogenblik snellen N2 en N3 ter hulp.<P>Naarmate de topspanning op de uitgang van N4 stijgt, wordt C13
+verder opgeladen (en langzaam terug ontladen door R11). N3 en T1
+zorgen er voor, dat die spanning ook op de anode van D2 komt te
+staan<A NAME="pros1" HREF="#ft1"><SUP>1</SUP></A>.<BR>
+Met behulp van P1 kan nu ingesteld worden bij welk geluidsniveau
+D2 in geleiding moet gaan. En dan gebeurt het volgende...<P>De LDR, die in een lichtdichte behuizing zit, heeft een hoge
+weerstand zolang D2 gedoofd is - zijn invloed valt dan te
+verwaarlozen.<BR>
+Zodra D2 oplicht, neemt de weerstand van de LDR af, en zal hij
+met R7 een spanningsdeler vormen. De ingangsspanning van N4
+wordt bijgevolg afgeknepen, zodat ook zijn uitgangsspanning binnen
+de perken blijft.<P><BR CLEAR="ALL"><P>
+<H3>De microcontroller.</H3>
+<A NAME="ACMC"></A><P><IMG ALIGN="LEFT" SRC="AdCo-Microprocessor.png"
+ ALT="AdCo-Microprocessor.png">
+
+Het laatste stuk is voor de &#956;C.<BR>
+De meeste pinnen van deze rakker blijven onbenut. Het moge zonde
+zijn, maar het was in de eerste plaats omwille van zijn 2k RAM
+dat er voor een ATmega32 gekozen is.<P>Zoals het schema toont, stuurt de &#956;C vier kringen LED's, elk
+met een eigen kleur. In de praktijk bestaat elke kring uit 3
+parallelschakelingen van elk drie LED's die in serie staan, ieder
+met hun eigen weerstand op de LED-print.<BR>
+Ook op de stuurprint is mogelijkheid voorzien om (2) serieweerstanden
+aan te brengen. <P>Wat niet in het schema terug te vinden is, zijn 4 weerstanden en
+een connector om de &#956;C te kunnen programmeren.<P><A NAME="pros4"  HREF="AudioColorizer.c.html">Hier de broncode voor de ATmega32</A>
+<BR>
+Bij het debuggen kan wat UART-communicatie handig zijn. Er dient
+dan wel een externe MA232 gebruikt te worden.
+<A NAME="pros5"  HREF="UART.c.html">Hier de UART-broncode</A>
+<P>De FFT-routines zijn niet van mijn hand. Ik heb ze schaamteloos 
+<a href="http://elm-chan.org/works/akilcd/report_e.html">hier vandaan gehaald.</a><BR>
+Ik heb wel de default-ingestelde buffergrootte (FFT_N in fft.h) van 256
+naar 128 moeten terugbrengen teneinde wat snelheidswinst te
+boeken. Verder is er niets aan gewijzigd.<P>
+<BR CLEAR="ALL"><P>
+<H3>De print-layout</H3>
+<A NAME="ACPL"></A><P><IMG ALIGN="MIDDLE" SRC="AudioColorizer.front.png"
+ ALT="AudioColorizer.front.png">
+
+<BR CLEAR="ALL">
+De componentenzijde
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<IMG ALIGN="MIDDLE" SRC="AudioColorizer.frontassembly.png"
+ ALT="AudioColorizer.frontassembly.png">
+
+<BR CLEAR="ALL">
+De bijbehorende componentenopstelling.<BR>
+De <A NAME="LDR1677">LDR</A> wordt bovenop D2/D2' geplaatst, met de gevoelige
+zijde tegen de LED's aan.<BR>
+Even opletten met P1! Het gat van diens middenste pootje moet
+doogemetalliseerd worden. Ik heb het met een Bungard-busje
+gedaan, maar met enkele dunne draadjes &#8213;vezeltjes uit een
+soepele draad&#8213; die eerst bovenaan vastgesoldeerd worden moet
+het ook lukken.
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<IMG ALIGN="MIDDLE" SRC="AudioColorizer.back.png"
+ ALT="AudioColorizer.back.png">
+
+<BR CLEAR="ALL">
+De soldeerzijde, van bovenaf bekeken.
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<IMG ALIGN="MIDDLE" SRC="AudioColorizer.backassembly.png"
+ ALT="AudioColorizer.backassembly.png">
+
+<BR CLEAR="ALL">
+De componentenopstelling, van boven bekeken.
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<IMG ALIGN="MIDDLE" SRC="AudioColorizer.backassembly-bottomview.png"
+ ALT="AudioColorizer.backassembly-bottomview.png">
+
+<BR CLEAR="ALL">
+Idem, maar nu van onder bekeken.
+<BR CLEAR="ALL"><P>De layout is ook beschikbaar in pdf-formaat op de juiste
+grootte. Zowel boven- als onderzijde kunnen zondermeer afgedrukt
+worden op kalkpapier of transparante folie, waarna deze kan
+gebruikt worden om de print te belichten <I>met de bedrukte zijde tegen de print aangedrukt.</I><P><A NAME="pros6"  HREF="AudioColorizer.front.pdf">De bovenzijde</A>
+<BR>
+<A NAME="pros7"  HREF="AudioColorizer.back.pdf">De onderkant</A>
+<P>
+<H3>Het resultaat.</H3>
+<A NAME="ACR"></A><P><IMG ALIGN="MIDDLE" SRC="AudioColorizerPrintB.jpg"
+ ALT="AudioColorizerPrintB.jpg">
+
+<BR CLEAR="ALL">
+Het afgewerkte printje, van bovenaf gezien.
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<IMG ALIGN="MIDDLE" SRC="AudioColorizerPrintO.jpg"
+ ALT="AudioColorizerPrintO.jpg">
+
+<BR CLEAR="ALL">
+De onderkant.
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<BR CLEAR="ALL">
+<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/vS4vMA70Gvk?hl=en&fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/vS4vMA70Gvk?hl=en&fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
+<BR CLEAR="ALL">
+Een kort filmpje, om een idee te geven van het resultaat.
+<P><UL>
+</UL><P></P>
+<BR CLEAR="ALL"><HR><H4>Voetnoot</H4>
+<DL>
+<DT><A NAME="ft1">...staan</A>
+<A HREF="#pros1"><SUP>1</SUP></A></DT>
+<DD>
+in de praktijk zijn D2 en R13 dubbel uitgevoerd</DD>
+</DL>
+<P>
+<BR CLEAR="ALL"><HR>
+<B> Vorige:</B> <A HREF="Ludiek.html">Ludiek.</A> &nbsp;
+<B> Omhoog:</B> <A HREF="Ludiek.html">Ludiek.</A> &nbsp;
+<B> Volgende:</B> <A HREF="Loki.html">Loki.</A><BR>
+<A HREF="Projects.html"><B>Inhoudsopgave</B></A> &nbsp;
+<A HREF="IndexDoc.html"><B>Index</B></A>
+<BR><P><ADDRESS>
+Pros Robaer - 2012
+</ADDRESS>
+</BODY>
+</HTML>
