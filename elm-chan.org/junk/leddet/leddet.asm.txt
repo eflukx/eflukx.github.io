@@ -1,0 +1,47 @@
+;-----------------------------------------------------------;
+; LED optical detector
+;-----------------------------------------------------------;
+
+.include "tn11def.inc"
+.include "avr.inc"
+
+;----------------------------------------------------------;
+; Interturpt Vector
+
+.cseg
+	; Interrupt Vectors (ATtiny11)
+;	rjmp	reset		; Reset
+;	rjmp	isr_int0	; Extrenal INT0
+;	rjmp	isr_pci		; Pin Change
+;	rjmp	isr_t0_ovf	; TC0 overflow
+;	rjmp	isr_aci		; Analog comparator
+
+;----------------------------------------------------------;
+; Program Code
+
+reset:
+	sbi	PORTB, 2	;PB2="H" (Monitor)
+	sbi	DDRB, 2		;/
+
+	cbi	PORTB, 0	;LED OFF, Discharge Cs
+	rjmp	PC+1		;
+	rjmp	PC+1		;/
+	cbi	DDRB, 0		;PB0 as input (Photo Diode)
+
+	ldiw	Z, 2200/6	;Wait until voltage on PB0 reaches PB1 in time out of 2ms
+	sbic	ACSR, ACO	; Has PB0 reached PB1? (Light?)
+	rjmp	PC+5		; /break with LED OFF
+	subiw	Z, 1		; Timeout occured? (Dark?)
+	brne	PC-4		; 
+	sbi	PORTB, 0	; /break with LED ON
+
+	cbi	PORTB, 2	;PB2="L" (Monitor)
+
+	sbi	DDRB, 0		;PB0 as output (LED)
+
+	ldiw	Z, 11000/4	;Delay 10ms
+	subiw	Z, 1		;
+	brne	PC-2		;/
+
+	rjmp	reset
+	

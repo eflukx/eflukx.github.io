@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../">
+<link rel="up" title="Tech Notes" href="../cc_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="v53.html">
+<link rel="stylesheet" href="docs_e.css" type="text/css" media="screen" title="ELM Default">
+<title>NEC V53/V53A microcontroller</title>
+</head>
+
+<body>
+<h1>NEC V53/V53A microcontroller</h1>
+<p class="hdd"><br></p>
+<hr class="hds">
+
+<div class="abst">
+<p>V53 and V53A (V53 below) are one of the NEC V series micrcontrollers. These are microcontroller that integrated some peripherals with V33 cored. Its peripherals are equivalent to V50's peripherals, so that V53 is a microcontroller that replaced V50's core-processor from V30 to V33.</p>
+<p>And V33 core-processor has compatible instruction set as Intel 8086/80186 microprocessor.</p>
+<br>
+<table class="lst">
+<caption>V53 Features</caption>
+<tr><td>Core-Processor</td><td>V33 compatible</td></tr>
+<tr><td>Sereial I/F</td><td>1 channel (8251 compatible)</td></tr>
+<tr><td>Timer/Counter</td><td>3 channels (8254 compatible)</td></tr>
+<tr><td>DMA</td><td>4 channels (8237/8271 compatible)</td></tr>
+<tr><td>Intrerupt Controller</td><td>8 lines (8259 compatible)</td></tr>
+<tr><td>BUS I/F</td>
+<td>Address: 24bit (selectable address expantion capability like an EMS)<br>
+Data: 8/16bit (Dynamic bus sizing)<br>
+Address and Data bus are separated. Minimum two clocks/access.<br>
+Programmable wait controller (0-7 wait)<br>
+DRAM refresh controll.</td>
+</tr>
+<tr><td>Package</td><td>132pin PGA. 120pin QFP.</td></tr>
+<tr><td>Operating conditions</td><td>Operating Frequency: 2-20MHz<br>Power consumption: 900mW (@16MHz)</td></tr>
+</table>
+</div>
+
+
+<div class="para">
+<h3>Core-Processor V33</h3>
+<p>V33 is a super version of the V30 that separates address bus and data bus, executes all instrucitons with wired logic, not micro-codes. Therefore, V33 is two times faster than V30 at same clock frequency. V33 has the parformance equivalent to i80286.</p>
+</div>
+
+
+<div class="para">
+<h3>Difference between V53 and V53A</h3>
+<p>It is difference on the core-processor V33 and V33A. At the V33, some intrurupt vector number such as undefined instruction fault are differnt to intel i80X86. At the V33A, these number are re-defined same as intel i80X86 prcessors.</p>
+</div>
+
+
+<div class="para">
+<h3>Integrated peripherals</h3>
+<p>Integrated peripherals of the V53 are mapped on I/O area, each peripherals can be located any address.</p>
+<p>Each paripherals are independent of each other, therefore, requires extrenal wire when using them, especialy at the intrerupt controller.</p>
+</div>
+
+
+<div class="para">
+<h3>Dynamic Bus Sizing</h3>
+<p>V33 has a 16 bit based extrenal data bus, however, it can also changes bus width to fit connected devices. When external address decoder returens BS8 signal to V53, its BIU recoginize target device is 8 bit and accesses to target with only lower 8 bit data bus, this called Dynamic Bus Sizing. Therefore, there is not separate versions by bus size such as V20 and V30.</p>
+</div>
+
+
+<div class="para">
+<h3>Programmable wait controller</h3>
+<p>V53 has a programmable wait controler. It can set wait state for each area, I/O area, 6 blocks of memory area, refresh cycle, intrerupt acknowlidge cycle. Each areas can be programmed wait state from zero to seven, and also can be added from external.</p>
+<p>When add any wait state from external, READY signal is sampled at the end of cycle. Therefore, there is not waste of time at adding wait state such as V25/V35.</p>
+</div>
+
+
+<div class="para">
+<h3>Technical Data</h3>
+<p>When you require more informations, I recommend to refer to followings:</p>
+<ol>
+<li><cite>V53&trade;, V53A&trade; User's Manual, NEC</cite></li>
+<li><cite>&mu;PD70236, &mu;PD70236A Data Sheet, NEC</cite></li>
+</ol>
+<p>I tried to built a V53A board and edited report as actual use. Please refer to <a href="../works/cpu_v53/report.html">here</a>.</p>
+</div>
+
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

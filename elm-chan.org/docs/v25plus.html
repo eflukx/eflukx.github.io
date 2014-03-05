@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../index_j.html">
+<link rel="up" title="Tech Notes" href="../cc.html">
+<link rel="stylesheet" href="docs.css" type="text/css" media="screen" title="ELM Default">
+<title>NEC V25+/V35+について</title>
+</head>
+
+<body>
+<h1>NEC V25+/V35+について</h1>
+<p class="hdd"><br></p>
+<hr class="hds">
+
+<div class="abst">
+<p>NECの1チップマイコン <a href="v25v35.html">V25/V35</a>で問題となっていた点をいくつか修正したのが V25+/V35+です(なんか安直なネーミングだなぁ(^_^;)。ここでは、V25/V35との違いを中心に説明しましょう。</p>
+</div>
+
+
+<div class="para">
+<h3>改善された点</h3>
+
+<h4>DMA転送速度の向上</h4>
+<p>これはV25+/V35+の能書きに唯一ある改善点です。V25/V35では、DMA転送をマイクロコードで処理していました。このため、数百kB/sec程度とかなり低い性能でしたが、これをワイヤードロジックに置き換えたことにより2～4MB/sec程度のスピードが出るようになりました。</p>
+
+<h4>高速化</h4>
+<p>動作クロック周波数は8MHz版まででしたが、これに10MHz版が加わりました。</p>
+
+<h4>シリアルI/Fの使い勝手向上</h4>
+<p>V25/V35では、内蔵のシリアルI/Fに送受信ステータスビットが無いというタコな設計でした。つまり、プログラムからは、受信バッファにデータがあるのか、また送信バッファには書き込めるのかといったことが分からなかったわけです(送受信とも割り込みでしか処理できない)。これは、F/W書き換え時など割り込みが使えない場合に困りました。V25+/V35+ではそれらのステータスビットが追加になっています。</p>
+</div>
+
+
+<div class="para">
+<h3>改善されなかった点</h3>
+<p>これらは、V25+/V35+になっても変わっていませんが、使い勝手が悪いので個人的に改善してほしかった問題です。</p>
+
+<h4>外部割込み端子の使い勝手が悪い</h4>
+<p>CPUに直結できる割込み信号は3本だけです。割り込み要因が多い場合はORをとって接続したくなりますが、割り込み入力の極性やエッジ／レベルの指定ができません(立ち下がりエッジのみ)。これでは割り込みの共有が困難です。レベルでないとマズい場合には、外付けの割り込みコントローラ(i8259など)を使用する必要があり、1チップの意味が無くなります。</p>
+
+<h4>ウェイトステート追加挿入のタイミングが悪い</h4>
+<p>外部バスアクセスに対してウェイトを追加するには、ストローブ信号のアサートからデコーダの遅れも含めて数10ns以内に READY信号をネゲートしなければなりません。タイミング的に厳しい場合は、ウェイト生成回路を Normal Not Readyで設計する必要があります。また、データが確定して READY信号をアサートしても2.5クロック期間程空走するので、バスの利用効率が悪い。READY信号のサンプルを1クロック遅らせてくれれば楽になるのですが....。</p>
+</div>
+
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

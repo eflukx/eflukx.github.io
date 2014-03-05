@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../">
+<link rel="up" title="Tech Notes" href="../cc_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="avr.html">
+<link rel="stylesheet" href="docs_e.css" type="text/css" media="screen" title="ELM Default">
+<style type="text/css" media="screen" title="ELM Default">
+.obs{color:gray;}
+</style>
+<title>ELM - About Atmel AVR</title>
+</head>
+
+<body>
+<h1>Atmel AVR 8bit RISC microcontrollers</h1>
+<p class="hdd"><br>Update: March 6, 2005</p>
+<hr class="hds">
+
+<div class="abst">
+<img class="rset" src="../works/avrx/avrs.jpeg" alt="" width="374" height="329">
+<p>The AVR is one of the Atmel's 8bit RISC architecture which is incorporated in microcontroller and FPGA core. It is same concept as Microchip's PIC. The first release of the AVR microcontroller is in 1996. Well following section shows the key features of the AVR.</p>
+</div>
+
+<div class="para">
+<h3>Features</h3>
+<div class="indent">
+<h4>Easy to use</h4>
+<p>It is the greatest feature that very easy to use. So very easy to start. I understood the PIC completely in several hours, but the AVR was only 3.5 seconds to undrestand :-). Therefore I think this is suited to learn on the microcontroller for beginners. The AVR assembler is free distributed in the Atmel home page, and also no necessity to prepare a device programmer before start to use. In the ISP mode, AVR can be programmed on the target board with some bits of TTL level I/O lines, so that build an ISP cable will suffice for start the AVR. (<a href="../works/avrx/report_e.html">Related Page</a>). Prices of the AVR are also more inexpensive than same class of the PIC.</p>
+
+<h4>8 bit RISC architecture</h4>
+<p>All instructions are 16 bits par word, and most of operations are executed in one input clock cycle. Atmel says AVR has 118 instructions. But some instructions (in assembler) are duplicated to same codes, so that actual number of the instructions is 79.</p>
+
+<h4>32 general purpose registers</h4>
+<p>AVR has 32 general purpose registers!! The general purpose registers suffice to execute simple operations within only them, so that no SRAM devices are also available. And large operations are also executed quickly by optimizing register variables.</p>
+
+<h4>Load/Store architecture</h4>
+<p>This is one of the general features on the RISC processors. All alithmethic and logical operations are executed on the general purpose registers. AVR has up to 64KB of linear data memory space, and can direct or indirect addressing with Laod/Store instructions. At the indirect addressing, a part of the general purpose reginsters are used as indirect addressing pointers. They can also use with many addressing modes with displacement, post-increment or pre-decrement. The general purpose registers and I/O registers are accessed with mov/in/out instructions and they are mapped in below of the data memory space, so that they can also be accessed with Load/Store instructions.</p>
+
+<h4>Programable Flash Memory</h4>
+<p>All AVR devices have a re-programable Program Flash Memory. It is useful to a small quantity of products, a many variety of products and hobby use. And most AVRs have an integrated Data EEPROM. The AVR has two different programming method of the Parallel Programming Mode and the Serial Downloading Mode. The parallel mode programs the devies quickly on the device programmer. The serial mode does not require any device programmer and can programm the device on the target board via a few wires. This is called "In-System Programming (ISP)".</p>
+
+</div>
+</div>
+
+
+<div class="para">
+<h3>AVR Devices</h3>
+<table class="lst">
+<tr><th>Device</th><th>Package</th><th>ROM<br><small>[word]</small></th><th>RAM<br><small>[byte]</small></th><th>EEP<br><small>[byte]</small></th><th>PIO</th><th>T/C</th><th>PWM</th><th>SIO</th><th>ADC<br><small>10bit</small></th><th>Comp</th><th>Note</th></tr>
+<tr><td><span class="obs">90S1200</span></td><td>DIP20,SOP20,SSOP20</td><td>512</td><td>-</td><td>64</td><td>15</td><td>1</td><td>-</td><td>-</td><td>-</td><td>1</td><td>Int.Osc</td></tr>
+<tr><td><span class="obs">90S2313</span></td><td>DIP20,SOP20</td><td>1K</td><td>128</td><td>128</td><td>15</td><td>2</td><td>1</td><td>UART</td><td>-</td><td>1</td><td>-</td></tr>
+<tr><td>tiny2313</td><td>DIP20,SSOP20,MLF32</td><td>1K</td><td>128</td><td>128</td><td>18</td><td>2</td><td>4</td><td>USART,USI,SPI</td><td>-</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td>tiny26</td><td>DIP20,SOP20,SSOP20,MLF32</td><td>1K</td><td>128</td><td>128</td><td>16</td><td>2</td><td>2</td><td>USI</td><td>11</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td>tiny261/461/861</td><td>DIP20,SOP20,MLF32</td><td>1K/2K/4K</td><td>128/256/512</td><td>128/256/512</td><td>16</td><td>2</td><td>5</td><td>USI</td><td>11</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td><span class="obs">90S2333/4433</span></td><td>DIP28,TQFP32</td><td>1K/2K</td><td>128</td><td>128/256</td><td>20</td><td>2</td><td>1</td><td>UART,SPI</td><td>6</td><td>1</td><td>BOD</td></tr>
+<tr><td>mega8</td><td>DIP28,TQFP32,MLF32</td><td>4K</td><td>1K</td><td>512</td><td>23</td><td>3</td><td>3</td><td>USART,IIC,SPI</td><td>6</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td>mega48/88/168</td><td>DIP28,TQFP32,MLF32</td><td>2k/4K/8K</td><td>512/1K/1K</td><td>256/512/512</td><td>23</td><td>3</td><td>6</td><td>USART,IIC,SPI</td><td>6</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td>tiny28</td><td>DIP28,TQFP32,MLF32</td><td>1K</td><td>-</td><td>-</td><td>20</td><td>1</td><td>-</td><td>-</td><td>-</td><td>1</td><td>Int.Osc</td></tr>
+<tr><td><span class="obs">90S2323</span></td><td>DIP8,SOP8</td><td>1K</td><td>128</td><td>128</td><td>3</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td><span class="obs">90S2343</span></td><td>DIP8,SOP8</td><td>1K</td><td>128</td><td>128</td><td>5</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>Int.Osc</td></tr>
+<tr><td>tiny<span class="obs">10</span>/11</td><td>DIP8,SOP8</td><td>512</td><td>-</td><td>-</td><td>6</td><td>1</td><td>-</td><td>-</td><td>-</td><td>1</td><td>-</td></tr>
+<tr><td>tiny12</td><td>DIP8,SOP8</td><td>512</td><td>-</td><td>64</td><td>6</td><td>1</td><td>-</td><td>-</td><td>-</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td><span class="obs">tiny22</span></td><td>DIP8,SOP8</td><td>1K</td><td>128</td><td>128</td><td>5</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>tiny13</td><td>DIP8,SOP8</td><td>512</td><td>64</td><td>64</td><td>6</td><td>1</td><td>1</td><td>-</td><td>4</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td>tiny25/45/85</td><td>DIP8,SOP8</td><td>1K/2K/4K</td><td>128/256/512</td><td>128/256/512</td><td>6</td><td>2</td><td>3</td><td>USI</td><td>4</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td>tiny24/44/84</td><td>DIP14,SOP14,MLF20</td><td>1K/2K/4K</td><td>128/256/512</td><td>128/256/512</td><td>12</td><td>2</td><td>4</td><td>USI</td><td>8</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td>tiny15</td><td>DIP8,SOP8</td><td>512</td><td>-</td><td>64</td><td>6</td><td>2</td><td>1</td><td>-</td><td>4</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td><span class="obs">90S4414/8515</span></td><td>DIP40,TQFP44,PLCC44</td><td>2K/4K</td><td>256/512</td><td>256/512</td><td>32</td><td>2</td><td>2</td><td>UART,SPI</td><td>-</td><td>1</td><td>8051pin-out,Ext.Mem</td></tr>
+<tr><td>mega8515</td><td>DIP40,TQFP44,MLF44</td><td>4K</td><td>512</td><td>512</td><td>35</td><td>3</td><td>3</td><td>USART,SPI</td><td>-</td><td>1</td><td>BOD,Int.Osc,8051pin-out,Ext.Mem</td></tr>
+<tr><td><span class="obs">mega161</span></td><td>DIP40,TQFP44,PLCC44</td><td>8K</td><td>1K</td><td>512</td><td>35</td><td>3</td><td>3</td><td>2UART,SPI</td><td>-</td><td>1</td><td>BOD,Int.Osc,8051pin-out,Ext.Mem</td></tr>
+<tr><td>mega162</td><td>DIP40,TQFP44,MLF44</td><td>8K</td><td>1K</td><td>512</td><td>35</td><td>4</td><td>6</td><td>2USART,SPI</td><td>-</td><td>1</td><td>BOD,Int.Osc,8051pin-out,Ext.Mem,JTAG</td></tr>
+<tr><td><span class="obs">90C8534</span></td><td>TQFP48</td><td>4K</td><td>256</td><td>512</td><td>7</td><td>2</td><td>-</td><td>-</td><td>6</td><td>-</td><td>-</td></tr>
+<tr><td><span class="obs">90S4434/8535</span></td><td>DIP40,TQFP44,PLCC44,MLF44</td><td>2K/4K</td><td>256/512</td><td>256/512</td><td>32</td><td>3</td><td>2</td><td>UART,SPI</td><td>8</td><td>1</td><td>RTC</td></tr>
+<tr><td>mega8535</td><td>DIP40,TQFP44,PLCC44,MLF44</td><td>4K</td><td>512</td><td>512</td><td>32</td><td>3</td><td>3</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td><span class="obs">mega163</span></td><td>DIP40,TQFP44</td><td>8K</td><td>1K</td><td>512</td><td>32</td><td>3</td><td>3</td><td>UART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td><span class="obs">mega323</span></td><td>DIP40,TQFP44</td><td>16K</td><td>2K</td><td>1K</td><td>32</td><td>3</td><td>3</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc,JTAG</td></tr>
+<tr><td>mega16/32</td><td>DIP40,TQFP44,MLF44</td><td>8K/16K</td><td>1K/2K</td><td>512/1K</td><td>32</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc,JTAG</td></tr>
+<tr><td><span class="obs">mega603/103</span></td><td>TQFP64</td><td>32K/64K</td><td>4K</td><td>2K/4K</td><td>48</td><td>3</td><td>4</td><td>UART,SPI</td><td>8</td><td>1</td><td>RTC,Ext.Mem</td></tr>
+<tr><td>mega64/128</td><td>TQFP64,MLF64</td><td>32K/64K</td><td>4K</td><td>2K/4K</td><td>53</td><td>4</td><td>8</td><td>2USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc,Ext.Mem,JTAG</td></tr>
+<tr><td>mega169</td><td>TQFP64,MLF64</td><td>8K</td><td>1K</td><td>512</td><td>54</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>LCD,BOD,RTC,Int.Osc,JTAG</td></tr>
+<tr><td>mega165/325/645</td><td>TQFP64,MLF64</td><td>8K/16K/32K</td><td>1K/2K/4K</td><td>512/1K/2K</td><td>53</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td>mega169/329/649</td><td>TQFP64,MLF64</td><td>8K/16K/32K</td><td>1K/2K/4K</td><td>512/1K/2K</td><td>53</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>LCD,BOD,RTC,Int.Osc,JTAG</td></tr>
+<tr><td>mega3250/6450</td><td>TQFP100</td><td>16K/32K</td><td>2K/4K</td><td>1K/2K</td><td>69</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td>mega3290/6490</td><td>TQFP100</td><td>16K/32K</td><td>2K/4K</td><td>1K/2K</td><td>69</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>LCD,BOD,RTC,Int.Osc</td></tr>
+</table>
+<div>Devices indicated <span class="obs">like this</span> are obsoleted devices.</div>
+<br>
+<table class="lst">
+<caption>Classified Table in Pin Funciton</caption>
+<tr>
+<th>8pin</th><th>14pin</th><th>20pin<br>(1200)</th><th>20pin<br>(26)</th><th>28pin</th><th>40pin<br>(8515)</th><th>40pin<br>(8535)</th><th>64pin</th><th>100pin</th>
+</tr>
+<tr>
+<td><span class="obs">90S2323<br>90S2343<br>tiny11<br>tiny12<br>tiny22<br>tiny15</span><br>tiny13<br>tiny25<br>tiny45<br>tiny85</td>
+<td>tiny24<br>tiny44<br>tiny84</td>
+<td><span class="obs">90S1200<br>90S2313<br></span>tiny2313<br>tiny4313</td>
+<td>tiny26<br>tiny261<br>tiny461<br>tiny861</td>
+<td><span class="obs">90S2333<br>90S4433<br></span>mega8<br>mega48<br>mega88<br>mega168<br>mega328<br>tiny28</td>
+<td><span class="obs">90S4414<br>90S8515<br>mega161<br></span>mega8515<br>mega162</td>
+<td><span class="obs">90S4434<br>90S8535<br>mega163<br>mega323</span><br>mega8535<br>mega16<br>mega32<br>mega644<br>mega164P<br>mega324P<br>mega644P<br>mega1284</td>
+<td><span class="obs">mega603<br>mega103<br>mega165<br>mega169</span><br>mega64<br>mega128<br>mega1281<br>mega2561<br>mega325<br>mega645<br>mega329<br>mega649</td>
+<td>mega640<br>mega1280<br>mega2560<br>mega3250<br>mega6450<br>mega3290<br>mega6490</td>
+</tr>
+</table>
+</div>
+
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

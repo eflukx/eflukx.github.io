@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../index_j.html">
+<link rel="up" title="Tech Notes" href="../cc.html">
+<link rel="stylesheet" href="docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - 赤外線リモコンの通信フォーマット概要</title>
+</head>
+
+<body>
+<h1>赤外線リモコンの通信フォーマット概要</h1>
+<p class="hdd"><br>2008. 9. 1</p>
+<hr class="hds">
+
+<div class="abst">
+<p>赤外線リモコンの通信データフォーマットには主に、<em>NEC/家製協/SONY</em>フォーマットがあり、これら3種類で日本国内の殆どの家電をカバーします。</p>
+</div>
+
+
+<div class="para">
+<h3>NECフォーマット</h3>
+<p>最初に規格化されたフォーマットで、リモコンICを広く外販してきたこともあり、現在最も多くのシェアを占めています。</p>
+<ul>
+<li>キャリア: 赤外線(λp = 940nm)</li>
+<li>サブキャリア: fsc = 38kHz, 1/3duty</li>
+<li>T = 562μs</li>
+<li>固定長フレーム (32bit)</li>
+<li>16bitのカスタマーコード</li>
+<li>8bitのデータ + 8bitの反転データ</li>
+</ul>
+<div><img src="ir_nec.png" width="800" height="400" alt="NEC format"></div>
+<ul>
+<li>Customer Code: 初期の仕様では、Data部同様に、8bit Code + 8bit反転Codeだった。後に仕様が拡張され、16bit Codeになっている。拡張仕様では、初期仕様と衝突しない値が割り当てられている。</li>
+<li>Data: Data ^ ~Data でエラーを検出する。</li>
+<li>Repeat: Data Frameの後、ボタンを押している間108ms周期で送信される。これの目的は電力消費の削減および連打を識別しやすくするのと受信不安定時のダブリングの防止。Data Frameを連続して送るリモコンもある。</li>
+</ul>
+</div>
+
+
+<div class="para">
+<h3>家製協(AEHA)フォーマット</h3>
+<p>(財)家電製品協会により制定されたフォーマット。NECフォーマットに次いでよく使われています。</p>
+<ul>
+<li>キャリア: 赤外線(λp = 940nm)</li>
+<li>サブキャリア: fsc = 33～40kHz (38kHz typ.), 1/3duty</li>
+<li>T = 350～500μs (425μs typ.)</li>
+<li>16bitのカスタマーコード + 4bitのパリティ</li>
+<li>可変長フレーム (48bit typ.)、トレーラーで終端</li>
+</ul>
+<div><img src="ir_aeha.png" width="800" height="400" alt="AEHA format"></div>
+<ul>
+<li>Parity: Customer Codeを4ビット単位でXORをとったもの。</li>
+<li>Data: 可変長。エラー制御は実装依存で、通常は最終バイトがチェック・サム(XOR値、補数、CRCなど)になる。</li>
+<li>Repeat: これを出さず、代わりにFrameを送るリモコンが多い。送信間隔は規定されていない(通常130ms前後)。</li>
+</ul>
+</div>
+
+
+
+<div class="para">
+<h3>SONYフォーマット</h3>
+<p>SONY製品でのみ使われています。</p>
+<ul>
+<li>キャリア: 赤外線(λp = 940nm)</li>
+<li>サブキャリア: fsc = 40kHz, 1/3duty</li>
+<li>T = 600μs</li>
+<li>7bitのデータ</li>
+<li>5/8/13bitのアドレス</li>
+</ul>
+<div><img src="ir_sony.png" width="800" height="340" alt="SONY format"></div>
+</div>
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

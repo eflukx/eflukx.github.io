@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Microcontrollers" href="../../he_c.html">
+<link rel="stylesheet" href="../works.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - V53Aボードマイコン</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>お手軽 V53Aボードマイコン</h1>
+<p class="hdd"><br>1998. 11. 15</p>
+<hr class="hds">
+</div>
+
+
+<div class="abst">
+<img src="v53_cpu.jpeg" alt="V53A" class="rset" width="207" height="201">
+<p><a href="../../docs/v53.html">V53A</a>を使ってボードマイコンを自作ってみました。V53Aは機能的には V50とほぼ同等となっていて、それのコアプロセッサを V30から V33Aに置き換えたようなものです。秋葉の店頭では 1個数千円で売られていましたので、ちょっとスピードを稼ぎたいとき(V50比で5倍程)などには重宝する石だと思います。</p>
+</div>
+
+<div class="para">
+<h3>ハードウェアの仕様</h3>
+<img src="v53_map.png" alt="Memory &amp; I/O map" class="rset" width="250" height="280">
+<p>今回は V53Aを使ってみるのが目的ですので、とりあえずモニタが動作するには ROMと RAMを付けるだけで OKです。また、これまでのシリーズの流れとして共通の拡張バスを付けて、別に紹介している<a href="../disp_crt/report.html">汎用CRT I/F</a>や<a href="../sdisp/report.html">ビデオタイトラー</a>などに直結して制御できるようにしました。</p>
+<p>メモリ・I/Oマップは右の IMGのようになっています。V53Aの拡張アドレス機能は使用せず 1MBメモリ空間のみを使用します。ROM空間は 64KBをデコードしていますが、ROM が32KBなので、半分はイメージになります。また、I/O空間は下位8bit分のみ使用し、前半に内蔵ペリフェラルを、後半を拡張バスに割り当てます。FF00～FFFFまでは内蔵のシステム制御レジスタです。</p>
+<p>これらの仕様により、<a href="v53_circuit_diagram.png">V53Aボードの回路図</a>ができました。RAMエリアのバス幅は 16bit、それ以外は 8bitとしました。</p>
+<img src="v53_pcb.jpeg" class="lset" alt="基板" width="258" height="220">
+<p>左の IMGが製作した V53Aボードです。1チップマイコンなので、配線はそれ程多くはありません。ただ、アドレスデコーダには PLDを使用しましたので、同じ物を作る場合は PLDを書き込める環境が必要です。<br></p>
+</div>
+
+<div class="para">
+<h3>F/Wの仕様</h3>
+<p>V53Aは、他の組み込み用マイコンとは少し違い、ある程度の汎用性を持たせるためか、割り込みが内部接続されていません。したがって、外部で割り込み要因を接続する必要があります。このため、チップ汎用のモニタプログラムは作れません。モニタプログラムもその接続に合わせる必要があるからです。端末の仕様は、N81 38400bpsで、パソコンのシリアルポートへ直結できます。</p>
+<table class="lst">
+<caption>モニタ表示の例</caption>
+<tr><td>
+<pre>
+  V53A monitor program R0.1
+
+  &gt;?
+  [Command List]
+  ?                       - Command list
+  D [&lt;s.adr&gt;] [&lt;e.adr&gt;]   - Dump memory
+  E &lt;adr&gt; [&lt;dat&gt;]         - Edit memory
+  F &lt;s.adr&gt; &lt;e.adr&gt; &lt;dat&gt; - Fill memory
+  I &lt;adr&gt;                 - Input port
+  IR &lt;adr&gt;                - Input port repeat
+  O &lt;adr&gt; &lt;dat&gt;           - Output port
+
+  &gt;d 80000
+  80000   25 00 04 02 A1 03 85 02 00 88 04 02 00 00 00 00             
+  80010   94 80 00 C0 20 20 40 04 00 00 10 01 01 20 60 04
+  80020   06 04 04 00 06 80 28 00 01 02 18 00 01 08 68 00
+  80030   04 66 84 00 00 00 64 21 00 00 00 04 38 20 44 00
+  80040   20 00 02 00 22 00 A4 00 22 24 02 04 00 04 00 00
+  80050   0D 00 00 00 44 00 02 00 08 02 04 00 00 00 00 00
+  80060   21 22 00 00 31 00 01 40 89 10 00 40 00 00 84 22
+  80070   82 A3 84 00 04 11 00 00 40 04 01 04 41 44 9B 01
+  &gt;
+</pre>
+</td></tr>
+</table>
+</div>
+
+<div class="para">
+<h3>資料</h3>
+<p><a href="v53_circuit_diagram.png">回路図</a>｜<a href="v53.gal.txt">PLDソース</a>｜<a href="v53_pinout.png">V53A(PGA)ピン接続</a>｜<a href="v53_mon.zip">モニタプログラム</a></p>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

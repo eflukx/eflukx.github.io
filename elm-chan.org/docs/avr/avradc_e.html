@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="Tech Notes" href="../../cc_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="avradc_j.html">
+<link rel="stylesheet" href="../docs_e.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - Low cost A-D converter</title>
+</head>
+
+<body>
+<h1>Atmel AVR 8bit RISC microcontrollers</h1>
+<p class="hdd"><br>February 9, 2002</p>
+<hr class="hds">
+
+<div class="abst">
+<img src="adc.png" alt="" class="rset" width="280" height="250">
+<p>Some devices in AVR family does not have A-D converter, and all AVR devices have an analog comparator which can be used for A-D converter. Some application notes also document on its implementation. This note introduce a very low cost and high linearity A-D converter with only an external capacitor.</p>
+<p>Right image shows the circuit diagram for the A-D converter. It's true! Please read following description... :-)</p>
+</div>
+
+
+<div class="para">
+<img src="pullup.png" alt="" class="rset" width="255" height="174">
+<p>To process the A-D convertion, start to charge the reference capacitor by any current source and start timer at same time, wait until the capacitor voltage reaches input voltage, then stop timer and its value is the result. This is the basic theory of the A-D conversion which is same as any other method using the analog compearator. All interrupt must be disabled during A-D conversion.</p>
+<p>In this method, the reference capacitor is charged by internal pull-up resister so that external resister could be ommited. Fortunately, the pull-up current have constant current area at input voltage below 2.0 volts. Therefore, using the constant current area can eliminate linearity error.</p>
+<p>However, the pull-up current is affected by ambient temperature. It will appear as gain error. The measurement error near room temperature (10 to 40 degree C) will become within ±5 percent. If you require temperature stability, I recommend to use extrenal current source, such as CRD (E-101, Semitec). In this case, it can be used at input voltage range of 0 to 4.0 volts with good temperature stability.</p>
+</div>
+
+<div class="rset">
+<img src="adc1.png" alt="" width="368" height="270"><br>
+<img src="adc2.png" alt="" width="390" height="190"><br>
+</div>
+<pre class="lst">
+;----------------------------------------;
+; A-D conversion routine
+
+adc:    ldi     ZL, 0     ;Clear counter
+        ldi     ZH, 0     ;/
+        cbi     DDRB, 0   ;Start to charge
+        sbi     PORTB, 0  ;/
+        adiw    ZL, 1     ;Wait for Vc reaches Vi
+        sbis    ACSR, ACO ;
+        rjmp    PC-2      ;/
+        cbi     PORTB, 0  ;Discharge capacitor
+        sbi     DDRB, 0   ;/
+        ret               ;Z = result
+
+</pre>
+
+<p class="foot"><img src="../../p/sign.png" alt=""></p>
+</body>
+</html>

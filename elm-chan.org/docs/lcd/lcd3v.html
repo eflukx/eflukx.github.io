@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="Tech Notes" href="../../cc_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="avr.html">
+<link rel="stylesheet" href="../docs_e.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - Using an LCD module at 3 volts</title>
+</head>
+
+<body>
+<h1>Using an LCD module at 3 volts</h1>
+<p class="hdd">Jun. 1, 2000</p>
+<hr class="hds">
+
+<div class="abst">
+<img src="lcdpa.jpeg" alt="" class="rset" width="400" height="176">
+<p>The <a href="hd44780_e.html">Character LCD Module</a> is suitable as a display device which is attached to the small micro-controller system. It is often used for electronic handicrafts because it is easy to use and comparatively cheap from about $10.</p>
+<p>When compare the LCD module with seven segments LED display, the LCD module can display various characters more than LED display. The power consumption of most LCD modules is less than 1 mA, so that it is also suitable for battery powered equipments.</p>
+<p>But there is a problem that they cannot be used at low supply voltage, such as 3 volts and 3.3 volts, because those most is designed for 5V system. However, they can be used at low supply voltage with some considerations.</p>
+</div>
+
+<div class="para">
+<h3>The LCD bias circuit</h3>
+<img src="lcdc1.png" class="rset" width="450" height="350" alt="Fig.1">
+<p>Most character LCD modules are using HD44780 (Hitachi) LCD controller and there are many HD44780 compatible chips. This document assumes that HD44780 or compatibles is being used for the LCD module.</p>
+<p>The bias voltage between Vdd and Vop is divided by a resister network on the module as shown in Figure 1. The voltages are given to the LCD controller and expansion drivers as drive voltage levels. The bias voltage Vdd-Vop of around 4.0 to 4.5 volts is required and it also depends on the temperature, number of rows and LCD type, TN or STN. The supply voltage is divided with a trimer resister, and given to Vop as a bias supply.</p>
+<p>When lower the supply voltage, the display becomes light and disappeared at about 3.5 volts even if tied Vop to Vss. This means the supply voltage of 3 volts is insufficient to drive LCD panel.</p>
+</div>
+
+<div class="para">
+<h3>Negative supply voltage</h3>
+<img src="lcdc2.png" class="rset" width="503" height="260" alt="Fig.2">
+<p>The bias voltage applyed to Vop becomes lower than Vss when the supply voltage Vdd is 3 volt because the bias voltage of 4 volts is needed at between Vdd and Vop. Also the HD44780U allows negative bais voltage.</p>
+<p>The circuit diagram for 3 volts sysytem supply is shown in the Figure 2. It requires a charge pump circuit to generate a negative supply voltage. The contrast can be adjusted by the value of series resister or switching frequency. When a pulse output from a microcontroller is used instead, the contrast can be controlled in software.</p>
+<p>When the supply voltage is lowered, the oscillation frequency of the built-in clock oscillator falls down. The Rosc should be changed to proper value for that supply voltage when the extension of command execution time cannot be accepted. The Rosc is the resister of 91k ohms on the LCD module (it may be different value).</p>
+<p>When the supply voltage is changed, the interface timing is specified by different spec that for 2.7 to 5.5 volts supply voltage, so that it may be taken into consideration in the fast microcontrollers. For the details, refer to datasheet of the LCD controller chip on the module.</p>
+</div>
+
+<p class="foot"><img src="../../p/sign.png" alt=""></p>
+</body>
+</html>

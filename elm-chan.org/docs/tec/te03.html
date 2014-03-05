@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="prev" title="ノイズ対策" href="te02.html">
+<link rel="next" title="ロータリーエンコーダの使い方" href="te04.html">
+<link rel="stylesheet" href="../docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - 接点入力と処理のコツ - スイッチ入力の扱いかた</title>
+</head>
+
+<body>
+<h1>接点入力とコマンド処理のコツ</h1>
+<p class="hdd"><br>2002. 1. 30</p>
+<hr class="hds">
+
+<div class="abst">
+<p>例えば、パソコンのアプリケーションでキー入力を処理するとき、キーボードインターフェースのハードウェアを意識することは無いですよね。キー入力はキーボードドライバがバックグランドで処理しているからです。それと同様に、１チップマイコンにおいてもキー入力処理とコマンド実行を切り離してコーディングするとプログラムの見通しが良くなります。</p>
+<p>具体的には、キー入力処理はタイマー割り込みなどのバックグランド・タスクに処理させ、メインルーチンはその結果を受け取って実行するといった感じです。これによりメインルーチンはチャタリングやノイズがどうのこうのといったことから開放され、本来の作業に専念できるようになります。また、コマンドキューイングなどの処理も容易にインプリメントできるでしょう (ボタン入力にキューイングは要らないと思うが)。</p>
+</div>
+
+
+<div class="para">
+<h3>ボタン入力周りのコーディング例</h3>
+<img class="rset" src="te0b.png" alt="" width="204" height="185">
+<p>スイッチが右の図のように接続されている場合の例です。</p>
+
+<pre class="lst">
+/* ボタン入力処理変数 */
+
+volatile struct {
+    u_char CMD;    /* OFF→ON遷移のあったビットが立っている */
+    u_char STAT;   /* ボタン状態：ONに対応するビットが立っている */
+    u_char FIL;    /* ノイズフィルタ */
+} BTN;
+
+
+/* バックグランド処理：タイマ割り込みプロセスから定期的に実行 */
+
+void sample_btn()
+{
+    u_char a, b;
+
+    a = ~PA.PIN.BYTE &amp; 0x1f;  /* スイッチ読み込み(反転+有効ビットマスク) */
+
+    if (a == BTN.FIL) {       /* ノイズ・フィルタ */
+        b = BTN.STAT;         /* 前回値取り出し */
+        BTN.STAT = a;         /* 今回値格納 */
+        b = (b ^ a) &amp; a;      /* ボタン押下エッジ抽出 */
+        if (b) BTN.CMD = b;   /* ※必要に応じて、コード化、キューイング等 */
+    }
+    BTN.FIL = a;
+}
+
+
+/* フォアグランド処理 */
+
+void main()
+{
+    u_char a;
+
+    ------ 中略 ------
+
+    for(;;) {
+        sleep();                          /* 寝て待つ */
+        if(BTN.CMD == 0) continue;        /* コマンドが無いときはまた寝る */
+
+        a = BTN.CMD | (BTN.STAT &amp; 0x10);  /* 押されたボタン＋Shift状態 */
+
+        switch (a) {                      /* 対応するコマンドを実行 */
+            case 0x01:
+                func_A(); break;
+            case 0x02:
+                func_B(); break;
+
+                ------ 中略 ------
+
+            case 0x14:
+                func_shift_C(); break;
+            case 0x18:
+                func_shift_D(); break;
+        }
+        BTN.CMD = 0;
+    }
+
+    ------ 中略 ------
+
+}
+</pre>
+</div>
+
+<p class="foot"><a href="te02.html">戻る</a> | <a href="te04.html">次</a></p>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../index_j.html">
+<link rel="up" title="Tech Notes" href="../cc.html">
+<link rel="stylesheet" href="docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - TMP47P242</title>
+</head>
+
+<body>
+<h1>TMP47P242VNについて</h1>
+<p class="hdd"><br></p>
+<hr class="hds">
+
+<div class="abst">
+<img src="tmp47p242_1.jpeg" alt="TMP47P242VN" class="rset" width="213" height="160">
+<p>わたしの制作レポートによく出てくる TMP47P242VNというのは、東芝の4ビットマイクロコントローラー<em>TLCS-47シリーズ</em>の一つです。仕事でこれをよく使うので、試作で使用したのを捨てずにとっておいて再生利用しています。このICは一般には入手が困難ですが、レポートの内容程度ならだれでも入手可能なMicrochipのPICで容易に置き換えることができるでしょう。主なスペックは次の通り。</p>
+<br>
+<table class="lst">
+<caption>TMP47P242VNの特徴</caption>
+<tr><td>パッケージ</td><td>30pin SDIP-400</td></tr>
+<tr><td>命令実行速度</td><td>2μs～4μs(4MHz動作時)</td></tr>
+<tr><td>レジスタ</td><td>4bit accumlator<br>4bitx2 register-pair<br>12bit data pointer</td></tr>
+<tr><td>メモリ</td><td>OTP-ROM: 2KB<br>RAM: 128nibble</td></tr>
+<tr><td>スタック</td><td>12レベル</td></tr>
+<tr><td>PIO</td><td>入力：5bit<br>出力：8bit<br>入出力：10bit (他の機能と共用)</td></tr>
+<tr><td>タイマ・カウンタ</td> <td>3系統</td></tr>
+<tr><td>ADC</td><td>8bit、4チャネル S/H内蔵</td></tr>
+<tr><td>割り込み</td><td>6レベル(内部4、外部2)</td></tr>
+<tr><td>電源</td><td>Vdd=2.7～6V<br>Idd=2mA(@5V/4.2MHz)<br>Idd=500nA(@Hold State)</td></tr>
+</table>
+<br>
+<p>で、OTP-ROMに書き込んでしまったあとの再生利用ですが、これはNOP命令が00hであるのを利用してOTP-ROMの先頭から00hでつぶして後ろの空きに新たなプログラムを書き込むというセコい方法でやっています(^^;。割り込みが使えない以外はフル機能で再生できて、ROMを使い尽くすまで何回か使えるのです。これと同じ事が、OTP内蔵のHD647180でも可能です。</p>
+</div>
+
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

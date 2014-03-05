@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../index_j.html">
+<link rel="up" title="Tech Notes" href="../cc.html">
+<link rel="stylesheet" href="docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - SPLDについて</title>
+</head>
+
+<body>
+<h1>SPLDについて</h1>
+<p class="hdd"><br>1997. 7. 9</p>
+<hr class="hds">
+
+<div class="abst">
+<img class="rset" src="pld_gals.jpeg" alt="GAL" width="173" height="149">
+<p>PLDとは、<em>Programable Logic Device</em>の略で、プログラム可能な論理ICのことです。規模もさまざまで、PAL,GALなどに代表されるごく小規模なSimple PLDからFPGAのように何千万ゲートもの大規模なPLDまであります。ここでは、アマチュアでも手軽に利用できるSPLDに限って説明しましょう。</p>
+<p>回路設計にPLDを利用することの利点・欠点は、いろいろな文献が能書きをたれていますが、アマチュアが利用する分には<em>複雑な論理回路も容易に実現可能</em>とか、<em>セットの小型化や配線の簡略化</em>に尽きるでしょう。特に、前者についてはアイディアがあっても複雑でやる気になれなかったのがPLDの利用で手軽に実験できるようになりました。欠点は消費電力でしょうか。PLDはけっこう大食いなので、バッテリ動作のセットには使いにくいです。</p>
+<p>まぁ、いずれにしろマイコン回路の設計技術者にとって、PLDを使いこなせることは必須条件となってきているくらいに、ごくありふれたデバイスになりつつあります。</p>
+</div>
+
+
+<div class="para">
+<h3>SPLDの原理</h3>
+<p>SPLD(以下単にPLD)は、半導体メーカーが PAL, GAL, PEEL, PALCE, EPLなどの商品名で供給されいますので、これらを見聞きした方は多いかと思います。機能的にはいくらかの違いがあるものの、基本的なところは全て同じです。PLDの内部回路(簡略図)は次のようになっています。</p>
+<br>
+<img class="rset" src="pld_fig1.png" alt="PLDの内部構造" width="480" height="350">
+<p>右の図で色のついた格子状になっている部分はANDアレイといい、ここをプログラムすることにより出力の論理を設定します。格子の縦線は入力ラインといい、ここへ入力が入ります。横線はAND項といい、すべての入力ラインと交差しています。AND項の構造は、下に示すようになっていて、多入力のダイオードANDを形成しています。最初は全て接続されていますので、PLDへのプログラミングは必要な部分を残してヒューズを切ることにより実現します。使わない AND項はそのままにしておけば ANDが成立せず常に"0"で無効になります。また、一本の AND項の交点を全部切れば常に"1"となり、出力はスタックしてしまいます。逆に、ANDの条件としたい入力ラインを接続すると考えた方がわかりやすいでしょうか。例えば、ANDの条件を IN1 * !IN2 としたい場合は入力ライン0,5を接続することになります。</p>
+<p>PLDがこのようにANDをとってORをとるという方式 (A*B*C*D + E*F*G*H + I*J*L ....)を基本としているのは、どんなに複雑な論理式でもこの形式に展開することができるからです。ただ、AND項の数は限られていますので、展開後必要に応じて論理圧縮する必要もあります。</p>
+<p>以上がPLDの基本原理です。また、単なる組み合わせロジックのほか、出力部にレジスタを設けてステートマシンとして使用される場合が多いです。いま説明したヒューズ方式のPLDは初期のバイポーラPLDによく見られたもので、ヒューズROMと同様1度プログラムすると再プログラムは不可能です。現在はほとんどCMOS化され、ヒューズの代わりにEEP-ROMのスイッチで何度でも再プログラムできるものが主流となっています。</p>
+</div>
+
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

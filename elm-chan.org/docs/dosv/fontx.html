@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="alternate" hreflang="en" title="English version" href="fontx_e.html">
+<link rel="stylesheet" href="../docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - FONTXの使いかた</title>
+</head>
+
+<body>
+<h1>FONTXの使いかた</h1>
+<p class="hdd"><br>2012. 10. 21</p>
+<hr class="hds">
+
+<div class="abst">
+<img class="rset" src="diskette.jpeg" width="360" height="251" title="IBMのロゴって時代を超えてカッコイイと思うんですよ" alt="DOS/V diskette">
+<p>電子工作でよく使われるようになったFONTX形式のフォント・ファイルについて、その歴史と利用方法について簡単に解説します。</p>
+</div>
+
+<div class="para">
+<h3>DOS/V～FONTX～電子工作</h3>
+<h4>DOS/Vのしくみ</h4>
+<img class="rset" src="dosv.png" width="410" height="280" alt="DOS/V system">
+<p>'90年代初頭、日本IBMからDOS/V (IBM DOS J4.0/V)が発売されました。DOS/Vは、英語DOSにいくつかの日本語入出力のためのデバイス・ドライバを追加したもので、日本語表示機能を持たないIBM ATおよび互換機にハードウェアの追加なしに日本語表示を実現することができました。DOS/Vシステムは、右の図のような構成となります。なお、その名の最後に付く"V"はVGAというビデオ・サブ・システムを示し、「IBM日本語DOS Version 4.0 for VGA」という意味になります。</p>
+<p>ディスプレイ・ドライバ($DISP.SYS)は、ビデオBIOS(INT 10h)を拡張して、アプリケーションの文字出力要求を処理します。文字はビットマップ画面に描画されるため、日本語を含む任意の文字を出力することができます。これにより、「ごく一部」の英語アプリケーションはそのまま日本語を扱えるようになりました。ごく一部というのは、当時のDOSアプリケーションは、ビデオBIOSを介さずVRAMに直接書き込むものが一般的だっためです。それでも僅かな変更で日本語化できるように、仮想VRAMという機能が提供されています。しかし、2バイト文字という根本的な問題もあり、そう簡単にはいきませんでしたが。</p>
+<p>日本語表示に必要なフォントは、フォント・ドライバ($FONT.SYS)が管理します。フォント・ドライバは、ロード時にフォント・ファイルをメモリに読み込み、システムBIOS(INT 15h)を介してフォント・サーバとして機能します。また、漢字ROMのあるマシン(PS/55など)ではそれを有効利用します。200Kバイト程度になるフォント・データはEMB領域に置かれるため、コンベンショナル・メモリを圧迫することはありませんが、これによりDOS/Vの動作条件は80286以上のCPUとなっています。</p>
+
+<h4>DOS/Vの隆盛とFONTX</h4>
+<p>さて、当時の日本のビジネス・パソコンはNEC PC-9800シリーズの独占状態で、これといって目新しいことが無かったため、物好きなハッカーたちがこれを見逃すはずがありません。DOS/VはAPI仕様が広く公開されていたこともあり、機能を拡張された互換ドライバが相次いでリリースされることになります。雨後の筍のごとくDOS/V誌が創刊されたのもこの頃です。</p>
+<p>たとえば、ディスプレイ・ドライバでは、SVGAアダプタに対応してVGAを越えるサイズの画面で広大なテキスト表示を実現したり、グラフィック・アクセラレータを駆使した表示の高速化などが行われました。後に、日本IBMもこれに追随して純正のドライバを同様に拡張し、その際/Vの意味をVGAからVariableへと再定義しています。ディスプレイ・ドライバについては、私も自作して楽しんでいました(まだVectorのライブラリに残っています)。</p>
+<p>フォント・ドライバでは、複数のフォントをロードして動的に切り替えられたり、ロード先にEMS領域や機種固有のメモリ領域を選択できるなどの拡張が行われ、柔軟な運用が可能になっています。これはディスプレイ・ドライバほど多くはなく、IBM純正以外のドライバとしてはFONTXが主流となり、多くのフォント・ドライバもフォント・ファイルとしてFONTX形式を利用するようになりました。このため、DOS/V用として出回るフォント・ファイルもほぼFONTX形式に統一されています。</p>
+
+<h4>死の淵から蘇るFONTX</h4>
+<p>間もなく時代はWindowsへと移り、DOS/Vは終焉を迎えることになります。そして、膨大なDOSの資産とともにFONTX形式のフォントも忘れ去られた存在となりました。ところが、その後何年か経ち'00年代も半ばになると、電子工作界において高機能なマイコンや安価なLCDモジュールの利用が普及してきました。それに伴い、その日本語表示のために再びFONTXファイルが利用されるようになったのです。FONTX形式はファイル・フォーマットがとても単純で公開されているし、何よりフリーのフォントが多く出回っていたので、最も手軽に利用できるビットマップ・フォントといえます。このように、電子工作というマイナーな世界ではありますが、FONTX形式は再び日の目を見ることになります。</p>
+</div>
+
+
+<div class="para">
+<h3>FONTXフォントの使いかた</h3>
+
+<h4>FONTXファイルの構造</h4>
+<p>FONTXファイルは、BDFファイルなどのテキスト形式とは違い、次の図に示すようにバイナリ形式となっています。FONTXファイルには半角フォントと全角フォントの2種類があり、それらは文字コード・フラグによって識別されます。半角フォント・ファイルには8ビット・コードの256個のフォント・イメージが格納されます。全角フォント・ファイルは、16ビット・コード(シフトJIS)ですが、65536個分の格納スペースを固定長フィールドとして確保するのは効率が悪いので、図に示すように有効な文字コードの範囲を示すコード・ブロック・テーブルが設けられ、必要なものだけ格納されます。各ブロックは文字コードの小さい順にテーブルに記述され、フォント・イメージもそれにしたがって順に詰めて格納されます。</p>
+<div class="lset">
+<table class="lst lset">
+<caption>半角FONTXファイルの構造</caption>
+<tr><th>Offset</th><th>Size</th><th>フィールド内容</th></tr>
+<tr><td>0</td><td>6</td><td>ファイル・シグネチャ("FONTX2")</td></tr>
+<tr><td>6</td><td>8</td><td>フォント名</td></tr>
+<tr><td>14</td><td>1</td><td>フォント幅 W<small>F</small>(ドット)</td></tr>
+<tr><td>15</td><td>1</td><td>フォント高さ H<small>F</small>(ドット)</td></tr>
+<tr><td>16</td><td>1</td><td>文字コード・フラグ(0:ANK)</td></tr>
+<tr><td>17</td><td>※1</td><td>フォント・イメージ<br><small>(※1:フォント・サイズ×256)</small></td></tr>
+</table>
+</div>
+<div class="lset">
+<table class="lst">
+<caption>全角FONTXファイルの構造</caption>
+<tr><th>Offset</th><th>Size</th><th colspan="2">フィールド内容</th></tr>
+<tr><td>0</td><td>6</td><td colspan="2">ファイル・シグネチャ("FONTX2")</td></tr>
+<tr><td>6</td><td>8</td><td colspan="2">フォント名</td></tr>
+<tr><td>14</td><td>1</td><td colspan="2">フォント幅 W<small>F</small> (ドット)</td></tr>
+<tr><td>15</td><td>1</td><td colspan="2">フォント高さ H<small>F</small> (ドット)</td></tr>
+<tr><td>16</td><td>1</td><td colspan="2">文字コード・フラグ (1:シフトJIS)</td></tr>
+<tr><td>17</td><td>1</td><td colspan="2">コード・ブロック数 N<small>B</small></td></tr>
+<tr><td>18</td><td>2</td><td>ブロック1開始コード</td><td rowspan="5">コード・ブロック・テーブル<br>(リトル・エンディアン)</td></tr>
+<tr><td>20</td><td>2</td><td>ブロック1終了コード</td></tr>
+<tr><td>…</td><td>…</td><td>…</td></tr>
+<tr><td>14+4*N<small>B</small></td><td>2</td><td>ブロックN<small>B</small>開始コード</td></tr>
+<tr><td>16+4*N<small>B</small></td><td>2</td><td>ブロックN<small>B</small>終了コード</td></tr>
+<tr><td>18+4*N<small>B</small></td><td>※2</td><td colspan="2">フォント・イメージ<br><small>(※2:フォント・サイズ×各ブロックのコード数の総和)</small>
+</td></tr>
+</table>
+</div>
+
+<p class="clr">フォント・イメージは、次の図に示すようにデータの各ビットが文字のドットに対応します。フォントの幅が8の倍数に一致しないときは、左詰めで格納されます。</p>
+<div><img src="fonts.png" width="584" height="286" alt="Font example"></div>
+<p>フォント・イメージのサイズは、1文字あたり<span style="white-space:nowrap;">(W<small>F</small> + 7) / 8 * H<small>F</small> [バイト]</span> となります。それぞれの文字コードに対応するフォント・イメージのファイル先頭からの位置は、次のようになります。</p>
+<ul>
+<li>17 + 文字コード×フォント・サイズ (半角フォントの場合)</li>
+<li>18 + 4・N<small>B</small> + 手前の文字コード数×フォント・サイズ (全角フォントの場合)</li>
+</ul>
+<p>FONTXファイルの編集には専用ツールが必要になりますが、なぜかWindows用のフォント・エディタが存在しません。Windows時代にはFONTX自体が不要になってしまったため当然と言えばそうですが、FONTXを使う以上は無いと困るので<a href="../../fsw.html#fontxedit">FONTXエディタ</a>を作ってみました。</p>
+
+<h4 class="clr">コーディング例</h4>
+<p>例として下のリストに、メモリ上に置かれたFONTXファイルから指定された文字コードのフォントを得る関数を示します。引数にはFONTXデータと文字コードを指定し、指定された文字コードに対応するフォント・イメージを指すポインタを返します。文字コードが無効なときはヌル・ポインタを返します。</p>
+<pre>
+const uint8_t* get_font (   <span class="c">/* Returns pointer to the font image (NULL:invalid code) */</span>
+    const uint8_t* font,    <span class="c">/* Pointer to the FONTX file stored on the memory */</span>
+    uint16_t code           <span class="c">/* Character code */</span>
+)
+{
+    unsigned int nc, bc, fsz, sb, eb;
+    const uint8_t *cblk;
+
+
+    fsz = (font[14] + 7) / 8 * font[15];  <span class="c">/* Get font size */</span>
+
+    if (font[16] == 0) {  <span class="c">/* Single byte code font */</span>
+        if (code &lt; 0x100)
+            return &amp;font[17 + code * fsz];
+    } else {              <span class="c">/* Double byte code font */</span>
+        cblk = &amp;font[18]; nc = 0;  <span class="c">/* Code block table */</span>
+        bc = font[17];
+        while (bc--) {
+            sb = cblk[0] + cblk[1] * 0x100;  <span class="c">/* Get range of the code block */</span>
+            eb = cblk[2] + cblk[3] * 0x100;
+            if (code &gt;= sb &amp;&amp; code &lt;= eb) {  <span class="c">/* Check if in the code block */</span>
+                nc += code - sb;             <span class="c">/* Number of codes from top of the block */</span>
+                return &amp;font[18 + 4 * font[17] + nc * fsz];
+            }
+            nc += eb - sb + 1;     <span class="c">/* Number of codes in the previous blocks */</span>
+            cblk += 4;             <span class="c">/* Next code block */</span>
+        }
+    }
+
+    return 0;   <span class="c">/* Invalid code */</span>
+}
+</pre>
+
+</div>
+
+
+<p class="foot"><img src="../../p/sign.png" alt=""></p>
+</body>
+</html>

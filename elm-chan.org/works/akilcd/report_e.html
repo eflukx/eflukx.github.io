@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="Audio" href="../../he_a_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="report.html">
+<link rel="stylesheet" href="../works_e.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - Audio Spectrum Monitor</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>Audio Spectrum Monitor</h1>
+<p class="hdd">February 14, 2005<br>Update: May. 29, 2005</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<img class="rset" src="lcd.jpeg" alt="SG12232C" width="336" height="214">
+<p>This is an evaluation use of a small graphics LCD module. Last summer, <em>SG12232C</em> graphic LCD module has been sold sold for 1500 Yens from <a href="http://akizukidenshi.com/">Akizuki Denshi</a> and I bought it. However I could not find good application for the LCD module and it was going to go to junk box :-) so that I tried to use the LCD module temporary.</p>
+<p>Only displaying any still image is not cool, first I tried to display an audio wave form in real-time like a digital oscilloscope, and then an FFT spectrum analysis too. The spectrum monitor seems to achived nice performance, in view of it is realized with a cheap microcontroller.</p>
+<p>This can also be applied to <a href="../rsm/report_e.html">radio frequency band</a>.</p>
+<br class="clr">
+</div>
+
+<div class="para">
+<h3>Hardware</h3>
+<div class="rset"><img src="pcb.jpeg" alt="" width="318" height="243"><br><a href="glcd.png">Circuit Diagram</a></div>
+<p>SG12232C is a full graphics type LCD module in resolution of 122(H) x 32(V) dots. It has two Epson <em>S1D15200</em> LCD controller on a board. The S1D15200 can display up to 61(H) x 32(V) dots and they drive half of the LCD panel each. SG12232C requires a 2 kHz square wave as LCD drive clock and it must be supplied during power is on or the LCD panel may be damaged due to static bias. The bus interface can select 8080 based or 6800 based. There is no 4-bit mode like HD447880, only 8-bit mode is available and it requires 14 I/O lines at least.</p>
+<p>Right image shows the built circuit board and its circuit diagram. The microcontroller is an Atmel ATmega8 as usual and it digitizing the incoming audio signal and display the wave form into LCD module. There is no diffifcult to do. I used a MAX293, 8th-order elliptic filter, as an anti-alias filter. The SCF is very useful and cheap discrete LPF gets baby.</p>
+</div>
+
+<div class="para">
+<h3>Software</h3>
+<img src="proc.png" alt="" class="rset" width="350" height="130">
+<p>Right image shows the signal flow of internal process. The digitized data blocks are transformed in FFT and it is displayed as spectrum bars into left half (64 dots) of LCD. The wave forms are displayed into right half (58 dots) with edge aligning to still cyclic sygnals.</p>
+<p>The FFT operations are done in 16-bit fixed-point. These 128 point FFT processes, applying window, butterfly operations and scalar output, could be executed in real-time (within 7.3 msec). This is pretty fast considering it is processed with only a cheap microcontroller. The spectrum bars are displayed in order of fundamental frequency x 0 (DC component), fundamental frequency x 1, x2, x3, ... from left to right. The sampling frequency is 9.6 kHz and the fundamental frequency (frequency resolution) becomes: <em>9.6k / 128 = 75Hz</em>.</p>
+</div>
+
+<div class="para">
+<h3>Notes</h3>
+<ul>
+<li><a href="akilcd.zip">Firmware for SG12232C</a> <span class="mfd">May 29, '05</span></li>
+<li>The fixed-point FFT library for avr-gcc <a href="../../docs/avrlib/avrfft.zip">avrfft.zip</a> is also available. This is written in assembler and is optimized for MegaAVRs. <span class="mfd">Mar 13, '05</span></li>
+<li>These are some wave forms, square wave, saw wave and sin(x)/x. You will able to be find thet they are displayed just like text book.<br>
+<img src="sqr1.jpeg" alt="Square" width="284" height="133"> <img src="saw.jpeg" alt="Saw" width="284" height="133"> <img src="sinx.jpeg" alt="Sinc" width="284" height="133">
+</li>
+<li><a href="http://members.jcom.home.ne.jp/felm/sa01.avi">128pts Video 1 (Sine, Square, Saw and sweep)</a></li>
+<li><a href="http://members.jcom.home.ne.jp/felm/sa02.avi">128pts Video 2 (Concert No.2 in G minor, P.336 "L'estate"/VIVALDI)</a></li>
+<li><a href="http://members.jcom.home.ne.jp/felm/gpspec.avi">256pts Video 3 (No.27 B-dur KV595/MOZART)</a></li>
+<li><a href="http://members.jcom.home.ne.jp/felm/gvspec_b.avi">256pts Video 4 (nostalgia/LIA)</a></li>
+</ul>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

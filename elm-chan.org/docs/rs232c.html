@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<title>ELM - RS-232Cの簡易接続</title>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../index_j.html">
+<link rel="up" title="Tech Notes" href="../cc.html">
+<link rel="stylesheet" href="docs.css" type="text/css" media="screen" title="ELM Default">
+</head>
+
+<body>
+<h1>RS-232C - TTLレベルの簡易変換方法</h1>
+<p class="hdd"><small><a href="http://babel.altavista.com/babelfish/trurl_pagecontent?lp=ja_en&amp;url=http%3A%2F%2Felm-chan.org%2Fdocs%2Frs232c.html">Translate this page</a> with <a href="http://babel.altavista.com/">Bablel Fish Translation</a></small><br></p>
+<hr class="hds">
+
+<div class="abst">
+<p>自作したボードマイコン等をパソコンのシリアルポートに接続したい場合がよくあると思います。その場合、TTLレベルから RS-232Cレベルへ変換する必要がありますね。昔はドライバICが±12Vを必要としたので、そのために別電源を用意する必要がありました。その後、MAX232の類に代表されるDC-DCコンバータを内蔵して +5V単一電源で動作するドライバが現れてずいぶん手軽に使えるようになりました。しかし、それでもインターフェースの回路は高価で少々めんどいものになってしまうものです。</p>
+<p>ここで一応触れておきますが、RS-232Cというのはモデムの対DTEインターフェース仕様を規定したもので、それ以上の意味はありません。パソコン側にはRS-232Cインターフェースというのは存在しませんし、調歩同期通信＝RS-232Cというのも間違いです。でも、RS-232Cの規定する信号レベルを使っていれば一般的にRS-232Cと呼ばれているので、ここではこれに合わせることにします。</p>
+</div>
+
+
+<div class="para">
+<h3>RS-232Cの信号電圧</h3>
+<img class="rset" src="rs232c_1.png" alt="入出力電圧" width="240" height="180">
+<p>RS-232Cにおける信号レベルの規格は、右図のように規定されています。出力電圧は、"1"で -5～-15V、"0"で +5～+15Vに、入力電圧は -3V以下で "1"、+3V以上で "0"と判断することが決まっています。このほかにAC特性や耐圧等も規定されていますが、入力のスレッシホールド電圧は、-3V～+3Vの間のどこかにあるわけです。で、実際殆どのインターフェースICは、入力スレッシホールド電圧を +1～+2Vに設定しています(ほぼTTLレベル)。多分、ケーブルが外れて入力が 0Vになった場合、確実に "1" (制御信号はOFF)となるようにしているのでしょう。</p>
+</div>
+
+
+<div class="para">
+<h3>RS-232Cの簡易接続</h3>
+<img class="rset" src="rs232c_2.png" alt="回路図"width="360" height="180">
+<p>そこで、普通の C-MOS ICを使ってラインを駆動してみましょう（右の回路図）。入力レベルについてはまったく問題ありません。ただ、C-MOS ICの電源電圧範囲を超えるので、直列抵抗で入力電流を十分に抑える必要があります。出力電圧は規格を大幅に下回りますが、相手側のスレッシホールドをまたいでいるので、こちらもＯｋです。このように、極めて簡単な回路でもシリアルポートに接続できるのです。数多くのパソコンで試してみましたがすべて通信可能でした。ただ、一部の自動遮断付きトランシーバICは、受信電圧が低いと無接続と判断するものがあるようで、注意が必要です。</p>
+</div>
+
+
+<div class="para">
+<br>
+<p><em>注意：このような使い方は RS-232Cの信号レベルの規格を無視した邪悪な？方法です。実験レベルやアマチュアの範疇では大いに利用価値のある方法なのですが、不特定の相手と接続する可能性のある用途ではこんなことやらないように。</em>
+</p>
+</div>
+
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+
+</body>
+</html>

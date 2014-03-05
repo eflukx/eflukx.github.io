@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="stylesheet" href="../junk.css" type="text/css" media="screen" title="ELM Default">
+<style type="text/css" media="screen" title="ELM Default">
+#smf {color: aquamarine; font-size: smaller;}
+</style>
+<title>キャラクタ液晶モジュールの階調表示</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>キャラクタ液晶モジュールの階調表示</h1>
+<p class="hdd"><br>2004. 2. 8</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<img class="rset" src="chlcd1.jpeg" alt="LCD" width="493" height="280">
+<p>電子工作の表示デバイスとして最も手軽でポピュラーであるキャラクタLCDモジュールの変わった使い方を紹介してみます。この手のLCDモジュールの表示はドットマトリクスのON/OFFの2階調のみで、多階調表示のできるものはありません。しかし、それらのLCDモジュールも使い方をちょっと工夫するだけで、つまらないキャラクタLCDに階調表示による多彩なアトリビュートを付加することができるのです。</p>
+</div>
+
+<div class="para">
+<h3>階調表示のしかた</h3>
+<img class="rset" src="frm.png" alt="Frame Sequence" width="330" height="450"><p><a href="../mz211/report.html">STN液晶パネルの試食</a>で説明しているように、STN液晶ディスプレイの階調表示はフレーム単位でのドットのON/OFF比制御(いわゆるPWM)によって行われています。STN液晶の応答は遅いので、ON/OFFが平均化された濃度で表示されるのです。グラフィックLCDコントローラでは、これをハードウェアで処理しています(3次元ディザリング)。</p>
+<p>キャラクタLCDモジュールもSTN液晶またはTN液晶なので、同様に階調表示ができるはずです。しかし、HD44780にはそのような階調表示機能はないので、これを実現するにはソフトウェアで表示を書き換えてやる必要があります。</p>
+<p>実験では右の図に示すように、1フレーム毎に3フレームシーケンスで表示を書き換えてやることにより、表示に階調(4階調)を付けてみました。書き換えのタイミングはLCDのフレームタイミングに合わせて調整してやらないときれいな階調表示にはなりません。また、これより単純に、2フレームシーケンスでアクティブ項目の背景にマークするといった程度でも、十分な表示効果が期待できるでしょう。</p>
+<p>今回は、秋月で売っているSTNキャラクタLCDを使ってみましたが、他のキャラクタLCDモジュールの場合も同様で、STNよりも応答速度の遅いTN液晶の方が良好な階調表示ができると思います。</p>
+<p id="smf">ってことで、今回はインチキっぽかったですけど、石投げないでくださいね(笑)。</p>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../index_j.html">
+<link rel="up" title="Tech Notes" href="../cc.html">
+<link rel="stylesheet" href="docs.css" type="text/css" media="screen" title="ELM Default">
+<style type="text/css" media="screen" title="ELM Default">
+.comm{color:green;}
+.ctrl{color:red;}
+</style>
+<title>ELM - JEDEC Fuse Format</title>
+</head>
+
+<body>
+<h1>PLDフューズファイルについて</h1>
+<p class="hdd"><br>1997. 7</p>
+<hr class="hds">
+
+<div class="abst">
+<p>PLDのフューズデータのフォーマットとしては、<em>JEDECフォーマット</em>が事実上の標準として利用されています。これはちょうどROMライタとHEXファイルの関係と同じです。PLDコンパイラは、この形式でコンパイル結果を出力し、PLDライタはこの形式のフューズデータを読み込むことになります。</p>
+<p>JEDECフォーマットフューズデータは、<em>STX</em>(0x01)で始まり<em>ETX</em>(0x02)までの間に記述されます。この中にさまざまな定義やデータなどのブロックが入ります。それぞれのブロックのデリミタには<em>*</em>を使用することになっています。CRやLFは空白文字として扱われます。次に例としてGAL16V8のフューズデータで説明しましょう。</p>
+<br>
+<pre class="lst">
+<span class="ctrl">^B</span>                    <span class="comm">← STX</span>
+GAL16V8*QP20*QF2194*  <span class="comm">← 20pin PLDで、論理フューズ数 2194本。デバイス名は必須ではありません。</span>
+G0*F0*                <span class="comm">← プロテクト無し。論理フューズのデフォルト値 0 。</span>
+L0000 11110111111111111111111111111111*  <span class="comm">← 論理フューズ #0 から #31 まで指定。</span>
+L0256 01100111111111111111111111111111*  <span class="comm">← 論理フューズ #256 から #287 まで指定。</span>
+L0288 01111101111011111111111111111111*
+L0320 01111101111111101111111111111111*
+L1056 11111101111011111101111111111111*
+L1088 11111101111111101101111111111111*
+L1568 11111101111011111111111111011111*
+
+               <span class="comm">中 略</span>
+
+L1792 11111101110111011101110111011110*
+L1824 11111101111011111111111111111101*
+L1856 11111101111111101111111111111101*
+L1888 11111101111111111110111111111101*
+L1920 11111101111111111111111011111101*
+L1952 11111101111111111111111111101101*
+L2048 11111111*
+L2128 1111111111111111111111111111111111111111111111111111111111111111*
+L2192 01*
+C6B22*     <span class="comm">← フューズデータのチェックサム。</span>
+<span class="ctrl">^C</span>F66A     <span class="comm">← ETX。続く 4桁の 16進数は、BCC(STXからETXまでの文字コードのサム)です。</span>
+</pre>
+</div>
+
+
+<div class="para">
+<br>
+<h3>【各ブロックの意味】</h3>
+
+<h4>QP&lt;n&gt;</h4>
+<p>PLDのピン数を指定するブロックです。例えば、24pin PLDなら<em>QP24</em>となります。</p>
+
+<h4>QF&lt;n&gt;</h4>
+<p>論理フューズマップのサイズを指定するブロックです。例えば、2048本の論理フューズがあるなら、<em>QF2048</em>となります。</p>
+
+<h4>G&lt;n&gt;</h4>
+<p>書き込み後 PLDにプロテクトをかけるかを指定します。<em>G0</em>ならフューズデータ読み出し可能、<em>G1</em>なら読み出し禁止となります。</p>
+
+<h4>F&lt;n&gt;</h4>
+<p>フューズデータのデフォルト値(0か1)を指定します。Lブロックで転送されなかったフューズデータはこの値を取ります。</p>
+
+<h4>L&lt;n&gt; &lt;FuseData...&gt;</h4>
+<p>論理フューズの値。例えばPALの場合、1で該当するフューズを切断、0で残し(接続)ます。Lに続く数値は論理フューズ番号(アドレス)で、その後のデータがそのフューズ番号から順にフューズマップに入力されます。そのブロックのフューズの値がFブロックで指定した値と全て同じ場合は、そのLブロックは省略できます。論理フューズ番号とフューズの位置はそれぞれのデバイスごとに違いますが、大抵のSPLDではデバイスの論理図と JEDECファイルに見えるフューズの配置が一致します。</p>
+
+<h4>C&lt;hhhh&gt;</h4>
+<p>論理フューズデータのチェックサム。フューズマップをバイト単位で区切り、そのバイトを全て加算した値の下位16ビットを4桁の16進数で示します。</p>
+
+<h4>V&lt;n&gt; &lt;test vector&gt;</h4>
+<p>ファンクションテスト用ベクター。ファンクションチェック機能のあるPLDライタで利用されます。</p>
+</div>
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

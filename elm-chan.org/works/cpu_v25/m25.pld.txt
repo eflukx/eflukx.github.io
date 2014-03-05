@@ -1,0 +1,28 @@
+Title	  M25 BOARD COMPUTER
+Pattern	  MEMORY ADDRESS DECODER
+Revision  0.00
+
+
+CHIP	U2	GAL16V8
+
+;1]   [2]   [3]   [4]   [5]   [6]   [7]   [8]   [9]   [10]
+A16   A17   A18   A19   MRQ   W     -     -     -     GND
+
+;11]  [12]  [13]  [14]  [15]  [16]  [17]  [18]  [19]  [20]
+-     -     -     WE    OE    VRE   IOE   RAM   ROM   VCC
+
+
+EQUATIONS
+
+/ROM	= A19 * A18 * A17 * A16 */MRQ	; Fxxxxh selected
+
+/RAM	=/A19 */A18 */A17 */A16 */MRQ	; 0xxxxh selected
+
+/VRE	= A19 */A18 */A17 */A16 */MRQ	; 8xxxxh selected
+
+/IOE	= A19 */A18 * A17 */A16 */MRQ	; Axxxxh selected
+
+/OE	=/MRQ * W			; Read strobe
+
+/WE	=/MRQ */W			; Write strobe
+

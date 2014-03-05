@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Softwares" href="../../fsw.html">
+<link rel="alternate" hreflang="en" title="英文" href="mbm_e.html">
+<link rel="stylesheet" href="css_j.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - マルチ・ブート・マネージャ</title>
+</head>
+
+<body>
+<h1>マルチ・ブート・マネージャ</h1>
+<hr>
+
+<div class="abst">
+<img class="rset" src="mbmmnu.jpeg" width="320" height="230" alt="メニュー画面">
+<p>マルチ・ブート・マネージャ(以下MBM)は、PC用のブート・マネージャです。ブートマネージャとは、複数のOSがインストールされている環境で、起動時にメニューなどで任意のOSを選択して起動するシステム制御プログラムのことを言います。MBMは、オープン・ソース・ソフトウェア(GNU GPL)として公開しています。MBMには次のような特徴があります。</p>
+<h4>ブート・マネージャ</h4>
+<ul>
+  <li>ブート・メニューにより任意の区画を選択して起動することが可能。</li>
+  <li>2TBまでのドライブに対応し、2台目以降や論理区画からの起動も可能(一部制約あり)。</li>
+  <li>ブート・マネージャのための特定の区画を必要としない。</li>
+  <li>4台までの物理ドライブをサポート(BIOSに認識されるドライブのみ)。</li>
+</ul>
+<h4>区画テーブル・エディタ</h4>
+<ul>
+  <li>FDISKに代わって複数の基本DOS区画を作成できるなど、OSインストールの補助的機能を持つ。</li>
+</ul>
+<h4>グラフィカル・メニュー</h4>
+<ul>
+  <li>標準のテキストメニューのほかに、任意の背景でメニューのグラフィック化が可能。</li>
+</ul>
+</div>
+
+<div class="para">
+<h3>最新版(MBM R0.39)のダウンロード</h3>
+<p><tt>http://my.vector.co.jp/servlet/System.FileDownload/download/http/0/35596/pack/dos/util/boot/mbm039.zip</tt></p>
+<p>FDDの無い環境では<a href="mbm039.iso.gz">MBMブータブルCD</a>をご利用ください。これはフルパッケージ中のFDイメージをブータブルCDに変換したものです。</p>
+</div>
+
+<div class="para">
+<h3>動作確認OS</h3>
+<p>MBMで起動できることが確認されているOSは次のとおりです。これ以外にも動作するものがあると思います。それぞれのOSでの制限事項などはアーカイブ中のドキュメントを参照してください。MBMのインストーラには、<em>DOSコマンド版</em>のほかに<em>ディスケット・イメージ版</em>もあるので、OSが無くてもインストールが可能です。またブート・マネージャは特定の区画やOSを必要とせず、完全に独立して動作します。</p>
+<ul>
+<li>PC DOS 6.3, MS-DOS 6.2</li>
+<li>Windows 95, Windows 98, Windows 98SE, Windows Me</li>
+<li>Windows NT 3.51, Windows NT 4.0, Windows 2000, Windows XP, Windows Vista, Windows7</li>
+<li>OS/2 warp3</li>
+<li>Linux, FreeBSD, NetBSD, OpenBSD</li>
+<li>BeOS, B-right/V, Solaris, OPENSTEP 4.2J, Plan 9, EOTA</li>
+</ul>
+</div>
+
+<div class="para">
+<h3>メニュー作成支援ツール</h3>
+<p>MBMは拡張メニューのサポートにより、従来のテキスト・ベースのメニューに加え、グラフィカルなメニューを使用できます。拡張メニュー・コードのI/F仕様は公開しているので、オリジナルな起動メニューを作成することも可能です。組み込みプログラミングのできる方は挑戦してみるといいでしょう。</p>
+<h4>サンプル・メニュー</h4>
+<ul>
+<li><a href="mbm_sm4.zip">のぞみ@小田原駅</a> (640x480, HiColorモード)</li>
+<li><a href="mbm_sm2.zip">電車でGO!</a> (320x200, 256色モード)</li>
+</ul>
+<h4>拡張メニュー・ビルダー</h4>
+<table class="lset">
+<tr>
+<td rowspan="2">画面サイズ</td>
+<td colspan="2">色数</td>
+</tr>
+<tr>
+<td>256色</td><td>HighColor</td>
+</tr>
+<tr>
+<td>320x200</td>
+<td><a href="mkmvga.zip">mkmvga.zip</a></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>640x480<br>800x600<br>1024x768</td>
+<td><a href="mkm256.zip">mkm256.zip</a><br>(*1)</td>
+<td><a href="mkm64k.zip">mkm64k.zip</a><br>(*2)</td>
+</tr>
+<tr>
+<td>フォント</td>
+<td colspan="2"><a href="mkmfont.zip">mkmfont.zip</a></td>
+</tr>
+<tr>
+<td>試食ツール</td>
+<td colspan="2"><a href="menutest.zip">menutest.zip</a></td>
+</tr>
+<tr>
+<td colspan="3"><small>(*1) ビデオBIOSに VESA VBE が必要。<br>(*2) ビデオBIOSに VESA VBE 1.2以上が必要。</small></td>
+</tr>
+</table>
+<p>メニュー・ビルダーで簡単に拡張メニューを作成することもできます。PS/2マウスにも対応(M/BによってはUSBマウスも可)しています。メニュー画のソースとして、256色メニューの作成には256色の、64K色メニューには 24bit色のBMPファイルを用意する必要があります。メニュー・ビルダーのパラメーターの指定方法を<a href="parms.png">この図</a>に示します。<br class="clr"></p>
+</div>
+
+<div class="para">
+<h3>MBM使用上の注意</h3>
+<p>MBMはその性格上、きわめて危険なツールです。特に<em>区画テーブル・エディタ</em>の扱いを誤るとディスクに記録されたデータを全て失うことにもなりかねません。したがって、ディスクの区画管理についての専門的な知識を持たない方は、MBMを使わないのが無難でしょう。また、MBMを使用した結果について作者は一切の責任を負いかねますのでご了承ください。</p>
+</div>
+
+<div class="para">
+<h3>MBM関連リンク</h3>
+<ul>
+<li><a href="http://isweb32.infoseek.co.jp/computer/nobumasa/">NOBUSAN'S SQUARE</a><small> <a href="http://www37.tok2.com/home/nobusan/">(ミラー1)</a></small><br>
+Nobusanさん。ブートマネージャ使用の前提となる最低限の予備知識は一般に知られていませんが、ここではディスク管理の基本からOSの起動メカニズムに至るまでとても詳しく解説されています。また、非常に多くの種類のブートマネージャが詳しく紹介されていますので、あなたにぴったりの一本を選ぶ参考にも。</li>
+<li><a href="http://applause.elfmimi.jp/mbm/old-index.shtml">MBMユーザーズガイド</a><br>
+ApplauseさんのMBM紹介ページ。LinuxやWindowsNT/2000でMBMを使うときによく起こるトラブルとその対策方法が解説さています。</li>
+<li><a href="http://iknet.s54.xrea.com/">IK-NET Software</a><br>
+i.KoGaさん。メニュー作成ツールの設定を簡単にするフロントエンドを制作されています。</li>
+<li><a href="http://www3.to/kura-hp/">kura software</a><br>
+kuraさん。Windows環境で拡張メニューを生成するプログラムを制作されています。</li>
+<li><a href="http://wikiwiki.jp/disklessfun/?mbm">diskless Fun's Wiki</a><br>
+Linux上でMBMをうまく使うコツを紹介されています。</li>
+</ul>
+</div>
+
+
+<hr>
+<p class="foot"><a href="../../index_j.html">サイトトップに戻る</a></p>
+
+</body>
+</html>

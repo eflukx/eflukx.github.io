@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="alternate" hreflang="en" title="English" href="xprintf.html">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Freewares" href="../../fsw.html">
+<link rel="stylesheet" href="css_j.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - 組み込み用printfモジュール</title>
+</head>
+
+<body>
+<h1>組み込み用printfモジュール</h1>
+<hr>
+
+<div class="abst">
+<p>組み込み用に特化したコンパクトなprintfとサポート関数群です。既存の入出力デバイス(UARTやLCD)に結合することにより、それらに対してprintfで簡単に整形文字列を出力することができます。このため、デバッグ・メンテナンス・コンソールや、LCD等の出力デバイスに手軽に整形表示したいときなどに有効です。</p>
+</div>
+
+<div class="para">
+<h3>モジュールAPI</h3>
+<p>組み込み用printfモジュールは、次に示す関数を提供します。</p>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">xputc - 1文字出力</span>
+/----------------------------------------------*/</span>
+
+void xputc (
+    char c         <span>/* 出力文字 */</span>
+);
+</pre>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">xputs - 文字列の出力</span>
+/----------------------------------------------*/</span>
+
+void xputs (
+    const char* s  <span>/* 出力するASCIZ文字列へのポインタ(終端の'\0'は出力されません) */</span>
+);
+
+void xfputs (
+    void(*func)(unsigned char), <span>/* 出力デバイスの出力関数へのポインタ */</span>
+    const char* s  <span>/* 出力するASCIZ文字列へのポインタ(終端の'\0'は出力されません) */</span>
+);
+</pre>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">xprintf - 書式付き文字列出力</span>
+/----------------------------------------------*/
+/*  xprintf("%d", 1234);            "1234"
+    xprintf("%6d,%3d%%", -200, 5);  "  -200,  5%"
+    xprintf("%-6u", 100);           "100   "
+    xprintf("%ld", 12345678L);      "12345678"
+    xprintf("%04x", 0xA3);          "00a3"
+    xprintf("%08LX", 0x123ABC);     "00123ABC"
+    xprintf("%016b", 0x550F);       "0101010100001111"
+    xprintf("%s", "String");        "String"
+    xprintf("%-4s", "abc");         "abc "
+    xprintf("%4s", "abc");          " abc"
+    xprintf("%c", 'a');             "a"
+    xprintf("%f", 10.0);            &lt;浮動小数点はサポートしません&gt;
+*/</span>
+
+void xprintf (        <span>/* デフォルト出力デバイスへの書式付き文字列出力 */</span>
+    const char* fmt,  <span>/* 書式文字列へのポインタ */</span>
+    ...               <span>/* オプションの引数... */</span>
+);
+
+void xsprintf (       <span>/* メモリ上に書式付き文字列(ASCIZ)を作成 */</span>
+    char* buff,       <span>/* 文字列出力バッファへのポインタ */</span>
+    const char* fmt,  <span>/* 書式文字列へのポインタ */</span>
+    ...               <span>/* オプションの引数... */</span>
+);
+
+void xfprintf (       <span>/* 指定出力デバイスへの書式付き文字列出力 */</span>
+    void(*func)(unsigned char), <span>/* 出力デバイスの出力関数へのポインタ */</span>
+    const char* fmt,  <span>/* 書式文字列へのポインタ */</span>
+    ...               <span>/* オプションの引数... */</span>
+);
+</pre>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">put_dump - 1行のバイナリ・ダンプを出力</span>
+/----------------------------------------------*/</span>
+
+void put_dump (
+    const void* buff,   <span>/* 出力する配列へのポインタ */</span>
+    unsigned long adr,  <span>/* 行頭に表示するアドレス値 */</span>
+    int cnt,            <span>/* 出力する要素数 */</span>
+    int width           <span>/* 要素のサイズ (DW_CHAR, DW_SHORT, DW_LONG) */</span>
+);
+</pre>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">xgets - 入力デバイスから1行入力</span>
+/----------------------------------------------*/</span>
+
+int xgets (     <span>/* 結果: 0:ストリーム終端, 1:1行確定 */</span>
+    char* buff, <span>/* 入力バッファへのポインタ */</span>
+    int len     <span>/* 入力バッファのサイズ(文字数) */</span>
+);
+
+int xfgets (    <span>/* 結果: 0:ストリーム終端, 1:1行確定 */</span>
+    unsigned char(*func)(void), <span>/* 入力デバイスの入力関数へのポインタ */</span>
+    char* buff, <span>/* 入力バッファへのポインタ */</span>
+    int len     <span>/* 入力バッファのサイズ(文字数) */</span>
+);
+</pre>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">xatoi - 文字列の数値を取得</span>
+/----------------------------------------------*/
+/* "123 -5   0x3ff 0b1111 0377  w "
+       ^                           1st call returns 123 and next ptr
+          ^                        2nd call returns -5 and next ptr
+                  ^                3rd call returns 1023 and next ptr
+                         ^         4th call returns 15 and next ptr
+                              ^    5th call returns 255 and next ptr
+                                 ^ 6th call fails and returns 0
+*/</span>
+
+int xatoi (      <span>/* 0:失敗, 1:成功 */</span>
+    char **str,  <span>/* 対象の文字列を指すポインタへのポインタ */</span>
+    long *res    <span>/* 結果をストアする変数へのポインタ */</span>
+);
+</pre>
+
+</div>
+
+
+<div class="para">
+<h3>入出力デバイスとの結合</h3>
+<p>UARTやLCDなどの出力デバイスに結合するには、モジュールのグローバル変数<tt>xfunc_out</tt>に、そのデバイスの1文字出力関数へのポインタを代入するだけでOKです。(設定マクロを使用した例:<tt>xdev_out(uart2_putc);</tt>) これにより、xputc/xputs/xprintf/put_dump関数の出力は指定された関数に渡されます。xsprintf/xfprintf関数の出力先は、それぞれの引数で直接指定されます。</p>
+<p>UARTなどの入力デバイスに結合するには、モジュールのグローバル変数<tt>xfunc_in</tt>に、そのデバイスからの1文字読み出し関数へのポインタを代入するだけでOKです。(設定マクロを使用した例:<tt>xdev_in(uart2_getc);</tt>) xgets関数は指定された読み出し関数からライン入力を行います。xfgets関数は入力先を引数で直接指定します。入力された文字は、順にバッファにストアされます。'\0'、'\r'、'\b'以外の制御文字は無視されます。'\r'が読み出されると読み出しを終了して1を返します。'\r'はバッファにはストアされず、文字列は'\0'で終端されます。通常、入力がないときは読み出し関数は制御を返しませんが、入力ストリームの終端が明確なときは'\0'を返すべきです。これにより、xgets関数は0で終了するので、アプリケーションがストリーム終端を知ることが可能になります。</p>
+<pre>
+<span>/* デバイス出力関数の型 */</span>
+
+void output_func (
+    unsigned char c  <span>/* 出力するバイト */</span>
+);
+</pre>
+<pre>
+<span>/* デバイス入力関数の型 */</span>
+
+unsigned char input_func (void);  <span>/* 0:入力ストリームの終端、0以外:読み出した文字 */</span>
+</pre>
+</div>
+
+
+<div class="para">
+<h3>ダウンロード</h3>
+<ul>
+<li><a href="xprintf.zip">組み込み用printfモジュール</a> <span class="mfd">2011. 4. 14</span></li>
+<li><a href="../ff/ffsample.zip">組み込み用printfモジュールの使用例</a></li>
+</ul>
+</div>
+
+
+<hr>
+<p class="foot"><a href="../../fsw.html">戻る</a></p>
+</body>
+</html>

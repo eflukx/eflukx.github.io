@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Misc" href="../../he_f.html">
+<link rel="alternate" hreflang="en" title="English version" href="report_e.html">
+<link rel="stylesheet" href="../works.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - 78KとV850とNXPプログラマの製作</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>78KとV850とNXPプログラマの製作 </h1>
+<p class="hdd">2006. 7. 2<br>Update: 2012. 9. 1</p>
+<hr class="hds">
+</div>
+
+
+<div class="abst">
+<img class="rset" src="78k.jpeg" alt="" width="200" height="193">
+<p>2005年、あのNECがPIC/AVRワールド（小規模フラッシュマイコンの市場）に挑戦を仕掛けてきました。...しかも78Kマイコンで…(笑)。</p>
+<p>78Kアーキテクチャは、8085に独自のビット操作命令を追加したような感じのレジスタと命令セットを持ち、古くさいもののPIC/AVRよりは素直なアーキテクチャといえます。78Kシリーズは各用途に特化された内蔵機能が豊富で、市場ではかなりのシェアを占めています。昔は主に量産向けでOTP版かマスク版しかなく、趣味の電子工作にはあまり縁のない存在でしたが、最近になってフラッシュ版の<em>小ピン汎用シリーズ</em>が発表されました。さらに、高機能な純正開発ツール（Cコンパイラ、シミュレータ等）を無償配布(サイズ制限はあり)してしまうという力の入れようです。そこで、アマチュア向けに78K(小ピンシリーズ)用の100円ライタを製作してみました。</p>
+<p>32ビットのV850ESについても汎用フラッシュ版と只ツールで同様に売り込もうとしてるので、UARTブート・モードに対応した多くの32ビット・マイコンに使える汎用書き込みアダプタとしてV850ESに対応したライタも製作しておきます。</p>
+</div>
+
+<div class="para">
+<h3>78K用書き込みアダプタ</h3>
+<div class="rset">
+<img src="78kw.jpeg" alt="" width="350" height="170"><br>
+<a href="sp78k.png">回路図</a>
+</div>
+<p>78Kの書き込み動作では、ホストとの通信は一般的な調歩同期式シリアルで行われるので、パソコンのシリアルポートで制御することになります。これの面白いところは、オシレータのピンを使って通信する点にあります。書き込みモードに入るには、これらの信号線を適切なシーケンスで制御してやらばければならないので、プログラマはやや複雑な回路となります。ターゲットに振動子を接続したまま書き込むときは、プログラマから供給するクロックと干渉しないようにそれぞれの周波数は離れている必要があります。プログラマ上の振動子はソケットにしておきましょう。</p>
+<br class="clr">
+</div>
+
+<div class="para">
+<h3>汎用書き込みアダプタ(V850ES/LPCxxxx/H8ほか)</h3>
+<div class="rset">
+<a href="uispusb.jpeg" class="imglnk"><img src="uispusbs.jpeg" alt="" width="308" height="229"></a><br>
+<a href="uispusb.png">USB版</a> | <a href="uisp232.png">EIA232版</a> | <a href="uispsch.png">ターゲット</a>
+</div>
+<p>単純なUSB-UART変換器のデータ信号にリセット/書き込み制御信号を追加したものです。したがって、<em>汎用のUART通信アダプタ</em>として、これらのマイコン以外でもデバッグ・モニタなどちょっとしたUART通信に利用することができます。ターゲットの電源電圧は3～5Vの範囲に対応します。ターゲットの電源が落ちている場合は入力が切り離されるので、0を受信しっぱなしになることはありません。RESET#をターゲットのリセット回路に接続した場合、端末プログラムによるポート・オープンでリセット解除となります。PROG信号は書き込みモードへの移行を指定する信号で、通常はHi-Z、SW1を押すとH/Lレベル(極性はSW2で選択)を出力します。</p>
+<p>V850ESのフラッシュ書き込みでは、調歩同期シリアルとクロック同期シリアルの2通りの通信方法があり、このアダプタの場合は前者を使用することになります。SW1の状態は書き込み中(ER#=L)は自己保持するので、書き込み開始の瞬間だけ押さえていればOKです。なお、書き込みモードでの起動(FLMD[1:0]を[L,H]でリセット解除)をターゲット基板上のスイッチなどで行う場合は、PROG信号の配線やSW1の操作は必要ありません。他のマイコンの書き込みモード起動(特定の入力の下でリセット解除)についても同様です。</p>
+<br class="clr">
+</div>
+
+<div class="para">
+<h3>ソフトウェア</h3>
+<p><em><kbd>sp78k.exe</kbd></em>は78K小ピンシリーズ（78K0S/Kx1+）に対応します。iniファイルを適当に設定しておけばHEXファイルのD&amp;Dで一発書き込みができます。ライタの振動子を変えたときはそれに合わせてスピードも変更します。</p>
+<p><em><kbd>sp850es.exe</kbd></em>はV850ES/Jx2,Kx2,Hx2,Ix2シリーズに対応します。これもiniファイルを適当に設定しておけばHEXファイルのD&amp;Dで一発書き込みもできます。デフォルトでは9600bpsなので、そのままではかなり遅く感じられます。オプションで9600/19200/38400/76800/153600を選択できますが、PC内蔵COMポートでは38400までしか使用できません。USBシリアルなら153600で動作すると思います。</p>
+<p><em><kbd>lpcsp.exe</kbd></em>はNXP LPC1000/2000シリーズに対応します。これもiniファイルを適当に設定しておけばHEXファイルのD&amp;Dで一発書き込みもできます。デバイス・タイプは自動認識です。デフォルトでは115200bpsなので、そのままで遅く感じられるかもしれません。PC内蔵COMポートでは115200bpsまでしか使用できませんが、USBシリアルの多くは230400bpsの指定が可能になっています。DTR/RTS信号がマイコンのRESET#/BOOT#入力に接続されている場合、その制御極性はオプションで指定できます。</p>
+
+<p><a href="78k_v850.zip">78K/V850ES用書き込みプログラム</a> <span class="mfd">2009.10.31</span></p>
+<p><a href="lpcsp.zip">LPC1000/2000用書き込みプログラム</a> <span class="mfd">2012.9.5</span></p>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

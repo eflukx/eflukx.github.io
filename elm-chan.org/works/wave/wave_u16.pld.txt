@@ -1,0 +1,29 @@
+Title	  WAVE FORM GENERATOR
+Pattern	  SYNC OUTPUT DRIVER
+Revision  0.00
+
+
+CHIP	U16	GAL16V8
+
+;1]   [2]   [3]   [4]   [5]   [6]   [7]   [8]   [9]   [10]
+-     -     -     -     -     -     PWM   P0    P1    GND
+
+;11]  [12]  [13]  [14]  [15]  [16]  [17]  [18]  [19]  [20]
+CLK   PWE   -     -     -     -     -     OUT1  OUT2  VCC
+
+
+EQUATIONS
+
+ OUT1	= /P0 */P1 * CLK
+ 	+  P0 */P1 * PWM
+ 	+ /P0 * P1 */PWM
+	+  P0 * P1 * CLK
+
+ OUT2	= /P0 */P1 * CLK
+ 	+  P0 */P1 * PWM
+ 	+ /P0 * P1 */PWM
+	+  P0 * P1 * CLK
+
+ PWE	=  P0 */P1
+ 	+ /P0 * P1
+

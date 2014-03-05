@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="stylesheet" href="../docs.css" type="text/css" media="screen" title="ELM Default">
+<style type="text/css" media="screen" title="ELM Default">
+small {font-size: 70%;}
+a.imglnk img {border: 2px solid;}
+</style>
+<title>ELM - ビデオテスト信号</title>
+</head>
+
+<body>
+<div class="header">
+<h1>いろいろなビデオテスト信号</h1>
+<p class="hdd"><small><a href="http://babel.altavista.com/babelfish/trurl_pagecontent?lp=ja_en&amp;url=http%3A%2F%2Felm-chan.org%2Fdocs%2Fvits%2Ftest.html">Translate this page</a> with Babelfish Translation</small></p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<p>ビデオシステムの調整や特性評価のために、いろいろなテスト信号が考案され広く利用されています。その中で標準的なものをいくつか紹介してみます。しかし、これらの信号を実際に活用するには、多くの場合波形モニタやベクトルモニタなどの測定器が必要になってきます。これらの測定器は専用性が高く、セミプロか相当な酔狂しか持っていないと思います（私も持っていません(^^;）。オシロスコープなら誰でも持っているので、ある程度までは波形モニタの代用として使うことができます。いくつかのテスト信号はテレビジョン放送のブランキングエリアに挿入されているので、オシロスコープで覗いてみると面白いと思います。</p>
+<br>
+<p class="indent">※仕事上ではビデオシステムは専門外なので、もしかしたら変なことを書いていたり、説明不十分なところがあるかも知れません。気付いた点がありましたら、突っ込み入れてやってください(^^;。</p>
+</div>
+
+
+<div class="para">
+<h3><abbr title="National Television Standard Commite">NTSC</abbr>テスト信号</h3>
+
+<h4 class="clr">ブラックバースト</h4>
+<p>同期パルスとカラーバースト以外何もない真っ黒な画面。SC-Hの調整や外部同期信号など、複数の機器のフレームを同期させるタイミング信号としてよく使われている。</p>
+
+<h4 class="clr">フルカラーバー</h4>
+<div class="rset">
+<a href="z_cb75.jpeg" class="imglnk"><img src="z_cb75.jpeg" alt="" class="lset" width="189" height="142"></a>
+<a href="y_fcb75.jpeg" class="imglnk"><img src="y_fcb75.jpeg" alt="" class="lset" width="189" height="142"></a>
+</div>
+<p>画面を水平方向に8分割した白・黄・シアン・緑・マゼンタ・赤・青・黒の各色帯で構成される最も基本的なカラーバー。白帯と他の色帯の輝度レベルの設定によって3種類のバリエーションがある。右の写真はそれぞれの色帯の輝度が75%なので、75%カラーバーと呼ばれ、黄とシアンに重畳される色信号のピークが100IREに達する。白帯のみ100%としたものが100%.75%カラーバーで、白レベルの調整に使用される。全て100%としたものは100%カラーバーだが、ピークが133IREとなり常に過変調になるので普通の放送テストには用いられない。</p>
+
+<h4 class="clr"><abbr title="Society of Motion Picture and Television Engineers">SMPTE</abbr>カラーバー</h4>
+<div class="rset">
+<a href="z_smpte.jpeg" class="imglnk"><img src="z_smpte.jpeg" alt="" class="lset" width="189" height="142"></a>
+<a href="y_smpte.jpeg" class="imglnk"><img src="y_smpte.jpeg" alt="" class="lset" width="189" height="142"></a>
+</div>
+<p>黒レベル、白レベル、色調整を簡単に行えるように、フルカラーバーを拡張したもの。色帯は黒を除いた7本の75%カラーバーと反転カラーバー、-I信号、100%白、+Q信号、<abbr title="Picture Line-Up Generating Equipment">PLUGE</abbr>信号で、これらが<a href="smpte.png">規定のサイズ</a>で構成される。-I、+Q、PLUGEはRGB換算すると負の値が出るので、SMPTEカラーバーを画像ファイルにすることは不可能。</p>
+<p>モニタのウォーミングアップの後、PLUGE信号の黒+4IREバーが見えて、黒-4IREバーが見えないようにセットアップ(明るさ)を調整する。次に100%白バーの白が潰れないようにゲイン(映像)を調整。</p>
+<p>色調整は、モニタをBlueオンリーモード（緑・赤をOFF）に設定して、カラーバーと反転カラーバーの輝度差が無くなるようにHUEつまみとSATつまみを調整する。Blueオンリーモードが無いモニタの場合は、緑・赤を遮断する光学フィルターを使って行う。</p>
+<p>-I/+Q信号は輝度信号を伴わない単独の色信号で、振幅はカラーバーストと同じ。ベクトルモニタ上で-I/+Q信号の星が規定の位置にあるか確認する。</p>
+
+<h4 class="clr">フルフィールド</h4>
+<p>画面全面に100%または50%の色を表示して、ノイズ等の確認を行う。特に赤ラスタは色ノイズやドロップアウトの評価によく用いられる。</p>
+
+<h4 class="clr">クロスハッチ／クロスドット</h4>
+<div class="rset">
+<a href="y_xdot.jpeg" class="imglnk"><img src="y_xdot.jpeg" alt="" class="lset" width="189" height="142"></a>
+<a href="y_xhatch.jpeg" class="imglnk"><img src="y_xhatch.jpeg" alt="" class="lset" width="189" height="142"></a>
+</div>
+<p>ドットやラインでモニタに目盛りを表示し、歪みやコンバーゼンスの調整をする。コンバーゼンス調整するときは、眼鏡を外さないと正しく調整できないので注意。</p>
+
+
+<h4 class="clr">マルチバースト・スイープ</h4>
+<div class="rset">
+<a href="z_sw5.jpeg" class="imglnk"><img src="z_sw5.jpeg" alt="" width="189" height="142"></a><br>
+<a href="y_sw5.jpeg" class="imglnk"><img src="y_sw5.jpeg" alt="" width="189" height="142"></a>
+</div>
+<div class="rset">
+<a href="z_mb.jpeg" class="imglnk"><img src="z_mb.jpeg" alt="" width="189" height="142"></a><br>
+<a href="y_mb.jpeg" class="imglnk"><img src="y_mb.jpeg" alt="" width="189" height="142"></a>
+</div>
+<p>周波数特性を調べるためのテスト信号。写真のスイープは、水平スイープ。1フィールド単位で変化する垂直スイープもある。</p>
+
+<h4 class="clr">変調ランプ・変調ステアケース</h4>
+<div class="rset">
+<a href="z_modstp.jpeg" class="imglnk"><img src="z_modstp.jpeg" alt="" width="189" height="142"></a><br>
+<a href="y_modstp.jpeg" class="imglnk"><img src="y_modstp.jpeg" alt="" width="189" height="142"></a>
+</div>
+<div class="rset">
+<a href="z_modrmp.jpeg" class="imglnk"><img src="z_modrmp.jpeg" alt="" width="189" height="142"></a><br>
+<a href="y_modrmp.jpeg" class="imglnk"><img src="y_modrmp.jpeg" alt="" width="189" height="142"></a>
+</div>
+<p>映像の明るさがクロマ信号のゲインや位相に与える影響を調べるためのテスト信号。ランプやステアケースにクロマ信号が重畳されていて、波形モニタではクロマ成分を抜き出して振幅が一定かどうか調べる。ベクトルモニタではDG/DPモードで星の形をみて位相回転やゲイン変動が無いか調べる。</p>
+
+<h4 class="clr">変調ペデスタル</h4>
+<div class="rset">
+<a href="z_modped.jpeg" class="imglnk"><img src="z_modped.jpeg" alt="" class="lset" width="189" height="142"></a>
+<a href="y_modped.jpeg" class="imglnk"><img src="y_modped.jpeg" alt="" class="lset" width="189" height="142"></a>
+</div>
+<p>クロマ信号が輝度に与える影響を調べるためのテスト信号。正常なときの波形は上下対称になるが、クロマ信号がDCオフセットに影響を及ぼしているときはエンベロープが上下どちらかに偏る。</p>
+
+<h4 class="clr">ランプ</h4>
+<div class="rset">
+<a href="z_ramp.jpeg" class="imglnk"><img src="z_ramp.jpeg" alt="" class="lset" width="189" height="142"></a>
+<a href="y_rmp.jpeg" class="imglnk"><img src="y_rmp.jpeg" alt="" class="lset" width="189" height="142"></a>
+</div>
+<p>輝度リニアリティを調べるテスト信号。波形モニタ上でランプが直線になればよい。</p>
+
+<h4 class="clr">ステアケース</h4>
+<div class="rset">
+<a href="z_stp5.jpeg" class="imglnk"><img src="z_stp5.jpeg" alt="" class="lset" width="189" height="142"></a>
+<a href="y_stp5.jpeg" class="imglnk"><img src="y_stp5.jpeg" alt="" class="lset" width="189" height="142"></a>
+</div>
+<p>輝度リニアリティを調べるテスト信号。波形モニタを微分モードにして階段のエッジを示すパルスの高さが揃っていればよい。</p>
+
+<h4 class="clr"><abbr title="National Telecommunications Commission">NTC</abbr>7コンポジット</h4>
+<div class="rset">
+<a href="z_ntc7.jpeg" class="imglnk"><img src="z_ntc7.jpeg" alt="" class="lset" width="189" height="142"></a>
+<a href="y_ntc7.jpeg" class="imglnk"><img src="y_ntc7.jpeg" alt="" class="lset" width="189" height="142"></a>
+<a href="z_ntc7_12.jpeg" class="imglnk"><img src="z_ntc7_12.jpeg" alt="" class="lset" width="278" height="142"></a>
+</div>
+<p>いくつかのテスト信号を1ラインにまとめて、複数の項目を同時に測定できるようにしたものがあり、NTC7コンポジットには、100%バー（サグ）、パルス（Kファクタ、高域ゲインやクロマ遅延）、変調ステアケース（DG/DP）が含まれる。右の画像は12.5T変調パルスの拡大で、左から正常、クロマ減衰、クロマ遅延の状態を示す。2Tパルスは高域ゲインが正常なとき、ピークが100IREになる。</p>
+
+<h4 class="clr">ウィンドウ</h4>
+<div class="rset">
+<a href="y_win.jpeg" class="imglnk"><img src="y_win.jpeg" alt="" class="lset" width="189" height="142"></a>
+</div>
+<p>APL変動がクランプや同期分離に与える影響や、高圧レギュレーションなどの確認。クランプに問題があると、矩形の上部が左に曲がる。</p>
+
+
+<h4 class="clr">sin(x)/x</h4>
+<div class="rset">
+<a href="z_sinc.jpeg" class="imglnk"><img src="z_sinc.jpeg" alt="" class="lset" width="189" height="142"></a>
+<a href="y_sinc.jpeg" class="imglnk"><img src="y_sinc.jpeg" alt="" class="lset" width="189" height="142"></a>
+<a href="z_sinc_fft.png" class="imglnk"><img src="z_sinc_fft.png" alt="" class="lset" width="189" height="142"></a>
+</div>
+<p>コンピュータ解析の進歩に伴って考案された、ゲイン・群遅延の周波数特性をチェックする信号。sin(x)/x（sinc関数）信号は、インパルスを理想LPFに通した波形で、ある周波数以下の全ての周波数を含むことが知られている。たとえば、sin(x)の1周期をt[sec]とすると、その波形は1/t[Hz]以下の全ての周波数を含むことになる（テスト信号では有限周期での繰り返しになるため、離散スペクトルになる）。システムの応答波形をアナライザで見るだけで特性が把握できるし、ブランキングエリアに乗せてサービス中にリアルタイムで監視することもできる。DCレベルの異なるパターンが組になっているものは、リニアリティなども測定できるようにするため。</p>
+<br class="clr">
+</div>
+
+<div class="para">
+<h3>コンポーネントテスト信号</h3>
+
+<h4 class="clr">フルカラーバー</h4>
+<div class="rset">
+<a href="z_yuv.jpeg" class="imglnk"><img src="z_yuv.jpeg" alt="" class="lset" width="189" height="142"></a>
+</div>
+<p>Y色差コンポーネント信号は、Y/C信号の色信号をさらにR-Y成分とB-Y成分に分離したもので、RGBとほぼ等価である。2つの色差信号はそれぞれ独立したラインで伝送される。ベースバンドでの伝送となるので、直角2軸変復調のために必要だったカラーバーストは無い。</p>
+<p><em>C<small>B</small>/C<small>R</small></em>は、B-Y/R-Y信号それぞれの最大振幅をY信号のそれに合わせるためゲイン調整されたものである（Yが0-700mVなら、C<small>B</small>/C<small>R</small>は±350mV）。教科書や規格によっては<em>P<small>B</small>/P<small>R</small></em>と表記されることもある。</p>
+
+<h4 class="clr"><abbr title="Association of Radio Industries and Businesses">ARIB</abbr>マルチフォーマットカラーバー</h4>
+<div class="rset">
+<a href="y_arib.jpeg" class="imglnk"><img src="y_arib.jpeg" alt="" class="lset" width="189" height="112"></a>
+</div>
+<p>HDTVをはじめとする<a href="arib.png">ワイド画面（16:9）に対応</a>したカラーバー信号。パン・スキャンで4:3に変換されるときは、左右の色帯が切り落とされる。75%白バー直下（100%シアンの右隣）の値は任意で、75%白、100%白、+Iの3通りがよく使われているらしい。</p>
+
+
+<h4 class="clr">ボータイ</h4>
+<div class="rset">
+Y-C<small>B</small>またはY-C<small>R</small><br>
+<a href="z_bt1.jpeg" class="imglnk"><img src="z_bt1.jpeg" alt="" width="189" height="80"></a><br>
+位相エラー(35ns)<br>
+<a href="z_bt2.jpeg" class="imglnk"><img src="z_bt2.jpeg" alt="" width="189" height="80"></a><br>
+ゲインエラー(1dB)<br>
+<a href="z_bt3.jpeg" class="imglnk"><img src="z_bt3.jpeg" alt="" width="189" height="80"></a>
+</div>
+<p>伝送路等で発生する輝度・色差信号間のゲインエラーや、スキューを確認・調整するためテスト信号。波形モニタ上に表示される波形が蝶ネクタイ（Bowtie）に似ていることから、この名が付いている。輝度信号は500kHzの正弦波、色差信号は502kHzの正弦波で、中央部でピークが一致する位相関係になっている。波形モニタをボータイモードにすると、右の写真のような輝度と色差の差分波形が表示される。輝度信号と色差信号の位相がずれていると交点の位置が中央部から外れ、ゲインが合っていないと交点の振幅がゼロにならない。</p>
+<p>HDTVになると遅延調整による位相管理が困難になってくるので、全ての信号に<em>3値同期</em>を付加してそれぞれ独立してタイミングをとるようになる。</p>
+</div>
+
+<p class="foot">
+<a href="../rs170a/spec_j.html">RS-170A概要</a> | <a href="../../cc.html">目次</a><br>
+<img alt="Sign" src="../../p/sign.png">
+</p>
+</body>
+</html>

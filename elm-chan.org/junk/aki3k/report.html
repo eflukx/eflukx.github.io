@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="stylesheet" href="../junk.css" type="text/css" media="screen" title="ELM Default">
+<title>秋月3000円液晶モジュールの試食</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>秋月3000円液晶モジュールの試食</h1>
+<p class="hdd">2012. 3. 8</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<a href="x1.jpeg" class="imglnk"><img class="rset" src="w1.jpeg" alt="秋月3000円液晶" width="480" height="270"></a>
+<p>以前、秋月から400×96ドットのTFTカラーLCDモジュール(LTA042B010F)が300円という破格で発売され、ちょっとした旋風が起こりました(私は食指が動かずパス)。そして最近になって久しぶりに新たなカラーLCDモジュールが発売されました。今回のは480x272ドットのTFTカラーLCDモジュール(ATM0430D5)で、価格は3000円と特に興味を引かれるほどのものではありません。でも、今回はピンと来るところがあったので試食してみることにしました。とりあえず映してみたというだけで、大したレポートではありませんが。</p>
+</div>
+
+<div class="para">
+<h3>グラフィックLCDモジュールの使いかた</h3>
+<p>最近は、QVGAクラスまでのLCDモジュールでは、表示メモリを内蔵したものが多く出回るようになりました。それらは、パラレルまたはSPIインターフェースで表示データを書き込んでやればあとは放っておいてもLCDモジュールが単独でLCDパネルの駆動・表示を続けてくれます。このため、チープなマイコンでも手軽に制御できるようになり、ホビー用途ではそういった表示メモリ内蔵型のモジュールがよく使われています。</p>
+<img class="rset" src="w2.png" width="500" height="400" alt="">
+<p>しかし、QVGAを越えるサイズになるとほとんどのLCDモジュールでは表示メモリが内蔵されていません。もちろん、3000円液晶も300円液晶と同様に表示メモリは内蔵されていません。したがって、この手のLCDモジュールを使うには、規定のタイミングでリフレッシュ(LCDパネルの駆動)を行うため、外部に表示メモリとLCDCが必須になります。昔は右の図に示すように別チップで個別に表示回路を組んでいました。下の写真は以前とあるシステムの評価用に製作した基板で、汎用LCDC(S1D13506)を使用した3チップ構成になります。でも、これから設計するなら汎用LCDCやFPGAなどといった面倒なことはせず、入手しやすくなったLCDC内蔵マイコンを利用したシステム構成とするのがお手軽といえるでしょう。現在ホビー用途でよく使われているLCDC内蔵マイコンとしては、LPC2478、LPC1788、SH7262などがあり、特に後者のSHは表示メモリまで集積していて完全1チップでいけます。これは雑誌付録にもなりました<small>(どこにしまったかなぁ...)</small>。</p><br class="clr">
+<a href="x4.jpeg" class="imglnk"><img src="w4.jpeg" class="lset" alt="LCDC基板" width="240" height="135"></a>
+<p>←昔製作した3チップ構成のマイコン基板。2枚は作りたくない(笑)。<br class="clr"></p>
+</div>
+
+<div class="para">
+<h3>秋月3000円液晶とシャープPSP液晶</h3>
+<table class="lst rset">
+<caption>ピン配列の比較</caption>
+<tr><th>Pin#</th><th>秋月3000円</th><th>シャープPSP</th></tr>
+<tr><td>1</td><td>LED-</td><td>GND</td></tr>
+<tr><td>2</td><td>LED+</td><td>GND</td></tr>
+<tr><td>3</td><td>GND</td><td>VCC(2.5V)</td></tr>
+<tr><td>4</td><td>VDD(3.3V)</td><td>VCC(2.5V)</td></tr>
+<tr><td>5</td><td>→</td><td>R0</td></tr>
+<tr><td>6</td><td>→</td><td>R1</td></tr>
+<tr><td>7</td><td>→</td><td>R2</td></tr>
+<tr><td>8</td><td>→</td><td>R3</td></tr>
+<tr><td>9</td><td>→</td><td>R4</td></tr>
+<tr><td>10</td><td>→</td><td>R5</td></tr>
+<tr><td>11</td><td>→</td><td>R6</td></tr>
+<tr><td>12</td><td>→</td><td>R7</td></tr>
+<tr><td>13</td><td>→</td><td>G0</td></tr>
+<tr><td>14</td><td>→</td><td>G1</td></tr>
+<tr><td>15</td><td>→</td><td>G2</td></tr>
+<tr><td>16</td><td>→</td><td>G3</td></tr>
+<tr><td>17</td><td>→</td><td>G4</td></tr>
+<tr><td>18</td><td>→</td><td>G5</td></tr>
+<tr><td>19</td><td>→</td><td>G6</td></tr>
+<tr><td>20</td><td>→</td><td>G7</td></tr>
+<tr><td>21</td><td>→</td><td>B0</td></tr>
+<tr><td>22</td><td>→</td><td>B1</td></tr>
+<tr><td>23</td><td>→</td><td>B2</td></tr>
+<tr><td>24</td><td>→</td><td>B3</td></tr>
+<tr><td>25</td><td>→</td><td>B4</td></tr>
+<tr><td>26</td><td>→</td><td>B5</td></tr>
+<tr><td>27</td><td>→</td><td>B6</td></tr>
+<tr><td>28</td><td>→</td><td>B7</td></tr>
+<tr><td>29</td><td>→</td><td>GND</td></tr>
+<tr><td>30</td><td>→</td><td>CK</td></tr>
+<tr><td>31</td><td>→</td><td>DISP</td></tr>
+<tr><td>32</td><td>NC</td><td>Hsync</td></tr>
+<tr><td>33</td><td>NC</td><td>Vsync</td></tr>
+<tr><td>34</td><td>DE</td><td>NC</td></tr>
+<tr><td>35</td><td>NC</td><td>AVDD(5V)</td></tr>
+<tr><td>36</td><td>GND</td><td>AVDD(5V)</td></tr>
+<tr><td>37</td><td>→</td><td>NC</td></tr>
+<tr><td>38</td><td>NC</td><td>TEST1(NC)</td></tr>
+<tr><td>39</td><td>NC</td><td>TEST2(GND)</td></tr>
+<tr><td>40</td><td>NC</td><td>TEST3(GND)</td></tr>
+</table>
+
+<div class="rset">外形の比較<br><a href="x3.jpeg" class="imglnk"><img src="w3.jpeg" alt="LCD比較" width="180" height="203"></a><br><small>(上) 右側が秋月液晶<br>(下) 秋月液晶は少し薄い</small></div>
+<p>ところでこの秋月3000円液晶、どこかで見たような仕様です。そう、シャープ製PSP液晶(LQ043T3DX02)に酷似していますね。あのLCDモジュールは、以前から<abbr title="プレイステーション・ポータブル">PSP</abbr>修理用部品などと称して怪しく出回っていることから<em>PSP液晶</em>と呼ばれています。もしかしたら、秋月3000円液晶はPSP液晶と同じなのかも知れません。今回秋月3000円液晶を試食してみようと思ったのは、既に製作してあったPSP液晶用の基板を流用して簡単にいけそうだと思ったからです。</p>
+<p>実際に調べてみたところ、ドット数、外形寸法、画面寸法、信号ケーブルの位置・ピッチ・ピン数は全て同じです。右の表に秋月液晶とPSP液晶のピン配置を示します。ソケット互換を期待していたのですが、残念ながらそうはいきませんでした。でも、信号ラインについては配置は全く同じで、やはりシャープPSP液晶を基に設計されているようです。たぶん、PSP用に大量に供給されたため利用が増えて準標準規格になったのでしょう。</p>
+<p>電源ラインの配置や電圧はかなり異なるのが分かります。PSP液晶は2.5V(2.3～3.3V)/5Vの2電源なのに対し、秋月液晶は3.3V(3.1～3.5V)単一電源です。バックライト(LED)の端子は、PSP液晶では別コネクタなのに対し、秋月液晶では信号ラインと同じコネクタにまとめられています。バックライト電流は同じです。</p>
+<p>また、秋月液晶は同期信号としてDEのみを使用し、HSYNCとVSYNCは使用しません。水平同期はともかく、垂直同期はどうしているのかと思いましたが、これはDE信号が一定時間無い場合は垂直同期として認識してるようです。なるほど、これならフロントポーチ・バックポーチといったタイミングに関係なく接続でき、ツブシの効く巧い仕様といえます。3.3V単一電源というのも使いやすさのポイントになっています。</p>
+<p>電源電圧の違いはPSP液晶を3.3V/5Vで使っていたため問題ありません。もちろん、FPCコネクタへの配線は何本かつなぎ替える必要があります。基板を起こしていたらお手上げだったところですが、UEW配線なのでこの程度の変更なら大したことはありません。それでもLCDC(0.4mmピッチ)からの配線を全部やり直すとなるとさすがに気が重くなるので、電源ラインのつなぎ替えだけで済んだのは幸いでした。</p>
+<a href="x8.jpeg" class="imglnk"><img src="w8.jpeg" class="lset" alt="端子切り換え" width="213" height="160"></a>
+<p>←ジャンパで4本切り換えるだけで秋月液晶とお馴染みのPSP液晶に対応できる。<br class="clr"></p>
+</div>
+
+<div class="para">
+<h3>食す</h3>
+<div class="rset"><a href="x5.jpeg" class="imglnk"><img src="w5.jpeg" alt="視野角" width="360" height="203"></a><br><small>小型LCDは視野角が狭いのが難点</small></div>
+<p>今回は既にあったLCDC基板を元に10分で試食できましたが、何も準備がない状態では表示メモリを内蔵しないLCDモジュールは少々やっかいです。単に画像を表示してみるだけなら、そこいらに転がっているARM基板やFPGA基板で映像信号を生成するのが手軽で良いと思います。</p>
+<p>LCDCのタイミング・パラメータはPSP液晶と同じままで何の変更も必要ありませんでした。やはりPSP液晶使用システムから機械的な変更なしに置き換えられることを狙っているようです。その他気づいた点は次の通りです。偏光板の表面処理はPSP液晶が光沢、秋月液晶がノングレアになっています。バックライトの輝度は秋月液晶の方が高く、標準値の20mAを流すとまぶしいくらいです。発色はPSP液晶に比べ遜色ありません。視野角はどちらも同じような傾向で、Y軸には広く、X軸に狭くなっています。X軸で45°以上傾けると著しくコントラストが低下、60°以上で反転しますが、この手の小型LCDでは仕方のないところでしょう。</p>
+<br>
+<div class="rset"><a href="x7.jpeg" class="imglnk"><img src="w7.jpeg" alt="NTSC出力" width="360" height="253"></a><br><small>汎用LCDCはアクセラレータ、ハードウェア・カーソル、<br>デュアル・モニタなどのオマケ機能がてんこ盛り</small></div>
+<p>さて、今回の秋月3000円液晶が買いかどうかというと、微妙なところです。3000円出すなら300円液晶10個の方が買いのような。いずれにしても表示メモリを内蔵しないLCDモジュールを使うには、何らかのLCDC回路が必須になるので誰でも手軽にとはいきません。つまり、少し頑張らないと使えないのです。それに対し、頑張らなくても使える表示メモリ内蔵LCDモジュールは既に多くの電子工作プロジェクトで使われています。Aitendoではこれより安価なQVGAクラスので表示メモリ内蔵LCDモジュールが多数売られていて、カラーLCDに限っては秋月の完敗といえます。う～む、秋月を倒すなんて。華僑ネットワーク恐るべし!</p>
+<p>...いや、重要なのはそんなことではなく、<em>それを使ってどんな面白プロジェクトを実現するか</em>、ですね。秋月液晶と中華液晶どっちが買いかなんてのは意味のないことです。ピピっと来たら迷わずポチりましょう:-)</p>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

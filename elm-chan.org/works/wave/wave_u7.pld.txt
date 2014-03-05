@@ -1,0 +1,40 @@
+Title	  WAVE FORM GENERATOR
+Pattern	  COUNTER CONTROL
+Revision  0.00
+
+
+CHIP	U7	GAL16V8
+
+;1]   [2]   [3]   [4]   [5]   [6]   [7]   [8]   [9]   [10]
+CLK   F1    F10   F100  F1000  -     -    S0    S1    GND
+
+;11]  [12]  [13]  [14]  [15]  [16]  [17]  [18]  [19]  [20]
+OE     -    CLR   FOUT  XFER  Q3    Q2    Q1    Q0    VCC
+
+
+EQUATIONS
+
+ Q0	:= /Q0				; １２進ＵＰカウンタ(0..11)
+
+ Q1	:= /Q0 * Q1
+ 	 +  Q0 */Q1
+
+ Q2	:= /Q0      * Q2
+ 	 +      /Q1 * Q2
+ 	 +  Q0 * Q1 */Q2 */Q3
+
+ Q3	:= /Q0           * Q3
+ 	 +      /Q1      * Q3
+	 +  Q0 * Q1 * Q2 */Q3
+
+ XFER	= /Q0 * Q1 */Q2 * Q3		; カウントラッチ
+
+
+ FOUT	=  Q1 */Q2 * Q3			; カウント入力セレクタ
+ 	+ /S0 */S1 */F1
+ 	+  S0 */S1 */F10
+ 	+ /S0 * S1 */F100
+ 	+  S0 * S1 */F1000
+
+ CLR	=  Q0 * Q1 */Q2 * Q3		; カウントクリア
+

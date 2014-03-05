@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="alternate" hreflang="en" title="English version" href="avrdma_e.html">
+<link rel="stylesheet" href="../docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - AVRによる疑似DMA</title>
+</head>
+
+<body>
+<h1>AVRによる疑似DMA</h1>
+<p class="hdd"><br>2002. 06. 1</p>
+<hr class="hds">
+
+<div class="abst">
+<a href="dma.jpeg" class="imglnk"><img src="dma.jpeg" alt="LCDコントローラ" class="rset" width="266" height="330"></a>
+<p>AVRファミリの中には外部メモリを接続できるものがあり、内蔵SRAMでは容量の不足するアプリケーションにとても重宝します。しかし、DMAコントローラを持っていないので、周辺回路との間で高速にデータを転送することは困難です。でも、ちょっとしたグルーロジックの追加だけで意外に高速なデータ転送も可能だったりします。今回説明するテクニックは同様な問題を抱える他のマイコン（i8051等）にもそのまま適用できます。</p>
+<p>疑似DMAの回路はとても簡単で、次のIMGに示すような感じとなります。AVRが外部メモリにアクセスするときのRD/WRパルスをそのまま周辺デバイスへのストローブ信号にして転送されるデータを横取りしてしまうのです。これによりCPUを介して周辺デバイスとの間の転送をするのに比べて倍の速度で転送できるわけです。このときAVR自体は単にアドレスジェネレータとしての働きだけでよく、読み書きされるデータに対しては Don't Careです。</p>
+</div>
+
+
+<div class="para">
+<h3>疑似DMA転送のロジック</h3>
+<img src="dma1.png" alt="疑似DMAの回路" width="640" height="300"><br>
+<p><em>(a)</em>はSRAM上のデータを外部へ送り出す場合の回路です。ポート出力で出力デバイスへのストローブ信号を許可して、必要なデータをAVRで一気に読み込みます。するとAVRのRDパルスが同時に出力デバイスへのストローブ信号となり、読み出されたデータが直接出力デバイスへ書き込まれます。32KB以下の小容量メモリの場合は、余ったアドレス信号からDMA Enable信号を作ることもできます。</p>
+<p><em>(b)</em>は外部からSRAMへデータを取り込む場合の回路です。出力と同様、WRパルスが入力デバイスへのストローブ信号となり、入力デバイスからの出力がバスに乗ってSRAMへ直接書き込まれます。AVRが書き込むデータは Don't Care（$FFを推奨）ですが、AVRの出力と入力デバイスの出力との衝突を防ぐためデータバスに<em>Rs</em>（1kΩ程度）やバススイッチを挿入する必要があります。この抵抗は、タイミングマージンや耐ノイズ性に影響を与える場合があるので値の選定には十分な吟味が必要です。また、WRパルス幅がとても狭いので1WS追加する必要があるかも知れません。</p>
+<p>このように、DMAといっても結局はプログラムで駆動されるため、転送方式は一度にまとまった量のデータを転送するバーストモード転送でないと効率が著しく低下します。AVRではロード／ストア命令で外部メモリへアクセスしたときの実行時間は最短で3クロックサイクルとなります。したがって、<em>8MHz動作なら 2.66MB/sec（理論値）の転送速度</em>が得られることになります。</p>
+</div>
+
+
+<div class="para">
+<h3>疑似DMA転送の応用例</h3>
+<div class="rset">
+<pre class="lst">
+;---------------------------------------------------;
+; TC0 overflow ISR (10kHz)
+
+tc0ov:
+      push  r16           ;Save regs.
+      in    r16, SREG     ;
+      push  r16           ;
+      push  r17           ;
+      push  YL            ;
+      push  YH            ;/
+      outi  TCNT0, -11    ;Restore TCNT0
+
+      ldsw  Y, Vaddr      ;Load DMA pointer
+
+      cbi   PORTD, DMAEN  ;Enable pseudo DMA
+      ldi   r17, 40/10    ;Transfer 40 bytes of line data
+      ld    r16, Y+       ;
+      ld    r16, Y+       ;
+      ld    r16, Y+       ;
+      ld    r16, Y+       ;
+      ld    r16, Y+       ;
+      ld    r16, Y+       ;
+      ld    r16, Y+       ;
+      ld    r16, Y+       ;
+      ld    r16, Y+       ;
+      ld    r16, Y+       ;
+      dec   r17           ;
+      brne  PC-11         ;/
+      sbi   PORTD, DMAEN  ;Disable pseudo DMA
+
+      lds   r16, Line     ;Load line counter
+      tst   r16           ;If top line, assert YD.
+      brne  PC+2          ;
+      cbi   PORTD, YD     ;/
+      inc   r16           ;Next line
+      cpi   r16, 200      ;If bottom line, re-initialize
+      brcs  PC+4          ; DMA pointer and line counter.
+      clr   r16           ;
+      ldiw  Y, Vram       ;/
+      cbi   PORTD, LP     ;Strobe (LP) the line data.
+      sts   Line, r16     ; Save DMA pointer and line ctr.
+      stsw  Vaddr, Y      ;
+      sbi   PORTD, LP     ;
+      sbi   PORTD, YD     ;/
+
+      pop   YH            ;Restore regs.
+      pop   YL            ;
+      pop   r17           ;
+      pop   r16           ;
+      out   SREG, r16     ;
+      pop   r16           ;/
+      reti
+</pre>
+</div>
+<p>疑似DMA転送の応用例として、AVRにグラフィックLCDを接続した例を示します。このページのトップにあるIMGがそうです。<a href="dma2.png">回路図はこちら</a>。キャラクタLCDモジュールと違って、ある程度以上の解像度のグラフィックLCDモジュールはバッファメモリを持たないタイプが多く、スチール表示させるために外部から絶えずイメージデータを送ってやらなければなりません。要はCRTディスプレイと同じ考え方です。</p>
+<p>この例で使用したLCDモジュールは、320×200ドットの白黒です。1画面分のデータ量は <tt>320*200/8 = 8000</tt>と、8KB になります。また、LCDの垂直リフレッシュ周波数が 50Hzとなっていることから、要求されるデータ転送速度は平均 400KB/secとなります。</p>
+<p>LCDへのデータ転送は水平ライン毎に一定周期で行われるので、タイマ割り込みで 100μs毎に1水平ライン分のデータ（40バイト）をLCDに送ってやる必要があります。1回の割り込み処理に要するクロック数は約 200クロックです。このことから計算すると 7.37MHz動作におけるLCD表示動作のプロセッサ負荷率は 30%足らずで済んでしまうわけです。640x200のLCDなら 45%程になります。いやぁ、余裕ですね v(^^)</p>
+<p>当たり前ですが、DMA Enable が自動生成でない（ポート制御）場合、疑似DMAを行っている間は他の割り込みが入らないようにしなければなりません。この間に割り込みが入って外部SRAMへのリードアクセスがあると意図しないデータが転送されてしまいます。</p>
+<p>フレームバッファがローカルメモリ上にあるので、描画が高速なのはもちろん、マルチプレーンや仮想フレームバッファなどの機能も容易に付けられるでしょう。</p>
+</div>
+
+
+<p class="foot"><img src="../../p/sign.png" alt=""></p>
+</body>
+</html>

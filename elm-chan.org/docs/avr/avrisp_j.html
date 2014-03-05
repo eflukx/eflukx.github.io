@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="alternate" hreflang="en" title="English version" href="avrisp.html">
+<link rel="stylesheet" href="../docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - AVRボードのISP I/Fの活用</title>
+</head>
+
+<body>
+<h1>AVRボードのISP I/Fの活用</h1>
+<p class="hdd"><br>2001. 05. 20</p>
+<hr class="hds">
+
+<div class="abst">
+<img src="avrisp1.jpeg" alt="" class="rset" width="260" height="203">
+<p>AVRマイコンにはISP機能(ボードに実装したままプログラムを書き換える機能)があります。このため、AVRボードにはISP用のコネクタを設けておくのが普通です。このISPコネクタには<em>汎用I/Oポート3本とリセット信号と電源</em>が直接出ているだけで、マイコンの特別な専用端子を使用しているわけではありません。つまり、書き込み時以外は単純な<em>I/Oコネクタ</em>として使うことができるのです。</p>
+<p>このISPピンは、I/Oポートとの共有となっているため、ボード上で他の機能に使われているかも知れません。そのような場合は別の用途に使うことはできませんが、I/Oピン数に余裕がある場合は、ISP機能の付いたI/Oピンは空きにしておくことが多いものです。</p>
+<p>I/Oポートが３本もあればいろいろなことができますので、これを使わないでおくのはもったいないです。いろいろ応用を考えてみるのも面白いと思います。参考までに私が実際にやっている方法をいくつかご紹介しましょう。</p>
+</div>
+
+
+<div class="para">
+<h3>デバッグ用通信ポートとして使う</h3>
+<p>既にICEをお持ちの方にはあまり意味のないことですが、製作した周辺回路が正常に動いているかどうかISPコネクタを使ってチェックすることができます。</p>
+<p>それにはまず最初に確実に動作することが分かっている単純なモニタプログラムを書き込んでおきます。このプログラムは<a href="../../works/avrx/report.html#AVRSS">ISPケーブル経由のシリアル通信</a>で制御されます。これによりAVRのI/Oポートや内蔵ペリフェラルを端末から自在に操ることができるのです。</p>
+<p>ボードの配線が終わって最初に動作させるまでは結構手こずることが多いものですが、直接操作しながら周辺回路の確認ができるのはハードウェアのデバッグにはとても有効なことです。</p>
+<br>
+<div class="rset">
+<pre class="lst">
+AVR DEBUG MONITOR
+O&lt;pa&gt;&lt;d&gt; - Output port
+I&lt;pa&gt; - Input port
+IR&lt;pa&gt; - Input port until break
+D[&lt;sa&gt;] - Dump memory
+E&lt;sa&gt;[&lt;d&gt;] - Edit memory
+F&lt;sa&gt;&lt;ea&gt;&lt;d&gt; - Fill memory
+%<span style="background:black; color:black"> </span>
+</pre>
+</div>
+<p>サンプルのモニタプログラムは、AVRライタで紹介したものと同じです。AT90S8515ならそのまま変更せずに使用できます。通信速度は 8MHzの場合、38.4kbpsです。他のデバイスや通信速度ではソースコード中のデバイス定義等を適宜書き換えてください。</p>
+<p>モニタプログラムを書き込んで、そのまま適当な通信ソフトを起動するとAVRのリセットが解除されて右に示すような起動メッセージが端末に表示されるはずです。あとは端末からコマンドを打ち込んでポートを叩くなどして内蔵ペリフェラルや周辺回路を操作できます。</p>
+<p>
+<br>
+<a href="avrmon.zip">デバッグモニタのサンプル(ASM)</a><br>
+<a href="../avrlib/suart.zip">ソフトウェアUARTのサンプル(GCC)</a>
+</p>
+<br>
+<p>なお、実際のプログラムをデバッグする際もISPケーブルでの通信機能を使うことができます。しかし、単純なソフトウェアUARTでは受信タイミング生成のため、受信待ちは割り込みを禁止しておく必要があります。したがって、プログラムで割り込みを使う場合はソフトウェアUARTを使うことはできなくなります。</p>
+<p>でも、送信動作だけなら割り込み応答時間の許容値と通信速度によっては割り込みに影響を与えずに使用することができます。例えば、38.4kbpsの場合、送信時の割り込み禁止時間は260μsecとなり、ソフトウェアUARTで送信しても1kHz程度のタイマ割り込みなら処理が落ちたりすることはありません。</p>
+<p>送信だけでも使えればかなりデバッグのサポートになります。変数やステータスを随時端末に送ることで、内部の動作状態を外部から把握できるからです。簡単に数値を出力するコーディング例はAVRライブラリを参照してください。</p>
+</div>
+
+
+<div class="para">
+<h3>LEDディスプレイを接続する</h3>
+<img src="avrled1.jpeg" alt="" class="rset" width="502" height="302">
+<p>端末によるモニタのほか、ISPコネクタに直結できる8桁LEDディスプレイを製作してみました。単純な割にはパソコンより手軽で結構使えます。</p>
+<p>3本のI/Oだけでどうやって8桁も制御するのかというと、シフトレジスタの応用によります。セグメントデータを１ビットづつシフトレジスタに送り込み、表示を保持するようにしているのです。桁数はシフトレジスタを追加しただけ増やすことができますが、スタティック点灯ではシフトレジスタが桁数分必要になってしまうので、ダイナミック点灯にして部品数を減らしています。桁選択も同様にシフトレジスタで制御しています。</p>
+<p>このLED駆動回路は、I/Oポート数が足りないときなどにボード上に組み込む回路としても適しています。</p>
+<br>
+<ul class="flat">
+<li><a href="ispled1.png">回路図と制御タイミング</a></li>
+<li><a href="ispled.txt">LED制御のコーディング例</a></li>
+</ul>
+</div>
+
+
+<div class="para">
+<h3>ジャンパスイッチとして使う</h3>
+<img src="ispsw1.png" alt="" class="rset" width="144" height="116">
+<p>実際の運用に入ったらISPコネクタの使い道はあまり無いのですが、2回路のジャンパスイッチとして使うことができます。AVRはI/Oポートに個別にプルアップを設定できるので、コネクタにジャンパチップを挿してGNDに落とすことで、動作モードの設定などに使用できます。</p>
+<p>MOSIとMISOは入力としてプルアップ、SCKにはLレベルを出力しておき、MOSIとMISOの入力値を読みとります。</p>
+</div>
+
+
+<p class="foot"><img src="../../p/sign.png" alt=""></p>
+</body>
+</html>

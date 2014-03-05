@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="alternate" hreflang="ja" title="Japanese" href="xprintf_j.html">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="Freewares" href="../../fsw_e.html">
+<link rel="stylesheet" href="css_e.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - Embedded String Functions</title>
+</head>
+
+<body>
+<h1>Embedded String Functions</h1>
+<hr>
+
+<div class="abst">
+<p>The Embedded String Functions is a compact string I/O library. It is ideal for tiny microcontrollers that has insufficient program memory for regular printf function. The recommended use is: debug/maintenance console and writing formatted strings into display device.</p>
+</div>
+
+<div class="para">
+<h3>Application Interface</h3>
+<p>The Embedded String Functions provides following functions.</p>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">xputc - Put a character</span>
+/----------------------------------------------*/</span>
+
+void xputc (
+    char c         <span>/* A character to be output */</span>
+);
+</pre>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">xputs - Put a null-terminated string</span>
+/----------------------------------------------*/</span>
+
+void xputs (
+    const char* s  <span>/* Pointer to the null-terminated string to be output */</span>
+);
+
+void xfputs (
+    void(*func)(unsigned char), <span>/* Pointer to the output function */</span>
+    const char* s  <span>/* Pointer to the null-terminated string to be output */</span>
+);
+</pre>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">xprintf - Formatted string output</span>
+/----------------------------------------------*/
+/*  xprintf("%d", 1234);            "1234"
+    xprintf("%6d,%3d%%", -200, 5);  "  -200,  5%"
+    xprintf("%-6u", 100);           "100   "
+    xprintf("%ld", 12345678L);      "12345678"
+    xprintf("%04x", 0xA3);          "00a3"
+    xprintf("%08LX", 0x123ABC);     "00123ABC"
+    xprintf("%016b", 0x550F);       "0101010100001111"
+    xprintf("%s", "String");        "String"
+    xprintf("%-4s", "abc");         "abc "
+    xprintf("%4s", "abc");          " abc"
+    xprintf("%c", 'a');             "a"
+    xprintf("%f", 10.0);            &lt;xprintf lacks floating point support&gt;
+*/
+</span>
+void xprintf (        <span>/* Put a formatted string to the default device */</span>
+    const char* fmt,  <span>/* Pointer to the null-terminated format string */</span>
+    ...               <span>/* Optional arguments... */</span>
+);
+
+void xsprintf (       <span>/* Put a formatted string to the memory */</span>
+    char* buff,       <span>/* Pointer to the output buffer to create an ASCIZ string */</span>
+    const char* fmt,  <span>/* Pointer to the null-terminated format string */</span>
+    ...               <span>/* Optional arguments... */</span>
+);
+
+void xfprintf (       <span>/* Put a formatted string to the specified device */</span>
+    void(*func)(unsigned char), <span>/* Pointer to the output function */</span>
+    const char* fmt,            <span>/* Pointer to the null-terminated format string */</span>
+    ...                         <span>/* Optional arguments... */</span>
+);
+</pre>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">put_dump - Put a line of binary dump</span>
+/----------------------------------------------*/</span>
+
+void put_dump (
+    const void* buff,   <span>/* Pointer to the data to be displayed */</span>
+    unsigned long adr,  <span>/* Heading address */</span>
+    int cnt,            <span>/* Number of items to be displayed */</span>
+    int width           <span>/* Size of item (DW_CHAR, DW_SHORT, DW_LONG) */</span>
+);
+</pre>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">xgets - Get a line from the input device</span>
+/----------------------------------------------*/</span>
+
+int xgets (     <span>/* 0:End of stream, 1:A line arrived */</span>
+    char* buff, <span>/* Pointer to the buffer to input */</span>
+    int len     <span>/* Buffer length */</span>
+);
+
+int xfgets (    <span>/* 0:End of stream, 1:A line arrived */</span>
+    unsigned char(*func)(void), <span>/* Pointer to the input function */</span>
+    char* buff, <span>/* Pointer to the buffer to input */</span>
+    int len     <span>/* Buffer length */</span>
+);
+</pre>
+<pre>
+<span>/*----------------------------------------------/
+/  <span class="b">xatoi - Get a value of the string</span>
+/----------------------------------------------*/
+/* "123 -5   0x3ff 0b1111 0377  w "
+       ^                           1st call returns 123 and next ptr
+          ^                        2nd call returns -5 and next ptr
+                  ^                3rd call returns 1023 and next ptr
+                         ^         4th call returns 15 and next ptr
+                              ^    5th call returns 255 and next ptr
+                                 ^ 6th call fails and returns 0
+*/</span>
+
+int xatoi (      <span>/* 0:Failed, 1:Successful */</span>
+    char **str,  <span>/* Pointer to pointer to the string */</span>
+    long *res    <span>/* Pointer to the valiable to store the value */</span>
+);
+</pre>
+
+</div>
+
+
+<div class="para">
+<h3>Device I/O functions</h3>
+<p>The low-level output function is a user provided call-back function to send a byte to the device. Its address should be set to the pointer 'xfunc_out' to set the default output device prior to use it. e.g. <tt>xdev_out(uart2_putc);</tt> The output function will be called-back from the xputc function. Typically, this function puts the byte to UART, LCD or any output device. xsprintf/xfprintf function override the default output device with its argument.</p>
+<p>The low-level input function is a user provided call-back function to read a byte from the device. Its address must be set to the pointer 'xfunc_in' to swich the input device prior to use it. e.g. <tt>xdev_in(uart2_getc);</tt> The input function will be called-back from the xgets function. Typically, this function reads a byte from input device or file. However when the device reported end of stream, the input function should return a zero. The xgets function aborts with zero on end of stream and the application will able to detect it. The xfgets function override the default input device with its argument.</p>
+<pre>
+<span>/* Write a byte to the output device or memory */</span>
+
+void output_func (
+    unsigned char c  <span>/* Character to be output */</span>
+);
+</pre>
+<pre>
+<span>/* Get a byte from the input device */</span>
+
+unsigned char input_func (void);
+</pre>
+</div>
+
+
+<div class="para">
+<h3>Downloads</h3>
+<ul>
+<li><a href="xprintf.zip">Embedded String Functions source files</a> <span class="mfd">Apr. 14, 2011</span></li>
+<li><a href="../ff/ffsample.zip">Example to use the Embedded String Functions</a></li>
+</ul>
+</div>
+
+
+<hr>
+<p class="foot"><a href="../../fsw.html">Return</a></p>
+</body>
+</html>

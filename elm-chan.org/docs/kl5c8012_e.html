@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../">
+<link rel="up" title="Tech Notes" href="../cc_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="kl5c8012.html">
+<link rel="stylesheet" href="docs_e.css" type="text/css" media="screen" title="ELM Default">
+<title>Kawasaki Steel KL5C8012</title>
+</head>
+
+<body>
+<h1>High Parformance 8 bit Microcontroller - KL5C8012</h1>
+<p class="hdd"><br></p>
+<hr class="hds">
+
+<div class="abst">
+<p>In 1994, a high parformance 8 bit microcontroller was shipped from Kawasaki Steel Corp.(LSI division), and it became a subject of conversation. Well first released controller is the KL5C8012, it is cored with Z80 compatible processor, and integrated with 40 bits of PIO, a USART, three TIMER/COUNTER, a MMU and 512 byute of SRAM, packaged with 100pin QFP.</p>
+</div>
+
+<div class="para">
+<div class="rset">
+<table class="lst">
+<caption>KL5C8012 Features</caption>
+<tr><td>Core Processor</td><td>KC82 (KC80+MMU)<br>Z80 instruction compatible</td></tr>
+<tr><td>Parallel Ports</td><td>40 bits<br>Some of them have alternative function</td></tr>
+<tr><td>Serial Port</td><td>One channel (8251 compatible)</td></tr>
+<tr><td>Timer/Counter</td><td>5 channels</td></tr>
+<tr><td>Intrerupt Controller</td><td>16 levels (8 internal, 8 external)</td></tr>
+<tr><td>Extrenal BUS Interface</td><td>Address: 19 bits<br>Data: 8 bits</td></tr>
+<tr><td>Internal RAM</td><td>512 bytes</td></tr>
+<tr><td>others</td><td>A clock generator, Debugging Interfase</td></tr>
+<tr><td>Electrical Characteristics</td><td>Operating frequency: 0-10MHz<br>Power consumption: 125mW (@5.0V,10MHz)</td></tr>
+<tr><td>Package</td><td>100pin QFP</td></tr>
+</table>
+</div>
+<p>In addition to KL5C8012, some types are also available, integrated with DMAC, DRAM controller, HDLC interface or separated core processor.</p>
+<p>Well, "Low power" and "High Speed" is one of the features of the KL5C80xx series. Surely these features are convincing.</p>
+<p>High Speed: The KC80 core processor runs four times faster than Z80 at same clock frequency, so that the KC80 running at 10 MHz has same parformance as Z80-40MHz!!</p>
+<p>Low Power: When KL5C8012 operating at maximum frequency, its power consumption is only 125mW (5V,25mA).</p>
+<p>Number of execution clock cycles par instruction is depend to instruction byte length, most of clocks are spent to op-code feach and memory op-rands access. And at the final cycle of every instructions, next instruction code is fetched, so that one instruction is executed in one clock cycle minimum. Thus KC80 realizing to run four times faster than Z80 with reducing CPI.</p>
+<p>But it is also weak point that to reduce CPI, when one wait state is added, parformance will slow down in half :-(</p>
+</div>
+
+
+<div class="para">
+<h3>Techniques for tune up</h3>
+<p>The KL5C8012 has two different modes to connect external memory, connecting memory device with extrenal address decoder (maximum mode) and connecting memory device directly (normal mode). At the normal mode, timing designing seems easy. But it is very difficult on the timing designing at higher operating frequency. Because the KL5C8012 running at minimum of one clock par instruction, so that the memory access cycle becomes executing in one clock cycle.</p>
+<p>Actualy, running at 10 MHz with no wait state, the access time for the ROM is requires T<sub>ACC</sub> &lt; 44ns and T<sub>OE</sub> &lt; 22ns include decoder delay. In normal mode, it can directly connects the memory IC, so that these timing value apply to the ROM. But fast ROM is difficult to get.</p>
+<p>When insert one wait with the programable wait control unit, the timing values become T<sub>ACC</sub> &lt; 144ns and T<sub>OE</sub> &lt; 122ns. But the KL5C8012 is very low CPI, One wait state makes slow down the operating speed in half.</p>
+<p>Secondly, consider to slow down the clock frequency with no wait state. When operating clock frequency slow downs to 6.144MHz, reauired access timings become T<sub>ACC</sub> &lt; 75ns and T<sub>OE</sub> &lt; 53ns. So normal ROM can be used.</p>
+<p>The KL5C8012 has 512 bytes of intrenal RAM without wait state. So locate stack or any variables into the intrenal RAM and running at maximum clock frequency with one wait state may better way. This means to concern memory usage and programing technique, so that necessaly to make sure each case, that depends.</p>
+<p>NOTE: KL5C80A16 and KL5C80A20 do not have internal SRAM.</p>
+<br>
+<p>Nowadays 15-20ns class fast SRAM for cache memory is appearing on the market. When use it and copy from ROM to SRAM at the start up, it can runs with no wait state at the high clock frequency. It can also use like a Shadow ROM without any extanal components with remap SRAM into ROM area with a MMU.</p>
+</div>
+
+
+<div class="para">
+<h3>Wait State Controller</h3>
+<p>For the integrated wait controller, it can not particularly configures finely. Phyisical memory area is only separated in half, and there is some limits on configureing for each area. For the memory access, it can configures to 0 wait or 1+n wait. For the I/O access, it can configures to 1 wait or 2+n wait. "n" is added with RDY input. And KL5C8012 dose not has a DRAM reflesh controller, so connecting any DRAM is difficult.</p>
+<p>NOTE: KL5C80A16 and KL5C80A20 has a DRAM controller, they can directly connect DRAMs.</p>
+</div>
+
+
+<div class="para">
+<h3>Handling for not used pins</h3>
+<p>KL5C8012 has internal pull-up resister for all I/O pins, so not used pins can be open state, and they will be fixed to "H" level.</p>
+<p>NOTE: KL5C80A16 and KL5C80A20 do not have any internal pull-up.</p>
+</div>
+
+<div class="para">
+<h3>Technical Data</h3>
+<p>For datails of the KL5C8012 and its families, please refer to the documents as follows.</p>
+<ol>
+<li><cite>KL5C8012/KL5C80A12 Hardware Manual, Kawasaki Steel Corp.</cite></li>
+<li><cite>KL5C8012 Application Notes, Kawasaki Steel Corp.</cite></li>
+<li><cite>KL5C80A16 Hardware Manual, Kawasaki Steel Corp.</cite></li>
+<li><cite>KL5C80A20 Hardware Manual, Kawasaki Steel Corp.</cite></li>
+<li><cite>Transister Gijutsu Special No.59 "Learning the microcomputer with the latest Z80", CQ publishing</cite></li>
+</ol>
+<p>I built a board computer with the KL5C8012, too. And edited as an example of actual use. Please refer to <a href="../works/cpu_kl5c8012/report.html">here</a>.</p>
+</div>
+
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

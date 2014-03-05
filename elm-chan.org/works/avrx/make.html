@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="alternate" hreflang="en" title="English version" href="report_e.html">
+<link rel="stylesheet" href="../works.css" type="text/css" media="screen" title="ELM Default">
+<style type="text/css" media="screen" title="ELM Default">
+pre.p1 {background-color: white; margin: 1em; }
+pre.p2 {background-color: black; color: lightgray; margin: 1em; }
+pre em {color: red;}
+</style>
+<title>ELM - AVRSPをmakeで使う</title>
+</head>
+<body>
+<div class="header">
+<h1>AVRSPをmakeで使う</h1>
+<p class="hdd">2005. 6. 14</p>
+<hr class="hds">
+</div>
+<p>AVRSPは<em>Drag&amp;Drop</em>で使用されることが多いようです。でも、コマンドライン派の人の中にはWinAVRのmakeで使いたいという声も出ているので、使い方を簡単にまとめておきます。まず、MfileでMakefileを作成したあと、それを次のように変更します。</p>
+<pre class="p1">
+<em>---------------------------&lt;前略&gt;----------------------------</em>
+# Programming support using avrdude. Settings and variables.
+
+# Programming hardware: alf avr910 avrisp bascom bsd 
+# dt006 pavr picoweb pony-stk200 sp12 stk200 stk500
+#
+# Type: avrdude -c ?
+# to get a full listing.
+#
+AVRDUDE_PROGRAMMER = stk200                 <em>←無意味</em>
+
+# com1 = serial port. Use lpt1 to connect to parallel port.
+AVRDUDE_PORT = -pl1                         <em>←使用ポートにより適宜書き換える</em>
+
+AVRDUDE_WRITE_FLASH = $(TARGET).hex         <em>←書き換える</em>
+AVRDUDE_WRITE_EEPROM = $(TARGET).eep        <em>←書き換える</em>
+
+
+# Uncomment the following if you want avrdude's erase cycle counter.
+# Note that this counter needs to be initialized first using -Yn,
+# see avrdude manual.
+#AVRDUDE_ERASE_COUNTER = -y                 <em>←コメントアウト</em>
+
+# Uncomment the following if you do /not/ wish a verification to be
+# performed after programming the device.
+#AVRDUDE_NO_VERIFY = -v-                    <em>←必要なら書き換えて有効化</em>
+
+# Increase verbosity level.  Please use this when submitting bug
+# reports about avrdude. See <http://savannah.nongnu.org/projects/avrdude> 
+# to submit bug reports.
+#AVRDUDE_VERBOSE = -v -v                    <em>←コメントアウト</em>
+
+AVRDUDE_FLAGS = $(AVRDUDE_PORT)             <em>←書き換える</em>
+AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
+AVRDUDE_FLAGS += $(AVRDUDE_VERBOSE)
+AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
+
+<em>--------------------------------&lt;中略&gt;------------------------------</em>
+
+# Define programs and commands.
+SHELL = sh
+CC = avr-gcc
+OBJCOPY = avr-objcopy
+OBJDUMP = avr-objdump
+SIZE = avr-size
+NM = avr-nm
+AVRDUDE = avrsp                             <em>←書き換える</em>
+REMOVE = rm -f
+COPY = cp
+
+<em>--------------------------------&lt;以下略&gt;------------------------------</em>
+</pre>
+<p>以上に示すようにMakefileを書き換えるとavrsp.exeがmakeで使えるようになります。なお、avrsp.exeはどこかパスの通ったディレクトリに入れておくこと。avrsp.iniは使ってもいいし、Makefileでオプションを指定しても良いです。書き換え箇所がチマチマ多くてめんどいという場合は、program: セクションだけ</p>
+<pre class="p1">
+program: $(TARGET).hex $(TARGET).eep
+	avrsp -pl1 $(TARGET).hex $(TARGET).eep
+</pre>
+<p>のように書き換えてしまうのが一番手っ取り早いかと思います。え、ならば最初からそう書けって?(^_^;。</p>
+<pre class="p2">
+C:\WinAVR\projects\test1>make program
+avrsp -pl1  test1.hex test1.eep
+STK200 ISP dongle was found.
+Detected device is AT90S2313.
+Flash: Erasing...Writing...Verifying...Passed.
+EEPROM: Writing...Verifying...Passed.
+
+C:\WinAVR\projects\test1>
+</pre>
+
+<a href="report.html">戻る</a><br>
+</p>
+</body>
+</html>

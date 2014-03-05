@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Audio" href="../../he_a.html">
+<link rel="alternate" hreflang="en" title="English version" href="report_e.html">
+<link rel="stylesheet" href="../works.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - オーディオ・スペクトラム・モニタ</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>オーディオ・スペクトラム・モニタ</h1>
+<p class="hdd">2005. 2. 14<br>Update: 2005. 5. 29</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<img class="rset" src="lcd.jpeg" alt="SG12232C" width="336" height="214">
+<p>去年の夏に秋月電子から小型グラフィックLCD(<em>SG12232C</em>)が発売になりました。意味もなく衝動買いした方も多いと思いますが、例によって使い道が思いつかない。というか、はっきり言って使い道が無い(笑)。グラフィック表示ならではの用途ならともかく、同じ\1500出すなら20桁×4行表示のキャラクタLCDモジュールの方が手軽で用途が広いと思います。</p>
+<p>やがてジャンク箱行きになりそうになっていたので、とりあえず火を入れてみることにしました。単に魔女っ娘画像を表示して終わりではあまりにも芸がないので、オシロのように音声波形をダイナミック表示してみることにしました。ついでにスペクトラム解析も付けてみたところ、ラジカセのイルミネーションのようで面白かったので、レポートをまとめておくことにします。</p>
+<p>また、<a href="../rsm/report.html">ラジオバンドへの応用</a>も可能です</p>
+<br class="clr">
+</div>
+
+<div class="para">
+<h3>ハードウェア</h3>
+<div class="rset"><img src="pcb.jpeg" alt="" width="318" height="243"><br><a href="glcd.png">回路図</a></div>
+<p>SG12232Cは、水平122ドット、垂直32ドットのフルグラフィックLCDモジュールです。コントローラとしてエプソンの<em>S1D15200</em>を2個使用しています。S1D15200は、1個で水平61ドットを表示できるので、左右半分づつを受け持っていることになります。このLCDは液晶パネルの駆動に2kHzの外部クロックが必要です。電源が入っているときは絶えずクロックが供給されている必要があります。さもないと液晶パネルが直流バイアスされて壊れます。バスインターフェースは、80系と68系が選択できますが、HD44780のような4bitモードはありません。マイコンに接続するには、少なくとも14本のI/Oポートが必要になります。</p>
+<p>右に制御基板の写真と回路図を示します。お馴染みのmega8でオーディオ信号をA-D変換してLCDに表示しているだけなので、とても簡単ですね。A-D変換のプリフィルタには、MAX293（8次エリプティックLPF）を使ってみました。SCFを一度使うとオペアンプで組むのがアホらしく感じます。</p>
+</div>
+
+<div class="para">
+<h3>ソフトウェア</h3>
+<img src="proc.png" alt="" class="rset" width="350" height="130">
+<p>右の図に内部処理のフロー図を示します。A-D変換された信号はFFTアルゴリズムでフーリエ変換されてLCDの左半分(64dot分)にヒストグラム表示されます。また、波形表示はゼロクロスまでシフトしてなるべく静止して表示されるようにします（右半分残り58dot）。</p>
+<p>FFT演算は16bit固定小数点で行っています。最適化の結果、128点FFTとその周辺処理（ウィンドウ処理＋バタフライ演算＋スカラ変換）で約7.3msとなり、ほぼリアルタイム表示できました。このクラスのマイコンとしてはかなり高速といえます。スペクトラム表示は左端のバーから順に、基本周波数×0（DC成分）、基本周波数×1、×2、×3、...となっています。基本周波数はサンプリング周波数が9.6kHzだから、<em>9.6k/128=75Hz</em>となり、今回の場合はスパン4.8kHzで75Hzの周波数分解能となります。</p>
+</div>
+
+<div class="para">
+<h3>資料</h3>
+<ul>
+<li><a href="akilcd.zip">秋月LCD用ソースファイル</a>。垂直軸をlogスケールにしてみました（60dB）。 <span class="mfd">2005. 5. 29</span></li>
+<li>固定小数点FFTモジュールをGCC用ライブラリにしてみました。<a href="../../docs/avrlib/avrfft.zip">avrfft.zip</a> <span class="mfd">2005. 3. 13</span></li>
+<li><a href="../../junk/gvfd/report.html">256点FFTの例</a>。</li>
+<li>いくつかの波形を表示してみる。方形波、鋸波、sin(x)/x波の周波数成分は教科書通りの結果になっている。波形に見えるリンギングは、急峻なLPFによる位相の乱れによるもの。LCDの代わりに、秋月のLEDパネルキット(32x16)に表示してみるのも面白いかも知れない。<br>
+<img src="sqr1.jpeg" alt="Square" width="284" height="133"> <img src="saw.jpeg" alt="Saw" width="284" height="133"> <img src="sinx.jpeg" alt="Sinx" width="284" height="133">
+</li>
+<li><a href="http://members.jcom.home.ne.jp/felm/sa01.avi">動画ファイル1</a>、<a href="http://members.jcom.home.ne.jp/felm/sa02.avi">動画ファイル2</a>。</li>
+</ul>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

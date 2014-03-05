@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../index_j.html">
+<link rel="up" title="Tech Notes" href="../cc.html">
+<link rel="stylesheet" href="docs.css" type="text/css" media="screen" title="ELM Default">
+<title>NEC V25/V35について</title>
+</head>
+
+<body>
+<h1>NEC V25/V35について</h1>
+<p class="hdd"><br></p>
+<hr class="hds">
+
+<div class="abst">
+<p>NECの1チップマイクロコントローラにV25/V35シリーズがあります。これらのマイコンはV30互換のCPUをコアに周辺インターフェースを集積したもので、外付け部品が少なく、入手性も良いのでアマチュアでも手軽に利用することができます。また、コアがV30互換ということでDOS用の開発ツールを流用できるのも使いやすさのポイントでしょう。現在は、一部仕様を改善した<a href="v25plus.html">V25+/V35+</a>が出ています。V25/V35の主な仕様は次のようになっています。</p>
+<br>
+<table class="lst">
+<caption>V25/V35の特徴</caption>
+<tr><td>コアCPU</td><td>バイナリーレベルで V30互換</td></tr>
+<tr><td>パラレルI/F</td><td>24ビット入出力(一部他の機能とピンを共用)<br>
+8ビット入力（スレッシホールド可変）</td>
+</tr>
+<tr><td>シリアルI/F</td><td>2チャネル(同期/非同期)</td></tr>
+<tr><td>カウンタ・タイマ</td><td>3チャネル</td></tr>
+<tr><td>DMA</td><td>2チャネル</td></tr>
+<tr><td>割り込みコントローラ</td><td>内部12系統、外部5系統</td></tr>
+<tr><td>外部バスI/F</td>
+<td>V25 ：アドレス 20ビット、データ 8ビット<br>
+V35 ：アドレス 20ビット(11/9時分割)、データ 16ビット<br>
+プログラマブルウェイト制御<br>
+DRAM/擬似SRAMリフレッシュ制御<br>
+</td></tr>
+<tr><td>レジスタバンク</td><td>8バンク</td></tr>
+<tr><td>その他</td><td>クロック発振回路など</td></tr>
+<tr><td>電気的仕様</td><td>動作周波数：2～8MHz<br>消費電力：325mW (@8MHz)</td></tr>
+</table>
+</div>
+
+
+<div class="para">
+<h3>メモリマップドレジスタ</h3>
+<p>V25/V35の内蔵ペリフェラルの制御レジスタは全てメモリ空間にマッピングされています。I/O空間の消費はありません。この制御レジスタのブロック(512bytes)は、任意のアドレスに移動することができます。</p>
+<p>制御レジスタの前半256bytesには8バンク分のCPUのレジスタがマッピングされています。任意のレジスタに切り替えることにより高速なタスク切り替えをすることが可能です。割り込みやプロシージャ呼び出しでも切り替えできるので、高速な割り込み処理が可能となります。</p>
+</div>
+
+
+<div class="para">
+<h3>外部メモリについて</h3>
+<p>V25は外部データバスが8bitとなっています。アドレスとデータは分割されていますので、バスサイクルは最小2クロックとなっています。V35は外部データバスが16bitとなっています。アドレスとデータは分割ですが、アドレスが上位/下位で時分割出力となっていますので、バスサイクルは最小3クロックとなっています。SRAMを使用する場合はV25の方が外付け回路が不要で簡単でしょう。</p>
+<p>8MHz/0WSで動作させた場合、ROMに要求されるT<sub>ACC</sub>は、デコーダの遅れを含めて50nsです。こんな高速なROMは普通では入手困難ですので、普通は1WS入れて使用することになります。プログラマブルウェイト機能で1WS入れてみると必要なT<sub>ACC</sub>は175nsとなり、150nsクラスのROMが使えるようになります。</p>
+</div>
+
+
+<div class="para">
+<h3>メモリ・ウェイト制御</h3>
+<p>プログラマブルなウェイトコントローラーを内蔵しています。I/O領域と7ブロックに分割されたメモリ領域にウェイトを設定することができます。各ブロックには個別に 0/1/2/2+nと4通りのウェイトの追加が可能です(nは外部からの追加)。外部ウェイトを使用する場合は、PIOと共用になっているREADYピンを設定する必要があります。ただ、外部ウェイトを使うと、バスサイクルに無駄が多くなるのが難点です(ウェイト解除後も1.5クロックほど無駄な時間がある)。</p>
+</div>
+
+
+<div class="para">
+<h3>【資料】</h3>
+<p>V25/V35をもっと詳しく知りたい場合は、次に挙げる資料を参照すると良いでしょう。残念ながら V25/V35をよく説明した文献は NECの発行する物以外には思い当たりません。</p>
+<ol>
+<li><cite>V25&trade;,V35&trade; ユーザーズマニュアル, NEC</cite></li>
+<li><cite>μPD70322,μPD70320 データシート, NEC</cite></li>
+</ol>
+<p>わたしも V25を使ったボードマイコンを作ってみました。実際の使用例としてまとめてありますので、<a href="../works/cpu_v25/report.html">こちら</a>もご覧ください。</p>
+</div>
+
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

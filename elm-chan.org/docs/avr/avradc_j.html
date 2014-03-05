@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="alternate" hreflang="en" title="English version" href="avradc_e.html">
+<link rel="stylesheet" href="../docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - シンプルなA-Dコンバータ</title>
+</head>
+
+<body>
+<h1>シンプルなA-Dコンバータ</h1>
+<p class="hdd"><br>2002. 02. 9</p>
+<hr class="hds">
+
+<div class="abst">
+<img src="adc.png" alt="" class="rset" width="280" height="250">
+<p>AVRシリーズには10ビットA-Dコンバータを内蔵しているものと内蔵していないものとがあります。でも、最低でもアナログコンパレータは内蔵しているので、これの応用としてA-Dコンバータ無しのチップで簡易A-Dコンバータを構成する例がアプリケーションノート等でいくつか紹介されています。ここでは最も簡単でなおかつリニアリティの良い方法を紹介してみます。</p>
+<p>回路は右の図に示すとおりです（たったのこれだけ(^^;）。まぁ、騙されたと思って読んでみてください(^^;</p>
+</div>
+
+
+<div class="para">
+<img src="pullup.png" alt="" class="rset" width="255" height="174">
+<p>コンデンサを充電しながらその電圧が被測定電圧に達するまでの時間を計り、その時間をもってA-D変換の値とするところは他の方式と同じです。変換中は割り込みを禁止しておかなければならないのは言うまでもありません。</p>
+<p>この回路では内蔵のプルアップ抵抗でコンデンサを充電するようにしたため、外付けの抵抗を省くことができました。好都合なことに、プルアップ電流は入力電圧2V以下でほぼ定電流になる特性があります。このため、この範囲をA-D変換の入力レンジとすることによりリニアリティが大変良くなっています。</p>
+<p>ただ、プルアップ電流は周囲温度に影響されるので、温度に対する安定性はあまり良くありません。まぁ、常温付近（10℃～40℃程度）の使用なら±5%程度の範囲には収まると思いますが。温度特性を求めるなら、内蔵プルアップ抵抗の代わりに外付けのCRD（100μA程度）で充電すれば良いでしょう。この場合、0～4V程度まで良好なリニアリティで温度特性も良くA-D変換できます。</p>
+<br>
+<div class="rset">
+<img src="adc1.png" alt="" width="368" height="270"><br>
+<img src="adc2.png" alt="" width="390" height="190"><br>
+</div>
+<pre class="lst">
+;---------------------------------------;
+; A-D変換ルーチン
+
+adc:    ldi     ZL, 0     ;Clear counter
+        ldi     ZH, 0     ;/
+        cbi     DDRB, 0   ;Start to charge
+        sbi     PORTB, 0  ;/
+        adiw    ZL, 1     ;Wait for Vc reaches Vi
+        sbis    ACSR, ACO ;
+        rjmp    PC-2      ;/
+        cbi     PORTB, 0  ;Discharge capacitor
+        sbi     DDRB, 0   ;/
+        ret               ;Z = result
+
+</pre>
+</div>
+
+
+<p class="foot"><img src="../../p/sign.png" alt=""></p>
+</body>
+</html>

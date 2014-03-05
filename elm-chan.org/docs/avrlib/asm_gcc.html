@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="stylesheet" href="../docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - アセンブラ関数の書き方(avr-gcc)</title>
+</head>
+
+<body>
+<h1>アセンブラ関数の書き方(avr-gcc)</h1>
+<p class="hdd"><br>2005. 2. 2</p>
+<hr class="hds">
+
+<div class="abst">
+<p>avr-gccにおける<em>アセンブラ関数</em>の書き方を簡単に解説します。アセンブラ化のメリットは、メモリ消費量の削減とスピードの向上です。Cソースに直接埋め込む<em>インライン・アセンブラ</em>よりも具体的でわかりやすいので、AVRASMから入門した人に向いていると思います。機能が固まっていて頻繁に使われる関数ならアセンブラ化してしまうのも良いでしょう。その反面、アセンブラなのでメンテナンス性やポータビリティはCよりも悪くなります。</p>
+</div>
+
+
+<div class="para">
+<h3>ソースリストの書式</h3>
+<pre class=lst>
+;-------------------------------------------------------;
+; アセンブラ関数 sum
+; 
+; プロトタイプ: int16_t sum (int16_t a, int16_t b)
+; 機能: a に b を足した値を戻す
+
+.global sum			;←他のモジュールに公開
+.func sum			;←関数 sum() の開始
+
+sum:				;←sum() のエントリポイント
+	add	r24, r22	;a(r25:r24)にb(r23:r22)を足す
+	adc	r25, r23	;/
+	ret			;戻り値をr25:r24に入れて戻る
+
+.endfunc			;←関数の終了
+
+
+;-------------------------------------------------------;
+; アセンブラ関数 タイマ0 オーバーフロー割り込み
+;
+; プロトタイプ: なし
+; 機能: 100カウント毎に割り込み発生
+
+.global SIG_OVERFLOW0
+.func SIG_OVERFLOW0
+
+SIG_OVERFLOW0:
+	push	r0			;使用レジスタを待避
+	in	r0, _SFR_IO_ADDR(SREG)	;
+	push	r24			;/
+
+	ldi	r24, -100		;次の割り込みは100カウント後
+	out	_SFR_IO_ADDR(TCNT0), r24;/
+
+	pop	r24			;レジスタを復帰
+	out	_SFR_IO_ADDR(SREG), r0	;
+	pop	r0			;/
+	reti
+.endfunc
+
+</pre>
+<pre class=lst>
+;-------------------------------------------------------;
+; その他データの定義
+
+.section <em>.data</em>	;↓データRAM領域(有意値で初期化されるstatic変数)
+
+val1:	.dc.w	1000		; int16_t val1 = 1000;
+tbl1:	.dc.b	1,2,3,4		; int8_t tbl1[] = {1,2,3,4};
+tbl2:	.dc.w	1,2,3,4		; int16_t tbl2[] = {1,2,3,4};
+
+
+.section <em>.bss</em>	;↓データRAM領域(ゼロで初期化されるstatic変数)
+
+tbl0:	.ds.b	5		; int8_t tbl0[5];
+
+
+.section <em>.text</em>	;↓プログラムメモリ領域
+
+tbl1_P:	.dc.b	0,1,2,3,4,5	; const prog_uint8_t tbl1_P[] = {0,1,2,3,4,5};
+tbl2_P:	.dc.w	0,1,2,3,4,5	; const prog_uint16_t tbl2_P[] = {0,1,2,3,4,5};
+str1_P:	.ascii	"STRING\0"	; const prog_char str1_P[] = "STRING";
+
+	.align	2		; 必要に応じてワード境界に整列しておく
+
+	ldi	ZL, lo8(tbl1_P)	;ポインタのロード
+	ldi	ZH, hi8(tbl1_P)	;/  (多byte値の分割は、hhi8, hlo8, hi8, lo8)
+
+
+
+;※auto変数は、レジスタやスタック・フレームに確保します。
+
+
+;-------------------------------------------------------;
+; 関数内で有効のローカルラベル(数値ラベル)
+
+1:
+	cpi	r24, 100
+	brne	<em>2f</em>		;前方の2へ
+	inc	r24
+2:
+	add	r24, r23
+	rjmp	<em>1b</em>		;後方の1へ
+
+
+
+;-------------------------------------------------------;
+; 特殊機能レジスタの参照
+
+#include &lt;avr/io.h&gt;	/* ←io.hでターゲットデバイス固有情報が得られる */
+
+	in	r24, _SFR_IO_ADDR(PORTB)	;I/Oアドレス
+
+	sts	_SFR_MEM_ADDR(PORTF), r22	;メモリアドレス
+
+
+
+; アセンブラスタイルコメント(cディレクティブの行には不可?)
+// C++スタイルコメント
+/* Cスタイルコメント */
+
+</pre>
+<br class="clr">
+</div>
+
+
+<div class="para">
+<h3>引数と戻り値</h3>
+<h4>引数の受け取り</h4>
+<div class="rset">
+<pre class="lst">
+<em>引数の渡され方</em>
+
+<em>func (int16_t a, int32_t b, char *c);</em>
+
+      |   a   |       b       |   c   |
+      |r25:r24|r23:r22:r21:r20|r19:r18|
+
+
+<em>func (int8_t a, int16_t b);</em>
+
+      |   | a |   b   |
+      |r25|r24|r23:r22|
+
+
+<em>func (char a*, ...);  (可変長引数)</em>
+
+      | PC | a, ... &lt;リトルエンディアン&gt;
+   SP^
+</pre>
+</div>
+<p>引数はレジスタ渡しです。先頭の引数から順に<em>r25:r8</em>へ順に格納され、溢れた分はスタックに積まれます。構造体などもこれらに従って渡されるので、引数のデータ量が多くなるときはポインタ渡しが効率的です。また、<em>printf(char *, ...);</em>のように可変長引数で宣言された関数を呼ぶときは、レジスタは使用せず全てスタックに積まれます。この場合、SP+3で示すアドレスが引数の先頭となります。</p>
+<p>引数のサイズは、char=8bit、int=16bit、long=32bit、long long=64bit、flaot=32bit、double=32bit、ポインタ=16bit となっています。奇数長の引数はintのサイズ(=16bit)にアライメントされます。これは、megaが現れた当時movw命令を効率よく使えるようにと変更されたようです。なお、レジスタ割り当ては avr-gcc 3.4.1 のデフォルト設定で説明しています。</p>
+<br class="clr">
+
+<h4>戻り値の引き渡し</h4>
+<div class="rset">
+<pre class="lst">
+<em>戻り値の渡し方</em>
+
+int8_t func ();          |r24|
+int16_t func ();     |r25:r24|
+int32_t func ();     |r25:r24:r23:r22|
+</pre>
+</div>
+<p>戻り値は引数と同様な手順でレジスタにセットして返します。</p>
+
+</div>
+
+
+<div class="para">
+<h3>レジスタの使われ方</h3>
+<p>C関数内ではレジスタの使用方法が決まっていて、アセンブラ関数もC関数とのインターフェースにおいてそれに従わなければなりません。当然ですが、割り込み関数では使用するレジスタ全てとSREGを保存します。</p>
+<h4>Z(r31:r30), X(r27:r26), r25:r18</h4>
+<p>C関数内ではワークエリアとして使用。呼び出し元で必要に応じて待避されるので、呼び出し先では自由に使用できます。また、C関数を呼び出すときは、これらが破壊されるものとして扱う必要があります。</p>
+<h4>Y(r29:r28), r17:r2</h4>
+<p>C関数内ではローカル変数やフレームポインタとして使用。これらを呼び出し先で変更することはできず、値は保存されます。使うときは呼び出し先がスタック等に待避・復帰します。</p>
+<h4>r1:r0</h4>
+<p>これらはローカル変数としては使用されませんが、LPM命令やMUL命令など特殊用途で使われます。r0は呼び出し先で自由に使用できます。r1はC関数内でゼロレジスタとして使用されているので、C関数から呼ばれたときはゼロです。また、C関数に移行するときはr1をゼロにしなければなりません。</p>
+</div>
+
+
+<p class="foot"><a href="../../cc.html">戻る</a></p>
+
+</body>
+</html>

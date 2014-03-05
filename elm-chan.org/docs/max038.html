@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../index_j.html">
+<link rel="up" title="Tech Notes" href="../cc.html">
+<link rel="stylesheet" href="docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - MAX038について</title>
+</head>
+
+<body>
+<h1>MAXIM MAX038について</h1>
+<p class="hdd"><br><small><a href="http://babel.altavista.com/babelfish/trurl_pagecontent?lp=ja_en&amp;url=http%3A%2F%2Felm-chan.org%2Fdocs%2Fmax038.html">Translate this page</a> with <a href="http://babel.altavista.com/">Bablelfish Translation</a></small></p>
+<hr class="hds">
+
+<div class="abst">
+<img src="max038.jpeg" alt="MAX038" class="rset" width="203" height="119">
+<p>MAX038は、20MHzまでの周波数で動作可能な波形発生ICです。基本的なところは昔からあるICL8038とほぼ同じで、大幅に性能アップを図ったものとなっています。</p>
+<p>主な機能は、次のブロック図で示すとおり、デューティ比可変の発振回路、発振回路の三角波出力を線形近似で正弦波にするサイン整形器、発振周波数に同期したパルス出力、PLL用の位相比較器、基準電圧源などから成っています。</p>
+<br>
+<p><a href="../works/wave/report.html">MAX038関連製作レポート</a></p>
+<br class="clr">
+
+<h4>MAX038ブロック図</h4>
+<img src="max038.png" alt="MAX038 BLOCK DIAGRAM" width="600" height="455">
+</div>
+
+
+<div class="para">
+<h3>【性能を引き出すコツ】</h3>
+<p>MAX038は相当なじゃじゃ馬です(笑)。何分、ビデオ信号などよりずっと広帯域のアナログ回路になりますので、その点を十分に考慮した基板設計が必要になってきます。最大周波数まで使うとなると100MHz以上の帯域は必要になりますので、カット&amp;トライによる調整が必要になるでしょう。実際に使うに当たっての注意点を紹介します。</p>
+
+<h4>グランドプレーン</h4>
+<p>普通のユニバーサルボードではまず安定動作しません。もちろん動作するにはしますが、高い周波数では発振周波数が滑らかに調整できなかったり(飛び飛びになる)、出力波形が著しく歪んだりします。このため、ワイヤによるグランド配線ではなく、片面グランドプレーンのユニバーサルボードの使用は必須となります。VHFフル帯域まで考慮した基板設計により初めて安定動作してくれます。</p>
+
+<h4>ソケットは使わない</h4>
+<p>データシートによると、ICソケットの使用は推奨しないとされています。これは、ICソケットによるリードインダクタンスの増加やピン間のクロストークの増加がその理由です。特に SYNC出力を使用する場合はソケットを使用すべきでないと明記されています。ICは基板に直付けとして GNDピンはグランドプレーンに直接落とすように、また、COSCの配線は極力短くします。</p>
+
+<h4>SYNC出力は使わない</h4>
+<p>データシートによると、SYNC出力回路の動作はアナログ出力に影響を与えるとの注意書きがあります。SYNC出力を使用しない場合は、コンパレータの動作を止めるためにDV+をカットするようにとも書かれています。</p>
+<p>また、わたしの実験したところではSYNC出力に若干の問題もあるようなので、なるべく使用しないようにした方が良いようです。その問題とは数百Hz以下の低い周波数でSYNC出力のエッジがばたつくということです(アナログオシロでは観測不可能)。これはアナログ／ディジタルグランドの分離などである程度改善されますが、完全には抑えられないようでした。SYNC出力にCR(100Ω,100pF)ををかませば取れる程度のものですが、20MHz程度まで可変するような用途では無理です。更に、20MHz付近ではSYNC出力のデューティ比が 50%から大きく外れます。これらは製作中に気付いてSYNC出力の使用を止め、アナログ出力から高速コンパレータで同期を抽出するよう変更しました。1個のサンプルでの評価なので断言はできませんが、これから使用される方は注意した方が良いでしょう。</p>
+</div>
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

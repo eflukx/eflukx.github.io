@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="Tech Notes" href="../../cc_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="avrisp_j.html">
+<link rel="stylesheet" href="../docs_e.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - Various usage of AVR-ISP</title>
+</head>
+
+<body>
+<h1>Various usage of AVR-ISP</h1>
+<p class="hdd"><br>May 20, 2001</p>
+<hr class="hds">
+
+<div class="abst">
+<img src="avrisp1.jpeg" alt="" class="rset" width="260" height="203">
+<p>AVR microcontroller family have ISP (In-System Programming) feature. In general, the AVR boards have an ISP connector. It outs only three I/O pins, reset pin, VCC and GND, it is not that any exclusive function pin is used. Therefore, the ISP connector can be used for any other purpose at normal operation.</p>
+<p>Because the ISP function and I/O port share the same pins, the pins may be used for any other function on the board. In this case, the ISP connector will not able to be used for the different use reported here. However, the ISP pins are usually free when there is a margin of number of I/O pins.</p>
+<p>If there are three free I/O pins, it will be used for many effective use, so that the ISP connector should be used more. It will interesting to think about various application of the ISP connector. Now, I report some usage that I am actually applying.</p>
+</div>
+
+
+<div class="para">
+<h3>Using a communication port for debugging</h3>
+<p>This usage may not effective for ICE usrs :-) It can be used to debug via the ISP connector if external circuits are working correctly.</p>
+<p>At the first, program a simple debug monitor that is known it certainly work. It can be controlled with any terminal attached to the ISP connecter with an <a href="../../works/avrx/report.html#AVRSS">ISP cable</a>. Therefore, it can controll the I/O registers and the integrated peripherals with ease.</p>
+<p>There are troubles until the function of external peripherals is confirmed after borad assembly is finished. This feature that can check the function of external peripherals is very useful for debugging of the external peripherals.</p>
+<br class="clr">
+<div class="rset">
+<pre class="lst">
+AVR DEBUG MONITOR
+O&lt;pa&gt;&lt;d&gt; - Output port
+I&lt;pa&gt; - Input port
+IR&lt;pa&gt; - Input port until break
+D[&lt;sa&gt;] - Dump memory
+E&lt;sa&gt;[&lt;d&gt;] - Edit memory
+F&lt;sa&gt;&lt;ea&gt;&lt;d&gt; - Fill memory
+%
+</pre>
+</div>
+<p>The sample AVR debug monitor is same as the program which has been reported in the "Simple AVR programmers". When use it on the AT90S8515, it can be used without any changes, the baud rate is 38.4 kbps at 8 MHz. If you wish to use it on the any other devices or different bit rate, change device definitions in the source code.</p>
+<p>Start any terminal program after the debug monitor is programmed, the reset signal will be released (ER is active) and then the debug monitor starts and will send initial message for console. You can manipurate integrated peripherals and data memory with debugging commands.</p>
+<br>
+<p>
+<a href="avrmon.zip">AVR debug monitor for AVR-ISP (ASM)</a><br>
+<a href="../avrlib/suart.zip">Software UART samples (GCC)</a>
+</p>
+<br>
+<p>The target program which being debugged will able to use the serial communication feature via the ISP cable. However, the software implemented UART generates its communication timing with software loop, so that the reveiving routine disables interruputs until next character is received. Therefore, the software implemented UART halts interrupt driven tasks.</p>
+<p>However, only the transmisson routines can be used with no influence on the interrupt driven tasks because it disables all interrupts during transmission process. For example, when an interrupt task is driven in 1 msec interval timer, 38.4 kbps transmission routine which transmits a character in 0.26 msec can be used. It will help debug very much because internal variables can be monitered with a console in real-time.</p>
+</div>
+
+
+<div class="para">
+<h3>Attaching an LED display</h3>
+<img src="avrled1.jpeg" alt="" class="rset" width="502" height="302">
+<p>This is an eight digits numeric LED display which is controlled only three I/O lines. It has shift registers to hold display data, the display data is transferred in clocked serial transfering.</p>
+<p>It will also useful for on-board display circuit when number of I/O pin is insufficient.</p>
+<br>
+<ul class="flat">
+<li><a href="ispled1.png">Circuit diagram and timing diagram</a></li>
+<li><a href="ispled.txt">Example of refreshing LED display</a></li>
+</ul>
+</div>
+
+
+<div class="para">
+<h3>Using connector as jumper pins</h3>
+<img src="ispsw1.png" alt="" class="rset" width="144" height="116">
+<p>At the practical work, the ISP connecter is useless. But it will be used as two bits of jumper switch. </p>
+<p>To use it as a jumper switch, initialize MOSI and MISO as input with internal pull-up and make low SCK, and then read input level of MOSI and MISO.</p>
+</div>
+
+
+<p class="foot"><img src="../../p/sign.png" alt=""></p>
+</body>
+</html>

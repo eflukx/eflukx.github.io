@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<title>ELM - 接点入力と処理のコツ - ノイズ対策</title>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="prev" title="チャタリング" href="te01.html">
+<link rel="next" title="スイッチ入力の扱い" href="te03.html">
+<link rel="stylesheet" href="../docs.css" type="text/css" media="screen" title="ELM Default">
+</head>
+
+<body>
+<h1>ノイズ対策　</h1>
+<p class="hdd"><br>2002. 1. 30</p>
+<hr class="hds">
+
+<div class="abst">
+<img class="rset" src="te06.png" alt="" width="431" height="154">
+<p>チャタリング以外にもノイズという厄介な問題があります。スイッチへの配線は長く引きまわされて基板に入ってくることが多いので、どうしてもノイズの影響を受けやすくなります。右の図のようにノイズがポートの参照と重なれば、入力を誤って検出してしまいます。</p>
+<p>このノイズによる誤検出の問題は「入力値が前回と同じ場合にのみそれを有効とみなす」という処理で回避することができます。実際のコーディング例を続くリストに示します。</p>
+</div>
+
+<div class="para">
+<h3>ノイズキャンセル処理の例</h3>
+<img class="rset" src="te0a.png" alt="" width="212" height="187"><br>
+<p>sample_sw()をタイマー割り込みなどで定期的に実行します。スイッチの状態を見るときは ls_stat を参照。</p>
+<pre class="lst">
+volatile u_char ls_stat;   /* スイッチ状態：ONに対応するビットが立っている */
+
+void sample_sw()
+{
+    static u_char prev;
+    u_char a;
+
+    a = ~PA.PIN.BYTE &amp; 0x1f;     /* スイッチ読み込み(反転+有効ビットマスク) */
+    if (a == prev) ls_stat = a;  /* 前回値と同じなら有効として格納 */
+    prev = a;
+}
+</pre>
+</div>
+
+<p class="foot"><a href="te01.html">戻る</a> | <a href="te03.html">次</a></p>
+
+</body>
+</html>

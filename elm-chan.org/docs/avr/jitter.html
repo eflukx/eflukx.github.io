@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="stylesheet" href="../docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - AVR内蔵オシレータのジッタ</title>
+</head>
+
+<body>
+<h1>AVR内蔵オシレータのジッタ</h1>
+<p class="hdd"><small><a href="http://babel.altavista.com/babelfish/trurl_pagecontent?lp=ja_en&amp;url=http%3A%2F%2Felm-chan.org%2Fdocs%2Favr%2Fjitter.html">Translate this page</a> with <a href="http://babel.altavista.com/">Bablelfish Translation</a></small>
+<br>2005. 7. 12</p>
+<hr class="hds">
+
+<div class="para">
+<img src="jitter.png" alt="Jitter" class="rset" width="370" height="920">
+<p>AVRを使って安直にテスト信号（ある一定の幅のパルス）を生成させようとしたとき、そのタイミングが細かくゆらぐのに気づきました。クロック源を内蔵オシレータとしていたので、内蔵オシレータ自体の安定性に問題があるようです。</p>
+<p>この周波数のゆらぎのうち、周期の短い成分を特に<em>ジッタ</em>といい、信号の品質を計る要素のひとつになっています。まぁ、その辺の説明はこれくらいにしておくとして、とにかく内蔵オシレータのジッタが意外に大きかったということです。オンチップ・オシレータはRC回路等で構成されていて、温度変化などによって周波数がゆっくりと変動する（ドリフトという）するのは仕方のないことです。しかし、目立つほどのジッタは用途によっては問題になるかも知れません。まぁ、タイミング・クリチカルな用途にはクリスタルを使うので、実際に問題になることはありませんが。内蔵オシレータを使うときはこの点留意しておいた方が良いと思います。</p>
+<h3>デバイスにより異なるジッタ</h3>
+<p>試しに新旧いろいろなAVRの内蔵オシレータのジッタを調べてみました。ジッタメータが手元に無いので数値化はできませんでしたが、それぞれ同じ条件（10μsのタイミングを生成）で比較してみたものを右のイメージに示してみます。その結果、ジッタが大きいのはここ2～3年のうちに発表された新しいチップだけということが判明しました。タイミング・エラーが最大0.5%程にもなるのが分かります。ところが、少し前のチップではジッタは殆ど見られません。</p>
+<p>AVRの内蔵オシレータには、機能の違いによりバージョン番号が付けられています[AVR053]。ジッタがみられるのは、Ver. 4.0以降だけのようです。これらはクロック・プリスケーラを持っているものが該当します。古いものが安定していて新しいものが不安定というのも妙な話です。</p>
+<h3>プロセス上の制限か、意図したものか</h3>
+<p>このような内蔵オシレータの信号品質の劣化が製造プロセス上の理由からくるものとしたら、何らかの性能向上の代償によるもなのかも知れません。たとえば、ある特性をいじるとジッタが増えるとか??? まぁ、その辺の事情は知らないので憶測ですが。</p>
+<p>また、このジッタは意図して加えられたとも考えられます。そう、EMC対策ですね。システム・クロックの原発を振ってスペクトラムのピークを拡散して、規制ラインをパスさせてしまうというせこい手法です。最近流行っているようですが、輻射ノイズのパワーが減るわけではないんですよね。FM復調して三角波が出たらまず間違いないでしょう。まぁ、これについてもデータシートに記述が無いので単なる憶測です。もしかしたら、AppNotesにでもあるのかも知れませんが(^_^;。</p>
+</div>
+
+<p class="foot"><img alt="" src="../../p/sign.png"></p>
+</body>
+</html>

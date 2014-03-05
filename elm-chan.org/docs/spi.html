@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../index_j.html">
+<link rel="up" title="Tech Notes" href="../cc.html">
+<link rel="alternate" hreflang="en" title="English version" href="spi_e.html">
+<link rel="stylesheet" href="docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - SPIについて</title>
+</head>
+
+<body>
+<h1>SPIについて</h1>
+<p class="hdd"><br>2006. 3. 13</p>
+<hr class="hds">
+
+<div class="abst">
+<p><em>SPI</em>(Serial Peripheral Interface)とは、オンボードIC間通信の方式の一つで、モトローラ（現在は半導体部門がフリースケール・セミコンダクタとして分離）が提唱したものです。単純で汎用性が高いので、フィリップスの<em>IICバス</em>と並んで広く使われています。SPIの配線数は、全て2線で済むIICに比べると多め（3～4本）になりますが、伝送速度はIICの数十倍（20Mbps以上、ICの能力による）が可能なので、比較的速度を要する用途（ADC、DACや通信ICとの接続）で主に採用されています。</p>
+</div>
+<div class="para">
+<h3>SPIのアーキテクチャ</h3>
+<img class="rset" src="spi1.png" alt="" width="465" height="206">
+<p>SPIの基本構成は右の図に示すようになっています。マスタICとスレーブICとの間は3本の信号線、<em>SCLK</em>(Serial Clock)、<em>MISO</em>(Master-In Slave-Out)、<em>MOSI</em>(Master-Out Slave-In) で接続され、マスタICの駆動するクロックで双方の8bitシフトレジスタのデータを交換します。このほか、伝送開始の同期をとるためおよびバス接続のために<em>SS</em>(Slave Select)が設けられます。スレーブ動作専用ICではこれらの信号名とは別の信号名（DI,DO,CSなど）が使われることが多いです。DACや1ch ADCのように一方通行で済む場合は、片方のデータ信号が省略されます。データのシフト方向は<em>MSBが先頭</em>になります。</p>
+<p>複数のスレーブをバス接続する場合は、スレーブがSPIに並列にぶら下がり、マスタから個々のスレーブにCS信号が接続されます。スレーブのデータ出力は3ステートになっていて、CS信号で選択されたスレーブだけがMISO信号を駆動することになります。</p>
+</div>
+
+<div class="para">
+<h3>伝送タイミング</h3>
+<div class="rset">
+<table class="lst">
+<tr><th>SPIモード</th><th>タイミングチャート</th></tr>
+<tr><td>モード 0<br>正パルス<br>ラッチ先行</td><td><img src="spi20i.png" alt="" width="369" height="109"></td></tr>
+<tr><td>モード 1<br>正パルス<br>シフト先行</td><td><img src="spi21i.png" alt="" width="369" height="109"></td></tr>
+<tr><td>モード 2<br>負パルス<br>ラッチ先行</td><td><img src="spi22i.png" alt="" width="369" height="109"></td></tr>
+<tr><td>モード 3<br>負パルス<br>シフト先行</td><td><img src="spi23i.png" alt="" width="369" height="109"></td></tr>
+</table>
+</div>
+<p>SPIではデータのシフトと取り込みがそれぞれ別のクロックエッジで行われます。このようにシフト動作とラッチ動作を離すことにより、それらを同時に行うことによるクリチカルなタイミングが発生しないので、IC内外でのタイミング設計が楽になります。その反面、クロックパルスの極性（正パルスか負パルスか）や位相（シフトが先か取り込みが先か）のバリエーションにより<em>4つの動作モード</em>が定義されていて、マスタはスレーブの仕様に合わせて動作する必要があります。</p>
+</div>
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

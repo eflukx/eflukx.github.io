@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../">
+<link rel="up" title="Tech Notes" href="../cc_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="spi.html">
+<link rel="stylesheet" href="docs_e.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - About SPI</title>
+</head>
+
+<body>
+<h1>About SPI</h1>
+<p class="hdd"><br>Mar 13, 2006</p>
+<hr class="hds">
+
+<div class="abst">
+<p><em>SPI</em> (Serial Peripheral Interface) is one of the on-board inter-IC communication interfaces. It was introduced by Motorola, Inc. (Freescale Semiconductor). Because of its simplicity and generality, it is being incorporated in various peripheral ICs and ranks with the Philips <em>IIC-bus</em>. The number of signals of SPI, three or four wires, is larger than IIC's two wires, but the transfer rate can rise up to 20 Mbps or higher depends on device's ability (5 - 50 times faster than IIC). Therefore, it is used mainly for applications, ADC, DAC or communication IC, that requires high data transfer rate as possible.</p>
+</div>
+
+<div class="para">
+<h3>SPI Structure</h3>
+<img class="rset" src="spi1.png" alt="" width="465" height="206">
+<p>The basic structure of the SPI is shown in right image. The master IC and the slave IC are tied with three signal lines, <em>SCLK</em> (Serial Clock), <em>MISO</em> (Master-In Slave-Out) and <em>MOSI</em> (Master-Out Slave-In), and contents of both 8-bit shift registers are exchanged with the shift clock driven by master IC. Additionally an <em>SS</em> (Slave Select) signal other than above three is used to synchronize start of packet or byte boundary, and for realize multi-slave configuration simultaneously. Most slave ICs assign different pin names, such as DI, DO and CS, to the SPI interface. For one-way transfer deivce, such as DAC and single channel ADC, either of data lines may be ommited. The data bits are shifted in <em>MSB first</em>.</p>
+<p>When attach some slave ICs to an SPI, the slave ICs are attached parallel and CS signals from master IC are tied to each slave ICs. The data output of slave IC that selected by CS signal is enabled and deselected devices are disconnected from MISO line.</p>
+</div>
+
+<div class="para">
+<h3>SPI Transfer Timing</h3>
+<div class="rset">
+<table class="lst">
+<tr><th>SPI Mode</th><th>Timing Diagram</th></tr>
+<tr><td>Mode 0<br>Positive Pulse.<br>Latch, then Shift.</td><td><img src="spi20i.png" alt="" width="369" height="109"></td></tr>
+<tr><td>Mode 1<br>Positive Pulse.<br>Shift, then Latch.</td><td><img src="spi21i.png" alt="" width="369" height="109"></td></tr>
+<tr><td>Mode 2<br>Negative Pulse.<br>Latch, then Shift.</td><td><img src="spi22i.png" alt="" width="369" height="109"></td></tr>
+<tr><td>Mode 3<br>Negative Pulse.<br>Shift, then Latch.</td><td><img src="spi23i.png" alt="" width="369" height="109"></td></tr>
+</table>
+</div>
+<p>In SPI, data shift and data latch are done opposite clock edges respectively. There is an advantage that when shift and latch operations are separated, critical timing between two operations can be avoided. Therfore timing consideration for IC design and board design can be relieved. But on the other hand there are <em>four operation modes</em> due to combination of clock polarity and clock phase, master IC must configure its SPI interface as an SPI mode that slave IC required.</p>
+</div>
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

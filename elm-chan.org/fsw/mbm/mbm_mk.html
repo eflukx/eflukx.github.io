@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>MBM - Using menu builder</title>
+</head>
+<h3>Using menu builder</h3>
+<p>When you wish to build your original extend menu, please follow the next instructions.</p>
+<br>
+
+1. Provide a source picture file in Windows bitmap format. Its size and number of colors must be as follows.<br>
+<table>
+  <tr><th>Program</th><th>Size</th><th>Color</th></tr>
+  <tr><td>mkm1</td><td>320x200</td><td>8bit</td></tr>
+  <tr><td>mkm2</td><td>640x480</td><td>8bit</td></tr>
+  <tr><td>mkm3</td><td>640x480</td><td>24bit</td></tr>
+  <tr><td>mkm4</td><td>800x600</td><td>8bit</td></tr>
+  <tr><td>mkm5</td><td>800x600</td><td>24bit</td></tr>
+  <tr><td>mkm6</td><td>1024x768</td><td>8bit</td></tr>
+  <tr><td>mkm7</td><td>1024x768</td><td>16bit</td></tr>
+</table>
+<br>
+<br>
+2. Edit MKM*.INI file with any text editor, the file controls menu builder. At least you have to change a value of "SrcBitmap" to source bitmap file you provided.<br>
+
+<font size=-1>
+<pre>
+[mkm3 command file]
+OutputFile=menu3.mbm	;Output file
+
+SrcBitmap=img3.bmp	;Input image (size and color depth are specified by each menu bulder)
+SrcFont=font24b.fnt	;Input font (<a href="fontx.txt">FONTX2 format</a>, 24x24dots)
+InitialCode=		;Initialization code (don't care)
+
+TblOfs=50 90		;Table position X,Y (dot)
+TblSize=1 8		;Number of columns and rows
+TblCelSize=250 32 	;Cell size X,Y (dot)
+ItemHead=20		;Item header character code (comment-out to suppress item header)
+
+Select=255 255 255	;Selected item color
+Normal=128 128 160	;Deselected item color
+Shadow=0 0 0		;Item shadow (comment-out for no shadow)
+
+ClearMethod=2		;Clear method on exit
+
+EnableMouse=1		;Use PS2 mouse (0:Disable, 1:Enable)
+MouseMag=1		;Mouse resolution (1..)
+LeftHander=0		;Swap L/R button
+SrcCsr=cursor.bmp	;Mouse cursor (32x32,16M color, Magenta is transparent color) *For 64K menu only
+CsrOfs=0 0		;Cursor center *For 64K menu only
+Stars=1			;Show stars (0:Disable, 1..7:Enable) *For 64K menu only
+
+TmrOfs=40 450		;Timer bar position X,Y (comment-out to disable timer bar)
+TmrSize=200 10		;Timer bar size X,Y
+TmrBar=0 255 0		;Timer bar color
+TmrBack=0 0 0		;Timer back color
+</pre>
+</font>
+<br>
+3. Execute the menu builder program MKM*.COM with no option, the extend menu file .MBM will be created.<br>
+<br>
+4. Preview the created menu file with a menu viewer before install it. The menu viewer is also controled by RUNMENU.INI. When you didn't satisfy it, repeat 2-4.<br>
+<br>
+5. Install the extend menu file with MBM.COM with SETMENU command.<br>
+<br>
+NOTE: Any operations, such as change menu name, can be done with standard text menu. The extended graphical menu will exit to standard text with Esc or right button.<br>
+<br>
+<br>
+</body>
+</html>

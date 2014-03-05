@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="PC Interface" href="../../he_f_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="report.html">
+<link rel="stylesheet" href="../works_e.css" type="text/css" media="screen" title="ELM Default">
+<style type="text/css" media="screen" title="ELM Default">
+.ncf{color:gray;}
+#specs {float: left; margin: 0 1em 2em 0;}
+.smallblk {font-size: smaller; line-height: 120%;}
+.cntlnk {text-align: center; margin-top: 1em;}
+ol {list-style-type: lower-alpha;}
+#ispcon {width: 40%; clear: both; float: left;}
+#ispclp {width: 40%; clear: right; margin-left: 45%;}
+</style>
+<title>ELM - AVR programmer</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>Simple AVR Programmers</h1>
+<p class="hdd">October 3, '99<br>Last update: September 23, '10</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<div class="rset"><img src="avrs.jpeg" alt="AVR chip" width="374" height="329"></div>
+<p>These are simple <a href="../../docs/avr_e.html">AVR</a> programmers. I designed and built four different programmers for various envilonments: LPT controlled parallel programmer, LPT controlled ISP adapter, COM controlled ISP adapter and COM controlled generic SPI bridge. Additionaly, COM controlled adapters can be used as a communication cable between host PC and target board, it is useful for debugging.</p>
+<p>These AVR programmers have no controller on the programmer and directly controlled with port signals. Therefore, programming time is reduced shorter than any other programmers because there is not any communication delay such as command/result sequense between PC and programmer. These programmer can also be used <a href="studio.html">with AVR studio</a> :-).</p>
+<p>If you have a JTAG download cable controlled via LPT port for Xilinx, Lattice or Altera devices, it can also be used to program AVR.</p>
+</div>
+
+
+<div class="para">
+<h3>Programming method on the AVR</h3>
+<p>AVR has two different programming modes called <em>Parallel Programming Mode</em> (Parallel Mode) and <em>Serial Downloading Mode</em> (ISP mode).</p>
+<p>At the Parallel Mode, the device to be programmed is put on the programmer's socket and +12 volts programming voltage is required to its RESET pin. Communicating between the programmer and the device is done in parallel programming commands, so that the programing speed is two times faster than ISP mode. This programming mode is used to pre-program many devices or/and ISP mode cannot use due to the board design. However, most programmers except STK500 seem not to support this programming mode.</p>
+<p>At the ISP Mode, the device communicates via its SPI interface to program and verify. This mode requires only three signal lines without +12 volts programming voltage, so that it can also program in the terget system, this is called ISP (In-System Programming). However, the ISP mode cannot change fuse bits at some devces, and some devices don't have ISP feature. Such devices must be programmed in Parallel Mode. But most AVR programmers use this programming mode even if it has a socket, they have the same problem.</p>
+<p>Additionally, there is serial programming mode using +12V programming voltage that called <em>High-Voltage Serial Programming Mode</em>. This programming mode is equivalent to the Paralell Mode and available in only 8/14 pin devices. For details on the each programming mode, please refer to the device data sheets.</p>
+</div>
+
+
+<div class="para">
+<a id="AVRXP"></a>
+<h3>Parallel Programmer</h3>
+<div class="rset">
+<img src="avrxp.jpeg" alt="Parallel Programmer" width="377" height="278">
+<ul class="flat">
+<li><a href="avrxp.png">Circuit Diagram (for all devices)</a></li>
+<li><a href="avrxp_sk.png">Socket Converters</a></li>
+<li><a href="avrxp8.png">Circuit Diagram (for 8/14 pin only)</a></li>
+</ul>
+</div>
+<p>Right image shows built paralell programmer, it is built compact by using many surface mount devices. Circuit diagram of this programmer is very simple but it supports both high voltage programming modes Parallel mode and HVS mode. This programming method is required when the following case.</p>
+<ul>
+<li>Programming tiny10/11/28 which has no ISP capability.
+<li>Changing any fuse bit of early devices, 90S1200/2313/4414/8515.
+<li>Changing SPIEN or RSTDISBL fuse bit.
+</ul>
+<p>Therefore the parallel programmer is not that required for most case, only an ISP adapter will do. However 8 pin devices will often require HVS programming mode in order to configure the reset pin as an I/O port.</p>
+<p>This programmer is using a 20 pin ZIF socket for device mounting, so that it requires any socket converter when program not 20 pin devices (8,28,40). SOIC, TQFP, PLCC are also require socket converter for each package.</p>
+<p>High level output voltage on the LPT port may not reach 3.5 volts on some PCs. In this case, a TTL-CMOS level converter, such as 74HC<em>T</em>541, must be put to the place indicated with a dashed line. <em>The parallel programmer is controled with  <kbd>AVRPP.EXE</kbd>(Win32).</em></p>
+</div>
+
+
+<div class="para">
+<a id="AVRXS"></a>
+<h3>ISP adapter (controlled with LPT port)</h3>
+<p>This ISP adapter is designed to reduce cost and to be easy to build. The simplified adapters are not using any semiconductor part, port signals are tied to target device directly as shown in the circuit diagrams. Thus this adapter is very simple so that it will be built within several minutes, and will be good for evaluation use. But this programmer limits target supply voltage range to 4.5V-5.5V because they don't convert signal levels between PC and target, it may not fit to the target signal level.</p>
+<p>This programming software supports five programmer types, original circuit, STK200 dongle and JTAG cables for Xilinx, Lattice, Altera devices controlled via LPT port. The connection between JTAG signals and AVR-ISP signals are: TDO-MISO, TDI-MOSI, TCK-SCK and TMS-RESET. In this case, the target supply voltage will able to be 3V-5V. The programmer type attached to the LPT port is detected automatically. <em>The LPT port controlled ISP programmer is controlled with  <kbd>AVRSP.EXE</kbd>(Win32)</em>.</p>
+<ul>
+<li><a href="avrx_lpt.png">Original ISP adapter</a>. Simplified and Buffered.</li>
+<li><a href="stk.png">STK200 ISP dongle</a>. Most popular AVR-ISP for LPT port.</li>
+<li><a href="xilinx.png">Xilinx JTAG cable</a>. Download cable for Xilinx CPLD/FPGA.</li>
+<li><a href="lattice.png">Lattice ISP cable</a>. Download cable for Lattice CPLD/FPGA.</li>
+<li><a href="altera.png">Altera ByteBlasterMV</a>. Download cable for Aletra PLD.</li>
+</ul>
+</div>
+
+<div class="para">
+<a id="AVRSS"></a>
+<h3>ISP adapter (controlled with COM port)</h3>
+<div class="rset">
+<img src="avrss.jpeg" alt="ISP adapter" width="402" height="269">
+<ul class="flat">
+<li><a href="avrx_com.png">ISP adapter for COM port</a></li>
+</ul>
+</div>
+<p>This is an ISP adapter which is controlled via COM port. Signal levels of the RS-232C line is converted to the target level, so that target device can operate in entire range of the VCC. And also it can be used as an communication cable to communicate between host PC and terget program (this is explained in the following section). This ISP adapter will sufficient to develop most of the AVR applications.</p>
+<p>Right image shows the built ISP adapter for COM port. It has a switch to connect/disconnect the ISP adapter from the target board. This feature is good for debugging process saied that "Load-Runner" (program/run again and again).</p>
+<p>When build it, to put the level converter near the target board is better from viewpoint of stability and handling. I had built and used some ISP adapters and setteled this form. <em>This ISP adapter is controlled with <kbd>AVRSP.EXE</kbd>(Win32) or <kbd><a href="avrdude.conf.txt">avrdude 5.1+</a></kbd></em>.</p>
+</div>
+
+<div class="para">
+<a id="BRIDGE2"></a>
+<h3>USBspi - SPI bridge for USB</h3>
+<div class="rset">
+<img src="usbspi2.jpeg" alt="USBspi" width="287" height="195">
+<ul class="flat">
+<li><a href="usbspi.zip">SPI bridge Rev.4 document</a></li>
+</ul>
+</div>
+<p>Recent desktop PCs in the market tend to omit legacy ports (COM/LPT), especially, the legacy ports on the notebook PC is completely eliminated and they have been replaced with the USB ports. The USBspi is a general purpose SPI bridge attached to USB port. On the SPI bridge R4, an AVR specific command is added and the programming time (Erase+Write+Verify) of 6.6 seconds at 32 Kbytes is achieved. It is two times faster than COM port adapter.</p>
+<p>Right image shows the built SPI bridge. It is pretty small 46mm/15mm/6mm (L/W/T) because of using MLF packaged devices. The power supply can be selected out of "Powered from the target (3 to 5 volts)" or "Supply 5/3.3 volts to the target (can do depends on the target)". This enables to program/debug a target board <a href="usbspi3.jpeg">without power supply</a> if only there is a notebook PC.</p>
+<p>Because it is named <em>General Purpose</em> SPI bridge, it can be used for not only AVRs but also generic SPI devices (limited to mode 0). This is <a href="spimmc.zip">an example to dump SD memory card</a>. Ofcourse it will work with port controlled ISP adapter with small changes to SPI control module. <span class="mfd">Sep 8, 2007</span></p>
+</div>
+
+<div class="para">
+<h3>Using Control Programs</h3>
+<p>There are some control programs for each AVR programmers and they run on the console window. They can also be used in quick Drag and Drop operation with proper PIF (DOS) or .ini (Win32) settings.</p>
+<p>The main feature on the control programs is they can detect device type automaticaly, and act on the properties of the detected device. Therefore, only specifying the hex files to be programmed will do. Any device option is not required. The command line options also able to be set with PIF file or .ini file as default.</p>
+<p>For parallel programmer, a DOS based test program which can manipulate any socket pin manually is available. For ISP programmer, <tt>avrsp -z</tt> outputs a <a href="test.png">test signal</a> on the SCK line to examine the system compatibility.</p>
+</div>
+
+
+<div class="para">
+<h3>Circuit designing with considering the ISP</h3>
+<div class="rset"><img src="isp_pcb.png" alt="ISP circuit" width="500" height="370"></div>
+<p>When use an AVR with ISP mode, target board must be designed with consider ISP function, the ISP pins, RESET, SCK, MISO and MOSI must be reserved for ISP function. However, number of ports may be insufficient in actual application.</p>
+<p>ISP pins will able to share both I/O and ISP functions when some terms are satisfied. When using any I/O pin that also assigned to ISP function, the following must be observed.</p>
+<ol>
+<li>Insert a resister between reset pin and reset circuit to avoid interference from the reset circuit.</li>
+<li>Make sure that ISP action doesn't affect any other functions.</li>
+<li>Don't drive from external circuit during ISP operation, or a resister should be inserted.</li>
+<li>Don't connect heavy load such as affects ISP function.</li>
+</ol>
+
+<div id="ispcon">
+<h4>Standard ISP connector</h4>
+<p>Atmel recommends this pin layout, 3x2 header pin spacing of 2.54 milimeters. When build ISP cable or circuit board, this pin layout of the ISP connector is recommended.</p>
+<img src="isp_pin.png" alt="ISP pin out" width="231" height="192">
+</div>
+
+<div id="ispclp">
+<h4>No space for the ISP connector</h4>
+<p>When the target board has no ISP connector, it will able to ISP action with a contact plobe like shown in the right image.</p>
+<img src="isp_clp.jpeg" alt="ISP clip" width="261" height="243">
+</div>
+</div>
+
+<div class="para">
+<h3>Serial communication via an ISP cable</h3>
+<p>This is a special feature on the COM controlled ISP adapter. This ISP adapter can be used to communicate between host PC and target board with any terminal programs because contrive to assignment of control signals as COM port. Thus, it can directly communicate or debug with the ISP cable. To enable this feature, following conditions must be satisfied.</p>
+<ul>
+<li>MISO and MOSI must be assigned for the serial communication.</li>
+<li>Initialize MISO as output and MOSI as input.</li>
+<li>Communicate via MISO and MOSI in software implemented UART.</li>
+</ul>
+</div>
+
+<div class="para">
+<a id="PICWR"></a>
+<h3>Writing PIC24 devices via an ISP cable</h3>
+<div class="rset">
+<img src="isp_icsp.jpeg" alt="ISP-ICSP adapter" width="225" height="181"><br>
+<a href="isp_icsp.png">ISP-ICSP adapter</a>
+</div>
+<p>Microchip has lauched 16-bit PICmicro family. It is powerful microcontrollers like AVR and somebody in the AVR users will be interesting in those chips. I created a PIC programmig tool using AVR-ISP cables. This will be suitable for AVR users who is going to try 16-bit PICmicros briefly.</p>
+<p>The programming tool <em>pic24sp</em> is based on avrsp and it has the same function and usage. The supported devices are <em>PIC24F</em>, <em>PIC24H</em> and <em>dsPIC33F</em>. When use an SPI bridge, it must support PIC extension command set (R3 or later). 8-bit PICmicros are currently not supported but when the devices are supporting LV-ICSP function, they will able to be programmed by some modifications to the programming tool. The devices that require a high-voltage on the MCLR pin during ICSP, like dsPIC30F and old PICs, cannot be suppoted. The serial communication via an ISP cable is still supported with a consideration, target device must drive the data line in Pch open-drain (Mark=H-Z, Space=High) because the communication is done via a common data line. <span class="mfd">Dec 10, 2007</span></p>
+</div>
+
+<div class="note">
+<h3>Technical Data</h3>
+<ul class="flat">
+<li><a href="avrxp.png">Circuit Diagram for Parallel/HVS Programmer</a> <span class="mfd">Jan 30, '06</span></li>
+<li><a href="avrxp_sk.png">Socket Converters for Parallel Programmer</a> <span class="mfd">Nov 11, '04</span></li>
+<li><a href="avrxp8.png">Circuit Diagram for 8/14pin HVS Programmer</a> <span class="mfd">Jan 30, '06</span></li>
+<li>&nbsp;</li>
+<li><a href="avrx_com.png">Circuit Diagram for AVR ISP adapter (COM)</a>. Original circuit. <span class="mfd">Apr 30, '04</span></li>
+<li><a href="avrx_lpt.png">Circuit Diagram for AVR ISP adapter (LPT)</a>. Original circuit. <span class="mfd">Apr 30, '04</span></li>
+<li><a href="usbspi.zip">SPI bridge Rev.2</a>. Documents, Circuit Diagram, Firmware and etc.<span class="mfd">Dec. 16, 2007</span></li>
+<li><a href="stk.png">Circuit Diagram for STK200 ISP dongle (LPT)</a>. Most popular ISP adapter. <span class="mfd">Apr 30, '04</span></li>
+<li><a href="xilinx.png">Circuit Diagram for Xilinx JTAG cable (LPT)</a>. <span class="mfd">Apr 30, '04</span></li>
+<li><a href="lattice.png">Circuit Diagram for Lattice ISP cable (LPT)</a>. <span class="mfd">Apr 30, '04</span></li>
+<li><a href="altera.png">Circuit Diagram for Altera ByteBlasterMV (LPT)</a>. <span class="mfd">Apr 30, '04</span></li>
+<li>&nbsp;</li>
+<li><a href="avrxtool32.zip">Win32-based control programs for Windows 9X/Me/NT/2k/XP</a>. Including c source files. <span class="mfd">September 23, '10</span></li>
+<li><a href="pic24sp.zip">PIC24SP for Windows9X/Me/NT/2k/XP</a> with c source files <span class="mfd">Jan 9, 2009</span></li>
+<li><a href="avrxtool.zip">DOS-based control programs for DOS, Windoows3.X/9X/Me and HP200LX</a>. Including asm source files. <span class="mfd">Nov 11, '04 (obsoleted)</span></li>
+<li><a href="http://avrwiki.jpn.ph/wiki.cgi/">avrspx for USBasp</a> (AVR-wiki [ja])</li>
+<li><a href="http://www.von-der-salierburg.de/avrsp/">AVRSP brunch by BKK</a> (Win32(bcc), Linux(x86/ARM))</li>
+<li>&nbsp;</li>
+<li><a href="../../docs/avr/avrmon.zip">Software UART and AVR monitor sample codes (ASM)</a>  <span class="mfd">May 29,'02</span></li>
+<li><a href="../../docs/avrlib/suart.zip">Software UART and AVR monitor sample codes (GCC)</a>  <span class="mfd">Jan 30,'05</span></li>
+<li>Lunch a console window at the open folder: <a href="console.reg.txt">Registory to install</a> | <a href="console.png">Added menu item</a> <span class="mfd">Sep 24, 2006</span></li>
+</ul>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

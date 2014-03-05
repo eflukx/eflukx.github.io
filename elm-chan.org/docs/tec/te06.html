@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="prev" title="プルアップの理由" href="te04.html">
+<link rel="stylesheet" href="../docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - 接点入力と処理のコツ - ポートが足りないときは</title>
+</head>
+
+<body>
+<h1>ポートが足りないときは</h1>
+<p class="hdd"><br>2002. 1. 30</p>
+<hr class="hds">
+
+<div class="abst">
+<p>マイコンを使っていて入力ポートが足りなくなることがあります。そんな場合は、ちょっとした工夫で入力点数を増やすことができます。いくつか例を紹介しましょう</p>
+</div>
+
+
+<div class="para">
+<h4>ダイオードを使う</h4>
+<img class="rset" src="te0e.png" alt="" width="359" height="218">
+<p>１入力ポートにつき１個の押しボタンスイッチというのが手軽な方法ですが、スイッチの数が増えてくると、たちまちポートが足りなくなってしまいます。このようなときは、ダイオードORを使ってスイッチ入力をコード化することにより入力点数を増やすことができます。たとえば、3ビットの入力ポートなら 7個まで、4ビットなら 15個まで拡張できます。ただし、スイッチの2個押しといった変則操作をするときは拡張可能数が減るので、ビットパターンをよく考える必要があります。</p>
+</div>
+
+
+<div class="para">
+<h4>シフトレジスタを使う</h4>
+<p>ICを追加することになりますが、シフトレジスタを使えば3ビットのポートだけで入力点数を際限なく増やしていくことができます。</p>
+</div>
+
+
+<div class="para">
+<h4>A-Dコンバータを使う</h4>
+<img class="rset" src="te0d.png" alt="" width="321" height="170">
+<p>A-Dコンバータのあるマイコンなら、それを使って1ポートで複数のスイッチ入力を取れます。チープなポータブルCDプレーヤ等がよく使ってる方法です。この方法も 2個押しといった変則操作は不可です。</p>
+</div>
+
+<p class="foot"><a href="te05.html">戻る</a> | <a href="../../cc.html">目次</a></p>
+</body>
+</html>

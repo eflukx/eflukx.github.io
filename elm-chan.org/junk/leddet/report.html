@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Tech Notes" href="../../cc.html">
+<link rel="stylesheet" href="../junk.css" type="text/css" media="screen" title="ELM Default">
+<title>LEDを光センサとして使ってみる</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>LEDを光センサとして使ってみる</h1>
+<p class="hdd"><br>2004. 8. 5</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<img class="rset" src="sym.png" alt="PLED" width="226" height="161">
+<p>昨日、<a href="http://www.asahi-net.or.jp/~qx5k-iskw/">いしかわきょーすけさん</a>が日記の中で、<em>LEDを光センサとして使えないか?</em>との実験をやっているのを目撃。なかなか面白そうな試みなので、私もブースターに点火して電光石火で追実験してみることにします。LED流用の元ネタは、<a href="http://www.try-net.or.jp/~el_dream/index.html">ELECTRONICS SHELVES</a>の実験記事から来ているようです。</p>
+</div>
+
+<div class="para">
+<h3>光電変換素子としてのLED</h3>
+<img class="rset" src="fund.png" alt="PD Equivalent Circuit" width="343" height="159">
+<p>まず、シリコンフォトダイオードの等価回路を右の図に示します。同様にPN接合を持つLEDも基本的な動作はこれと同じと考えられます。PN接合に光が入射すると、光量に比例した光電流<em>Il</em>が流れます。<em>Id</em>はダイオード電流、<em>Cj</em>は接合容量(逆バイアス電圧で変化)、<em>Rsh</em>は並列抵抗(極めて大きい)、<em>Rs</em>は直列抵抗(小さい)です。ほとんどの場合、負荷を短絡またはそれに近い状態にした<em>電流モード</em>で使用されます。各項目の関係式など具体的なところは、<a href="http://www.hpk.co.jp/">浜松ホトニクスのサイト</a>にあるフォトダイオードの技術資料を参照してください。</p>
+</div>
+
+<div class="para">
+<h3>LED出力の測定と駆動</h3>
+<img class="rset" src="ledif.png" alt="Drive Circuit" width="365" height="238">
+<p>LEDの順方向電圧はシリコンより高いので、端子電圧も高くなると思われます。赤の高輝度LEDに光を当てて解放電圧を実測したところ、1.2V程出ていました。シリコンの倍以上の値です。このため、LEDの出力を測るため、<em>電圧モード</em>で使用してみることにします。等価回路から分かるように出力電圧は光量に対してlog特性となり、温度に大きく影響されます(だから使われない)。</p>
+<p>ということで、テキトーにでっち上げた<a href="leddet.png">実験回路</a>を示します。マイコンに内蔵されているアナログコンパレータで出力電圧を基準値と比較して、入射光の有無を判断します。また、計測動作とLEDの駆動を時分割で行い、1個のLEDを受光素子と発光素子として使用します。プログラムの動作は、次のような流れになります。</p>
+<ol>
+<li>LEDポートに短時間"L"レベルを出力して接合容量<em>Cj</em>や浮遊容量<em>Cs</em>を放電する。</li>
+<li>LEDポートを入力に設定する→光電流により容量が充電され、入力電圧が直線的に上昇してくる。</li>
+<li>2ms以内に比較電圧を超えたら入射あり、2ms時点で比較電圧以下なら入射無しと判断。</li>
+<li>LEDポートを出力に設定して、入射の有無によりLEDをONまたはOFFする。</li>
+<li>10ms待って最初に戻る。</li>
+</ol>
+<p>比較電圧を超えるまでの時間がアナログ的な光量(短いほど明るい)を示しています。計測中はPB2に"H"を出力しているので、オシロで当たれば光量による充電時間の変化を直接観測することができます。銅鉄バラストのランプなどリプル分の多い光源の場合、スレッショルド付近でパルス幅が大きくふらつくのが分かります。白熱灯や電子バラストのランプの場合は安定しています。今回はマイコンに50円のATtiny11を使いましたが、ADCが10チャネルあるATtiny26なら、10個のLEDを同時に制御できると思います。</p>
+</div>
+
+<div class="para">
+<h3>資料</h3>
+<ul>
+<li><a href="leddet.png">回路図</a></li>
+<li><a href="leddet.asm.txt">プログラムコード</a></li>
+<li><a href="leddet.mpg">動作実験(mpegビデオ)</a></li>
+</ul>
+</div>
+
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

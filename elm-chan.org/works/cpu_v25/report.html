@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Microcontrollers" href="../../he_c.html">
+<link rel="stylesheet" href="../works.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - V25ボードマイコン</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>お手軽 V25ボードマイコン</h1>
+<p class="hdd"><br>1997. 8. 10</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<img src="m25_cpu.jpeg" alt="V25" class="rset" width="174" height="118">
+<p>NECの１チップマイコンで V30バイナリコンパチの CPUをコアに周辺機能を集積した <a href="../../docs/v25v35.html">V25/V35シリーズ</a>があります。今回はこのうち V25を使用してボードマイコンを組んでみましたので、紹介しましょう。</p>
+<p>拡張 I/Fの仕様は、この間の製作の <a href="../cpu_kl5c8012/report.html">KL5C8012ボードマイコン</a>と同じにしてありますので、共通の拡張ユニットで実験することができます。</p>
+</div>
+
+
+<div class="para">
+<h3>ハードウェアの製作</h3>
+<img src="m25_address_decode.png" alt="MEMORY MAP" class="rset" width="150" height="330">
+<p>まず、メモリの割り当てを右図のように決めます。ROM/RAMは 32KBの物を使用しているので、それぞれの領域の半分はイメージとなっています。I/Oはメモリ領域にマッピングしています。更に外部 I/Fとして、バスを引き出し、RS-232C I/FとモニタLEDも装備します。</p>
+<p>ということで、<a href="m25.png">回路図</a>が完成。この製作ではアドレスデコーダに <a href="../../docs/pld.html">PLD</a>を使用していますので、製作に当たっては PLDを利用できる製作環境が必要です(または、TTLで置き換え)。また、RS-232C I/Fドライバに普通の C-MOSを使用していますが、通常の用途ではこれで十分です(<a href="../../docs/rs232c.html">その理由</a>)。RAMには 35ns以下の高速SRAMを使用して 0waitアクセスを実現していますが、それ以上の RAMを使う場合はウェイトコントローラーの設定を変えて 1wait入れる必要があります。</p>
+<br>
+<img src="m25_pcb1.jpeg" alt="M25 PCB" class="lset" width="309" height="157">
+<p>左が組みあがったボードマイコンです。V25のパッケージには PLCCと QFPがあります。今回は PLCCを使用したので、ソケットを使用する必要があります。</p>
+</div>
+
+
+<div class="para">
+<br>
+<h3>資料</h3>
+<img src="m25_pcb2.jpeg" alt="M25 OPERATING" class="rset" width="255" height="159">
+<p><a href="m25.png">回路図</a>｜<a href="m25.pld.txt">PLDソース</a>｜<a href="m25mon.zip">モニタプログラム</a></p>
+</div>
+
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

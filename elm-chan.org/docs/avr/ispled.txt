@@ -1,0 +1,66 @@
+;-------------------------------------------------------------;
+; SRAM area definitions to be used for ISP-LED
+
+.dseg
+
+DispBuffer:
+	.byte	8	; 10^0 ... 10^7
+
+DispPosition:
+	.byte	1	; Decimal digit counter (scan digit)
+
+
+
+;-------------------------------------------------------------;
+; ISP-LED reflesh routine for 20/40 pin AVRs.
+; PB5, PB6 and PB7 must be initialized as output.
+;
+; Regs: ZH,ZL,r16 are broken.
+; Size: 31 words
+; Time: 105 clocks
+
+.cseg
+
+rfsh_disp:
+	ldi	ZH, 0			;Get next scan digit.
+	lds	ZL, DispPosition	; Z  = 0..7
+	inc	ZL			; CF = Cleard if Z = 0
+	cpi	ZL, 8			; LedPtr = (++LedPtr & 7)
+	brcs	PC+2			;
+	ldi	ZL, 0			;
+	sts	DispPosition, ZL	;/
+	in	r16, SREG		;ZH = !LedBuf[Z]
+	subi	ZL, low(-DispBuffer)	;
+	sbci	ZH, high(-DispBuffer)	;
+	ld	ZH, Z			;
+	com	ZH			;
+	out	SREG, r16		;/
+	in	r16, PORTB		;Transfer ZH into 74HC595.
+	cbr	r16, bit7		;
+	ldi	ZL, 8			;
+	bst	ZH, 7			;
+	bld	r16, 6			;
+	out	PORTB, r16		;
+	sbi	PORTB, 7		;
+	rol	ZH			;
+	dec	ZL			;
+	brne	PC-6			;/
+	bst	ZH, 7			;Latch display data
+	bld	r16, 6			;and select next digit.
+	out	PORTB, r16		;
+	sbi	PORTB, 5		;
+	cbi	PORTB, 5		;/
+	ret
+
+
+
+;-------------------------------------------------------------;
+; 7 segment conversion table
+; This will be used to convert a value into display pattern.
+
+.cseg
+
+t_7seg:	; 0,1,2,3,4,5,6,7,8,9,L,H,P,E,-,blank
+	.db	0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x38,0x76,0x73,0x79,0x40,0x00
+
+

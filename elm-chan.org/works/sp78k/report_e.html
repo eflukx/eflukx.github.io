@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="Misc" href="../../he_f_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="report.html">
+<link rel="stylesheet" href="../works_e.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - Simple 78K/V850/LPC Programmers</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>Simple 78K/V850/LPC Programmers</h1>
+<p class="hdd">April 2, 2006<br>Update: September 1, 2012</p>
+<hr class="hds">
+</div>
+
+
+<div class="abst">
+<img class="rset" src="78k.jpeg" width="200" height="193" alt="78F9234T">
+<p>In early 2005, NEC Electronics launched small pin count microcontrollers like PIC/AVR based on 78K0S architecture. The 78K architecture has a register set similar to i8085 and additional bit operation instructions. It is saied that a classical architecture but the memory organization is simple compared to the PIC/AVR. There are various devices with application specific peripherals and the 78K series has pretty big share in the industrial equipments. In early times, only OTP/Mask products ware available, and therefore it was not popular for electronics handicrafts. However the small pin count 78K series with flash memory is being watched by microcontroller freaks in Japan. And powerful IDE (compiler, assembler, simulator and etc) are also available in free.</p>
+<p>I have built a very simple 78K0S flash programming adapter for that devices. In addition, I built a universal programming adapter for the V850ES, LPCxxxx, STM32F and etc.</p>
+</div>
+
+<div class="para">
+<h3>78K0S flash programming adapter </h3>
+<div class="rset">
+<img src="78kw.jpeg" alt="78K0S programmer" width="350" height="170"><br>
+<a href="sp78k.png">Circuit Diagram</a>
+</div>
+<p>The communication format between the programmer and 78K0S device is based on ordinary asynchronous serial transfer so that it can be controlled via a PC serial port. Because there is a unique feature that the programming adapter is attached to oscillator pins, a defined sequence must be followed to put the device into programming mode. When perform a flash programming with a resonator on the target board, the clock frequency must not be equal each other for proper operation.</p>
+</div>
+
+<div class="para">
+<h3>Universal flash programming adapter</h3>
+<div class="rset">
+<a href="uispusb.jpeg" class="imglnk"><img src="uispusbs.jpeg" alt="" width="308" height="229"></a><br>
+<a href="uispusb.png">USB</a> | <a href="uisp232.png">EIA232</a> | <a href="uispsch.png">Target</a>
+</div>
+<p>These are simple USB-UART, EIA232-UART adapters with RESET#/PROG controls. It can also be used as <em>generic serial communication adapter</em> for various use other than flash programming. The target supply voltage can be 3 to 5 volts. The RESET# signal is deasserted on open COM port by terminal program and asserted on close. The PROG signal is normally Hi-Z and asserted (polarity is selected by JS1) with SW1.</p>
+<p>There are two communication methots, async(UART) and sync(SPI), for the flash programming mode of V850ES devices. This programming adapter uses the async mode. The state of SW1 is self-held while programmng session (ER#=L) so that the SW1 should be hedld down on start of programming and can be released after start-up. When put the device to the programming mode by switches on the target board, wireing the RESET#/PROG controls are not needed. This is also applied to any other microcontrollers.</p>
+<br class="clr">
+</div>
+
+<div class="para">
+<h3>Software</h3>
+<p>The 78K programmer supports only 78K0S/Kx1+ devices. The device file is not required but the flash memory size must be specifiled in command line option except for 8K devices. When oscillator frequency on the programmer is chaned, the communication speed must be changed to proper value. The command line options can be specified by a .ini file, and will able to be used in D&amp;D.</p>
+<p>The V850 programmer supports only V850ES/Jx2,Kx2,Hx2,Ix2 devices. The programmer works at 9600 bps in default. This may be too slow, but the baud rate can be changed to 9600, 19200, 38400, 76800 and 15360 bps with a command line option. Last two speeds cannot be used on built-in serial port, it will able to work on only USB-Serial bridge.</p>
+<p>The <kbd>lpcsp.exe</kbd> supports NXP LPC1000/2000 microcontroller family with automatic device detection. The programmer works at 115200bps in default and it will able to work at 230400bps on USB-Serial converter. When DTR/RTS output controls RESET#/BOOT# pin, the polarity can also be specified by option switch.</p>
+
+<p><a href="78k_v850.zip">Flash Programming Tools for NEC 78K0S and V850ES</a> <span class="mfd">Oct 31, 2009</span></p>
+<p><a href="lpcsp.zip">Flash Programming Tools for NXP LPC1000/2000</a> <span class="mfd">Sep 5, 2012</span></p>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

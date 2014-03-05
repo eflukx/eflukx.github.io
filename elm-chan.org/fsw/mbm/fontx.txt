@@ -1,0 +1,65 @@
+FONTX2 is one of the Japanese font driver to implement Japanese
+display envilonment to plane IBM PC with VGA system without any
+special display card. FONTX2 format is its font file format.
+
+The FONTX2 font file has two or three data fields as follows:
+
+<File header>   [Table 1]
+<Code map>      *This field exists in only DBCS font file.
+<Font data>     [Table 2]
+
+
+
+Table 1: Format of file header (17bytes)
+Offset  Size    Description
+ 00h    6bytes  Signature "FONTX2"
+ 06h    8bytes  Font name
+ 0Eh    BYTE    Font width (dot) 4..24
+ 0Fh    BYTE    Font height (dot) 4..24
+ 10h    BYTE    Code set (0:Single byte code, 1:Double byte code)
+
+
+
+Table 2: Format of font image field
+This field contains 256 font faces of each character.
+Data size of each font face becomes:
+
+(<font width> + 7) >> 3 * <font height> bytes
+
+So that the field size becomes:
+
+(<font width> + 7) >> 3 * <font height> * 256 bytes
+
+
+
+Example of font face mapping of a 16x16 dot font
+
+     1st byte          2nd byte
++----------------------------------+
+|b7            b0|b7             b0|
+|                |                 |
+|                                  |
+=                =                 =
+|                                  |
+|                |                 |
+|b7            b0|b7             b0|
++----------------------------------+
+                      32th byte
+
+
+
+Example of font face mapping of a 24x24 dot font
+
+     1st byte          2nd byte          3rd byte
++----------------------------------------------------+
+|b7            b0|b7             b0|b7             b0|
+|                |                 |                 |
+|                                                    |
+=                =                 =                 =
+|                                                    |
+|                |                 |                 |
+|b7            b0|b7             b0|b7             b0|
++----------------------------------------------------+
+                                        72th byte
+
+ 

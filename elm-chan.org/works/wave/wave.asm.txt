@@ -1,0 +1,455 @@
+; ファンクションジェネレータ　制御プログラム
+
+	name	osc
+
+$include(tlcs47.h)
+
+
+ROMTOP	equ	00h	; スタートアドレス
+
+;***********************************************************************
+; ＲＡＭ領域定義	00h ～ 0Fh / 90h ～ FFh
+
+	dseg	rel ddd
+	org	0	; zero page ram
+
+Range:	res	1	; freq. renge (0..5 = 200..20M)
+Wave:	res	1	; wave form (0:Sqr, 1:Tri, 2:Sin)
+Pulse:	res	1	; pulse polarity (0:Clk, 1:Pos, 2:Neg)
+Point:	res	1	; point position
+
+DspTmr:	res	1	; display reflesh timer
+
+Cnt1:	res	1	; loop counter
+Cnt2:	res	1	; 
+Cnt3:	res	1	; 
+
+
+;	org	10h	; Image (10h..8Fh)
+;	res	80h
+
+	org	90h
+FreqVal:res	4	; 
+
+OscCtrl:res	4	; oscillator control
+
+KeyReg:	res	1	; key scan reg.
+
+	org	0a0h
+HLSave:	res	2	;
+
+
+;	<<MEMORY MAPPED REGISTERS>>
+
+	org	0f4h	; timer counter 1
+TC1:	res	3
+	org	0f8h	; timer counter 2
+TC2:	res	3
+	org	0fch	; data counter
+DTC:	res	3
+	org	0ffh	; stack pointer
+SPW:	res	1
+
+
+;***********************************************************************
+; プログラムコード
+
+	cseg	rel ccc
+
+	org	ROMTOP		; Reset (/RESET)
+init:
+	ld	a,#0ch		; init SP
+	st	a,SPW
+
+	out	#1100b,%op01	; init port 1
+	out	#0000b,%op02	; init port 2
+
+	out	#0000b,%op07	; init port 7
+	out	#1111b,%op08	; init port 8
+	out	#0000b,%op09	; init port 9
+
+	st	#2,Range
+	st	#2,Wave
+	st	#0,Pulse
+
+	ld	a,#1001b	; init TC1, 200Hz count
+	out	a,%op1C
+	 call	init_lcd	; init lcd
+	ld	hl,#TC1		; init timer
+	st	#-10,@hl+
+	st	#-1,@hl+
+	st	#-1,@hl+
+
+	 call	rfsh_frq
+	 call	rfsh_wav
+	 call	rfsh_pls
+	 call	set_func
+
+main:
+	ld	a,TC1+2		; 20Hz interval ?
+	cmpr	a,#0
+	bss	main
+	ld	hl,#TC1
+	st	#-10,@hl+
+	st	#-1,@hl+
+	st	#-1,@hl+
+	 call	chk_key
+
+	add	DspTmr,#4	; 5Hz interval ?
+	bss	main
+	 call	chk_freq
+
+	bss	main
+
+return:	ret
+
+;**************************************
+; キースキャン・コマンド実行
+
+chk_key:
+	ld	hl,#KeyReg	; check press edge
+	in	%ip08,a
+	subr	a,#15
+	xch	a,@hl
+	xor	a,@hl
+	and	a,@hl
+	subr	a,#15
+	rorc	a	; range up ?
+	bss	key_up
+	rorc	a	; range down ?
+	bss	key_dn
+	rorc	a	; wave form ?
+	bss	key_wav
+	rorc	a	; pulse form ?
+	bss	key_pls
+	ret
+
+
+key_up:	cmpr	Range,#5
+	testp	zf
+	bs	return
+	add	Range,#1
+	 call	rfsh_frq
+	bss	set_func
+
+key_dn:	cmpr	Range,#0
+	testp	zf
+	bs	return
+	add	Range,#-1
+	 call	rfsh_frq
+	bss	set_func
+
+key_wav:ld	hl,#Wave
+	dec	@hl
+	bss	kw_pr
+	st	#2,@hl+
+ kw_pr:	 call	rfsh_wav
+	bss	set_func
+
+key_pls:ld	hl,#Pulse
+	dec	@hl
+	bss	kp_pr
+	st	#2,@hl+
+ kp_pr:	 call	rfsh_pls
+	bss	set_func
+
+
+;**************************************
+; オシレータ制御
+
+set_func:
+	ld	hl,#OscCtrl
+	ld	a,Pulse
+	rolc	a
+	rolc	a
+	and	a,#1100b
+	st	a,@hl
+	ld	a,Wave
+	or	a,@hl
+	st	a,@hl+
+
+	ld	a,Range
+sf_0:	cmpr	a,#0
+	bss	sf_1
+	st	#0001b,@hl+	; 200
+	st	#0000b,@hl+
+	st	#0100b,@hl+
+	bss	set_sr
+sf_1:	cmpr	a,#1
+	bss	sf_2
+	st	#0001b,@hl+	; 2k
+	st	#0000b,@hl+
+	st	#1000b,@hl+
+	bss	set_sr
+sf_2:	cmpr	a,#2
+	bss	sf_3
+	st	#0010b,@hl+	; 20k
+	st	#0001b,@hl+
+	st	#0000b,@hl+
+	bss	set_sr
+sf_3:	cmpr	a,#3
+	bss	sf_4
+	st	#0010b,@hl+	; 200k
+	st	#0010b,@hl+
+	st	#0001b,@hl+
+	bss	set_sr
+sf_4:	cmpr	a,#4
+	bss	sf_5
+	st	#0010b,@hl+	; 2M
+	st	#0100b,@hl+
+	st	#0010b,@hl+
+	bss	set_sr
+sf_5:	st	#0010b,@hl+	; 20M
+	st	#0000b,@hl+
+	st	#0011b,@hl+
+
+set_sr:	ld	hl,#OscCtrl
+	 call	send_nib
+	 call	send_nib
+	 call	send_nib
+	 call	send_nib
+	set	%op02,2	; STB
+	clr	%op02,2
+	ret
+
+send_nib:
+	ld	a,@hl
+	inc	l
+	 call	send_bt
+	 call	send_bt
+	 call	send_bt
+send_bt:rolc	a
+	bss	sb_0
+	set	%op02,0
+	bss	sb_s
+ sb_0:	clr	%op02,0
+ sb_s:	set	%op02,1	; CLK
+	clr	%op02,1
+	ret
+
+
+;**************************************
+; 周波数更新
+
+chk_freq:
+
+ cf_il:	test	%ip0e,0		; カウンタ読み込み
+	bss	cf_rd
+	 call	cfd_pls
+	bss	cf_il
+ cf_rd: ld	hl,#FreqVal
+	 call	cfd_pls
+	xch	a,@hl
+	cmpr	a,@hl
+	bss	cf_il
+	inc	l
+	 call	cfd_pls
+	xch	a,@hl
+	cmpr	a,@hl
+	bss	cf_il
+	inc	l
+	 call	cfd_pls
+	xch	a,@hl
+	cmpr	a,@hl
+	bss	cf_il
+	inc	l
+	 call	cfd_pls
+	xch	a,@hl
+	cmpr	a,@hl
+	bss	cf_il
+
+	; 表示
+	clr	%op01,0	; locate
+	ld	hl,#80h
+	 call	send_hl
+	ld	a,Point
+	st	a,Cnt2
+	st	#-4,Cnt1
+	ld	hl,#FreqVal+4
+	xch	hl,HLSave
+	clr	gf
+ cfd_1:	xch	hl,HLSave
+ 	add	l,#-1
+	bs	return
+	ld	a,@hl
+	xch	hl,HLSave
+	ld	h,#3
+ 	xch	a,l
+	mov	l,a
+	cmpr	a,#0	; zero suppress
+	bss	cfd_3
+	testp	gf
+	bss	cfd_2
+	ld	hl,#20h
+	bss	cfd_2
+ cfd_3:	set	gf
+ cfd_2:	set	%op01,0	; disp
+	 call	send_hl
+	add	Cnt2,#1
+	bs	cfd_1
+	ld	hl,#2eh
+	 call	send_hl
+	set	gf
+	bs	cfd_1
+
+cfd_pls:in	%ip00,a
+	clr	%op02,3
+	set	%op02,3
+	ret
+
+;**************************************
+; ＬＣＤ制御
+
+
+rfsh_frq:
+	clr	%op01,0	; locate
+	ld	hl,#85h
+	 call	send_hl
+	ld	hl,#DTC
+	st	#0,@hl+
+	ld	a,Range
+	st	a,@hl+
+	st	#nhl Form1,@hl+
+	st	#-11,Cnt1
+	 call	send_mlt
+	ldl	a,@dc
+	st	a,Point
+	ret
+
+rfsh_wav:
+ 	clr	%op01,0	; locate
+	ld	hl,#0c0h
+	 call	send_hl
+	ld	hl,#DTC
+	st	#nll FormW,@hl+
+	st	#nlh FormW,@hl+
+	st	#nhl FormW,@hl+
+	st	#-4,Cnt1
+	 call	send_mlt
+	ld	hl,#DTC
+	st	#0,@hl+
+	ld	a,Wave
+	add	a,#nlh Form2
+	st	a,@hl+
+	st	#nhl Form2,@hl+
+	st	#-3,Cnt1
+	bs	send_mlt
+
+rfsh_pls:
+	clr	%op01,0	; locate
+	ld	hl,#0c9h
+	 call	send_hl
+	ld	hl,#DTC
+	st	#nll FormT,@hl+
+	st	#nlh FormT,@hl+
+	st	#nhl FormT,@hl+
+	st	#-4,Cnt1
+	 call	send_mlt
+	ld	hl,#DTC
+	st	#4,@hl+
+	ld	a,Pulse
+	add	a,#nlh Form2
+	st	a,@hl+
+	st	#nhl Form2,@hl+
+	st	#-3,Cnt1
+	bs	send_mlt
+
+init_lcd:
+	 call	lcd_w15
+	clr	%op01,0		; CMD
+	ld	a,#0011b	; 8bit
+	call	send_a
+	 call	lcd_w15
+	ld	a,#0011b 	; 8bit
+	 call	send_a
+	 call	lcd_w40
+	 call	lcd_w40
+	ld	a,#0011b 	; 8bit
+	 call	send_a
+	ld	a,#0010b 	; 4bit
+	 call	send_a
+	ld	hl,#28h		; function
+	 call	send_hl
+	ld	hl,#0ch		; disp on / clr off / brink off
+	 call	send_hl
+	ld	hl,#01h		; clr
+	 call	send_hl
+	 call	lcd_w15
+	ld	hl,#06h		; entry mode
+	 call	send_hl
+	ret
+
+send_mlt:			; @DC を Cnt文字送信
+	 call	send_dc
+	add	Cnt1,#1
+	bss	send_mlt
+	ret
+
+send_dc:			; @DC を送信
+	set	%op01,0	; DATA
+	ldl	a,@dc
+	xch	a,l
+	ldh	a,@dc+
+	out	a,%op04
+	 call	lcd_stb
+	mov	l,a
+send_a:	out	a,%op04
+	 call	lcd_stb
+	bss	lcd_w40
+
+send_hl:mov	h,a		; HL を送信
+	out	a,%op04
+	 call	lcd_stb
+	mov	l,a
+	out	a,%op04
+	 call	lcd_stb
+	bss	lcd_w40
+
+lcd_stb:set	%op01,1		; E clock
+	clr	%op01,1
+	ret
+
+lcd_w40:st	#-7,Cnt3	; wait 37us
+ lw_4l:	add	Cnt3,#1
+	bs	lw_4l
+	ret
+
+lcd_w15:ld	hl,#TC1		; wait 15ms
+	ld	a,#-4
+	st	a,@hl
+ lw_lp:	cmpr	a,@hl
+	testp	cf
+	bss	lw_lp
+	ret
+
+
+;**************************************
+; フォームテーブル
+
+
+	org	ROMTOP+200h
+
+Form1:	data	20h,48h,7ah,20h,20h,52h,3ah,32h,30h,30h,20h	; Hz  R:200
+	data	-4,0,0,0,0
+	data	20h,48h,7ah,20h,20h,52h,3ah,32h,6bh,20h,20h	; Hz  R:2k
+	data	-4,0,0,0,0
+	data	6bh,48h,7ah,20h,20h,52h,3ah,32h,30h,6bh,20h	;kHz  R:20k
+	data	-2,0,0,0,0
+	data	6bh,48h,7ah,20h,20h,52h,3ah,32h,30h,30h,6bh	;kHz  R:200k
+	data	-3,0,0,0,0
+	data	6bh,48h,7ah,20h,20h,52h,3ah,32h,4dh,20h,20h	;kHz  R:2M
+	data	-4,0,0,0,0
+	data	4dh,48h,7ah,20h,20h,52h,3ah,32h,30h,4dh,20h	;MHz  R:20M
+	data	-2,0,0,0,0
+
+Form2:	data	53h,71h,72h,0, 43h,6ch,6bh,0	; Sqr Clk
+	data	0,0,0,0,0,0,0,0
+	data	54h,72h,69h,0, 50h,6fh,73h,0	; Tri Pos
+	data	0,0,0,0,0,0,0,0
+	data	53h,69h,6eh,0, 4eh,65h,67h,0	; Sin Neg
+
+FormW:	data	57h,41h,56h,3ah		; WAV:
+FormT:	data	53h,59h,4eh,3ah		; SYN:
+
+	end
+

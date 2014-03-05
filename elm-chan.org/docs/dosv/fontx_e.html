@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="Tech Notes" href="../../cc_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="fontx.html">
+<link rel="stylesheet" href="../docs_e.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - Using FONTX font files</title>
+</head>
+
+<body>
+<h1>Using FONTX font files</h1>
+<p class="hdd"><br>October 21, 2012</p>
+<hr class="hds">
+
+<div class="abst">
+<img class="rset" src="diskette.jpeg" width="360" height="251" alt="DOS/V diskette">
+<p>Nowadays the font files in FONTX format is often used in hobby electronics projects. This page describes about the background of FONTX and how to use the FONTX files for your projects.</p>
+</div>
+
+<div class="para">
+<h3>DOS/V - FONTX - Electronics Projects</h3>
+<h4>What is DOS/V?</h4>
+<img class="rset" src="dosv.png" width="410" height="280" alt="DOS/V system">
+<p>In early '90s, "IBM DOS J4.0/V" called DOS/V was released. The DOS/V consists of PC DOS and additional device drivers to handle Japanese characters (Kanji). It could display Kanji on the display of IBM AT or compatibles without any add-on board. Right image shows the system diagram of DOS/V. The "V" added end of the product name denotes VGA and it means "IBM Japanese DOS version 4.0 for VGA".</p>
+<p>The display driver ($DISP.SYS) extends the video BIOS (INT 10h) and it processes the character output request by application program. The character is drawn on the graphic screen instead of character screen, therefore it can display arbitrary fonts including Kanji. This enabled _a few_ English applications to handle Japanese without any modification. The reason of only a few applications is that the most of DOS applications bypass the video BIOS and write characters into the VRAM directly. The display driver also supports virtual VRAM to minimize cost of development and porting the applications, however, supporting the Japanese was not easy because of handling of double byte character that not exist in alphabet bloc.</p>
+<p>The font driver ($FONT.SYS) manages the Kanji font. It loads the font files to the memory on start up and it works as a font server via system BIOS (INT 15h). The font data amounted to 200K bytes is placed on EMB memory, so that it does not consume conventional momory but the DOS/V requires 80286 or higher.</p>
+<h4>DOS/V and FONTX</h4>
+<p>At that time, NEC PC-9800 series PCs that supports Kanji character screen was occupying the business PC market in Japan. The new entry of DOS/V architecture into the mature architecture as Japanese business PC was a big topic. Some magazines related to DOS/V started to issue, and DOS/V drivers with new functions were released by hackers in succession.</p>
+<p>As for the display drivers, it supported some type of display sub-systems in addition to the regular VGA. Most of them supported SVGA and the graphics accelerator for wide character screen with fast drawing. Some drivers supported CGA for pocket PCs. IBM also followed these implementations and released add-on drivers as "DOS/V EXTENSION" package. With it, the mean of "V" has been redefined from VGA to Variable. Also I was developping some display drivers as one of the DOS/V freaks :-)</p>
+<p>As for the font drivers, there were some expansions, reload font and change it on the fly, selectable font buffer memory other than EMB, such as EMS memory, conventional memory and hardware specific bank memory, to enable support of 8086 based pocket PCs. The number of font drivers released was not many as display drivers. The FONTX was a set of font driver and font converter tools released first and gets the major font driver as freeware. As the result, all DOS/V font files that has been released as freeware are in FONTX format.</p>
+
+<h4>FONTX coming back from death's door</h4>
+<p>A few years later, the time went to Windows age and MS-DOS age with DOS/V archtecture has closed. The number of software resources and DOS/V fonts have been passed into oblivion. However, after a half of '00s, the use of 32-bit microcontrollers and graphic display modules have spread even to hobby electronics projects. With this trend, FONTX files came to be used to output Kanji characters into the LCD module. The FONTX is a bitmap font format suitable for such use because the file format is opened and many free font files are found on the internet. Therfore the FONTX became to be noticed again. But in only electronics projects as a minor world.</p>
+</div>
+
+
+<div class="para">
+<h3>How to use FONTX files</h3>
+
+<h4>FONTX format</h4>
+<p>The FONTX file is, unlike BDF file, in binary form shown below. There are two type of font file, single byte code font and double byte code font. The font type is identified by code flag. The single byte code font file has 256 font images. The double byte font uses valid code range table to store only some thousands of Shift_JIS code fonts out of 65536. The font image is stored in order of listed in the table.</p>
+<div class="lset">
+<table class="lst lset">
+<caption>Single byte code FONTX file</caption>
+<tr><th>Offset</th><th>Size</th><th>Description</th></tr>
+<tr><td>0</td><td>6</td><td>File signature("FONTX2")</td></tr>
+<tr><td>6</td><td>8</td><td>Font name</td></tr>
+<tr><td>14</td><td>1</td><td>Font width W<small>F</small>(dot)</td></tr>
+<tr><td>15</td><td>1</td><td>Font height H<small>F</small>(dot)</td></tr>
+<tr><td>16</td><td>1</td><td>Code flag (0:ANK)</td></tr>
+<tr><td>17</td><td>*1</td><td>Font image<br><small>(*1:Font size * 256)</small></td></tr>
+</table>
+</div>
+<div class="lset">
+<table class="lst">
+<caption>Double byte code FONTX file</caption>
+<tr><th>Offset</th><th>Size</th><th colspan="2">Description</th></tr>
+<tr><td>0</td><td>6</td><td colspan="2">File signature("FONTX2")</td></tr>
+<tr><td>6</td><td>8</td><td colspan="2">Font name</td></tr>
+<tr><td>14</td><td>1</td><td colspan="2">Font width W<small>F</small> (dots)</td></tr>
+<tr><td>15</td><td>1</td><td colspan="2">Font height H<small>F</small> (dots)</td></tr>
+<tr><td>16</td><td>1</td><td colspan="2">Code flag (1:Shift JIS)</td></tr>
+<tr><td>17</td><td>1</td><td colspan="2">Number of code blocks N<small>B</small></td></tr>
+<tr><td>18</td><td>2</td><td>Block 1 start</td><td rowspan="5">Code block table<br>(little endian)</td></tr>
+<tr><td>20</td><td>2</td><td>Block 1 end</td></tr>
+<tr><td>…</td><td>…</td><td>…</td></tr>
+<tr><td>14+4*N<small>B</small></td><td>2</td><td>Block N<small>B</small> start</td></tr>
+<tr><td>16+4*N<small>B</small></td><td>2</td><td>Block N<small>B</small> end</td></tr>
+<tr><td>18+4*N<small>B</small></td><td>*2</td><td colspan="2">Font image<br><small>(*2:Font size * total number of codes)</small>
+</td></tr>
+</table>
+</div>
+
+<p class="clr">The image shown below is the font image stored on the file. The font face is in left-justified if the font width is not equal to multiple of 8.</p>
+<div><img src="fonts.png" width="584" height="286" alt="Font example"></div>
+<p>The font size becomes <span style="white-space:nowrap;">(W<small>F</small> + 7) / 8 * H<small>F</small> [bytes]</span>. The offset where the top of font image data from top of the file are:</p>
+<ul>
+<li>17 + Character code * Font size (Single byte code)</li>
+<li>18 + 4 * N<small>B</small> + Nunber of previous codes * Font size (Double byte code)</li>
+</ul>
+<p>To edit the FONTX file, a font editor supports the FONTX format is required. However the FONTX editor for Windows had not been developped because the FONTX was already not needed in Windows age, so that I built a simple <a href="../../fsw_e.html#fontxedit">FONTX editor</a>.</p>
+
+<h4 class="clr">Sample code</h4>
+<p>This is an example to get the font image in the FONTX file stored on the memory. The two arguments specifies pointer to the FONTX data and character code. If the code is not found in the font data, it returns a NULL.</p>
+<pre>
+const uint8_t* get_font (   <span class="c">/* Returns pointer to the font image (NULL:invalid code) */</span>
+    const uint8_t* font,    <span class="c">/* Pointer to the FONTX file on the memory */</span>
+    uint16_t code           <span class="c">/* Character code */</span>
+)
+{
+    unsigned int nc, bc, fsz, sb, eb;
+    const uint8_t *cblk;
+
+
+    fsz = (font[14] + 7) / 8 * font[15];  <span class="c">/* Get font size */</span>
+
+    if (font[16] == 0) {  <span class="c">/* Single byte code font */</span>
+        if (code &lt; 0x100)
+            return &amp;font[17 + code * fsz];
+    } else {              <span class="c">/* Double byte code font */</span>
+        cblk = &amp;font[18]; nc = 0;  <span class="c">/* Code block table */</span>
+        bc = font[17];
+        while (bc--) {
+            sb = cblk[0] + cblk[1] * 0x100;  <span class="c">/* Get range of the code block */</span>
+            eb = cblk[2] + cblk[3] * 0x100;
+            if (code &gt;= sb &amp;&amp; code &lt;= eb) {  <span class="c">/* Check if in the code block */</span>
+                nc += code - sb;             <span class="c">/* Number of codes from top of the block */</span>
+                return &amp;font[18 + 4 * font[17] + nc * fsz];
+            }
+            nc += eb - sb + 1;     <span class="c">/* Number of codes in the previous blocks */</span>
+            cblk += 4;             <span class="c">/* Next code block */</span>
+        }
+    }
+
+    return 0;   <span class="c">/* Invalid code */</span>
+}
+</pre>
+
+</div>
+
+
+<p class="foot"><img src="../../p/sign.png" alt=""></p>
+</body>
+</html>

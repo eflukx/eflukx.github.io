@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Microcontrollers" href="../../he_c.html">
+<link rel="stylesheet" href="../works.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - KL5C8012ボードマイコン</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>お手軽KL5C8012ボードマイコン</h1>
+<p class="hdd"><br>1995. 12. 8</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<img src="top_of_kl5c8012.jpeg" alt="" class="rset" width="160" height="120">
+<p>川崎製鉄から高性能な8ビットマイクロコントローラー <a href="../../docs/kl5c8012.html">KL5C8012</a> が発売され、ちょっとした話題になっていましたね。最近になって秋葉にも出回りはじめたので、試しにボードマイコンを作ってみました。</p>
+<p>また、このCPUを載せたボードマイコンのセットも数千円と手ごろな価格で出回っているので、製作がめんどい場合はそれを利用するのもよいでしょう。</p>
+</div>
+
+
+<div class="para">
+<h3>ハードウェアの製作</h3>
+<p>製作を始める前に、簡単な仕様を決めておきます。目的はとりあえずKL5C8012を使ってみるということですので、メモリ構成は32KBのプログラムROM、ワークエリアは内蔵の512B RAMのみ。これだけあれば十分でしょう。あと、パソコンと接続して使用するために、RS232Cインターフェースも付けます。それから、別に紹介する<a href="../disp_crt/report.html">汎用CRT I/F</a>や<a href="../sdisp/report.html">ビデオタイトラー</a>などを制御するためにバスを引き出せるようにしておきます。ということで、<a href="circuit_diagram.png">回路図</a>が完成。</p>
+<br>
+<img src="m82_memory_io.png" alt="" class="rset" width="220" height="300">
+<p>このボードマイコンの物理メモリマップは、先頭32KBにプログラムROMを、最後の63.5KBは拡張バスを割り当てています。内蔵RAMは常に物理メモリ空間の最後512Bに存在しています。今回のモニタプログラムでは、物理アドレスの 00000h～07FFFh、F8000h～FFFFFhをそれぞれ論理アドレス0000h～7FFFh、8000h～FFFFhに割り当てて、64KBの論理アドレス空間を埋めるようにして使用しています。</p>
+<p>また、RS232Cドライバに普通の74HC04を使用していますが、ちょっとした実験程度ならこれで十分です（<a href="../../docs/rs232c.html">その理由</a>）。</p>
+<br>
+<img src="m82_circuit_board.jpeg" alt="" class="lset" width="195" height="117">
+<p>で、左のが組みあがったボードです。KL5C8012は100pin QFPですので、ユニバーサル基板にマウントするには、変換基板を使用する必要があります。</p>
+<br class="clr">
+<img src="m82_mount.png" alt="" class="lset" width="200" height="110">
+<p>この手の変換基板はいろいろありますが、サンハヤトのICB-027がおススメ。ICB-027はスルーホールなので、スルーホールのユニバーサルボードに載せて穴を合わせて半田を流し込むだけで接続されます。</p>
+</div>
+
+
+<div class="para">
+<h3>とりあえずモニタプログラム</h3>
+<p>動かしてみるのが目的ですので、端末をつないでメモリ・Ｉ／Ｏの読み書きができる簡単なモニタープログラムを作成しました。このモニタプログラムは KL5C8012に ROMだけつなげば動作します。端末は、KL5C8012のシリアルポートに接続します。通信プロトコルは無手順、N81 38400bpsです(9.83MHz動作時)。（<a href="m82_mon.zip">モニタプログラムをGET!</a>）</p>
+</div>
+
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

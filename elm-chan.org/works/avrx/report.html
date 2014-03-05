@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="PC Interface" href="../../he_f.html">
+<link rel="alternate" hreflang="en" title="English version" href="report_e.html">
+<link rel="stylesheet" href="../works.css" type="text/css" media="screen" title="ELM Default">
+<style type="text/css" media="screen" title="ELM Default">
+.ncf {color: gray;}
+#specs {float: left; margin: 0 1em 2em 0;}
+.smallblk {font-size: smaller; line-height: 120%;}
+.cntlnk {text-align: center; margin-top: 1em;}
+ol {list-style-type: lower-alpha;}
+#ispcon {width: 40%; clear: both; float: left;}
+#ispclp {width: 40%; clear: right; margin-left: 45%;}
+</style>
+<title>ELM - AVRライタの製作 (4種)</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>AVRライタ製作集</h1>
+<p class="hdd">1999. 10. 3<br>Last update: 2010. 9. 23</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<div class="rset"><img src="avrs.jpeg" alt="AVRチップ" width="374" height="329"></div>
+<p>最近流行りの<em><a href="../../docs/avr.html">AVR</a></em>用のライタです。様々な使用環境に対応できるように 4つの異なるライタを製作しましたのでご紹介します。</p>
+<p>まず、一つはLPTポート接続の<em>パラレルモード対応ライタ</em>、もう一つは<em>LPTポート接続のISPアダプタ</em>、もう一つは<em>COMポート接続のISPアダプタ</em>、そしてもう一つは<em>COMポート接続の汎用SPIブリッジ</em>です。</p>
+<p>LPTポート接続のライタ制御ソフトは各社<em>FPGA用JTAGケーブル</em>(Xilinx, Lattice, Altra)もそのまま流用可能です。また、COMポート接続のものについては、そのままデバッグ用通信ケーブルになってしまうというオマケ付きです :-)</p>
+<p>ここで紹介するライタは多くの市販ライタと違い、ライタ側にコントローラを設けずにPCのポートで直接制御をしているのが特徴です。それにより、ライタとの通信などの余計なオーバーヘッドが無くなり、プログラミング時間の大幅な短縮を実現しています。しかし、このように独自仕様なので、AVR Studioからは直接使えません。いや、とりあえず<a href="studio.html">使えることは使えます</a>が...。また、WinAVRでは<a href="make.html">make</a>で使うこともできます。</p>
+</div>
+
+<div class="para">
+<h3>AVRの書き込み方法</h3>
+<p>AVRには主に2つの異なったプログラミングモードがあり、用途に応じて使い分けます。一つは<em>パラレルプログラミングモード</em>（以下パラレルモード）といい、ライタのソケットに載せてパラレルでデータやコマンドをやりとりする方法です。パラレルロードなので、プログラミング速度は次に述べるISPモードに比べて倍以上と高速です。大量のデバイスのプリライトや、ボードの設計上ISPが不可能な場合に使用します。市販のライタでパラレルモードに対応しているのは、STK500 (Atmel)だけのようです。</p>
+<p>もう一つは、シリアル信号でやり取りするモードで、<em>シリアルダウンロードモード</em>(以下ISPモード)といいます。このモードでは 3本のロジックレベルの信号だけでコマンドやデータをやりとりして書き込みます。必要な信号線数が少なく、+12Vのプログラミング電圧も必要無いので、単純なインターフェースで回路に組み込んだ状態でプログラムできます。これはいわゆる<em>ISP</em>(In-System Programming) と言われている方法です。ただ、ISPモードの無いデバイスがあったり、ISPモードでは一部の機能を変更できないデバイスがあるので、そのような場合はパラレルモードを使わなければなりません。しかし、市販のソケット式AVRライタはどういうわけかISPモードを使用しているものが殆どで、これらの問題が避けられないので注意が必要です。</p>
+<p>さらにもう一つ、プログラミング電圧を加えてシリアルで書き込む<em>高電圧シリアル(HVS)モード</em>があります。これは、ピン数の関係でパラレルモードの不可能な 8/14ピンデバイスでのみサポートされる方式で、機能的にはパラレルモードと等価です。それぞれのプログラミングモードの詳細については、データシートを参照してください。</p>
+</div>
+
+<div class="para">
+<a id="AVRXP"></a>
+<h3>パラレルライタの製作</h3>
+<div class="rset">
+<img src="avrxp.jpeg" alt="パラレルライタ" width="377" height="278">
+<ul class="flat">
+<li><a href="avrxp.png">回路図(汎用)</a></li>
+<li><a href="avrxp_sk.png">ソケット変換アダプタ</a></li>
+<li><a href="avrxp8.png">回路図(8/14ピン専用)</a></li>
+</ul>
+</div>
+<p>右の図に製作したパラレルライタを示します。チップ部品を多用してコンパクトに組み上げています。回路が単純な割には、パラレルモードとHVSモードにちゃんと対応しています。パラレルライタは次のような場合に必須になってきます。</p>
+<ul>
+<li>tiny10/11/28(=ISP無し)の書き込み。</li>
+<li>90S1200/2313/4414/8515のヒューズ書き換え。</li>
+<li>SPIENやRSTDISBLヒューズの書き換え。</li>
+</ul>
+<p>このようにパラレルライタがどうしても必要になる場面は限られてくるので、普通はISP方式だけで十分です。でも、8ピンAVRに関してはHVSモードで書き込めないと何かと不便なので、<em>8ピン専用HVSライタ</em>も用意してみました。</p>
+<p>デバイスマウント用のソケットには 20pinの ZIFソケットを使ったので、20ピン以外のデバイス(8,28,40)に書き込む場合は<em>変換アダプタ</em>を使用する必要があります。パソコンによってはパラレルポートのHレベル出力電圧が3.5V以下のものがありますが、このような場合、回路図中の破線部に74HC<em>T</em>541等を追加してレベル変換する必要があります。<em>これらのライタの制御には、<kbd>AVRXP.COM</kbd>(DOS版)または<kbd>AVRPP.EXE</kbd>(Win32版)を使用します</em>。</p>
+</div>
+
+<div class="para">
+<a id="AVRXS"></a>
+<h3>LPTポート制御 ISPアダプタの製作</h3>
+<p>これは、コストダウンと再現性(誰でもすぐ作れる)を狙った物です。回路図に示す簡易版は能動部品は使用せず、単純に LPTポートの入出力をISPコネクタに直結するようになっています。このように非常に単純なため、10分もあれば組み立てられると思います。部品もジャンク箱を漁れば出てくるようなものだけです。AVRを試してみる準備としては、これが一番安上がりでしょう。しかし、簡易版アダプタは信号レベル変換をしていない（ターゲットに合わせていない）ため、ターゲットの電源電圧は約4.5～5.5Vの範囲という制限が付いたり、一部のPCでは動作が不安定になったりしてしまいます。</p>
+<p>また、制御プログラムはオリジナル回路のほか、STK200 ISP dongleや各社CPLD/FPGA用のダウンロードケーブルを自動認識してそのままAVRの書き込みに使えるようになっています。現在対応しているのは、<em>Xilinx</em>、<em>Lattice</em>、<em>Altera</em>のアダプタです。アダプタのJTAG信号とAVRとの対応は、<em>TDO-MISO</em>、<em>TDI-MOSI</em>、<em>TCK-SCK</em>、<em>TMS-RESET</em>となります。バッファ付きの場合、使用可能な電源電圧の範囲は3～5V程度と広くとれます。<em>これらのアダプタの制御には、<kbd>AVRSP.EXE</kbd>(Win32版)を使用します</em>。</p>
+<ul>
+<li><a href="avrx_lpt.png">オリジナルアダプタ回路図</a>。簡易版/バッファ付き。</li>
+<li><a href="stk.png">STK200 ISP dongle回路図</a>。LPT用AVR-ISPアダプタとして最も一般的。多くのISPツールが対応。</li>
+<li><a href="xilinx.png">Xilinx JTAGケーブル回路図</a>。Xilinx社CPLD/FPGA用。</li>
+<li><a href="lattice.png">Lattice ISPケーブル回路図</a>。Lattice社CPLD/FPGA用。</li>
+<li><a href="altera.png">Altera ByteBlasterMV回路図</a>。Aletra社PLD用。</li>
+</ul>
+</div>
+
+<div class="para">
+<a id="AVRSS"></a>
+<h3>COMポート制御ISPアダプタの製作</h3>
+<div class="rset">
+<img src="avrss.jpeg" alt="ISPアダプタ" width="402" height="269">
+<ul class="flat">
+<li><a href="avrx_com.png">COMポート用ISPアダプタ回路図</a></li>
+</ul>
+</div>
+<p>これは、COMポートで制御するタイプの ISPアダプタです。RS-232Cの信号電圧レベルをターゲットシステムに合わせるためゲートICを使ってレベル変換していますので、2.2～5.5Vのターゲット電源で使用可能です。また、この ISPアダプタはホストPCとターゲットの通信ケーブルとしても使えます(後述)。普通のAVRシステムの開発にはこれだけあればとりあえず十分でしょう。</p>
+<p>この ISPアダプタはスイッチでISPアダプタをターゲットから論理的に切り離すことができます。このため、書き込むたびにISPコネクタを抜き差しする手間が省けます。</p>
+<p>製作する際は、写真のようにレベル変換回路をターゲット寄りに置く方が動作の安定や取り扱いの点から好ましいです。ISPケーブルは何本か製作してこの形に落ち着きました。<em>このISPアダプタの制御には、<kbd>AVRSP.EXE</kbd>(Win32版)または<kbd><a href="avrdude.conf.txt">avrdude 5.1以降</a></kbd>を使用します</em>。</p>
+</div>
+
+<div class="para">
+<a id="BRIDGE2"></a>
+<h3>USBspi(USB用SPIブリッジ)の製作</h3>
+<div class="rset">
+<img src="usbspi2.jpeg" alt="USBspi" width="287" height="195">
+<ul class="flat">
+<li><a href="usbspi.zip">汎用SPIブリッジ Rev.4 資料</a></li>
+</ul>
+</div>
+<p>最近はレガシィポート(COM/LPT)を持つPCがかなり少なくなり、特にノートPCにおいてはほぼ全滅状態です。これに代わるのが今は当たり前のように装備されているUSBです。今回は、USB用の汎用SPIブリッジを製作してみました。単にUSB-UARTブリッジを追加しただけで、新規設計といえるようなモノではありませんが...(汗)。もちろん、全く同じでは面白くないので、使用デバイスを新しいのに置き換えたり、性能が出やすいようにavrsp側でバッファサイズを調整したりしています。SPIブリッジR4以降ではAVR専用コマンドの追加により、COMポート直接I/O叩きの2倍程度の速度が実現できました。</p>
+<p>右の写真に製作したSPIブリッジを示します。MLF品を使ったため、46/15/6(L/W/T)とUSBメモリを一回り小さくしたサイズに収まりました。電源は、「ターゲットから供給(3～5V)」と「ターゲットに5V/3.3Vを供給(ターゲット側の条件によっては不可)」を選択できるようになっています。これにより、ノートPCさえあれば<a href="usbspi3.jpeg">電源なし</a>での書き換え・デバッグ(たとえば、マイコン野郎＠通勤電車など)も可能になります。</p>
+<p><em>汎用ブリッジ</em>と言うくらいなので、AVRの書き込みに限らずSPIデバイス全般(Mode0に限る)に使用可能です。例としてSDメモリカードを接続して<a href="spimmc.zip">セクタダンプする実験</a>を示します。もちろん、ポート直結タイプのISPアダプタでもSPI制御部を変更すれば同様に使用できます。 <span class="mfd">2007. 9. 8</span></p>
+</div>
+
+<div class="para">
+<h3>制御プログラムの使い方</h3>
+<p>それぞれのプログラムの使用方法は、アーカイブに同梱のマニュアルを参照してください。これらの制御プログラムの特徴は、デバイスタイプを全て自動認識して各デバイスに合った動作ができることです。これにより、ユーザはデバイスタイプを意識せずに、必要なHEXファイルをまとめて投入してやるだけでよいので、操作がとても簡単です。どれもコンソールアプリですが、.iniファイルを適当に設定してやれば、<em>D&amp;D</em>で一発書き込みができるようになります。</p>
+<p>パラレルライタについては、手動操作で動作チェックできるチェックプログラム(DOS版のみ)も用意してあります。ISPライタについては、<tt>avrsp -z</tt> でSCKラインに<a href="test.png">テストパルス</a>を出力してシステムの互換性チェックができます。</p>
+</div>
+
+<div class="para">
+<h3>ISP対応設計</h3>
+<div class="rset"><img src="isp_pcb.png" alt="ISP対応回路" width="500" height="370"></div>
+<p>ISPで使用する場合は、ターゲットボードもそれに合わせた設計とする必要があります。ISPに必要なピン（RESET, SCK, MISO, MOSI）を常に開けておければ良いのですが、それでは実際の応用でポート数が不足してしまうことがあり ISP動作ができないこともあります。でも、条件付きで ISP機能と I/Oポートとしての機能を共用することもできます。</p>
+<p>ISP動作に関する端子を I/Oとして使用する場合は、次のような注意が必要で、それらを守っておけば ISPピンを I/Oとしても使用できます。</p>
+<ol>
+<li>確実にリセットピンを駆動できるようにすること。コンデンサの直結は不可。</li>
+<li>ISP動作で周辺回路が悪影響を受けないように配慮する。</li>
+<li>同様に外部からの駆動でISP動作が影響を受けないようにする。</li>
+<li>ISP動作に影響を与えるような重負荷は接続しない。</li>
+</ol>
+<div id="ispcon">
+<h4>標準 ISPコネクタ</h4>
+<p>これは、アトメルの推奨する ISPコネクタのピン配置で、6ピン(3×2)、2.54mmピッチのピンヘッダを使用することになっています。ISPケーブルの製作や、ターゲットボード側の ISPコネクタはこれを基準にすると良いでしょう。このほか10ピン仕様もあります。</p>
+<img src="isp_pin.png" alt="ISPピン配列" width="231" height="192">
+</div>
+<div id="ispclp">
+<h4>スペースがない場合</h4>
+<p>基板をぎっちりに作ってしまって ISPコネクタを付けるスペースが無い、または ISPコネクタを付けるのがめんどいという場合は、右の写真に示すようなクリップで ICを直接挟み込んで接続することもできます。</p>
+<img src="isp_clp.jpeg" alt="ISPクリップ" width="261" height="243">
+</div>
+</div>
+
+
+<div class="para">
+<h3>ISPケーブルで通信</h3>
+<p>これは、COM接続ISPアダプタ(SPIブリッジ)の目玉的機能で、信号線の使い方をちょっと工夫することにより、ISPケーブルを使ってホストPCとターゲットプログラムとの間で通信ができるようになっています。つまり、ISPケーブルと適当なターミナルソフトを使ってそのままリモートコントロールができてしまうのです。ISPアダプタをOFFにしている時でもMISOはパソコン側でモニタできるので、単なるprintfデバッグも可能です。この機能を実現するには、ターゲット側では次のような条件を満たさなければなりません。</p>
+<ul>
+<li>少なくともMISOはモニタ出力用として完全に空けておく。</li>
+<li>MISOを出力に、MOSIを入力に設定する。</li>
+<li>MISOとMOSIを使ってソフトウェアUARTでホストと通信する。</li>
+</ul>
+</div>
+
+<div class="para">
+<a id="PICWR"></a>
+<h3>PICライタとして使う</h3>
+<div class="rset">
+<img src="isp_icsp.jpeg" alt="ISP-ICSP変換アダプタ" width="225" height="181"><br>
+<a href="isp_icsp.png">変換アダプタ回路図</a>
+</div>
+<p>最近、PIC24Fをはじめとする16ビット・アーキテクチャのPICマイコンが容易に入手できるようになってきました。普段AVRをメインに使っていても「これは面白そうだゾ」と惹かれる方も多いと思います。そこで、AVR用のISPケーブルでPICマイコンに書き込めるようにしてみました。PIC24Fも試食してみたいけど、書き込みが...という場合に最適かと思います。</p>
+<p>書き込みプログラム<em>pic24sp</em>の機能・使い方は<em>avrspと同じ</em>で、対応デバイスは<em>PIC24F/PIC24H/dsPIC33F</em>です。SPIブリッジを使う場合はR3以降が必要です。PICの書き込みには<kbd>PIC24SP.EXE</kbd>(Win32版)を使用します。現在のところ8ビットPICには対応していませんが、LV-ICSP対応デバイスならpic24spの改造で対応できるはずです。dsPIC30Fなど高電圧が必要なデバイスは残念ながら対応不可です。</p>
+<p>COMポート接続ではAVR同様にISPケーブル経由の通信(printfデバッグ等)が可能ですが、1本のデータ線で往復のソフトウェアUART通信を行うことになるので、ターゲット側からの送信はPGDラインをマーク=Hi-Z/スペース=Highで駆動する必要があります。 <span class="mfd">2007. 12. 10</span></p>
+</div>
+
+<div class="note">
+<h3>資料</h3>
+<ul class="flat">
+<li><a href="avrxp.png">パラレルライタ回路図</a>。パラレルモード/HVSモード対応。<span class="mfd">2006. 1. 30</span></li>
+<li><a href="avrxp_sk.png">パラレルライタ用ソケット変換アダプタ</a>。<span class="mfd">2004. 11. 11</span></li>
+<li><a href="avrxp8.png">HVS専用ライタ回路図</a>。<span class="mfd">2006. 1. 30</span></li>
+<li>&nbsp;</li>
+<li><a href="avrx_com.png">COMポート用ISPアダプタ回路図</a>。AVRSS/AVRSP用オリジナル。 <span class="mfd">2004. 4. 30</span></li>
+<li><a href="avrx_lpt.png">LPTポート用ISPアダプタ回路図</a>。AVRXS/AVRSP用オリジナル。 <span class="mfd">2004. 4. 30</span></li>
+<li><a href="usbspi.zip">汎用SPIブリッジ Rev.4 資料</a>。ドキュメント、回路図、F/W、ほか。 <span class="mfd">2007. 12. 16</span></li>
+<li><a href="stk.png">STK200 ISP dongle回路図</a>。AVR汎用ISPアダプタ。 <span class="mfd">2004. 4. 30</span></li>
+<li><a href="xilinx.png">Xilinx JTAGケーブル回路図</a>。Xilinx社CPLD/FPGA用。 <span class="mfd">2004. 4. 30</span></li>
+<li><a href="lattice.png">Lattice ISPケーブル回路図</a>。Lattice社CPLD/FPGA用。 <span class="mfd">2004. 4. 30</span></li>
+<li><a href="altera.png">Altera ByteBlasterMV回路図</a>。Aletra社PLD用。 <span class="mfd">2004. 4. 30</span></li>
+<li>&nbsp;</li>
+<li><a href="avrxtool32.zip">Win32版AVRライタ制御ツール for Windows9X/Me/NT/2k/XP</a> with c source files <span class="mfd">2010. 9. 23</span></li>
+<li><a href="pic24sp.zip">PIC24SP for Windows9X/Me/NT/2k/XP</a> with c source files <span class="mfd">2009. 1. 9</span></li>
+<li><a href="avrxtool.zip">DOS版ライタ制御ツール for DOS, Windows3.X/9X/Me, HP200LX</a> with asm source files <span class="mfd">2004. 11. 11 Obsoleted</span></li>
+<li><a href="http://avrwiki.jpn.ph/wiki.cgi">USBasp対応版<em>avrspx</em></a> (AVR-wiki内プロジェクト)</li>
+<li><a href="http://homepage2.nifty.com/denshiken/">各種AVRライタ、改良版多数</a> (TADさん)</li>
+<li><a href="http://www.von-der-salierburg.de/avrsp/">AVRSP brunch by BKK</a> (Win32(bcc), Linux(x86/ARM))</li>
+<li>&nbsp;</li>
+<li><a href="../../docs/avr/avrmon.zip">ISP通信サンプル、汎用AVRモニタ(ASM)</a> <span class="mfd">2002. 5. 29</span></li>
+<li><a href="../../docs/avrlib/suart.zip">ISP通信サンプル、汎用AVRモニタ(GCC)</a> <span class="mfd">2005. 1. 30</span></li>
+<li>開いているフォルダ内でコンソールを開く方法→<a href="console.reg.txt">追加するレジストリ</a>と<a href="console.png">追加されるメニュー項目</a> <span class="mfd">2006. 9. 24</span></li>
+</ul>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

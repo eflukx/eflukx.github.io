@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="Instruments" href="../../he_i_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="report.html">
+<link rel="stylesheet" href="../works_e.css" type="text/css" media="screen" title="ELM Default">
+<style type="text/css" media="screen" title="ELM Default">
+.pblk3 {width: 200px; float: left; margin: 1em 0.3em 0.3em 0; padding: 4px; border: 1px solid;}
+</style>
+<title>ELM - Radio Spectrum Monitor</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>Radio Spectrum Monitor</h1>
+<p class="hdd">October 17, 2005</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<img class="rset" src="lcd.jpeg" alt="LCD module" width="405" height="238">
+<p>This is an experimental work to monitor a spectrum pattern in radio band, and is a continuous project from <a href="../akilcd/report_e.html">Audio Spectrum Monitor</a>. To analyze the spectrum of an input signal, I chose an Atmel AVR microcontroller that used in the Audio Spectrum Monitor to process FFT. When think it easy, it can be thought that sample an input RF signal directly and analyze it will do.
+However, you will able to recoginize that there are some techinical difficulties from following reasons.</p>
+<ol>
+<li>The acquisition unit must have a sufficient speed and accuracy that covering over the radio frequency range. As for AM radio band like this project, fast 12 bit ADC and specific controller will able to cover this range. However there is no proper ADC for UHF band.</li>
+<li>Number of samples to meet required frequency resolution, f<small>SAMP</small>/f<small>FUND</small> samples, becomes too large. When monitor an AM radio band around 1 MHz in frequency resolution of 500 Hz, over 4000 samples will be required at least. And when monitor a VHF band in same frequency resolution, how many samples will be required...</li>
+</ol>
+<img class="lset" src="mix1.png" alt="LCD module" width="312" height="253">
+<p>To solve this difficulties, there is a generic method called <em>Frequency Conversion</em>. In brief, down-convert the RF signal to lower frequency with a mixer (multiplyer) before sampling stage. When process the signals as <em>complex signal</em> for the frequency conversion, it can handle negative frequency, and the center frequency can be moved to zero hertz without interference by image signals. This means that the sampling frequency higher than span frequency range will do. When monitor a 100 MHz band in span of &plusmn;1 MHz, it will be converted down to 0&plusmn;1 MHz and sampled it in only 2 Msps. You may able to understand easy when explain it as `cut and paste' on the frequency domain. Actually, this kind of radio spectrum monitors are being supplied from some radio equipment vendors.</p>
+<br class="clr">
+</div>
+
+<div class="para">
+<h3>Hardware</h3>
+<p>In this project, an intermediate frequency signal from mixer output of an AM radio (f<small>C</small>=455kHz) is used as an input signal. It is converted again down to zero hertz in complex signal, so that the signal path, mixer and local oscillator, must be composed for complex signal processing. The complex signal is expressed in two wire <em>IQ signal</em>, the real part corresponds to I signal and the imaginary part corresponds to Q signal. The arithmetic circuits for IQ signal are realized in method of complex arithmetic. For example, a mixing circuit for IQ signals requires four multiplyers and two adders from the formula:<br> (a<small>1</small>+jb<small>1</small>)(a<small>2</small>+jb<small>2</small>) = (a<small>1</small>a<small>2</small>-b<small>1</small>b<small>2</small>)+j(a<small>1</small>b<small>2</small>+a<small>2</small>b<small>1</small>) </p>
+<img class="lset" src="mlt.png" alt="multi" width="250" height="135">
+<p>Therefore the analog process of IQ signal requires large scale circuit compared to real signal process, so that the IQ signal is usually digitized after minimal analog process and following process are done in digital processor. In case of one input is real, only two multiplyer will do. By the way, when view a real signal as a complex signal, its spectrum pattern of positive part and negative part is line symmetrical. Real signal can be saied that the imaginary part is always zero. The case of complex signal becomes such state is: there are conjugate complex numbers, changed sign of the imaginary part (changed sign of frequency), for each complex frequency components. Therefore the real signal has symmetrical spectrum around the origin.</p>
+<img class="rset" src="ifspec2b.png" alt="Block Diagram" width="480" height="230">
+<p>Right image shows the block diagram for radio spectrum monitor. An IF signal from radio receiver is used as input signal, multiply it with a complex local signal (-455 kHz) and IQ signal is generated. It is digitized after filter out unnecessary frequency components and following processes are done with an AVR. Somebody may remember something when look this block diagram. Yes, this is an RF signal process which can be seen in many one-chip digital communication ICs. The signal processing of analysis, moduration and demoduration in complex signal is a basic technology on digital communications.</p>
+<p>Well, this is a <a href="ifspec2c.png">circuit diagram</a> for radio spectrum monitor. I chose two Philips <em>SA612A</em> general purpose DBM ICs for the mixer circuit that is the most significant block in this circuit. DBM (double balanced mixer) is often used as a functional unit in ASSP but single function DBM IC is not many. There are old MC1496 (MOT) and new NJM2594 (NJR) other than SA612A. These are available at Digi-Key. The reason what I chose SA612A is point of differencial input/output and no external setting component. In this circuit, mixer output is being used in DC coupling, differencial output is suitable from its low offset drift. And there are also accurate analog multiplyer ICs but they are too expensive. Local signal (-455 kHz IQ signal) is generated with LC oscillator and phase shifters. It is injected to DBMs. For anti-aliasing low pass filter, <em>MAX295</em> is used from my stock. But its roll-off is dull, a little alias can be found in spectrum. MAX297 is recommended better than MAX295. To digitize the IQ signal, both channels must be sampled simulteneously, however, a S&amp;H of integrated ADC of AVR is shared by all input channels, so that it cannot use in simulteneous sampling. I aborted to use the integrated ADC, and used two NS <em>ADCS7476</em> 12 bit ADC. LCD module is from <a href="../../junk/s9894/report.html">Junk LCD</a>. <a href="../akilcd/report_e.html">SG12232C</a> used in audio spectrum monitor and any other glaphic display modules will able to be used.</p>
+</div>
+
+<div class="para">
+<h3>Software</h3>
+<p>The firmware samples IQ signal, analyze it in FFT algorithm and draw spectrum pattern into LCD module. These processes are done in refresh rate of approximately <em>60 times per second</em>. IQ signal is sampled 128 points in samplig rate of 64 ksps at a time, span frequency of &plusmn;32 kHz around local frequency (455 kHz) can be monitored. Now horizontal scale (frequency) is labeled on the LCD but when measure local frequency of the radio receiver, the tuned frequency will able to be displayed under the spectrum bars - I became aware this idea during writing this document and implemented it in a hurry:-) When a local input from receiver is valid, frequency scale is appered in the LCD and tuned frequency is refrected.</p>
+<p>The fast FFT routine is copied from audio spectrm monitor as is. Basically, FFT algorithm is in complex input/output, it can be used for complex signal with no modification unless it is optimized for real input. When input is a real signal, only half of result is valid because it is symmetrical around the origin. Ofcourse each domain of output is valid when input is a complex signal.</p>
+<p>When apply a power, a menu window will apper and can be set working condition with a joystick. Each item can be selected with up/down action, changed with right action and enter running mode with push action. In running mode, up action hold/resume display, down action resets peak hold (if selected), left action redo automatic null (offset cancellation of ADC input) and push action returns to menu. Window function can also be selected, you will able to recognize difference between each window. Wave form mode monitors raw IQ signal but it will not useless.</p>
+</div>
+
+<div class="para">
+<h3>Adjustment</h3>
+<ol>
+<li>Adjust local frequency to 455 kHz with <em>TC1</em>.</li>
+<li>Apply 455+10 kHz, 100mV<small>P-P</small> sin wave to the input port and set I and Q signal as same amplitude and quadrature phase at ADC input with <em>VR1</em> and <em>VR2</em>. And confirm that DC levels are Vcc/2 (a little offset is negligible) and  no distortion is recognized.</li>
+<li>Enter running mode. When a spectrum bar is 20 bins right from center, it is working successfully. If an image is appering at opposite position, adjust VR1 and VR2 to eliminate it carefully. A peak appearing center at start is due to left DC offset of IQ signal, it will be nulled automatically.</li>
+</ol>
+<p>An AM super heterodyne radio receiver is used as a signal source. It may be modified to export mixer output and local oscillator output (this can be ommited). When it is a transister radio, large local frequency component (tuned freqency + IF) will pass through the mixer due to the mixer will be cheap emitter injection type. This affects dynamic range of DBM input, so that unnecessary signals above IF must be filtered out with a LPF. When IF frequency of radio receiver is 450 kHz, please read "455" in this page to "450".</p>
+</div>
+
+<div class="para">
+<h3>Notes</h3>
+<ul>
+<li><a href="ifspec2c.png">Circuit Diagram</a> | <a href="pcb_t.jpeg">PCB (top)</a> | <a href="pcb_b.jpeg">PCB (bottom)</a></li>
+<li><a href="rsm.zip">Firmware</a></li>
+<li><a href="http://members.jcom.home.ne.jp/felm/ifspec.avi">Monitoring AM radio band (avi movie)</a></li>
+</ul>
+<h4>Photos</h4>
+<div class="pblk3">
+<a href="if_am.jpeg" class="imglnk"><img src="if_am_s.jpeg" width="189" height="95" alt="am"></a><br>
+f<small>C</small>=445kHz AM<br>
+f<small>MOD</small>=2.5kHz, Depth=30%
+</div>
+<div class="pblk3">
+<a href="if_fm.jpeg" class="imglnk"><img src="if_fm_s.jpeg" width="189" height="97" alt="am"></a><br>
+f<small>C</small>=445kHz FM<br>
+f<small>MOD</small>=2.5kHz, Deviation=3kHz
+</div>
+<div class="pblk3">
+<a href="if_wav.jpeg" class="imglnk"><img src="if_wav_s.jpeg" width="189" height="96" alt="am"></a><br>
+f<small>C</small>=456kHz<br>
+Wave form of IQ signal. &pi;/2 lagged is the Q signal.
+</div>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

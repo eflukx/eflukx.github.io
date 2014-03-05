@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../index_j.html">
+<link rel="up" title="Tech Notes" href="../cc.html">
+<link rel="alternate" hreflang="en" title="English version" href="avr_e.html">
+<link rel="stylesheet" href="docs.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - Atmel AVRについて</title>
+<style type="text/css" media="screen" title="ELM Default">
+.obs{color:gray;}
+#cnt{text-align:center;}
+</style>
+</head>
+
+<body>
+<h1>Atmel AVRについて</h1>
+<p class="hdd"><br>Update: 2007. 3. 18</p>
+<hr class="hds">
+
+<div class="abst">
+<img class="rset" src="../works/avrx/avrs.jpeg" alt="" width="374" height="329">
+<p>AVRとは、<a href="http://www.atmel.com/">アトメル</a>の 8ビットRISCアーキテクチャのことです。汎用マイクロコントローラのほか、同社製FPGAのコアプロセッサにもなっています。AVRシリーズは最初の発表が1996年頃でしたから、業界標準の8051や流行りのPICと比べるとかなり後発のマイコンといえます。</p>
+<p>AVRは何といっても使いやすいのが最大の特徴と言えます。とても素直で洗練されたアーキテクチャなので、使い始めのハードルは極めて低いです。わたしがPICを理解するには数時間を要しましたが、AVRは3.5秒で理解できました。まぁ、マイコン初心者にとってはどっちも難解でしょうが、他のマイコンを使いこなしてきたなら、違いがはっきり分かります。</p>
+<p>開発環境は全て無料で揃います。AtmelのAVR StudioとWinAVR(gcc)の連携でCソースレベルデバッグができます。また、使用開始に先立ってデバイスプログラマを用意する必要さえありません。簡単なISPケーブルを作るか各社FPGA用のJTAGケーブルの流用で十分だからです(<a href="http://elm-chan.org/works/avrx/report.html">関連ページ</a>)。</p>
+<p>以下にAVRアーキテクチャの特徴と各デバイスの概要を簡単に説明します。</p>
+</div>
+
+<div class="para">
+<h3>AVRアーキテクチャの特徴</h3>
+<div class="indent">
+<h4>8ビットRISCアーキテクチャ</h4>
+<p>命令コードは16ビット固定で、ほとんどの演算を1クロックサイクルで実行します。RISCという割には命令数がかなり多く、ニモニックで 118（実際のコードは 79）もあります（90Sシリーズ）。</p>
+<h4>豊富な汎用レジスタ</h4>
+<p>RISCらしく汎用レジスタ（8ビット）が32本もあります。ちょっとした制御ならレジスタだけで十分済んでしまいますし、大規模なプログラムでもレジスタ変数をうまく使うことによりプログラムを高速に実行することができます。</p>
+<h4>ロード/ストアアーキテクチャ</h4>
+<p>これもRISCの特徴ですが、演算命令はレジスタ－レジスタ(即値)間のみを対象としています。AVRアーキテクチャは最大64KBのリニアなデータメモリ空間を持ち、ロード/ストア命令で直接・間接アドレッシングが可能です。間接アドレッシングでは、一部の汎用レジスタのペア（3ペアある）をポインタとして使用し、ディスプレースメント付きやポストインクリメント、プリデクリメントなど豊富なアドレッシングモードが使えます。</p>
+<h4>全デバイスでフラッシュメモリ内蔵</h4>
+<p>AVRはプログラムメモリとしてフラッシュメモリを内蔵しています。このため、プログラムを何度でも書き換えて使用することができます。少量多品種生産やアマチュア用途ではうれしい仕様ですね。また、一部デバイスを除きデータEEPROMも内蔵しています。プログラム方式にはライタを使って高速に書き込むパラレル方式と、基板に実装したまま書き込むISP方式があります（後者が主流）。</p>
+</div>
+</div>
+
+
+<div class="para">
+<h3>現在までに発表されているデバイス</h3>
+<table class="lst">
+<tr><th>Device</th><th>Package</th><th>ROM<br><small>[word]</small></th><th>RAM<br><small>[byte]</small></th><th>EEP<br><small>[byte]</small></th><th>PIO</th><th>T/C</th><th>PWM</th><th>SIO</th><th>ADC<br><small>10bit</small></th><th>Comp</th><th>Note</th></tr>
+<tr><td><span class="obs">90S1200</span></td><td>DIP20,SOP20,SSOP20</td><td>512</td><td>-</td><td>64</td><td>15</td><td>1</td><td>-</td><td>-</td><td>-</td><td>1</td><td>Int.Osc</td></tr>
+<tr><td><span class="obs">90S2313</span></td><td>DIP20,SOP20</td><td>1K</td><td>128</td><td>128</td><td>15</td><td>2</td><td>1</td><td>UART</td><td>-</td><td>1</td><td>-</td></tr>
+<tr><td>tiny2313</td><td>DIP20,SSOP20,MLF32</td><td>1K</td><td>128</td><td>128</td><td>18</td><td>2</td><td>4</td><td>USART,USI,SPI</td><td>-</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td>tiny26</td><td>DIP20,SOP20,MLF32</td><td>1K</td><td>128</td><td>128</td><td>16</td><td>2</td><td>2</td><td>USI</td><td>11</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td>tiny261/461/861</td><td>DIP20,SOP20,MLF32</td><td>1K/2K/4K</td><td>128/256/512</td><td>128/256/512</td><td>16</td><td>2</td><td>5</td><td>USI</td><td>11</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td><span class="obs">90S2333/4433</span></td><td>DIP28,TQFP32</td><td>1K/2K</td><td>128</td><td>128/256</td><td>20</td><td>2</td><td>1</td><td>UART,SPI</td><td>6</td><td>1</td><td>BOD</td></tr>
+<tr><td>mega8</td><td>DIP28,TQFP32,MLF32</td><td>4K</td><td>1K</td><td>512</td><td>23</td><td>3</td><td>3</td><td>USART,IIC,SPI</td><td>6</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td>mega48/88/168</td><td>DIP28,TQFP32,MLF32</td><td>2k/4K/8K</td><td>512/1K/1K</td><td>256/512/512</td><td>23</td><td>3</td><td>6</td><td>USART,IIC,SPI</td><td>6</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td>tiny28</td><td>DIP28,TQFP32,MLF32</td><td>1K</td><td>-</td><td>-</td><td>20</td><td>1</td><td>-</td><td>-</td><td>-</td><td>1</td><td>Int.Osc</td></tr>
+<tr><td><span class="obs">90S2323</span></td><td>DIP8,SOP8</td><td>1K</td><td>128</td><td>128</td><td>3</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td><span class="obs">90S2343</span></td><td>DIP8,SOP8</td><td>1K</td><td>128</td><td>128</td><td>5</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>Int.Osc</td></tr>
+<tr><td>tiny<span class="obs">10</span>/11</td><td>DIP8,SOP8</td><td>512</td><td>-</td><td>-</td><td>6</td><td>1</td><td>-</td><td>-</td><td>-</td><td>1</td><td>-</td></tr>
+<tr><td>tiny12</td><td>DIP8,SOP8</td><td>512</td><td>-</td><td>64</td><td>6</td><td>1</td><td>-</td><td>-</td><td>-</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td><span class="obs">tiny22</span></td><td>DIP8,SOP8</td><td>1K</td><td>128</td><td>128</td><td>5</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>tiny13</td><td>DIP8,SOP8,MLF20</td><td>512</td><td>64</td><td>64</td><td>6</td><td>1</td><td>1</td><td>-</td><td>4</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td>tiny15</td><td>DIP8,SOP8</td><td>512</td><td>-</td><td>64</td><td>6</td><td>2</td><td>1</td><td>-</td><td>4</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td>tiny25/45/85</td><td>DIP8,SOP8,MLF20</td><td>1K/2K/4K</td><td>128/256/512</td><td>128/256/512</td><td>6</td><td>2</td><td>3</td><td>IIC</td><td>4</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td>tiny24/44/84</td><td>DIP14,SOP14,MLF20</td><td>1K/2K/4K</td><td>128/256/512</td><td>128/256/512</td><td>12</td><td>2</td><td>4</td><td>USI</td><td>8</td><td>1</td><td>BOD,Int.Osc</td></tr>
+<tr><td><span class="obs">90S4414/8515</span></td><td>DIP40,TQFP44,PLCC44</td><td>2K/4K</td><td>256/512</td><td>256/512</td><td>32</td><td>2</td><td>2</td><td>UART,SPI</td><td>-</td><td>1</td><td>8051pin-out,Ext.Mem</td></tr>
+<tr><td>mega8515</td><td>DIP40,TQFP44,MLF44</td><td>4K</td><td>512</td><td>512</td><td>35</td><td>3</td><td>3</td><td>USART,SPI</td><td>-</td><td>1</td><td>BOD,Int.Osc,8051pin-out,Ext.Mem</td></tr>
+<tr><td><span class="obs">mega161</span></td><td>DIP40,TQFP44,PLCC44</td><td>8K</td><td>1K</td><td>512</td><td>35</td><td>3</td><td>3</td><td>2UART,SPI</td><td>-</td><td>1</td><td>BOD,Int.Osc,8051pin-out,Ext.Mem</td></tr>
+<tr><td>mega162</td><td>DIP40,TQFP44,MLF44</td><td>8K</td><td>1K</td><td>512</td><td>35</td><td>4</td><td>6</td><td>2USART,SPI</td><td>-</td><td>1</td><td>BOD,Int.Osc,8051pin-out,Ext.Mem,JTAG</td></tr>
+<tr><td><span class="obs">90C8534</span></td><td>TQFP48</td><td>4K</td><td>256</td><td>512</td><td>7</td><td>2</td><td>-</td><td>-</td><td>6</td><td>-</td><td>-</td></tr>
+<tr><td><span class="obs">90S4434/8535</span></td><td>DIP40,TQFP44,PLCC44,MLF44</td><td>2K/4K</td><td>256/512</td><td>256/512</td><td>32</td><td>3</td><td>2</td><td>UART,SPI</td><td>8</td><td>1</td><td>RTC</td></tr>
+<tr><td>mega8535</td><td>DIP40,TQFP44,PLCC44,MLF44</td><td>4K</td><td>512</td><td>512</td><td>32</td><td>3</td><td>3</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td><span class="obs">mega163</span></td><td>DIP40,TQFP44</td><td>8K</td><td>1K</td><td>512</td><td>32</td><td>3</td><td>3</td><td>UART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td><span class="obs">mega323</span></td><td>DIP40,TQFP44</td><td>16K</td><td>2K</td><td>1K</td><td>32</td><td>3</td><td>3</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc,JTAG</td></tr>
+<tr><td>mega16/32</td><td>DIP40,TQFP44,MLF44</td><td>8K/16K</td><td>1K/2K</td><td>512/1K</td><td>32</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc,JTAG</td></tr>
+<tr><td>mega644</td><td>DIP40,TQFP44,MLF44</td><td>32K</td><td>4K</td><td>2K</td><td>32</td><td>3</td><td>6</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc,JTAG</td></tr>
+<tr><td>mega164P/324P/644P</td><td>DIP40,TQFP44,MLF44</td><td>8K/16K/32K</td><td>1K/2K/4K</td><td>512/1K/2K</td><td>32</td><td>3</td><td>6</td><td>2USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc,JTAG</td></tr>
+<tr><td><span class="obs">mega603/103</span></td><td>TQFP64</td><td>32K/64K</td><td>4K</td><td>2K/4K</td><td>48</td><td>3</td><td>4</td><td>UART,SPI</td><td>8</td><td>1</td><td>RTC,Ext.Mem</td></tr>
+<tr><td>mega64/128</td><td>TQFP64,MLF64</td><td>32K/64K</td><td>4K</td><td>2K/4K</td><td>53</td><td>4</td><td>8</td><td>2USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc,Ext.Mem,JTAG</td></tr>
+<tr><td>mega165/325/645</td><td>TQFP64,MLF64</td><td>8K/16K/32K</td><td>1K/2K/4K</td><td>512/1K/2K</td><td>53</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td>mega169/329/649</td><td>TQFP64,MLF64</td><td>8K/16K/32K</td><td>1K/2K/4K</td><td>512/1K/2K</td><td>53</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>LCD,BOD,RTC,Int.Osc,JTAG</td></tr>
+<tr><td>mega3250/6450</td><td>TQFP100</td><td>16K/32K</td><td>2K/4K</td><td>1K/2K</td><td>69</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>BOD,RTC,Int.Osc</td></tr>
+<tr><td>mega3290/6490</td><td>TQFP100</td><td>16K/32K</td><td>2K/4K</td><td>1K/2K</td><td>69</td><td>3</td><td>4</td><td>USART,IIC,SPI</td><td>8</td><td>1</td><td>LCD,BOD,RTC,Int.Osc</td></tr>
+</table>
+<div><span class="obs">この表示</span>で示されるものはディスコンまたは新規採用不可です。</div>
+<br>
+<table class="lst">
+<caption>ピン機能別分類</caption>
+<tr>
+<th>8pin</th><th>14pin</th><th>20pin<br>(1200系)</th><th>20pin<br>(26系)</th><th>28pin</th><th>40pin<br>(8515系)</th><th>40pin<br>(8535系)</th><th>64pin</th><th>100pin</th>
+</tr>
+<tr>
+<td><span class="obs">90S2323<br>90S2343<br>tiny11<br>tiny12<br>tiny22<br>tiny15</span><br>tiny13<br>tiny25<br>tiny45<br>tiny85</td>
+<td>tiny24<br>tiny44<br>tiny84</td>
+<td><span class="obs">90S1200<br>90S2313<br></span>tiny2313<br>tiny4313</td>
+<td>tiny26<br>tiny261<br>tiny461<br>tiny861</td>
+<td><span class="obs">90S2333<br>90S4433<br></span>mega8<br>mega48<br>mega88<br>mega168<br>mega328<br>tiny28</td>
+<td><span class="obs">90S4414<br>90S8515<br>mega161<br></span>mega8515<br>mega162</td>
+<td><span class="obs">90S4434<br>90S8535<br>mega163<br>mega323</span><br>mega8535<br>mega16<br>mega32<br>mega644<br>mega164P<br>mega324P<br>mega644P<br>mega1284</td>
+<td><span class="obs">mega603<br>mega103<br>mega165<br>mega169</span><br>mega64<br>mega128<br>mega1281<br>mega2561<br>mega325<br>mega645<br>mega329<br>mega649</td>
+<td>mega640<br>mega1280<br>mega2560<br>mega3250<br>mega6450<br>mega3290<br>mega6490</td>
+</tr>
+</table>
+</div>
+
+
+<div class="para">
+<h3>AVRファミリの概要</h3>
+<p>AVRファミリは規模によって大きく3つのシリーズに分類されます。ただ、PICマイコンのように基本アーキテクチャが変わるものではなく、コアプロセッサはローエンド品からハイエンド品まで全て共通です。これは、AVRアーキテクチャの柔軟性の高さを示すものといえます。</p>
+<p>最近は、同じような機能のデバイスが相次いで発表されていて、何がなんだか分からない状態になってきました。ピン配置や機能の似たものをまとめてみると、上のテーブルのようになります。</p>
+<div class="indent">
+<h4>90Sシリーズ</h4>
+<p>AVRファミリの中核をなすシリーズで、多くのAVRチップの基本的存在です。現在は、これらのデバイスを元にしてmega化が進んでいますので、このシリーズは今後消えていくと思われます。</p>
+<h4>megaシリーズ</h4>
+<p>メモリ容量の拡大や内蔵ペリフェラルを拡張したシリーズです。乗算命令(6種)や自己プログラミング機能を持ちます。特に新プロセスのチップは第二世代megaで、内蔵ペリフェラルが飛躍的に高機能になり、非常に完成度の高いマイコンになっています。</p>
+<h4>tinyシリーズ</h4>
+<p>megaシリーズとは逆に、I/O数削減、SRAM削除など、小規模・ローパワー化に対応したシリーズです。</p>
+</div>
+<h3>各デバイスの特徴 (カッコ内はDIP品のピン数)</h3>
+<div class="indent">
+<h4>90S1200 (20pin)</h4>
+<p>マイコンチップとして最初に発表されたAVR。SRAMを持たないので複雑な制御にはちょっと使いにくい。現在の分類ではtinyシリーズに属するといえる。→tiny2313</p>
+
+<h4>90S2313 (20pin)</h4>
+<p>90S1200とピンコンパチで、SRAMや周辺を追加したもの。20ピンクラスではかなり高機能でとても使いやすい。→tiny2313</p>
+
+<h4>90S8515 (40pin)</h4>
+<p>業界標準であるi8051のリプレースを狙ったもの。ほぼピンコンパチなのでハード的に差し替えが可能。64Kバイトの外部データメモリ空間をサポートするなど、大量のデータ処理にも適している。40ピンクラスではこの類が一番手頃。→mega8515</p>
+
+<h4>90S8535 (40pin)</h4>
+<p>90S8515に10bitADCを追加したようなタイプ(ピンコンパチではない)。その他の周辺機能も充実していて90Sシリーズではもっとも高機能。これを元にしたmegaデバイスが多い。→mega8535</p>
+
+<h4>90S4433 (28pin)</h4>
+<p>10bit ADC内蔵で、90S8535の規模をそのまま縮小したような存在。→mega8</p>
+
+<h4>90C8534 (48pin(TQFP))</h4>
+<p>ピン数が多い割に、I/Oが7ビットしかなかったりする、使えそうにないデバイス。DIP品は無し。何かのカスタム品らしい。</p>
+
+<h4>90S2323/2343 (8pin)</h4>
+<p>2323は外付け発振子専用で8pinのメリットが無い。そのためI/Oも3pinしかなく、あまり使い道が無い(その割には結構見かけたりするが)。2343は内蔵OSC使用時はI/Oが5pin使える。また、2343はtiny22と同じ(このためtiny22は廃止されたようだ)。</p>
+
+<h4>tiny11/12 (8pin)</h4>
+<p>1.8V動作など、tinyシリーズらしい特徴を持ったデバイス。電源ピン以外の最大6ピンをI/Oとして使用可能。tiny11にはISP機能が無く、非常に安価(@\50)。→tiny13</p>
+
+<h4>tiny13 (8pin)</h4>
+<p>tiny12にADCとわずかなRAMを追加したもの。20MHz動作。</p>
+
+<h4>tiny15 (8pin)</h4>
+<p>10bit ADCや高速PWMを内蔵するなど、8ピン中では最も高機能だった。→tiny25/45/85</p>
+
+<h4>tiny25/45/85 (8pin)</h4>
+<p>tiny15のROM容量増加とRAM追加、周辺機能の強化。20MHz動作。</p>
+
+<h4>tiny28 (28pin)</h4>
+<p>赤外線リモコンへの組み込み用として特化されている。1.8V動作で、ISP機能は無し。非常に安価。</p>
+
+<h4>mega103 (64pin(TQFP))</h4>
+<p>64Kワードのプログラムメモリ、4KバイトのSRAM、48bitのI/Oポート、外部データメモリ空間のサポートなど、当時最大規模のAVRチップ。megaシリーズ最初のデバイスで、唯一乗算命令を持たない。既にディスコン。→mega64/128</p>
+
+<h4>mega64/128 (64pin(TQFP))</h4>
+<p>mega603/103のリプレース品。周辺機能のさらなる強化と新プロセス。AVRファミリ中最強。16MHz動作。</p>
+
+<h4>mega161 (40pin)</h4>
+<p>90S8515のメモリや周辺機能を強化したもの。→mega162</p>
+
+<h4>mega162 (40pin)</h4>
+<p>mega161のリプレース品。16MHz動作。</p>
+
+<h4>mega8515 (40pin)</h4>
+<p>90S8515の周辺機能を強化したもの。16MHz動作。</p>
+
+<h4>mega163 (40pin)</h4>
+<p>90S8535のメモリや周辺機能を拡張したもの。→mega16</p>
+
+<h4>mega323 (40pin)</h4>
+<p>mega163のメモリや周辺機能をさらに拡張したもの。→mega32</p>
+
+<h4>mega8 (28pin)</h4>
+<p>90S4433のメモリや周辺機能を拡張したもの。16MHz動作。</p>
+
+<h4>mega48/88/168 (28pin)</h4>
+<p>mega8の動作電源電圧範囲や速度、メモリバリエーションを拡張したもの。mega8系は人気があるようだ。20MHz動作。</p>
+
+<h4>mega16 (40pin)</h4>
+<p>mega163の周辺を拡張したリプレース品。16MHz動作。</p>
+
+<h4>mega32 (40pin)</h4>
+<p>mega323の周辺を拡張したリプレース品。16MHz動作。</p>
+
+<h4>tiny2313 (20pin)</h4>
+<p>90S2313の周辺機能を拡張したもの。20MHz動作。</p>
+
+<h4>tiny26 (20pin)</h4>
+<p>mega8のサブセットといった感じ。ブリッジ駆動用PWMや11チャネルADCを内蔵しているので、サーボ制御などに適している。16MHz動作。→tiny261/461/861</p>
+
+<h4>tiny261/461/861 (20pin)</h4>
+<p>tiny26の周辺機能を拡張したもの。20MHz動作。</p>
+
+<h4>mega169 (64pin(TQFP))</h4>
+<p>ポータブル機器向けとして AVRファミリでは初めてLCDドライバを内蔵。16MHz動作。</p>
+
+<h4>mega165 (64pin(TQFP))</h4>
+<p>↑からLCDドライバを取ったもの。16MHz動作。</p>
+
+<h4>mega325/645/3250/6450 (64/100pin(TQFP))</h4>
+<p>mega16/32のI/O数だけを増やしたような感じ。16MHz動作。</p>
+
+<h4>mega329/649/3290/6490 (64/100pin(TQFP))</h4>
+<p>↑にLCDドライバを追加したもの。16MHz動作。</p>
+
+</div>
+</div>
+
+
+<p class="foot"><img src="../p/sign.png" alt=""></p>
+</body>
+</html>

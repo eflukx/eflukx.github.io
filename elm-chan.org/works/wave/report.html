@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Instruments" href="../../he_i.html">
+<link rel="stylesheet" href="../works.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - ファンクションジェネレータ</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>ファンクションジェネレーター</h1>
+<p class="hdd"><br>1996.7.6</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<img class="rset" src="wave_face.jpeg" alt="Front Panel" width="302" height="68">
+<p>マキシムの波形発生用IC <a href="../../docs/max038.html"><em>MAX038</em></a>を使用したファンクションジェネレータです。マキシムからの製品案内に面白そうなICが載っているのを見つけ、これは ! ということで、製作を思い立ちました。MAX038は１チップで<em>20MHz</em>までの波形を発生することのできる高性能なアナログICで、昔からあった<em>ICL8038</em>の高機能版といった感じです。このファンクションジェネレータの要となっていて、性能のほとんどがはMAX038の性能といっていいでしょう。</p>
+</div>
+
+
+<div class="para">
+<h3>仕様の設定</h3>
+<p>まず、使用者（もちろん自分自身ですけど(^^;）が通常よく使うと思われる機能を盛り込みます。ぜひ欲しい機能としては、発振周波数を正確に設定できて、パルス幅の可変できるTTL出力も欲しい、などです。ただ、あれもこれもと取り込んでいては実現が難しくなったり使い勝手が悪くなったりするので、普段使うことの無い変調・スイープ・バースト発振・外部同期などは省略します。いろいろ考えた結果、最も合理的と思われる次のような構成に絞り込みました。</p>
+<br>
+<table class="lst">
+<caption>基本仕様</caption>
+<tr><td>発振周波数</td><td>10Hz～20MHz、6レンジ</td></tr>
+<tr><td>アナログ出力</td><td>正弦波、三角波、矩形波（0～4Vp-p、Zo=50Ω）</td></tr>
+<tr><td>TTL出力</td><td>クロック(Duty:50%固定)、正極性・負極性パルス(パルス幅可変)</td></tr>
+<tr><td>操作系</td><td>表示 : 発振周波数や動作モードを LCDに表示<br>操作 : アナログ量調整と動作モードの切り換え</td></tr>
+<tr><td>電源</td><td>AC 100V</td></tr>
+<tr><td>製作費</td><td>\10,000以下（貧乏モード(^_^;）</td></tr>
+</table>
+</div>
+
+
+<div class="para">
+<h3>製作のポイント</h3>
+<img class="rset" src="wave1.jpeg" alt="TOP VIEW" width="281" height="225">
+<img class="rset" src="wave2.jpeg" alt="SIDE VIEW" width="83" height="234">
+<p>高精度高速アナログ回路とディジタル回路が混在するので、組み立ての際はその点を十分考慮しなければなりません。特にオシレータ回路についてはいいかげんな組み立てだと、出力波形が歪んだり周波数安定性が悪くなったりします。</p>
+<p>オシレーター部回路は<em>普通のユニバーサル基板に組んではいけません</em>。まず安定動作しないでしょう。今回の製作でも最初普通のユニバーサルボードで組んで失敗しました(^^;。それなので、<em>片面総グランド</em>のユニバーサル基板を使用する必要があります。部品面をグランドにして、部品のリード穴はキリで座繰ってショートしないようにしましょう。グランドに接続するリードは、グランドプレーンに直接半田付けします。また、オシレータ基板にはディジタルICが混在していますが、これらはグランドプレーンにスリットを切って徹底して分離します。特にMAX038のタイミングコンデンサの配線にはノイズが飛び込まないようにディジタル系から十分に離すようにした方がよいです。</p>
+<p>また、回路図には明記されていませんが、適宜パスコンを入れるなど電源インピーダンスがなるべく小さくなるように処理するのは言うまでもありません。まぁこの辺は高速回路の基本なのですが。</p>
+<p>アナログ出力バッファにLM6361を使用しています。このアンプはGBW=50MHzの帯域があるのですが、これではちょっと不足です。それをAV=+6dBで使っているので、20MHz付近では矩形波出力を選択してもほとんど正弦波になってしまいます。もっと広帯域(200MHz程度)のバッファアンプを使用するとよいでしょう。</p>
+<p><em>→現在は HFA1100に置き換えています。</em></p>
+</div>
+
+
+<div class="para">
+<h3>機能の測定結果</h3>
+<br>
+<table class="lst">
+<caption>周波数とパルス幅の可変範囲</caption>
+<tr><th>周波数レンジ</th><th>発振周波数</th><th>パルス幅</th></tr>
+<tr><td>200Hz</td><td>4Hz～307Hz</td><td>0.5ms～19ms</td></tr>
+<tr><td>2kHz</td><td>30Hz～3.08kHz</td><td>50μs～1.9ms</td></tr>
+<tr><td>20kHz</td><td>0.31kHz～3.23kHz</td><td>6.5μs～200μs</td></tr>
+<tr><td>200kHz</td><td>3.1kHz～321kHz</td><td>1μs～25μs</td></tr>
+<tr><td>2MHz</td><td>27kHz～2.65MHz</td><td>300ns～5.8μs</td></tr>
+<tr><td>20MHz</td><td>0.27kHz～22.8MHz</td><td>200ns～2μs</td></tr>
+</table>
+</div>
+
+
+<div class="para">
+<h3>資料</h3>
+<ul>
+<li><a href="wave_cpu.png">CPU部回路図</a></li>
+<li><a href="wave_osc.png">オシレーター部回路図</a></li>
+<li><a href="wave_kdp.png">ディスプレイ部回路図</a></li>
+<li><a href="wave_pld.png">PLD内部等価回路</a></li>
+<li><a href="wave.asm.txt">CPUソースファイル</a></li>
+<li><a href="wave_u7.pld.txt">PLD-U7ソースファイル</a></li>
+<li><a href="wave_u16.pld.txt">PLD-U16ソースファイル</a></li>
+</ul>
+</div>
+
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../index_j.html">
+<link rel="up" title="Video" href="../../he_v.html">
+<link rel="stylesheet" href="../works.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - 汎用CRTインターフェース</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<h1>汎用CRTインターフェース</h1>
+<p class="hdd"><br>1995. 12. 1</p>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<img class="rset" src="crt_1.jpeg" width="157" height="134" alt="char">
+<p>ボードマイコンを自作したとき、CRTモニタ(またはLCDモニタ)を使用して表示したいと思うことがあります。最近はジャンクで小型モニタが多く出回っていますので、それを使ってなにかやろうと思われる方も多いかと思います。そのような用途に使えそうなディスプレイコントローラです。</p>
+<p>ということで基本仕様。まず、多くのボードマイコンに容易に接続できるよう、制御インターフェースはできるだけ単純にします。また、多くのジャンクモニタが CSYNC入力なので、出力もそれに合わせます。再現性も考慮して一般的で手に入りやすい部品のみを使用。とりあえず基礎実験(お遊び?)ということで、価格も抑えないといけませんね。</p>
+
+<table class="lst">
+<caption>CRT I/Fの仕様</caption>
+<tr><td>ビデオ出力</td><td>RGB + CSYNC</td></tr>
+<tr><td>表示サイズ</td><td>フルグラフィック、水平：256、垂直：224、16色</td></tr>
+<tr><td>表示タイミング</td><td>水平同期：15.75kHz、垂直同期：60Hz</td></tr>
+<tr><td>I/F方式</td><td>ビデオバッファ(32KB)へはメモリアクセス(WAIT制御あり)<br>CRTCへは I/Oアクセス</td></tr>
+<tr><td>製作費用</td><td>\5000以下</td></tr>
+</table>
+</div>
+
+
+
+<div class="abst">
+<h3>ハードウェアの製作</h3>
+<img class="rset" src="crt_pcb.jpeg" width="213" height="160" alt="基板">
+<p>右のインラインイメージが組みあがった基板です。<a href="disp_if.png">回路図</a>を見ていただくと分かると思いますが、配線の本数がやや多いです。小さな基板に収めようとするなら、<a href="../../docs/wiring.html">UEW</a>で配線するとよいでしょう。ほとんどディジタル回路ですので、特に注意するところはありません。配線本数が多いので間違えないように気を付けるくらいでしょうか。</p>
+<p>このボードの制御インターフェースは、拙作の <a href="../cpu_kl5c8012/report.html">KL5C8012ボードマイコン</a>や <a href="../cpu_v25/report.html">V25ボードマイコン</a>に直結して制御できるようなピン配置にしてあります。また、この回路では <a href="../../docs/pld.html">PLD</a>を使用していますので、実際に製作する場合、PLDにプログラムできる環境であることが必要です。</p>
+</div>
+
+
+<div class="abst">
+<h3>ボードの制御プログラム</h3>
+<p>回路図中に示すCRTCレジスタの設定値でCRTCを初期化すれば動作を開始します。CRTCの設定方法は、アドレスレジスタ(A0="L")にレジスタ番号を書き込み、続いてデータレジスタ(A0="H")に値を設定という方法で書き込んでゆきます。表示を開始したら、あとはビデオバッファを直接読み書きして描画します。ビデオバッファサイズは 32KBありますので、Z80系マイコンなら論理メモリ空間の半分を割り当てることになります。</p>
+<p>ビデオバッファのデータ格納形式は、<em>4bit/pixel</em>で1byte当たり2Pixel(上位下位各 4bitづつ)の<em>packed pixel</em>となっています。Pixelの値と色の対応は回路図中の記述を参照してください。</p>
+</div>
+
+
+<div class="abst">
+<h3>資料</h3>
+<img class="lset" src="crt_2.jpeg" width="213" height="160" alt="">
+<p>テキスト表示はもちろん、フルグラフィック表示が可能。</p>
+<br class="clr">
+<img class="lset" src="crt_ntsc.jpeg" width="174" height="145" alt="">
+<p>RGB－NTSC変換基板で TVにも接続可能(CXA1145使用)</p>
+<br class="clr">
+<img class="lset" src="crt_work.jpeg" width="219" height="187" alt="">
+<p>KL5C8012ボードで制御しているところ</p>
+<br class="clr">
+<p><a href="disp_if.png">回路図</a>｜<a href="disp_pld.zip">PLDソースファイル</a>｜<a href="c_64180.png">HD64180との接続例</a>｜<a href="c_kc82.png">KL5C8012との接続例</a>｜<a href="c_v25.png">V25との接続例</a>｜<a href="c_isa.png">ISAバスとの接続例</a></p>
+</div>
+
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>
