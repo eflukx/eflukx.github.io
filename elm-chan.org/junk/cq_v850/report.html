@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
@@ -6,60 +6,60 @@
 <link rel="start" title="Site Top" href="../../index_j.html">
 <link rel="up" title="Tech Notes" href="../../cc.html">
 <link rel="stylesheet" href="../junk.css" type="text/css" media="screen" title="ELM Default">
-<title>I/F���t�^V850��̎��H</title>
+<title>I/F誌付録V850基板の試食</title>
 </head>
 
 <body>
 <div class="header">
 <p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
-<h1>I/F���t�^V850��̎��H</h1>
+<h1>I/F誌付録V850基板の試食</h1>
 <p class="hdd"><small><a href="http://babel.altavista.com/babelfish/trurl_pagecontent?lp=ja_en&amp;url=http%3A%2F%2Felm-chan.org%2Fjunk%2Fcq_v850%2Freport.html">Translate this page</a> with Babelfish Translation</small><br>2007. 4. 14</p>
 <hr class="hds">
 </div>
 
 <div class="abst">
 <img class="rset" src="pcb1.jpeg" alt="v850pcb" width="382" height="297">
-<p>������(2007/5)��<a href="http://www.cqpub.co.jp/interface/default.asp">�C���^�[�t�F�[�X��</a>�ɕt�^�ŃW�����N����t���Ă����̂ŁA�������H���Ă݂܂����B���ڃf�o�C�X�́ANEC��32-bit RISC�}�C�R�� V850ES/JG2(&mu;PD70F3716)�ł��B�����V850�V���[�Y�̃��[�G���h�i�ŁACPU�R�A�A256KB�̃t���b�V���E�������A24KB��SRAM�Ɗe����Ӌ@�\���W�ς��ꂽ�}�C�R���E�`�b�v�ł��B</p>
-<p>��ɂ�USB-�V���A���ϊ�IC���ڂ��Ă��ēd����USB�o�R�ŋ��������̂ŁA��y�Ɏ����ł���悤�ɂȂ��Ă��܂��B�܂��A����͂��̂܂܂̏�Ԃł�(����������)����ɓ��삵���̂ŁA�ŋ߂̕t�^��̒��ł͏o�����ǂ��悤�ł��B���̂��߁A���S�҂ɂ����S�H�ł��B</p>
+<p>今月号(2007/5)の<a href="http://www.cqpub.co.jp/interface/default.asp">インターフェース誌</a>に付録でジャンク基板が付いてきたので、早速試食してみました。搭載デバイスは、NECの32-bit RISCマイコン V850ES/JG2(&mu;PD70F3716)です。これはV850シリーズのローエンド品で、CPUコア、256KBのフラッシュ・メモリ、24KBのSRAMと各種周辺機能が集積されたマイコン・チップです。</p>
+<p>基板にはUSB-シリアル変換ICが載っていて電源もUSB経由で供給されるので、手軽に実験できるようになっています。また、今回はそのままの状態でも(改造せずに)安定に動作したので、最近の付録基板の中では出来が良いようです。このため、初心者にも安心？です。</p>
 </div>
 
 <div class="para">
-<h3>�������炦(H/W)</h3>
-<p>�G���ɒԂ����܂�Ă���֌W��A�w�̍������i�͍ڂ��Ă��܂���B���������āA�Œ�ł����Ɏ������̂����O�ɗp�ӂ��āA<a href="pcb2.jpeg">��ɒǉ�����</a>���Ă����K�v������܂��B</p>
+<h3>下ごしらえ(H/W)</h3>
+<p>雑誌に綴じ込まれている関係上、背の高い部品は載っていません。したがって、最低でも次に示すものを事前に用意して、<a href="pcb2.jpeg">基板に追加実装</a>しておく必要があります。</p>
 <ul>
-<li>USB B�R�l�N�^ �~1��</li>
-<li>3x2�W�����p�E�|�X�g �~1��</li>
-<li>�W�����p�E�`�b�v �~2��
-<li>USB A-B�P�[�u�� �~1�{</li>
+<li>USB Bコネクタ ×1個</li>
+<li>3x2ジャンパ・ポスト ×1個</li>
+<li>ジャンパ・チップ ×2個
+<li>USB A-Bケーブル ×1本</li>
 </ul>
-<p>USB�R�l�N�^�́A�H���̂������܂��B������j�o�[�T����ɍڂ������ꍇ�́A�ق��Ƀ\�P�b�g�E�w�b�_���s���E�w�b�_��p�ӂ���΂����͂��ł����ACON1�`3��1/10&Prime;�O���b�h�ɃA���C�����g����Ă��Ȃ��̂ŁA����͊����܂���BCON3�̓n�[�t�E�s�b�`������Ă���̂Ő�Ζ����ł����ACON1��CON2�����悻326&mu;m����Ă���̂ŁA��͂艽�炩�̍H�v���K�v�ł��B���̂ق��A�T�u�E�N���b�N���g�p��������������ꍇ(���̃��|�[�g�ł͎g�p���Ȃ�)�́AY1�Ɏ��v�N���X�^����t���܂��B���̏ꍇ�A���U�~�߁H��R6���O���Ȃ��Ɣ��U���Ȃ��̂Œ��ӂ��K�v�ł��B</p>
+<p>USBコネクタは、秋月のが合います。基板をユニバーサル基板に載せたい場合は、ほかにソケット・ヘッダかピン・ヘッダを用意すればいいはずですが、CON1～3が1/10&Prime;グリッドにアライメントされていないので、それは叶いません。CON3はハーフ・ピッチ程ずれているので絶対無理ですし、CON1とCON2もおよそ326&mu;mずれているので、やはり何らかの工夫が必要です。このほか、サブ・クロックを使用した実験をする場合(このレポートでは使用しない)は、Y1に時計クリスタルを付けます。この場合、発振止め？のR6を外さないと発振しないので注意が必要です。</p>
 </div>
 
 <div class="para">
-<h3>�������炦(S/W)</h3>
-<p>�t�^�ɂ͊�̂ق��ɊJ����(C�R���p�C���A�f�o�b�K�A�t���b�V���������݃c�[����)��USB�h���C�o(CP210x�p)�̓�����CDROM���܂܂�Ă���̂ŁA������PC�ɃC���X�g�[�����Ă����܂��B�R���p�C���͎��p�łł����A�R�[�h�E�T�C�Y�������`�b�v�ɍ��킹��256KB�Ɋg������Ă��܂�(web�z�z�ł�128KB�܂�)�B���K�͂ȃv���W�F�N�g�ɂ͂���ŏ\���ł��傤�B</p>
+<h3>下ごしらえ(S/W)</h3>
+<p>付録には基板のほかに開発環境(Cコンパイラ、デバッガ、フラッシュ書き込みツール等)とUSBドライバ(CP210x用)の入ったCDROMが含まれているので、これらをPCにインストールしておきます。コンパイラは試用版ですが、コード・サイズ制限がチップに合わせて256KBに拡張されています(web配布版は128KBまで)。小規模なプロジェクトにはこれで十分でしょう。</p>
 </div>
 
 <div class="para">
-<h3>�H��</h3>
+<h3>食す</h3>
 <img class="rset" src="pcb3.jpeg" alt="mp3player" width="379" height="284">
-<p>����LED��_�ł��ďI���ł͗]��ɂ��܂�Ȃ��̂ŁA������x�̋@�\���������v���W�F�N�g�Ƃ���MP3�v���[���𐻍삵�Ă݂܂����B�����y���t�F�����̂����APIO�A�^�C�}�AUART�ASPI�ADMA�AADC�Ɗ��荞��x5���g���Ă��܂��B���[�����΁AMP3�v���[���̐����web���J����̂���8�N�Ԃ�ł��ˁB�܂��A�@�\�I�ȏ��͍����̂��ς��Ȃ��ł�����(^_^;�B</p>
-<p>MP3�v���[�������ɂ́A�������E�J�[�h�E�\�P�b�g��MP3�f�R�[�_�E�`�b�v����ɐڑ�����K�v������܂��B�����̃A�^�b�`�����g�́A�ق��Ɏg���񂹂�悤�Ɍʂ̊�ɑg�݂܂����B�������E�J�[�h�ɂ͎�y�ɐ���ł��ăz�r�[�p�Ƃ��čł��悭�p�����Ă���SD�������E�J�[�h���g�p���܂��BMP3�f�R�[�_�ɂ͏H���ł������Ă���VS1011���g�p���܂��BVS1011�͓��萫�Ǝg������͗ǂ��̂ł����A����DAC���^�R�Ȃ̂����_�ł��B0dB�ݒ��̎���SNR��50�`60dB���������A����ɃA�b�e�l�[�^��DAC�O�i�Ȃ̂ŁA�w�b�h�z���ŉ��ʂ��i���Ē����ɂ͂��Ȃ�h�����x���ł��B��H�}���̃R�l�N�^�̂Ƃ���ɋL������Ă���L���́A���̃v���W�F�N�g�ł̐ڑ���(�}�C�R����̒[�q�ԍ�)�ł��B</p>
-<p>�T���v���E�v���W�F�N�g�́AFatFs���W���[���̃T���v����MP3�v���[���Ƃ��Ă̋@�\��ǉ����������̂�����v���W�F�N�g�ł�(^_^;�B�Đ��������j�^�̃t�@�C������R�}���h�����s�ł��܂����A�݂��Ɋ�����悤�Ȑ��������Ɖ����r�؂ꂽ�肵�܂��B�t�@�[���E�F�A���r���h������FPL�Ńt���b�V���E�������ɏ������݂܂����A�x���̂ő����<a href="../../works/sp78k/report.html">SP850ES</a>���g���Ɨǂ��ł��傤�B�W�����p�ݒ��FPL�Ɠ����ŁA��3�b�ŏ������߂܂��B�ȉ���MP3�v���[���̓���d�l�Ǝ����������܂��B</p>
+<p>基板上のLEDを点滅して終わりでは余りにもつまらないので、ある程度の機能を持ったプロジェクトとしてMP3プレーヤを製作してみました。内蔵ペリフェラルのうち、PIO、タイマ、UART、SPI、DMA、ADCと割り込みx5を使っています。そーいえば、MP3プレーヤの製作をweb公開するのって8年ぶりですね。まぁ、機能的な所は今も昔も変わらないですけど(^_^;。</p>
+<p>MP3プレーヤを作るには、メモリ・カード・ソケットとMP3デコーダ・チップを基板に接続する必要があります。これらのアタッチメントは、ほかに使い回せるように個別の基板に組みました。メモリ・カードには手軽に制御できてホビー用として最もよく用いられているSDメモリ・カードを使用します。MP3デコーダには秋月でも売っているVS1011を使用します。VS1011は入手性と使い勝手は良いのですが、内蔵DACがタコなのが欠点です。0dB設定基準の実測SNRは50～60dBそこそこ、さらにアッテネータがDAC前段なので、ヘッドホンで音量を絞って聴くにはかなり辛いレベルです。回路図中のコネクタのところに記入されている記号は、このプロジェクトでの接続先(マイコン基板の端子番号)です。</p>
+<p>サンプル・プロジェクトは、FatFsモジュールのサンプルにMP3プレーヤとしての機能を追加しただけのやっつけプロジェクトです(^_^;。再生中もモニタのファイル操作コマンドを実行できますが、互いに干渉するような制御をすると音が途切れたりします。ファームウェアをビルドしたらFPLでフラッシュ・メモリに書き込みますが、遅いので代わりに<a href="../../works/sp78k/report.html">SP850ES</a>を使うと良いでしょう。ジャンパ設定はFPLと同じで、約3秒で書き込めます。以下にMP3プレーヤの動作仕様と資料を示します。</p>
 <ul>
-<li>�Ή��t�H�[�}�b�g: MP3(�`320kbps)�AADPCM(�`384kbps)�ALPCM(�`1536kbps)</li>
-<li>�Ή����f�B�A: MMC/SDSC/SDHC (FAT12/16/32)</li>
-<li>���[�g�E�f�B���N�g�����ɂ���f�B���N�g�����ꂼ����u�A���o���v�Ƃ��Ĉ���</li>
-<li>�ő�50�A���o���A1�A���o��������100�g���b�N�܂�</li>
-<li>�Đ����͑S�A���o���̑S�g���b�N�𖳌����[�v�A�e�A���o���E�g���b�N�̓t�@�C�����Ń\�[�g</li>
-<li>PLAY�{�^���ōŏ��̃A���o���̐擪�g���b�N����X�^�[�g</li>
-<li>�Đ�����PLAY�{�^���Ń|�[�Y/�ĊJ</li>
-<li>NEXT�{�^���Ŏ��̃g���b�N�A�_�u���N���b�N�Ŏ��̃A���o���̐擪�g���b�N��</li>
-<li>PREV�{�^���őO�̃g���b�N�A�_�u���N���b�N�őO�̃A���o���̐擪�g���b�N��</li>
-<li>�{���E���ŉ��ʒ���</li>
-<li>STOP�{�^���Œ�~</li>
+<li>対応フォーマット: MP3(～320kbps)、ADPCM(～384kbps)、LPCM(～1536kbps)</li>
+<li>対応メディア: MMC/SDSC/SDHC (FAT12/16/32)</li>
+<li>ルート・ディレクトリ下にあるディレクトリそれぞれを「アルバム」として扱う</li>
+<li>最大50アルバム、1アルバム当たり100トラックまで</li>
+<li>再生順は全アルバムの全トラックを無限ループ、各アルバム・トラックはファイル名でソート</li>
+<li>PLAYボタンで最初のアルバムの先頭トラックからスタート</li>
+<li>再生中のPLAYボタンでポーズ/再開</li>
+<li>NEXTボタンで次のトラック、ダブルクリックで次のアルバムの先頭トラックへ</li>
+<li>PREVボタンで前のトラック、ダブルクリックで前のアルバムの先頭トラックへ</li>
+<li>ボリウムで音量調整</li>
+<li>STOPボタンで停止</li>
 </ul>
-<p><a href="sub_boards.jpeg">�\�P�b�g��ƃf�R�[�_���</a> | <a href="mmc.png">�\�P�b�g���H�}</a> | <a href="vs1011.png">�f�R�[�_���H�}</a> | <a href="mp850.zip">�t�@�[���E�F�A(PM+ �v���W�F�N�g)</a></p>
+<p><a href="sub_boards.jpeg">ソケット基板とデコーダ基板</a> | <a href="mmc.png">ソケット基板回路図</a> | <a href="vs1011.png">デコーダ基板回路図</a> | <a href="mp850.zip">ファームウェア(PM+ プロジェクト)</a></p>
 </div>
 
 
