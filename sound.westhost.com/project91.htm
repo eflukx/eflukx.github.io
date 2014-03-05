@@ -1,0 +1,187 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="riaa, phono, 78,rpm, disk, equalise, equalize, audio, project, diy, circuit, schematic, diagram, archive, recording, disc, restore">
+	<meta name="description" content="ESP Audio Projects - Build a multi-standard 78 rpm and RIAA Phono Equaliser for restoration or archiving of old recordings">
+	<title>78 rpm and RIAA Phono Equaliser</title>
+	<!-- ESP Audio Projects - Build a multi-standard 78 rpm and RIAA Phono Equaliser for restoration or archiving of old recordings -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 91&nbsp;</td></tr></table>
+
+<p align="center"><b>Multi Standard 78 RPM and RIAA Phono Equaliser</b><br />
+<small>Rod Elliott (ESP), Updated 07 Nov 2002</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; The P06 printed circuit board is available for this project. Click the image for details.<br>
+ 
+<hr><b>Introduction</b>
+<p>Vinyl equalisation (EQ) has been with us in a stable and predictable form for quite a long time, but for those who are interested in the old 78 rpm records there are a great many problems to overcome. One of these is obtaining a turntable that runs at 78 rpm, and preferably has the range to cover the somewhat variable actual recording speed, which can apparently be anything from 60-odd to over 84 rpm. The next obstacle is finding a suitable stylus – again, these are hard to get, and modern ones are usually too small for the larger grooves used back then Finally, there is the vast number of EQ "standards" that were used, ranging from none at all for acoustic recordings, through to an approximation of the modern RIAA and CCIR standards.</p>
+
+<p>Of these issues, I intend to address only one – the EQ in the phono amplifier stage. I can do this easily, since the Project 06 phono preamp uses separate equalisation stages. This means that using the standard unit PCB with virtually no modification, it is possible (easy, actually) to add the switching needed to accommodate every recording standard ever used.  I'm afraid that the turntable and cartridge/ stylus combination are up to you to find.  The references contain quite a bit of useful information that you can use if you don't already have the needed equipment.</p>
+
+<p>Before describing the preamp, a brief discussion on RIAA (or any other EQ for that matter) is warranted It is mistakenly believed by many that accurate EQ is important ... It isn't! No, this is not blasphemy, just a simple statement of fact. The problem is that few records are (or were) ever "cut" using only the standard EQ The mastering engineer would most commonly adjust the EQ until the disk sounded right – in his room, on his speakers, and to his ears. That these usually managed to sound good (or at least acceptable) on most systems is testament to  the artistry of good cutting engineers (generally a grossly underrated breed IMHO).</p>
+
+<p>What are the chances that your room, speakers and ears are a perfect match? None!&nbsp; It will never happen As a result, a dB of error here or there will not cause a variation that is significant in real terms In the case of 78 rpm discs, there are actually too many standards to contend with at the sub-dB accuracy level, and you can rest assured that even if it were perfect, it would still sound different from when the disk was cut.</p>
+
+<p>In this light, and from the information I have been able to glean from the Net and elsewhere, a no compromise system is impractical, and it will often be better to adjust for the best sound (to you) than try to be 100% accurate.</p>
+
+<p>Some of the "standards" are reproduced below, thanks to a reader who compiled a list from various sources – I have added quite a few of the values missing from the various sites that are referenced below, and it is worth noting that some of the figures quoted are not possible with a 6dB/octave equalisation curve (these are flagged with a "?") Calculated or simulated values are shown with a * beside the actual or recommended value In some cases. I have not attempted to determine the actual amount of rolloff or boost, but this is unimportant, since it is the turnover frequency that really determines the response characteristics.</p>
+
+<center><table BORDER=1 WIDTH=800 style="border-collapse: collapse">
+<tr><td><b>Recording Label</b></td><td><b>Treble -3dB</b></td><td><b>Cut @ 10 kHz</b></td>
+<td><b>Bass +3dB</b></td><td><b>Boost @ 50 Hz</b></td><td><b>Low Bass</b></td></tr>
+
+<tr><td>Acoustic</td><td>flat</td><td>&nbsp; -</td><td>flat</td><td>&nbsp; -</td><td>&nbsp; -</td></tr>
+<tr><td>Brunswicke/Parlophone</td><td>flat</td><td>&nbsp; -</td><td>500</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>BSI 78 [1]</td><td>3.18 kHz</td><td>-10.5 dB</td><td>353</td><td>14 dB</td><td>50 Hz</td></tr>
+<tr><td>Capitol (1942)</td><td>2 kHz *</td><td>-12 dB</td><td>400</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>Columbia [2]</td><td>6.36 kHz</td><td>-5 dB</td><td>200</td><td>12 dB ?</td><td>40 Hz</td></tr>
+<tr><td>Columbia (1925- 1937)</td><td>3.4 kHz *</td><td>-8.5 dB</td><td>200</td><td>14 dB ?</td><td>&nbsp; -</td></tr>
+<tr><td>Columbia (Late 1938)</td><td>1.6 kHz</td><td>-16.5 dB</td><td>300</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>Columbia (English)</td><td>flat</td><td>&nbsp; -</td><td>250</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>Decca (early - 30s)</td><td>5.8k</td><td>-6dB</td><td>150</td><td>11 dB ?</td><td>&nbsp; -</td></tr>
+<tr><td>Decca (1934)</td><td>2 kHz *</td><td>-12 dB</td><td>375</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>Decca 78</td><td>3.4k</td><td>-9dB</td><td>150</td><td>15 dB ?</td><td>&nbsp; -</td></tr>
+<tr><td>Decca (London) ffrr (1949)</td><td>6.36 kHz *</td><td>-5dB</td><td>250</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>Decca ffrr 1949 &amp; EMI</td><td>6.36 kHz *</td><td>-5/-7.5dB</td><td>250/375</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>EMI 1931</td><td>flat</td><td>&nbsp; -</td><td>200</td><td>15 dB ?</td><td>&nbsp; -</td></tr>
+<tr><td>HMV 1931 [3]</td><td>flat</td><td>&nbsp; -</td><td>250</td><td>12 dB ?</td><td>&nbsp; -</td></tr>
+<tr><td>HMV/Blumlein [4]</td><td>flat</td><td>&nbsp; -</td><td>250</td><td>12 dB ?</td><td>50 Hz</td></tr>
+<tr><td>Mercury</td><td>2 kHz *</td><td>-12 dB</td><td>400</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>MGM</td><td>2 kHz *</td><td>-13.7 dB</td><td>500</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>US, Mid - 30s [5]</td><td>flat</td><td>&nbsp; -</td><td>400/500</td><td>&nbsp;</td><td>70 Hz</td></tr>
+<tr><td>Victor (1925) - some</td><td>6.36 kHz *</td><td>-5 dB</td><td>375</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>Victor (1925) [6]</td><td>6.36 kHz *</td><td>-5/-7.5dB</td><td>250/375</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>Victor (1938-52)</td><td>3.4 kHz *</td><td>-7 dB</td><td>500</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>Victor (1947-52)</td><td>2 kHz *</td><td>-12 dB</td><td>500</td><td>&nbsp;</td><td>&nbsp; -</td></tr>
+<tr><td>Westrex [7]</td><td>flat</td><td>&nbsp; -</td><td>200</td><td>15 dB ?</td><td>&nbsp; -</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>RIAA/ CCIR</td><td>2.12 kHz</td><td>-13.7 dB</td><td>500.5</td><td>17 dB</td><td>50.05</td></tr>
+<caption ALIGN=BOTTOM><b>Equalisation for Various 78 RPM Labels</b></caption></table>
+</center>
+
+<p>Notes and Comments:
+<table  WIDTH="100%">
+<tr><td>1</td><td>Useful for all post 1953 78s. May also be useful for some earlier American 78s</td></tr>
+<tr><td>2</td><td>American 1925,&nbsp; Victor 1925 (some)</td></tr>
+<tr><td>3</td><td>HMV with square matrix code, English Columbia with C matrix code, or no code (1945 to ~ 1953)</td></tr>
+<tr><td>4</td><td>Blumlein for HMV with square next to matrix number, English Columbia with C matrix code, or no code (1945 to ~ 1953)</td></tr>
+<tr><td>5</td><td>Useable for many American records. Said to be good for American Victor</td></tr>
+<tr><td>6</td><td>Some may use 500 Hz bass EQ</td></tr>
+<tr><td>7</td><td>English Western Electric, HMV with triangle matrix code, English Columbia with W matrix code</td></tr>
+<tr><td></td><td>&nbsp;</td></tr>
+<tr><td>ffrr&nbsp;</td><td>Full Frequency Range Recording</td></tr>
+<tr><td>?</td><td>Some 50 Hz boost values are (highly?) suspect</td></tr>
+<tr><td>*</td><td>Determined by simulation or best guess</td></tr></table>
+
+<p>The above is very much a best guess, and is based on the material cited in the references as well as other sources (primarily input from readers).</p>
+
+<hr><b>Description</b>
+<p>Despite the range of different characteristics, the majority of all 78 rpm records can be equalised within a 2dB of the nominal (or alleged) curves claimed, using 4 low and 5 high frequency ranges - including flat and true RIAA for both. Given that additional equalisation will almost always be used for restoration, the suggested ranges will be more than adequate for all applications. The low bass turnover frequency has been ignored, since it is highly unlikely that there will be an extended bottom end on any of these recordings Instead, it is set at 20Hz for all ranges.
+
+<p>I have seen 78 rpm phono preamps selling for well over US$450, so building your own is obviously an excellent way to save a considerable amount of money. In addition, you have much more control over the final product, and can make adjustments to suit yourself. 
+
+<p>The preamp featured uses the same circuitry as my standard RIAA phono preamp, which has excellent sonics in its normal use as a standard RIAA equaliser. With very low noise and separate equalisation sections, the normal interaction between high and low frequency sections is minimised, so either can be adjusted independently of the other.</p>
+
+<center>
+<table WIDTH=800  border=1  style="border-collapse: collapse">
+<tr><td width="25%"><b>Bass Boost</b></td><td width="25%"><b>C1</b></td>
+<td width="25%"><b>Treble Cut</b></td><td width="25%"><b>C4</b></td></tr>
+<tr><td><b><i>Flat</i></b></td><td>0 (Short)</td><td><b><i>Flat</i></b></td><td>0 (Open)</td></tr>
+<tr><td>150 Hz&nbsp; (use 200 Hz *)</td><td>70 nF</td><td><b><i>1600 Hz</i></b></td><td>120 nF</td></tr>
+<tr><td><b><i>200 Hz</i></b></td><td>56 nF</td><td><i><b>2121 Hz</b> (RIAA)</i></td><td>82 nF</td></tr>
+<tr><td>250 Hz&nbsp; (use 200 Hz *)</td><td>46 nF</td><td>3180 Hz&nbsp; (use 3400 Hz **)</td><td>61 nF</td></tr>
+<tr><td>300 Hz&nbsp;&nbsp; (use 400 Hz *)</td><td>35 nF</td><td><b><i>3400 Hz</i></b></td><td>56 nF</td></tr>
+<tr><td>353&nbsp; (use 400 Hz **)</td><td>31 nF</td><td><b><i>5800 Hz</i></b></td><td>33 nF</td></tr>
+<tr><td>375&nbsp; (use 400 Hz **)</td><td>29 nF</td><td>6360 Hz&nbsp; (use 5800 Hz **)</td><td>30 nF</td></tr>
+<tr><td><b><i>400 Hz</i></b></td><td>27 nF</td><td></td><td></td></tr>
+<tr><td><i><b>500 Hz</b> (RIAA)</i></td><td>22 nF</td><td>* Error &lt; 1.5 dB</td><td>** Error &lt; 0.5 dB</td></tr></table>
+</center>
+
+<p>The recommended equalisations are in bold italics - these are the only ones really needed. The worst case error is still less than 1.5 dB, and we can be safely assured that this is far better than can be expected from the recordings themselves. Naturally, the frequency selections are up to the constructor, and there is no real reason not to include all of the ranges if so desired. Since a two pole switch is required, this will generally limit you to 6 ranges in total for each equalisation
+range, so a decision needs to be made as to which low frequency EQ settings will be used.</p>
+<p>The project itself is virtually identical to P06, except that the on-board capacitors are not used, and instead are switched with two separate rotary switches. It is very important to keep wiring length to the absolute minimum, or there will be an overall frequency shift caused by the stray capacitance.</p>
+
+<center><img SRC="p91-f1.gif" ALT="Figure 1" BORDER=1 height=406 width=547>
+<br><b><small>Figure 1 - Multi-Standard Phono Equaliser</small></b></center>
+
+<p>Notice that the switch sliding contact is wired to the PCB at the most sensitive (electrically speaking) position, and the capacitors are all connected to the opamp output (low frequency) or ground (high frequency). This ensures that the effects of any stray capacitance are minimised. It may be necessary to use a low value (100 ohm, shown as optional) resistor in series with the opamp output before it is wired out to the switched caps to prevent oscillation where a high speed opamp is used. This will not be needed for the high frequency section since R8 will isolate the opamp.</p>
+
+<p>For full details of the preamp, refer to <a href="project06.htm" target="_blank">Project 06</a> - the circuitry in this version is identical, the only difference being the switching The P06 PCB can be adapted easily for this application.</p>
+
+<hr><b>References</b>
+<p>www.audiocontrol.co.uk/jazzclub.htm (this site seems not to exist any more)
+<br><a href="http://www.rfwilmut.clara.net/repro78/repro.html" target="_blank">http://www.rfwilmut.clara.net/repro78/repro.html</a>
+<br>www.shellac.org/wams/wequal.html (unfortunately this link appears to be dead)
+<br><a href="http://www.vadlyd.dk/English/RIAA_and_78_RPM_preamp.html" target="_blank">www.vadlyd.dk/English/RIAA_and_78_RPM_preamp.html</a>
+<p>Some of the equalisation information has been obtained from the above sites, but was not copied or directly reproduced. I can give no guarantees that the information is completely accurate, as the majority has been provided by readers. Where possible, I have verified the information against the sites referenced, but due to the enormous variations seen, I am sure that no-one has a definitive list of all equalisation standards</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2002. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 11 May 2002</div>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="ESP Lighting Information Page - Dimmers, electronic transformers, etc. - how they work, what's wrong with them and how it can be fixed">
+	<!-- Dimmers, electronic transformers, etc. - how they work, what's wrong with them and how it can be fixed -->
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="ROBOTS" content="all">
+	<title>Light Dimmers</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img src="esp.jpg" alt="ESP Logo" height=81 width=215 />
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table width="100%" bgcolor="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td align="right" class="hdrr">Lighting Dimmers&nbsp;</td></tr></table>
+
+<p align="center">Rod Elliott (Elliott Sound Products)<br />
+<small>Page Created and Copyright &copy; 15 September 2008</small></p>
+
+<!-- AddThis Button BEGIN -->
+	<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+	<div class="addthis_toolbox addthis_default_style">
+	<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+	<span class="addthis_separator">|</span>
+	<a class="addthis_button_facebook"></a>
+	<a class="addthis_button_myspace"></a>
+	<a class="addthis_button_google"></a>
+	<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="index.html" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles" BORDER=0 height=24 width=40 /></a><b>Lamps &amp; Energy Index</b>
+<br /><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Index" BORDER=0 /></a><b>Main Index</b><br />
+
+<hr /><b>Introduction</b>
+<p>Right from the outset, I must emphasise that this article describes dimmers used in residential applications. High powered stage dimmers are not covered, and I also don't propose to discuss in detail C-Bus or any of the other home automation systems. While there are a great many similarities between the high and low end products, the automation process is almost completely digital in nature and can be implemented in many different ways to achieve the same end result.
+
+<p>There are two main categories of traditional AC dimmers, commonly referred to "leading edge" and "trailing edge", and while either will work with resistive loads such as incandescent lamps, the choice is more critical for any lamp that includes electronics. There are probably even a few of the now very old (and extremely inefficient) "rheostat" dimmers around, and possibly a few that are based on variable auto-transformers (aka Variacs). Because neither of the last two are common or will ever become common in the future, they will be described in general terms only.
+
+<p>Electronic transformers are now very common for low voltage lighting, and these have gained popularity because they are cheap and comparatively efficient. There is very little real information available for any of these devices. A few schematics exist on the Net for basic (leading edge) dimmers, and even some data on electronic transformers, but almost nothing about trailing edge dimmers and how they work.
+
+<p>All waveforms and calculations used in this article are based on a 50Hz, 230AC mains supply. Other voltages and frequencies can be extrapolated from the data shown. This was done in the interests of simplicity, and the general trends are identical for any voltage or frequency. The majority of waveforms shown are derived from a simulator rather than by direct measurement. This simplifies the process of making graphs, and also allows very detailed analysis of the waveform, it's power factor and harmonics. While actual measurements could have been used, these take far longer to prepare and have many uncertainties because of voltage waveform distortion, supply voltage variations and external noise and/or distortion.
+
+<p>Finally, there are dimmers that are used with DC only. Previously only a curiosity (or used to control DC motor speed), these will get a new lease of life with LED lighting. Ballasts will consist of switchmode DC power supplies, modified to provide the constant current required by LEDs. Dimming is achieved by switching the DC on and off, so is almost lossless.</p>
+
+<hr /><b>Power Factor Principles</b>
+<p>I will use the term "friendly" to describe waveforms that introduce little or no distortion into the supply grid, and which have a good power factor. Many people are under the impression that power factor is only relevant with inductive or capacitive loads, but this is completely untrue. Any current waveform that is not an exact replica of the voltage waveform has a power factor of less than unity (the ideal). It doesn't matter if the current waveform is simply shifted in phase or is non-linear, power factor is still affected.</p>
+
+<ul>
+<li>Unity - current and voltage are in phase, and have identical waveforms (resistive loads)
+<li>Lagging - peak current occurs <i>after</i> peak voltage, caused by inductive loads (motors, transformers)
+<li>Leading - peak current occurs <i>before</i> peak voltage, caused by capacitive loads (uncommon, but can and does occur))
+<li>Non-Linear - voltage and current are in phase, but have different waveforms (many electronic loads)
+</ul>
+
+<p>Figure 1 shows an example of each of the above. Voltage is shown in red, and current in green. The amplitudes of the two waveforms are deliberately different so the two graphs are clearly visible. These graphs are not to any particular scale, but all power factors are adjusted to be as close as possible to 0.5, and power in each case is 52.9W. An additional 230mA is drawn from the mains, but does no useful work.</p>
+
+<center><img src="dim-f1.gif" border=1 /><br /><b><small>Figure 1 - Voltage and Current Waveforms</small></b></center>
+
+<p>Since the voltage and current are simply multiplied together to obtain the VA rating, it's obvious that for the last three examples, the VA rating is 105.8VA, but the power is still the same, at 52.9W. Whenever the VA rating and power rating are different (VA cannot be lower than power), excessive current is drawn from the mains, causing losses in distribution cables, transformers, substations and alternators. A 1MW alternator faced with a power factor of 0.5 can only produce 500kW, since it is ultimately limited by its VA rating. All electrical distribution system components are actually limited to a VA rating, <i>not</i> a power rating.</p>
+
+<center><img src="dim-f2.gif" border=1 /><br /><b><small>Figure 2 - Circuits Used To Create Voltage and Current Waveforms</small></b></center>
+
+<p>Figure 2 shows the circuit diagrams used to produce the above waveforms for those who are interested. These are theoretical, in that actual loads are rarely as simple and usually cannot be represented accurately with so few components. However, the effect is sufficiently similar that these circuits are quite adequate to show the general trend. As many advertisements state in the fine print "actual results may vary".
+
+<p>Even though the power may be well within the nameplate rating on a transformer, if the VA rating is exceeded it will overheat. Continuous overheating will cause failure. Because of this, the supply companies and/or authorities worldwide need to have the best power factor possible to make maximum use of their equipment. Large installations will be penalised with additional charges if their power factor is not within the specified limits.
+
+<p>Waveforms like the last example are the worst, because there is very little that can be done externally to modify the waveform to reduce the non-linearities, and harmonics of the mains frequency are injected into the system causing further problems. A complete discussion of the havoc caused by non-linear waveforms is outside the scope of this article, but many countries have introduced (or have plans to introduce) mandatory power factor correction for all electronic loads above a given power limit.</p>
+
+<hr /><b>Dimmer Principles</b>
+<p>To dim a lamp, the common approach is to reduce the applied voltage by one means or another. Very early attempts used a rheostat (a variable resistor) in series with the lamp, since there was no viable alternative at the time. This approach wastes an enormous amount of power, and it's probably well over 40 years since anyone made such a beast. This approach does provide a very friendly load to the supply grid, having zero switching impulses and a perfect power factor. Disposing of the excess heat is a challenge, especially for lamps of reasonably high power. Rheostat dimmers can be expected (if found) to be quite large because of the heat that must be dissipated.
+
+<p>A variable auto-transformer (commonly known as a Variac&trade;) wastes almost no power and is almost as friendly to the power grid as a rheostat, but is a very expensive (and bulky) way to dim lamps. The cheapest variable transformer currently available is about $150 and weighs several kilograms. While there is no doubt that this is a good approach, economics preclude it from general purpose use. Variac dimmers were common in TV studios until perhaps 20 years ago. Another method that was used in the early days was a device called a "magnetic amplifier" (or just mag-amp), but from the little I could find, these were not common and were quickly replaced by other methods. I do not intend to cover the principles of magnetic amplifiers here. 
+
+<p>Today, the most common dimmer is the phase-controlled leading edge TRIAC dimmer. A TRIAC is a bidirectional switching device, and requires only a brief pulse to turn it on. With an AC circuit, it will automatically switch off when the AC voltage polarity reverses. This happens because the voltage (and therefore the current) pass through zero. The TRIAC cannot remain conducting with zero current, so switches off. The process of switching on and off occurs 100 times each second (120 times for 60Hz mains). Household dimmers are evolving though, and the latest type is called a "universal" dimmer. These can change operation from leading-edge to trailing-edge depending upon the load (see below for an explanation of the different types). 
+
+<p>By varying the ratio between voltage on and off, a crude pulse width modulation scheme is created, and this allows the power to the lamp to be changed over a wide range. Incandescent lamps are ideally suited to this method of control, and give a pleasing and natural progression between almost off and fully on. Most TRIAC dimmers available use the simplest possible circuit, so low settings may not be stable. At a mid setting, the RMS voltage from the half waveform is 162V, based on a 230V AC supply voltage.
+
+<p>Regardless of the method actually employed, the goal is to vary the power delivered to the lamp, allowing the user to set the light level appropriate for the occasion. No commonly available dimmer is capable of maintaining a good power factor (important for the health of the supply grid).</p>
+
+<p>For reliable operation, dimmers <i>should</i> be 3-wire (active, load and neutral) to ensure that the mains waveform zero crossing point can be maintained accurately. No small dimmers are 3-wire because that would make installation more difficult, so with anything other than resistive loads such as incandescent lamps, the dimmer will often misbehave. The degree of misbehaviour depends on the type of load (especially electronic lamps such as CFLs or LED lamps).</p>
+
+<p>Two-wire dimmers have no reliable zero-crossing reference point because the charged capacitors (inside the lamp power supply) cause zero current for most of the waveform cycle. The dimmer therefore can't be on permanently (full power), because it takes time before the TRIAC can trigger.</p>
+
+<table width="100%"><tr><td valign="top"><img src="../note.gif" /><td>Non-dimmable CFL or LED lamps must <i>never</i> be connected to a dimmed circuit - even if the dimmer is set to full power. While not apparent, the current drawn by the lamp circuit can increase dramatically (5 times or more), and can pose a fire risk as well as reduce the life of the lamp electronics.
+
+<p>Even commercial dimmers that <i>do</i> maintain an accurate zero-crossing reference should not be used with CFL or LED lamps, or any other "capacitor input power supply" load. In one installation that I know personally, the end user had close to 100% failures of LED tube lights connected through a commercial dimmer. The normal failure rate is closer to 1%, but the suppliers of the dimmer chose to argue.<br /><br />The <i>only</i> difference between their installation and all others is the dimmer, therefore it can only be the dimmer causing the failures. Strangely, both the end user and the dimmer supplier seemed to have a problem with this simple concept.
+</table>
+
+<p>High power commercial dimmers often use <acronym title="Silicon Controlled Rectifier">SCR</acronym>s (wired in reverse parallel), because these are made in much higher current ratings than TRIACs. Triggering is typically by high frequency pulses, delivered for the full duration of the "on" part of the mains waveform. They have full 3-wire reference, and never lose their zero-crossing reference. Nonetheless, as noted above, even these dimmers cannot be trusted to function properly with electronic power supply type loads.</p>
+
+<hr /><b>Leading Edge Dimmers</b>
+<p>These are currently the most common types, and are so called because the dimmer functions by literally removing the leading edge of the AC waveform. The active switch for low to medium power is almost always a TRIAC for typical domestic dimmers. When the TRIAC is triggered, the mains signal is applied to the load, with a delay period that ranges from zero milliseconds (fully on) to around 9ms (very dim). As an example, the voltage waveform across the load for a leading edge dimmer set to 50% is shown in Figure 3, with the first two cycles (in green) showed undimmed as a reference. This waveform is "ideal", meaning that it is the result you'd expect from a circuit that worked exactly according to the theory. Most leading edge dimmers come fairly close to the ideal.</p>
+
+<center><img src="dim-f3.gif" border=1 /><br /><b><small>Figure 3 - Ideal Leading Edge Dimmer Waveform</small></b></center>
+
+<p>As noted above, leading edge dimmers must <i>never</i> be used with compact fluorescent lamps (CFLs) unless the instructions specifically state that this is permitted, because the very fast rising signal causes a huge current to flow through the main filter capacitor that is part of the lamp's ballast circuit. Most current LED lamps will have the same problem, unless they are designated as safe to use with leading edge dimmers.
+
+<p>As an example, if an electronic ballast draws 83mA from the mains, this is sufficient to power an 8W electronically switched lamp (of any type). If no additional circuitry is used to improve the power factor, it will have current peaks of 270mA and a PF of about 0.42 - pretty poor, but certainly not unknown. If the exact same circuit is then powered via a dimmer, the worst case RMS current will rise to 240mA, with peaks of 4.2A. Power factor falls to 0.14 - a truly dreadful result. At this point, that lamp's power supply is drawing over 55VA from the mains, with a really nasty spike waveform. See Figure 2 (Non-Linear Load) for an example of a typical power supply front-end. The filter capacitor in Figure 2 (used to create the waveforms shown in Figure 1) is 18uF. This is not a common value, but was used to ensure the examples are equal. The charging current flowing into the capacitor is extremely high because the rate of change of voltage is also very high.</p>
+
+<center><img src="dim-f4.gif" border=1 /><br /><b><small>Figure 4 - Typical Leading Edge Dimmer Schematic</small></b></center>
+
+<p>The circuit above is typical of a high-end leading-edge dimmer. C1 and L1 are for RF interference suppression. The circuit operates by utilising the phase shift created by VR1, C2, R1 and C3. This network delays the signal applied to DB1 (a bidirectional breakdown diode called a DIAC). When the voltage exceeds the 30V (typical) breakdown voltage of the DIAC, it conducts fully and the charge in C3 is used to trigger the TRIAC. Once triggered, the TRIAC will conduct fully until the current falls to near zero, at which time it turns off again. This process is repeated for every half-cycle of the mains voltage. The delay, turn-on and turn-off points are visible and indicated in Figure 3.
+
+<p>Leading edge dimmers must never be used with a capacitive load (most electronic ballast circuits), because the very fast rise time of the voltage causes extremely high instantaneous current flow into the capacitor. Inductive loads (such as conventional iron core transformers) are quite safe, since the inductance limits the rise time of the current to safe values (however, see below).</p>
+
+<center><img src="dim-f5.jpg" border=1 /><br /><b><small>Figure 5 - Leading Edge Dimmer Insides</small></b></center>
+
+<p>The black device on the left is the TRIAC. While it is "fitted" with a heatsink, contact between the heatsink and TRIAC is best described as accidental. There was almost no contact at all in this one when it was dismantled, however, it's been working reliably for 12 years and will likely last that long again. The simplicity of the circuit is quite obvious in the lack of sophistication of the PCB. The few components used are all through hole types, and there are no parts on the back of the board.
+
+<p>The circuit is almost identical to that shown above. The coil and orange capacitor are for interference suppression, but no fuse is fitted. If the dimmer were to fail short-circuit, the lamp will simply come on at full brightness.
+
+<p>While the makers of leading-edge dimmers often claim they are suitable for use with iron-core transformers, some most certainly are not. A common problem with simple TRIAC dimmers is that they go into "half-wave" mode - conducting only on one polarity of the mains waveform. This is a disaster for any transformer, which will immediately draw a very high current, limited only by the primary resistance.</p>
+
+<hr /><b>Trailing Edge Dimmers</b>
+<p>A trailing edge (aka "reverse phase") dimmer is a considerably more complex circuit. The simple circuitry that is common with leading edge types can no longer be used, because most TRIACs cannot be turned off. Gate turn-off (GTO) TRIACs exist, but are far more expensive and less common in the relatively small sizes needed for lighting. To be able to implement a trailing edge dimmer, the switching device must turn on as the AC waveform passes through zero, using a circuit called a zero-crossing detector. After a predetermined time set by the control, the switching device is turned off, and the remaining part of the waveform is not used by the load.
+
+<p>Trailing edge dimmers commonly use a MOSFET (metal oxide semiconductor field effect transistor), as these require almost no control current and are rugged and reliable. They are also relatively cheap and readily available at voltage ratings suitable for mains operation. Another option is to use an IGBT (insulated gate bipolar transistor), which combines the advantages of both MOSFET and bipolar transistor. These are generally more expensive than MOSFETs. Again, the waveform is ideal, and it is obvious from the actual waveform shown in Figure 9 that there is a significant deviation - especially at full power. This is caused because some of the applied voltage will always be lost because the complex electronics require some voltage to operate.</p>
+
+<center><img src="dim-f6.gif" border=1 /><br /><b><small>Figure 6 - Ideal Trailing Edge Dimmer Waveform</small></b></center>
+
+<p>Again, the switching points and delay are shown on the waveform. A complete circuit diagram is not especially useful for a trailing edge dimmer, because they generally use dedicated integrated circuits (or fairly complex circuits using more common ICs) to perform the functions needed. Figure 6 shows a block diagram of the essential parts of the circuit, and Figure 7 shows the circuit for a dimmer using a commercial IC<sup>[<a href="#ref">1</a>]</sup>.</p>
+
+<center><img src="dim-f7.gif" border=1 /><br /><b><small>Figure 7 - Trailing Edge Dimmer Block Diagram</small></b></center>
+
+<p>C1 and L1 are again the RF interference suppression components. The rectifier is needed because MOSFETs cannot switch AC, only DC. The power supply, zero crossing detector and timer are generally all part of an IC designed for the purpose. Waveforms are shown at each point of the circuit. The output of the zero crossing detector resets the timer, sending its output high, and thus turns on the MOSFET. After a time between zero and 10ms for 50Hz, the output of the timer goes low, the MOSFET switches off, and current through the load is interrupted.
+
+<p>In most respects, leading edge and trailing edge dimmers are exact opposites of each other.</p>
+
+<p>Because the output voltage rises relatively slowly, the massive current spike that a leading edge dimmer causes into a capacitive load is no longer an issue, and some dimmable CFLs and LED lamps work perfectly ok with this kind of dimmer. However, trailing edge dimmers must never be used with iron core transformers, and this is always stated in the instructions.
+
+<p>Why? It would seem that the trailing edge dimmer should be fine, but the problem is largely due to the back-<acronym title="Electro-Motive Force">EMF</acronym> that's generated when the switch turns off 100 or 120 times every second. Most of the time, the back-EMF energy will be dissipated harmlessly in the load, but if the lamp load fails, there is nowhere for the switch-off energy to go. The most likely result will be that the dimmer will be damaged, as it is unlikely that commercial units will be able to dissipate the back-EMF energy without severe overheating or destruction.
+
+<p>Back-EMF is generated in any inductive load, because the inductor is an energy storage (reactive) component. The energy is stored as a magnetic field, and when current is interrupted the magnetic field collapses, generating a current in the process. If there is no load (such as a lamp) connected to the inductive component, even a small current becomes a very high voltage. This effect is seen regularly, but is commonly dissipated as a small arc across the switch contacts. Such arcs are harmless if they only occur a few times a day, but if repeated 100 or 120 times a second the average power becomes significant.</p>
+
+<center><img src="dim-f8.gif" border=1 /><br /><b><small>Figure 8 - Trailing Edge Dimmer Schematic</small></b></center>
+
+<p>As you can see, it's impossible to figure out how the circuit works when simply faced with a multi-pin IC. However, it is useful to see the circuit just to see how it's done. Naturally, this is not the only way, and some commercial trailing edge dimmers such as the one pictured below use a multi-function timer IC and a multiplicity of other surface mounted parts to achieve the same end.</p>
+
+<center><img src="dim-f9.jpg" border=1 /><br /><b><small>Figure 9 - Insides of a Commercial Trailing Edge Dimmer</small></b></center>
+
+<p>The two large devices on the left board are power MOSFETs. Note that the underside of the PCB is also covered with parts, including the timer, another IC that cannot be identified, four transistors and several resistors and capacitors. While the unit pictured would be fairly cheap to manufacture, I imagine that perfecting the design for high reliability in normal use could have taken a great deal of time. At around AU$50 from my local hardware outlet, it's not a cheap product compared to the more common trailing edge dimmer (typically around $16 - $20, but some are much more).</p>
+
+<center><img src="dim-f10.gif" border=1 /><br /><b><small>Figure 10 - Measured Current Waveforms</small></b></center>
+
+<p>The commercial trailing edge dimmer pictured was tested with a 60W incandescent lamp, and gave the waveforms shown above. While the maximum setting differs from the ideal waveform shown in Figure 5, when set for minimum (and up to about half power) theory and reality coincide very well. The circuit is unable to act as a true short circuit when fully on because some of the applied voltage is needed to power the electronics. This causes the discontinuity seen around the zero current region when the dimmer is set to maximum.
+
+<p>Note that unless an electronic based lamp is <i>specifically</i> claimed to be dimmable, a trailing edge dimmer will not work. Just for a test, I tried it with a normal CFL. There were no huge current spikes, but the lamp did not dim in a sensible or predictable manner, and the dimmer circuitry itself became confused and would not operate properly. This applies equally to CFL and LED lamps unless they claim to be dimmable in the instructions. Continued use of any electronic lamp with a dimmer may cause circuit damage, severe overheating or fire.</p>
+
+<hr /><b>Dimmer Power Factor</b>
+<p>Both types of dimmers have exactly the same power factor for the same output power to the load. Neither type allows any real or useful method of power factor correction, and the only mitigating factor is that at low settings current is drawn from the mains during parts of the cycle that most small power supplies don't use. However, the power factor is still awful - especially at very low power settings.
+
+<p>The "on angle" column refers to the number of degrees of the waveform where power is delivered to the lamp. A full cycle is 360&deg;, and each half cycle is 180&deg;. Increments of 18&deg; were used because at 50Hz, 18&deg; equates to a 1 millisecond interval. This was used for ease of calculation for the table. These data are exactly the same for a 60Hz source, the only difference being that the time for one complete cycle at 60Hz is 16.67ms instead of 20ms. This does not affect the on-angle, power or power factor, but the current will be different because of the different voltage used by 60Hz countries.</p>
+
+<center><table width="50%" border=1 style="border-collapse: collapse">
+<colgroup span=4 width="25%">
+<tr><td><b>On Angle</b><td><b>Current</b><td><b>Power</b><td><b>Power Factor</b>
+<tr><td>180&deg;<td>1000 mA<td>230 W<td>1.00
+<tr><td>162&deg;<td>994 mA<td>227 W<td>0.99
+<tr><td>144&deg;<td>971 mA<td>217 W<td>0.97
+<tr><td>126&deg;<td>918 mA<td>194 W<td>0.92
+<tr><td>108&deg;<td>829 mA<td>158 W<td>0.83
+<tr><td>90&deg;<td>702 mA<td>113 W<td>0.70
+<tr><td>72&deg;<td>557 mA<td>71 W<td>0.55
+<tr><td>54&deg;<td>391 mA<td>35 W<td>0.39
+<tr><td>36&deg;<td>226 mA<td>11.7 W<td>0.23
+<tr><td>18&deg;<td>83 mA<td>1.6 W<td>0.08
+<tr><td>0&deg;<td>0<td>0<td>N/A
+</table>
+<b><small>Phase Angle vs Power Factor, 230V AC, 230 Ohm Load</small></b></center>
+
+<p>Note that the load used for the above table is purely resistive, and remains constant at all settings. Incandescent lamps do <i>not</i> present a constant load though. As the filament runs cooler at low settings, its resistance is lower and it draws more current than expected. For this reason, although dimming unquestionably reduces the power used, it doesn't reduce it as far as one might expect (or hope).
+
+<p>A typical 100W GLS (general lighting service) lamp will be drawing around 18W when set for a dull glow - one would normally expect less. The filament resistance falls to around half the full power resistance because it's so much cooler, so twice as much current is drawn than would be the case for a fixed resistance. For reference, a GLS bulb was tested, and measured 44 Ohms when cold, and 552 Ohms when hot (at full power).</p>
+
+<hr /><b>Electronic Transformers</b>
+<p>Many new installations using low voltage halogen lamps now utilise an electronic transformer. The traditional iron core transformer works well and will last forever, but they are expensive. Some are also rather inefficient, wasting 20% or more of the total applied power as heat. Electronic transformers are usually much smaller and lighter, so tend to lack the "solid quality" feel, but most are reasonably efficient, typically wasting less than 15% of the total power. Lower losses mean less heat and marginally lower power bills. Although the dissipation of each unit individually may seem reasonable, when thousands of them are running the extra loss becomes significant.
+
+<p>A conventional iron core transformer operates at the mains frequency (50 or 60Hz), and the core needs to be fairly large because of the low frequency. Core size is inversely proportional to frequency, so operating at high frequency means the transformer can be much smaller. The term "electronic transformer" is really a misnomer - it is actually a switchmode power supply (SMPS). Electronic circuits are used to rectify the mains and convert the AC into pulsating DC. This pulsating DC is then fed to a high frequency switching circuit and a small transformer. Figure 10 shows a photo of a typical unit.</p>
+
+<center><img src="dim-f11.jpg" border=1 /><br /><b><small>Figure 11 - Electronic Transformer Internals</small></b></center>
+
+<p>The mains terminals are on the left, and the 12V output terminals are on the right. There is some RF filtering at the input, and the two switching transistors are the upright devices along the bottom edge. The little green ring is the transistor switching transformer (T1 in Figure 12), and the output transformer is the large white plastic object. This has a ferrite core with the primary windings on the inside, and the secondary (the 12V output) is wound on the outside of the plastic insulating cover.
+
+<p>The output is not rectified - it is AC, but comes in bursts of high frequency signal (see Figure 13 for the output waveform).
+
+<center><img src="dim-f12.gif" border=1 /><br /><b><small>Figure 12 - Electronic Transformer Circuit Diagram</small></b></center>
+
+<p>T1 is the transistor switching transformer. It has three windings, the primary (T1A), and two secondaries (T1B &amp; C). Compare this with the green transformer in Figure 10. The primary is a single turn, and each transistor drive winding is 4 turns. T2 is the output transformer. DB1 is a DIAC (as used in the leading edge dimmer), and is used to start the circuit oscillating once the voltage exceeds about 30V. Once oscillation starts, it will continue until the voltage falls to near zero. Note that the base output frequency is twice the mains frequency, so an electronic transformer used at 50Hz actually has a 100Hz output frequency signal, which is made up of many high frequency switching cycles.
+
+<p>Most electronic transformers will not function with no (or light) loads. For example, a 60W unit will typically need a load that consumes at least 20W before it will function normally. With a very light load, there is insufficient current through the switching transformer's primary to sustain oscillation.</p>
+
+<center><img src="dim-f13.gif" border=1 /><br /><b><small>Figure 13 - Output Waveform of Electronic Transformer</small></b></center>
+
+<p>Although the waveform shown is exactly as captured by my PC based oscilloscope, the transitions that are clearly visible are an artefact of the digitisation process - the frequency is much higher than indicated. The RMS voltage of the waveform shown measured 12.36V, but it is a difficult waveform to measure accurately. I expect that the actual voltage was closer to around 10V as measured using an analogue meter (the nameplate rating is 11.5V). Across a 2 ohm load (5A), output power was around 50W. The supply drew 231mA from the mains (52.2 VA). The measured input power was 52W, so power factor works out to be close enough to unity. Efficiency is almost 96% - a very respectable figure indeed.
+
+<p>Care must be exercised if using an electronic transformer with low voltage LED lamps or CFLs.  Because these lamps have an internal rectifier, the diodes must be high speed types. Normal rectifier diodes will get extremely hot because the operating frequency is much higher than that for which ordinary diodes are designed. Although the waveform envelope is only 100Hz, the switching frequency is much higher - typically around 30-50kHz (frequency decreases with increasing load).
+
+<p><small>It has to be mentioned that the energy savings of electronic transformers may often be overstated. While conventional transformers will last virtually forever, electronic transformers can fail at any time, and prove this by doing so. The high temperatures encountered in the roof-space of many houses stresses the semiconductor devices, and the widespread use of lead-free solder ensures that solder joint failures are not uncommon. I've seen several failed units, and while I may be able to fix some of these, 99% of householders will simply throw a failed unit away and install a new one. When manufacturing, shipping and driving to the shops to get a new unit are all considered, you may well have been better off to use an inefficient iron-core transformer instead.</small></p>
+
+<hr /><b>DC Dimmers</b>
+<p>While many people (including me, 30-odd years ago) have experimented with DC dimmers, up until recently there has not been much call for them. There is the occasional time when a car lamp (spotlight or other) needs to be dimmed, and most cars have dimmable lighting for the dashboard. In the latter case, most commonly, a variable resistor is used in series with the lamps or in a few cases, different values resistors are switched in and out of circuit as needed.
+
+<p>While this is alright for low power systems with poor efficiency, there is no point making high efficiency lighting products and wasting power with a resistive dimmer. To show the waste power, a simple calculation can be done, assuming a simple 12V supply and a 12W lamp ...</p>
+
+<center>
+  <table width=625 border=1 style="border-collapse: collapse">
+  <colgroup span=5 width="20%">
+  <tr><td><b>Lamp Power</b><td><b>Current</b><td><b>Voltage</b><td><b>Series Resistor</b><td><b>Resistor Power</b>
+  <tr><td>12 W<td>1A<td>12<td>0<td>0
+  <tr><td>9 W<td>866 mA<td>10.39 V<td>1.86 Ohms<td>1.4 W
+  <tr><td>6 W<td>707 mA<td>8.48 V<td>4.97 Ohms<td>2.48 W
+  <tr><td>3 W<td>500 mA<td>6.00 V<td>12 Ohms<td>3 W
+  </table>
+</center>
+
+<p>For simplicity, the lamp is assumed to have constant resistance, but this is not true of real filament lamps of any voltage. This does not change the principle though, and including the lamp resistance for the different settings would confuse the issue.
+
+<p>Clearly, this method cannot be used if we want maximum efficiency. While 3W doesn't sound like much heat, trying to dispose of it in a confined space is very difficult if high temperatures are a problem. The efficiency issue becomes far more important as lamp power is increased, and for flexibility a better solution is needed. Fortunately, there is a very simple answer. Pulse width modulation (PWM) is a common technique in electronics, and provides extremely high efficiency in the electronics. By modulating the on-off periods of the voltage sent to the lamp, its brightness can be controlled easily with almost no losses.
+
+<p>If the voltage is switched on and off with equal timing (50% mark-space ratio), the attached lamp (or high power LEDs) sees the full voltage (and full power) for half the time and hence the LEDs operate at &frac12; the power. Because the ratio can be changed from zero (fully off) to maximum (fully on) with a potentiometer or a 0-10V DC control voltage, this system is ideally suited to the latest LED lamps.
+
+<p>PWM systems can become confusing, because some have a filter at the output to remove the AC component of the waveform. If this is done, the average voltage is applied to the lamp, so with 50% modulation, the lamp will receive 6V DC, and power is only 3W (&frac14; power). A filter cannot be used with LED lamps, because they are highly voltage dependent. If the voltage to a 12V LED array were reduced to 6V with a filtered PWM system, there would be no light output at all because the LEDs will not have enough voltage to overcome the forward voltage of the LEDs. Most white LEDs have a forward voltage of around 3.3V, so a 12V array will use 3 in series (9.9V), with the remaining 2.1V absorbed by the current limiting resistors.</p>
+
+<center><img src="dim-f14.gif" border=1 /><br /><b><small>Figure 14 - Pulse Width Modulation Waveforms for DC Dimmer</small></b></center>
+
+<p>For dimming LED lamps, we don't use a filter, and the switching frequency can be kept low enough to minimise radio frequency interference. Around 300Hz works very well, and although the LEDs will switch fully on and off 300 times each second, our eyes cannot see the flicker rate as it is much too high. Lamp flicker is a hot topic in some areas, but provided it is well above the maximum visible rate there should be no problems. Normally, anything above 50 flashes/second is considered to be well above our persistence of vision threshold (many references are available on the Net).
+
+<p>Not using any filter also maximises efficiency. In a typical switching DC dimmer, the power lost across the MOSFET will be less than 100mW with a 12V supply and a 10 Amp load if a robust MOSFET is used. The reference signal for a PWM system is usually a triangular waveform as shown (Figure 14, Red). This is compared against the control voltage (Blue), and if the control voltage is greater than the triangle wave the power MOSFET will turn on and power is applied to the load (Green). Likewise, if the triangle wave is greater than the control voltage, the MOSFET will turn off. Varying the control voltage changes the on-off ratio, and the power to the load.</p>
+ 
+ <center><img src="dim-f15.gif" border=1 /><br /><b><small>Figure 15 - Block Diagram of DC Dimmer</small></b></center>
+
+<p>This type of dimmer is certainly not new, and similar circuits are also used for DC motor speed controls. Its application to general purpose lighting is not yet common, but is likely to become so in a short time. Because the circuitry is so simple and easy to control, it will become widespread as complete LED luminaires become popular. This is only a matter of time, since there is no requirement to be able to change the lamp because of the very long life of LEDs. Complete fittings suitable for household and commercial applications will not need replaceable lamps as we know them now, and with simple circuitry and full range (and virtually lossless) dimming capabilities will ultimately be the fitting of choice. The dimmer is likely to be installed in the fitting, needing only a pair of low voltage wires to the control.
+
+<p>This also makes home automation systems easier to implement, because there will no longer be any need to modify the AC mains voltage - everything can be done at low voltage.  The power supply module is easily made to consume very little power when no DC power is being used, so even the switch can be dispensed with. A test dimmer I built is quite capable of handling up to 120W (12V at 10A), but draws less than 20mA (less than &frac14;W) when set to minimum. The dissipation of the dimmer itself is typically around 3W or less at maximum power (almost all in the MOSFET), so it has better than 97% efficiency.
+
+<p>This dimmer is ideally suited for LED lamps. It allows total control from full-off to full-on, and a subsequent reduction of power when the LEDs are dimmed. As shown, this dimmer method is suited only to LED arrays that already have current limiting. The next stage for LED lamp control is to dispense with resistors for current limiting, and use PWM current limiting instead. PWM current limiting is already used with many lamps, especially the high power types, but it can be expected to become more common as LEDs become the lighting method of choice for most applications.
+
+<p>The ease with which the LEDs can be controlled makes this very attractive, and the high luminous efficacy that is currently being achieved (at up to 100 lumens/Watt and improving all the time) means more light with less power and very little heat.</p>
+
+<center><img src="dim-f16.gif" border=1 /><br /><b><small>Figure 16 - Typical 12V DC LED Array</small></b></center>
+
+<p>A typical LED array designed for 12V operation is shown above - 3 x 120 ohm resistors will normally be used because most arrays use surface mount resistors which are much lower power than traditional through-hole types. The 40 Ohm limiting resistors set the current through each LED string to 52.5mA, and the four strings are in parallel. The total current will be 210mA. The resistors are unfortunate, because they dissipate power but do no useful work. Each resistor dissipates about 37mW, so a total of 0.44W is wasted. This arrangement is very sensitive to voltage - an increase of only 0.5V will cause the LED current to rise to 65mA, and a fall of 0.5V will cause the current to fall to 40mA. While this is less than ideal, at present it is not economical to include individual high efficiency current regulators in place of the resistors.
+
+<p>This changes though, because resistors are only used with low power LEDs. This isn't a major problem because the wasted power is quite low. Dedicated ICs are commonly used to limit the current to the required value but dissipate almost no power. For higher power LEDs (1W types for example), active current limiting is used already in many lamps, since the wasted power becomes much more of an issue, and with very low resistances the voltage sensitivity increases dramatically. 1W LEDs draw 300mA, so the resistance would need to be reduced to only 7 Ohms, and a voltage increase of only 0.5V would cause the current to rise to over 370mA. This exceeds the maximum rating for the LEDs, which will overheat and fail.</p>
+
+<hr /><b>LED Lighting Into The Future</b>
+<p>As LED lighting products mature, so too will the ICs needed to drive them. There are already quite a few major manufacturers who are making LED driver ICs, and some of these already include the ability to provide dimming - usually by gating the switch-mode current source on and off at several hundred Hertz. We are stuck with existing light fittings for the next few years. People generally prefer to simply change lamps rather than change the fitting for a dedicated LED luminaire, but eventually we can expect to see fittings that are designed around LEDs, and will have inbuilt power supplies (ballasts) and dimming facilities.
+
+<p>This can be done right now, but no standards currently exist. As a result, few lighting manufacturers will be willing to try to influence the outcome by making products that employ the features that can be achieved. Making fittings that are too complex or that don't meet the real needs of consumers will delay the uptake of LED lighting.
+
+<p>One simple protocol that would make sense is to go back to the old 0-10V standard.  This allows single installations to use a variable resistor to change the voltage, so the "dimmer" is just a 10k potentiometer in the wall-plate. For home automation systems, C-Bus already has a 0-10V interface module. By using a simple analogue control system, the cost is minimal for any type of installed system. If dimming isn't needed, the dimmer pins can simply be left disconnected. This arrangement even allows for multiple light fittings to be controlled from a single control, and the cost added to each fitting is minimal once they are in mass production.
+
+<p>It would be a big mistake to create a digital protocol just to ensure that people <i>must</i> purchase fittings and controls from a particular supplier. This approach will cause fear and loathing in the market, because there will ultimately be multiple incompatible control systems. While digital systems may well offer far greater flexibility (such as colour changing and other effects), the majority of householders won't want to be able to use their room lighting as a home disco. At present, most home owners don't even use dimmers, so trying to sell all-singing, all-dancing lighting fixtures will simply alienate the very people for whom the new technology will already be more than they can easily understand.
+
+<p>The industry as a whole will do itself a great dis-service if LED fixtures do not afford the simplicity of operation that is inherent with traditional lighting. While the idea of a home disco system will appeal to a few people initially, the novelty will wear off rather quickly. If the fittings do not afford simple operation with minimum fuss, they will ultimately fail dismally.</p>
+
+<hr /><a id="ref"></a><b>Credits &amp; References</b>
+<p>1 &nbsp; Two-stage reverse phase control with dimming function, <a href="http://www.atmel.com/dyn/resources/prod_documents/doc4767.pdf" target="_blank">Atmel</a><br />
+2 &nbsp; Electronic transformer dims halogen lamp - <a href="http://www.edn.com/article/CA46848.html" target="_blank">EDN</a></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles" BORDER=0 height=24 width=40 /></a><b>Lamps &amp; Energy Index</b>
+<br /><a href="../index2.html" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Index" BORDER=0 /></a><b>Main Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This material, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2008. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author / editor (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use in whole or in part is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 15 Sept 2008.</div>
+</body>
+</html>

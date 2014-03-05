@@ -1,0 +1,157 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Rod Elliott">
+<meta name="description" content="ESP Project Pages - 'A' Weighting Filter. Visit my other pages for even more!">
+<meta name="KEYWORDS" content="noise,a-weight,a-weighting,filter,fletcher,munson,sound,hearing">
+<title>A-Weighting Filter</title>
+<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 17&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>A-Weighting Filter For Audio Measurements</b><br />
+Rod Elliott - ESP (Design based on an old Ampex circuit)<br>
+<small>(Updated with improved filter - 29 Aug 2003)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><b>Introduction</b>
+<p>I have to say from the outset that I do not agree with the use of weighting filters, since they are not (despite the claims, standards and legislation to the contrary) an accurate representation of human hearing, nor do they predict the potential for annoyance to people other than by accident. 
+
+<p>In fact, the standard A-weighting curve is accurate at only one SPL (Sound Pressure Level), assuming that the listener has "British Standard" Ears. I have no idea what SPL this filter is meant to be accurate at, and I doubt that anyone else does either. Based on the "Equal Loudness Curve" (see below), the closest match is at or near 30dB SPL - an unrealistically low noise level by today's standards. At a rough guess I would suggest the A-weighting curve may have some small relevance somewhere around 40dB SPL (unweighted!) and below.
+
+<p><i>Any noise measured using A-weighting must be free from tonality or rhythm, and will be a broad bandwidth random signal. For the vast majority of real-world measurements that do not fulfil these criteria, A-weighted noise level measurements give a completely unrealistic reading that does not reflect audibility or annoyance value of parts of the sound ... <u>especially</u> very low frequency signals (modulated or otherwise) and/ or any rhythmic sound.</i>
+
+<p>When the police measure the noise from a car exhaust or a party, they happily use A-weighting - it's probably in the legislation - that has to be scary!  Politicians and bureaucrats thinking that they know about SPL? Next thing they will tell us that they understand fiscal policy.&nbsp; But I digress .....
+
+<p>The purpose is supposedly to account for the fact that human hearing is less sensitive at low and high frequencies than in the upper midrange, and that this variation is dependent upon the sound intensity (SPL). The Fletcher-Munson curve (as it is commonly known, and reproduced below) shows the variation, and it is clear that any loss of sensitivity is highly dependent upon the actual SPL. The idea that a single filter can represent the true subjective annoyance potential at all levels is clearly <i>seriously</i> wrong, but it is a standard nonetheless.</p>
+
+<p align="center"><img SRC="p17_fig1.gif" ALT="Figure 1" BORDER=1>
+<br /><b><small>Figure 1 - Equal Loudness Curves (After Fletcher and Munson)</small></b></p>
+
+<p>The premise behind all this is that as the SPL is reduced, our ability to detect low or high frequency noise is reduced, so measurements should reflect this phenomenon. While it is undeniable that the chart above represents reality in terms of human hearing [<a href="#reference">1</a>], I remain unconvinced that A-weighting is a valid test methodology unless the absolute sound intensity is specified. In addition, it only works with wide band noise. If a sound has a rhythm or tonality, you cannot use A-weighting to measure the likely "annoyance value" and the meter will badly underestimate the audibility of the noise. 
+
+<p>Ok, I agree that there just might be some validity hiding in there somewhere for thermal noise measurements of amplifiers and the like, but again, any tonality changes everything. Just because the meter tells me that I should not be able to hear the harmonics of the 50/60Hz mains, does not mean that I cannot. There are some sounds that seem (at a casual glance) to defy all measurement standards, and remain audible (albeit at very low level) despite all the "evidence" that this should not be so.&nbsp; As with all such things, experience and practical application are more important than the absolute indication on a meter.
+
+<p>A piece of equipment that is essentially "noise-free" for all intents and purposes is in reality a waste of time, since the ambient noise level in most urban or suburban areas is likely to be far higher than the residual noise of most audio equipment. How useless is 100dB signal to noise ratio for a car hi-fi system, for example? Even the most expensive luxury cars generate far more noise than any tuner/cassette/CD system (and this is apart from all the other external noise  generated by other vehicles on the road).
+
+<p>It is worth noting that the Fletcher/ Munson curves were devised in 1933, with a test group that apparently consisted of only about 12 people. Equipment of the day was seriously lacking by today's standards, response was plotted between 25Hz and 16kHz (in 1933 even that was quite a feat!), yet the above curve is considered to be gospel throughout the industry. I'm not disputing that the general trends are accurate (there <i>would</i> have been changes if errors were found), but I am astonished that test data from so long ago has managed to stand the test of time.</p>
+
+<hr /><b>Description</b>
+<p>Since it is unlikely that I shall be able to convince the entire industry that it is using flawed reasoning, I shall describe an A-weighting filter so that we can at least make some meaningful comparisons with other systems where this has been used. Note that A-weighting is generally applied only to noise measurements, so <i>might</i> have some validity in this respect ... <i>as long as the noise we are measuring is of very low amplitude, has a broad frequency spectrum, and contains no tonality or rhythm</i> - the neighbour's party and most other urban noise sources are unlikely to fit this mould, but will be measured with A-weighting anyway - oh dear - so much for getting some sleep! (And yet again I digress .... )
+
+<p>The curve of the described filter is shown in Figure 2, and it can be seen that it is essentially a tailored bandpass filter, having a defined rolloff above and below the centre frequency. The reference point is at 1kHz, where the gain is 0dB. The filter response is supposed to be the inverse of one of the curves of the equal loudness graph shown in Figure 1 - it is a little hard to tell which one, but this is a standard, so we shall leave it at that. For anyone who wishes to be able to <i>reverse</i> the filter, <a href="project130.htm" target="_blank">Project 130</a> describes an <i>inverse</i> A-weighting filter that is within 1.5dB of being flat over the range of 20Hz to 20kHz (-3dB at 11.3Hz and 30kHz).
+
+<p>As can be seen from Figure 3, the circuit is very simple, but even with this frequency response it is not particularly hard to calibrate. Regardless of what may be claimed though, I do not accept for an instant that it really does account for our perception of real-life noise levels. It is really a laboratory curiosity and as such might be useful for research but little else.</p>
+
+<p align="center"><img SRC="p17_fig2.gif" BORDER=1><br>
+<b><small>Figure 2 - Frequency Response of the A-Weighting Filter</small></b></p>
+
+<p>The filter itself is passive, and the opamps are there only to buffer the input and output, and to adjust the gain so there is some correlation with reality (however slight). Note that the input impedance is quite low, and the output impedance is high, so the unit should be well shielded to prevent noise pickup from the outside world.
+
+<p>As always, I suggest the use of 1% metal film resistors, and the capacitors should be measured and selected, or close tolerance types used. If "ordinary" capacitors are used, their tolerance will adversely affect the accuracy, but for normal use (i.e. non-certified laboratory), it should be close enough even if 10% caps are used. After all, the noise level of any semiconductor amp is likely to be somewhat variable anyway, so extreme precision is not normally warranted.
+
+<p>The circuit can be operated from a pair of 9 Volt batteries, or a regulated supply of up to +/-15V. There is no need to use premium opamps unless extremely low noise levels are to be measured, and even then are not needed if there is a gain stage at the front end.</p>
+
+<p align="center"><img SRC="p17_fig3.gif" ALT="Figure 3" BORDER="1" height="216" width="634">
+<br /><b><small>Figure 3 - The A-Weighting Filter Schematic</small></b></p>
+
+<p>I will leave it up to the reader to decide on the opamps - Most general purpose opamps should be ok for most applications. No opamp pinouts have been included, these are available on any manufacturers' data sheet if you don't know them.</p>
+
+<table width="100%"><tr><td valign="top"><img src="note.gif" alt="Note"></td><td>Please note that the filter circuit has a very low impedance at high frequencies. This is liable to stress many opamps, and if a voltage in excess of a few hundred millivolts is expected at high frequencies, I suggest that the driving opamp (U1) either be capable of reasonable current (for example the NE5534) or use two opamps in parallel. At 10kHz and 1V, the opamp will be expected to supply about 8mA (network input impedance falls to 545 ohms at 10kHz).</td></tr></table>
+
+<p>Basic calibration is not hard - the overall gain at 2,700Hz is supposed to be about 1.3dB, so if the input is set to 1V RMS, the output at 2.7kHz should be 1.162V. Alternatively, at 1kHz, the gain (or insertion loss) should be 0dB - I would suggest that it is checked at both frequencies if possible, and if necessary, average the error between the two frequencies.
+
+<p>Use the 10k trimpot to adjust the level (you need to be accurate with your measurements if true A-weighting is to be obtained). Note that the trimpot should be a quality multi-turn "Cermet" (Ceramic-Metal Film) type to enable accurate setting and long-term stability. Alternatively the trimpot may be replaced with a 5.6k resistor, and accuracy will be quite acceptable for most applications (the error is less than 0.2dB).
+
+<p>So, there you have it. This project will enable you to make "industry standard" measurements of amplifier noise levels, it is up to you to decide which particular standard you want to make comparisons against. Life would be so much easier if all noise measurements were made "flat" - with no filters of any kind, but this is not to be. A sensible filter is what's commonly known as C-weighting for noise measurements, with noise below 20Hz and above ~15kHz being filtered out. Much as many people would like to see the standards changed (including the World Health Organisation), I fear that it won't happen unless enough people point out that the present A-weighted measurements are largely meaningless because they are misused due to an almost complete lack of understanding.
+
+<hr /><p>In fact, it is quite easy to prove that A-Weighted measurements at any meaningful level are pointless. You need a speaker with good response to at least 30Hz, and a graphic equaliser that can provide about 10dB boost at 30Hz, plus either music or a pink noise source. Set up the equipment, and play the signal at about 74dB (unweighted). Prove that the meter (set for C or Z-Weighting) shows an increase when the 30Hz component is boosted, and that you can hear the difference (it should be very obvious).
+
+<p>Now, set the meter to A-Weighting, and repeat the test. According to the meter you cannot hear the difference, yet perversely, you find that it is just as audible as when the meter was set for C-Weighting! But how can this be? Everyone knows that you can't hear such a low frequency - just look at the Fletcher/ Munson curves above! Read the meter - it <i>tells you</i> that you can't hear the change. Strangely, you hear it anyway, as will anyone who comes along to find out what you are up to.
+
+<p>This simple experiment should be mandatory for <i>anyone</i> who uses a sound level meter, and should be forced upon all legislators and standards writers. The test must be continued until the <strike>victim</strike> test subject freely admits that they <i>can</i> hear the difference, and the expensive meter they are clutching is therefore wrong, and should not be used for measurement of noise until they learn how to switch off weighting filters (and use their ears).
+
+<p>Just in case you missed my point here ... A-Weighting is bollocks. It doesn't work, and is used by industry <i>because</i> it doesn't work, thereby giving them far more leeway than should be the case. I have spoken with many, many people involved in professional noise measurement, and the sensible ones (i.e. those not employed by an industry that gets noise complaints) all freely admit that A-Weighting is flawed, and is rarely used appropriately.
+
+<p>I jokingly said to some people I worked with in New Zealand that I could imagine a "consultant", clutching his meter, hearing low frequency noise that obviously could not be ignored, but still pointing to his meter and saying "No, no, it's perfectly fine - look at the meter."
+
+<p>Unfortunately, I was advised that this is no joke - they had seen this <i>exact</i> scenario with their own eyes (and ears). I kid you not.</p>
+
+<hr /><b>Update - 29 Aug 2002</b>
+<p>The filter as originally shown was a little off at 2.7kHz relative to 1kHz (it should be 1.3dB higher at the higher frequency), and this has been corrected. The version shown should be accurate to within about 0.1dB.</p>
+
+<p>It was pointed out (May 2000) that the curve of the original filter shown was not a very good fit to more modern measurement sets, and a small modification will cure this. The low frequency response of the original was not quite what it should be, and at high frequencies the rolloff was too slow. The circuit now shows the final version which is more accurate than the original.
+<p>Modification to original circuit contributed by ...</p>
+
+<blockquote>
+	<small>J&uuml;rgen Fehringer<br />
+	Elektronikentwicklung<br />
+	AKG Acoustics GmbH</small>
+</blockquote>
+
+<p>My thanks for this useful update.</p>
+
+<hr /><b>Reference:</b><br>
+<p><a id="reference"></a>1&nbsp;&nbsp;Fletcher and Munson, Journal of the Acoustic Society of America - Vol.4, No. 2, 1933</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Updated 24 May 2010 - included link to P130 (reverse A-weighting filter) and updated text./ 02 May 2011 - cleaned up Figure 1, included test method to show that A-Weighting is fatally flawed.</div>
+</body>
+</html>

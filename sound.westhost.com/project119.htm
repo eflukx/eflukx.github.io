@@ -1,0 +1,130 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="huntron, tracker, component, signature, analysis, fault, finding, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - Build your own component signature analyser - not as good as a Huntron Tracker, but much cheaper.">
+	<!-- ESP Audio Projects - Build your own component signature analyser - not as good as a Huntron Tracker, but much cheaper. -->
+	<title>Project 119</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 119&nbsp;</td></tr></table>
+
+<p align="center"><b>Component Signature Analyser</b>
+<br><small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>The Huntron&reg; Tracker&reg; is an amazingly useful test instrument, but sadly it is far too expensive for the hobbyist. This project is a greatly simplified version, and uses your oscilloscope as the display. Although it is not recommended for sensitive logic devices, the unit described is perfect for fault finding in audio equipment and most other applications where everything can tolerate a couple of milliamps of input current.</p>
+
+<p>The idea of component 'signature analysis' is not new, but as far as I know, it was commercialised by Huntron with the original Tracker unit many years ago. This signature analyser is the same as one that I built nearly 30 years ago (and still use), and although it doesn't get a great deal of use these days, that's mainly because I do very little service work.</p>
+
+<p>Each class of component produces a display that identifies it, and a faulty part will not produce the pattern you expect. Signature analysis is especially useful if you have one working and one non-working item. For example, if a stereo amplifier is faulty, it is rare that both channels will fail. The working amplifier gives you a pattern for each test location, and when the faulty component(s) are probed in the other amp the pattern will change. Like most test instruments, it takes some time to get used to the tester and what to expect, but once you have used it a few times you will quickly get a feel for what it is telling you.</p>
+
+<p>You will need an oscilloscope (CRO - cathode ray oscilloscope) that is capable of operating in X-Y mode. Normally, the timebase provides the X (horizontal) axis signal, but in X-Y mode both axes are external.</p>
+
+<hr><b>Description</b>
+<p>The general (and very basic) principle of operation is shown in Figure 1. The test signal is simply derived from the mains, and is a sinewave at 50 or 60Hz. In most locations, the sinewave will be distorted, but this barely matters. With nothing connected to the DUT (Device Under Test) terminals, the oscilloscope simply displays a horizontal line. This represents voltage, and is applied to the X axis of the oscilloscope. If the DUT terminals are shorted, the display changes to a vertical line (Y axis).</p>
+
+<center><img src="p119-f1.gif" border="1" alt="Figure 1"><br>
+<b><small>Figure 1 - Operating Principle</small></b></center>
+
+<p>This behaviour is easily explained by looking at Figure 1. With the terminals open, there is no voltage across R1, so nothing is applied to the Y axis of the oscilloscope. The full voltage is applied to the X axis, and produces a horizontal line. R1 is selected to limit the current through the DUT to a safe value.</p>
+
+<p>Now, if we short the test leads, the signal to the X axis is shorted out, and the voltage from the transformer is now across R1, and is directed to the Y axis resulting in a vertical line. When any component that is not open or short-circuited is probed, there will be a mixture of X and Y axis signals applied to the CRO, and a distinctive pattern is produced. Diodes, inductors, capacitors, transistor junctions and resistors all provide a unique signature, and any mixture of components will produce a result that is easily recognised.</p>
+
+<p>Figure 2 shows some typical patterns (signatures) for a variety of components. While not comprehensive, it shows what to expect. You need to change ranges to suit the part being tested - for example a large electrolytic capacitor will register as a short circuit on a low current range. If big enough, such a cap will show as a short on any range, because its impedance is so low.</p>
+
+<center><img src="p119-f2.gif" border="1" alt="Figure 2"><br>
+<b><small>Figure 2 - Typical Component Signatures</small></b></center>
+
+<p>Transistor junctions are usually a very good test, since the signature of a component that is still working may show that the junction is degraded. This could be from excess temperature or other component damage. The junctions of a good transistor will show a sharp transition, but a degraded junction may show a slow (curved) transition and/ or evidence of leakage (the breakdown region is sloped instead of vertical).</p>
+
+<hr><b>Construction</b>
+<p>The tester is easy to build, and no PCB is needed. Although construction is somewhat fiddly because of the switching, it is very straightforward. The switching is easy to get wrong though, so refer to the circuit diagram and make sure that everything is where it should be. All switch positions are shown on the diagram ... both voltage and current switches are in the 'Low' position.</p>
+
+<p>The transformer can be any size you have available or can find - the current drain is no more than 20mA. As shown, a 30V multi-tapped transformer is ideal. Because the first tap on those commonly available is 9V, the transformer is used the other way around - the 30V tap is the common, the 24V tap now gives a more sensible 6V output, and the 0V tap gives the full 30V. Remember that these are all RMS voltages, so the peak voltage is 8.5V (approx.) in the low position, and 42V for high.</p>
+
+<center><img src="p119-f3.gif" border="1" alt="Figure 3"><br>
+<b><small>Figure 3 - Circuit Diagram of Complete Tester</small></b></center>
+
+<p>The LED is optional, but recommended - it tells you that the power is on. The diode in parallel is to prevent excess reverse voltage which can damage the LED junction. The 1k resistor (R9) limits the current to about 6mA peak. Sw2C and Sw2C are used to maintain the same voltage at the oscilloscope terminals when the voltage is changed. The saves you from having to change ranges whenever the test voltage is changed. The higher voltage is divided by the ratio of 1M to 330k (in parallel with the oscilloscope's input resistance - usually 1M&Omega;), so the oscilloscope voltage is reduced by a factor of five when the high range (30V) is selected, giving about 6V. You may choose to use trimpots so that the high and low test voltages give identical displays on the CRO if you want to do so.</p>
+
+<p>If you can't find a suitable transformer, you can use two. The primaries will normally be in parallel and the secondaries in series. As noted above, current drain is very low, so even the smallest of transformers will work fine. The voltages are not especially critical, but the networks of R5-R6 and R7-R8 are voltage dividers, designed to maintain the same voltage(s) to the oscilloscope inputs regardless of the selected voltage range. Additional voltage and current ranges can be added if you wish, but you will have to work out the dividers yourself.</p>
+
+<p>You could (if willing to experiment enough) use an audio oscillator and small power amplifier to provide the test signal. You will still need a transformer, because the signal must be fully floating for the circuit to work. Variable frequency is very useful for caps and inductors but makes no difference with resistors or semiconductors. You do get a nice clean sinewave, which you most certainly will <i>not</i> get from the mains. The disadvantage (of course) is that the unit becomes much more complex, so much so that if you think you want to go that far, I'd consider buying a real Huntron Tracker. Not cheap, but they have different frequencies, and a wide range of voltage and current ranges (as well as an in-built colour display), plus many other features. See the <a href="http://www.huntron.com/products/benchtop/tracker2700.htm" target="_blank">Huntron</a> website for more information.</p>
+
+<hr><b>Using the Tester</b>
+<p>The current ranges are selected by SW3. The resistors are selected to give the same current at either voltage, and as shown they will provide an RMS current of either 2mA or 20mA (2.8 and 28mA peak current respectively). While these currents are fairly safe with most small signal and power transistors, be very careful if you test the gates of MOSFETs - the voltage must be on low range, and even this may be too high for some devices. If the gate voltage exceeds the rated maximum, the MOSFET will be destroyed!</p>
+
+<p><i><b>Note: </b> Most tests should be conducted at low voltage and low current. Even though the higher voltage and current are relatively safe, some components may be distressed or damaged. Only use the high ranges if you are certain that the device(s) under test can withstand the <u>peak</u> values that the tester can supply.</i></p>
+
+<p>As you can see from Figure 2, each component type has a signature, but it will take time to learn what to expect. The most common way to use this type of tester is comparison - comparing the waveform of a good board to that of a faulty board. As you get closer to the fault, expect to see the 'good' and 'bad' waveforms differ more and more. The beauty of this method of testing is that it only ever requires a working board to allow analysis, so construction errors can often be found just by the signature.</p>
+
+<p>Many parts, such as low value resistors, small inductors or large capacitors will show as a short circuit. In some cases increasing the current will work, but if the impedance is low enough it will still show as a short. While this is a limitation, in reality it is not as bad as it may seem. Most real faults will make themselves apparent fairly easily, and the more you use it, the more proficient you'll become at interpreting the results.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 18 Dec 2006</div>
+</body>
+</html>

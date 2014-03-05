@@ -1,0 +1,245 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="How Amplifiers Work. Learn the basics of how audio amplifiers work (Part 3).  MOSFET designs are discussed in detail">
+	<!-- How Amplifiers Work. Learn the basics of how audio amplifiers work (Part 3).  MOSFET designs are discussed in detail -->
+	<meta name="keywords" content="basic, beginner, audio, amp, power, stereo, fi-fi, valve, tube, transistor, mosfet">
+	<title>ESP Amplifier Basics - How Audio Amps Work (Part 3)</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table width="100%" bgcolor="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td align="right" class="hdrr">Amplifier Basics - How Amps Work (Part 3)</td></tr></table>
+
+<p align="center"><small><b>Copyright (c) 1999 - Rod Elliott (ESP)</b>
+<br />Page Last Updated 06 Apr 2005</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="articles.htm" ONMOUSEOUT="document.t1.src='a1.gif';" ONMOUSEOVER="document.t1.src='a.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br><a href="index2.html" ONMOUSEOUT="document.t2.src='a1.gif';" ONMOUSEOVER="document.t2.src='a.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Index" BORDER=0></a><b>Main Index</b>
+<br><a href="amp-basics.htm" ONMOUSEOUT="document.t3.src='a1.gif';" ONMOUSEOVER="document.t3.src='a.gif';">
+  <img SRC="a1.gif" NAME="t3" ALT="Amp Basics" BORDER=0></a><b>Amp Basics Index</b><br>
+  
+<hr><a NAME="contents"></a><b>Contents</b>
+<ul>
+	<li><a href="#fieldeffect">Part 3 - Field Effect Transistors and MOSFETs</a>
+	<ul>
+		<li><a href="#characteristics">FET Characteristics</a>
+		<li><a href="#jfet">Junction FETs</a>
+		<li><a href="#mosfet">MOSFETs</a>
+	</ul>
+	<li><a href="#feti">FET Current Amplifier</a>
+	<li><a href="#fetp">FET Power Amplifiers</a>
+	<li><a href="#fets">Summary</a>
+	<ul>
+		<li><a href="#jfet2">Junction FETs</a>
+		<li><a href="#mosfet2">MOSFETs</a>
+	</ul>
+</ul>
+
+<hr><a NAME="fieldeffect"></a><b>Part 3 - Field Effect Transistors and MOSFETs</b>
+<p>Now on to FETs and MOSFETs. FET stands for Field Effect Transistor, and MOSFET means Metal Oxide Semiconductor Field Effect Transistor. This topic is something of a can of worms, not because of some deficiency in the devices, but because of the huge array of different types. The basic FET types are 
+<ul><li>N-Channel Junction FETs
+<li>P-Channel Junction FETs
+<li>N-Channel Enhancement Mode MOSFETs
+<li>P-Channel Enhancement Mode MOSFETs
+<li>N-Channel Depletion Mode MOSFETs
+<li>P-Channel Depletion Mode MOSFETs
+</ul>
+
+<p>There are a couple of major sub-classes of MOSFET - lateral and vertical. Lateral MOSFETs are particularly suited to audio applications, as they are far more linear than their vertical brethren, although their gain is generally lower. Vertical MOSFETs are ideally suited to switching applications, and this includes Pulse Width Modulated (PWM) amplifiers.</p>
+
+<p>The terms 'lateral' and 'vertical' refer to internal fabrication methods, so many others you may come across (such as HEXFETs <sup>&reg;</sup>) are essentially variations of the vertical process. This is still not all the possibilities, because there are additional sub-classes as well, particularly with switching MOSFETs. However, for the purpose of a general article on their characteristics and how they work, I will concentrate on the most commonly used versions. This narrows the field, and we are left with both polarities of junction FETs, and both polarities of enhancement mode MOSFETs. With these, we cover the major proportion of current designs, so even 'though I will be leaving out a lot, the stuff I leave out is not all that common (he says hopefully).
+
+<p>FETs are "unipolar" devices, in that they use only one polarity of carrier, in contrast to bipolar transistors, which use both majority and minority charge carriers (electrons or "holes", depending on the polarity). FETs are far more resistant to the effects of temperature, X-Rays and cosmic radiation - any of these can cause the production of minority carriers in bipolar transistors).
+
+<p>I shall concentrate only on three terminal FETS, and the terminals are ...</p> 
+
+<ul><li>Source - The electron "source" (for N-channel devices), and is the equivalent of the cathode of a valve or the emitter of a transistor</li>
+<li>Gate - Control terminal - (more or less) equivalent to the grid of a valve or base of a transistor</li>
+<li>Drain - The terminal from which current is "drained" - equivalent to the plate of a valve or collector of a transistor</li></ul>
+
+<p>There is no simple equivalent circuit for FETs (as there is for transistors), but this is of no consequence. The gate is the controlling element, and affects the electron flow not by amplifying a current (as in the transistor), but by the application of a voltage. The input impedance of junction FETs is very high at all usable frequencies, but MOSFETs are different. They have an almost infinite input resistance, but appreciable capacitance between the gate and the rest of the device. This can make MOSFETs hard to drive, because the capacitive loading makes most amplifier devices unhappy.
+
+<p>The junction FET is common in the inputs of high performance opamps, and offers extremely high input impedance. Indeed this is the case for discrete FETs as well, and a simple voltage amplifier using a junction FET and a power MOSFET are both shown in Figure 3.1. Both devices are N-Channel, and note that the arrow points in a different direction for each. The arrows point in the opposite direction for a P-Channel device, and all polarities are reversed. Vdd is +20V.
+
+<p align="center"><img SRC="ab-f3-1.gif" ALT="Figure 3.1" BORDER=1>
+<br><b><small>Figure 3.1 - Junction FET and Power MOSFET Voltage Amplifiers</small></b></p>
+
+<p>Junction FETs are depletion mode devices, and (like all depletion mode FETs and MOSFETs) can be biased in exactly the same way as a valve. Depletion mode means that without a negative bias signal on the controlling element (the gate), there will be current flow between the drain (equivalent to plate or collector) and source (equivalent to cathode or emitter).
+
+<p>An enhancement mode device remains turned off until a threshold voltage is reached, after which the device conducts, passing more current as the voltage increases. Although there are MOSFETs made for low power operation, the majority (in audio, anyway) are power devices. These are almost exclusively enhancement mode, and can be capable of very high current.
+
+<p>In Figure 3.1, the power MOSFET is an enhancement mode device, and the junction FET is depletion mode. These are the most commonly used in audio. Enhancement mode power MOSFETs are also used in switching power supplies, and are far better than bipolar transistors in this role. They are faster, so switching losses are not as great (therefore the MOSFETs run cooler), and they are more rugged, and able to withstand abuses that would kill a bipolar transistor almost instantly.
+
+<p>This ruggedness (coupled with the complete freedom from second breakdown effects), means that MOSFETs are very popular as output devices for high power professional amplifiers. In this area, the MOSFET is second to none, and they are firmly entrenched as the device of choice for high power.
+
+<p>This is not to say that this is the only place MOSFETs are used. There are many fine audiophile power amps (and even preamps) that use power MOSFETs, and there are many claims that they are sonically superior to bipolar transistors (again, a debate that I will not discuss here).
+
+<p>Somewhat like valves, FETs and MOSFETs are very device dependent, and it is not normally possible to just substitute one device for a different type. Also like valves, the gain that can be expected from a voltage amplifier circuit is device dependent, and the manufacturer's data sheet (or testing) is the only way that one can be sure of obtaining the gain required in a given circuit.
+
+<hr><a id="characteristics"></a><b>FET Characteristics</b>
+<p>The characteristics of FETs must be covered in two parts, since we are dealing with two quite different devices. The first will be the junction FET, and as with transistors, I shall only describe the N-Channel, but virtually identical P-Channel devices are available (although not as commonly used).
+
+<p align="center"><img SRC="ab-f3-2.gif" ALT="Figure 3.2" BORDER=1>
+<br><b><small>Figure 3.2 - Transfer Curves For a Junction FET and MOSFET</small></b></p>
+
+<p>Initially, so the transfer characteristics of the two devices can be seen side by side for comparison, Figure 3.2 shows a fairly typical device from each "family"&nbsp; The junction FET data is from a 2N5457, and the MOSFET is an IRFP240 (a vertical MOSFET - more suited to switching applications).
+<p>Rather than show the input and output signals superimposed on a graph, this time I show only the graph itself. These are excerpts from manufacturers data, but with a small catch - Figure 3.2b has the drain current displayed on a logarithmic scale, so the linearity of the device cannot be seen properly. If this graph were redrawn as linear, it will show that linearity is best at higher currents (on the graph shown it looks the other way around), and the device becomes almost perfectly linear with drain currents above about 3A.
+<p>Note that because the junction FET is depletion mode, drain current is highest at 0V gate-source voltage. The MOSFET on the other hand is enhancement mode, so at 0V gate-source, there is no current. Conduction starts at 4V, and by 6V the drain current is 10A.</p>
+
+<table BORDER=0 WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE" height=37 width=108></td>
+<td>The term Siemens (S) is now replacing Mhos as the unit of transconductance in some literature: 1S = Mho (1uS=1 uMho. For the above graphs, it may be worked out that the junction FET has a transconductance of 1500uS, and for the MOSFET it is approx. 9,000uS (9,000 uMhos)</td></tr></table>
+
+<a id="jfet"></a><b>Junction FETs</b>
+<br>Like valves, FET data sheets provide gain information as gm (mutual conductance - in uMhos). The junction FET shown has a gm of (typically) 1,500 uMhos (in the graph shown it is actually closer to 1425 uMhos in the linear section), which translates to about 1.5 mA/V.
+<p>The most common of the quoted parameters for junction FETs are 
+
+<ul><li>Forward Transfer Admittance (Common Source) - Transconductance - essentially the gain of the device</li>
+<li>Input Capacitance - The effective capacitance of the gate terminal to the remainder of the FET</li>
+<li>Gate–Source Cutoff Voltage - The gate voltage at which the FET is turned off</li></ul>
+
+The process of amplification is almost identical to that of a valve, except that the voltages are lower. The device is biased in the same way (although fixed bias can also be used). This means that the gate must be reverse biased with respect to the source, with the gate having the opposite polarity of the source-drain voltage. 
+<p>FETs offer low noise, especially with high impedance inputs, and in this respect are the opposite of bipolar transistors, which are generally at their best with low source impedance. 
+<p>Junction FETs are predominantly low power, although there are some high power devices available. These are uncommon in audio applications.
+
+
+<a id="mosfet"></a><b>MOSFETs</b>
+<br>Again, MOSFET data sheets also provide information similar to junction FETs, but there are more items of importance to the designer. The most useful of these are
+
+<ul><li>Forward Transconductance - The device gain characteristic
+<li>Drain to Source On Resistance - The minimum resistance when the MOSFET is fully on
+<li>Gate Threshold Voltage - The gate voltage at which the MOSFET will start conduction
+<li>Gate to Source Voltage - The maximum voltage (of either polarity) that may be applied between source and gate. (This is typically in the order of +/-20V)
+<li>Input Capacitance - The value of capacitive loading that is placed on the driving circuit</ul>
+
+<p>Enhancement mode MOSFETs pass virtually no current when there is no gate voltage present. To conduct, a voltage must be applied between source and gate (of the same polarity as the drain voltage). Once the threshold has been reached, the device will start to conduct between drain and source.
+
+<p>At increasing gate voltages, the drain current increases until either a) the maximum permissible drain current or total dissipation limit is reached, or b) the drain voltage falls to its lowest possible value. In this instance, since the source-drain channel is now fully conducting, the value of R<sub>DS(on)</sub> determines the voltage.
+
+<p>Typical power MOSFETs offer extremely low on resistance, with values of 0.2 Ohm being fairly typical. There are some devices with much lower values, but this is only important in switching circuits. In an audio amp, the MOSFETs should never be turned completely on, since this means the amplifier is clipping.
+
+<p>Another area that must be addressed with MOSFETs is the voltage between gate and source. Because the gate is insulated from the channel by a thin layer of metal oxide, it is susceptible to damage by static discharge or other excessive voltage. It is common to include a zener diode between source and gate to ensure that the maximum voltage cannot be exceeded. Voltage spikes in excess of the breakdown voltage of the insulating layer will cause instantaneous failure of the device.</p>
+
+<hr><a id="feti"></a><b>FET Current Amplifier</b>
+<p>Again, I have shown both a junction FET and a MOSFET in&nbsp; Figure 3.3, both common-drain or source-follower circuits. As can be seen, the junction FET is biased almost identically to a valve, but all voltages are much lower. The MOSFET requires a positive voltage, and this must be greater than the source voltage, by an amount that takes the characteristics of the MOSFET into consideration. For the device characteristics shown in Figure 3.2 this means that at a current of 100mA, the gate must be 4V higher than the source.</p>
+
+<p align="center"><img SRC="ab-f3-3.gif" ALT="Figure 3.3" BORDER=1>
+<br><b><small>Figure 3.3 - FET Current Amplifiers</small></b></p>
+
+<p>Included in the MOSFET version is a zener for protection of the gate insulation. A 10V zener is used, as this gives good protection and is still able to let the maximum possible MOSFET current flow. A 6V zener could have been used, and this would still allow current up to 10A, which is far more than can be achieved from this simple circuit.</p>
+
+<hr><a id="fetp"></a><b>FET Power Amplifiers</b>
+<p>In exactly the same way as a power valve can be used in single-ended Class-A, so too can a MOSFET. A simple circuit is shown in Figure 3.4 which will provide about 10W of audio. Using a constant current source as a load (as shown) gives much better efficiency than a resistor, and improves linearity. The distortion from a circuit such as that shown will be roughly the same as that from a single ended triode valve circuit. Overall efficiency will be higher, since there is no cathode bias resistor needed, and no heaters as with a valve.</p>
+
+<p align="center"><img SRC="ab-f3-4.gif" ALT="Figure 3.4" BORDER=1>
+<br><b><small>Figure 3.4 - Single Ended MOSFET Class-A Amplifier</small></b></p>
+
+<p>Although there are a few, all MOSFET power amplifiers are uncommon. Most use a combination of bipolar transistors (for the input and gain stages), and MOSFETs for the output devices. This seems to be the most popular circuit arrangement, so I will concentrate on this. Figure 3.5 shows a fairly typical arrangement (in simplified form), and the operation of this is almost identical to that of an amplifier using bipolar transistors in the output. Note that emitter followers are needed to be able to provide the low impedance drive that MOSFETs need, although in some circuits they are not used. Instead, the Class-A driver stage (Q3) is operated at a higher than normal current to allow it to drive the MOSFETs properly.</p>
+
+<p align="center"><img SRC="ab-f3-5.gif" ALT="Figure 3.5" BORDER=1>
+<br><b><small>Figure 3.5 - MOSFET Output Power Amplifier</small></b></p>
+
+<p>One problem with this arrangement is that the drain to source voltage represents a circuit loss, so the power supply voltage needs to be typically +/-6V higher than the required peak output voltage to the load. Although this is not a major problem, it does increase dissipation in the output stage, and the loss increases with lower impedance loads.
+
+<p>Some (especially very high power) amps get around this by using a low current (but higher voltage) secondary power supply for the drive circuit, and the main high current supply for the MOSFETs. In an amp using +/-50V at 20 Amp main supplies, the secondary supply might be +/-60V, but capable of perhaps 1A maximum.
+
+<p>As with the bipolar amp (did you notice how similar they are?), I have not included components for stability. These are typically the same as for a standard bipolar transistor amp, but will usually include "stopper" resistors in series with the gates of the MOSFETs, and sometimes additional capacitance to prevent parasitic oscillation - the need for these varies from one device type to the next.</p>
+
+<hr><a id="fets"></a><b>FETs - A Summary</b>
+<p><a id="jfet2"></a><b>Junction FETs</b>
+<br>The surface is again, only barely scratched. The junction FET (A.K.A. JFET) is ideally suited to circuits where high impedances are expected, and will give the lowest noise. They are an invaluable electronic building block when used where they excel - providing extremely high input impedance.
+<p>Like all devices so far, JFETs have their limitations ...</p>
+
+<ul><li><b>Gain</b> - JFETs do not have the high gain of bipolar transistors</li>
+<li><b>High Frequency Response</b> - Generally, JFETs have a high frequency performance that is not as good as bipolar transistors</li>
+<li><b>Linearity</b> - The linearity of JFETs is not as good as bipolar transistors (so distortion is greater), but can be improved by using current source loading or feedback.</li></ul>
+
+<p>There is generally an ideal (or close to ideal) amplifying device for every application, and when used properly, the JFET is extremely versatile and at its best when high impedances are needed. If you have a need to send an amplifier into space, then JFETs are preferred due to their greater "radiation hardness".
+
+<p>JFETs (in fact all FETs) are more sensible than bipolar transistors when heated, and problems of thermal runaway are not encountered with these devices.</p>
+
+<a id="mosfet2"></a><b>MOSFETs</b>
+<br>The MOSFET is one of the most powerful of all the current range of amplifying device, with extraordinary current capability. Ideally suited to very high power amplifiers, where extremes of operating conditions are regularly encountered, the MOSFET has no equal.
+<p>... And, as always, there are limitations ...</p>
+
+<ul><li><b>Gain</b> - Like JFETs, MOSFETs have a lower gain than bipolar transistors, which usually means that additional gain must be applied to the driving circuit to ensure that the global feedback is sufficient to maintain low distortion at low levels.</li>
+<li><b>Gate Capacitance</b> - The capacitance of the gate to source can be as high as 2nF (although more typically around 1.2nF). This is not a lot at low frequencies, but makes the drive circuit work very hard at high frequencies.</li>
+<li><b>Static Damage</b> - Until installed in a circuit with full protection, the MOSFET is susceptible to damage from static discharge. The voltage and current needed to destroy the device are generally below the threshold of feeling for humans. Some devices have (limited) protection built in.</li>
+<li><b>Linearity</b> - Most MOSFETs are not very linear at low currents, so for low distortion higher quiescent is needed to ensure that crossover distortion is minimised.</li></ul>
+
+<p>To some extent, all the above can be forgiven when you really need the capabilities of a MOSFET. The complete freedom from second breakdown and the massive current capabilities of MOSFETs are unmatched by any other active device. With a properly designed drive circuit, MOSFETs are also very fast, capable of performance that is generally superior to that of bipolar transistors. This is not very helpful in audio, but is essential for switching circuits.
+
+<p>Coupled with a positive temperature coefficient that completely stops thermal runaway in a linear circuit, the MOSFET is almost indestructible, provided that precautions are taken to ensure the gate voltage is kept below the breakdown voltage.
+<p>The positive temperature coefficient is a great help in audio circuits, although it can be a problem in switching power supplies, since the "on" resistance also increases with temperature, and in a switch-mode power supply this can cause thermal runaway (exactly the reverse of bipolar transistors in this application).</p>
+
+<hr><p align="right"><a href="amp-basics2.htm">Previous</a> &nbsp; <a href="amp-basics4.htm">Next</a></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="articles.htm" ONMOUSEOUT="document.b1.src='a1.gif';" ONMOUSEOVER="document.b1.src='a.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles" BORDER=0></a><b>Articles Index</b>
+<br /><a href="index2.html" ONMOUSEOUT="document.b2.src='a1.gif';" ONMOUSEOVER="document.b2.src='a.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Main Index" BORDER=0></a><b>Main Index</b>
+<br /><a href="amp-basics.htm" ONMOUSEOUT="document.b3.src='a1.gif';" ONMOUSEOVER="document.b3.src='a.gif';">
+  <img SRC="a1.gif" NAME="b3" ALT="Amp Basics" BORDER=0></a><b>Amp Basics Index</b><br>
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 1999-2003. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+</body>
+</html>

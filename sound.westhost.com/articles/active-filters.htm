@@ -1,0 +1,445 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP - Active Filters - Characteristics, Topologies and Examples.">
+	<meta name="keywords" content="opamp, design, audio, filter, sallen-key, multiple feedback, state variable, biquad, amp, diy, hi-fi, electronic">
+	<title>Active Filters</title>
+	<!-- ESP - Active Filters - Characteristics, Topologies and Examples -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Active Filters&nbsp;</td></tr></table>
+
+<p align="center"><b>Active Filters - Characteristics, Topologies and Examples</b><br>
+<small>Copyright &copy; 2009 - Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.21.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles Index" BORDER="0" height="24" width="40"></a><b>Articles Index</b>
+<br /><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Main Index" BORDER="0"></a><b>Main Index</b>
+
+<hr><b>Contents</b>
+<ul>
+<li><a href="#intro">Introduction</a>
+<li><a href="#s1">1 - Filter Terminology, Topologies and Slopes</a>
+  <ul><li><a href="#s11">1.1 - Filter Orders</a></ul>
+<li><a href="#s2">2 - Powering the Opamps &amp; Component Selection</a>
+  <ul><li><a href="#s21">2.1 - Component Values</a></ul>
+<li><a href="#s3">3 - Sallen-Key Filters</a>
+<li><a href="#s4">4 - Multiple Feedback Filters</a>
+<li><a href="#s5">5 - State-Variable/ Biquad Filters</a>
+<li><a href="#s6">6 - Twin-Tee Filters</a>
+<li><a href="#s7">7 - Miscellaneous Filters</a>
+  <ul><li><a href="#s7">7.1 - Cauer (Elliptic)</a>
+  <li><a href="#s71">7.1 - Fliege</a>
+  <li><a href="#s72">7.2 - Akerberg-Mossberg</a>
+  <li><a href="#s73">7.3 - Cauer (Elliptic)</a>
+  <li><a href="#s74">7.4 - Simulated Inductor</a>
+  <li><a href="#s75">7.5 - All-Pass Filter</a></ul>
+  <li><a href="#s8">8 - Transient Response</a>
+<li><a href="#outro">Conclusions</a>
+<li><a href="#ref">References</a>
+<li><a href="#copy">Copyright Notice</a>
+</ul>
+
+<hr><a id="intro"></a><b>Introduction</b>
+<p>There is a wide range of filter circuits, each with its own set of advantages and disadvantages. All filters introduce phase shift, and (almost all) filters change the frequency response. There is one class of filter called "all-pass" that does not affect the response, only phase. While at first look this might be thought rather pointless, like all circuits that have been developed over the years it often comes in very handy.
+<p>Filters also affect the transient response of the signal passing through, and extreme filters (high order types or filters with a high Q) can even cause ringing (a damped oscillation) at the filter's cutoff frequency. In some cases, this doesn't represent a problem if the ringing is outside the audio band, but can be an issue for filters used in crossover networks (for example).
+<p>If you are not already familiar with the concept of filters, it might be better to read the article "Designing With Opamps" <a href="../dwopa2.htm">Part 2</a>, as this gives a bit more background information but a lot less detail than shown here. There is some duplication - the original article was written some time ago, and it was considered worthwhile to include some of the basic info in both articles.
+<p>When we speak of audio, the commonly accepted range is from 20Hz to 20kHz, and at some point someone decided that the centre frequency is 1kHz. I have never known why, since if you look at the octaves covered by the audio range we have a sequence like this ...</p>
+
+<center>
+<table width="700" border=1 style="border-collapse: collapse">
+<colgroup span=11 width="9%">
+<tr><td>20<td>40<td>80<td>160<td>320<td>640<td>1280<td>2560<td>5120<td>10240<td>20480
+</table><small><b>Table 1 - Octaves in the Audio Band</b></small>
+</center>
+
+<p>This is a total of 10 octaves, so the centre frequency must actually be 640Hz, and indeed this is much closer to reality than 1kHz. If we were to divide the musical spectrum based on average energy content, the centre frequency is about an octave lower, or 320Hz (approximately - it depends to a large degree on the style of music). I break with tradition and suggest that the 640Hz frequency is the midpoint, and 1kHz shall be ignored for other than comparative purposes.
+<p>Note that the above is by way of generalised comment, rather than something you need to know about for the purposes of this article. Filters (as opposed to tone controls for example) are used at the frequencies where they are needed, rather than at some arbitrary frequency that may (or may not) represent the middle of the audio spectrum.</p>
+
+<table>
+<tr><td valign="top"><img src="note.gif" alt="NOTE"><td><font size="+0">Note Carefully: All filter circuits shown expect to be fed from a low impedance source, which in some cases must be earth (ground) referenced. Opamp power connections are not shown, nor are supply bypass capacitors or pin numbers. All circuits are functional as shown.<br><br>
+Also not shown are output "stopper" resistors from opamp outputs. These must be included for any signal that leaves an opamp and connects to the outside world using a shielded cable. Most opamps will oscillate if a resistor is not used in series with the output pin. 100 ohms is a convenient value, but it can be lower (less safety margin) or higher (higher output impedance).</font></table>
+
+<hr><a id="s1"></a><b>1 - Filter Terminology, Topologies and Slopes</b>
+<p>The common terminology of filters describes the pass-band and stop-band, and may refer to the transition-band, where the filter passes through the design frequency. Q is a measure of "quality", but not in the normal sense. A high-Q filter is not inherently "better" than a low-Q design, and may be much worse for many applications. In some cases, the term "damping" is used instead, which is simply the inverse of Q (i.e. 1/Q).</p>
+
+<ul>
+  <li><i>Pass-Band</i> - that portion of the spectrum that is passed (relatively) unaffected
+  <li><i>Stop-Band</i> - that part of the spectrum that is blocked by the filter (this is progressive)
+  <li><i>Q</i> - Quality factor of the filter. A Butterworth filter has a Q of 0.707
+  <li><i>Damping</i> - inverse of Q. A Butterworth filter has a damping factor of 1.414
+  <li><i>Frequency</i> - the -3dB frequency for high and low pass filters, or centre frequency for bandpass and band-stop filters
+  <li><i>Order</i> - The number of poles that make up the filter. Typically between 1 and 6 for most applications
+</ul>
+
+<p>It is generally defined that the -3dB frequency is the point where the output level has fallen by 3dB from the <i>maximum</i> level within the passband. This means that if a filter produces a 1dB peak before rolloff, the -3dB point is then actually 2dB below the average level. I tend to disagree that this is the most appropriate way to describe the filter's behaviour, but it is accepted as the "standard", so I won't attempt to break with tradition here.
+<p>There are several different filter types, generally described by their behaviour. The basic types are low-pass, high-pass, bandpass, band-stop (notch) and all-pass. There are also many sub-types, where either a combination of filter types is incorporated into a single block, or different filters are combined to produce the desired result.
+<p>Then we need to describe the different topologies, some of which are named after their inventor/discoverer, while others are named based on their circuit function. For example the Linkwitz-Riley crossover filter set was invented by Siegfried Linkwitz and Russ Riley, the Sallen-Key filter was invented by R.P. Sallen and E.L. Key (but try as I might, I couldn't find their first names), and the state-variable and multiple feedback filters are described by the functionality of the circuit. The biquad filter is known by the type of equation that describes its operation (the bi-quadratic equation). Wilhelm Cauer was the inventor of the Elliptical filter - also known as a Cauer filter.
+<p>Of all the filters, the Sallen-Key is the most common - it has excellent performance, is simple to implement, and it has an easily varied Q provided you can accept a gain change as Q is changed. Stop-band performance is generally extremely good, with the theoretical attenuation extending to infinity (at an infinite frequency). Other popular types are the multiple-feedback (MFB) filter, and (somewhat surprisingly) the all-pass filter.
+<p>Multiple feedback (MFB) filters are also quite popular, being easy to implement and low cost. Unfortunately, the formulae needed to calculate the component values are somewhat complex, making the design more difficult. In some cases, a seemingly benign filter may also require an opamp with extremely wide bandwidth or it will not work as expected.
+<p>Less common (especially in DIY audio applications) are the rest of the major designs ...</p>
+
+<ul>
+  <li><i>Cauer</i> - quite complex to design, but offers extremely fast initial rolloff (aka elliptical filter)
+  <li><i>State Variable</i> - offers easy tuning, variable gain and Q, 3 simultaneous outputs
+  <li><i>Biquad</i> - similar to state-variable, but with subtle differences (low and band pass only)
+  <li><i>Twin-Tee</i> - most common as a notch filter, offers (virtually) infinite rejection of a very narrow band
+  <li><i>Wien</i> - actually a phase-shift network, common in oscillators and some filters
+  <li><i>Fliege</i> - uncommon, and requires 2 opamps. Good control of Q and tuning, odd value resistors
+  <li><i>Akerberg-Mossberg</i> - fairly obscure, complex, but has some useful features (3 opamps)
+</ul>
+
+<p>Finally, there is a circuit that is quite common, but is not a filter in its own right. The simulated inductor uses an opamp to make a capacitor act like an inductor. Because there are no coils of wire, hum pickup is minimised, and cost is much lower than a real inductor. When used with a capacitor in series, it acts like an L-C tuned circuit. Very high "inductance" is possible, but circuit Q is limited by an intrinsic resistance.
+
+<hr><a id="s11"></a><b>1.1 - Filter Orders</b>
+<p>All filters are described by their "order" - the number of reactive elements in the circuit. A reactive element is either a capacitor or inductor (most active filters do not use inductors). In turn, this determines the ultimate rolloff, specified in either dB/octave or dB/decade. Most filters do not achieve the theoretical rolloff slope until the signal frequency is perhaps several octaves above or below the design frequency. With high Q filters, the initial rolloff is faster than the design value, and vice-versa for low Q filters.
+<p>In addition, filters are classified into two distinct groups - odd and even order. Each behaves differently, and this often need to be accounted for in the final design. The general characteristics are shown below ...</p>
+
+<center>
+<table width="700" border=1 style="border-collapse: collapse">
+<tr><td width="15%"><b>Order (Poles)</b><td width="15%"><b>dB/Octave</b><td width="15%"><b>dB/Decade</b><td width="15%"><b>Phase Shift *</b><td width="40%"><b>Comments</b>
+<tr><td>1<sup>st</sup><td>6<td>20<td>90<td>Only passive, very common
+<tr><td>2<sup>nd</sup><td>12<td>40<td>180&deg;<td>Extremely common - most popular filter
+<tr><td>3<sup>rd</sup><td>18<td>60<td>270&deg;<td>Moderately common
+<tr><td>4<sup>th</sup><td>24<td>80<td>360&deg;<td>Linkwitz-Riley crossovers
+<tr><td>5<sup>th</sup><td>30<td>100<td>450&deg;<td>Very uncommon - rarely used
+<tr><td>6<sup>th</sup><td>36<td>120<td>540&deg;<td>Somewhat uncommon (ESP subsonic filter)
+<tr><td>n<td>n * 6<td>n * 20<td>n * 90&deg;<td>Anti-aliasing filters (e.g. before ADC circuits)
+</table><small><b>Table 2 - Filter Orders and Rolloff Slopes</b></small>
+</center>
+
+<blockquote>* <small>Phase shift refers to the phase difference between a high and low pass filter set for the same rolloff frequency</small></blockquote>
+
+<p>You'll see that the first order filter is passive only. While an opamp is often used with these filters, it is only a buffer. The filter's Q and rolloff are fixed by the laws of physics and cannot be changed. All other filters allow a choice of Q, modifying the initial rolloff slope and creating a peak (high Q) or gentle rolloff (low Q) just before the cutoff frequency. By definition, the cutoff frequency of any filter is when the amplitude has fallen by 3dB from the normal output level. If there is a peak in the response, this is ignored when stating the nominal cutoff frequency.
+<p>This can be rather confusing to the newcomer, because the formula may show a nominal cutoff frequency of (say) 1.59kHz, yet the measured response can differ considerably. In general, any formula given for frequency assumes Butterworth response. The table below is for second order filters, but the overall Q is the same for all filter orders above the first (these always have a Q of 0.5).</p>
+
+<center>
+<table width="700" border=1 style="border-collapse: collapse">
+<tr><td width="15%"><b>Type</b><td width="15%"><b>Q</b><td width="15%"><b>Damping</b><td width="55%"><b>Description</b>
+<tr><td>Bessel<td>0.577<td>1.733<td>Maximally flat phase response, fastest settling time
+<tr><td>Butterworth<td>0.707<td>1.414<td>Maximally flat amplitude
+<tr><td>Chebyshev<td>&gt; 0.707<td>&lt; 1.414<td>Peak (and dips) before rolloff. Fastest initial rolloff
+</table><small><b>Table 3 - Filter Types and Characteristics</b></small>
+</center>
+
+<p>The above covers the most important and common filter classes, but the Q can actually be anything from 0.5 ("sub-Bessel"), up to often quite high numbers. Few filters for normal usage will have a Q exceeding 2, and a Sallen-Key filter will become an oscillator if the Q exceeds 3. Extremely high Q factors are generally only used with bandpass and band stop (notch) filters.</p>
+
+<hr><a id="s2"></a><b>2 - Powering the Opamps &amp; Component Selection</b>
+<p>In general, it is preferable wherever possible to operate all opamps in an audio circuit using a dual power supply. Typically, the supply rails will be &plusmn;15V, although this may be as low as &plusmn;5V in some cases. While a single supply can be used, it is necessary to bias all opamps to a voltage that's typically half the supply voltage.
+<p>This may be done individually at the input of each opamp, or a common "artificial earth" can be created that is shared by all the analogue circuitry. In either case, all (actual) ground referenced signals must be capacitively coupled, and it is probable that the circuit will generate an audible thump when power is applied or removed. For the purposes of this article, all opamps will be operated from a dual supply. Supply rails, bypass capacitors and opamp supply connections are not shown. If you need to run any of these filter circuits from a single supply, you will need to implement an artificial earth and all coupling capacitors as needed.
+<p>This is now your responsibility, and you can expect me to become annoyed if you ask how this should be done. I suggest that you read through <a href="../project32.htm" target="_blank">Project 32</a> for a simple split supply circuit that can be used with the filters shown here.</p>
+
+<hr><a id="s21"></a><b>2.1 - Component Values</b>
+<p>Selecting the right values is more a matter of educated guesswork than an exact science. The choice is determined by a number of factors, including the opamp's ability to drive the impedances presented to it, noise, and sensible values for capacitors. While a 100Hz filter that uses 100pF capacitors is possible, the 15.9M resistors needed are so high that noise will be a real problem. Likewise, it would be silly to design a 20kHz filter that used 10uF capacitors, since the resistance needed is less than 1 ohm.</p>
+
+<center><table width="700" border=1 style="border-collapse: collapse">
+<colgroup span=24 width="4%">
+<tr><td><b>E12</b><td>1.0<td><td>1.2<td><td>1.5<td><td>1.8<td><td>2.2<td><td>2.7<td><td>3.3<td><td>3.9<td><td>4.7<td><td>5.6<td><td>6.8<td><td>8.2<td>
+<tr><td><b>E24</b></td><td>1.0<td>1.1<td>1.2<td>1.3<td>1.5<td>1.6<td>1.8<td>2.0<td>2.2<td>2.4<td>2.7
+<td>3.0<td>3.3<td>3.6<td>3.9<td>4.3<td>4.7<td>5.1<td>5.6<td>6.2<td>6.8<td>7.5<td>8.2<td>9.1
+</table>
+<b><small>Table 4 - E12 and E24 Component Values</small></b></center>
+
+<p>Capacitors are the most limiting, since they are only readily available in the E12 series. While resistors can be obtained in the E96 series (96 values per decade), for audio work this is rarely necessary and simply adds needless expense. The E24 series is generally sufficient, and these values are usually easy to get.
+<p>Where possible, I suggest that resistors should not be less than 4.7k, nor higher than 100k - 47k is better, but may not be suitable for very low frequencies. Higher values cause greater circuit noise, and if too low, the opamps in the circuit will be prematurely overloaded trying to drive the low impedance. All resistors should be 1% metal film for lowest noise and greatest stability. Capacitance should be kept above 1nF if possible, and larger (within reason) is better. Very small capacitors are unduly influenced by stray capacitance of the PCB tracks and even lead lengths, so should be avoided unless there is no choice.
+<p>Capacitors should be polyester or Mylar. Never use ceramic caps except when nothing else is available - if you must use them, use NPO types if possible. Since close tolerance capacitors are hard to get and expensive, it's easier to buy more than you need and match them using a cheap capacitance meter. Absolute accuracy usually isn't needed, but close matching between channels for a stereo system is a requirement for good imaging.
+<p>Unless there is absolutely no choice, avoid bipolar (non-polarised) electrolytic capacitors completely. They are not suitable for precision filters, and may cause audible distortion in some cases.</p>
+
+<table><tr><td valign="top"><img src="Note.gif" alt="NOTE"><td><font size="+0">For this article, all filters are based on 10k resistors and 10nF capacitors. This gives a frequency of 1.59kHz for a first order filter. In many cases, it will be difficult to see where the standard values are actually used, because many second order topologies require modification to get the correct frequency and Q. First order filters are not covered, and all filters described below are second order Butterworth types unless stated otherwise.</font>
+</table>
+
+<hr><a id="s3"></a><b>3 - Sallen-Key Filters</b>
+<p>Sallen-Key filters are by far the most common for a great many applications. They are well behaved, and reasonably tolerant of component variations. All filters are affected by the component values, but some are more critical than others. The general unity gain Sallen-Key topology can be very irksome if you need odd-order filters, and changing the Q of the unity gain filters will subject you to a barrage of maths to contend with. Nothing actually difficult, but tedious.
+<p>The general formula for a filter is ...</p>
+
+<blockquote>Fo = 1 / ( 2 * &pi; * R * C ) &nbsp; &nbsp; <small>Where R is resistance, C is capacitance, and Fo is the cutoff frequency</small></blockquote>
+
+<p>... however, this is modified (sometimes dramatically) once we start using filters of second order and higher.
+<p>A modification that allows equal component values and lets the Q be changed at will is easily applied, provided you can accept a change of gain along with the change of Q. Sometimes this is not an issue, but certainly not always. The majority of filters shown in ESP's project pages use unity-gain Sallen-Key filters, but in most cases the required values are already worked out for you. Figure 1 shows the traditional Butterworth low and high pass unity gain filters.</p>
+
+<center><img SRC="af-f1.gif" ALT="Figure 1" BORDER=1><br>
+<b><small>Figure 1 - Standard Butterworth Sallen-Key Low Pass and High Pass Filters</small></b></center>
+
+<p>This is the standard unity gain Sallen-Key circuit. The values are set for a Q of 0.707, so the behaviour is Butterworth. As you can see, for the low pass filter we change the value of C (10nF) as follows ...</p>
+
+<blockquote>R1 = R2 = R = 10k<br>
+C1 = C * Q = 10nF * 0.707 = 7.07nF<br>
+C2 = C / Q = 10nF / 0.707 = 14.14nF</blockquote>
+
+<p>Exactly the same principle is applied to the high pass filter, except that the standardised value for R (10K) used here is modified by Q, with R1 becoming 14.14k and R2 becomes 7.07k. In many cases, it is necessary to make small adjustments to the frequency to allow the use of standard value components.
+<p>If all frequency selecting components are equal (equal value Sallen-Key), the Q falls to 0.5, and the filter is best described as "sub-Bessel". This is shown below, along with response graphs showing the difference. For calculation, there are countless different formulae (including interactive websites and filter design software), but all eventually come back to the same numbers. I have chosen a simplistic approach, but it is worth noting that the final values are definitely not standard values. This is very common with filters, and it may take several attempts before you get values you can actually buy (or arrange with series/parallel arrangements).</p>
+
+<center><img SRC="af-f2.gif" ALT="Figure 2" BORDER=1><br>
+<b><small>Figure 2 - "Sub-Bessel" Sallen-Key Low Pass and High Pass Filters</small></b></center>
+
+<p>This version uses nice equal values, and is the easiest to build. However, because the Q is so low, it is not generally considered to be useful (although it <i>is</i> used for the 12dB/octave Linkwitz-Riley crossover network). The relative response of the Butterworth and sub-Bessel filters are shown in Figure 3.</p>
+
+<center><img SRC="af-f3.gif" ALT="Figure 3" BORDER=1><br>
+<b><small>Figure 3 - Comparison Between Butterworth and "Sub-Bessel" Filters</small></b></center>
+
+<p>With a Q of 0.5 (damping of 2), the sub-Bessel filter has a very gradual initial rolloff. The crossover frequency between high and low-pass sections is at -3dB for a Butterworth filter, but is -6dB for the sub-Bessel type. Note that a true Bessel filter has a Q of 0.577, hence the distinction here. This is not always adhered to, as some references indicate that a Bessel filter simply has a Q of less than 0.707 (or damping greater than 1.414). While it may seem pedantic, I will stay with the strict definition in this area.</p>
+
+<center><img SRC="af-f3a.gif" ALT="Figure 3" BORDER=1><br>
+<b><small>Figure 3a - Comparison Between Butterworth and "Sub-Bessel" Filters - Group Delay</small></b></center>
+
+<p>Filters affect the phase of the signal, and in so doing also affect the time it takes for the signal to pass through the filter. This time is called "group delay", and is shown above for a Butterworth (red) and sub-Bessel (green) filter. Only the low-pass section is shown, and only as a matter of interest. There is nothing that can be done to change group delay for a given filter type, and if that filter type is needed to produce a specific response then you are simply stuck with it. Like phase shift, group delay comes free with all filters as a matter of course.
+<p>Group delay is best described as the delay difference between one group of frequencies and another different group of frequencies (e.g. above and below 2kHz). To use the analogy of John L Murphy (<a href="http://www.trueaudio.com/post_010.htm" target="_blank">True Audio</a>), imagine if the treble was heard instantly, but the bass was delayed until the same time tomorrow (24 hours). This would be audible to everyone. All normal filters (and even some loudspeakers <img src="grin.gif"> ) can be expected to have a delay much less than this, and group delay is not generally a problem.
+<p>There is a table (below) that gives the approximate thresholds of audibility for group delay, and the data were compiled by Blauert and Laws [<a href="#ref">7</a>]. There is not a lot of research into this for some reason, but there's little or nothing that can be done about it. The group delays of most filters are well below the threshold of audibility based on the available data.</p>
+
+<center><table width="700" border=1 style="border-collapse: collapse">
+<tr><td width="33%"><b>Frequency</b><td width="33%"><b>Audibility Threshold</b><td><b>No. of Cycles</b>
+<tr><td>500 Hz<td>3.2 ms<td>1.6
+<tr><td>1 kHz<td>2 ms<td>2
+<tr><td>2 kHz<td>1 ms<td>2
+<tr><td>4 kHz<td>1.5 ms<td>6
+<tr><td>8 kHz<td>2 ms<td>16
+</table><b><small>Threshold of Audibility for Group Delay</small></b></center>
+
+<p>The table shows the minimum group delay that is thought to be audible, along with the number of cycles at that frequency. Any delay time less than shown will not be heard, however there may be exceptions if the delay causes an anomaly in the frequency response. If this is the case, it will be detected as a frequency response error - not a time delay. Although there appears to have been surprisingly little testing in this area, it is generally thought that human hearing is not especially sensitive to short time delays. As frequency is increased or reduced around 2kHz (the most sensitive frequency), greater delays are required before they become audible.</p>
+
+<p>Returning to the filters, a useful (but relatively uncommon) change to the Sallen-Key filter allows us to obtain a much more flexible filter. This is a very useful variant, but the added gain may be a problem in some systems. While it is possible to use it as unity gain (see below), there are still limitations.</p>
+
+<center><img SRC="af-f4.gif" ALT="Figure 4" BORDER=1><br>
+<b><small>Figure 4 - Sallen-Key Low Pass and High Pass Filters With Gain</small></b></center>
+
+<p>By adding a feedback network to the opamp, we can change the gain and Q of the filter without affecting the frequency. The Q of a filter using this arrangement is ...</p>
+
+<blockquote>Q = 1 / ( 3 - G ) &nbsp; &nbsp; <small>(where G is gain)</small> ... or ...<br>
+G = 3 - ( 1 / Q )</blockquote>
+
+<p>Once the gain is known, the values of R3 and R4 can be determined. Since gain is calculated from ...</p>
+
+<blockquote>G = ( R3 / R4 ) + 1 ) &nbsp; &nbsp; ... then ...<br>
+R3 = ( G - 1 ) * R4</blockquote>
+
+<p>As a result, the circuit in Figure 4 has a gain of 1.586 and a Q of 0.707 as expected (or close enough to it). It is generally considered that the gain and Q are inextricably linked, but there is no real reason that the output can't be taken from the junction of R3 and R4, via a high impedance buffer (unity gain non-inverting opamp buffer). This restores unity gain, but remember that the opamp is still operating with gain, so there is a requirement to keep levels lower than expected. From &plusmn;15V, most opamps will give close to 10V RMS output, but this is reduced to a little over 6V RMS (at the junction of R3 and R4)  when operated this way.
+<p>For a Bessel filter, gain will be reduced to 1.267 (R3 = 2.67k), and for Chebyshev with a Q of 1, the gain is 2 and R3 = R4 = 10k. Remember that the Sallen-Key filter must be operated with a Q of less than 3 or it will oscillate.
+<p>For most applications in audio, it's difficult to justify the extra complexity of any other filter type. The Sallen-Key has established itself as the most popular filter type for electronic crossovers, high pass filters (e.g. rumble filters or loudspeaker excursion protection) and many others as well. It does have limitations, but once understood these are easy to work around and generally cause few problems.</p>
+
+<hr><a id="s4"></a><b>4 - Multiple Feedback Filters</b>
+<p>Multiple feedback (MFB) filters are most commonly used where high gain or high Q is needed - especially in bandpass designs. The design calculations can be extremely tedious, and there is regularly a requirement for component values that are simply unobtainable (or extremely messy - using many different values). The performance is usually as good as a Sallen-Key circuit, but one extra component is needed for a unity gain solution.
+<p>While it is accepted that gain, Q and frequency are independently adjustable, this is only really true at the design phase. Again, there is a requirement for widely varying component values. The MFB design is very well suited to bandpass applications though, and its simplicity is hard to beat in that application.</p>
+
+<center><img SRC="af-f5.gif" ALT="Figure 5" BORDER=1><br>
+<b><small>Figure 5 - Multiple Feedback Unity Gain Low Pass and High Pass Filters</small></b></center>
+
+<p>Figure 5 shows low and high pass versions of the MFB filter. These are both set for a -3dB frequency of 1.59kHz, and based on 10k and 10nF tuning components. Using the normal frequency formula, R =10k and C = 10nF, but these values don't work properly in the MFB filter. Since we know that Q = 0.707 for a Butterworth filter, we can simplify the component selection quite dramatically as shown above. What? It doesn't look simple? The normal formulae are a great deal more complex than the method described here.</p>
+ 
+<blockquote>Fo = 1 / ( 2 * &pi; * R * C ) ... and ...<br>
+R1 = R2 = 2R = 20k<br>
+C1 = C / Q = 14.14nF<br>
+C2 = &frac12;C * Q = 3.54nF</blockquote>
+
+<p>As with the Sallen-Key filter, it will generally be necessary to change your expectations of the cutoff frequency to allow the use of available component values. Fortunately, it is rarely necessary in audio applications to have very precise frequencies, so minor adjustments are usually not a problem. Using the MFB filter for a crossover network is usually not a good idea though, because you end up with too many different values, increasing the risk of making assembly errors. Because the filter is also slightly more complex, it will be more expensive to build.
+
+<p><b>MFB Bandpass Filter</b><br>
+Bandpass filters are commonly used for various effects, constant-Q graphic equalisers and parametric EQ circuits. They are also used with analogue analysers and various pieces of test equipment. Where fixed frequency and Q are needed, the MFB bandpass filter is difficult to beat, as it is a straightforward design with no bad habits.
+
+<center><img SRC="af-f6.gif" ALT="Figure 6" BORDER=1><br>
+<b><small>Figure 6 - Multiple Feedback Bandpass Filter. Q = 4, Unity Gain</small></b></center>
+
+<p>As before, the filter is tuned to 1.59kHz, and we can measure the Q to verify that it's what we expect. For a bandpass filter, Q is equal to the peak frequency, divided by the -3dB bandwidth (384Hz), so Q = 1590 / 384 = 4.14 - that's pretty close, considering that the resistor values were rounded to the nearest sensible value. The values were obtained from the ESP MFB Bandpass Filter Calculator (available on the ESP website).
+<p>This filter is used in <a href="../project84.htm" target="_blank">Project 84</a> (a one third octave band subwoofer equaliser) and is also referenced in a number of other projects. I suggest that you use the calculator to work out the values, since the formulae are somewhat beyond the intent of this article.</p>
+
+<hr><a id="s5"></a><b>5 - State-Variable/ Biquad Filters</b>
+<p>The state-variable filter is something of an oddball design, with several different versions of the basic circuit being available, and different formulae being described to calculate the gain and Q. All of the frequency calculations I've seen are correct, but some imply that multiple resistors are involved to change frequency. This is not the case - two resistors affect the frequency, and these can be in the form of a dual-gang pot. This makes the filter tunable, unlike any of the others so far.
+<p>In addition, the state-variable filter provides 3 simultaneous outputs - high pass, low pass and bandpass. All have the same frequency (-3dB or peak for the bandpass) and the same Q. Gain and Q cannot be separated - so as one is varied, the other varies as well. Q and gain can be made independent by adding a fourth opamp. This is desirable (and commonly applied) in parametric equalisers.</p>
+
+<center><img SRC="af-f7.gif" ALT="Figure 7" BORDER=1><br>
+<b><small>Figure 7 - State-Variable Filter</small></b></center>
+
+<p>This is an extremely versatile filter, and its usefulness is often overlooked. Some reference material suggests that there's no real reason to even use the design, but I disagree with this assessment. Since both low and high pass outputs are available simultaneously, it can be used as a variable crossover (with some changes). While higher orders can be made, they become more and more complex, and for this article only the second order filter is discussed.
+<p>In the example above, R1 changes gain and Q. Increasing R1 reduces gain, and increases the filter's Q, although the change of Q is relatively small compared to the gain change. R2 changes Q, but leaves gain unchanged (contrary to the myriad claims that the two are inseparable without the fourth opamp). Increasing R2 reduces Q, and vice versa.
+<p>Rt and Ct are the tuning components, and as shown give a frequency of 1.59kHz. The two Rt resistors can be replaced by a dual-gang pot, allowing a continuous variation of frequency. A series resistor must still be used, typically one tenth of the pot value. In the above circuit, Rt could be replaced by a 100k pot in series with a 10k resistor, giving a range from 145Hz to 1.59kHz. When the frequency of a state variable filter is changed, the Q remains the same. This means that as frequency is increased, the bandwidth is decreased.
+<p>It is beyond the scope of this article to cover the complete design process, and in particular the process for setting the filter Q to a specific value. There are countless examples and design notes available on the Net, and those interested in exploring further are encouraged to do a search for material that gives the information needed.</p>
+
+<p><b>Biquad Filter</b><br>
+The biquad in its pure form is somewhat remarkable in that it can only be made as a low pass or bandpass filter. There is no ability to use the traditional approach of swapping the positions of tuning resistors and capacitors to obtain a high pass filter. This limits its usefulness, but it is still very usable as a bandpass filter. Like the state-variable, both outputs are available simultaneously. In addition, there is an inverted copy of the low pass output, however this is probably of limited usefulness.</p>
+
+<center><img SRC="af-f8.gif" ALT="Figure 8" BORDER=1><br>
+<b><small>Figure 8 - Biquad Filter</small></b></center>
+
+<p>While the circuit looks similar to the state variable, it is very different. Again, a complete discussion of the calculations is outside the scope of this article, but R2 is used to set Q and gain, while R3 &amp; R4 and C1 &amp; C2 are the tuning components. When the frequency of a biquad filter is changed, Q also changes, so a bandpass implementation has a constant bandwidth. Q increases with increased frequency. Use as a low pass filter is rather pointless, since there is no high pass equivalent, and the Q changes with frequency anyway.</p>
+
+<hr><a id="s6"></a><b>6 - Twin-Tee Filters</b>
+<p>The twin-T (or twin-tee) filter is essentially a notch (band stop) filter, and unlike most filters shown here, can still give an extremely high Q notch without the use of any opamps. In theory, the notch depth is infinite at the tuning frequency, but this is rarely achieved in practice. Notch depths of well over 100dB are easily achieved, and are common in distortion analysers. If the notch is placed at the fundamental frequency of the applied signal, it is effectively removed completely, so any signal that is measured is noise and distortion. While a notch filter can be converted to a peaking (bandpass) by means of an opamp, the result is usually about the same as you can get with a MFB filter, so there's not much point because of the added complexity.
+<p>It is still common to add an opamp to a twin-t filter though, because it makes it possible to ensure that there is little or no attenuation of the second harmonic when used as the basis for a distortion analyser. By applying feedback around the notch filter, the response can be maintained within a dB or less, at only one octave from the notch frequency.</p>
+
+<center><img SRC="af-f9.gif" ALT="Figure 9" BORDER=1><br>
+<b><small>Figure 9 - Twin-Tee High Q Notch Filter</small></b></center>
+
+<p>R and C are the tuning components. These have to be extremely accurate for a very deep notch, and it's common for one of the R values and the 2R value to be made using a fixed resistor and two (or more) potentiometers. For example, 10k might be made using a 9.95k fixed resistance, in series with a 500 ohm and 50 ohm pot. The idea is that at the nominal tuning frequency, the two pots will be centred, allowing fine and very fine adjustment. A change of as little as 10 ohms makes a big difference to the notch depth.
+<p>The first opamp acts as a buffer, ensuring that the output of the filter is not loaded by the voltage divider that supplies the signal to the second opamp. The second opamp applies feedback via the R/2 and 2C leg of the tee, making the initial rolloff occur closer to the notch frequency. As shown, the second harmonic is attenuated by less than 0.5dB.</p>
+
+
+<hr><a id="s7"></a><b>7 - Miscellaneous Filters</b>
+<p>There are many, many more filter types. Some are extremely obscure (but interesting), and there are no doubt others that richly deserve their obscurity.</p>
+
+<p><a id="s71"></a><b>7.1 - Fliege Filter</b><br>
+The Fliege filters shown below are interesting - gain is fixed at two, but the frequency and Q are independent. The Q can be changed with a single resistor scaled to the frequency tuning resistors, as shown below.</p>
+
+<center><img SRC="af-f10.gif" ALT="Figure 10" BORDER=1><br>
+<b><small>Figure 10 - Low Pass and High Pass Fliege Filters</small></b></center>
+
+<p>Frequency is set with Rt and Ct, and they are conveniently the same values we'd use for a single pole filter. RQ sets the filter Q (surprise), and if set to 10k in the example, the Q is 1. When set to 7.07k as shown, the Q is 0.707 - very easy and convenient. Considering the requirement for two opamps, it's unlikely to be adopted for crossovers or many other audio applications, but it <i>is</i> interesting nonetheless (or at least I think so). Fliege filters can also be configured for bandpass or notch.</p>
+
+<p><a id="s72"></a><b>7.2 - Akerberg-Mossberg Filter</b><br>
+Another obscure design is the Akerberg-Mossberg Filter. This is an easy topology to use, but requires three-op-amps for its operation. It is easy to change gain, type of low-pass and high-pass filter (Butterworth, Chebyshev or Bessel), and the Q of band-pass and notch filters. The notch filter performance is not as good as that of the twin-T but it is supposedly less critical. While undoubtedly useful, the details will not be included here, because there seems little application for audio circuits.</p>
+
+<p><a id="s73"></a><b>7.3 - Cauer (Elliptic)</b><br>
+One filter that does require further explanation is the Cauer or elliptic filter. As the basis for the NTM&trade; (Neville Thiele Method) crossover, and a very common anti-aliasing filter for analogue-digital conversion, it deserves some attention. It is an interesting filter, in that it is the only one to have ripple in the stop band. Pass band ripple is common with high-order Chebyshev filters, but no other filter has ripple in the stop band - beyond the cutoff frequency. This is produced because the filter is typically a combination of a (more or less) traditional Sallen-Key filter, followed by one or more notch filters, all tuned to operate beyond the cutoff frequency.
+<p>The following example uses a Sallen-Key 12dB/octave filter, followed by a state variable filter. The summing amplifier adds the high pass and low-pass outputs together, resulting in a notch because they are out-of-phase. Changing the value of R13 (68k) changes the position of the notch ... a lower value reduces notch frequency, but increases the level of the rebound (see Figure 12).</p>
+
+<center><img SRC="af-f11.gif" ALT="Figure 11" BORDER=1><br>
+<b><small>Figure 11 - Low Pass Cauer (Elliptic) Filter</small></b></center>
+
+<p>Only the low pass filter is shown - the requirements for a high pass equivalent are met by the usual technique of reversing resistors and capacitors for the primary frequency, and changing the frequency for the notch filter(s). Admittedly, this is not especially easy, but a complete description of both types is not warranted here.
+
+<center><img SRC="af-f12.gif" ALT="Figure 12" BORDER=1><br>
+<b><small>Figure 12 - Low Pass Cauer (Elliptic) Filter Response</small></b></center>
+
+<p>The red trace is the Cauer response - as is immediately visible, it rolls off more sharply than the fourth order filter after the cutoff frequency, but "rebounds" at about 6kHz. While the rebound (or bounce) appears disconcerting, with higher order filters it's not really a concern. Even here, the peak level is at -40dB. Note that the rolloff slope after the bounce is 12dB/octave, not 24. This is because the state variable filter is used to produce the notch, and does not add a further 12dB/octave. The green trace shows the level when the state variable filter is used as an additional 12dB/octave filter, giving 24dB/octave in total.
+The turnover frequency is a little lower than the 1.59kHz expected (1.48kHz), but that's because the filter was optimised for the 24dB/octave response shown in green. The faster rolloff of the Cauer filter is very pronounced, especially beyond 3kHz. At 4kHz, the level is 44dB below that at 2kHz, but it would be incorrect to say that the rolloff was 44dB/octave, because it changes - very rapidly as the notch frequency is approached (4.1kHz in this example).
+<p>While I have only shown a basic 24dB/octave version, it's not uncommon for Cauer filters to be 6<sup>th</sup> order or above. As the order is increased, the bounce is reduced further, and this is common for anti-aliasing filters. The much-sought-after "brick wall" filter is almost achieved with this topology.</p>
+
+<p><a id="s74"></a><b>7.4 - Simulated Inductor</b><br>
+Inductors are without doubt the worst of all electronic components. Not only are they bulky, but they pick up noise from any nearby source of a magnetic field. Inductors also have significant resistance and often high inter-winding capacitance as well. When used for RF applications, the values needed are typically very low and it's easy enough to minimise the deficiencies. For audio frequencies, the failings of inductors make themselves well known.
+<p>One solution for "line level" applications, where the voltage and current are low, is the simulated inductor. By configuring an opamp and capacitor appropriately, the combination can be made to act just like a real inductor, but with fewer shortcomings. This is commonly known as a simulated inductor or a gyrator. When used with a capacitor, "traditional" LC (inductance-capacitance) filters can be created, and these are common building blocks in many filter applications.
+<p>The generalised circuits are shown below, one using only an emitter follower (cheap and cheerful) or the "real" alternative using an opamp.</p>
+
+<center><img SRC="af-f13.gif" ALT="Figure 13" BORDER=1><br>
+<b><small>Figure 13 - Simulated Inductors &amp; Parallel Filter Response</small></b></center>
+
+<p>As you can see from the response graph, the single transistor version is nowhere near as good as that using an opamp. However, it's cheap, and in many cases will work just fine - depending on your application of course. The basic formula for determining inductance is ...</p>
+
+<blockquote>L = R1 * R2 * C1 Henrys &nbsp; &nbsp; <small>(where resistance is in Ohms and capacitance is in Farads)</small></blockquote>
+
+<p>For the above example, the simulated inductors are nominally 1H, but the transistor version is actually slightly less because the gain of an emitter follower is typically only about 0.98 instead of unity. The circuits can be wired for series or parallel resonance, but the "inductors" are earth (ground) referenced. If you need a floating inductor, there is a circuit that can be used, but it's considerably more complex. For a great many equalisers and the like needed in audio, having the inductor earth referenced is not usually a problem.
+<p>Simulated inductors are not immune from "winding resistance", but it is fairly obviously not because of the resistance of a coil of wire. R2 is needed for the circuit to work, and is directly equivalent to winding resistance. Although some opamps will be able to work with values lower than the 100 ohms shown, there is a risk of instability if R2 is made too low. In general, 100 ohms is a reasonable compromise, and works well in practice.</p>
+
+<p><a id="s75"></a><b>7.5 - All-Pass Filter</b><br>
+It's hard to think of this as a filter, since it leaves the frequency response unchanged. Only the phase of the signal is varied, and with this comes a potentially useful time delay. Although the delay is short, it can be used to "time align" drivers whose acoustic centres are separated far enough to cause problems.
+<p>Version "A" produces a lagging phase. That means that the output signal occurs after the input. For the values shown, the delay is about 155us with a 1.59kHz signal. Version "B" has a leading phase - the output signal occurs <i>before</i> the input. While this seems impossible, for a signal that lasts more than a few cycles it really does happen. In the second example, the output occurs 155us before the input.</p>
+
+<center><img SRC="af-f14.gif" ALT="Figure 14" BORDER=1><br>
+<b><small>Figure 14 - All-Pass Filter &amp; Phase Response</small></b></center>
+
+<p>The circuit is shown above. It is a simple circuit, and easily incorporated into a system if needed. R1 and C1 can be exchanged as shown in "B", which simply reverses the phase. Instead of having 0&deg; shift at low frequencies, there is 180&deg; and vice versa. The advantage of the second circuit is that R1 can be replaced with a pot, allowing the phase at 1.58kHz to be varied from 0&deg; (pot shorted) to  180&deg; to around 12&deg; with a 100k pot.
+<p>The leading phase angle of the second circuit makes it unsuitable as a time delay - for that, you might use several of the "A" circuits in series to get the desired time delay. It must be understood that the time delay is the result of phase shift, so varies with frequency. At one octave either side of 1.59kHz (i.e. 795Hz and 3.18kHz), the delay is roughly 180us and 110us respectively.</p>
+
+<center><img SRC="af-f15.gif" ALT="Figure 15" BORDER=1><br>
+<b><small>Figure 15 - All-Pass Filter Time Response</small></b></center>
+
+<p>Above, you can see the input signal (red), and the outputs of the two versions of the all-pass filter (lead and lag). The time response is set up within half a cycle, so by the completion of the first full cycle, the leading and lagging time delay is clearly visible. The leading trace (green) is 159us before the input, and the lagging trace (blue) is 159us after the input. This amount of time may seem insignificant, but it represents the time taken for sound in air to travel about 55mm.
+<p>By adjusting the values to suit the crossover frequency, it is possible to obtain pretty close to perfect time alignment. This may be necessary if the acoustic centres of the loudspeaker drivers cause the relative outputs to be out of phase by less than 180&deg;. It is usually the tweeter signal that has to be delayed to match the midrange (or mid-bass) driver. The details of how to achieve this are outside the scope of this article.</p>
+
+<hr><a id="s8"></a><b>8 - Transient Response</b>
+<p>As noted earlier, all filters affect the transient response of the signal passed through them. As the order and Q are increased, the transient response becomes worse, with clearly visible ringing on an impulse waveform. While this can often look very scary ("that <i>must</i> ruin the sound"), in reality it's not really a problem for most of the filters we use. Part of the problem is that the typical test waveform is a pulse, and while that does show the problem, it makes it appear much worse than it really is. Music does not consist of very narrow pulses that have infinitely short rise and fall times, but tends to be relatively smooth. Even transients to not have very fast rise times, because the recording process uses filters to limit the maximum frequency. This reduces the maximum possible risetime of any signal that passes through.
+<p>Although it is possible to record a single 50us pulse (half a cycle of 10kHz), loudspeakers can't reproduce it even if it were to get through the recording chain. We would also be hard pressed to hear it, because it takes time before the ear-brain combination can recognise that a signal exists. Nevertheless, transient response will be examined here, warts and all.
+<p>More to the point, while the test signal shows the effect, it is totally unrealistic. Being of only one polarity, it is so completely unlike any normal signal in audio that can be imagined. There is no musical instrument that can produce such a waveform, and no microphone that can record it.
+<p>The term "steady-state", if used strictly, describes a waveform that has existed for eternity. Any disturbance (such as switching it on or off) introduces transient effects. In most cases, steady-state conditions can be seen to be restored after a number of cycles of a sinewave. Minor disturbances will not usually be audible, because the signal needs to exist for a period of several cycles before we can interpret it as a particular tone. This is highly dependent on the frequency and amplitude of the signal.</p>
+
+<center><img SRC="af-f16.gif" ALT="Figure 16" BORDER=1><br>
+<b><small>Figure 16 - Transient Response of 1.66kHz Low Pass, 24dB/Octave Filter</small></b></center>
+
+<p>The impulse used for the above was a 1V peak, 200us wide impulse (green trace). The filter used was 24dB/octave with a cutoff frequency of 1.66kHz, and is approximately Butterworth. Even a Linkwitz-Riley alignment shows a (very) small amount of ringing, but it is negligible in real terms. The red trace shows that the filter is triggered into a heavily damped oscillation at a frequency just below the cutoff frequency (in this case, at about 1.3kHz). As Q is increased, the ringing becomes worse, but since high Q filters are not generally used in audio, they can be ignored for the purposes of this article.
+<p>What is more important is the overall change to a normal signal. While music is not steady-state, for most filters it takes only a couple of cycles for steady-state conditions to be established. For the filter used for Figure 15, it takes only one half-cycle at 1kHz before the output signal reaches (approximately) steady-state conditions. When the input signal is above the cutoff frequency, it takes a little longer for the signal to settle down - at 2kHz, 2&frac12; cycles are needed before steady-state conditions apply. This gets progressively worse as frequency is increased, but the filter is also reducing the amplitude of the signal above cutoff, so the effects become immaterial. For example, we don't really care if it takes 3 days for a 20kHz signal to settle from a 1.66kHz filter, because the filter has effectively removed the signal anyway (20kHz is about 88dB down with the test filter).</p>
+
+<center><img SRC="af-f17.gif" ALT="Figure 17" BORDER=1><br>
+<b><small>Figure 17 - Transient Response of 70Hz High Pass, 24dB/Octave Filter</small></b></center>
+
+<p>A high pass filter also affects the transient response. Figure 17 shows the same pulse, applied to a 70Hz, 24dB/octave high pass filter. Again, the red trace is the filtered response, and green is the applied pulse. Again, because the test impulse is unidirectional, the effects shown are far worse than will ever be experienced by a real filter handling music signals. The majority of the disturbance seen is a direct result of using a single pulse of only one polarity.
+<p>While it is simple enough to create a somewhat more realistic test waveform, there really isn't much point. The simple fact is that filters affect transient response, and it does not matter if they are active or passive. In fact, passive filters are harder to control, and if the load is a loudspeaker it presents a different impedance depending on frequency, and will therefore be far less predictable.
+<p>Suffice to say that all filters above first order create deviations in transient response, but provided filter Q is kept reasonably low, the effects are generally completely inaudible. Filters with a Q of 0.5 (sub-Bessel) are as close to benign as it is possible to achieve while still maintaining useful frequency response and crossover performance. Low frequency high pass filters (for example, subsonic filters, speaker excursion limiting filters, etc.) introduce phase shift (as do all filters), but their transient response does not significantly affect signals within the normal audio range.
+<p>While transient response is obviously important, I can find no evidence that listeners are able to detect any statistically relevant differences in a properly conducted blind test.</p>
+
+<hr><a id="outro"></a><b>Conclusions</b>
+<p>Filters are an ongoing development, with DSP (digital signal processing) now being applied for more complex types. Regardless, the analogue versions are still very much in use, and for DIY applications are generally the cheapest and easiest to use. Performance is every bit as good as a DSP version, but they can't be changed with software coefficients because they must be hard-wired. Of course, many is the claim that digital filters are ever so much better than analogue, and there are just as many counter-claims. I don't believe that either camp is right - both can do the same things, but the digital versions are vastly more complex and costly to develop. With the advent of high speed analogue-digital converters, even traditional anti-aliasing filters are often not needed, with a fairly basic filter being adequate. This is achieved by sampling the audio at a much higher than required rate, applying the filter digitally using a DSP, then down-sampling to the required rate (44.1kHz for example).
+<p>The hardware basis of analogue filters is rarely a problem for any fixed installation, such as a hi-fi system or a dedicated powered speaker, and the DSP approach is not cost effective. While even analogue filters can be made adjustable, it's very difficult to get 4-way (or more) ganged pots - and even harder to get them with acceptable tracking. However, it's easy to install machine sockets to allow resistors to be changed if this is needed.
+<p>Because of the huge range of different filter types, there is one to suit every need, however obscure. While some of those shown above are suitable for use as a crossover, others are completely unsuitable - often for reasons of cost and complexity. There is no point building a complex filter whose Q can be varied without affecting anything else, because you generally know the Q that's needed for your application before you start. This is determined by the filter topology and the requirements. For an electronic crossover, you need to be able to sum the outputs to get a flat response (generally an absolute requirement, because that's what the loudspeakers will do), so the Q needs to be set accordingly based on the filter slopes.
+<p>The Sallen-Key filter is still the easiest to use, and despite its shortcomings is sufficiently well behaved for almost anything needed in audio (for general purpose high and low pass filters at least). While MFB filters are sometimes applied, there is usually no advantage - the required values are more irksome, they are an inverting topology, and IMO offer no benefit to offset the greater complexity. The other topologies are interesting, but other than specialised applications, are generally not especially useful for audio hi-fi applications.</p>
+
+<hr><a NAME="references"></a><b>References</b>
+<p>Several references were used while compiling this article, with many coming from my own accumulated knowledge. Some of this accumulated knowledge is directly due to the following publications:
+<p>1 - National Semiconductor Linear Applications (I and II), published by National Semiconductor
+<br>2 - National Semiconductor Audio Handbook, published by National Semiconductor
+<br>3 - IC Op-Amp Cookbook - Walter G Jung (1974), published by Howard W Sams &amp; Co., Inc. ISBN 0-672-20969-1
+<br>4 - Active Filter Cookbook - Don Lancaster (1979), published by Howard W Sams &amp; Co., Inc. ISBN 0-672-21168-8
+<br>5 - Maxim  - A Beginners Guide to Filter Topologies  <a href="http://www.maxim-ic.com/appnotes.cfm/an_pk/1762" target="_blank">Application Note 1762</a>
+<br>6 - Texas Instruments - A Single-Supply Op-Amp Circuit Collection <a href="http://www.eng.yale.edu/ee-labs/morse/compo/sloa058.pdf" target="_blank">SLOA058</a>
+<br>7 - Blauert, J. and Laws, P "Group Delay Distortions in Electroacoustical Systems", Journal of the Acoustical Society of America, Volume 63, Number 5, pp. 1478–1483 (May 1978)
+<br>8 - Data sheets from National Semiconductor, Texas Instruments, Burr-Brown, Analog Devices, Philips and many others.</p>
+
+<p><b>Recommended Reading</b>
+<br><a href="http://focus.ti.com/lit/an/slod006b/slod006b.pdf">Opamps For Everyone</a> - by Ron Mancini, Editor in Chief, Texas Instruments, Sep 2001
+<br><a href="../dwopa2.htm" target="_blank">Designing With Opamps - Part 2</a> - ESP</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2009. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; Rod Elliott, 20 August 2009</div>
+</body>
+</html>

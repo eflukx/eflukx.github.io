@@ -1,0 +1,214 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="graphic, eq, equalizer, equaliser, audio, project, diy, amp, preamp, circuit, schematic, diagram">
+   <meta name="description" content="ESP Project Pages - Expandable Graphic Equaliser. Visit my other pages for more audio projects and articles">
+   <title>Expandable Graphic Equaliser</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 75&nbsp;</td></tr></table>
+
+<p align="center"><b>Expandable Graphic Equaliser</b>
+<br /><small>Rod Elliott (ESP) [<a href="#reference">1</a>]</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>The project described in this article is a constant Q, fully expandable graphic equaliser. Where most "conventional" graphic EQ circuits have a Q that is dependent on the setting of the pot, this one maintains the same Q at all settings. This is achieved by using MFB (Multiple Feedback Bandpass) filters, instead of the more common "gyrator" tuned circuit.
+
+<p>As always, there are pros and cons for the approach described here. Phase shifts tend to be a little more radical, and the passband has more ripple than a conventional circuit, but only where a number of sliders are set to boost or cut. On the positive side, specific frequencies are dealt with specifically regardless of the level, and not with a variable Q. The constant Q circuit makes room equalisation and feedback reduction far better behaved.
+
+<p>So much better in fact, that a boost or cut of 3dB or less may provide the required effect, where a variable Q equaliser may need considerably more, and will affect the adjacent frequencies to a far greater degree.
+
+<hr><b>Description</b>
+<p>The filters used are the same as in the Instrument Graphic Equaliser and subwoofer equaliser (see <a href="project64.htm">Project 64</a> and <a href="project84.htm">Project 84</a>), and are multiple feedback bandpass types. An example of this filter is shown in Figure 1, and more details are available from the project page for the MFB filter (<a href="project63.htm">Project 63</a>). Depending on the configuration you ultimately decide upon, you will need between 10 and 30 of these filters - <i>per channel for stereo<b>!</b></i>
+
+<center><img SRC="p75-f1.gif" ALT="Figure 1" BORDER=1>
+<br><b><small>Figure 1 - Basic Multiple Feedback Bandpass Filter</small></b></center>
+
+<p>This circuit is reproduced from the original article for convenience - the actual filter circuits used are slightly different, and are shown in Figure 3. Building 60 of these may sound like an awful chore, which is perfectly reasonable, since it will be just that. With this knowledge at hand, this may go some way to help you make some ... </p>
+
+<p><b>Decisions!</b>
+<br>Now you have to decide on the frequency resolution. 1/3 octave would be really nice, but the number of sliders can be a nightmare. At the very least, you will need octave band, and the suggested (and industry standard) frequencies are ...</p>
+
+
+<center><table width="80%" border=1 style="border-collapse: collapse">
+<colgroup span=10 width="10%">
+<tr><td align="center">31</td><td align="center">63</td><td align="center">125</td><td align="center">250</td><td align="center">500</td>
+<td align="center">1k0</td><td align="center">2k0</td><td align="center">4k0</td><td align="center">8k0</td><td align="center">16k</td></tr>
+<caption ALIGN=BOTTOM><b><small>Octave Band Frequencies</small></b></caption>
+</table></center>
+
+<p>Should you decide on 1/2 octave band frequencies, 20 sliders will cover the range suggested (plus a bit) - these might be ...</p>
+
+<center><table width="80%" border=1 style="border-collapse: collapse">
+<colgroup span=20 width="5%">
+<tr><td align="center">31</td><td align="center">44</td><td align="center">63</td><td align="center">87</td><td align="center">125</td>
+<td align="center">175</td><td align="center">250</td><td align="center">350</td><td align="center">500</td><td align="center">700</td>
+<td align="center">1k0</td><td align="center">1k4</td><td align="center">2k0</td><td align="center">2k8</td><td align="center">4k0</td>
+<td align="center">5k6</td><td align="center">8k0</td><td align="center">11k</td><td align="center">16k</td><td align="center">20k</td></tr>
+<caption ALIGN=BOTTOM><b><small>1/2 Octave Band Frequencies</small></b></caption>
+</table></center>
+
+<p>Lastly, 1/3 octave band needs 30 sliders to cover the full frequency range, but the 25Hz and 20kHz bands may not be needed. This still requires 28 slide pots, but the flexibility is greater than you will ever get with conventional tone controls ...</p>
+
+<center><table width="80%" border=1 style="border-collapse: collapse">
+<colgroup span=28 width="3%">
+<tr><td align="center">31</td><td align="center">40</td><td align="center">50</td><td align="center">63</td><td align="center">80</td>
+<td align="center">100</td><td align="center">125</td><td align="center">160</td><td align="center">200</td><td align="center">250</td>
+<td align="center">315</td><td align="center">400</td><td align="center">500</td><td align="center">630</td><td align="center">800</td>
+<td align="center">1k0</td><td align="center">1k2</td><td align="center">1k6</td><td align="center">2k0</td><td align="center">2k5</td>
+<td align="center">3k2</td><td align="center">4k0</td><td align="center">5k0</td><td align="center">6k3</td><td align="center">8k0</td>
+<td align="center">10k</td><td align="center">12k</td><td align="center">16k</td></tr>
+
+<caption ALIGN=BOTTOM><b><small>1/3 Octave Band Frequencies</small></b></caption>
+</table></center>
+
+<p>There is no reason at all that the unit has to be 1/2 octave or 1/3 octave all the way. The midrange can be 1/3 octave for finest control, but go to 1/2 octave at the extremes. Especially for guitar and bass, I would prefer 1/3 octave up to 1kHz, then 1/2 octave from 1kHz to 8kHz. The final slider would be a 1 octave band filter at 16kHz. The sequence now looks like this ...</p>
+
+<center><table width="80%" border=1 style="border-collapse: collapse">
+<colgroup span=23 width="4%">
+<tr><td align="center">31</td><td align="center">40</td><td align="center">50</td><td align="center">63</td><td align="center">80</td>
+<td align="center">100</td><td align="center">125</td><td align="center">160</td><td align="center">200</td><td align="center">250</td>
+<td align="center">315</td><td align="center">400</td><td align="center">500</td><td align="center">630</td><td align="center">800</td>
+<td align="center">1k0</td><td align="center">1k4</td><td align="center">2k0</td><td align="center">2k8</td><td align="center">4k0</td>
+<td align="center">5k6</td><td align="center">8k0</td><td align="center">16k</td></tr>
+
+<caption ALIGN=BOTTOM><b><small>Variable Octave Band Frequencies</small></b></caption>
+</table></center>
+
+<p>This gives 23 filters and slide pots, a reasonable compromise that should give excellent results. To ensure reasonable continuity, the filters at 1kHz and 8kHz will need to be a compromise. 1/3 octave filters need a Q of 4, and 1/2 octave filters use a Q of 3, so the 1kHz filter will actually have a Q of 3, and the 8kHz filter will be best with a Q of 2. This might look daunting, but the <a href="mfb-filter.exe">MFB Filter design program</a> will make short work of determining the component values. Unfortunately, this is only available for users of Microsoft Windows. If you want to use the frequencies shown above, the following table shows the values for each filter.</p>
+
+<center><table width="80%" border=1 style="border-collapse: collapse">
+<colgroup span=11 width="9%">
+
+<tr><td><b>Freq</b></td><td><b>R1</b></td><td><b>R2</b></td><td><b>R3</b></td><td><b>C1,&nbsp; C2</b></td>
+<td></td><td><b>Freq</b></td><td><b>R1</b></td><td><b>R2</b></td><td><b>R3</b></td><td><b>C1,&nbsp; C2</b></td></tr>
+<tr><td>31</td><td>82k</td><td>2k7</td><td>160k</td><td>220nF</td><td></td><td>500</td><td>27k</td><td>820</td><td>56k</td><td>47nF</td></tr>
+<tr><td>40</td><td>82k</td><td>2k7</td><td>160k</td><td>180nF</td><td></td><td>630</td><td>27k</td><td>820</td><td>56k</td><td>39nF</td></tr>
+<tr><td>50</td><td>82k</td><td>2k7</td><td>160k</td><td>150nF</td><td></td><td>800</td><td>27k</td><td>820</td><td>56k</td><td>27nF+2n7</td></tr>
+<tr><td>63</td><td>82k</td><td>2k7</td><td>160k</td><td>120nF</td><td></td><td>1k0</td><td>8k2</td><td>510</td><td>18k</td><td>47nF+4n7</td></tr>
+<tr><td>80</td><td>82k</td><td>2k7</td><td>160k</td><td>100nF</td><td></td><td>1k4</td><td>8k2</td><td>510</td><td>18k</td><td>39nF</td></tr>
+<tr><td>100</td><td>82k</td><td>2k7</td><td>160k</td><td>82nF</td><td></td><td>2k0</td><td>8k2</td><td>510</td><td>18k</td><td>27nF</td></tr>
+<tr><td>125</td><td>82k</td><td>2k7</td><td>160k</td><td>56nF+5n6</td><td></td><td>2k8</td><td>8k2</td><td>510</td><td>18k</td><td>18nF+1n5</td></tr>
+<tr><td>160</td><td>82k</td><td>2k7</td><td>160k</td><td>47nF</td><td></td><td>4k0</td><td>8k2</td><td>510</td><td>18k</td><td>12nF+1n8</td></tr>
+<tr><td>200</td><td>82k</td><td>2k7</td><td>160k</td><td>39nF</td><td></td><td>5k6</td><td>8k2</td><td>750</td><td>18k</td><td>8n2</td></tr>
+<tr><td>250</td><td>82k</td><td>2k7</td><td>160k</td><td>27nF+4n7</td><td></td><td>8k0</td><td>8k2</td><td>1k2</td><td>18k</td><td>4n7</td></tr>
+<tr><td>315</td><td>82k</td><td>2k7</td><td>160k</td><td>22nF+2n7</td><td></td><td>16k</td><td>8k2</td><td>1k2</td><td>18k</td><td>2n2</td></tr>
+<tr><td>400</td><td>82k</td><td>2k7</td><td>160k</td><td>18nF+1n5</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+
+<caption ALIGN=BOTTOM><b><small>Frequency &amp; Component Values</small></b></caption>
+</table></center>
+
+<p>I have tried to keep the values reasonably sensible. This is not easy with 1/3 octave band equalisers, but all in all the results are quite acceptable (not too many different values). Note that the Q of the filters is changed as the frequency increases - feel free to use the calculator to reverse calculate the values to see the actual gain, Q and frequency error. None of these will be significant in use.
+
+<hr><b>Input / Output Stage</b>
+<p>The heart of the circuit is shown in Figure 2. It is not complex, but care is needed to make sure that the opamps do not oscillate. Supply bypassing is critical, and 100nF ceramic caps must be used between supply pins at each opamp package.</p>
+
+<center><img SRC="p75-f2.gif" ALT="Figure 2" BORDER=1>
+<br><b><small>Figure 2 - Input / Output Stage</small></b></center>
+
+<p>There is one thing of special note in this circuit.  R6 (39k as shown) determines the maximum amount of boost and cut, and if you wanted to, you can make it variable. With the filter circuits shown below, 39k allows a boost and cut of 12dB - which is about right in most installations. A value of 10k will allow a maximum of a little over 5dB. Any value between these limits will provide the optimum for a given environment, and this can be preset. This is a very useful feature, and one that I believe is unique to this circuit.</p>
+
+<hr><b>Filters</b>
+<p>Determining the required Q is the first step in the design process. The requirements are shown in the following table. The gain in each case is unity (actually -1, meaning a gain of unity, but the signal is inverted, or 180 degrees out of phase).</p>
+
+<blockquote><table width="400">
+<colgroup span=2 width="50%">
+<tr><td><big><b>Bandwidth</big></b></td><td><b><big>Required Q</big></b></td></tr>
+<tr><td><big>1/3 octave</big></td><td><big>4</big></td></tr>
+<tr><td><big>1/2 octave</big></td><td><big>3</big></td></tr>
+<tr><td><big>1 octave</big></td><td><big>2</big></td>
+</tr>
+</table></blockquote>
+
+<p>The filters are all connected in the same way, and I do not intend to draw all 30 of them! Instead, I shall show two complete and two partial filters - you will be able to take it from there. The tables above, and/ or the MFB calculator program can be used to determine the values for each individual filter.</p>
+
+<center><img SRC="p75-f3.gif" ALT="Figure 3" BORDER=1>
+<br><b><small>Figure 3 - The Filter Bank (Partial Only)</small></b></center>
+
+<p>The slide pots are wired with all the end connections in parallel, and the "Sig" output above must drive all the filter inputs, which are also in parallel. For a 1/3 octave equaliser, this represents a load of around 800 ohms on U2B. The NE5532 was chosen as it is one of the few opamps that will drive such a low impedance. Don't be tempted to use anything that is not rated to drive such a low impedance, or it will distort because of output current limiting. Another suitable opamp is the OPA2134 (dual), which also has a very high drive capability - there are no doubt others, but these are the ones I know about.
+
+<p>The maximum rated input voltage is 1V (0dBu), and if you anticipate that the input will be higher than that, I suggest an attenuator at the input. The gain can be restored by increasing the value of R8, so if a 3:1 attenuator were used at the input (10dB), then a 30k (33k would be OK) resistor in place of the 10k will bring the overall gain back to unity.
+
+<p>Remember that U2B operates with gain (about 12dB), so the internal overload limit is lower than you might expect. Because of the narrow bandwidth of each filter, these too can be driven into clipping if the input level is too high, and this is unlikely to improve the sound.
+
+<p>Overall, this is a very versatile unit, and once the initial shock of construction has passed, can be used for the most demanding of equalisation tasks. It can also be used in an automotive installation, but an artificial earth must be created, and the signal voltage limits will be reduced considerably. I suggest that the maximum input voltage be kept below 0.5V RMS - lower than this will provide a better safety margin, and will ensure that clipping does not occur regardless of slider settings.</p>
+
+<center><img SRC="p75-f4.gif" ALT="Figure 4" border=1>
+<br><b><small>Figure 4 - Frequency Response of a Single Filter</small></b></center>
+
+<p>Figure 4 shows the boost and cut of a single filter, centred on 100Hz. This clearly shows that the Q remains constant - a conventional graphic EQ would have a very broad peak at lower settings, so broad in fact that it would show some noticeable effect even at several octaves away from the centre frequency. Assuming that the 50% pot setting is flat, these graphs were taken at 35/65%, and 0/100% of the pot travel (cut/boost respectively).
+
+<p>This was generated using a 39k resistor for R6 in the input circuit - lower values reduce the maximum boost and cut, but leave the Q unchanged.</p>
+
+<hr><a id="reference"></a><b>Reference</b>
+<p>The design presented here is based on a paper (Constant Q Graphic Equalisers), written by Dennis A. Bohn of Rane Corporation. The original work can be downloaded from the Rane site ... <a href="http://rane.com/pdf/constanq.pdf">http://rane.com/pdf/constanq.pdf</a></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 21 Feb 2001</div>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Soft Clipping - something worthwhile, or should it be avoided?">
+	<!-- Soft Clipping - something worthwhile, or should it be avoided? -->
+	<meta name="keywords" content="soft, clip, clipping, distortion, power, amp, amplifier, audio, diy, hi-fi,electronic">
+	<title>Soft Clipping</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Soft Clipping&nbsp;</td></tr></table>
+
+<p align="center"><small>Copyright &copy; 2006 - Rod Elliott (ESP)<br>
+Page Created 15 April 2006</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t1" BORDER="0"></a> <b>Articles Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" BORDER="0"></a><b>Main Index</b><br />
+
+<hr><b>Contents</b>
+<ul>
+	<li><a href="#s1">1 &nbsp; Introduction</a></li>
+	<li><a href="#s2">2 &nbsp; Soft Clip Circuit</a></li>
+	<li><a href="#s3">2 &nbsp; Amp Power Reduction</a></li>
+	<li><a href="#s4">4 &nbsp; Conclusion</a></li>
+</ul>
+
+<hr><a id="s1"></a><b>1 - Introduction</b>
+<p>There seems to be something really nice about the idea of soft clipping. Rather than have the amplifier clip any wayward peaks with the traditional square-edged characteristics typical of solid state amplifiers, wouldn't it be nice if they did much the same as a valve amp? A comparison of the two forms of clipping is shown in Figure 1, and you can see that the valve amp's clipping behaviour is more 'civilised' (if any form of clipping can be considered civilised, that is).</p>
+
+<p align="center"><img src="sc-f1.gif" border="1" alt="Figure 1"><br>
+<b><small>Figure 1 - Comparison of  Transistor (Red) and Valve (Green) Clipping</small></b></p>
+
+<p>The 'soft' characteristic (Green) shown in Figure 1 has few high order harmonics. The harmonic content is predominantly third harmonic, with a smaller amount of fifth, and lesser amounts of each additional higher odd-order harmonic. Because the waveform is symmetrical, even order harmonics are typically at vanishingly small amplitudes. Figure 2 shows the harmonic structure of each waveform. Note that the hard clipping produces high levels of eleventh, fifteenth and nineteenth harmonics compared to the soft clip circuit. However, both signals will sound objectionable with the amount of clipping shown.</p>
+
+<p align="center"><img src="sc-f2.gif" border="1" alt="Figure 2"><br>
+<b><small>Figure 2 - Spectrum of Transistor (Red) and Valve (Green) Clipping Distortion</small></b></p>
+
+<p>Note that the ragged looking transistor spectrum at low levels may appear to be 'bad', but all such signal levels are at about 1uV, so are around 120dB below the amplitude of the fundamental. The spectrum tells part of the story, but the harmonic distortion also needs to be examined. The soft clipped valve-like distortion measures 14.6%, while the transistor circuit gives 17.6% by comparison. In each case, the amplitude of the original (unclipped) waveform was identical, at 2V peak (1.414V RMS). The primary reason for the higher measure distortion of the hard clipped waveform is that the harmonics extend to well over 100kHz at levels exceeding -80dB, while the soft clipped harmonics are below that level by 23kHz.</p>
+
+<hr><b><a id="s2"></a>2 - Soft Clip Circuit</b>
+<p>Apart from the obvious solution of using a valve output stage (hardly a simple modification to an existing circuit), the easiest way to make a circuit that clips 'softly' is to use diodes. The above simulations were done using diodes, and reality is very close indeed to what is observed in a simulation. There is nothing new about diode clipping circuits - they have been the mainstay of guitar distortion pedals (fuzz boxes) for many years. The deliberate use of this technique for a hi-fi amplifier is less common, and as will be shown below, this is as it should be.</p>
+
+<p align="center"><img src="sc-f3.gif" border="1" alt="Figure 3"><br>
+<b><small>Figure 3 - Basic Soft Clip Circuit</small></b></p>
+
+<p>Figure 3 shows the basic schematic of a soft clip circuit. By using diodes, the relatively soft knee of the diode conduction curve provides exactly the waveform that we need. There is an inevitable cost though, and to understand why, we need to examine the conduction characteristics of a diode. It is commonly taken that conventional silicon diodes conduct at 0.65V, although the actual figure varies depending on the type of diode and the current.</p>
+
+<p>The value of R1 is surprisingly very important. If it is too high, there will be considerable distortion at even relatively low levels because of the inherently non-linear resistance of the diodes. If R1 is too small, performance at lower levels is improved, but the source amplifier (preamp, CD player, etc.) may be forced into premature clipping because of the loading. As shown, 2.2k is a reasonable compromise, but if you are willing to include an opamp that can drive low impedances (such as the NE5532 or OPA2134 dual devices), you can reduce R1 to about 680 ohms without having to worry about hard clipping from the preamp.</p>
+
+<p>In Figure 4, it is obvious that not only do the diodes start to conduct at well below the nominal voltage, but they have significant internal resistance as well. It is these very characteristics that give us a soft clipping waveform, and also give us greatly increased distortion as we approach the clipping voltage. The sharpness (or otherwise) of the clipped waveform depends on the signal source impedance and the diode characteristics, and manipulation of the impedance (but maintaining the same diodes) has a very significant effect on the final waveform.</p>
+
+<p align="center"><img src="sc-f4.gif" border="1" alt="Figure 4"><br>
+<b><small>Figure 4 - Diode Conduction Characteristics (Typical of 1N4148)</small></b></p>
+
+<p>The supply voltage is applied using a ramp waveform, and the diodes (two in series) are fed using a 1k resistor. As the voltage increases, there is virtually no diode current until the voltage has reached about 1V. At this voltage, diode current starts to flow, and the voltage across the diodes deviates from the applied voltage. As the supply voltage increases further, diode current also increases, and the voltage across the diodes starts to flatten out. You can see that it is not completely flat even at the extremity. The voltage continues to increase at a rate determined by the diode's internal (dynamic) resistance - in the case of the simulated 1N4148 pair used, this can be calculated to be (based on the variation across a defined area of the curve where the curve has flattened out) ...
+
+<blockquote>
+	Voltage change = 3.5mV<br>
+	Current Change = 21.3uA<br>
+	R = V / I = 3.5mV / 21.3uA = 112&Omega;
+</blockquote>
+
+<p>This is for the pair, so each diode has a dynamic resistance of 56 ohms.  Note that you cannot simply use the voltage across the diodes and the current through them to obtain this figure, because of the diode's internal voltage drop. You will get an incorrect figure (that is much too high) if you do that. The point is that the dynamic resistance changes, depending on current. To see this effect properly, Table 1 shows the dynamic resistance (impedance) at each numbered point along the horizontal (X) axis of Figure 4.</p>
+
+<center>
+<table width=500 border=1 style="border-collapse: collapse">
+<colgroup span=4 width="25%">
+<tr><td><b>Point</b></td><td><b>&Delta;Voltage</b></td><td><b>&Delta;Current</b></td><td><b>&Delta;Resistance</b></td></tr>
+<tr><td>1</td><td>50mV</td><td>171nA</td><td>292k</td></tr>
+<tr><td>2</td><td>34mV</td><td>7.7uA</td><td>4.4k</td></tr>
+<tr><td>3</td><td>11.4mV</td><td>18uA</td><td>633</td></tr>
+<tr><td>4</td><td>5.55mV</td><td>21uA</td><td>264</td></tr>
+<tr><td>5</td><td>3.50mV</td><td>21.3uA</td><td>164</td></tr>
+<tr><td>6</td><td>2.44mV</td><td>21.6uA</td><td>112</td></tr>
+</table><b><small>Table 1 - Variable Dynamic Resistance of 2 x 1N4148</small></b></center>
+
+<p>Much as simulations allow the easy determination of things that are very hard to measure, there is nothing like measurement to demonstrate the effects in the real world (as opposed to the cyber-world of the simulator). Accordingly, Table 2 shows a comparison between measured and simulated results, with each using the same basic parameters.</p>
+
+<center>
+<table width=500 border=1 style="border-collapse: collapse">
+<colgroup span=4 width="25%">
+<tr><td><b>V<sub>in</sub></b></td><td><b>V<sub>out</sub></b></td><td><b>Measured THD</b></td><td><b>Simulated THD</b></td></tr>
+<tr><td>1</td><td>830m</td><td>8.9%</td><td>7.1%</td></tr>
+<tr><td>800m</td><td>740m</td><td>4.5%</td><td>3.0%</td></tr>
+<tr><td>700m</td><td>670m</td><td>2.2%</td><td>1.46%</td></tr>
+<tr><td>600m</td><td>587m</td><td>0.81%</td><td>0.57%</td></tr>
+<tr><td>500m</td><td>500m</td><td>0.28%</td><td>0.19%</td></tr>
+<tr><td>400m</td><td>400m</td><td>0.076%</td><td>0.06%</td></tr>
+<tr><td>300m</td><td>300m</td><td>0.036%</td><td>0.018%</td></tr>
+</table><b><small>Table 2 - Measured vs. Simulated Distortion</small></b></center>
+
+<p>The simulator under-estimates the distortion, and although it is (probably) more accurate, the measured results are ultimately what really counts. My audio oscillator has a residual distortion of 0.015% at 1kHz, and this needs to be factored in at low measured figures. One thing that is inescapable is that the distortion is increased at all levels. Even reducing the input to 50mV, the simulator still shows a measurable distortion ... although few amplifiers could even hope to get down to the 0.0002% level the simulator indicated.</p>
+
+<p>The value of R1 (as noted above) has a great influence on the circuit's performance. Table 3 shows the simulated distortion levels for a range of voltages and series resistance. Be aware that very few opamps can drive significant levels into low impedances, so this limits the minimum value to around 680 ohms with high drive opamps, and about 1.5k or so with most others.</p>
+
+<center>
+<table width=500 border=1 style="border-collapse: collapse">
+<colgroup span=4 width="25%">
+<tr><td><b>V<sub>in</sub></b></td><td><b>680 Ohms</b></td><td><b>1.2k</b></td><td><b>2.2k</b></td></tr>
+<tr><td>1</td><td>4.90%</td><td>5.92%</td><td>7.08%</td></tr>
+<tr><td>800m</td><td>1.44%</td><td>2.11%</td><td>3.00%</td></tr>
+<tr><td>700m</td><td>0.57%</td><td>0.92%</td><td>1.46%</td></tr>
+<tr><td>600m</td><td>0.19%</td><td>0.33%</td><td>0.57%</td></tr>
+<tr><td>500m</td><td>0.06%</td><td>0.11%</td><td>0.19%</td></tr>
+<tr><td>400m</td><td>0.019%</td><td>0.033%</td><td>0.060%</td></tr>
+<tr><td>300m</td><td>0.006%</td><td>0.010%</td><td>0.018%</td></tr>
+</table><b><small>Table 3 - Simulated Distortion vs Source Resistance and Voltage</small></b></center>
+
+<p>From the above, it is readily apparent that low values for R1 will reduce the distortion below the theoretical diode conduction voltage, but this approach loads the source amplifier. In addition, the dynamic resistance of the diodes becomes more invasive, allowing the clipped voltage to reach a higher than expected peak amplitude. For example, with an input of 2V RMS, 2.2k will cause the peak to limit at 1.32V, 1.2k gives 1.37V, and 680 ohms allows the peak to reach 1.41V. I shall leave this decision to anyone who may be interested in experimenting with the technique.</p>
+
+<p>So, if you want to add a soft clipping circuit, you will benefit from lower levels of harsh high-order harmonics at clipping, but at the expense of effective power output and (much) higher than normal distortion at all levels from as low as about 20% of the maximum output voltage.</p>
+
+<hr><b><a id="s3"></a>3 - Amp Power Reduction</b>
+<p>If a soft clip circuit is incorporated into an amplifier, it must prevent the power amp from clipping at any sensible input level. Figure 5 shows how the level changes (this is due to the diodes' dynamic resistance) as the input voltage is changed. The red trace is with an input level of 1V RMS, and the green trace is at 5V RMS. Nearly all preamps will allow at least that much drive if the volume control is set to maximum, and this is what tends to happen at parties (and often with professional equipment as well).</p>
+
+<p align="center"><img src="sc-f5.gif" border="1" alt="Figure 5"><br>
+<b><small>Figure 5 - Clipped Level Variation vs Input Voltage</small></b></p>
+
+<p>This is essentially exactly the same information as shown in Figure 4, but uses the signal waveform. For the exercise, let's use a 100W (8 ohm) amplifier as our model, and we will apply a soft clipping circuit to it.  Using the 4 diode clipper shown in Figure 3, we can do some basic analysis.</p>
+
+<p>Allowing up to 5V input is probably silly, so we'll make that 2V, after which traditional hard clipping will occur. A 100W/8 ohm amplifier will give about 28V RMS at the speaker terminals (40V peak). We have allowed for 2V input, so the gain needed (after the clipping circuit) is ...
+
+<blockquote>
+	Peak Input Voltage = 2 * 1.414 = 2.83<br>
+	Peak Clipped Input Voltage = 1.32 (from Figure 4)<br>
+	Gain = V<sub>OUT</sub> / V<sub>IN</sub> = 28 / 1.32 = 21
+</blockquote>
+
+<p>The gain needed is achieved using a 20k resistor from output to inverting input, and a 1k resistor to ground. So far so good. Now, we need to decide on the maximum distortion figure we are willing to accept at a 'typical' peak output power. 1% is not unreasonable - certainly higher than we would expect from a transistor amp, but not unreasonable.</p>
+
+<p>From Table 2 we see that with an input level of 700mV (RMS), distortion is 2.2% (measured) or 1.46% (simulated). The input level obviously needs to be a bit less than this, so 650mV is probably about right. The simulator says that this gives 0.94% which is close enough. The actual amplifier power at 1% distortion is determined by ...</p>
+
+<blockquote>
+	V<sub>OUT</sub> = V<sub>IN</sub> * Gain = 650mV * 21 = 13.65V<br>
+	Power = V&sup2; / R = 186 / 8 = 23W
+</blockquote>
+
+<p>Oh dear!  A perfectly good 100W amp is now downgraded to 23W at 1% distortion, with the distortion rising quite rapidly above that. Sure, the distortion components will be low order odd harmonics, but intermodulation distortion is increased proportionally as well, and the otherwise distortion free (relatively speaking) amp output cannot be used to its full advantage. Use of a lower value feed resistance (R1) will improve matters, but as noted above may create other problems.</p>
+
+<p>Will it sound like a valve amp though? Not really. While the distortion characteristics will be similar to a reasonable push-pull valve amp of roughly similar power, the higher than normal output impedance of a valve amp is another factor that gives the 'valve sound'. While this can be included as well, the clipping circuit cannot compensate for the gain variations in an amp with high output impedance.</p>
+
+<hr><b><a id="s4"></a>4 - Conclusion</b>
+<p>The effects of the soft clipping circuit can be modified over a wide range, by varying the feed resistance, type of diodes used and the peak levels expected. In general, the result is unlikely to be as hoped for anyway, because occasional transient clipping is usually inaudible. The harmonic and intermodulation distortion that has been added may be very audible with some material, and is unlikely to improve your enjoyment of the music.</p>
+
+<p>Of course, you may find that you do like the effect (it is very common in guitar amps), so if you think that you'd like to experiment then you have enough information to make an informed decision as to how to go about it.</p>
+
+<p>There is nothing that looks complicated at all in this technique, but as should now be evident, there are actually quite a few things that must be considered. As is so often the case, an apparently simple circuit can be far more complex than anticipated, and it is a matter of juggling the compromises to obtain the results you want - within the limits of the technique.</p>
+<p>While it would be relatively easy to incorporate the soft clip function into a DSP that may be providing other functionality (equalisation, crossovers, etc.) and avoid some of the limitations, the definition of a soft clip circuit requires that it should start to distort the signal earlier than expected. In the end, it is probably far easier to incorporate a clipping indicator so that clipping can be avoided altogether.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';"><img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';"><img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 15 April 2006</div>
+</body>
+</html>

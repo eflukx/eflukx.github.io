@@ -1,0 +1,152 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="description" content="ESP Project Pages - Basic Spring Reverb Unit. Add-on unit for guitar or keyboards">
+  <meta name="keywords" content="reverb, guitar, audio, diy, preamp, spring reverb, music, effects, amplifier">
+  <title>Spring Reverb Unit For Guitar</title>
+  <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 34&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Spring Reverb Unit For Guitar or Keyboards</b><br />
+<small>Rod Elliott (ESP) - Updated 17 November 2006</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>Well, its not really just for guitar or keyboards, you can use it for anything that you want. Spring reverb units are most commonly used in guitar amps, having been replaced by digital effects in most other areas. This cannot really be classed as a "real" project, because the circuitry is somewhat experimental, and may change quite dramatically depending on the type of spring reverb unit you can actually get your hands on.</p>
+
+<p>The one I have is an Accutronics (they are still going, so check out their web site - see below), but you might already have one, or can get something different, so you will have to experiment.</p>
+
+<p>Most of the possibilities are discussed here, so with a small amount of mucking about you should be able to create a reverb unit tailored to your exact needs. For <a href="#info">additional information</a>, see the end of this page.</p>
+
+<p>Since the P113 headphone amp is very easily modified for constant current drive, this is recommended. The circuit diagram in Figure 3 is the original, but it does have limitations. The main limit is the allowable voltage swing, but this is overcome by using the <a href="pcb/pp113.htm" target="_blank">P113</a> board with appropriate modifications (all described in the construction article).</p>
+
+<hr><b>Description</b>
+<p>The basic spring reverb chamber is a simple affair (see Figure 1), with an input and output transducer, and one or more (usually three or four) springs lightly stretched between them. Each spring should have different characteristics, to ensure that the unit does not simply create "boinging" noises. Stay well clear of single spring units, they are usually cheap Taiwanese and Chinese affairs and can often found in really cheap guitar amps. They sound awful, and nothing you do will ever change this. This is not to say that the Taiwanese or the Chinese don't make decent spring reverb units too, I just haven't seen one yet. Really basic looking 2-spring units pop up on auction sites at regular intervals - I've not tried one, and I'm not about to waste any money to do so.</p>
+
+<center><img SRC="p34-fig1.gif" ALT="Fig 1" border=1><br><b><small>Figure 1 - Traditional Spring Reverb Unit</small></b></center>
+
+<p>Many reverb units appear to have only two springs, but you will see that there are joins in the middle. This is where two springs are joined, and each spring should be very slightly different. Ultimately it doesn't matter how many springs they really have, a spring reverb always sounds like what it is. This is not a criticism, merely a description of the sound.</p>
+
+<p>Of the units around, most of the newer ones have a low impedance (about 8 Ohms) input transducer, and are well suited to being driven with a small power amp IC. The one I have has a relatively high input impedance (173 Ohms DC resistance, and according to the specs, about 1700 Ohms impedance), but the principles are still pretty much the same.</p>
+
+<p>Another common type of reverb tank (common terminology, BTW), was the folded spring type. These had the springs arranged in a Z pattern and sounded quite good. They have been used by some very well known guitar amp manufacturers, but do not appear to be available any more other than the occasional one that pops up on eBay. Made by O.C. Electronics Inc, they were <i><small>"MANUFACTURED BY BEAUTIFUL GIRLS IN MILTON, WIS, IN CONTROLLED ATMOSPHERE CONDITIONS"</small></i> according to the label, but I'm unable to verify that &nbsp;<img src="grin.gif">.</p>
+ 
+<hr><b>Transducer Drive</b>
+<p>In all cases you will need a small power amp to be able to drive the unit properly, but you must be very careful, because overdrive causes the small pole piece to become magnetically saturated, leading to gross distortion that increases with decreasing frequency. One solution to this is to use a series resistor to reduce the drive and give a higher output impedance from the amp. This usually improves frequency response, especially at higher frequencies, but tends to disappear the bottom end. This is not always a bad thing, since in reality low frequency reverberation in a typical room or auditorium is rare, and generally sounds awful when it does exist.</p>
+
+<p>Another possibility is to use an amplifier with a high output impedance, but this is not necessary because of the very low power handling of the input transducer. One method of obtaining at least some degree of current drive is to use a series resistor. This is the easiest to implement, and helps to protect the transducer from gross overloads. The basic scheme is shown in Figure 2, and has the added advantage that modification to the reverb unit is not needed (many have the earth of both input and output transducers connected to the chassis - to use a current amp, this would need to be changed).</p>
+
+<p>Using current drive is explained (see <a href="#info">additional info</a>, below) and I have used it and it works well. The problem is that it makes the reverb very "toppy", with very little bass at all. While this might suit some players, I prefer a modified current drive, where the output impedance is defined (rather than "infinite") because you can tailor the sound to your liking much more easily. This is a little tricky with the small power amp ICs though.</p>
+
+<center><img SRC="p34-fig2.gif" ALT="Fig 2" BORDER=1><br><b><small>Figure 2 - Reverb Input Transducer Drive Amp</small></b></center>
+
+<p>I have seen quite a few reverb drive amps used in other circuits, including just an opamp. Few opamps have sufficient current capability to drive the input transducer properly, and even some of the small power amp ICs are a pain. The circuit shown has good drive, low current drain and works well. Many of the circuits I have seen also do not make any attempt to obtain current drive, and use the low impedance output from the drive amp. This is not the best way to drive these transducers, and the method shown works much better.</p>
+
+<p>The resistor marked S.O.T. (Select On Test) will need to be selected to provide the best reverb sound, with the minimum voltage loss. I suggest a starting value of about 47 Ohms (depends on the input transducer's impedance), and experiment from there. The positive voltage needs to be not less than 15V (18V is the rated maximum) to be able to get good drive levels with a high enough value of series resistor. In a pinch you might be able to get away with 9V, but you will not have much drive level and will need more gain at the output. This increases noise and the possibility of feedback. This circuit is only really suitable for an 8 ohm input transducer, as it doesn't have enough voltage swing for the higher impedance coils.</p>
+
+<hr><b>Reverb Preamp</b>
+<p>The output transducer will have an output of (typically) about 10mV, and a gain of 10 (20dB) is usually enough to match the output of the guitar - for use with an amplifier insert or a mixer, an output of around 1V is preferred. This requires a gain of 100. The circuit shown uses 1/2 of a NE5532 low noise opamp (a TL072 can also be used, but with a noise penalty) - this is quite adequate for what we need here.</p>
+
+<p>With the values shown, the gain is variable from unity up to a maximum of about 40dB (100 times), which should be enough for anyone. ("640k of RAM should be enough for anyone" - Bill Gates <img src="grin.gif" alt=":-)"> ). If your application requires less gain, simply increase the value of R7 (1k). With 2.2k, maximum gain will be 46 (33dB).
+
+<hr><b>Complete Circuit</b>
+<p>The complete circuit is shown in Figure 3, with a reverb mute switch and level controls. The drive control (VR1) can be a trimpot (or even fixed), since once you have determined the maximum level this will not need to be changed. There is no gain control for the guitar input, as the circuit has unity gain, so amp settings are unaffected by using the reverb.
+
+<p>The capacitor marked S.O.T. will need to be selected to give the sound you want. High values (above 100nF) will give quite a lot of bottom end, which tends to sound boomy and very indistinct. You will probably find that a value somewhere between 1.5nF and 10nF will sound the best - try 4.7nF as a starting point. Like the guitar amp itself, a reverb unit has its own sound, and it is only reasonable that you should be able to change it to suit your own taste.</p>
+
+<center><img SRC="p34-fig3.gif" ALT="Fig 3" BORDER=1><br><b><small>Figure 3 - Complete Circuit</small></b></center>
+
+<p>The power for the opamp is, Pin 4 -ve, Pin 8 +ve. Note that the opamp requires a dual supply - +/- 15V is fine, or for battery operation (not really recommended) you could get away with &plusmn;9V.</p>
+
+<p>The unit could also be installed inside the amp head, and wired into the circuit. I will have to leave it to you to determine the gain needed for the various stages, since it is currently designed for "typical" guitar levels. Make sure that you provide proper isolation between the input and output of the reverb tank. I have seen circuits where this was not done, and the whole reverb circuit goes into feedback. Isolation is provided in this circuit by the virtual earth mixer (pin 2 of U1 is at 0 Volts at AC and DC).</p>
+
+<p>Most reverb units use RCA sockets for input and output, and be careful with mounting. The springs will clang most alarmingly if moved about while playing, and acoustic feedback can also be a problem, especially if the low frequency gain is too high.</p>
+
+<hr><b>Alternative Version</b>
+<p>While the circuit shown above can give good results, it has a couple of potential issues. Firstly, it has limited drive capability due to the single low voltage power supply for the LM386. Some reverb tanks require a significant voltage at higher frequencies, so the circuit of Figure 3 can only be used with an 8 ohm input coil. Secondly, there is little equalisation capability, and not enough voltage swing to handle it anyway. A far more elegant solution is to use a buffered opamp, which can drive reverb tanks having a drive coil impedance of up to 250 ohms or even 600 ohms at a pinch. See <a href="project113.htm" target="_blank">Project 113</a> for the details of the project PCB upon which this version is based.
+
+<p>For a great deal more information about how to drive reverb tanks properly, including measurements and tables with optimum values, see <a href="articles/reverb.htm" target="_blank">Care and Feeding of Spring Reverb Tanks</a>. The circuit below is easily configured to suit the tank you have (or can get), and has very good drive capabilities, both for voltage and current. Note that it is not suitable for the high impedance drive coil - an amplifier for those coils needs ~&plusmn;35V supplies to get sufficient voltage swing.</p>
+
+<center><img SRC="p34-f4.gif" ALT="Fig 4" BORDER=1><br><b><small>Figure 4 - Modified Version, Using P113 Headphone Amp PCB</small></b></center>
+
+<p>The version shown in Figure 4 uses the drive amp configured for high output impedance. Maximum input level depends on the gain of the drive amp, which is controlled by R3L. The optimum value depends on the impedance of the reverb tank's input impedance. As shown, it is optimum for a (nominal) 160 Ohm coil. Note that the input transducer must not connect to the tank chassis. Reverb units are available with isolated inputs for just this purpose.
+
+<p>The recovery amp has a gain of 100 as shown (40dB), but this can be changed by using a different value for R3R (higher value, lower gain). The remaining section can use the <a href="project94.htm" target="_blank">Project&nbsp;94</a> universal preamp mixer board, which includes tone controls to allow tailoring of the reverb effect.</p>
+
+<hr><a id="info"></a><b>Additional Information</b>
+<p><a href="project113.htm">Project 113</a> - Headphone amplifier that is easily converted for reverb tank drive and recovery.</br>
+<a href="articles/reverb.htm">Care and Feeding of Spring Reverb Tanks</a> - Lots of additional information, some of which is unavailable anywhere else.</br>
+<a href="http://www.torresengineering.com/torresengineering/thresprinsho.html" target="_blank">Torres Engineering</a> - Supply and information on spring reverb tanks.<br>
+<a href="http://roymal.tripod.com/accutron.htm" target="_blank">Roy's "Accutron" Page</a> - Some potentially useful info.</p>
+<p>Almost all the reverb tanks that you will see are <a href="http://www.accutronicsreverb.com/" target="_blank">Accutronics</a> (aka Sound Enhancements). They are made by:
+
+<blockquote>Sound Enhancements, Inc.<br>
+185 Detroit St.<br>
+Cary, IL 60013</blockquote>
+
+<p>Note: This is not a specific endorsement of their products or services, but a reader service.
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright (c) 18 Oct 1999./  Updated 19 Oct 1999 - added some additional info and links and fixed a couple of errors.</div>
+</body>
+</html>

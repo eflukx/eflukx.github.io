@@ -1,0 +1,199 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="current, sense, transformer, audio, project, diy, amp, preamp, crossover, test, power, supply, circuit, schematic, diagram, silicon, chip, power-up">
+	<meta name="description" content="ESP Project Pages - Current Sensing Slave Power Switch. Master-slave switching system minimises wasted power.">
+	<title>Current Sensing Slave Power Switch</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 79&nbsp;</td></tr></table>
+
+<p align="center"><b>Current Sensing Slave Power Switch</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>Switch on one unit, and everything else you need turns on automatically. Master-slave power switching can save the tedium of turning on half a dozen different things, when one should be enough! As a bonus, many things draw significant "standby" power, even when supposedly turned off. This is another project created purely from necessity. In my case, it was to switch on all my computer peripherals when the PC was turned on, but I shall be building another very shortly to do the same with my Hi-Fi equipment. It's worth noting that the use of any form of master-slave switching with many PCs may be unreliable, because almost all machines these days have a low power supply that runs all the time.  For PCs, use <a href="project118.htm" target="blank">Project 118</a> as it is 100% reliable.
+
+<p>When a system consists of a number of components, there is the ritual of ... switch on the preamp, power amp(s), subwoofer, CD player, and maybe a crossover or equaliser. It's not hard, but it <i>is</i> tedious! Then, one must remember to switch everything off again - this is not always easy after a nice long listening session, beautifully accompanied by a lovely Cabernet Shiraz that was just <i>pleading</i> to be demolished <img src="grin.gif">.
+
+<p>No longer must you suffer so. When a load current is sensed from the "master" unit, this circuit will automatically switch on everything connected to the "slave" mains output. The only thing you need to do now is turn on the preamp (for example), and all the other units 'sproing' into life, and equally, gracefully fall asleep again when the preamp is turned off.</p>
+
+<table WIDTH="100%" border=1>
+<tr><td align="center" VALIGN="middle" width=50><br /><img SRC="mains.gif" BORDER=0 height=26 width=33><br /><br /></td>
+<td bgcolor="red"><b>WARNING:</b>&nbsp; This circuit is directly connected to and controls household mains voltages, and must be built with extreme care to ensure the safety of you and your loved ones. All mains wiring must be segregated from low voltage wiring, and in many countries, mains wiring must be performed only by suitably qualified persons.</td>
+</tr></table>
+
+<p>Please ensure that you heed the above warning. One small mistake could mean the end of you (or someone else!). I have colour coded the wiring in the diagrams (according to the  international standards) so that the mains is easily recognised. Never use ordinary hook up wire for mains voltage connections, and ensure that all solder joints are secure <b><i>before soldering</i></b> and are insulated against accidental contact.</p>
+
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" height=37 width=108></td>
+<td><b>NOTES:</b>
+
+<ol>
+<li>This project is not intended for beginners, or anyone who is not completely comfortable and competent with mains wiring. It is potentially lethal if you make a mistake.&nbsp; Never work on the circuit with power applied.<br /><br /></li>
+
+<li>The active (live / hot) lead is Brown, and neutral is Blue. Earth is Green/Yellow<br /><br /></li>
+
+<li>U.S. readers will most likely use black (active / live / hot) and white (neutral) wiring. Although many new leads are now using the International standard, there will still be many that use the old US standard.<br /><br /></li>
+
+<li>This project is an updated version of that shown in Project 40, and is recommended over the original. The previous circuit will (does) work, but this is a better and more versatile unit.</li>
+</ol>
+</td></tr>
+</table>
+
+<hr><b>Description</b>
+<p>The heart of the circuit is TR1, a completely ordinary small low output voltage transformer. In this case, it is connected in reverse, and used as a current transformer. A power resistor shunts a good proportion of the current away from the transformer, since most small transformers have an excessively high secondary resistance. Never use the circuit without the shunt resistor, as the output voltage may reach dangerous levels without it.
+
+<p>I used a 5VA, 240V to 18V transformer (because I had one), but anything with 9V to 15V secondaries will work just as well. The resistor should be a 10W wirewound type - make sure that the terminals are well insulated against contact, and keep all wiring well clear of the resistor. Under normal circumstances it will get quite warm at full rated power - if you use my recommendations, maximum dissipation will be 4W at rated current.&nbsp; Feel free to reduce the value of the resistor if higher currents are expected, or ...
+
+<p>The resistor may also be reduced if a lower secondary voltage transformer is used. Remember that the transformer is now a step-up unit - the small voltage across R1 is stepped up by the turns ratio of the transformer.&nbsp; A voltage of 1V across the secondary winding will create a much higher voltage on the "primary", so some care is needed.</p>
+
+<table>
+<tr><td><b>220 - 240V Operation</b></td>
+<td></td>
+<td><img SRC="filler.gif"></td><td><b>110V Operation</b></td><td></td></tr>
+<tr><td VALIGN=TOP>TR1</td><td>12V secondary<br>220-240V primary</td><td></td>
+<td VALIGN=TOP>TR1</td><td>6V Secondary<br>110V primary</td></tr>
+<tr><td>R1</td><td>1 Ohm</td><td></td><td>R1</td><td>0.5 Ohm</td></tr>
+</table>
+
+<p>With the values shown above, the maximum load current of the master unit should be limited to about 2A (4A for 110V), and this will be more than enough for most preamps, computers, etc. If the master unit draws more than this, reduce the value of R1 to obtain a maximum voltage of 2V RMS at full load. In theory, this will give an RMS voltage of about 30V on the primary, but in reality it will be typically somewhat less than this. It is a good idea to check the actual voltage obtained from the transformer. If it exceeds about 30V, then reduce the value of R1 appropriately.
+
+<p>VR1 is used to set the sensitivity of the circuit. This may not be needed in some cases, but is highly recommended. The sensitivity should be set to ensure that the relay(s) activate reliably when the master unit is switched on and off. I had to include the sensitivity control in my unit, because the PC draws a small quiescent current (as do almost all of them now) which was sufficient to activate the relays as soon as the lead was connected. (I was not amused, since I then had to dismantle everything and modify the unit. Grrr.) Since I no longer use it with my PC, it means I can adjust it for any master load over a few Watts.
+
+<p><b>Warning:</b> If the sensitivity is set too low, Q2 may overheat! This is because it will not be saturated, and the full voltage does not appear across the relay. The transistor will have the relay current flowing through it, and some voltage across it - this equates to power, and power means heat. Such a condition will ensure that the transistor will fail at some time in the future (probably after you have forgotten how you wired the circuit, and at the least convenient moment - as always).</p>
+
+<center><img SRC="p79-f1.gif" BORDER=1><br><b><small>Figure 1 - Current Sensing Slave Power Switch</small></b></center>
+
+<p>Figure 1 shows the schematic of the main controller. Remember that TR1 is connected with the secondary (low voltage side) in parallel with R1 as shown. The input and master connections cannot be reversed! If you accidentally wire the circuit with them interchanged, once powered on, it will stay on, with the peripherals maintaining the current flow through TR1.
+
+<p>The main relay (RL1) must be rated for the full AC load current and voltage that you will be controlling. Never use a relay that is not suitably rated and designed for mains switching, as either electrical breakdown of the insulation or contact failure (or both) may result. As shown, the control electronics are earthed to the mains ground.
+
+<p><b><small>NOTE:&nbsp; If you use the auxiliary power supply output, do not use the unit with the control circuit "floating", as any internal insulation failure will render the unit extremely unsafe, and may cause risk of electrocution or fire (or both). When used in this manner, the protective earth connection <i>must</i> be used as shown.</small></b>
+
+<p>RL2 is optional, and is needed only if the 12V (nominal) DC supply is used - in my case, it operates a small preamp and headphone amp for my PC sound system. Power is supplied from an external plugpack, mainly because I had one handy (it was actually being used to power the preamp anyway). All diodes are 1N4004 or similar, and capacitors should be rated at 25V.
+
+<p>I suggest that you do not use a double pole relay, with one pole for the 12V supply (instead of two relays). Although mains rated relays are quite safe in this configuration, there is too much risk of mixing up the terminals, and sending deadly mains voltages out the auxiliary connector. It is also much harder to ensure that the wiring is properly segregated.
+
+<p>If the Auxiliary DC is not needed, then you can omit RL2, J2, D2 and C2, and run the unit from an internal supply (as shown in Figure 2) or from a 12V DC plug pack external supply. J1 is only needed if an external supply is used, otherwise, it too can be omitted.</p>
+
+<center><img SRC="p79-f2.gif" BORDER=1><br><b><small>Figure 2 - Internal 12V Supply</small></b></center>
+
+<p>A suitable internal supply is shown in Figure 2. The transformer is used in the normal manner - do <b><i>not</i></b> get the two transformers mixed up when wiring! This may be surprisingly easy to do, since the transformers may be identical (the use of two identical transformers is perfectly acceptable). I very strongly recommend that both transformers be fitted with thermal fuses if possible, or at the very least, use a fuse in the input of the auxiliary supply as shown. Small transformers are not often renowned for their build quality, and a labour saving circuit that burns down your house is not entirely satisfactory.
+
+<p>The supply shown will give a nominal 12V, and may be low power, since the only real load is the relay(s). If the auxiliary DC is not required, C1 may be reduced to about 470uF (which is often better than most transformer based plug pack supplies!). Diodes are 1N4004 or similar, and C1 should be rated at 25V. A 5VA to 10VA transformer will be more than adequate.</p>
+
+<hr><b>Alternative Power Supplies</b>
+<p>A power supply option that is now becoming economically viable is to use a small switchmode power supply (SMPS). These readily available plug-pack (wall wart) supplies are now cheaper than buying a transformer, diodes and a reasonable sized filter capacitor.
+
+<p>The latest versions of these draw almost no power when not being used, and can either be used as purchased or (if you are careful !) the PCB can be removed from the housing and installed inside the master-slave switch itself. A typical SMPS board is pretty small - about 60 x 30 x 20mm for a 12V 500mA power supply for one that I've used in a few projects, and the output voltage is even regulated. The power supply article referenced just below shows a typical PCB extracted from a reasonably typical plug-in SMPS unit. Some suitable candidates I've tested and used draw <i>less</i> than 300mW with no load, and are by far the most efficient option.
+
+<p>Another possibility is to use a so-called "transformerless" supply (see below for some details of a commercially available unit), but these are a  bad idea unless you are completely comfortable (and competent) working with mains voltages. Although often suggested for projects of this type, they are very dangerous because <i>everything</i> is live. There's also a small problem that relays draw a bit of power (around 0.5W is typical), and a transformerless power supply can only operate with a constant load. It will be hard to build a unit that runs at less than 1W and gives acceptable regulation, and the mains capacitor may be quite large and expensive. The circuit will also have an absolutely dreadful power factor, which is common for these supplies. This can be ignored though because of the very low power.</p>
+
+<p>For more information on why you should avoid using a transformerless supply, see <a href="articles/power-supplies2.htm" target="_blank">Small Power Supplies</a>. As you will learn from that article, even major corporations can get things horribly (and illegally) wrong easily. It's even scarier when they refuse to admit that they stuffed up badly. The version shown below does work well enough though, even if quiescent power is a bit higher than is desirable.</p>
+
+<hr><b>Conclusion</b>
+<p>In case you were wondering ... Why did I choose a transformer rather than an IC opto-isolator? Quite simple, really. Opto-isolators are <i>almost</i> ideal, but need a PCB. Veroboard and similar strip boards are extremely unsafe with mains voltages, and I wanted this in a hurry (as usual!). Never use strip board with mains voltages - it is just not designed for this!
+
+<p>To use an isolator, I would still need the power resistor, but its value would need to be higher (more power loss, more heat) to generate enough potential to operate the LED in the isolator. Or, I could use diodes to get the voltage drop needed. These would need to be high current types to handle the inrush current of even relatively small "master" appliances. Either way, I would (and therefore so would you) need to obtain the needed bits, where the design shown can be made with parts from the "junk box" - a transformer from an old plug pack supply, a few very common diodes and transistors, and a relay or two.
+
+<p>There is also the problem of limiting the LED current for overloads or even normal operation, and this can get quite irksome. A balancing act between sensitivity and ease of construction, safety and cost. Overall, the method shown is safe, easy to implement, and very satisfactory. Since almost any mains transformer can be used (for example, I have some 110V transformers I could have used - they are no use to me in Australia for anything else). The answer to the next question is "because I couldn't find one immediately" <img src="grin.gif" />.
+
+<p>Apart from anything else, most constructors will not have "odd" voltage transformers lying about, so will have to use those intended for their normal mains voltage, so it was better (for you, anyway) that I used a standard transformer for my testing. This also ensures that the insulation is rated to the actual voltage in your country, a not entirely unimportant consideration.
+
+<p>Please do not be tempted to use anything other than a mains transformer, unless it is rated for the full mains voltage. Typically, mains rated transformers will have an insulation breakdown voltage of 2kV or more between windings. This is your safety barrier, and as such it is very important that it really <i>is</i> a barrier.
+
+<p>You might also wonder why I didn't just use the output of the transformer to power the relay (via a diode and capacitor). The answer is again very simple. If your master device draws (for example) 400mA from the mains, only a small part of this goes through the transformer winding. The output voltage will be considerably higher, but at even lower current. With a carefully selected relay and transformer, this is possible, but generally, the power available will be too low - hence the amplifier circuit.
+
+<p>In short - this is a very basic circuit that works well and reliably with a wide range of controlling appliances, and it has a nice "techo" touch to it as well.</p>
+
+<hr><b>Commercially Available Version</b>
+<p>In the interests of providing all the info I could, I obtained a commercial master-slave switching power board. Predictably, it also has metal oxide varistors (MOVs) to provide some protection against transients, and like most "surge protected" power boards the claims are somewhere between specious and nonsense. One thing that has been done properly is to incorporate a thermal switch with the MOVs. After a number of voltage-clamping operations (the number depends on the current), MOVs have an increased likelihood of becoming conductive at normal mains voltages. Without the thermal switch they can easily set the PCB and/or plastic case on fire!
+
+<p>I am actually in (minor) awe of the power supply design - the manufacturer/designer has managed to make the circuitry draw over 1.2W at idle, yet the highest I can calculate or simulate is around 0.5W using the same topology for the power supply.</p>
+
+<center><img SRC="p79-f3.jpg" BORDER=1><br><b><small>Figure 3 - Commercial Master-Slave PCB</small></b></center>
+
+<p>The power supply used is a so-called "transformerless" type, but this is alright in this application, because the entire circuit is completely isolated from the user. <i>However</i>! Be warned that these circuits are dangerous, and you can't work on it easily. Please don't be tempted to use an isolation transformer, because there are still lethal voltages throughout the circuit, and your safety switch <i>will not operate</i> because of the isolation transformer! 
+
+<p>Current sensing is done with the little current transformer visible in the bottom centre of the photo. This is obviously specially made so is smaller (and cheaper) than my suggestion, but will be unobtainable almost anywhere ... unless you want to buy 1,000 or more of course. For anyone who wanted to do so, a small transformer could be built using a high permeability ferrite core. The mains "winding" only needs to consist of a single turn of mains-rated insulated wire - this also eliminates the parallel power resistor and ensures electrical isolation. The secondary winding might be about 1,000 turns of fine wire (0.05mm or thereabouts). You would need to experiment with the current transformer loading to obtain acceptable sensitivity. True current transformers are a bit of an art-form to design, but it can obvilously be done.
+
+<p>The detector circuit shown in Figure 1 can be used without modification, other than using a single 24V relay and omitting the auxiliary supply.
+
+<p>The circuitry of the commercial unit is different from mine, but it serves exactly the same purpose and works in an almost identical manner. There is no facility for a sensitivity adjustment, so many appliances will not activate the unit at all. I measured the sensitivity at about 125mA, or 30 Watts (approximately). It drops out when the load falls to around 22W or so. Because the circuitry is fairly crude, there was noticeable variation between tests, but this should not be an issue in normal use. The low sensitivity means that the master device <i>must</i> draw well over 30W to ensure reliable operation. A TV set will be fine, but a preamp will almost certainly not draw enough current to activate the switch.</p>
+
+<center><img SRC="p79-f4.gif" BORDER=1><br><b><small>Figure 4 - Commercial Power Supply</small></b></center>
+
+<p>The power supply is (more or less) as shown above. C1 <i>must</i> be an X-Class cap, as these are the only suitable type for this application. Note that there are a couple of differences between my recommended supply arrangement. Firstly <i><u>everything</u></i> is at full mains potential, and no part of the circuit can be accessible to the user. Secondly, it is 24V instead of 12V, because the relay coil needs less current and C1 can be smaller. For 120V countries, C1 needs to be (very roughly) double the value shown.
+
+<p>The supply as shown (and this was verified by testing) cannot maintain the full 24V when the relay activates, and it falls to about 20V. This is not a problem, as the relay will still remain solidly activated.
+
+<p>Under no circumstances may the 24V supply be used to power anything other than the current detection circuit. It cannot (and must not) be accessible as an auxiliary supply, because it is permanently at a lethal voltage.</p> 
+ 
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 29 Apr 2001./ Updated Jul/Aug 2010 - added SMPS and commercial product info.</div>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+ <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+ <meta name="keywords" content="smps,switching,switcher,switchmode,12v,car,auto,power,supply,audio,project,diy,circuit,schematic,diagram">
+ <meta name="description" content="ESP Audio Projects - Switchmode Power Supply For Car Audio.This PSU will provide up to 350W DC for powering audio amplifiers from the car's 12V supply.">
+ <title>Switchmode Power Supply For Car Audio</title>
+<!-- ESP Audio Projects - Switchmode Power Supply For Car Audio. This PSU will provide up to 350W DC for powering audio amplifiers from the car's 12V supply. -->
+<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 89&nbsp;</td></tr></table>
+
+<p align="center"><b>Switchmode Power Supply For Car Audio</b><br />
+<small>Sergio S&aacute;nchez Moreno and Rod Elliott</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Foreword</b>
+<p>This contributed project is a result of considerable collaboration between Sergio and myself, and should not be seen as necessarily a complete project in itself, but a stepping stone to understanding switching power supplies, how they work, and what you can do with them. 
+
+<p>Be warned - there is considerable risk.&nbsp; Because of the extremely high current available from a car battery, a tiny mistake may easily lead to catastrophic failure.&nbsp; All electronic components are said to contain smoke (wire contains an enormous amount), and a slip of the soldering iron can liberate an unbelievable quantity.&nbsp; Seriously though, the risk
+of severe burns and the possibility of causing a fire in your car are very real, and should not be underestimated.&nbsp; 300A from a car battery can do a vast amount of damage in a few milliseconds - should the fuse not blow (you <b><i>will</i></b> use a fuse, won't you?), then the damage can be extensive.
+
+<p>At various points in Sergio's part of the article, I have added some of my own information.&nbsp; This is shown in indented small font text.</p>
+
+<p><small><b>Please see the <a href="#specialnote">special note</a> at the end of this article for important information about the project.</b></small></p>
+
+<hr><b>Introduction</b>
+<p>The difficulties of installing an HI-FI system in a car are many, although there is no doubt that the most important is the limitation of the vehicle supply voltage. As most readers already know, the nominal voltage of a car battery is 12V, reaching about 13.8V when charging (i.e., engine running). 
+
+<p>The maximum RMS. audio power from a given voltage V is somewhat less than:</p>
+
+<center>Pmax = ( V / ( 2 x&nbsp;<img SRC="sqrt.gif" height=14 width=14>2 ) )<sup><font size=-2>2</font></sup> / R
+<p><img SRC="p89-fa.gif" height=74 width=105></center>
+
+... where R<sub><small>L</small></sub> is the speaker nominal impedance.
+
+<p>Thus, for a 13.8V system, this power is limited to about 6W on a 4 Ohm load. Note that the lower the resistance of the speaker, the higher the maximum power (this is the reason most audio speakers have a 4 Ohm nominal impedance instead of the more common 8 Ohm in home systems).</p>
+
+<blockquote><small>This may be simplified to some extent ...</small>
+
+<center><small>P = (V / 3)</small><sup><font size=-2>2</font></sup><small> / R<sub>L</sub></small></center>
+
+<p><small>and a typical calculation based on a 13.8V supply gives</small>
+
+<center><small>P = (13.8 / 3)<sup><small>2</small></sup> / 4
+<br>P = 4.6<sup><small>2</small></sup> / 4 = 5.29 Watts</small></center>
+
+<p><small>This allows for standard losses, and is acceptably accurate at this voltage - the only real way to know is to measure the amp, since the losses vary depending on the topology of the output stage in particular.</small></blockquote>
+
+<p>Power output can be increased by a factor of nearly 4 by using bridging techniques, explained in more detail in ESP project 14, so we can obtain up to about 24W on a 4 Ohm speaker. This can be enough for the midrange and high frequencies, but is obviously very limited for a subwoofer application, for example. (moral: distrust of "4 x 45W" head units is well advised, for they certainly aren't talking about RMS power).
+
+<p>So, what can be done to increase available audio power? The answer is a simple derivation of the above formula - either decrease load impedance or increase supply voltage. The lower the impedance, the more current is needed, making the construction of low impedance output stages more difficult (there are some other practical limits), so let's increase supply voltage.</p>
+
+<hr><b>Switch Mode Power Supply Basics</b>
+<p>The vast majority of high-powered audio amplifiers use SMPS (Switch Mode Power Supplies) to generate higher voltages from the available 12 (13.8) volts. An extensive theoretical explanation on how these things work is beyond the scope of this article, but these are some fundamental ideas you should know about switch mode power supplies (SMPS) for car amps:</p>
+
+<ul>
+	<li>The DC voltage at the battery has to be switched in some form to generate an AC waveform suitable for a transformer. As you already 
+	know, a transformer basically converts the AC voltage in its "primary" to a scaled version of it in its "secondary", the scale factor 
+	being the turns ratio of the primary to the secondary . (Again, take this as an extreme simplification). A transformer doesn't allow 
+	DC voltages to pass, and there is electrical (galvanic) isolation between both windings.<br><br></li>
+
+	<li>The AC waveform is usually a square wave that is relatively easy and efficient to generate. The frequencies usually fall between 
+	25kHz and 100kHz or more, thus allowing smaller transformers than the used in main appliances (its construction is also different, 
+	their cores are not laminated, but made from ferrites or "iron powder"). The switching elements have to be capable of high currents 
+	and must also be fast and have low switching losses. Usually, power MOSFETs or high speed bipolar transistors are used (some SMPS 
+	designs use SCRs but these are in the minority).<br><br></li>
+
+	<li>Once this waveform is stepped-up by the transformer, it has to be rectified again and filtered back to DC, since that is what 
+	we want. For audio applications, we usually need a symmetrical supply, +/-35V, for example. The rectification is done with a diode 
+	bridge, as it would be using a conventional transformer at 50 or 60 Hz. Note that for the frequencies we are talking about, fast 
+	or ultra-fast diodes are needed.<br><br></li>
+
+	<li>If we need a regulated power supply, some kind of feedback must be provided from the output rails to a controller that can change 
+	some parameters of the AC waveform at the primary of the transformer. This is normally accomplished with PWM (pulse width modulation). 
+	We will explain this later, in the "regulation" paragraph.<br><br></li>
+
+	<li>Always keep in mind that no energy is created - given a (total) rails to battery voltages ratio, the current drawn from the output 
+	will be (at least) be multiplied at the 12V input by the same ratio, thus the total power stays the same (assuming 100% efficiency, and 
+	that is never the case). A generic transformer "transforms" the voltage by a factor of Tr, current by a factor of 1/Tr, and impedance 
+	at the secondary by a factor of 1/sqr(Tr), Tr being the turns ratio. Impedance is of little importance in this context.<br><br></li>
+
+	<li>A well built SMPS can reach 90% efficiency. So, if you expect to produce +/-35V at 6A (per rail) supply (this supposes 35x6 + 
+	35x6=360W) then be prepared to draw more than 30A from the battery! Fortunately, when talking about audio amps reproducing music, 
+	power requirements are always much lower than with pure sine waves.</li>
+</ul>
+
+<p>At this point, the reader should realise the magnitude of the currents involved in a high power SMPS for a car amplifier, and that extreme caution should be taken especially when connecting "the creature" to the car electrical system.</p>
+
+<hr><b>The system</b>
+<p>The present project describes the construction of a flexible SMPS capable of delivering powers in the order of 350W continuously, depending on the transformer used. The output voltage depends mainly on the turns ratio of the primary and secondary windings, but may be adjusted to a somewhat lower value using regulation. This should be enough to power a 200W subwoofer amplifier plus perhaps 2 stereo amps for the mids and highs. 
+
+<p>It is part of a complete car amp that I have built, with 6 power stages based on National's LM3886 Overture Amplifier. They can be combined into one >250W/4 Ohm subwoofer channel plus 2 x 65W/4 Ohm mid+high channels, alternatively into 2 x 120W/4 Ohm + 2 x 65W or even to form a multichannel 6 x 65W/4 Ohm amplifier, so it is an extremely flexible and high-powered
+system without renouncing sound quality. The parallel bridging techniques needed to do this will be possibly described in another project.
+
+<hr><b>Construction of the SMPS</b>
+<p>The complete schematic of the SMPS is shown below.
+
+<p><b><small>Note: This is Sergio's original version of the supply, the one shown in <a href="#fig9">Figure 9</a> is likely to be the most commonly used, as it is somewhat simpler, but has virtually identical performance. [esp]</small></b>
+
+<center><img SRC="p89-f1.gif" BORDER=1 height=595 width=746>
+<br><b><small>Figure 2 - Switchmode Controller Schematic</small></b></center>
+
+<p>There are three main blocks described below ...
+<p>A - Switching MOSFETs and transformer
+<br>B - Rectification and filtering
+<br>C - Control circuitry
+<p><b>A - Switching MOSFETs and Transformer</b>
+<br>The selected switching topology is called a "push-pull" converter, because the transformer has a double primary (or a "centre-tapped" one, if your prefer). The centre tap is permanently connected to the car battery (via an LC filter to avoid creating peaks in the battery lines, which could affect other electronic equipment in the car). The two ends of the primary are connected to a pair of paralleled MOSFETs each that tie them to ground in each conduction cycle (Vgs of the corresponding MOSFET high).
+
+<p>These MOSFETs should be fast, able to withstand high currents (in excess of 30A each if possible) and have the lowest possible Rds(on). The proposed On-Semiconductor's MTP75N06 can withstand 75Amp and has a Rds(on) below 10 milliohm. This is important, because the lower this resistance is, the less power they are going to dissipate when switching with a square waveform. Another alternatives are MTP60N06, or the more popular BUZ11 and IRF540.
+
+<p>Although the schematics show a previous bipolar push-pull stage, you can also connect the gate resistor directly to the output of the controlling IC, leaving out the transistors, as the SG3525 is capable to drive up to 500 mA (theoretically), more than enough to switch the MOSFETs fast.
+
+<p><b>B - Rectification and Filtering</b>
+<br>If one looks to the secondary side of the SMPS, it resembles exactly the scheme of a typical mains PSU, with one fundamental difference - the switching diodes have to be FAST or ULTRAFAST, if you use a standard diode bridge the system will simply blow up (and this can be very impressive, believe me!) Although a diode bridge is represented, it can be made with discrete diodes as well. Use high current (10 A minimum and a suitable voltage rating) diodes. I recommend using 4 x TO220 double diodes that can be paralleled to form a single one in each package. 
+
+<p>You may be surprised that the capacitors aren't too big. This is due to the high switching frequency. It is important that they are good quality ones and must be rated for 105 degrees operation. Ripple current rating and low ESR (equivalent series resistance) is very important for any switching supply. In my opinion, 5000uF per rail is enough.
+
+<p><b>C - Control Circuitry</b>
+<br>The controller IC is an SG3525. It comprises all the necessary subsystems to generate a fixed frequency, compare with a reference to modulate its pulse width and drive two outputs without overlapping. It works from 8 to 35V and filtering in the supply is recommended, as shown. As stated above, you can connect the outputs directly to the gate resistors of the MOSFETs if you don't want to include the bipolar stages.
+
+<p>The resistor RT and capacitor CT fix the oscillation frequency. Experimentation showed me that about 35kHz produces good results with my transformer. Another capacitor, Css fixes the "slow start" time - when you turn on the system, the pulse width increases from 0 up to the steady value, thus limiting the "inrush" current, a very good feature to avoid "thumps" in the speaker and protect the electrical installation. It has also a shutdown pin that allows control of the SMPS from an external signal (REMOTE from the head unit, for example).
+
+<p>In this project, layout is critical, incorrect track widths or excessively long traces can have high inductances and produce peaks that can make the MOSFETs blow up. ESP will probably offer a suitable PCB layout if there is enough interest in it.
+
+<hr><b>Transformer Construction Details</b>
+<p>This is the most critical part of the design, and you have two options, buying a commercial unit with the required power rating and turns ratio (hard to find, only a single supplier found at the time of writing), or wind your own.
+
+<p>If you choose to wind your own transformer (as if you have much choice), you have to decide which shape of core to use. The preferred material is ferrite, which has high permeability (ability to "conduct" magnetic flux) or iron powder, which has a lower permeability, but is less likely to saturate. Most commercial transformers use ferrite, and iron powder is generally the best material for filter chokes (inductors) that carry substantial DC.
+
+<p>For example, with a standard ETD39 core you could theoretically build a &gt; 350W supply. Winding this type of cores is not very difficult, but you will have to follow some guidelines I provide below in order to have good results.
+
+<p>Another possibility is using a toroid. You can extract it from a BIG power inductor. As a guide, a 4cm diameter toroid with a section of about 1cm<sup><small>2</small></sup> can be used for a &gt; 250W SMPS. Winding is a little bit more complicated than with ETD cores but with a little practice is not too difficult either.</p>
+
+<center><img SRC="p89-f2.jpg" height=84 width=176><br><b><small>Toroidal cores</small></b>
+<p><img SRC="p89-f3.jpg" BORDER=0 height=225 width=428><br><b><small>ETD-type cores</small></b>
+<p><img SRC="p89-f4.jpg" height=150 width=150><br><b><small>Toroid from ITL 100 inductor (Wilco Corp).</small></b>
+<br><b><small>(Remove the thick wire before winding! :-)</small></b></center>
+
+<p>These are a few general winding guidelines for all types of cores:
+
+<ul>
+	<li>You MUST use enamelled copper wire for all the windings. Keep also in mind that when working with high frequencies, the effective 
+	section of the wire is much smaller than the physical one, due to the "skin" effect (the current concentrates only in the outer part 
+	of the wire). As high currents are involved here, the section of the wire is very important, (if you don't want the enamel to fuse 
+	due to the heating produced by the resistive losses of the wire and short all the windings). A good practice is to use several thinner 
+	wires in parallel rather than a single thick one. This also eases winding. For example, six 0.4mm diameter wires can form a suitable 
+	primary for a 300W supply. The same applies to the secondary, although the current is reduced so you can use less wires (3 or 4, for 
+	example). From now on, I will refer to each composite wire as "winding", and to each thin wire as "wire".<br></li>
+
+	<li>The wires must be tightly wound. You must wind the primary first, trying to cover all the surface of the core, and then the 
+	secondary over it in the opposite direction, to maximise inter-winding coupling.<br></li>
+
+	<li>A good starting point is using 4 turns for each primary (that is, 4 turns, centre tap and another 4 turns IN THE SAME DIRECTION). 
+	To calculate the number of turns of the secondary winding, multiply by the turns ratio. For example, if you want to build a +/-30V supply, 
+	the turns ratio is 30/13.8=2.2 approx, so wind 2.2 x 4 = 8.8 turns (better 9 turns, to overcome the diode losses) for each secondary 
+	(that is, again, 9 turns, centre tap and another 9 turns IN THE SAME DIRECTION).<br><br></li>
+
+	<li>To start winding, take the number of thin wires you have decided to use (6, for example) in the primary, all together. Leave about 
+	3 or 4 cm out of the core to ease connection to the board and start winding. When you have wound 4 COMPLETE turns, go out the core and 
+	cut at 3 or 4 cm. Now you have the first primary. Then start again IN THE SAME DIRECTION winding the other 4 turns and at the end leave 
+	another 3 or 4 cm for connection. Twist together the thin wires of each winding at the ends, to ease soldering.<br><br></li>
+
+	<li>The varnish of the wire is intended to provide electrical isolation, so you have to remove it at the ends to make the connections 
+	to the board. Be sure to remove about 1cm to the end in ALL the wires you use. You can do that using a special solvent or with sandpaper 
+	and a lot of patience BEFORE winding.</li>
+</ul>
+
+<p>The following are photos of two models of transformers. The left one is a toroidal I wound myself using the core from a big inductor from Wilco Corporation (ITL-501), and the right one is a commercial unit from a US manufacturer (2x3:1, 350W). Both worked similarly.</p>
+
+<center><img SRC="p89-f6.jpg" BORDER=0 height=323 width=370><img SRC="p89-f5.jpg" height=323 width=350>
+<br><b><small>Left - Home Made Transformer.&nbsp;&nbsp;&nbsp;&nbsp; Commercial Transformer - Right</small></b></center>
+
+<p><b>Other remarks</b>
+<ul>
+	<li>The relay allows disconnecting of the power supply with the REMOTE (or "Electrical Antenna" from the head unit. Power consumption 
+	when off is then only the gate currents of the MOSFETs (A few nA) and the base current of the transistor that controls the relay (a 
+	few uA). Nothing to worry about, certainly.<br><br></li>
+
+	<li>Connect a big choke in series with the supply, as this will eliminate the switching noise that could interfere with other electrical
+	equipment. You can use the toroid that filters the +5V output of a old PC supply. (see figure below)</li>
+</ul>
+
+<center><br><img SRC="p89-f7.jpg" height=320 width=374>
+<br><b><small>My system's input choke, obtained from an old PC power supply.</small></b></center>
+
+<ul>
+	<li>All the wiring, especially the primary side must be heavy gauged, in order to minimise losses and avoid over-heating of the 
+	conductors. The PCB tracks should be thick enough, as short as possible, and reinforced with a generous tin layer and possibly with 
+	soldered wire.<br><br></li>
+
+	<li>Put two fuses in the rails outputs, as they can save you a lot of headaches when you short them to ground, etc. I used two standard 
+	6.3A fuses.<br><br></li>
+
+	<li>Mount the rectifier diodes and the MOSFETs on a decent heatsink, and keep in mind that they must be electrically isolated. Follow 
+	the usual heatsink mounting recommendations (thermal grease, etc.). TO220 packages are easy to handle.</li>
+</ul>
+
+<center><img SRC="p89-f8.jpg" height=296 width=502>
+<br><b><small>Detail of the MOSFET arrangement</small></b></center>
+
+<p>Note the insulation pad (one for all) and the thick supply wires.&nbsp; Individual insulation pads may be used with no loss of performance.&nbsp; Use of a clamping bar will give improved thermal conduction to the heatsink bracket, but do not over tighten, or the bracket will bend.</p>
+
+<hr><b>Tests</b>
+<p>This project handles quite large powers, so it is well worth the pain of step-by-step testing before you regret blowing all your work up in a microsecond.
+
+<p>For the tests, use a big 12V to 13.8V power supply, with current limiting if possible and capable of delivering at least 10 to 20 amperes (see project 77). If you don't have that, a PC computer PSU will work (although you won't get more than 80-90W, but it is enough for testing purposes and almost indestructible). Don't connect the SMPS to a car battery the first time you test it (it can be really dangerous!). A 10A fuse in series with the 12V supply is also a good idea. (You don't know to what extent! ;-)
+
+<p>The cables from the supply to the amp should be as short as possible and heavy gauged, to minimise losses. First time I tested the amp I had a 1 volt of difference from one side to the cable to the other in only 1.5 metres: the cable itself was dissipating more than 15W!!!. So, when calculating efficiency, always measure input voltage just at the input of the SMPS to account for this.
+
+<ul>
+	<li>First of all, with only the SG3525 chip and its associated components (no MOSFETs), check that you have a very clean 12V square wave 
+	in each output (180&ordm; out of phase and they do not overlap EVER). Check also that when you turn-on the power, it starts from 0% to 
+	50% duty cycle in about a second or two.<br><br></li>
+
+	<li>Once you have this, you can mount the MOSFETs. Do it on a heatsink, but be aware that the tabs are connected to the Drain, so 
+	provide insulation (mica + plastic washers, the usual stuff). Then solder the transformer and watch the primary waveform with an 
+	oscilloscope (use a 10:1 probe just in case you have large spikes in order to avoid damaging the instrument). You should have a square 
+	wave of about 25-26V peak to peak and the smallest peaks (overshoot) as possible. It they are higher than 30V (from ground), you may 
+	try to re-wind the transformer to improve coupling. You can also reduce the overshoots using the snubber network shown in the schematic,
+	although they will dissipate a bit of power (use 2W resistors and 100V capacitors), so mount them only if necessary.<br><br></li>
+
+	<li>Once you have a clean waveform, you can solder the rectifier and output capacitors and see what you have in the positive and negative 
+	rails. You should have the same voltage in both, and it should be similar to what you calculated.<br><br></li>
+
+	<li>Now try to load it with power resistors. Start with low power consumption (about 20W) and observe the MOSFETs, rectifiers and 
+	transformer carefully to see that they don't heat up. Also watch the current drawn from the 12V supply. The power (V x I) should be only 
+	a bit higher than that at the output load. (Expect a 80% efficiency or so).<br><br></li>
+
+	<li>If everything goes well, increase the load (decrease its resistance value). The MOSFETs should get warm after a while with heavy 
+	loads (about 100W), and the efficiency should maintain high (always above 75-80%).</li>
+</ul>
+
+<p>When you are completely sure that everything works as expected, you can proceed to connect it to the car electrical wiring (see "installation procedures" paragraph). First time you will notice an spark due to the sudden charge of the big input capacitor, unless you connect a resistor in series first (very good practice) to allow it charging slowly and then remove it for normal operation.</p>
+
+<hr><b>Installation procedures</b>
+<p>For your car and own safety, it is VERY IMPORTANT that you pay special attention when installing the power supply (and amplifier) in your car. These are some recommendations that everyone should follow carefully:</p>
+
+<ul>
+	<li>The supply MUST be taken directly from the battery, not to the radio or other +12V cables, as you will just blow or burn them, with 
+	the risk of a fire in the car. The supply wire must be of adequate section, about 5 mm diameter (excluding the plastic cover)
+	minimum.<br><br></li>
+
+	<li>A fuse MUST be connected in series with the supply wire, as near the battery as possible, because otherwise, in case of a collision, 
+	the wire can be shorted to ground, which WILL produce a fire. This is not a joke! The battery can produce in excess of 300 A that can 
+	burn virtually anything in a fraction of a second.<br><br></li>
+
+	<li>Another fuse should be put at the +12V input of the amplifier, in order to protect it from over current. My recommendation is to 
+	put a smaller value than the definitive and test the amp for a few days to see if it overheats, etc. For example, a 10-15A fuse can be
+	suitable.<br><br></li>
+
+	<li>The FIRST connection you have to make to the amp is Ground, and that must be firmly screwed to the car chassis as near the amp as 
+	possible with thick wire. Notice that, if you connected, for example, the signal RCA cables first and then the +12V wire, the input 
+	capacitors would try to charge returning to ground via the audio cables, possibly ruining the preamplifier of the head unit.</li>
+</ul>
+
+<hr><b>Regulating the Power Supply</b>
+<p>The project itself has excellent load regulation, and the rails voltage is almost only determined by the turns ratio, but it has inherently zero line regulation (basically, it "simply" multiplies the input voltage by the turns ratio), although this is not a problem in a car, where the battery voltage remains essentially constant.
+
+<p>If the obtained output voltages are very high and you can't (or don't want to) modify the windings, you can use regulation to lower them a bit. For example, I use a 3:1 transformer that would give about +/-38V without regulation that is unacceptable for my LM3886 stages to be safe, so I have regulated to +/-26V. The MOSFETs will suffer more, however, so regulate the supply only if strictly necessary.
+
+<p>You can install the feedback potentiometer and set it in order to have zero reference voltage to deactivate regulation, or increase its value to regulate to the desired voltage.
+
+<p>NOTE: Regulation will work better with output inductors just between the rectifier diodes and the output capacitors. 10 to 100 uH with iron powder core and at least 8A current rating can be adequate. (I don't use them and my supply works reliably, although I never put it to the power limits). You can also improve safety by paralleling more MOSFETs, so the
+current through them is shared. This also improves efficiency a bit, as the total Rds(on) is reduced.
+
+<hr><b>Obtaining +/-12V from the SMPS for Preamplifiers</b>
+<p>If you need to power opamps for a crossover, equaliser or preamplifier, you can obtain a symmetrical +/-12V (for example) from the main supply rails, simply with a resistor, zener and capacitor. (see Figure 1 of Project 27). Remember to use 1 or 2W resistors and zener diodes. You can obtain about 25-50 mA from this without problems.</p>
+
+<hr><b>Additional Information</b>
+<p>The following material is from ESP - there are some suggestions and additional information, as well as a simplified version of the SMPS.
+
+<p>Although my version of the switcher is simplified, this does not imply that performance is lower than Sergio's original, but is the result of my own experiments and tests.&nbsp; We may be on opposite sides of the planet, but there was considerable collaboration during the development of the supply, and I have built and tested the version shown below.
+
+<hr><b>MOSFETs and Thermal Runaway</b>
+<p>It has been claimed that MOSFETs are immune from thermal runaway, since they have a positive temperature coefficient for their "on" resistance. While this may be partially true for a Class-AB power amplifier, it is completely false for a switching supply.
+
+<p>For example, a push pull SMPS using one IRF540 MOSFET a side draws 30A at full load. If we check the data sheet, we find that Rds(on) is 0.044 Ohm (44 millohms) at 25 degrees C, then we know that it will generate</p>
+
+<blockquote>P=I&sup2; x R = 30%sup2; x 0.044 = 900 x 0.044 = 39 W peak (per transistor).</blockquote>
+
+At 50 degrees (not uncommon in a car that has been in the sun for some time), Rds(on) will be about 1.25 times the value at 25 degrees (this is from the datasheet), or 0.055 ohms. Power dissipation will now be 49W, so the heatsink has to dispose of more heat. We can guarantee that the extra heat will cause the heatsink temperature to rise further, which will increase Rds(on), and that will make the heatsink hotter, and - BANG
+
+<p>Ensuring that you use parallel devices and a good heatsink will reduce the likelihood of this dramatically. Two MOSFETs sharing the load will dissipate 1/4 the power (each) of a single device, and have a lower thermal resistance to the heatsink as well.
+
+<blockquote>P=I&sup2; x R = 15&sup2; x 0.044 = 225 x 0.044 = 9.9 W peak (per transistor) - 19.8 W for both</blockquote>
+
+<p>The power shown per transistor is the peak - actual (RMS) power (per device) is half that calculated.&nbsp; The <i>total</i> power dissipated by both transistors (or sets of transistors in the case of paralleled devices) is the full value shown, since when one device is "on", the other is "off" and vice versa.
+
+<p>Naturally, the maximum dissipation will only occur at maximum (continuous) amplifier power - the real life requirements are usually somewhat less, however, it is essential that the design is capable of continuous "worst case" dissipation to ensure an adequate safety margin.
+
+<p>I strongly recommend that you do the calculations yourself, and make sure that you understand the implications.</p>
+
+<hr><b>Regulation</b>
+<p>Normally, one would expect regulation as shown in Figure 1, however, using the feedback input of the controller IC relies rather too heavily on the impedance of the DC supply lines.&nbsp; Normally, output inductors are used (with an additional "flyback" diode) to provide a pulse width to voltage converter.&nbsp; The majority of commercial systems seem to use a non-regulated converter, so I would consider that this will be quite acceptable in practice.&nbsp; Tests so far have shown that with a load of about 150 Watts, the regulation was almost entirely dependent on the voltage drop in the supply line!
+
+<p>As well as being unregulated, there are a couple of other changes in the circuit.&nbsp; R8 (100 Ohms) is connected between the timing capacitor and discharge pins of the controller IC.&nbsp; This introduces a "dead time" where both outputs are turned off, and the reason for this is to ensure that the power MOSFET pairs can never be switched on at the same time - should this happen, a very large current will flow (albeit for only a microsecond or less).&nbsp; Since I did not use the extra switching transistors and used higher value gate resistors, the dead time is important.
+
+<p>I also increased the switching frequency.&nbsp; As shown, the internal oscillator runs at approximately 50kHz (my prototype actually runs at 54kHz), where Sergio's original was designed for 35kHz switching.&nbsp; The difference is determined by the resistor on the RT pin of the controller, in my case, 12k.
+
+<p>Regulation will obviously make the circuit much more complicated, and as stated above, my version is unregulated.&nbsp; This will maintain maximum efficiency, and also reduces the dependence on the output filter capacitors - they are effectively fed with almost pure DC from the rectifier at all loads, so storage time is not an issue.&nbsp; Relatively small filter capacitors can be used, and the output will still be quite clean.
+
+<p>Not surprisingly, the turns ratio is very important if regulation is not used.&nbsp; Assume an input voltage of 12V to allow for losses.&nbsp; To obtain +/-24V, the turns ratio is 1:2 - for each turn on the primary, there will be 2 turns on the secondary.&nbsp; This is the same as Sergio's description, and the same rules apply.&nbsp; Unlike a normal mains transformer supplied with a sinewave, the switching waveform is a squarewave, so the peak and RMS values are the same (in other words, there is no 1.414 conversion as would be the case with a mains frequency transformer).&nbsp; The problem with this is that the 12V assumed at full load will be 13.8V under light or normal loading, so the voltage will be higher than expected.&nbsp; Using the same transformer as above (1:2 turns ratio) the no-load output voltage will be 27.6 volts - make sure that you do not exceed the voltage rating of the amplifier!</p>
+
+<center><a name="fig9"></a><img SRC="p89-f9.gif" ALT="Figure 9" BORDER=1 height=533 width=654>
+<br><b><font size=-1>Figure 9 - Simplified Version of Switching Supply</font></b></center>
+
+<p>Since the transformer is relatively easy to wind, it is not a difficult task to dismantle it and add (or remove) secondary turns to get the voltage right.&nbsp; My prototype transformer used 5+5 turns for the primary, and I used 3 strands of 0.8mm winding wire twisted together.&nbsp; There is plenty of room in the recommended core, so it would be easy to use 5 strands instead for lower losses.
+
+<p>Note that in the above (Fig. 9), the heavy leads shown carry substantial current, and must be sized accordingly.&nbsp; I do not recommend PCB traces be used, since the current involved is simply too high.&nbsp; Given that the suggested current density for PCB tracks is 4.0 A for a 100 "thou" (0.1" or 2.54 mm) track, then for 30A you need a track 0.75" (19 mm) wide!&nbsp; This is difficult to accommodate on any printed board.
+
+<p>I also eliminated the relay, but at the cost of a small current when the unit is not operating.&nbsp; The SG3525 has a shutdown pin for just this purpose.&nbsp; A signal from the remote head amp will turn on Q1, and remove the shut down signal from the controller.&nbsp; It behaves in exactly the same manner as if power had just been applied, and the unit will become fully operation in about 2 seconds or less.&nbsp; Current drain when turned off will be about 1 to 2mA - considerably less than the clock in the car.&nbsp; Battery discharge will not occur as a result of this very small current, which may be ignored as insignificant.</p>
+
+<hr><b>Construction</b>
+<p>I recommend that an EDT39 ferrite core is used.&nbsp; These are easy to wind, and are capable of around 350W output.&nbsp; Bear in mind that this represents a considerable battery current at full power, in the order of 30 to 35 Amperes!&nbsp; Heavy transformer windings and supply cables are essential, and the input filter must be capable of withstanding this current without saturating the core.
+
+<p>The former for these cores is rather large, and you may decide to cut the mounting sections off completely.&nbsp; Do remember that the transformer must be mounted somehow though, so I suggest that you have a plan.&nbsp; At this stage, I am only experimenting, and do not have a plan.&nbsp; I will provide details of the solution when I actually have one.
+
+<p>All of Sergio's previous comments apply to this version, so make sure that you read his material thoroughly.&nbsp; I do not propose to cover the same instructions again, since Sergio has already done an excellent job.</p>
+
+<hr><b>Prototype Testing</b>
+<p>I have done some initial tests, but have not yet connected the bridge and output capacitors.&nbsp; With what was intended to be 12+12 turns on the secondary, I obtained an acceptably clean waveform with some overshoot with the secondary unloaded.&nbsp; Output voltage was about 38V peak, so I obviously had one more turn than I thought I did (input voltage was 14V
+DC).&nbsp; I cannot stress highly enough that the winding process is critical to the success of your transformer, and you should expect to have a couple of attempts before you get it exactly right.&nbsp; The small number of turns needed makes this much easier than would otherwise be the case.
+
+<p>During my testing, my power supply and load became very warm indeed, but the MOSFETs (I used IRF540s) remained cool, even though they were mounted on a rather small heatsink lying on my workbench.&nbsp; This indicates that the heatsinking requirements are easily achievable, but does <i>not</i> mean that you can be lax with mounting.&nbsp; My transformer also remained cool, with no sign of the core or windings getting even warm.&nbsp; This must be considered a design goal.&nbsp; Even the lead I used to my load became warm, so the power output was very real indeed!
+
+<p>You <b><i>will</i></b> need an oscilloscope (or at least access to one) or the project will be very much harder to build and test.&nbsp; A design such as this relies on careful measurements and great care to make certain that it will perform as expected.&nbsp; Attempting this without an oscilloscope is not recommended.</p>
+
+<hr><a name="specialnote"></a>
+<b>Please Note:</b><p>This project has already created far more questions via e-mail than I desired or expected.&nbsp; For everyone who plans on making this supply ... you are essentially <b>on your own</b>.&nbsp; I cannot (and <i>will not</i>) be drawn into lengthy e-mail exchanges if you cannot make the supply work.</p>
+
+<p>That it does work if built as described is certain, that you will be able to achieve the same results is not.&nbsp; If you do not have (or at least have access to) an oscilloscope - don't even <b>think</b> about trying to make the supply, as it will not be possible to ensure that the duty cycle of the controller is exactly 50%, or that there is no severe overshoot or ringing at the output.</p>
+
+<p>Please do <b><i>not</i></b> not send me e-mails asking for help.&nbsp; I will simply refer you to this paragraph - I cannot diagnose your problems via mail, and will not even try.&nbsp; It is entirely up to the constructor to determine his/ her abilities before starting.</p>
+
+<p>The construction of any switching supply is fraught with difficulties, risks (including but not limited to electrocution!) and problems that need to be addressed.&nbsp; They are not simple (despite appearances) or easy, and there are a great many things that can go wrong.&nbsp; If you are not 100% confident that you understand the issues involved, please do yourself a favour and build something else instead.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Sergio S&aacute;nchez Moreno and Rod Elliott, and is Copyright &copy; 2002. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The authors (Sergio S&aacute;nchez Moreno and Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Sergio S&aacute;nchez Moreno and Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Sergio S&aacute;nchez Moreno/ Rod Elliott 21 Apr 2002./ Added <a href="#specialnote">special note</a> 31 Oct 2002.</div>
+</body>
+</html>

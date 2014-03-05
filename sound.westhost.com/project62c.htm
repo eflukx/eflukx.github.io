@@ -1,0 +1,178 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="description" content="Elliott Sound Products - The Audio Pages. Build a modular lighting controller, audio projects to build, and many other articles about audio topics.">
+   <meta name="keywords" content="light, strobe, triac, dimmer, control, audio, sound, hi-fi, schematic, electronic, power, supply, projects, decoder">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <title>Elliott Sound Products - Project 62c - LX-800 Lighting Controller</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <style TYPE="text/css"><!-- th { font-size: 10pt } --> </style>
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 62-C&nbsp;</td></tr></table>
+
+<p align="center"><b>LX-800 Power Control Section</b></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<br /><table align="center" BORDER WIDTH="100%" BGCOLOR="#FF0000">
+<tr><td><font color="#ffffff" size="+0"><b>WARNING:</b> &nbsp; Under no circumstances should any reader construct any mains operated equipment unless absolutely sure of his/her abilities in this area. The author (Brian Connell) and ESP take no responsibility for any injury or death resulting, directly or indirectly, from your inability to appreciate the hazards of household mains voltages. The circuit diagrams have been drawn as accurately as possible, but are offered with no guarantees whatsoever. There is no guarantee that this design meets any regulations which may be in force in your country.</font></td>
+</tr></table>
+
+<p><b>Introduction to Dimming</b></p>
+<p>Remotely controlled light dimmers in theatrical and show-lighting applications use an industry-standard 0-10V control signal for controlling the lamp brightness.</p>
+
+<blockquote>0V = lamp off and 10V = fully on.</blockquote>
+
+<p>Any voltage level between these two values represents a proportional lighting level voltage between those values adjusts the average voltage which is applied to the light bulb. The voltage level from the controller is compared to a ramp signal generated in sync with the mains frequency (50Hz, or 60Hz in US and some other countries).</p>
+<p>The lamp circuit is switched on when the levels of the control signal and the ramp are equal. For instance, if the control is set to halfway, that equality will occur when the ramp signal reaches 50% of its level, switching the triac on. When the mains cycle falls to zero, the triac will automatically switch off. Consequently, only half the mains cycle is passed to the lamp by the triac, and the lamp is at half brightness.</p>
+
+<hr><b>Phase Control</b>
+<p>The phase control system is almost universally used for AC light dimming. It is cheap to implement and very reliable, but is inherently noisy. Proper filtering can reduce the noise to acceptable levels, and 'lighting buzz' can be kept to a minimum with proper cabling. Phase control works by switching the AC on and off during a cycle. TRIACs are easily turned on, but to turn them off is not as simple - the AC waveform solves this problem for us by providing a 'zero crossing' every half cycle, where the applied voltage changes from positive to negative or vice versa. Since a TRAIC cannot remain in a conducting state with no current through it, it will turn off by itself. All we have to worry about is turning it on.</p>
+<p>The diagram below shows the load waveform for three different triggering times (after the zero crossing). The first (in red) was triggered 1ms after the zero crossing, the second (green) at 5ms, and the last (blue) at 8ms. As the delay is increased, the available power is reduced. The ramp generator in the next section allows the dimmer module to be triggered anywhere between immediately after the zero crossing (full power) down to just before the next zero crossing (minimum power).</p>
+
+<p align="center"><img SRC="p62-phse.gif" BORDER="1" alt="phase control">
+<br><b><small>Phase Control Waveforms</small></b></p>
+
+<p>Because the mains waveform is sinusoidal, the power is not linear with increasing phase angle. The table below shows the relative power levels, using 1ms delay (18&deg; of the half cycle) increments.</p>
+ 
+<center><table width="30%" border="1">
+<tr><td width="25%"><b>Delay (ms)</b></td><td width="25%"><b>Phase</b></td><td width="50%"><b>Relative Power</b></td></tr>
+<tr><td>0</td><td>0&deg;</td><td>100%</td></tr>
+<tr><td>1</td><td>18&deg;</td><td>99.7%</td></tr>
+<tr><td>2</td><td>36&deg;</td><td>96.3%</td></tr>
+<tr><td>3</td><td>54&deg;</td><td>89.8%</td></tr>
+<tr><td>4</td><td>72&deg;</td><td>81.3%</td></tr>
+<tr><td>5</td><td>90&deg;</td><td>71.4%</td></tr>
+<tr><td>6</td><td>108&deg;</td><td>59.9%</td></tr>
+<tr><td>7</td><td>126&deg;</td><td>46.2%</td></tr>
+<tr><td>8</td><td>144&deg;</td><td>29.1%</td></tr>
+<tr><td>9</td><td>162&deg;</td><td>9.4%</td></tr>
+</table><b><small>Load Power Vs. Phase Angle (50Hz)</small></b></center>
+
+<p>This, coupled with the eye's sensitivity and the inherent non-linearity of incandescent lamps, is the reason for implementing the 'S' curve shown on the channel fader page. As you can see, there is no great problem if a dimmer circuit delays the switching by a small amount. Even 2ms (for 50Hz) will reduce the maximum power by under 4%. This is negligible.</p>
+<p>Note that the phase angle works for 50Hz and 60Hz equally, but the delay (in milliseconds) does not. For 60Hz, you would need to increment the delay by 0.833ms for each 1ms step shown.</p>
+
+<hr><b>Ramp generator</b> <small>(Updated 08 Dec 08)</small>
+<p>This circuit is the heart of the system. It is where all the synchronisation takes place and produces the phase controlled switching to the triac output stages. Electrical noise is caused by things switching on and off at random points on the mains cycle. We've all heard the dreadful sounds a refrigerator can make through a radio when it switches on and off. Random switching occurs in theatrical or musical environments, and if all that interference broke through the sound equipment - well, the lighting guy would be toast! Like all dimmers, these are inherently noisy, so filter circuitry has been added to ensure that the system does not create excessive electrical noise. The filter shown in the power control section may not be sufficient though, and you may need to add extra filtering (or use commercial in-line filters).</p>
+
+<p align="center"><img SRC="p62-f9.gif" ALT="Figure 9" BORDER=1 height=259 width=718>
+<br><b><small>Figure 9 - Ramp Generator</small></b></p>
+
+<p>Resistors R1 and R2 should be a minimum of 1/2W, R4 must be 1W, and all others can be 1/4W. Capacitors should be rated at a minimum of
+25V.&nbsp; All diodes (other than Zeners) should be 1N4004 or equivalent.</p>
+<p>The 10V supply will actually be closer to 10.7V with the circuit as shown. This is deliberate, because there are diodes in series with the outputs of all faders, switches, etc. Since these diodes all have a nominal drop of 0.7V, the actual control voltage will be 0-10V as designed. If the reference were really 10V exactly, the dimmers would be unable to reach full brightness. Regardless of the actual voltage, it is referred to as the 10V supply in all cases.</p>
+<p>The 10V supply has been upgraded to allow the use of the extra resistors (to provide the 'S' curve) on the faders, and for the additional current draw of the revised chaser circuit (incorporating a level control).</p>
+<p> Since the load will be over 60mA, the original circuit would have been unable to supply the current needed. The supply uses a very simple series pass transistor regulator, and it will be more than adequate for the current drawn by the 10V circuitry. This will easily power the modified fader arrangement (as well as the switch LEDs) with current to spare. The BD139 transistor (Q1) will need a small heatsink - a piece of aluminium 50mm square (or a small commercial heatsink) should be quite sufficient, although something bigger will not hurt a bit.</p>
+<p>Resistors R1, R2 and R4 should be a minimum of 1/2W, and all others can be 1/4W. Capacitors should be rated at a minimum of 25V. All diodes are 1N4004.</p>
+
+<p align="center"><img SRC="p62-ramp.gif" alt="ramp waveform" BORDER="1">
+<br><b><small>Ramp Waveform</small></b></p>
+
+<p>The above shows how a correctly adjusted ramp waveform will appear on an oscilloscope (50 Hz mains signal is shown - ramp frequency is double the mains frequency). There is no easy way to adjust the circuit without an oscilloscope, but a PC based sampler using the sound card will work fine. You must use an attenuator to make sure that the maximum input voltage of the sound card is not exceeded. If you can't figure out how to do this, then I suggest that you are too inexperienced to attempt this project.</p>
+
+<p>This circuitry produces reliable and accurate switching control and synchronisation for the power stages. The circuit generates a 100Hz (or 120Hz for 60Hz countries) ramp signal which is synchronised to the incoming mains voltage. The ramp signal starts at 10V and goes linearly down to 0V in 10 milliseconds (8.33 ms for 60 Hz mains), and continues with each mains half-cycle. The voltage returns to 10V at each mains voltage zero crossing. The 470 ohm pot is used to adjust the ramp so it has the best possible 10-0V swing. The 10V level is defined by the circuit, but the zero volt level is dependent on the exact value of C2, and the current drawn by the current sink (Q4 and Q5) - hence the need for adjustment.</p>
+<p>In this way, a 10V input signal (from a fader or other source) triggers the TRIAC at the very beginning of the waveform, so full brilliance is achieved. At zero volts, the TRIAC is not triggered at all, so the lamp(s) are off. At intermediate levels, the TRIAC triggers somewhere between the beginning and end of the waveform - thus at 5V input, the TRIAC triggers at exactly half way between the AC zero crossing points, so 1/2 the normal sinewave is applied giving about 1/2 brightness - this is not strictly true since our eyes have a logarithmic response, but it works well enough in practice. The same principle is used for all dimmers, regardless of size or purpose.</p>
+
+<hr><b>Power Supply</b>
+<p>The power supply is quite conventional, and is shown in Figure 9. A standard full wave rectifier and a positive and negative regulator supply power to all parts of the circuit. The supply is mounted in the Dim-Rak cabinet, along with the ramp generator and the eight modular dimmer circuits.</p>
+
+<p align="center"><img SRC="p62-f10.gif" ALT="Figure 10" BORDER=1 height=211 width=717>
+<br><b><small>Figure 10 - Power Supply</small></b></p>
+
+<p>The transformer must be rated at least 25VA, and all capacitors should be 25V. Heatsinks are suggested for the regulators, to ensure the
+coolest running (which translates to longer life). A single transformer may be used to power the ramp generator and power supply - I suggest that
+a 50VA unit be used.</p>
+
+<hr><b>Dimmer Unit</b>
+<p>The dimmer unit is shown in Figure 10. Each dimmer has a 741 or similar opamp, and the heart of the circuit is really the opto-isolator IC, the MOC3020. This provides the essential isolation between the mains and the control circuit. These devices are rated at 7500V isolation, and it is essential that no tracks are run between the pins of the IC, or safety will be seriously compromised.</p>
+<p>One thing you will notice, especially using high wattage globes is "filament sing". This is not a fault with the dimmer. It occurs when the filament in the globe vibrates in sync with the chopped mains waveform being sent to it from the dimmers. Use of a large value inductor (choke) in series with the load can reduce filament sing and EMI - see below for more details.</p>
+
+<p align="center"><img SRC="p62-f11.gif" ALT="Figure 11" BORDER=1 height=333 width=728>
+<br><b><small>Figure 11 - Dimmer Circuit</small></b></p>
+
+<p>D1 is a 1N4148 or 1N914. R5 and R6 should be 1W - not for the power dissipation, but to ensure an adequate voltage rating. There may be some advantage in using a 5W wirewound resistor for both as a safety measure. I shall leave this to the reader.</p>
+<p>Eight dimmers are needed to make one 8-channel Dim-Rak. The terminal marked "0-10V" is the input from the faders, S2L unit or chaser. With this unit, it is absolutely essential that all mains wiring is fully protected against accidental contact. The TRIAC (S1) must be on a heatsink, and great care is needed to ensure that the unit is completely safe. If the suggested BF139F TRIAC is used, it has an insulated tab, and may be mounted directly to the heatsink without the need for mica washers. This makes a much safer installation than non insulated devices. If non-insulated TRIACs are used, the integrity of the insulation is paramount. Insulation should be checked with a 1000V insulation tester - any resistance less than infinity on the meter is too low! Remember that heatsink compound must be used, and every care is needed to ensure the final assembly is completely safe.
+<p>The case and heatsinks <b>must</b> be earthed via a 3-pin mains plug, and all mains voltage tracks and wiring must be kept a minimum of 5mm from the low voltage circuits. The inductor (L1) needs to be a mains rated interference suppression type. These may be available from electrical installation suppliers, specialist inductor suppliers, or you might have to make your own.</p>
+<p>The fast turn-on time of the TRIAC will result in the generation of RFI which may interfere with radio and/or TV reception. This can be reduced by using an RFI filter. The filter shown is an inductor (typically 100 &micro;H minimum) in series with the TRIAC, and a snubber network (0.1 &micro;F in series with 2.2k 5W) in parallel with the TRIAC. An additional (mains rated) capacitor can also be used directly across the Active and Neutral and/or LP1 and LP2 terminals. The snubber network causes a ring-wave of current through the TRIAC at turn on time and the filter inductor is selected for resonance at any frequency above the limit of human hearing but below the start of the AM broadcast band for maximum harmonic attenuation. In addition, it is important that the filter inductor be non-saturating to prevent di/dt * damage to the TRIAC.</p>
+
+<blockquote>* <small>di/dt - delta (change) in current versus time.</small></blockquote>
+
+<p>To make these inductors, try about 10 turns of insulated wire wound on a powdered iron toroid. Do not use a high permeability core such as ferrite or steel, as these will saturate and may damage the TRIAC. Make sure that the inductors are firmly mounted, and that accidental contact is not possible while the system is live. Larger chokes may be used if desired, and there are several manufacturers who make dimmer chokes that are designed for the purpose.</p>
+<p>Many professional dimmers use <i>massive</i> inductors. Some are so large that they dominate the chassis, and this is because the inductance is as high as practicable to limit the rise time of the waveform applied to the load. Various claims can be found on the Net as to the optimum risetime, but in reality it will vary depending on the load. A 1kW dimmer with a quoted risetime of 400&micro;s will have a risetime of 200&micro;s if the load is only 500W. To achieve this, the inductor needs to be about 10mH for a 230V system or 5mH for 120V - that is a big inductor, and it must also have low resistance.
+<p>The quoted risetime can vary from 300&micro;s to 800&micro;s or more, but as risetime is increased, so to are inductor losses. In some cases, dimmer chokes may be fan cooled to increase their ratings. All power lost in the inductor windings is power that never gets to the lamps, so overall efficiency is reduced.</p>
+
+<hr><b>Circuit Layout</b>
+<p>The power control section is modularised: the power supply and ramp generator on one printed circuit board, the eight triacs on individual PCBs. This was done because if anything is going to go wrong, it is usually a triac that blows. If possible, arrange for the boards to plug onto the output connectors with spade connectors so that they could be replaced quickly and easily. You are free to build this section to suit yourself, but make sure that you build it so that repairs will be as easy as possible. Also, make sure that all mains wiring regulations for your country are followed to the letter.</p>
+
+<p align="center"><img src="p62-f12.gif" alt="figure 12"border="1"><br>
+<small><b>Figure 12 - DIM-RAK 8 Internal Wiring</b></small></p>
+
+<p>Each DIM-RAK 8 unit will be wired identically. This means that any dimmer unit can be used with any console sub-section, without problems of incompatibility. The selection of output sockets is naturally determined by those that are in use in your country. It is probably best to use standard wall outlet type sockets, so that off-the-shelf extension leads can be used for wiring to the lamps. This makes it less likely that you will ever be caught out with a faulty or missing lead.</p>
+<p>The mains input, master switch (if desired) and master fuse or circuit breaker are not shown in the above. If you need a schematic to show how they are wired, then you don't know enough about electrical wiring to tackle the job. In this case, it is recommended that you find someone qualified to carefully check your work, and preferably perform all mains wiring for you.</p>
+
+<table BORDER WIDTH="100%">
+<tr><th width="16%"><a href="project62.htm">Overview</a></th>
+<th width="16%"><a href="project62a.htm">Channels &amp; S2L</a></th>
+<th width="16%"><a href="project62b.htm">Strobe &amp; Chaser</a></th>
+<th width="16%">Power Control</th>
+<th width="16%"><a href="project62d.htm">Connections</a></th>
+<th width="16%"><a href="project62e.htm">Miscellaneous</a></th>
+</tr></table><br /><br />
+
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Brian Connell and Rod Elliott, and is Copyright &copy; 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author/editor (Brian Connell/Rod Elliott) grants the reader the right to use this&nbsp; information for personal use only, and further allows that one (1) copy may be made for reference while  constructing the project. Commercial use is prohibited without express written authorisation from Brian Connell and Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott/Brian Connell 14 Jul 2000./ Updated 17 Oct 2001 - corrected error in dimmer circuit./ 22 May 07 - additional detail on TRIAC mounting, modified schematic./ 09 Dec 08 - Updated ramp generator (thanks to John Howard for pointing out an error), also added more info on RFI suppression using inductor.</div>
+</body>
+</html>

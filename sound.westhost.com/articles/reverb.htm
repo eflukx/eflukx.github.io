@@ -1,0 +1,227 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="DIY Audio from ESP - Spring reberb tanks - care and feeding. How to match your electronocs to an existing reverb unit, or specify the best tank for existing electronics.">
+	<!-- DIY Audio from ESP - Spring reberb tanks - care and feeding. How to match your electronocs to an existing reverb unit, or specify the best tank for existing electronics -->
+	<meta name="keywords" content="reverb, accutronics, spring, type 1, type 4, type 8, type 9, drive, recovery, schematic, electronic, projects, pcb, printed, circuit, board, diy">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<title>Spring Reverb</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 125&nbsp;</td></tr></table>
+
+<p align="center"><big><b>Care and Feeding of Spring Reverb Tanks</b></big>
+<br /><small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>Reverb is one of those effects that simply will not go away. While there are some excellent DSP (digital signal processor) based reverb systems that really do sound very natural, the unique sound of spring reverb tanks is still preferred by a great many guitarists and many electric/electronic organ players as well. It becomes obvious that the sound of a spring reverb must be a classic, when it becomes available as a software plug-in for computer based recording systems.
+
+<p>For detailed info on the history of reverb, it's hard to go past the <a href="http://www.accutronicsreverb.com/" target="_blank">Accutronics</a> website. There is also a lot of information provided showing various drive methods, a simple recovery amplifier, overload characteristics, and much more.
+
+<p>The problem for the hobbyist or DIY builder is that the information is too detailed and the circuits are too generalised. This makes component selection difficult, and makes it almost impossible for the average enthusiast to work out what is needed for their application. While it's nice to have so many choices (they make a lot of different tanks), it's extremely difficult to work out the combination of the most suitable tank, optimum drive circuit, and the ideal recovery amplifier.
+
+<p>With this in mind, and given that I have a reverb design amongst the projects, there is actually nothing specified as to the best tank to use to ensure good performance. I have an old 4FB2A1A tank that was used for some of the tests described. This tank is a Type 4, and has drive coil impedance of 1,475 ohms (~1.5k), pickup coil impedance of 2,250 ohms (2.2k) and is designed for long reverb time (2.75-4 seconds). All this information is available from the Accutronics website.
+
+<p>It should be mentioned that the info provided is often at variance with reality. A measurement of inductance (for example) gives a very different value from that calculated, but an impedance scan shows that the quoted figures are fairly close. Inductance measurements on transducers often give incorrect results, because the coil resistance is high enough to trick the meter into claiming the inductance is much higher than it really is.</p>
+
+<center><img src="rvb-f1.jpg" border=1><br><small><b>Figure 1 - Accutronics Reverb Tank</b></small></center>
+
+<p>Figure 1 shows a complete spring reverb tank. I was originally going to show a photo of one I already have, but it looked a bit too gruesome, so I got a new one to do some further experiments with. While the old one has seen better days (it's well over 20 years old) it still works perfectly. The single biggest problem with it is that the input coil has a very high impedance, making it rather difficult to drive.</p>
+
+<center><img src="rvb-f2.jpg" border=1><br><small><b>Figure 2 - Drive Transducer Details</b></small></center>
+
+<p>Above, you can see a close-up of the drive coil. All coils are colour coded to show their impedance. This info was not included in the table below, but is available from the Accutronics website. This can be helpful if the model number is missing or can't be read.</p>
+
+<center><img src="rvb-f3.jpg" border=1><br><small><b>Figure 3 - Pickup Transducer Detail</b></small></center>
+
+<p>Here's a close-up of the pickup coil. The basic design of these tanks dates from around 1960, and has changed very little in all the time since then. As a result, it is possible to replace even extremely old tanks if necessary, and a direct replacement is almost always available. The transducers of this tank are virtually identical to those in my 20-odd year old tank.</p>
+
+<center><img src="rvb-f3a.jpg" border=1><br><small><b>Figure 3a - Pickup Transducer Magnet</b></small></center>
+
+<p>Here is a picture that you won't see very often. This is photo of one of the transducer magnets, taken from a broken reverb spring. To get an idea of the size, the magnet is sitting on a piece of 5mm grid graph paper. You can see the ends of identical magnets in the two photos above of the drive and pickup transducers, but it's hard to gauge the size from those other photos.</p>
+
+<center><img src="rvb-f4.gif" border=1><br><small><b>Figure 4 - Accutronics Reverb Tank Drive Coil Impedance</b></small></center>
+
+<p>The above scan was taken of an Accutronics 4FB2A1A reverb tank (my old one). I used a woofer tester (normally used for measuring Thiele-Small parameters). The impedance was also verified using a vector impedance meter, and gave virtually identical results. The spikes at the high end of the sweep are caused by the measurement signal causing a disturbance in the springs, and confusing the reading. Although the impedance is different from the claimed or calculated value at various frequencies, the difference is inconsequential. In theory, the impedance at 6kHz should be around 8.8k, but is closer to 6.5k - while this might seem like a large error, it makes little or no difference to the way the tank behaves.</p>
+
+<hr><b>Reverb Tank Drive</b>
+<p>The drive circuit for any spring reverb tank is critical - by far the most critical part of the final system. The drive coil has a nominal impedance specified at 1kHz, but it also has considerable inductance. It is actually quite difficult to drive properly. It is necessary to know the optimum drive level, but this is specified as a current, <i>not</i> a voltage.
+
+<p>In order to produce a constant drive level into a coil as the frequency varies, it is necessary to drive the coil with an amplifier that produces constant current, rather than the much more familiar constant voltage. This can be done with equalisation, but it is preferable to use a dedicated amplifier with a high output impedance. This approach is easier, and it automatically adapts itself to the actual (as opposed to nominal) value of impedance at any frequency of interest. However, current drive accentuates the upper frequencies, and in some cases this may well be excessive.
+
+<p>It is common to include a high pass filter as well, because the spring reverb effect doesn't work well at low frequencies. While it is possible to get good low frequency performance, it's generally undesirable because it tends to muddy the sound too much. Accutronics provides a table of impedance and RMS drive current at 1kHz, but some of the information that one really needs is missing. To rectify that, I have added a column giving the approximate inductance and deleted the columns that are unimportant. The following table applies to the Type 4 tank - the 425mm long, 4-spring version as used by Fender and many others.</p>
+
+<center><table width="700" border=1 style="border-collapse: collapse">
+<colgroup span=5 width="20%">
+<tr><td><b>Type 4 Input</b><td><b>Coil Impedance</b><td><b>DC Resistance</b><td><b>RMS Current</b><td><b>Inductance</b>
+<tr><td>A<td>8<td>0.81<td>28mA<td>1.27mH
+<tr><td>B<td>150<td>26<td>6.5mA<td>24mH
+<tr><td>C<td>200<td>27<td>5.8mA<td>32mH
+<tr><td>D<td>250<td>36<td>5.0mA<td>39mH
+<tr><td>E<td>600<td>58<td>3.1mA<td>95mH
+<tr><td>F<td>1,475<td>200<td>2.0mA<td>234mH
+</table>
+<small><b>Table 1 - Type 4 Accutronics Input Coil Data</b></small></center>
+
+<p>There are several different tanks available, most of which are somewhat smaller than the Type 4. Being smaller, this means fewer (or shorter) springs, and different reverb characteristics. The Type 4 has been the unit of choice for many guitarists for a very long time, although some do prefer the other types. The details in this article are equally applicable to any reverb tank, but some small changes may be needed to account for different impedances.
+<p>The first thing that the intending user should look at is the 1kHz impedance. For example, a coil with an impedance of 1,475 ohms at 1kHz requires a voltage of 2.95V RMS to produce 2mA coil current.  At 10kHz, this rises to 29.5V because the coil impedance rises to 14.75k. While this voltage and current are certainly achievable, the drive amp ideally needs a supply voltage of over &plusmn;40V - often, this is simply not available.
+
+<p>For use with an opamp or small chip amplifiers, we must use a lower supply voltage, and with these the high impedance drive coil is of no use. All in all, the 8 ohm coil is the most attractive, although theoretical current is higher than we might like at 28mA RMS (about &plusmn;40mA peak). The optimum impedance for opamp drive is 150 ohms ('B' input coil), and even at 10kHz when the impedance has risen to 1500 ohms, the voltage remains below 10V RMS. With a peak current of 9mA, an opamp will require a couple of small transistors to boost the output current, and we end up with a circuit such as that shown in Figure 1. For opamp drive, the 150 ohm coil doesn't allow much headroom though - it would be nice if there were an intermediate impedance available. Something around 50 ohms would be perfect.
+
+<p>An 8 ohm coil is a good choice if the power supply is adequate, and a boosted opamp (or a chip amp such as an LM1875) will be needed to drive the coil. The maximum voltage needed is 2.24V RMS (at 10kHz) to be able to provide the full 28mA needed for maximum output.  While the chip amp seems like a good choice and is very easy to do, the cost is considerably higher than a boosted opamp. Current drive is a little harder too, because most IC power amplifiers are not stable at unity gain, adding a small amount of additional complexity to achieve unconditional stability. The following circuit will drive 8 to 250 ohm coils well, without any changes.</p>
+
+<center><img src="rvb-f5.gif" border=1><br><small><b>Figure 5 - Basic Drive Circuit For Low Impedance Coil</b></small></center>
+
+<p>The circuit shown above requires that the input coil be isolated from the reverb tank chassis. The input voltage required for full drive is determined by the coil impedance and the value of R2, and with a 150 ohm coil and R2 set to 150 ohms as shown provides 6.5mA/Volt. Note that the value of R7 must be selected based on the coil impedance. The following table gives the suggested values for R2 and R7, based on the coil impedance. Some experimentation may be needed, but only the values of R2 and R7 need to be changed.
+
+<p>After getting a new 8 ohm tank for some experiments and to take a few measurements, it turns out that the coil can be driven somewhat harder than claimed. I was able to drive the 8 ohm coil to 250mA at 1kHz before saturation (almost 10 times the current claimed). The saturation current remains roughly the same at all frequencies from around 300Hz and up, and at 1kHz the voltage was measured at 2V RMS. This rises to 8V RMS at 5.8kHz, the highest frequency where useful output was measured. I drove the input transducer from an LM1875 amplifier, feeding the coil via a 10 ohm resistor. Amp output at 5.8kHz is a little over 8V RMS, and it was the resistor alone that reduced the drive voltage at lower frequencies. However, I don't recommend that you drive the coil to the maximum, because it may shorten the life of the unit. Somewhat surprisingly, using almost 10 times the rated coil current does not produce almost 10 times the output level - you will be lucky to get even twice the output. On that basis, using a much higher drive current should not be attempted (other than for experiments of course).
+
+<p>The Figure 5 circuit is not capable of driving an 8 ohm coil to the full 250mA that it can handle. This is of little consequence though, because the maximum current gives no real benefits, but could easily lead to premature failure of the tank.</p>
+
+<center><table width="700" border=1 style="border-collapse: collapse">
+<colgroup span=6 width="16%">
+<tr><td><b>Coil Impedance</b><td><b>R2</b><td><b>C2, C3</b><td><b>R7</b><td><b>Current</b><td><b>Voltage at 6kHz</b>
+<tr><td>8 ohms<td>33 ohms<td>47uF<td>150 ohms<td>28mA RMS<td>1.34 V RMS
+<tr><td>150 ohms<td>150 ohms<td>10uF<td>3.3 k<td>6.5mA RMS<td>5.85 V RMS
+<tr><td>200 ohms<td>180 ohms<td>10uF<td>3.9 k<td>5.8mA RMS<td>6.96 V RMS
+<tr><td>250 ohms<td>220 ohms<td>10uF<td>5.6 k<td>5.0mA RMS<td>7.50 V RMS
+<tr><td>600 ohms<td>330 ohms<td>10uF<td>12 k<td>3.1mA RMS<td>11.2 V RMS
+<tr><td>1,475 ohms *<td>n/a<td>n/a<td>n/a<td>2.0mA RMS<td>17.7 V RMS
+</table>
+<small><b>Table 2 - Suggested R2, C2 &amp; R7 Values For 1V RMS Input</b></small></center>
+
+<p>* Note that the Figure 5 circuit is not suitable for the 1,475 ohm coil, as it can't provide a high enough voltage to get good results. The circuit will run out of drive voltage at about 3kHz, and a high voltage drive circuit such as that shown in Figure 5 is needed.
+
+<p>In general, an input voltage of about 1V is pretty close to ideal for most applications. Be aware that if the coil is overdriven you'll get some distortion, and excess overdrive can damage the coil due to overheating if the available voltage and current is grossly excessive. This is actually fairly unlikely - even with 250mA in the 8 ohm coil the dissipation is negligible. It is best to avoid clipping the drive amplifier, so some headroom is needed. Amp clipping may be worse than core saturation, and the level needs to be monitored for best results.
+
+<p>The circuit of Figure 5 is not suitable for the high impedance coil - see below for more on that topic. R2 sets the sensitivity, and can be determined as R2&nbsp;=&nbsp;V<sub>IN</sub>&nbsp;/&nbsp;I<sub>COIL</sub>. For example, for an 8 ohm coil and 2V input, R2 becomes 2&nbsp;/&nbsp;0.028&nbsp;=&nbsp;71&nbsp;ohms. A 68 ohm resistor is fine in this case. R7 is based on an estimation, where the resistor value is roughly 20 times the coil's 1kHz impedance. Reduce the value of R7 for less treble response and vice versa. With R7 set at 20 times the coil impedance, high frequency response is 3dB down at about 5.5kHz. The resistor sets the amplifier's output impedance, so it can't keep rising with increasing frequency. The effect is identical to using a voltage amp with a series resistance. The choice of C2 and C3 is somewhat personal, but they should ideally be bipolar electrolytics as indicated. The values shown will give a fairly good drive level down to about 200Hz with all coil impedances, and is less bass response is desired it's better to reduce the value of C1. As shown the -3dB frequency is 159Hz. A smaller value will give more aggressive bass rolloff and vice versa.
+
+<p>We also need to consider the maximum voltage needed to provide the required current into the coil at high frequencies. At 10kHz, we need almost 10V RMS, which is the maximum possible from an opamp. Fortunately, response to 10kHz is not only unnecessary, but especially for guitar is undesirable (and it won't be reproduced by the tank anyway). An upper limit of ~6kHz is usually more than enough, so there is some headroom, although it is marginal with the 600 ohm coil (I suggest the high voltage circuit for that).
+
+<p>For an 8 ohm coil, R2 needs to be reduced to about 33 ohms for a 1V RMS input voltage. The dissipation of Q1 and Q2 is about 160mW at full level and 1kHz, and remains relatively constant with frequency. Peak dissipation is below 500mW - well within the ratings of the BC639/640. Feel free to use BD139/140 if you prefer. They will run cooler because they are considerably larger than the TO92 devices. The power supply demands are naturally noticeably higher than would be the case with a higher impedance coil, but are still easily handled by P05 or similar.
+
+<p>As the drive coil impedance rises further, the voltage needed to drive the coil exceeds that available from any opamp. The current is low, but this doesn't help a great deal if there is no easy way to get the voltage needed. The 1,475 ohm coil requires a voltage of just under 15V RMS at 5kHz, and almost 30V RMS at 10kHz.  Allowing for a maximum sensible frequency of 7kHz,  you'll need 21V RMS to drive it. This can be obtained easily enough using the &plusmn;35V supply for a typical 100W solid-state guitar amp (such as <a href="../project27.htm">Project 27</a>. The drive circuit must be discrete though, because no opamps are rated for such a high voltage. While a pair of opamps in bridge would work, obtaining stable current drive in this configuration is not easy. Even in that configuration, the maximum voltage available without distortion is ~20V RMS - not enough for the high impedance coil, especially since some headroom is desirable.</p>
+
+<center><img src="rvb-f6.gif" border=1><br><small><b>Figure 6 - Basic Discrete Drive Circuit For High Impedance Coil</b></small></center>
+
+<p>The discrete amplifier is not designed for outstanding performance, because it's not needed. It will drive the high impedance Accutronics coil to the full 2mA RMS required though, and the circuit as shown should satisfy anyone who has a high impedance tank. Since I'm one of those (since I have my old high-Z tank as well as the new one), I shall built the circuit to verify that the simulation is correct and because I want to be able to use the tank I have. It should work exactly as described, and is certainly not a difficult or expensive circuit to construct.
+
+<p>VR1 is an adjustment to enable the output voltage to be adjusted to zero. This is important to ensure maximum headroom. C4 (10uF bipolar electrolytic) is included to ensure that no DC flows in the drive coil. DC causes the magnetic circuit to saturate, and this reduces sensitivity and greatly increases distortion. It is also important that the circuit is driven from a low impedance. In the interests of simplicity there is no additional decoupling in the network of R1, R3, D3 and VR1, so a high impedance source may allow some hum and noise from the power supply to enter the amp's input. A low impedance source lets C1 act as a coupling cap and also decouples any noise. C1 is chosen to provide the desired low frequency response. With 68nF as shown, the -3dB frequency is about 160Hz. Reduce the value of C1 to reduce the amount of bass and vice versa - this is often a very personal choice.
+
+<p>This simple circuit has a deliberately limited output impedance, and the constant current characteristic only extends to about 6.5kHz, after which there is a 6dB/octave rolloff. This is the equivalent of using a resistance in parallel with the coil as shown in Figure 4 - all drive circuits require a high frequency limit. The response of any spring reverb tank is very limited above ~5kHz anyway, and there is little point trying to get very high frequencies. Even if the tank could provide good HF response, it would sound unnatural because natural reverb at high frequencies is very uncommon. Despite the high operating voltage, this circuit will still struggle if you drive it a bit harder than normal. With 2V input at 5kHz, the amp will clip - this is unlikely to be a problem though, since the energy at this frequency is usually much less than at lower frequencies.</p>
+
+<hr><b>Recovery Circuits</b>
+<p>Recovering the signal is every bit as important as driving the coil properly. The recovery circuit given by Accutronics is barely adequate, and will be rather noisy. It is important that the opamp used gives its best performance with low to moderate source impedances, and maintaining a high load impedance is essential for optimising the signal level. Both high and low frequency response should be tailored to suit the expected response of the tank itself. I would suggest that a range from 200Hz to about 6kHz is about right. Output above 7kHz is almost nil, so a wide bandwidth pickup amplifier is not needed. The relatively low bandwidth maximises signal to noise ratio - essential since the output level is generally about 10mV at maximum drive level.
+
+<center><table width="700" border=1 style="border-collapse: collapse">
+<colgroup span=4 width="25%">
+<tr><td><b>Type 4 Input</b><td><b>Coil Impedance</b><td><b>DC Resistance</b><td><b>Output Voltage (Typ)</b>
+<tr><td>A<td>500<td>42<td>3.0mV
+<tr><td>B<td>2,250<td>200<td>6.5mV
+<tr><td>C<td>12,000<td>800<td>15mV
+</table>
+<small><b>Table 3 - Type 4 Accutronics Output Coil Data</b></small></center>
+
+<p>Several opamps are well suited to the task, and of these the dual NE5532 (or NE5534 for a single version) is one of the better choices. These opamps are reasonably fast, have low noise and excellent drive capability for low impedance loads. They have rather uninspiring DC offset figures, but that's not an issue in this application. You could also use the OPA2134 dual opamp - very quiet, but (IMO) too expensive and overkill for this application. With a typical output level of around 6mV (which is rather frequency dependent), a total recovery gain of about 150 (43dB) is needed to obtain a 1V output. Although this can be obtained from a single opamp, the result may not be satisfactory.
+
+<p>Accutronics recommend adding a capacitor in parallel with their 'B' (2.25k) coil, for "improved high frequency response". While this is a good idea, the Q of the tuned circuit may be found to be too high. If this proves to be a problem, adding a resistor in series with the capacitor tames this nicely, reducing the peak amplitude and spreading the HF boost over a wider range. This is included in the circuit below, but the resistor value may need to be tweaked to get the sound you want.</p>
+
+<center><img src="rvb-f7.gif" border=1><br><small><b>Figure 7 - Generalised Recovery Amplifier Circuit</b></small></center>
+
+<p>The circuit shows the basis for the recovery amp. Gain is 40dB (x100), and may be reduced if necessary. I do not recommend attempting more gain from a single stage. Vary the value of R1 to adjust the degree of high frequency peaking created by C1. R2 prevents the opamp from swinging to the supply rail if the reverb tank is unplugged. Gain will need to be increased (by adding another stage) for the 500 ohm coil and reduced for the 12k coil. The latter is probably a poor choice, and I suggest the 'B' coil if you have the opportunity for be choosy.
+
+Gain is varied with R4 - lower values give less gain. A pot can be used at the output for level control. Although the NE5532 can drive low impedances easily, the pot should be 10k (audio taper is preferred). The disadvantage of this arrangement is that all the gain is concentrated in the one opamp, and if the signal level is higher than expected (which reverb tanks can do fairly easily), there is a risk of clipping. However, for this to occur, the tank's output would have to exceed 80mV peak. I have tried, but was unable to get anywhere near that much.
+
+<p>For maximum flexibility a two stage amplifier can be used with the level control between the two, but it's unlikely to be needed in reality, unless you have the 500 ohm coil and need additional gain. The second stage will typically only need a gain of 2-3, and this helps keep noise low.</p>
+
+<hr><b>Overload Protection/Indication</b>
+<p>The final step is to decide if you want to add a clipping indicator or level meter to the drive amp. Having some form of metering allows the drive level to be set to the optimum, maximising output level. While generally not included in guitar amps because of the added complexity (and marginal usefulness), for a studio or PA application it's essential. Provided the drive amp has sufficient headroom, I wouldn't recommend any form of compression or limiting, but a meter or indicator is a relatively simple addition.
+
+<p>The <a href="../project60.htm" target="_blank">Project 60</a> LED level display is ideal. It's small enough to make it easy to fit into a small chassis, and is easily calibrated to indicate the maximum allowable drive level. The schematic (with values amended to provide about 1V RMS input sensitivity) is shown below. The meter is usually connected in parallel with the input to the drive amp, but there's no real reason that it can't be reconfigured to measure the signal level from the drive amplifier.  See the project article for the required values of R3 and R4.</p>
+
+<center><img src="rvb-f8.gif" border=1><br><small><b>Figure 8 - LED Meter For Drive Level Monitoring</b></small></center>
+
+<p>The meter should be operated in dot mode, because it is likely to be too irksome to provide the various different supplies needed to allow the unit to operated in bargraph mode, which increases the IC dissipation dramatically. The input sensitivity as shown is 1.25V with VR1 at maximum - this means that the sensitivity is pretty close to perfect for a nominal 1V input. LED current is set to about 11mA with R3 at 1.2k but it is easily reduced if needed - if R3 is increased to 1.5k the LED current is just under 9mA.
+<p>In many cases, a simple clipping indicator will be sufficient. It's actually harder to do than the LED meter though, because there are no PCBs available for a suitable circuit. If you don't mind some Veroboard wiring, you may use the circuit below.</p>
+
+<center><img src="rvb-f9.gif" border=1><br><small><b>Figure 9 - Clipping Indicator For Drive Level Monitoring</b></small></center>
+
+<p>It's a pretty simple circuit, and will work well with almost any opamp. The suggested opamp is cheap and has limited performance, but is perfect for this circuit. The second stage is a comparator, and is used to "stretch" the overload peak so the LED is on for long enough for you to see. While the circuit might seem like overkill, really simple circuits just don't work well enough to be useful. It's important that the meter doesn't load the input or drive signal - depending on where you choose to connect the indicator - so a high input impedance is essential. The 100k pot is used to set the circuit gain so that a signal that just exceeds the coil current will trigger the LED.
+<p>If connected to the high impedance coil driver's output, the signal level applied to the circuit must be reduced because it's too high for the opamp. Input impedance needs to be as high as possible, and if used with the high impedance drive circuit, replace R1 with 100k. D2 is used to protect the LED against reverse voltage. You may use as many of these circuits as you need, but most constructors will just use one for the drive amp.</p>
+
+<hr><b>Input And Mixing Stages</b>
+<p>In most cases, reverb units are designed to allow a "dry" signal (no reverb), and use a pot to adjust the reverb level to the output. Sometimes (for example if used with a PA mixer), only the "wet" signal (reverb only) is needed. To be really useful, the support circuitry should allow both modes of operation. Some guitarists might like to experiment with using a second small amp and speaker just for the reverb - it's an interesting sound.
+<p>The input stage can be balanced if desired, and likewise the output(s), although I've only shown an unbalanced version. It's useful to provide a high input impedance, but unless you plan to plug the guitar straight into the reverb circuit (not really recommended), there's not much point in having an input impedance above 22k or so.</p>
+
+<center><img src="rvb-f10.gif" border=1><br><small><b>Figure 10 - Unbalanced Input, Mixer &amp; Output Stages</b></small></center>
+
+<p>The direct (dry) path has unity gain, so 1V input gives 1V output with the level control at maximum. The wet (Rvb Out) output has a level that's fixed, as it's intended to be fed to another amplifier or mixer. The mix of dry and wet signals is set by the Reverb control - it's not really possible to give a gain figure, because it will vary widely, depending on the input source, selected reverb tank, etc.
+<p>While there are many more possibilities, the purpose of this article is to give ideas, rather than complete details of a defined project. Using ESP boards, there is a wide range of additional possibilities. Using a P94 "universal" preamp/mixer allows the addition of tone controls, as well as full mixing capabilities. The P113 headphone amplifier is ideal as a driver for low impedance tanks (8 ohms is no problem), and the second channel can be configured as the recovery amplifier. The only things missing are the simple clipping indicator and discrete high impedance drive circuit.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="../projects.htm" onmouseover="document.b1.src='a.gif';" onmouseout="document.b1.src='a1.gif';">
+ <img src="a1.gif" name="b1" alt="Index" border="0"></a><b>Project Index<br>
+<a href="../index2.html" onmouseover="document.b2.src='a.gif';" onmouseout="document.b2.src='a1.gif';">
+ <img src="a1.gif" name="b2" alt="Main Index" border="0"></a>Main Index</b><br><br>
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2009. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott, 25 September 2009.</div>
+</body>
+</html>

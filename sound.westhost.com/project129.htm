@@ -1,0 +1,146 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="matrix, mixer, crosspoint, attenuator, switch, sound, amplifier, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - Matrix Mixer">
+	<!-- ESP Audio Projects - Matrix Mixer -->
+	<title>Project 129</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 129&nbsp;</td></tr></table>
+
+<p align="center"><b>Matrix Mixer</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html#p94" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; P94 (and other) PCBs are available for this project. Click the image for details.<br>
+
+<hr><b>Introduction</b>
+<p>A topic that's been raised a few times now is a matrix mixer. So, you may well ask, what's a matrix mixer when it's at home? The ideal is that you have a number of inputs (typically from 3 to 16), and a  number of outputs - there may be more (uncommon) or fewer (much more common) outputs as there are inputs. An array of pots allows you to mix the output of any input channel into any output channel, allowing anything from (say) 6 in to 1 out to 6 in to 6 out. Matrix mixers are also known as crosspoint attenuators in some cases.
+
+<p>As an example, output 1 might be set to have <i>only</i> the signal from input 3, while the outer outputs have a mixture of any two or more inputs. Naturally, it can be set so that each output contains only the signal from its corresponding input, but this is not the way such a mixer is generally used.</p>
+
+<center><img src="p129-f0.gif" alt="Photo" border=1><br><b><small>Example Of A 6 x 6 Matrix Mixer</small></b></center>
+
+<p>The above picture is an artist's impression of what may be a typical matrix mixer. All inputs and outputs would normally be at the back, but if it's more convenient for your use, they can just as easily be at the front or the sides. The white areas shown are so you can write a description for each output - it is also useful to have the same for the inputs as shown. You can use small pieces of magnetic whiteboard material if you use a steel chassis.
+
+<p>While it would seem that this would require a lot of circuitry, in reality the circuit is remarkably straightforward. There is more repetition than actual complexity. Because inputs and outputs are arranged in a matrix, it's only necessary to provide a level control (a pot, usually rotary) that allows any input (or number of inputs) to be mixed into any output (or number of outputs). The general scheme is shown in Figure 1, and as you can see there really isn't a lot involved. There are a lot of pots though, depending on your requirements.</p>
+
+<center><img src="p129-f1.gif" alt="Figure 1" border=1><br><b><small>Figure 1 - General Electrical Layout Of A Matrix Mixer</small></b></center>
+
+<p>As you can see, there are lots of pots, and it is very likely that the pots and knobs will be the most expensive part of the project. Although each input and output is shown directly connected, this isn't the way it's done in practice. All inputs must be buffered with an opamp that has enough output capability to drive all the pots for that row (or column, depending on how you arrange it), and the outputs need to be fed into a proper mixing stage. These will be described in more detail below. All pots should be 100k linear (<i>not</i> log!), and mixing resistors are 15k as shown.
+
+<p>One common use for matrix mixers is to provide foldback for the players on stage, but there are many other instances where you might wish to mix a number of source signals into several different mixes. Matrix mixers are also used in some synthesiser designs, either for control voltages or audio signals. The unit featured here is strictly audio. The uses for a matrix mixer are many and varied, and if you need one, you only have two choices - buy one that provides the functionality the manufacturer thinks you need, or build one with the functionality you <i>actually</i> need.
+
+<p>Inputs and outputs can be used for anything you like. Add headphone amps and you have as many headphone outputs as you need, each with its own mix. You can include a switch (or individual push-buttons) to allow you to monitor each output independently - the possibilities are endless. The matrix does not need to be "square" as shown (same number of inputs and outputs), and you can have as many inputs and as few outputs (or vice versa) as you need.
+
+<p>The ultimate limitation is the load presented to the input buffer amplifiers, and the noise gain of the mixers. These topics are covered in detail below.
+
+<p>Another use for matrix mixers is for mixing control voltages (for example 0-10V lighting controls or synthesiser control voltages), but as shown this unit is strictly for audio. While it would be possible to make it completely DC coupled, this is of little use for the vast majority of applications. DC operation causes problems if even small DC voltages are present across any pot(s), as it makes them sound "scratchy", so the present unit is designed for audio only.</p>
+
+<hr><b>Description</b>
+<p>The driver/buffer and mixer stages are based on the P94 Universal Preamp/ Mixer board (see <a href="project94.htm" target="_blank">Project 94</a> for specific details). Essentially, each input is an inverting buffer, and as shown each has a gain of 2 (6dB). This increases the level, so helps to keep the signal to noise ratio better than it might be otherwise. It is important that the signal remains well below clipping level at all times, so higher gain is not recommended unless you are certain that the applied signal can <i>never</i> exceed that voltage which will cause the buffers to clip.
+
+<p>The other consideration is the load on the opamp. Many popular opamps can't drive a load less than around 2k before the maximum output level is reduced and distortion increased. Opamps such as the NE5532 or OPA2134 can both drive 600 ohms at more than &plusmn;10V peak, and either of these is almost essential for the input buffer stages. If we allow a sensible safety margin and limit the maximum load to ~1k, either opamp can drive about 12 sets of pots (12 outputs), allowing for the worst case where all pots are set to maximum level.
+
+<p>The general arrangement for an input buffer is shown below. You need as many of these as you have inputs, so a six input matrix requires six input/ driver stages. This is the first section of the P94 board, with the second section being optional. It's not strictly necessary, but without the inverter stage the whole mixer will be inverting. Contrary to popular belief, this generally doesn't matter, but it can cause problems if the matrix mixer is used in conjunction with a normal mixing desk. In general, it's better to ensure that mixers are non-inverting.</p>
+
+<center><img src="p129-f2.gif" alt="Fig 2" border=1><br><b><small>Figure 2 - Input Gain Stage &amp; Inverter</small></b></center>
+
+<p>If you don't care about inversion, the second stage can be omitted. As noted above, I don't recommend this, but it is a choice you can make if you know that it won't cause problems elsewhere. One such problem may be having the guitar signal disappear almost completely because you have mixed equal levels of inverted and non-inverted guitar signal ... and yes, this can happen, although it's fairly unlikely. If you wanted to, you could also include the tone controls for each input channel, but I expect that this would be unwanted in the vast majority of cases.
+
+<p>The schematic above shows the component designators for the P94 board. Parts showed greyed out are not used. The connections for the treble control (T1, T2 and T3) are bridged together, and C104/205 (second channel) are replaced with wire links. All other component locations must be left vacant.</p>
+
+<center><img src="p129-f3.gif" alt="Fig 3" border=1><br><b><small>Figure 3 - Mixer &amp; Output Stages</small></b></center>
+
+<p>Parts shown greyed out are not used, and R111 is replaced with a wire link, or a 10 ohm resistor. The latter may be helpful if the unit is likely to be used where there is considerable high frequency electrical noise. The on-board mixing resistors aren't used because there aren't enough of them for most applications, and it's better to physically wire the pots more or less as shown in Figure 1, using busses wherever possible. You need one mixer stage for each output channel, and I suggest that you limit the number of inputs to 12 or less, or noise will become a major problem. Parts marked with a * are not provided for on the PCB, but are separate. The 100pF capacitor may be soldered directly to the leads of R115/R215, either on top of or underneath the PCB. This cap reduces any high frequency problems that may be created by the mix bus capacitance.
+
+<p>The same opamps are also recommended for the mixers, because they are very quiet. There are quieter opamps, but the NE5532 is ideally suited here, because the effective input impedance may be quite low. Low impedances suit bipolar transistor input opamps best, so be wary of "low noise" FET input opamps. With all pots for an output set to maximum (or minimum), the input resistance may be as low as 2.5k, so the opamp will have a worst case noise gain of 6 with the configuration and values shown.
+
+<p>For those who don't know the term, noise gain is the gain the stage has for its own internal noise, plus any thermal noise from external resistors. In the case of a mixer stage, it's very easy to have a <i>noise</i> gain of 10 or more, but a <i>signal</i> gain of less than unity. This degrades S/N ratio rather badly, because the opamp has much higher gain for the noise voltage than it has for the signal. For this reason, it's normal to operate any mixer at the highest practicable level, and a matrix mixer is no exception.
+
+<p>Note that with the output level control shown, output impedance is comparatively high, and is not suitable for driving long signal cables. If this is a requirement, then you will need to add buffer stages to all outputs, after the final master volume control. These could be the ESP Dual Balanced Transmitter circuits (<a href="project84.htm" target="_blank">Project 84</a>) if balanced outputs are desired. In some cases, the outputs will be used solely to drive headphones, in which case the ESP headphone amp (<a href="project113.htm" target="_blank">Project 113</a>) is a good choice. Otherwise, The first stage only (U1 and associated components) of the p94 board can be used for the output buffers as well. If you do use this arrangement, leave out R117/217 (after the master volume pot) or it will be duplicated by the input resistor on the P94 stage.
+
+<p>You will also need a power supply, which may need to be quite robust depending on the size of the mixer. Excluding any balanced outputs or line drivers, a 6 x 6 matrix as shown here will draw up to 90mA at &plusmn;15V, assuming 5mA for each opamp (10mA for each package). Each input section uses one opamp (half of each of the 2 opamps), and each basic output stage uses half an opamp. This can be supplied using the <a href="project05b.htm" target="_blank">Project 05</a> power supply, with generous heatsinks on the regulators.</p>
+
+<hr><b>Construction</b>
+<p>Construction without the PCBs is not really recommended because of the number of stages needed. Without the boards, there is a very high risk of problems caused by wiring mistakes, but the boards make the unit somewhat modular, and faultfinding is much easier should something go awry during construction.
+
+<p>The next drawing shows the way that the busses can be connected. This is an example only, so if you have a preferred way to do it, then by all means do so. Note that the earth wiring (GND, shown in green) should be connected (soldered) to each pot body if at all possible. This ensures that the busses are held firmly, but just as importantly, provides a solid earth connection to each pot in the matrix. Mix busses ideally need to be kept away from the chassis to minimise stray capacitance. Even a small amount of stray capacitance can cause the mixer opamps to have significant treble boost at high frequencies, possibly leading to instability or greatly increased noise and distortion. The extra cap added to the mixer will prevent most problems, but good wiring practice is essential regardless.
+
+<p>If the mix busses require additional support, this can be provided by using cable ties and suitable pieces of insulation as required. For example, if a short length of heatshrink tubing is placed over each 15k resistor, these may then be cable-tied to either the earth bus or the input bus. Remember that all busses need to be strong enough to survive the kind of usage that the mixer will suffer in normal life. There is no place for flimsy construction that may be alright in the studio, but fails on its first field trip.</p>
+
+<center><img src="p129-f4.gif" alt="Fig 4" border=1><br><b><small>Figure 4 - How To Wire Busses To Pots</small></b></center>
+
+<p>This unit must be housed in a metal enclosure, because the mixing busses in particular are rather sensitive to any noise pickup. Because the unit is a matrix, most of the wiring can be done using bare tinned copper wire, with pot connections bent up or down to ensure that the busses can't short out to each other. If you use this method, make sure that the wire is thick enough to ensure that it can support itself - even during rough handling. If done properly, this bus structure is very stable, reliable and was common in the early days of mixers. Most matrix mixers will be comparatively small, so the relatively short runs of self-supporting tinned copper wire are easy to work with. Even for a 12 x 12 matrix (and that's a mighty big matrix mixer), the busses will be no more than ~350mm long, and are supported at every pot they pass.
+
+<p>One trick that's worth knowing ... how to make a length of tinned copper wire perfectly straight, with no bends or wrinkles. Cut the length you need for a bus, plus about 50mm extra. Hold one end in a vise, and the other with a pair of pliers, and give the wire a short, sharp pull. This stretches the wire slightly, and leaves it nice and straight so it looks neat when placed into position. The ends that were held will be damaged, so these bits are cut off before you install the bus.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2010. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott, 29 March 2010.</div>
+</body>
+</html>

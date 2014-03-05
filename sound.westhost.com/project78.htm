@@ -1,0 +1,139 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rohit Balkishan / Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="audio, project, diy, preamp, crossover, test, circuit, schematic, diagram">
+   <meta name="description" content="ESP Project Pages - 3-Way Electronic Crossover Network. Visit the ESP home other page for more audio projects and articles">
+   <title>3-Way Electronic Crossover Network</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 78&nbsp;</td></tr></table>
+
+<p align="center"><b>3-Way Active Crossover</b><br />
+<small>Rohit Balkishan</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>A simple 3-way crossover, intended for triamping Hi-Fi systems. This is a conventional 12dB / Octave unit, and cannot be expected to have the same performance as a Linkwitz-Riley aligned filter network. It will still be a vast improvement over nearly any passive crossover, and is ideal for beginners or those who want to experiment further with multi-amping, but without the complexity of a major project. The retuning (to (sub)-Bessel / Linkwitz-Riley alignment) is recommended, as the performance will be more in line with modern standards - see information below.</p>
+<p><small><b>Please Note:</b> This is a contributed article, and ESP is not responsible for errors or omissions</small></p>
+
+<hr><b>Description</b>
+<p>The crossover is based on the 2<sup>nd</sup> order Butterworth filters. The resistors Ra and Rf set the gain of each filter to 1.582, which is slightly less than the required value of 1.586. This value of gain (A<sub>o</sub>) follows from the formula ...</p>
+
+<blockquote>k = 3 - A<sub>o</sub> where k = 1 / (Q-factor of the filter).</blockquote>
+
+<p>For a 2<sup>nd</sup> order filter, the value of k can be obtained from the butterworth circle for n = 2. It turns out that k = 1 / cos(x), where x = &pi; / (2 * n) which is &pi; / 4 in this case. Thus for a butterworth response, the Q-factor turns out to be 0.707. Please see <a href="#ref">references (1)</a> for more details.
+
+<p>Increasing Q beyond this results in peaking at the cut-off frequency for each individual filter. Likewise, reducing Q makes the filter response more and more gradual.&nbsp; Thus a value of 0.707 for the Q-factor gives the flattest pass-band gain &amp; sharpest roll-off at cut-off frequency. Note that the gain of each individual filter must be less than 3, otherwise the circuit will oscillate. To get an even sharper roll-off the order of the filters must be increased (keeping Q = 0.707).
+
+<p align="center"><img SRC="p78-f1.gif" BORDER="1" alt="Fig 1">
+<br><b><small>Figure 1 - Crossover Schematic</small></b></p>
+
+<p>In the above schematic are shown the low-mid range, mid range mid-high range filters. The x'over frequencies chosen are 300Hz and 3000Hz. Thus the low range filter has a cut-off frequency of 300 Hz, the mid range has a lower cut-off at 300 Hz and an upper cut-off at 3000Hz, and the high range has a cut-off frequency of 3000 Hz. Please see <a href="#ref">references (2)</a> for the x'over frequencies. The calculations for the x'over are as follows:</p>
+
+<blockquote>
+  <u>Low-mid range</u>: Low pass filter, f<sub>h</sub> = 300 Hz.
+  <br>f<sub>h</sub> = 1 / (2 * &pi; * R1 * C1), assuming R1 = R2 &amp; C1 = C2 = 10nF. This yields R1 = R2 = 53K (used 56K).
+  <br><br><u>Mid range</u>: Low pass filter, f<sub>h</sub> = 3000 Hz, followed by a high pass filter f<sub>l</sub> = 300 Hz.
+  <br>Assuming R1 = R2, R3 = R4, C1 = C2 = C3 = C4 = 10nF.
+  <br><br>For the low pass, f<sub>h</sub> = 1 / (2 * PI * R1 * C1), yields R1 = R2 = 5.3K (used 5.6K).
+  <br>For the high pass, f<sub>l</sub> = 1 / (2 * PI * R3 * C3), yields R3 = R4 = 53K (used 56K).
+  <br><br><u>Mid-high range:</u> High pass filter, f<sub>l</sub> = 3000 Hz.
+  <br>f<sub>l</sub> = 1 / (2 * PI * R3 * C3), assuming R3 = R4 &amp; C3 = C4 = 10nF. This yields, R3 = R4 = 5.3K (used 5.6K).
+</blockquote>
+
+<p>Note that the mid-range filter is preceded by an inverting amplifier. This is needed for 2 reasons - Firstly, the gain of the mid-range is (1.582 * 1.582) which must be brought back to the level of the low-mid &amp; mid-high ranges (1.582). Secondly (and more importantly), the 2<sup>nd</sup> order butterworth filter has an inherent property of shifting the phase of any signal passing through it depending on the signal's frequency so that at cut-off the signal is 90&deg; out of phase with the input (direction of shift depends on whether the filter is high-pass or low-pass).</p>
+
+<p>Thus at 300 Hz the low-mid range filter has shifted the signal by 90&deg; and the mid range has also done the same (but in an opposite direction). Hence, at 300 Hz, the signals appearing at the low-mid range &amp; mid range outputs are going to be 180&deg; out of phase with each other &amp; will cancel out (electrically or acoustically). The same happens to the mid range &amp; mid-high range filters at 3000 Hz. The inverter, with a gain of -0.63 serves to solve both the problems.
+
+<p>Using a 4<sup>th</sup> order filter (assuming it to be a cascade of two 2<sup>nd</sup> order butterworth types) in place of the ones shown will not have the phase-reversal at x'over problem, but you will still need to bring down the mid range filter's gain (this equates to 2 inverters).
+
+<p>The 0.1&micro;F capacitor (Cin) is used with R5 to obtain a lower 3db frequency of about 15 Hz. With the arrangement shown, the overall magnitude response exhibits peaks at the x'over frequencies when the 3 outputs are combined, either electrically or acoustically. This ordinarily does not pose a problem, since the speaker deficiencies themselves will tend to hide (rather veil) the peaks, but with really good speaker systems, the peaking could become evident.
+
+<p>The op-amps used should preferably have a high slew rate and all resistors must be of 1/4 W, 1% metal film type. For the x'over that I have made, the op-amps used are TL074 quad devices. Any other op-amps of your choice can be substituted in place of these. The 100 Ohm resistors at the filter outputs are required if the x'over is going to be connected to the power stages via connectors or <i>any</i> length of shielded lead.
+
+<p>All inputs &amp; outputs must use fully shielded cables (as short as possible). If the circuit is to be assembled on a general purpose board, then try to keep all component leads and wiring as short as possible to avoid pick up (and playback) of radio signals (mine did, but only on touching certain resistor leads).
+
+<p>That concludes the description of the x'over. I hope that the reader will find the material presented here to be of some help in understanding electronics.
+
+<hr><b>Linkwitz-Riley Alignment</b>
+<p>I visited the Linkwitz web-site (<a href="http://www.linkwitzlab.com">http://www.linkwitzlab.com</a>) and found that the 2nd order unity gain (sub) Bessel crossover is indeed a 12db/octave L-R aligned unit. Further to this, I indicate the possibility to convert the current design to an L-R alignment by - 
+
+<ol>
+<li>shorting out all resistors named "Rf" &amp; removing all resistors named "Ra"</li>
+<li>replacing "Rf1" (56K + 6.8K) by 100K resistors and,</li>
+<li>using time-aligned drivers to really be able to appreciate the benefits of an L-R x'over.</li>
+</ol>
+
+<p>This modification will create a Linkwitz-Riley aligned crossover, which will be superior to the Butterworth version in almost all cases.</p>
+
+<hr><a NAME="ref"></a><b>References</b>
+<ol>
+	<li>Integrated Electronics by Millman &amp; Halkias, McGraw-Hill (ISBN 0-07-Y85493-9)</li>
+	<li>Bi-Amping (not quite magic, but close) - ESP</li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rohit Balkishan and Rod Elliott, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author Rohit Balkishan (and editor, Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rohit Balkishan and Rod Elliott.</td></tr></table>
+<div class="t-sml">Page Created and Copyright &copy; Rohit Balkishan and Rod Elliott 28 Apr 2001</div>
+</body>
+</html>

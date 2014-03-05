@@ -1,0 +1,246 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="description" content="Phono preamps for all applications.  Includes moving coil and moving magnet types, and a full description of RIAA equalisation. Visit the other ESP pages for more!">
+   <meta name="keywords" content="riaa, iec, moving, coil, magnet, pickup, cartridge, equalisation, equalization, phono, vinyl, preamp, pre-amp">
+   <title>RIAA Phono Preamps</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+   <style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 25&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Phono Preamps For All</b>
+<br><b><small>Diagrams (originally) by Richard Crowley, Text by Rod Elliott</small></b></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>This is a collection of phono (black vinyl for the youngsters) preamps and equalisation circuits, one of which is sure to meet your requirements. These are not my circuits, but were contributed by a reader (see above), so I am not really in a position to make any specific recommendations. They are provided as a service to the experimenters out there, and may be found useful for other applications as well.</p>
+
+<p>A quick comment about vinyl equalisation is in order. Although the RIAA and the less used IEC equalisation curves are very precise, it is often thought that the playback system should be as accurate as possible. However, strict adherence to the published response isn't actually very useful, because it was (is) common for the mastering engineer to apply equalisation as the master is cut on the lathe. The reasons can be as simple as trying to actually fit the required number of tracks onto the disc (lots of bass energy takes up a lot of groove space), or the engineer may simply not like the overall balance.</p>
+
+<p>It is still essential (IMO) to get an accuracy of better than 1dB across the region from 300Hz up to around 10kHz, but the extremes are often anyone's guess as to what was transferred from tape to the disc. Matching between channels is far more important than absolute accuracy.</p>
+
+<hr><b>Moving Coil Preamps</b>
+<p>The first set of offerings are moving coil preamps, specifically intended for the very low output voltage and impedance of the majority of moving coil pickups. These were much favoured in their day for superior quality over the entire audio range, and for any serious listening I still use my moving coil pickup.</p>
+
+<hr><b>MC Preamp #1</b>
+
+<p align="center"><img SRC="p25_fig1.gif" BORDER=1>
+<br><b><small>Figure 1 - Moving Coil Preamplifier (After Douglas Self)</small></b></p>
+
+<p>This design uses multiple transistors as the initial amplifying stage. The transistors chosen have very low noise, and this is reduced even further by the parallel technique.</p> 
+
+<p>As can be seen from the diagram, the circuit gain can be changed to suit high and low output cartridges with a single switch. The gains as shown are x10 and x50 (20 dB and 34 dB respectively), but could be modified if desired. I will leave this up to the reader to experiment with.</p>
+
+<p>As I look at the circuit, I'm not sure why the gain resistors were set up as they are. With the values shown, the circuit actually has a gain of 192 (set by the feedback resistors in series and the 3.3 Ohm emitter resistor), and this is then attenuated to provide the gains of 50 and 10 as shown. I'm sure there was an excellent reason for this arrangement, but I was unable to see it. Fortunately, a reader had the original article, and it was done to keep circuit impedances very low. Unfortunately, this would normally load the opamp excessively, but the higher than normal gain prevents excessive loading, and the attenuation brings the level back to sensible values.
+
+<p>Because the input signal is so small, the extra gain cannot cause clipping.</p>
+
+<p>The second opamp (TLO71/72) acts as a bias servo device, and ensures that the inverting input of the NE5532 is at the same voltage as its non-inverting input. With this arrangement, output offset voltage can be expected to be very low - typically no more that a couple of millivolts.</p>
+
+<hr><b>MC Preamp #2</b>
+<p>This next design is based on the work of John Linsley-Hood, and again can be expected to give good results. As can be seen, there are no opamps used, and the circuit is completely symmetrical. This offers a reduction in noise over a single circuit, since the two complete mirror image halves are in parallel. Distortion is probably reduced as well, but at the signal levels produced by a moving coil pickup, this is not likely to be significant.</p>
+
+<p align="center"><img SRC="p25_fig2.gif" BORDER=1>
+<br><b><small>Figure 2 - Moving Coil Preamp (After John Linsley-Hood)</small></b></p>
+
+<p>The circuit is (more or less) conventional, using a common emitter stage modulating a constant-current source. As the circuit is mirrored, these are reproduced for both positive and negative supplies. The net output voltage will again have a low DC offset, but probably somewhat higher than the previous design due to the lack of a bias servo to maintain an exact 0V DC output.</p>
+
+<p>Gain is set by the 2.2k resistors from the collectors of the output devices (in parallel, so 1.1k) and the 15 Ohm resistor (MC or Moving Coil position) optionally in series with the 150 Ohm (MM or Moving Magnet position).</p>
+
+<p>These give a theoretical gain of 74 (37dB) in the MC position, or 7.6 (17.6 dB) for the MM setting. In practice, one can expect the gain to be very slightly less than these figures, especially for the MC setting.</p>
+
+<p>I cannot comment on the relative noise performance of these two preamps, but as they are both based on designs by well respected audio designers, I would expect that noise would not be an issue with either circuit.
+
+<p><small><b>NOTE:</b> &nbsp; This general circuit topology was first published in Sweden in 1975 (The magazine was Radio &amp; Television), written by Peter Akemark (AKA Per Elving). This predates the JLH article by about 8 years, as the version shown above was published in 1983).</small></p>
+
+<hr><b>Phono Equalisers</b>
+<p>With two different circuits and several additional EQ networks to choose from (plus my own version, published as <a href="http://sound.au.com/project06.htm">Project 06</a>), there has to be one for you!</p>
+
+<p>I do not know the origin of these circuits (other than from Richard), so cannot be too specific about them. They are both reasonably conventional, as can be seen.</p>
+
+<p align="center"><img SRC="p25_fig3.gif" ALT="Figure 3" BORDER=1>
+<br><b><small>Figure 3 - Phono Preamp #1</small></b></p>
+
+<p>This is a simple, one opamp phono preamp, but has a few added features. These are mainly for radio frequency (RF) suppression, and with the input circuit shown can be expected to be highly resistant to even high levels of RF interference.</p>
+
+<p align="center"><img SRC="p25_fig4.gif" ALT="Figure 4" BORDER=1>
+<br><b><small>Figure 4 - Phono Preamp #2</small></b></p>
+
+<p>This preamp splits the equalisation into two stages - the first stage provides the low frequency boost required by the RIAA specification, and the second reduces the high frequency component (again, to the RIAA spec.).</p>
+
+<p>The advantage of this approach is that the two filter sections have less interaction, and much of the circuit noise produced by the first (and second) stage is attenuated by the top-cut circuit.</p>
+
+<p align="center"><img SRC="p25_fig5.gif" ALT="Figure 5" BORDER=1>
+<br><b><small>Figure 5 - Phono Preamp #3</small></b></p>
+
+<p>As can be seen, this preamp is considerably more complicated than the first two, but includes a 3rd order rumble filter with a cutoff frequency of about 18 Hz.</p>
+
+<p>The first stage is a simple amplifier, again with complete RF interference protection. This is followed by the rumble (infra-sonic) filter, and finally the equalisation stage. Note that in this circuit arrangement, the opamp is operating as an inverting amplifier, which has no bearing on the final result, but is (very) slightly noisier than the non-inverting configuration. This is unlikely to be audible in practice, since the gain contributed by the final stage is much lower than normal.</p>
+
+<p>Total gain is 39 dB, of which 17.5 dB is contributed by the input stage, 6 dB by the filter, leaving only 15.5 dB gain in the final stage. All preceding high frequency opamp noise is attenuated by the RIAA equalisation, leading to a design which should have an excellent overall noise figure.</p>
+
+<hr><b>Equalisation Networks</b>
+<p>These EQ networks can be used around any opamp, and will provide RIAA equalisation to an accuracy as shown next to each diagram. Some care must be used to ensure that the feedback resistor (to ground) is selected to give the required gain.</p>
+<p>This is specified at 1 kHz for all phono preamps, because of the frequency characteristics of the filter network.</p>
+
+<p align="center"><img SRC="p25_fig6.gif" ALT="Figure 6" BORDER=1>
+<br><b><small>Figure 6 - Various RIAA Phono EQ Networks</small></b></p>
+
+<p>The 1 kHz impedance of each network is quite different, so the required feedback resistor has been calculated for a nominal gain of 35 dB (x 56) . These work out to (approximately)</p>
+
+<center>
+<table width=700 border=1 style="border-collapse: collapse">
+<colgroup span=4 width="25%">
+<tr><td><b>Circuit Nr.</b></td><td><b>Network Z</b></td><td><b>Feedback Res.</b></td><td><b>Actual Gain</b></td></tr>
+<tr><td>1</td><td>7.75 k Ohms</td><td>138 Ohms</td><td>56.6</td></tr>
+<tr><td>2</td><td>10 k Ohms</td><td>180 Ohms</td><td>57.0</td></tr>
+<tr><td>3</td><td>9.43 k Ohms</td><td>168 Ohms</td><td>56.6</td></tr>
+<tr><td>4</td><td>67 k Ohms</td><td>1.2 k Ohms</td><td>56.8</td></tr>
+</table>
+<b><small>Table 1 - Feedback Resistor for Figure 6 Circuits</small></b>
+</center>
+
+<p>With this in mind, the 1 kHz gain resistor can be calculated. For example, using (1) above, for a gain of 35dB (a gain of 56 for ease of calculation), this will need a resistor to ground from the -ve input of the opamp of 138 Ohms.</p>
+
+<hr><b>RIAA Equalisation Response</b>
+<p>For the sake of reference, the table below shows the response curves for both RIAA equalisation, and the IEC modified version. The latter was not very popular, because it represented a loss of bass (-3 dB ref RIAA at 20 Hz). For anyone wanting to know a little more about how and why the equalisation was done in this way, read on......</p>
+
+<center>
+<table width=700 border=1 style="border-collapse: collapse">
+<colgroup span=11 width="9%">
+<tr><td><b><i>Hz</i></b></td><td><b><i>RIAA</i></b></td><td><b><i>IEC</i></b></td>
+<td></td><td><b><i>Hz</i></b></td><td><b><i>RIAA</i></b></td><td><b><i>IEC</i></b></td>
+<td></td><td><b><i>Hz</i></b></td><td><b><i>RIAA</i></b></td><td><b><i>IEC</i></b></td></tr>
+<tr><td>20</td><td>19.36</td><td>16.35</td><td></td><td>240</td>
+<td>7.04</td><td>7.01</td><td></td><td>2400</td><td>-3.39</td><td>-3.39</td></tr>
+<tr><td>22</td><td>19.24</td><td>16.62</td><td></td><td>270</td><td>6.25</td>
+<td>6.23</td><td></td><td>2700</td><td>-4.04</td><td>-4.04</td></tr>
+<tr><td>25</td><td>19.04</td><td>16.89</td><td></td><td>300</td><td>5.57</td>
+<td>5.55</td><td></td><td>3000</td><td>-4.65</td><td>-4.65</td></tr>
+<tr><td>28</td><td>18.83</td><td>17.04</td><td></td><td>340</td><td>4.80</td>
+<td>4.79</td><td></td><td>3400</td><td>-5.43</td><td>-5.43</td></tr>
+<tr><td>31</td><td>18.61</td><td>17.09</td><td></td><td>380</td><td>4.16</td>
+<td>4.15</td><td></td><td>3800</td><td>-6.17</td><td>-6.17</td></tr>
+<tr><td>35</td><td>18.29</td><td>17.06</td><td></td><td>430</td><td>3.49</td>
+<td>3.48</td><td></td><td>4300</td><td>-7.02</td><td>-7.02</td></tr>
+<tr><td>39</td><td>17.96</td><td>16.95</td><td></td><td>480</td><td>2.93</td>
+<td>2.92</td><td></td><td>4800</td><td>-7.82</td><td>-7.82</td></tr><tr>
+<td>44</td><td>17.54</td><td>16.73</td><td></td><td>540</td><td>2.38</td>
+<td>2.38</td><td></td><td>5400</td><td>-8.70</td><td>-8.70</td></tr>
+<tr><td>49</td><td>17.12</td><td>16.45</td><td></td><td>610</td><td>1.86</td>
+<td>1.86</td><td></td><td>6100</td><td>-9.64</td><td>-9.64</td></tr>
+<tr><td>55</td><td>16.61</td><td>16.07</td><td></td><td>680</td><td>1.43</td>
+<td>1.43</td><td></td><td>6800</td><td>-10.50</td><td>-10.50</td></tr>
+<tr><td>62</td><td>16.02</td><td>15.59</td><td></td><td>760</td><td>1.02</td>
+<td>1.02</td><td></td><td>7600</td><td>-11.39</td><td>-11.39</td></tr>
+<tr><td>70</td><td>15.37</td><td>15.03</td><td></td><td>850</td><td>0.63</td>
+<td>0.63</td><td></td><td>8500</td><td>-12.30</td><td>-12.30</td></tr>
+<tr><td>79</td><td>14.67</td><td>14.40</td><td></td><td>950</td><td>0.26</td>
+<td>0.26</td><td></td><td>9500</td><td>-13.22</td><td>-13.22</td></tr>
+<tr><td>89</td><td>13.93</td><td>13.72</td><td></td><td>1100</td><td>-0.23</td>
+<td>-0.23</td><td></td><td>11000</td><td>-14.44</td><td>-14.44</td></tr>
+<tr><td>100</td><td>13.18</td><td>13.01</td><td></td><td>1200</td><td>-0.52</td>
+<td>-0.52</td><td></td><td>12000</td><td>-15.17</td><td>-15.17</td></tr>
+<tr><td>110</td><td>12.54</td><td>12.39</td><td></td><td>1300</td><td>-0.79</td>
+<td>-0.79</td><td></td><td>13000</td><td>-15.85</td><td>-15.85</td></tr>
+<tr><td>120</td><td>11.94</td><td>11.82</td><td></td><td>1500</td><td>-1.31</td>
+<td>-1.31</td><td></td><td>15000</td><td>-17.07</td><td>-17.07</td></tr>
+<tr><td>130</td><td>11.38</td><td>11.27</td><td></td><td>1700</td><td>-1.80</td>
+<td>-1.80</td><td></td><td>17000</td><td>-18.14</td><td>-18.14</td></tr>
+<tr><td>150</td><td>10.36</td><td>10.28</td><td></td><td>1900</td><td>-2.27</td>
+<td>-2.27</td><td></td><td>19000</td><td>-19.09</td><td>-19.09</td></tr>
+<tr><td>170</td><td>9.46</td><td>9.40</td><td></td><td>2100</td><td>-2.73</td>
+<td>-2.73</td><td></td><td>21000</td><td>-19.95</td><td>-19.95</td></tr>
+<tr><td>190</td><td>8.67</td><td>8.62</td><td></td><td></td><td></td><td></td>
+<td></td><td></td><td></td><td></td></tr>
+<tr><td>210</td><td>7.97</td><td>7.93</td><td></td><td></td><td colspan="2"><b>Reference</b></td>
+<td></td><td><b>1000</b></td><td><b>0</b></td><td><b>0</b></td></tr>
+</table>
+<b><small>Table 2 - Response in dB for Designated Frequencies</small></b>
+</center>
+
+<p>Sometimes you will see the RIAA (or IEC) response described as a time constant rather than frequency turnover points. The two are directly related, and the time constants ( <b>2 &pi; f </b>) for the RIAA equalisation are ...</p>
+
+<ul><li>High Frequency = 75us &nbsp; (2122 Hz)</li>
+<li>Mid Frequency = 318us &nbsp; (500.5 Hz)</li>
+<li>Low Frequency = 3180us &nbsp; (50.05 Hz)</li>
+</ul>
+
+<p>The basic principle behind the equalisation curve was quite simple, and was designed to reduce the grove modulation to a manageable level (both for the cutter and the reproducer), and provide some basic high frequency noise reduction.</p>
+
+<p>With this in mind, frequencies below 500 Hz were cut (on the cutting lathe) using constant amplitude, which means that the signal from the cartridge will increase at 6 dB / Octave, since if the amplitude remains constant, the velocity must increase with the frequency. Because the output of a magnetic cartridge is dependent upon the velocity, bass boost must be applied to bring the levels back to normal.</p>
+
+<p>It is this rather large amount of bass boost that accentuates the mechanical noise of a turntable, producing what is commonly known as rumble. There is also the risk of low frequency feedback if the turntable is not capable of isolating the platter and tone-arm from the listening room environment. Timber floors and rigid suspension increase the risk of feedback, and many manufacturers went to extreme lengths to provide isolation and very low levels of low frequency noise.</p>
+
+<p>Above 500Hz, the cutter mode changed to constant velocity, so the output of the cartridge will now be independent of frequency. Vinyl (or any other material for that matter) will collect dust, and will also have minor surface imperfections, so all signals above 2100 Hz are boosted (again at 6 dB / Octave), so the equalisation curve now applies treble "cut". This brings the signal level back where it should be, and reduces disc surface noise as well.
+
+<hr><b>EQ Accuracy</b>
+<p>It's worth pointing out that some people may go to extreme lengths to obtain exact RIAA equalisation, but in reality this is not necessary. When vinyl disc masters were cut, it was not at all uncommon for the engineer to apply some EQ to make the end result sound "right" (to him, with his monitors) or to ensure that no signals were cut that would compromise the pressings (excess bass, extreme transients, etc.). As a result, the listener has no idea what the original master tape sounded like, and small deviations will usually be within the expected response of even the best loudspeakers.
+
+<p>In general, it's not unreasonable to expect that equalisation should be within 1dB, but attempting to obtain substantially better than this is usually not warranted. EQ accuracy of 0.1dB might look good, but your speakers and room won't even come close to that, so the extra accuracy is wasted. Naturally, if a component combination happens to provide very good accuracy, then no-one is likely to be offended by the end result.
+
+<p>What <i>is</i> extremely important is channel matching. Measuring the caps (and even the resistors) to obtain the best possible match for all gain and equalisation components preserves the stereo image and is far more critical than a small variation in the RIAA equalisation curve. You can be assured that cutting lathes have very well matched EQ stages for just this reason.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Richard Crowley and Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The authors (Richard Crowley and Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott and Richard Crowley.</td></tr>
+</table>
+<div class="t-sml">Minor re-format 11 Aug 2000</div>
+</body>
+</html>

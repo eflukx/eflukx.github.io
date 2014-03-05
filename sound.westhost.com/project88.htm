@@ -1,0 +1,198 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="hifi, hi-fi, preamp, selector, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - Simple High Quality Hi-Fi Preamp (Mk II). An updated version of the P02 preamp, designed to offer extremely high quality with no frills.">
+	<title>High Quality Audio Preamp</title>
+<!-- ESP Audio Projects - Simple High Quality Hi-Fi Preamp (Mk II). An updated version of the P02 preamp, designed to offer extremely high quality with no frills -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 88&nbsp;</td></tr></table>
+
+<p align="center"><b>High Quality Audio Preamp (Mk II)</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for this project. Click the image for details.<br>
+
+<hr><b>Introduction</b>
+<p>The original preamp (<a href="project02.htm">Project 02</a>) shown on these project pages is basically a good design, but in the interests of improved quality and reduced "frills" this new version will fill or exceed most expectations. The quality comes largely from the use of one of the nicest sounding opamps available, the Texas Instruments/ Burr Brown OPA2134.</p>
+
+<p>Although a conventional voltage feedback device, this opamp has few peers for sound quality, and I decided that it was time to make a PCB available. Capacitors in the audio path have been reduced to the minimum, and for those who want to, polypropylene caps can be used instead of the polyester types specified. Because of the very small PCB, these must mount off-board, but this will present few difficulties.</p>
+
+<p>The key to this design is flexibility and simplicity, and the PCB has been designed with these primary considerations in mind. There is almost no configuration that is not possible, including adding tone controls if you wanted to use them. For even greater flexibility, you could even use two PCBs, although this will rarely be needed in practice.</p>
+
+<p>There is much to recommend using pots on the inputs for CD and Tuner in particular, so their levels can be matched to the other signal sources you have. Although this option is not shown here, it is described in <a href="project02.htm">Project 02</a>, and the pots would be used in exactly the same way as shown in the original hi-fi preamp schematics.</p>
+
+<p>A photo of a completed PCB is shown <a href="#photo">below</a>, as well as some specifications from my prototype.</p>
+
+<hr><b>Description</b>
+<p>The circuit is simplicity itself. Use of the PCB naturally makes it extremely easy to assemble, and this project may be combined with the RIAA (phono) preamp shown in Project 06 and the preamp power supply (Project 05) for a complete high fidelity preamplifier.</p>
+
+<p>As shown, the maximum gain through the unit is 9dB (2.8 times), and this is in keeping with many of the latest offerings. More or less gain is readily available, simply by changing a resistor value. Use a 2 pole 6 position selector switch for your inputs, and you will have a preamp with enough inputs for everything.</p>
+
+<p>Figure 1 shows the input selector, and the optional tape outputs. I recommend that the selector switch be located at the back of the preamp, close to the inputs. This minimises the chance of crosstalk or high frequency loss due to cable capacitance, and also limits the amount of shielded cable needed - not that it is expensive, but it is a pain to have to run 12 or 14 shielded wires from the rear of a preamp to the front panel where the switch is normally mounted. ESP can supply suitable extension shafts to extend the rather miserly 50mm or so that is usually provided with rotary selector switches.</p>
+
+<center><p><img src="p88-f1.gif" alt="Figure 1" border="1">
+<br><b><font size="-1">Figure 1 - Input Selector, and Optional Phono Preamp and Tape Outputs</font></b></p></center>
+
+<p>The 4.7k resistors (R1, R2, R3 and R4) in each channel are used to bring the tape signal level back where it belongs, since there is 6dB of gain in the first stage. These resistors buffer the signal you are listening to from any possible degradation caused by the loading of the tape machine, and also ensure that the level to tape is exactly the same as the original. These resistors are not mounted on the board, but are easily accommodated on the tape out connectors. Naturally, there is no requirement to use them, and if you don't use tape, they may be omitted altogether.</p>
+
+<p><i><b>Note:</b>&nbsp; If first stage gain is set to 0dB as described below, then R3 (L+R) should be replaced with a link, and R4 (L+R) omitted.</i></p>
+
+<p>The first amplifier stage uses one half of an OPA2134 opamp, with a gain of 6dB. With the values shown, response is -3dB at 3.4Hz, and is less than 0.5dB down at 10Hz. Input impedance is 100k - a little higher than the "industry standard" 47k. The output of this stage then goes to the balance and volume controls. Again, these are not mounted on the PCB, since that would restrict you to the same type of pot and the same spacings as I used - this is too much of a limitation (IMO).</p>
+
+<center><p><img src="p88-f2.gif" alt="Figure 2" border="1">
+<br><b><font size="-1">Figure 2 - First Gain Stage</font></b></p></center>
+
+<p>Earlier boards included RF interference immunity by adding a small capacitor between the two inputs of U1 (the space for this cap can be seen in the PCB photo, which is of an early board). This has now been removed, as it caused more problems than it solved - in particular, opamp oscillation with some devices.</p>
+
+<p>The points marked AL and BL are the same as in Figures 1 and 3, and refer to the Left channel only. The Right channel is identical, and uses the second half of the opamp (the Right channel uses connection points AR and BR - not shown in the drawings). Figure 3 shows the balance and volume controls. I strongly suggest that the balance control be retained, as I know from personal experience that it is a pain not to have the ability to centre the acoustic image properly. Moving speakers and furniture about is not always practical, and has an extremely low WAF. If you don't want to use the balance pot, it may be left out of the circuit entirely.</p>
+
+<p>The volume and balance controls as shown use linear pots. These generally have better tracking than log pots, and the law of the pots is changed to be logarithmic by virtue of the added resistors. The balance pot will have virtually no effect on sound quality, since it is not in the signal path (it just forms part of a simple divider network). The relative impedances of the two networks are separated by a factor of 10, so interaction is extremely low.</p>
+
+<center><p><img src="p88-f3.gif" alt="Figure 3" border="1">
+<br><b><font size="-1">Figure 3 - Balance and Volume Controls</font></b></p></center>
+
+<p>There is a loss of 3dB in the balance control, which means that if the balance is set to full Left (or Right), the system power will remain about the same, since the selected channel is boosted in power. In reality, there will always be an audible difference (apart from the missing channel), but maximum L-R balance settings will normally only ever be used for testing. The balance control has a wide central region, and this makes accurate setting of the system balance very easy - it is not at all "touchy", where a small change in pot position causes a large change in relative levels, but deliberately
+quite the reverse.</p>
+
+<center><p><img src="p88-f4.gif" alt="Figure 4" border="1">
+<br><b><font size="-1">Figure 4 - Second Gain Stage</font></b></p></center>
+
+<p>The second gain stage is almost identical to the first, with the main differences being the output capacitors. The paralleled caps at the output are designed to ensure that the preamp can drive a power amp impedance as low as 22k with an overall response that is about 1dB down at 10Hz. If the preamp is being used to drive an electronic crossover or power amps that already have an input cap, then the output caps may be omitted and replaced with a wire link.</p>
+
+<p>If you need more gain than this circuit provides as shown, you can use the table below to select a value for R7, leaving R8 as 10k in each case. I suggest that only the second stage gain be modified, to prevent the possibility of overload (distortion) of the first stage. As designed, there is no likelihood of any normal line signal distorting the first stage, and it can safely accept an input signal at just under 5V RMS without clipping. This gives the best signal to noise ratio - noise can be expected to be a little higher if the first stage has no gain. Even so, it is doubtful that noise will be audible with any system, provided low noise opamps are used.<br>
+&nbsp;</p>
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<colgroup span=6 width="16%">
+<tr><td><b>Stage 1 (dB)</b></td><td><b>Controls (dB)</b></td>
+<td><b>Stage 2 (dB)</b></td><td><b>R7 (k ohms)</b></td>
+<td><b>Tot. Gain (dB)</b></td><td><b>Sens (Ref 1V)</b></td></tr>
+<tr><td>0</td><td>-3</td><td>6.02</td><td>10</td><td>3.02</td><td>706 mV</td></tr>
+<tr><td>0</td><td>-3</td><td>6.93</td><td>8.2</td><td>3.93</td><td>636 mV</td></tr>
+<tr><td>0</td><td>-3</td><td>7.86</td><td>6.8</td><td>4.86</td><td>572 mV</td></tr>
+<tr><td>0</td><td>-3</td><td>8.90</td><td>5.6</td><td>5.90</td><td>507 mV</td></tr>
+<tr><td>0</td><td>-3</td><td>9.90</td><td>4.7</td><td>6.90</td><td>452 mV</td></tr>
+<tr><td>6</td><td>-3</td><td>6.02</td><td>10</td><td>9.02</td><td>354 mV</td></tr>
+<tr><td>6</td><td>-3</td><td>6.93</td><td>8.2</td><td>9.93</td><td>319 mV</td></tr>
+<tr><td>6</td><td>-3</td><td>7.86</td><td>6.8</td><td>10.86</td><td>287 mV</td></tr>
+<tr><td>6</td><td>-3</td><td>8.90</td><td>5.6</td><td>11.90</td><td>254 mV</td></tr>
+<tr><td>6</td><td>-3</td><td>9.90</td><td>4.7</td><td>12.90</td><td>226 mV</td></tr>
+<caption align="bottom"><b><font size="-1">Gain Setting Table</font></b><br>
+</caption></table></center>
+
+<p>Stage 1 can have a gain of 0 or 6dB (voltage gain of 1 or 2, respectively). As shown, gain is 6dB, and to reduce it to 0dB replace R3 with a link, and leave out R4 in each channel. The table shows the different gains available from the entire preamp (with volume at maximum) for various values of R7 in each channel, and with Stage 1 having 0 and 6dB of gain. Generally, it will be quite rare that you need more than 10dB of gain in a preamp. The sensitivity referred to 1V means that this is the input voltage needed for 1V RMS output, with the volume at maximum.</p>
+
+<p>Operating the second stage with no gain is not recommended, as it will probably oscillate due to the extraordinarily wide bandwidth of the opamps used. 0dB gain for the second stage is unlikely to be a requirement in practice.</p>
+
+<p>For example, with a power amplifier having a typical sensitivity of 1.0V RMS for full power, a preamp gain of 10dB means that 320mV input will produce maximum output power with the volume at maximum. Higher level signals will require that the volume is reduced to prevent power amplifier clipping.</p>
+
+<p>Because the preamplifier stages have gain to DC (there is no DC blocking capacitor in the feedback path), it is very important that any DC offsets do not get to the power amplifier - this is the reason for the 2uF of capacitance at the output of the preamp.</p>
+
+<p>The PCB version is slightly different from that shown above, and uses either DIP switches or 0.1" jumpers to configure the gain. Full details are available when you purchase the board for this project.</p>
+
+<hr><b>Suggested Layout</b>
+<p>The layout in Figure 5 is one possible way to build the preamp. Because it is powered from a wall transformer, the power switch needs only to be a low voltage type. This method of construction is very safe, and also keeps potentially noisy transformers well away from the preamp, thus ensuring that the noise level is as low as possible.</p>
+
+<center><p><img src="p88-f5.gif" alt="Figure 5" border="0">
+<br><b><font size="-1">Figure 5 - Suggested Internal Layout</font></b></p></center>
+
+<p>As shown, the preamp has a power supply board, one phono preamp and the preamp PCB. The details of construction are left to the builder, since cases (etc.) will dictate to some degree the final arrangement of the various sections. The general layout shown keeps wiring to an acceptable minimum, and should ensure a very quiet preamp with absolutely top-notch specifications. The wiring has not been shown, but would follow the schematics shown above. I included a second output in parallel with the main output for convenience. If you don't need it, just leave it out.</p>
+
+<p>For maximum shielding, the case should be all metal, but if a timber case is desired, aluminium foil lining will give very good results. The foil can be stuck down with spray adhesive. Make sure that a good earth connection is made to the foil, and any joins must have a screw to make sure that electrical continuity is maintained.</p>
+
+<p>The quality of the parts used in this project is entirely up to the constructor.  If you use high quality parts throughout, performance will rival many of the best preamps available. 1% metal film resistors should be used for all resistor locations, and the opamps must be bypassed using 100nF ceramic caps. Capacitors in the signal path are all polyester, and should be rated at 63V or better. Electrolytic supply caps are all 35V minimum rating.</p>
+
+<p>The rest is up to you. Enjoy :-)</p>
+
+<hr align="left"><a name="photo"></a><b>Photo and Measured Performance of Prototype</b>
+<p>Having build a prototype of the board, I am able to give you some measured specifications, as well as the photograph of a completed PCB.</p>
+
+<center><img src="p88-photo.jpg" alt="Figure 6" border="1">
+<br><b><small>Figure 6 - Completed Project 88 PCB</small></b></center>
+
+<p>Measurements on this preamp were difficult - mainly because noise and distortion are too low to measure accurately. I haven't even tried to measure the distortion, but the figures I do have are as follows ...</p>
+
+<table>
+<tr><td><b>Parameter</b></td><td><b>Measurement</b></td></tr>
+<tr><td>Frequency Response<img src="filler.gif" width="32"></td><td>10 Hz to 250 kHz -0.4 dB</td></tr>
+<tr><td>Noise&nbsp;</td><td>&lt; 0.5 mV RMS at full gain (input open)</td></tr>
+<tr><td>Crosstalk&nbsp;</td><td>Better than -58 dB at 100 kHz</td></tr>
+</table>
+
+<p>These figures were taken with the unit sitting on my workbench, in close proximity to fluorescent lights and with no shielding. Once mounted in a case with proper wiring (instead of clip leads!) noise and crosstalk in particular will be better than indicated. Crosstalk was measured at 100kHz, because I could not get an accurate reading at lower frequencies. Most was the direct result of input coupling - shorting the unused input gave a reading too low to measure.</p>
+
+<p>I used 680nF (0.68uF) input and output caps, because I had run out of 1uF 63V units - 1uF/100V MKT caps are too big to fit in the space allowed. Even so, low frequency response is perfectly acceptable as indicated above. A -3dB frequency of 2.3Hz is adequate for all normal listening pursuits <img src="grin.gif" alt=":-)" /></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2002. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International
+Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 01 Apr 2002</div>
+</body>
+</html>

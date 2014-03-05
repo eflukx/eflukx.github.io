@@ -1,0 +1,423 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Elliott Sound Products - Loudspeaker Power Handling Vs. Efficiency. What are the tradeoffs? Flux modulation and thermal compression effects in dynamic drivers">
+	<!-- Elliott Sound Products - Loudspeaker Power Handling Vs. Efficiency. What are the tradeoffs? Flux modulation and thermal compression effects in dynamic drivers -->
+	<meta name="keywords" content="loudspeaker,efficiency,power,flux,modulation,compression,audio,diy,hi-fi,electronic">
+	<title>Power Handling Vs. Efficiency</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"> <!-- td { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Loudspeaker Power Handling Vs. Efficiency&nbsp;</td></tr></table>
+
+<p align="center">Copyright &copy; 2005 - Rod Elliott (ESP)<br />
+<small>Page Published 16 December 2006</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';"  OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t1" alt="Articles" BORDER=0></a><b>Articles Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" alt="Index" BORDER=0></a><b>Main Index</b><br><br>
+
+<hr><b>Contents</b><br>
+<ul>
+  <li><a href="#s1">1 &nbsp; Introduction</a></li>
+  <li><a href="#s2">2 &nbsp; Efficiency</a></li>
+  <li><a href="#s3">3 &nbsp; Temperature</a><ul>
+    <li><a href="#s31">3.1 &nbsp; Thermal Compression</a></li></ul></li>
+  <li><a href="#s4">4 &nbsp; Magnetic Effects</a></li>
+  <li><a href="#s5">5 &nbsp; Loudspeaker Tests</a></li>
+  <li><a href="#s6">6 &nbsp; Conclusion</a></li>
+  <li><a href="#foot">Footnote - Passive Crossovers</a></li>  
+  <li><a href="#ref">References</a></li>
+</ul>
+
+<hr><a id="s1"></a><b>1 - Introduction</b>
+<p>If I <i>never</i> see another loudspeaker rated at 1,000W (or more) again, it will still be too soon. Well apart from that fact that no voicecoil can withstand that kind of power for more than a few seconds or so without self destruction, why would <i>anyone</i> think that a 1kW loudspeaker was a good idea?
+
+<p>In the first instance, just consider a typical loudspeaker voicecoil. It is typically wound on some type of cardboard, thin aluminium, Kapton, fibreglass or some other similar material. I have never seen a ceramic or quartz voicecoil former, but that's what would be needed to take the temperatures involved at such an insanely high power - not to mention the wire and insulation used. I doubt that asbestos insulation would be considered a good idea these days. Think in terms of a typical old-style bar radiator or an electric toaster. These were/are typically around 1,000W and the resistance wire glows red hot (not surprisingly, this is the whole idea <img src="grin.gif" alt=":-)"> ).</p>
+
+<p>Outrageous power ratings for both amplifiers and loudspeaker drivers are like maximum top speed for cars - many people would love to have a car that can do 300km/h even though it is illegal in most countries to get even close to the maximum (for example, the absolute maximum in Australia is 110km/h).
+
+<p>One thing you won't hear any of the ultra high-power speaker makers discuss is exactly how the voicecoil manages to withstand the temperatures that may easily be achieved - or exceeded. They don't have access to any magic insulation or adhesives, and they are pretty much trapped into using the available insulation grades that are common for transformers and other electrical machines.</p> 
+
+<p>The general classes are ...</p>
+
+<blockquote>
+	Class B - 150&deg;C<br />
+	Class F - 185&deg;C<br />
+	Class H - 220&deg;C
+</blockquote>
+
+<p>This is the maximum permissible temperature for the insulation. Most adhesives can tolerate fairly modest temperatures, although there are a few epoxies that are good for 200&deg;C or so. Kapton and aluminium voicecoil formers can withstand high temperatures, but the assembly is ultimately limited to the capability of the lowest temperature material. Note that the above are maximum temperatures, <i>not</i> temperature rises. Temperature rise is determined from the ambient (which may be 40&deg;C or more inside the cabinet). The maximum temperature rise is the maximum allowed temperature, minus the ambient temperature. It is common to add about 30&deg;C to the ambient to allow for hot-spots (connections or sections of the voicecoil outside the gap for example). 
+
+<p>In general, expecting to operate a voicecoil at 200&deg;C continuously is unwise, and the lower the temperature the better.  
+
+<p>These power ratings for amplifiers and speakers are designed to appeal to those who have no understanding of efficiency, and think that power is the only thing that matters.  For such people, a 1000W speaker <i>must</i> be better than a 200W speaker.  What they don't understand is that a 200W speaker at 100dB/W/m is louder than a 1000W speaker at 90dB/W/m - the higher efficiency driver will achieve 123dB with 200W, vs.120dB for the 1000W driver. This is ignoring <u>all</u> losses, which are dramatically higher in the high power speaker - see below to find out why.</p>
+
+<table><tr><td valign="top"><img src="note.gif" alt="NOTE"></td><td>Demonstration videos of low frequency drivers accepting vast amounts of power can be found on the Net, but prove nothing. They are simply marketing ploys, designed to convince the buyer that the claims are real. Those that I have seen use the driver completely open - no box, and not even a basic baffle. This ensures maximum cone movement and maximum cooling because fresh air can circulate.<br><br>
+In addition, all that is needed to 'prove' the point is to operate the driver at resonance. The resonance impedance may be 10 times that at other frequencies, so the amplifier output voltage is meaningless as a measure of power. If the impedance is 40 Ohms at resonance (for a nominal 4 Ohm driver), the nominal voltage is ~63V RMS (1kW / 4&Omega;), but at resonance the <i>actual</i> power is only 100W for that voltage. This same test procedure can be used with the driver in an enclosure, but the drive frequency is simply increased to match the driver's resonance in the box.<br><br>
+
+If you want to burn out a competitor's product for the demonstration, simply drive it at a frequency far enough from resonance to give a spectacular looking failure. I leave it to the reader to figure out if anyone could be so dishonest as to do this.</td></tr></table>
+
+<p>So, what alternatives are there? Read on - this article explains the issues with dynamic drivers, and shows the deficiencies with many high powered loudspeakers. There are drivers that claim to take 1.5kW continuous power, yet the parameters of one such driver examined simply will not allow this much power to be used at low frequencies without exceeding the maximum excursion (to the point of damage). Further to this, the driver parameters are such that the actual performance cannot be optimised for any known enclosure - in short, the driver is a pig, and it is extremely difficult to make it perform well regardless of the enclosure type. The driver in question will not be named, but was 'commended' to me to prove that I am wrong. It has done nothing of the sort (predictably), because the driver is designed solely to appeal to those who continue to think that power is important. Worth noting is the fact that as a subwoofer in a 300 litre sealed box, power is limited to less than 300W below 40Hz - a true sub needs to be able to get to 20Hz to warrant the name "subwoofer". Drivers such as this are the equivalent of putting a Formula 1 engine with full race tuning into a small sedan, and wondering why it kills you on the first corner <img src="grin.gif" alt=":-)">. The combination simply doesn't work properly, and there is no point pursuing such silliness.
+
+<p>While it may appear that many of the calculations in this article are based on the type of SPL (Sound Pressure Level) usually needed only for large scale public address, the same things apply for audio and home theatre. The effects are reduced because of the lower sound level normally used in a home environment, but are no less real since domestic loudspeaker drivers are normally rated for significantly lower power and efficiency than professional drivers.</p>
+
+<p>There is absolutely no good reason that anyone should imagine that a loudspeaker driver capable of 1kW is a good idea - it isn't now, and never was. There are so many other areas in audio where outrageous claims are made - the proliferation of PMPO advertising power (having no connection whatsoever with reality), stunning lies about the importance of "specialty" cables in systems, "magic" components - the list is endless. Very high power, depressingly low efficiency loudspeakers are just another thing to create FUD (Fear, Uncertainty &amp; Doubt) for buyers and DIY people alike. I hope this article helps a little.</p>
+
+<hr><small>This article has been in preparation for a considerable time. What originally looked like a relatively simple task turned out to require a lot of time, effort and perseverance. From the initial idea to publication has taken well over a year, and even now, there are bound to be some (hopefully) minor errors. The tests were conducted exactly as described, but lack of the very sophisticated equipment required to guarantee complete accuracy (especially with magnetic compression) means that some errors are inevitable.<br><br>
+The above notwithstanding, the results do show the effects as described, and the article is intended to inform, not to criticise or endorse any manufacturer or specific product. All effects described are real, and although some may seem "off-the-wall", all results are measured - not simulated or obtained theoretically.</small><br>
+
+<hr><a id="s2"></a><b>2 &nbsp; Efficiency</b>
+<p>Consider that the average high efficiency loudspeaker is typically no more than about 5% efficient. This means that only 5% of the applied electrical energy is converted into sound, the rest is dissipated as heat from the voice coil. This 5% efficiency speaker will be rated at 99dB/W/m - this is much higher than normally achieved.</p>
+
+<p>If we could get one, a 100% efficient (direct radiating) speaker would convert 1W of electrical energy into 1W of acoustical energy. This will give us 112dB SPL (at 1W, 1 metre, when radiating into half space). Since no such loudspeaker exists, we must use what is available. Typical hi-fi loudspeakers are typically around 90dB/W/m - only 0.62% efficiency! 99.38% of all applied power is wasted as heat.</p>
+
+<p>At one stage, professional sound reinforcement speakers were commonly around the 100dB/W/m efficiency level, but this is now rare. Only a few of the traditional professional manufacturers (and a small number of specialist speaker makers) have drivers this efficient, and herein lies the problem (or part of the problem).</p>
+
+<p>There is a realisation that 'power is cheap', and this is quite true. High power amplifiers are now very cheap compared to even a few years ago. Since power is so cheap, loudspeakers with efficiencies even below 90dB/W/m are common - all you need to do is use a more powerful amp and everything is back where it should be, right? <u>Wrong!</u></p>
+
+<p>Since the majority of all electrical power is converted to heat, the higher the power applied to a speaker, the more heat you have to get rid of. The typical loudspeaker is not a good design for heat disposal, and many of the more dedicated manufacturers have gone to extreme lengths to get the best possible cooling for their driver's voicecoils.</p>
+
+<p>Even so, there are limits. These limits are physical, metallurgical and chemical, and no amount of marketing hype will change any of these. The adhesive that bonds the voicecoil to the former has a difficult job, high temperatures, often extreme forces acting upon it, and high vibration levels all stress the adhesives. It is not uncommon for a voicecoil to reach (or exceed) 200&deg;C, and the more power that is wasted as heat (because the speaker is inefficient) the more power you need to put into it to get the sound pressure level (SPL) you had when the voicecoil was cold.</p>
+
+<center><img src="pwreff-f1.gif" alt="Figure 1" border="1"><br>
+<small><b>Figure 1 - Basic Loudspeaker Motor Construction</b></small></center>
+
+<p>Figure 1 shows the typical basic construction of the loudspeaker motor. Various proprietary variations exist, but the essential elements remain much the same. The voicecoil has two ways to get rid of heat - radiation and convection. We can forget convection, as there is nowhere for the hot air to 'convect' to, other than within the motor assembly. While the pumping effect of the cone's movement does help to move the air around, in many cases there is actually nowhere for the air to go. Where the 'self cooling' effect is designed well, this only works at low frequencies where there is significant cone movement - at higher frequencies the cone travel is such that there is little or no pumping effect at all!  Radiation will make the rest of the motor hot as well, but at least that has enough area to get rid of some of the heat. Some manufacturers use aluminium baskets to support the speaker's motor components, and this will act as a heatsink. One maker even has the 'basket' in front of the cone so it won't be trapped inside the box. Finned magnet covers are fairly common now, and virtually all drivers that claim to be able to handle appreciable power use a vented pole piece as shown.</p>
+
+<p>But is this enough? How hard is it to dissipate heat into the surrounding atmosphere? What other options are there? Very few, unfortunately, and this is a part of the overall problem. The problem is made worse with drivers with a low efficiency, because for a given SPL, more power is needed right from the start.</p>
+
+<p>Consider this ... Assume we have a loudspeaker rated at 90dB/W/m (a softspeaker?) versus another rated at a much more respectable 100dB/W/m. With one Watt of electrical energy applied, one will have 10 times (10dB) the SPL of the other. While this is insignificant if we are happy with 90dB SPL, if we try to obtain 110dB SPL at one metre, the efficient driver will do this with only 10W, while the inefficient driver needs 100W. Another 10dB makes that 100W vs. 1000W - anyone want to guess which speaker will last longer before the voicecoil melts?</p>
+
+<p>There is another more insidious aspect to this. So far, we have assumed that the electrical input to SPL ratio is constant, but it most certainly is not. As a voicecoil gets hot, its resistance rises. This increases the impedance of the speaker, so less electrical energy goes in, and less acoustic energy comes out. The 1000W amp needed to drive our inefficient speaker will probably be delivering half that (because of the increased impedance) by the time the voicecoil is ready to depart this world, so SPL is increased by only 7dB instead of the 10dB we expected when we applied 10dB more signal level. Meanwhile, the efficient driver only has to dissipate 100W, there is less heating, and consequently less relative drop in level as power is increased.</p>
+
+<p>Welcome to the real world of 'power compression'. JBL [<a href="#ref">1</a>] has performed tests showing that power compression can reduce output by anything from 3dB to 7dB from the expected SPL at elevated temperatures. Seven Decibels! Remember that each 3dB means double or half the power, so 7dB is more than 4 times. You use a 1kW amp on a speaker and expect it to be pretty loud (not an altogether unrealistic expectation), but if another speaker can be just as loud with only 100W, then which one is preferable? Loaded question ... of course the more efficient driver will be the better choice, all other things being equal.</p>
+
+<p>Remember the bar radiator from the opening paragraphs? How long can a voicecoil survive with 500W or 1kW or more being dissipated as heat? If the programme material has plenty of bass, the cone will move, and that will push air through the magnetic polepiece gap and past the voicecoil. This will certainly help cool things down, but where does the hot air go? Into the cabinet, to be sucked back through the gap next time the cone moves outwards? That's not very useful. It is fairly obvious that as a solution to maintaining a sensible voicecoil temperature, this method sucks (pardon the pun <img src="grin.gif" alt=":-)"> ).</p>
+
+<p>The nature of music helps us here. Music has (or should have) loud bits, soft bits and even silent bits. This diversity is called dynamic range - a term that describes any signal that is not a continuous waveform. Dynamic range is simply another way to describe the peak to average ratio.</p>
+
+<center><img src="pwreff-f2.gif" alt="Figure 2" border="1">
+<br><small><b>Figure 2 - Typical Audio Waveform</b></small></center>
+
+<p>The average power delivered to a system is where we get the SPL from - this is averaged over a period of time, and accounts for asymmetrical waveforms, brief bursts of high levels followed by periods of lower levels, impulse signals, etc. It is not uncommon to find the crest factor at around 3:1 - peaks are 3 times higher than the average level. This is approximately 10dB.</p>
+
+<blockquote><small>A 10dB in voltage or current is a ratio of 3.16:1, and 10dB with power is a ratio of 10:1. A change in voltage ratio of 3.16:1 causes a change in voltage, current or power of 10dB. For those who do not fully understand the relationships of dB, I suggest you read <a href="fadb.htm" target="_blank">Frequency, Amplitude &amp; dB</a>. In brief ...<br><br>
+&nbsp; &nbsp; dB (Power) = 10 * log ( P1 / P2 ) = 10 * log ( 10W / 1W ) = 10 * log ( 10 ) = 10dB<br>
+&nbsp; &nbsp; dB (Volts) = 20 * log ( V1 / V2 ) = 20 * log ( 3.16V / 1V ) = 20 * log ( 3.16 ) = 10dB<br><br>
+This remains an area where people regularly become confused, but once you know the way dB is calculated it all falls into place.</small></blockquote>
+
+<p>Some recorded material has more dynamic range, some less, with typical values between 6dB and 20dB - the lower figure is more likely on modern, highly compressed material.</p>
+
+<p>To reproduce a signal with a 10dB crest factor cleanly (without clipping distortion) means that if your <i>average</i> level requires 10W, the peaks will need 100W - a 100W (minimum) amplifier is needed to get 10W of clean undistorted average electrical energy. If you use a low efficiency driver (such as the softspeaker described above), then these figures could be 100W and 1000W respectively!</p>
+
+<p>To determine the level of power compression, it is necessary to know the thermal mass of the voicecoil assembly, the rate of heat transfer, plus a whole swag of other things that the manufacturer does not tell us. Alternatively, it can be measured, albeit with some risk to the driver itself. This is the quickest and most accurate way to figure out just how much thermal compression a given driver exhibits. While we are at it, we'll also use an indirect method to measure the voicecoil temperature.</p>
+
+<hr><a id="s3"></a><b>3.0 &nbsp; Temperature</b>
+<p>Copper has a thermal coefficient of resistance of 3.95<sup>E-3</sup> per &deg;C. Therefore, if a voicecoil has a DC resistance of 6&Omega; at 25&deg;C, at 200&deg;C this will increase to ...</p>
+
+<blockquote><b>R<sub>T2</sub> = R<sub>T1</sub> * (1 + &alpha;(T2 - T1))</b></blockquote>
+
+where T1 is the initial temperature, T2 is the final temperature, and &alpha; is the thermal coefficient of resistance. Substituting our values in the above equation we get ...
+
+<blockquote>R<sub>200</sub> = R<sub>25</sub> * (1 + 3.95<sup>E-3</sup>(200 - 25)) = 10.15&Omega;</blockquote>
+
+<p>There seems to be some discrepancy as to the actual coefficient of resistance for copper - figures found on the Net range from 3.9<sup>E-3</sup> to 4.3<sup>E-3</sup>. I have adopted a middle ground, settling on 3.95<sup>E-3</sup>. Feel free to use the value with which you are most comfortable. Note also that the coefficient of resistance does change depending on whether the copper is hard drawn or annealed.</p>
+<p>If we know the change in resistance, then it is a relatively easy matter to calculate the temperature, provided we have a reference resistance taken at a known temperature before the test.</p>
+
+<blockquote><b>&Delta;T = &Delta;R / (R<sub>T1</sub> * &alpha;)</b></blockquote>
+
+Where &Delta;T is change of temperature and &Delta;R is the change in resistance. For the previous example the change in resistance is 10.15 - 6 = 4.15 Ohms, so we get ...
+
+<blockquote>&Delta;T = 4.15 / (6 * 3.95<sup>E-3</sup>) = 175.10&deg;C</blockquote>
+
+<p>Since we started at 25&deg;C, that gives a final temperature of 175.1 + 25 = 200&deg;C (close enough). The only way to determine just how long it will take for the voicecoil to reach this temperature is by measurement. Although it is possible to calculate it, this would require far more information than you will be able to obtain from the maker, and far more maths than I am prepared to research and pass on.</p>
+
+<p>It is usually safe to assume that the temperature rise will take less than 30 seconds for most drivers - the thermal inertia of the voicecoil assembly is normally quite low, but some low efficiency subwoofers may have relatively heavy coils and formers, thus increasing the thermal inertia. This is not a bad thing for a driver that handles intermittent bursts of high power with long rest periods in between, and it is the very nature of the programme material that allows many of these drivers to survive the power applied.</p>
+
+<table><tr><td valign="top"><img src="note.gif" alt="Note"></td><td>The above assumes that resistance measurements are taken electrically - to obtain an accurate result requires that you monitor the average voltage and current applied to the speaker. The voicecoil resistance may then be determined using Ohm's law.  Because of 'flux modulation' (see section 4), simply measuring the change in SPL is an unreliable method for calculating the voicecoil temperature, and should not be used.</td></tr></table>
+
+<hr><a id="s31"></a><b>3.1 &nbsp; Thermal Compression</b>
+<p>Let's say that we have a requirement for a continuous average SPL of 115dB at 1 metre. Such a system might be used in a movie theatre (for example), and by the time the signal gets to the audience, the average SPL might be reduced by about 30dB (due to "room loss" and distance) - around 85dB SPL within the theatre itself (this is the reference level for theatre systems).</p>
+
+<p>From the above, it is quite obvious that as the voicecoil gets hotter, less power is delivered. Provided the signal is applied for long enough and the heat can be removed at a rate that prevents meltdown of the voicecoil, the average SPL will be reduced - after meltdown, SPL will be reduced to zero!. Based on what little information is available from manufacturers, it seems that the loudspeaker voicecoil will reach thermal equilibrium within around 20-30 seconds. High frequency drivers will be faster (because of the low thermal mass of the voicecoil assembly), and very large subwoofers will most likely be slower, as the voicecoil assembly will be substantially heavier, and thus have a greater thermal mass.</p>
+
+<p>If we work only within the constraints of the maths shown above, we can arrive at a good estimate of the final efficiency of a driver that is being pushed to its limits. Consider the example of an 8 ohm driver, having a DC resistance (DCR) of 6 ohms at 25&deg;C. The ratio of nominal impedance (Z) to DCR is 8 / 6 = 1.33:1.</p>
+
+<p>At a voicecoil temperature of 200&deg;C, the resistance increases to 10.15 ohms, so the nominal impedance increases to ...
+
+<blockquote>Z = DCR * Z<sub>Ratio</sub> = 10.15 * 1.33 = 13.53 ohms</blockquote>
+
+<p>Neglecting (for the moment) any other effect, that means that if the nominal 8 ohm driver were to be supplied with a signal of 50V RMS (average), that will work out to  312.5W at 25&deg;C. After around 20 seconds that power will fall to ...</p>
+
+<blockquote>P = V&sup2; / Z = 50&sup2; / 13.53 = 184.8W</blockquote>
+
+<p>That represents a drop in power (and SPL) of 4.56dB, less than half the power you thought you had. A 90dB/W/m driver has fallen to 85dB/W/m (close enough). Now, this is a simplification, but the actual power and SPL will be very close to the values calculated. Where you expected the speaker to produce about 115dB SPL at 1 metre, after only a short period it will only give you a tad over 110dB SPL - a significant decrease. To achieve 115dB SPL, this driver now needs 1kW average (a 40dB increase over the 85dB/W/m effective sensitivity), but that will just cause the voicecoil to get hotter still, and it will fail - most likely without ever achieving the target sound level on a long term basis.</p>
+
+<p>Using the same expectation (115dB SPL), but substituting a 100dB/W/m driver, we can see that only 32W is needed to achieve the 115dB SPL required. With only 32W, there will be very little thermal compression - perhaps 0.5dB worst case - so power has to be increased to a bit below 40W to compensate. Although the extra power will cause the voicecoil to get a little hotter (and so reduce the actual power and SPL a little more), it is well within the capacity of a sensible sized amplifier to cope with.</p>
+
+<p>Remember that we already established that the peak to average ratio is typically around 10dB, so the 90dB/W/m driver will need an amp capable of 10dB more power than the average level (a rather daunting 3,000W!), while the 100dB/W/m unit will only need 10dB over and above 40W - namely 400W. It takes little imagination to realise that the lesser (and probably cheaper) speaker is no bargain after all, and will almost certainly fail if a 3kW amplifier is used.  All this, and it is <i>still</i> over 4.5dB shy of the 115dB SPL expected of it. In my books, that represents a travesty, not a bargain. Looking at the data in a table helps to see the information at a glance ...</p>
+
+<center><table width=640 border=1 style="border-collapse: collapse">
+<tr><td><b>Sensitivity<br>(dB/W/m)</b></td><td><b>Power<br>(Average)</b></td>
+<td><b>Power<br>(Peak)</b></td><td><b>Thermal<br>Compression</b></td>
+<td><b>SPL<br>(Actual)</b></td></tr>
+<tr><td>90dB</td><td>300W</td><td>3,000W</td><td>4.56dB</td><td>110.4dB</td></tr>
+<tr><td>100dB</td><td>40W</td><td>400W</td><td>0.5dB</td><td>114.5dB</td></tr>
+</table><b><small>Table 1 - Power Requirements for 115dB SPL at 1 Metre</small></b></center>
+
+<p>This is simply a theoretical exercise, but the effects are both real and demonstrable, and the above is not at all unrealistic. Every dynamic driver will suffer from thermal compression, because the voicecoil winding has no choice but to get hot when it is dissipating a lot of power. Only a very few (mainly professional) loudspeaker manufacturers treat this as seriously as it deserves. Covered in <a href="../lr-passive.htm" target="_blank">Design of High Quality Passive Crossovers</a> (ESP website) is the effect of the changing impedance on a passive crossover network. Thermal effects are wide ranging and rather insidious, changing the way the speaker system sounds depending upon the power applied.</p>
+
+<p>It is only by choosing a driver whose efficiency is matched to the requirements that the requirements have even the slightest chance of being accomplished in practice. Quite obviously, a higher efficiency loudspeaker driver will need less power to achieve the result, but not so obviously, high efficiency should be sought whenever possible - it will always give a better result (all other things being equal).</p>
+
+<p>I built the test voicecoil assembly (1.45 Ohm at 20&deg;C) pictured below. This coil was subjected to a range of currents from 1 to 3A. DC was used for all thermal tests so that there was no chance for inductance to influence the readings. The polarity was arranged so that the voicecoil was pulled into the gap.  Since the coil former was deliberately designed to sit against the rear plate, this removed the necessity to clamp the coil in position. The purpose of the winding around the outside of the magnet will be explained in Section 4.</p>
+
+<center><img src="pwreff-f3.jpg" alt="Figure 3" border="1">
+<br><small><b>Figure 3 - Test Motor Assembly</b></small></center>
+
+<p>The test motor is not a powerhouse, but neither is it insignificant. It uses a 95mm diameter magnet, 15mm high. The front plate is 5mm thick, and the rear plate 4.5mm. The gap measures 1.65mm, having a centre pole of 25mm diameter. This driver would originally have been rated for around 25W continuous power, with perhaps 100W peak power rating. Unfortunately, the exact details are long gone, and the magnet assembly is all I have left of the speaker. By some 'standards' that seem to be applied today, it is probable that my estimations are much too low - a small car loudspeaker I have lying around has a motor that is less than &frac12; the size, but is rated to 80W peak power - in someone's dreams!</p>
+
+<p>The measured values shown below represent a low power dissipation across the range. The voicecoil was in intimate contact with an aluminium former which was in direct contact with the centre polepiece. This means that cooling was far better than would normally be the case (although there can be no 'forced air' cooling because the voicecoil was not allowed to move during the tests), yet the resistance range is considerable. I did try the coil withdrawn from the magnet assembly (so it had no cooling from the gap), and it became <i>extremely</i> hot within a few seconds.</p>
+
+<p>Using the formula from above we can determine how hot the coil actually became at each current ...
+
+<center><table width=640 border=1 style="border-collapse: collapse">
+<tr><td><b>Current</b></td><td><b>Voltage</b></td><td><b>Power</b></td><td><b>Resistance</b></td><td><b>Temperature</b></td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1.45&Omega;</td><td>20&deg;C</td></tr>
+<tr><td>992 mA</td><td>1.54 V</td><td>1.528 W</td><td>1.55&Omega;</td><td>37&deg;C</td></tr>
+<tr><td>2.006 A</td><td>3.66 V</td><td>7.34 W</td><td>1.82&Omega;</td><td>85&deg;C</td></tr>
+<tr><td>2.91 A</td><td>6.68 V</td><td>19.44 W</td><td>2.295&Omega;</td><td>167&deg;C</td></tr>
+</table>
+<small><b>Table 2 - Voice Coil Resistance Vs. Power</b></small></center>
+
+<p>Remember that these figures were easily reached at very low power - 20W is well within the normal range of a domestic system. Based on these figures, we see a resistance change from 1.45 Ohms to 2.295 Ohms at just 20W - almost a 60% increase. An impedance increase of 60% will certainly cause havoc with a passive crossover, and the power compression will be audible unless all drivers have the same or very similar impedance increase. Even at an average power of only 1.5W there is an impedance increase of almost 7%, which would take an 8 Ohm driver to 8.55 Ohms - enough to measure the effect on crossover performance, and it may be audible with some material (that's about 0.57dB impedance change).</p>
+
+<hr><a id="s4"></a><b>4 &nbsp; Magnetic Effects</b>
+<p>Note that this section deals primarily with loudspeaker driver efficiency - distortion mechanisms abound, and the magnetic circuit (flux modulation in particular) is a major contributor to the many different and exciting ways a dynamic loudspeaker can modify the waveform, and thus introduce frequencies that were not present in the original signal (distortion). The distortion factors have received more attention than the other effects discussed here, but this is still an area where most driver manufacturers would prefer to remain silent. Nonetheless, a <a href="http://www.google.com.au/search?q=%22flux+modulation%22+loudspeaker" target="_blank">search</a> for flux modulation reveals a surprisingly large number of documents, although not all are useful, and too few link to loudspeaker manufacturer's websites. In nearly all cases, only the distortion mechanism is discussed, but there's more ...</p>
+
+<p>It is within the magnetic circuit that we see effects that are either ignored completely or glossed over. While most professional loudspeaker manufacturers take the magnetic circuit seriously, the vast majority of general purpose driver makers do not - pressed steel pole pieces that are unacceptably warped being a very common problem. (I have seen a rear plate (brand new) that had 0.5mm of wobble when placed upon the magnet. That represents a significant air gap in the magnetic circuit. The front plate wasn't much better.)</p>
+
+<p>The essential parts of the motor's magnetic circuit were shown in Fig 1, but as noted this is a fairly generic arrangement. To make an efficient loudspeaker means that the magnetic circuit must be optimised. An example of this optimisation is shown in the JBL paper [<a href="#ref">1</a>], and it is obvious that a great deal of thought and research has gone into the design of the magnetic circuit to ensure the flux density across the gap is as high as possible.</p>
+
+<p>Consider the effect of minute air gaps between the front and rear plates and the magnet itself. Any air gap (or anything else that has low permeability to magnetic flux - e.g. adhesive) will reduce the effectiveness of the magnetic coupling between the magnet and the plates, and hence to the gap itself. This weakens the flux across the gap, and in turn reduces efficiency. Of particular importance is any part of the magnetic circuit that is saturated (a condition where the material will not accept any more magnetic flux) - an excellent example can be seen at the <a href="http://www.infolytica.com/en/coolstuff/ex0086/" target="_blank">Infolytica</a> website, where saturation is shown in the rear plate of a loudspeaker motor.</p>
+
+<p>Now, consider the effect when there is current in the voicecoil. There are now three different sources of flux in the gap and the magnetic circuit as a whole ...</p>
+
+<ol><li>The static flux from the magnet assembly</li>
+<li>The flux from the voicecoil - varies with the voicecoil current</li>
+<li>Flux generated by eddy currents in the pole pieces - depends on voicecoil current and position</li></ol>
+
+<p>The force produced by the current in the voicecoil creates a magnetic field that uses the static flux in the gap as its only means of propulsion. The static flux is not a solid! It will bend when an opposing magnetic force is applied, and the amount by which it bends is determined by the static flux density and the voicecoil current. Likewise, the magnet flux will be modulated - this isn't solid either, and that's what the coil around the magnet in Figure 3 was used for.</p>
+
+<p>The first thing I had to do before useful tests could be continued was rewind the voicecoil - the thermal tests (and some initial magnetic tests) had damaged the wire insulation causing shorted turns. The second version had a measured impedance of 2.11&Omega; when installed in the gap.</p>
+
+<p>The test motor was driven with varying levels at 400Hz, and the modulation of magnet flux density was monitored by the outside winding. The coil was locked for all tests. As the voicecoil is driven, it is logical that the flux produced by the coil must traverse the magnetic circuit, and the external coil picks up the variation. In an ideal situation, the induced signal should be a smaller replica of the modulating voltage (and current). Smaller because the outside of the magnet is a good distance from the mean magnetic path, so the variation of field strength can be expected to be a lot less than that within the magnet itself. A replica means that there should be no additional distortion, and the voltage change on the outer coil should be directly related to the drive voltage.</p>
+
+<p>Two interesting things were revealed by this test, and while one was pretty much expected, I didn't notice the other until I had run a number of tests. That a small signal would be picked up was completely expected, and likewise I figured that it may not be linear. The part that I almost missed was the distortion of the flux at higher drive levels - the waveform is shown in Figure 4. Why did I almost miss it? Simply because it was obscured by the distortion in the applied waveform, and I was concentrating on measuring the  amplitude. The test procedure was amended after I saw this - the original drive signal was 50Hz, derived from a Variac. I then switched to using a 400Hz signal, amplified with a P68 subwoofer amp to get the voltage and current (with minimum noise and external distortion) needed to repeat the original tests with a clean sinewave. The coil is a difficult load, having an impedance of just above 2 ohms.</p>
+
+<p>Tests were also performed on a pair of real loudspeakers - the test motor is one thing, but to be meaningful a magnetic assembly needs to be tested in a working condition. Figure 4 shows the waveform obtained from a Vifa M13MH-08 driver (now out of production), with 15V RMS at 400Hz applied. Although I collected test results for the other driver (a car speaker, rather optimistically rated for 80W peak), the results were very similar to the Vifa and test unit.
+
+<center><img src="pwreff-f4.gif" alt="Figure 4" border="1">
+<br><small><b>Figure 4 - M13MH-08 Motor Outer Coil Distortion</b></small></center>
+
+<p>The distortion shown above started (in less severe form) at a relatively modest drive level. Distortion was measurable at very low levels, and started to become clearly visible at about 7V.  The waveform in Figure 4 is a screen capture of that seen at a drive level of 15V. The signal was applied in very short bursts to eliminate thermal compression, and while the waveform could be captured, I could not measure distortion accurately. I did capture the levels using the FFT capability of my PC based oscilloscope, and the second harmonic of the Figure 4 waveform is about 20dB below the fundamental (an exact figure is difficult because of the burst waveform). The distortion is quite visible - note that the positive and negative peaks are of different amplitudes. If you look <i>very</i> carefully, you will see that the level (look closely at the peaks) is starting to fall after only 8 cycles. This is thermal compression starting to show !</p>
+
+<p>15V RMS is equivalent to only 28W (based on the nominal impedance), so one doesn't really expect 'bad' things to happen. There was measurable distortion even with less than 1V drive in all motors tested. It is certain that distortion started earlier than this, but the signal level from the outer coil was too low to get an accurate reading. Where I was able to measure the distortion, this is shown in Table 3. Measured distortion in the outer coil was almost all third harmonic, until the waveform started to become asymmetrical. The applied signal has a distortion of about 0.04%.</p>
+
+<p>The effect of changing the flux levels depending on drive level is often lumped together with other magnetic effects and collectively called 'flux modulation', and it works alongside power (thermal) compression to reduce the efficiency of the driver at high power levels. There are several AES papers that discuss the magnetic circuit, but unfortunately they are not available except at considerable cost - while not expensive per se, they <i>are</i> expensive if it proves that they do not contain any information you need. One thing that is very apparent (from examination of the data available from the few magnetic simulation tool suppliers world wide), is that the traditional motor assembly depicted in Figure 1 is flawed. In nearly all cases, the back plate will saturate, reducing the available flux at the gap and (probably) causing asymmetry of the voicecoil induced flux.</p>
+
+<center><table width=640 border=1 style="border-collapse: collapse">
+<tr><td><b>Voicecoil (V RMS)</b></td><td><b>Outer Coil (mV RMS)</b></td><td><b>Distortion</b></td></tr>
+<tr><td>1</td><td>6.57</td><td>0.8%</td></tr>
+<tr><td>2</td><td>13.3</td><td>1.1%</td></tr>
+<tr><td>3</td><td>21.3</td><td>1.3%</td></tr>
+<tr><td>4</td><td>30.8</td><td>1.6%</td></tr>
+<tr><td>5</td><td>39.3</td><td>1.9%</td></tr>
+<tr><td>6</td><td>48.3</td><td>2.1%</td></tr>
+<tr><td>7</td><td>56.7</td><td>Visible</td></tr>
+<tr><td>14</td><td>126</td><td>Moderate</td></tr>
+<tr><td>15</td><td>135</td><td>See Figure 4</td></tr>
+</table><b><small>Table 3 - Test Motor Results</small></b></center>
+
+<p>The distortion figures in Table 3 show what I was able to measure - using the test motor rather than a real speaker. Above 6V, the coil became too hot too quickly for a distortion reading, and even the figures shown for coil voltages above 3V are lower than they should be, because thermal compression had already reduced the coil current noticeably. At 7V, the onset of distortion was visible on the oscilloscope, and at 14V saturation was noticeable. At 15V it appeared as shown in Figure 4 - this is a sure sign that there is magnetic saturation because the waveform is asymmetrical. All three motors tested this way showed identical behaviour.</p>
+
+<p>Unlike thermal compression, the flux modulation (or flux compression) effect is not limited by time - it is <u>instantaneous</u>. If a single short duration burst is applied at 10W, we may measure a peak instantaneous SPL of 100dB (for example). Increase the power by 10dB (100W), and instead of 110dB SPL, we may measure 109dB - an instantaneous loss of 1dB. Sustained power will then heat the voicecoil so thermal compression adds to the problem. After perhaps 10 seconds, the SPL may fall by a further 5dB, giving a total loss of ~ 6dB SPL. The speaker has effectively become 6dB less efficient than expected, and requires 4 times as much power as we thought we'd need. This additional power will only cause more of the same effects, and the process is a vicious cycle - the more power we apply to overcome the magnetic and thermal losses, the greater the magnetic and thermal losses become, so requiring even more power. This can continue until the smoke is released from the voicecoil, at which point we have an ex-loudspeaker.</p>
+
+<p>Thermal compression was a problem during magnetic circuit tests too, and this was another reason I could only use short bursts of signal for testing. With an applied voltage of 5V RMS, the outer coil voltage fell from an initial value of 39.3mV to 31.8mV over a period of about 5 seconds. That's a 1.8dB fall at an initial power of 11.8W (falling to 9.5W in 5 seconds).
+<p>For every action, there is an equal and opposite reaction. This applies in all areas of physics, and the loudspeaker magnetic circuit is no exception. Fig 6 shows Fleming's 'left hand rule' applied to a voicecoil in a loudspeaker motor. From this we see that the voicecoil exerts a magnetic force against the static field set up across the gap. It is not sensible to assume that the static field is unaffected.</p>
+
+<center><img src="pwreff-f6.gif" alt="Figure 6" border="1">
+<br><small><b>Figure 6 - Left Hand Rule and the Loudspeaker Motor</b></small></center>
+
+<p>Based on the information in the references, it would seem that unless one goes to fairly extreme lengths to get it right, flux modulation can have a profound effect on the instantaneous efficiency of a loudspeaker. Saturation of the pole-pieces in particular should be avoided, but few loudspeaker motors are designed to prevent it.</p>
+
+<p>The modulation can be reduced only by reducing the voicecoil current or by increasing the static flux density - thereby increasing its resistance to bending forces.  In addition, the magnetic circuit must have sufficient reserve capacity to ensure that it never saturates. In a cycle of audio signal, the voicecoil current ...
+
+<ul><li>Reinforces the static field in the top plate and opposes that in the centre pole during one half-cycle, and</li>
+<li>Reinforces the static field in the centre pole and opposes that in the top plate on the other.</li></ul>
+
+<p>If the pole piece(s) are already close to saturation (where they cannot sustain any further magnetic 'lines of force'), the field strength cannot be increased and decreased by the same amount in the centre pole and top plate, so the waveform will be distorted and will also lose some efficiency.</p>
+<p>Although I have a magnetometer, unfortunately it is not only uncalibrated, but as I discovered during tests designed to prove the above, it is also non-linear at high field strengths as used in a loudspeaker. This made any tests based on its use rather pointless - hence the coil around the outside of the magnet.</p>
+
+<center><img src="pwreff-f7.jpg" alt="Figure 7" border="1"><br>
+<small><b>Figure 7 - Principle of Motor Action</b></small></center>
+
+<p>The figure above is from one of my old textbooks [<a href="#ref">4</a>] showing the exact parameters that affect the operation of a loudspeaker. The wire diagrams show a + to indicate that the current is moving away from you (conventional current flow, from positive to negative), and the dot means it is flowing towards you.</p>
+<p>A quote from the text ...
+
+<blockquote><i>The basic principle of the conversion of electrical energy to mechanical energy in a motor rests upon the fact that when a current-carrying conductor is placed in a region occupied by a magnetic field (unless the direction of current and the direction of the magnetic field are parallel), a reaction is set up that tends to move the conductor out of the field. This principle is illustrated in the diagrams of Fig. 14.1. </i><small>(Figure 7 above)</small></blockquote>
+
+<p>The effect of any external field on a static magnetic field must cause the static field to be deformed. This deformation is a part of 'flux modulation', and a considerable amount of the effect will be found in the gap - the magnet itself will normally be relatively immune from demagnetisation caused by voicecoil current (although Alnico magnets have apparently been known to have been demagnetised by excess voicecoil current), but the magnetic path itself is another matter altogether. This is very difficult to measure, and I was unable to detect any variation in actual magnet 'strength' during my tests. Highly specialised equipment is needed for these tests, and some further information is available from Reference <a href="#ref">5</a>.</p>
+
+<p>As the voicecoil moves, there is distortion of the static flux because instantaneous movement of the coil, former and cone is not possible. Movement is impeded by inertia and the loudspeaker's suspension - there is also air loading on the cone, but this is comparatively insignificant. To minimise distortion of the static flux, moving mass and suspension stiffness must be reduced to the minimum - these factors are a matter of compromise, based on the end use of the driver.</p>
+
+<p>With low flux density across the gap and/or a wide gap, it is logical that this makes it easier for the voicecoil flux to force it 'out of the way'. Many of the current crop of subwoofer speakers will have this problem - a heavy cone means that by the time it has started to move, the signal induced flux will have distorted the static flux significantly.</p>
+
+<p>This concept is easily demonstrated. Take a pair of magnets, and align them so that they oppose each other. At low field strengths (magnets a fair distance apart) it is easy to push them closer together.  As they get closer, the forces become greater, and far more effort is needed to move them that last millimetre than was needed when they are further apart. The same thing happens (but the other way around) with the magnets attracting. It's easy to keep them apart when they are some distance from each other, but when they get close ... snap! (Be <i>very</i> careful if you use neodymium magnets - they can really hurt if you get skin caught between them.)</p>
+
+<p>That this form of flux modulation will reduce (instantaneous) efficiency should be quite apparent, and the wide voicecoil gaps favoured by modern speaker manufacturers will make the situation many times worse (magnets further apart). The wide gaps are used because this makes the speaker cheaper to make, having no close tolerances and thus requiring no skilled assembly workers.</p>
+
+<p>It is also worth noting that because magnetic flux is not solid, the voicecoil may not be fully immersed in the magnetic field <i>well before it actually leaves the gap</i>. This contributes distortion and loss of efficiency, since the total flux through the coil is not constant, and varies with applied current. This may occur before the coil even starts to move.</p>
+
+<hr><a id="s5"></a><b>5 &nbsp; Loudspeaker Tests</b>
+<p>The speakers I experimented with are a mixed bag, with some fairly well known drivers and some that are rather less well known. They are also of rather different vintages, ranging from very recent to many years old. This doesn't change anything, since so few manufacturers have ever published power compression figures, even fewer have examined flux modulation, and just as few have tried to do anything about it.</p>
+<p>All drivers were measured free field (without a baffle), and only the instantaneous compression levels were measured - some of the drivers I have in my workshop are on loan, and I certainly never wanted to blow any of them. The test was arranged as follows ...</p>
+
+<ul><li>Set the amplifier power such that a peak of 80dB SPL was measured with a tone-burst impulse, having 20 cycles at 877Hz (22.8ms), followed by a rest period of 584ms. Mic distance was ~100mm to avoid reflections and keep power within reasonable limits.</li>
+<li>Once the reference level was set, increase the voltage by ~20dB (10 times the voltage, 100 times the power). This resulted in a typical peak power of a bit under 20W for all drivers (hardly stressful one would think). Both the amplifier output and mic output were monitored closely to ensure that neither distorted during the test.</li>
+<li>Measure the peak microphone output - it <i>should</i> increase by 19.35dB (the actual voltage change of the tone burst generator).</li></ul>
+
+<p>Not one driver I tested managed the 19.35dB increase, and remember that this test was specifically designed to keep the voicecoil cool enough to prevent thermal compression effects - the first high power burst <i>only</i> was measured, and that was not long enough to allow voicecoil heating at a level that would skew the results. I verified that heating was minimal by allowing the power test to run for some time, and no significant thermal compression was noticed.</p>
+
+<p>The driver measurements are shown in the following table. Note that all voltage levels are peak-to-peak (P/P). The measurements were taken using a Philips PM382A Analogue/Digital oscilloscope. The signal processing capabilities of this 'scope make it ideal for detailed measurements at this level. The microphone was an ESP measurement mic, and was powered from a phantom feed / preamp combination. All microphone voltages listed are at the output of the preamp, which was not changed for the duration of the tests. Drivers were nominally 8 ohms (except #1 - 4 ohms), although the actual impedance at the test frequency was not measured.</p>
+
+<center><table width=800 border=1 style="border-collapse: collapse">
+<tr><td width="9%"><b>Test #</b></td><td width="13%"><b>Amp V<sub>80dB</sub></b></td><td width="13%"><b>Mic V<sub>80dB</sub></b></td><td width="13%"><b>Amp V<sub>100dB</sub></b></td><td width="13%"><b>Mic V<sub>100dB</sub></b></td><td width="13%"><b>Amp Change</b></td><td width="12%"><b>Mic Change</b></td><td width="12%"><b>dB Loss</b></td></tr>
+<tr><td>1 (4&Omega;)</td><td>2.41V</td><td>811mV</td><td>23.30V</td><td>7.50V</td><td>19.707dB</td><td>19.321dB</td><td>0.386dB</td></tr>
+<tr><td>2</td><td>2.41V</td><td>579mV</td><td>23.10V</td><td>5.47V</td><td>19.632dB</td><td>19.506dB</td><td>0.126dB</td></tr>
+<tr><td>3</td><td>2.40V</td><td>516mV</td><td>23.10V</td><td>4.79V</td><td>19.668dB</td><td>19.354dB</td><td>0.314dB</td></tr>
+<tr><td>4</td><td>2.43V</td><td>488mV</td><td>23.50V</td><td>4.51V</td><td>19.709dB</td><td>19.315dB</td><td>0.394dB</td></tr>
+<tr><td>5</td><td>2.43V</td><td>448mV</td><td>23.30V</td><td>4.04V</td><td>19.635dB</td><td>19.102dB</td><td>0.533dB</td></tr>
+<tr><td>6</td><td>2.43V</td><td>404mV</td><td>23.30V</td><td>3.72V</td><td>19.635dB</td><td>19.283dB</td><td>0.352dB</td></tr>
+</table><b><small>Table 4 - Driver Test Results (Ranked by Efficiency - Note that #1 is 4&Omega;)</small></b></center>
+
+<p>In case you are wondering, the tone burst frequency of 877Hz was selected for two reasons. Firstly, the relatively high frequency ensures that there is minimal cone excursion, so we can be certain that the voicecoil remains centred in the gap regardless of power level. Secondly, that happens to be the frequency my tone burst generator provides (it is a fixed frequency type), so I had to choose between modifying it, building a new one that used an external signal generator, or using what I had. Not a difficult choice given that I don't have as much time as I'd like for pure research.</p>
+
+<table width="100%"><tr><td valign="top"><img src="note.gif" alt="Note"></td><td>Be aware that there is inevitably some margin for error in all acoustic measurements, especially at the lower (80dB reference) level. I would not expect the error to exceed 0.1dB, and I made every effort to get the results as close as possible.<br><br>
+The likely magnitude of measurement error is seen in the small variation in measured difference of amplifier output level - the maximum difference between all measurements is 0.077dB. Some of that is caused by differing driver impedance interacting with amplifier output impedance and cable resistance. There are also limitations imposed by the digital oscilloscope.</td></tr></table>
+
+<p>Overall, most of the results are not too disappointing - Driver #2 was the best, 'losing' only 0.126dB. Driver #5 is the worst, with over 0.5dB loss. The point to note is that all drivers lost some of the expected increase in level. It is very obvious indeed that had the peak power been increased to (say) 100W or so, these results would have been much worse.</p>
+
+<p>Although there are a couple of exceptions, the higher the efficiency of the speaker, the less 'magnetic compression' is seen. Be aware though - I did not test for distortion, and this can be quite high as a direct result of flux modulation. Also, because my test equipment (and environment) is not optimised for loudspeaker testing, there is invariably some influence despite the mic being close to the loudspeaker. Although I took pains to ensure that reflections were minimised, these effects cannot be eliminated completely without a fully anechoic test environment.</p>
+
+<p>While it may have been nice to have been able to drive the speakers a lot harder to obtain a better indication, I didn't have the luxury of expendable drivers or a suitable soundproof enclosure (the instantaneous SPL was high enough as it was, and I wore hearing protection).</p>
+
+<hr><a id="s6"></a><b>6 &nbsp; Conclusions</b>
+<p>Power compression comes in two distinct forms - thermal (long term) compression, and instantaneous flux modulation compression. Thermal compression upsets the tonal balance of a multi-way system, as the driver with the greatest compression becomes softer with respect to the other drivers in the system. The change in voicecoil impedance with varying temperature will also affect any passive crossover network, with high order networks being the worst affected (they are very critical with respect to load impedance).</p>
+
+<p>Flux modulation effects are instantaneous, and can affect any driver, although tweeters are less likely to suffer because the power is relatively low even at high volume levels. The use of ferro-fluid may be of great assistance in this respect, although I was unable to test this. Flux modulation causes dynamics to suffer and distortion is created, because the magnetic circuit cannot sustain the maximum flux across the gap as the signal level varies. One of the big problems with flux modulation is that most people are oblivious to its existence, and the details shown here are almost <i>never</i> discussed or published by manufacturers. It is possible that some of the driver manufacturers are unaware of the problem, let alone what needs to be done to minimise it.</p>
+
+<p>Even the limited tests I was able to perform show that flux modulation (magnetic compression) is quite capable of 'squashing' transients to some degree. In an extreme case (assuming low efficiency drivers and considerable amplifier power), where transients should jump out at you, they may blend into the overall mix, losing impact and removing some of the life from your music. The many owners of low powered Class-A amplifiers are forced to use high efficiency drivers to get an acceptable sound level in their listening room. Although the amplifier is often cited as the reason the systems sound good, one of the likely reasons should now be obvious - with no (or little) power compression of either form, high efficiency systems will give much better transient (impulse) response and dynamics. There can be no doubt that these systems will have dynamics that are very difficult to match by systems that require hundreds of Watts to achieve the same in-room SPL. Having said this, please bear in mind that at this stage there appears to be little or no evidence to suggest that these effects are actually audible. They are measurable, even with relatively primitive techniques, but it is quite possible that a blind A-B test would not reveal any problems at a sensible SPL. Other effects may be present which <i>are</i> audible, but not related to the problem. This is a very difficult area, because it is very hard to isolate the effects as they are somewhat interdependent with other driver parameters, and there does not seem to be any way the various effects can be isolated.</p>
+
+<p>A general solution seems easy, if rather expensive and very limiting with most modern loudspeakers ... use high efficiency drivers. The lower the power that is needed for a given SPL, the less compression the driver will create - be it thermal or due to flux modulation. Because flux modulation effects are comparatively small - at least for domestic reproduction - thermal compression is by far the most dominant factor. For very low frequency drivers, high efficiency is not possible - the moving mass usually needs to be fairly large to obtain a low resonant frequency, and this will always have an adverse effect on efficiency. Despite the limitations, there seems no good reason that any driver should have an efficiency of less than 90dB/W/m - anything lower means that amplifier power has to be increased, and the problems then become apparent.</p>
+
+<p>In some cases it may be possible to use multiple drivers to increase the effective SPL by creating a small array, which improves the on-axis effective efficiency. By using more than one driver, the power needed by each is reduced for the same SPL, so the effects of both thermal compression and flux modulation are reduced. There are many who claim that their arrays sound exceptional, and this may be part of the reason. Another alternative is horns (loved and hated by a roughly equal number of people). Having very high efficiency, all power compression effects are reduced to a fraction of that of direct radiating loudspeaker systems. Both approaches come at the expense of power response within the listening space, however few loudspeaker systems have a flat power response anyway so this may not be as great a problem as may be expected.</p>
+
+<p>Yet another possible solution is to use electrostatic drivers, since these have no magnetic circuit and are renowned for their dynamics. They are not to everyone's taste though, and have a much smaller 'sweet spot' than most other speaker systems. Planar drivers rely on a much more distributed magnetic circuit, so may also be an improvement, but I have no information to support this so it remains conjecture.</p>
+
+<p>One thing that is readily apparent for dynamic (moving coil) drivers, is that the static field strength should be as high as possible. Typical flux densities for (half decent) loudspeakers range from around 1 Tesla (10,000 Gauss) up to around 2.4T, and I would suggest that anything less than 1T is next to useless. Very few drivers use magnetic materials that will provide much more than 1.8T across the gap - it seems to be accepted that mild steel (as used by most of the cheaper drivers and many not-so-cheap drivers too) is unable to provide a gap flux density of more than 1.8T, regardless of magnet strength - the now common use of dual magnets on subwoofers should be seen for what it is - a marketing ploy!. To obtain higher field strengths requires the use of specialised alloys that are optimised for magnetic circuits. It is important that the static flux is many times stronger than the dynamic (voicecoil) flux to obtain maximum performance.</p>
+
+<p>Finally however, much as we may make a fuss about the theory and reality of magnetic compression effects (flux modulation), there is little or no data to suggest that the dynamic sound quality of even low efficiency loudspeakers is considered lacking by the majority of listeners. Even the distortion components that are introduced are barely audible [<a href="#ref">6</a>] - if at all. Thermal compression is another matter altogether, and it should be obvious to anyone that low efficiency is the curse of dynamics and reliability in high power systems. Although it will not often be a problem for domestic systems, there are plenty of people who have experienced it first hand as the result of a party or similar gathering. The result is usually measured by the number of speaker drivers that have failed. While it is commonly believed that the mere act of an amplifier clipping is the major cause, see the article <a href="../tweeters.htm">Why do Tweeters Blow when Amps Distort?</a>, the real reason is sustained power, (and thus excessive heat) and all of the drivers in your system are vulnerable.</p>
+
+<p>Please note that the many references to JBL in this article are not intended to be an advertisement for the company or its products. While I do have considerable respect for JBL, it just so happens that they provide more detailed information than anyone else - to <i>not</i> refer to the extensive data would be to diminish the value of this article considerably.</p>
+
+<hr><a id="foot"></a><b>Footnote - Passive Crossovers</b>
+<p>Although it has been mentioned above and in many other ESP articles, passive crossover networks are affected by the driver impedance, and if the impedance changes due to temperature, the crossover network is no longer accurate. Although this is not usually a major issue with domestic systems used at relatively low levels, passive networks in conjunction with (very) low efficiency drivers can have a dramatic effect on the sound of the loudspeaker system.
+
+<p>Passive networks have another issue as well - the coils used have resistance, and at moderate to high power levels, the effective series resistance can increase further. This will not only affect the network's frequency accuracy, but may further diminish the damping factor for woofers.  All commercial products have to balance the component cost against the final selling price, and use of economical (rather than ideal) coils is not at all uncommon.
+
+<p>Consider a coil with a resistance of 1 ohm (fairly typical of a reasonably good quality inductor of around 3mH), in series with a woofer. The damping factor is already reduced to a maximum of 8 (for an 8 ohm driver) because of the resistance, but if the driver is also low efficiency, you need more power for the desired SPL. If the average power is (say) 20W, then about 2.5W is dissipated in the woofer's series crossover coil. That's not much, but it has very little cooling - the crossover network is often underneath damping material, so airflow is almost zero. Even 2.5W will cause the coil to get rather hot with no effective cooling, so the resistance goes up. While damping factor will probably remain about the same (because the woofer's impedance has also increased), the crossover network's parameters have changed even more than first expected. The network has a different load impedance, <i>and</i> has a different series resistance.
+
+<p>The problem gets worse as crossover frequency is reduced (bigger inductor, more resistance) and/or driver efficiency is reduced, needing more power. This is one of the more compelling reasons to use active crossovers and separate amps. We can't do much about the speaker's impedance change as it gets hot, but to compound the errors by using passive crossovers is not high fidelity. Again, using high efficiency drivers mitigates many of the problems for normal listening levels.
+
+<p>The use of passive crossover networks in high power systems is strongly discouraged. There is absolutely no benefit to be gained, but they cause a great many problems. Making a passive crossover network that has adequately sized inductors (series resistance must be as low as possible) becomes very expensive - just for the copper wire alone! The money is far better spent on building an active crossover and separate power amplifiers for each speaker. For optimum performance and freedom from crossover interactions, my philosophy is that any speaker rated at or above 50W programme material should be active. The benefits far outweigh the disadvantages. It does make auditioning a stand-alone amplifier rather difficult, but I can live with that.</p>
+
+
+<hr><a name="ref"></a><b>References</b>
+<ol>
+<li>Vented Gap Cooling&trade; in Low Frequency Transducers - <a href="http://www.jblpro.com/pages/tech_lib.htm" target="_blank">JBL</a> Technical Notes Volume 1 Number 18</li>
+<li>SPL to % Efficiency Conversion Chart - <a href="http://www.trueaudio.com/" target="_blank">True Audio</a> (John L Murphy, USA)</li>
+<li>Resistance - Temperature Coefficient - <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/electric/restmp.html" target="_blank">HyperPhysics</a>, Georgia State University (USA)</li>
+<li>Electrical Fitters and Mechanics Trades Course, Applied Electricity Stage 2, Department of Technical Education, NSW (1964)</li>
+<li>Check for Dominant Flux Modulation - <a href="http://www.klippel.de/download/bin%5CAN11%20-%20Flux%20modulation.pdf" target="_blank">AN 11</a> (Application Note to the KLIPPEL ANALYZER SYSTEM)</li>
+<li>Distortion Perception - <a href="http://www.gedlee.com/downloads/THD_.pdf" target="_blank"> Drs. Earl R. Geddes and Lidia W. Lee</a></li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 10 Apr 2005./ Published 16 Dec 2006.</div>
+</body>
+</html>

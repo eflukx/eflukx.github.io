@@ -1,0 +1,260 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=windows-1252">
+  <title>Practical DIY Waveguides - Part 1</title>
+  <meta name="AUTHOR" content="Bob White">
+  <meta name="description" content="ESP Articles - The use of waveguides to improve tweeter dispersion characteristics">
+  <!-- ESP Articles - The use of waveguides to improve tweeter dispersion characteristics -->
+  <meta name="keywords" content="waveguide, tweeter, horn, acoustic, dispersion, frequency, response, audio, project, diy, circuit, schematic, diagram">
+  <LINK REL=StyleSheet HREF="esp.css" TYPE="text/css" MEDIA="screen, print">
+  <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Practical DIY Waveguides - Part 1&nbsp;</td></tr></table>
+
+<p align="center"><b>Practical DIY Waveguides</b><br>
+Robert C White<br>
+(Edited and Figures Redrawn by Rod Elliott <img src="esp-eot.gif" alt="ESP"> )</p>
+
+<p align="center"><i>"All waveguides are horns, but not all horns are waveguides"</i> (Earl Geddes)</p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" alt="Articles" NAME="t1" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Main Index" BORDER=0></a><b>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><b>Part 1</b><ul>
+    <li><a href="#intro">Introduction</a></li>
+    <li><a href="#s1">1 &nbsp;-&nbsp; Constant directivity Horns</a></li>
+    <li><a href="#s2">2 &nbsp;-&nbsp; Importance of Mouth Diameter</a></li>
+    <li><a href="#s3">3 &nbsp;-&nbsp; Acoustic Offset and Other Benefits</a></ul><br></li>
+  <li><a href="waveguides2.htm"><b>Part 2</b></a><ul>
+    <li><a href="waveguides2.htm#s4">4 &nbsp;-&nbsp; 3kHz Waveguide &amp; 125mm Cone Driver</a></li>
+    <li><a href="waveguides2.htm#s5">5 &nbsp;-&nbsp; Passive Crossover System</a></li>
+    <li><a href="waveguides2.htm#s6">6 &nbsp;-&nbsp; Conclusions To Part 2</a></ul><br></li>
+  <li><a href="waveguides3.htm"><b>Part 3</b></a><ul>  
+  <li><a href="waveguides3.htm#s7">7 &nbsp;-&nbsp; 1.5kHz Waveguide</a></li>
+  <li><a href="waveguides3.htm#s8">8 &nbsp;-&nbsp; Materials</a></li>
+  <li><a href="waveguides3.htm#s9">9 &nbsp;-&nbsp; Measurements</a></li>
+  <li><a href="waveguides3.htm#s10">10 &nbsp;-&nbsp; Distortion</a></li>    
+  <li><a href="waveguides3.htm#s11">11 &nbsp;-&nbsp; Conclusions to Part 3</a></ul><br></li>  
+  <li><a href="#ref">References</a></li>
+</ul>
+
+<hr><a id="intro"></a><b>Introduction</b>
+<p>The appellation "wave guide" now seems to be attached to any thing that used to be called a horn, and also things that can also legitimately be called waveguides. As the quote from Geddes states, strictly speaking, all horns are not waveguides and this is basically because they do not constitute appropriate guides for the wave fronts that we are attempting to propagate in them, this leading to "multimodal" propagation. [<a href="#ref">1</a>]</p>
+<p>Most modelling programs like <i>Horncalc</i> use the plane wave assumption. As the name suggests this assumes that the wave front in the horn is flat over a given equal pressure or velocity surface, this model is however only relevant up to a few hundred Hz. [<a href="#ref">2</a>]</p>
+<p>The physics of the situation show that in a duct that has taper, the wave front must be at right angles to the surface and thus cannot be flat [<a href="#ref">3</a>], if the taper is very gradual and the wavelength long however, as at low frequencies, the "plane wave" assumption is adequate for practical purposes. [<a href="#ref">4</a>]. It rapidly becomes very inaccurate at higher frequencies, rendering modelling programs of little use for modelling mid and high frequency horns.</p>
+<p>In the context of waveguides this means that only a parallel sided duct is in fact a true "waveguide" for a plane wave, and that a flaring duct in order to be called a waveguide has to propagate parallel curved wavefronts. There are only two shapes that satisfy this exactly, the cone for spherical waves, and the spherical sector for
+cylindrical waves [<a href="#ref">4</a>].</p>
+<p>All of this might seem a bit academic but in fact it is very relevant to sound quality, the reason for this is most likely the aforementioned multimodal propagation.</p>
+<p>Double blind testing of various midrange horns [<a href="#ref">5</a>] indicate that there is a definite set of characteristics that horns have that make them reliably identified as horns. This research stems from the fact that for high quality sound reproduction, most people prefer direct radiators, and the horns to which people object have a common set of characteristics. (Comments such as "honky", and "nasal" are common.)  These are ...</p>
+
+<ul>
+  <li>Horn has many mouth reflections.</li>
+  <li>Horn has discontinuities that cause diffraction.</li>
+  <li>Horn is (too) long.</li>
+</ul>
+
+<p>Horns that do not have these characteristics cannot be reliably identified as horns in double blind testing, sounding more like direct radiators. We might well ask why?</p>
+<p>One significantly different characteristic of a direct radiator is just that, it radiates directly to the air. Free air, unlike a duct, has mono modal propagation, this means that it can only propagate sound in the longitudinal mode and this happens at a constant velocity [<a href="#ref">6</a>].</p>
+<p>Inside ducts however, the sound can move multimodaly, and is dispersive, i.e. different frequencies move with different velocities, and the amount of this dispersive multimodal propagation has a lot to do with how good a fit the wave front in the duct is to the duct that is carrying it.</p>
+<p>In theory the correct duct shape can propagate particular wave front shapes with no dispersion just like they propagate in free air, and this feature is the most likely reason that such ducts are free of "horn sound".</p>
+<p>This curvature effect was recognized a long time ago by Voight [<a href="#ref">7</a>] which led him to develop the "tractrix" horn. This type of horn has the reputation of not having the characteristic horn sound, the reason for this is most probably because it takes into account the gradual increase in curvature as the wave front propagates down the horn, and the incidence of multimodal propagation is much less than that which occurs in a exponential type of horn, meaning that the tractrix horn is very nearly a true waveguide.</p>
+<p>The purpose of this article is to discuss how horns that have both non-hornlike sound (i.e. the tractrix) and constant directivity, can be constructed by DIY people, (note that the Tractrix horn does not have constant directivity).</p>
+
+<hr><a id="s1"></a><b>1.0 &nbsp; Constant directivity Horns</b>
+<p>Since the late 1970s, the constant directivity horn has become much used for sound reinforcement [<a href="#ref">8</a>], studio monitoring [<a href="#ref">9</a>], and in some domestic speaker systems. The benefits of constant directivity have also been demonstrated in multi channel surround systems for instance, [<a href="#ref">10</a>]. The most relevant feature being that they have both flat frequency and power response. They also have limitations that have great relevance in high power applications, but such limitations do not normally apply for a domestic installation.</p>
+
+<p align="center"><img src="wg-f1.gif" alt="Figure1" border="1"><br>
+<b><small>Figure 1 - Vifa D25AG With 6.5" LF Driver (3kHz Crossover Frequency, On Axis and 45&deg; Off Axis)</small></b></p>
+
+<p>The above are data measured on axis (red) and at 45 degrees off axis (green) of a speaker system using a dome tweeter and 6.5 inch driver. As can be seen the on axis plot is practically flat, at 45 degrees however the woofer's dispersion causes a gradual loss of output that is restored thereafter by the wide tweeter dispersion, causing a large dip ("suck out"). The off axis frequency response is not flat, consequently neither is the system power response.</p>
+<p>Researchers such as Toole [<a href="#ref">11</a>] report that although this type of response lacks accuracy people prefer it because the wide dispersion in the upper midrange gives an ‘open' or ‘airy' quality , the power suck out at 3kHz also tends to favour the subjectively more realistic production of orchestral music (an effect noted by Shorter).</p>
+<p>In the case of monitoring for instance a flat power and off axis frequency response is preferred because these give better freedom from room effects and better stereo image [<a href="#ref">12</a>], in the case of surround sound where we remove the rooms actual space by creating a virtual one with the surround channels, exciting the room reverberant field to give spaciousness is not necessary, and the main front left and right speakers can be specialised for image and accuracy - this is where constant directivity waveguides come in.</p>
+<p>A property of constant directivity horns is that they have a straight-sided conical flare for a large section near the mouth, Keele [<a href="#ref">13</a>] showed that such a horn has a constant directivity above a particular frequency given by ...</p>
+
+<blockquote><b>F = k<sub>k</sub> / &alpha; * w</b> &nbsp; Where &alpha; = included wall angle, <b>k<sub>k</sub></b> = 25.306 x 10&sup3; and <b>w</b> = mouth width (metres)</blockquote>
+
+<blockquote><small><b>Note:</b>The constant k<sub>k</sub> (Keele's constant = 25,306) is a compromise value related to rectangular horns. A value of 29,707 is a theoretically better approximation for circular ones as this is based upon the directivity of a pulsating spherical cap. This can only be true however at low wave numbers, the ripples that can be seen in the off axis trace of the 3kHz waveguide are higher order diffraction effects due to far field mode propagation at high frequencies and the spherical cap model is not accurate at the high end. The best compromise is k<sub>k</sub> = 25,306. This does cause the directivity at the lower end to be compromised somewhat - the usual specification calls for the output to be -6dB at the specified frequency. The higher value can be used for the three section devices to more accurately specify the lower cut off since these are free of higher order diffraction.</small></blockquote>
+
+<p>As mentioned, Putland [<a href="#ref">4</a>] pointed out that for a conical wave guide to be a true waveguide, then the wave front being propagated in it must be a spherical sector, the <b><i>os</i></b> type of waveguide developed by Geddes [<a href="#ref">14</a>] is nearly conical in the mouth region, it is however designed to "bend" a plane wave at the throat into a spherical sector one at the mouth, this to accommodate a compression driver.</p>
+<p>The area increase of this type of waveguide is parabolic, just like a conical horn, the difference is that its throat always coincides with the "y" axis, and thus has zero flare at the throat, the flare then increasing as to enable the wave front to be bent with the minimum of diffraction.</p>
+<p>In our case however we want to use a dome driver to drive our horn/wave guide, and an almost pure conical horn is just about the correct one for this.</p>
+<p>The theory behind the waveguides to be described is that a dome driver produces what is fair approximation of a spherical wave over its piston range, so if we put one of these in the end of a conical horn, the wave will propagate down the horn in much the same way as it would from a theoretical monopole point source, i.e. with a small amount of throat scattering [<a href="#ref">15</a>] and dispersion, and no "horn sound"</p>
+<p>The description "almost" for the shape of the horn is caused by two factors, the first of these is that a conical horn does not radiate with constant directivity below Keele's critical frequency, this is because the radiation is dominated by the mouth circumference [<a href="#ref">16</a>].</p>
+<p>The second is that a mouth meeting the baffle at an abrupt angle is subject to diffraction at high frequencies.</p>
+<p>At the lower end if we for instance want a lower cut off frequency of 1500Hz and an angle of 90&deg;, then from Keele's formula the diameter is ...</p>
+
+<blockquote><b>25,306 / ( 1500 * 90 ) = 0.187m</b></blockquote>
+
+<p>Below this frequency, the directivity of a conical horn is given by Keele's asymptotic model ...</p>
+
+<p align="center"><img src="wg-f2.gif" alt="Figure2" border="1"><br>
+<b><small>Figure 2 - Keele's Asymptotic Model</small></b></p>
+
+<p>The frequency maximum on the high frequency side of the suck out (F@A), is the one given by Keele's expression, the minimum after this (2/3A), is given by ...</p>
+
+<blockquote><b>10^ ( Log ( f ) - 0.176)</b></blockquote>
+
+<p>This low wave number waisting effect (see note) is one problem with plain conical horns as mentioned -  another is finite aperture diffraction [<a href="#ref">15</a>]. The aperture diffraction effect occurs at the other end of the spectrum, i.e. at the higher frequencies, luckily for us both problems can be attacked with one method - providing a flared mouth.</p>
+
+<table><tr><td valign="top"><img src="note.gif" alt="note"></td><td><small><b>Note:</b> The low wave number waisting effect (see Figure 3) occurs when the wave number,  (2 &pi; f ) / c is below the wave number of the horn cut off given by Keele's expression, as seen in the graph the horns directivity declines to become 2/3 of the wall included angle at  a frequency, 10^ ( log [ f ] - 0.176), and then increases again until the original angle is reached at a frequency 10^ (log [ f ] - 0.352),  finally coming to 180&deg; at f = 10^ ( [ Log ( 180 ) - Log ( a ) ] - 0.352 - Log [ f ] ).</small></td></tr></table>
+
+<p>From Keele's expression we note that the break frequency reduces as the mouth angle increases, from this if we provide a mouth flare at a larger angle than the body of the horn, the directivity is then the average of the two flares [<a href="#ref">8</a>], and the break frequency can be moved downward by a useful amount without increasing the mouth dimensions significantly. If we make this mouth flare a circular radius that blends the conical section to the baffle with no discontinuities, this type of mouth flaring is useful in decreasing the diffraction at upper frequencies.</p>
+<p>These wave-guides consist of a conical inner section and a flared mouth section. As a first approximation, the mouth flare angle is taken as the chord of the radius, the angle of this chord is related to the cone angle by ...</p>
+
+<blockquote><b>&beta; = 180 - ( 90 - &alpha; / 2 )</b></blockquote>
+
+<p><b>&alpha;</b> is the desired coverage angle, <b>b</b> and <b>c</b> are the angles that are dependant upon <b>&alpha;</b>. A three conical section horn can be built using these angles but the abrupt transitions between sections give rise to diffraction, hence here they are replaced by a circular arc that has an initial slope equal to the required directivity angle,  and passes through the end points of the conical sections.</p>
+
+<p>These two angles are then used to calculate width by ...</p>
+
+<blockquote><b>w = 0.5 (( k<sub>k</sub> ( &alpha; + &beta; ) ) / &beta; &alpha; f )</b></blockquote>
+
+<p>Where <b>k<sub>k</sub></b> = 25,306, <b>&delta;</b> = wc / wm ratio, (0.65 - 0.7). <b>wc</b> = width of conical section, <b>wm</b> = width of mouth and <b>f</b> is frequency. The symbol <b>&delta;</b> is one I used for the inner cone to mouth width ratio. Keele reports that 0.65 to 0.7 is about right, and it cancels out of the expression for width. The width will not be correct unless the ratio is in this range. Generally I would say that 0.6 to 0.65 is preferable, especially for low cutoff frequencies, since this pushes up the frequency at which the second order diffraction starts. It can also be juggled to compensate for acoustic offset.</p>
+
+<p>We can calculate that a horn using this scheme can have a mouth diameter of  0.157m - a useful reduction over the plain conical case.</p>
+
+<hr><a id="s2"></a><b>2.0 &nbsp; Importance of Mouth Diameter</b>
+<p>If we take as the maximum desirable driver spacing as one wavelength of the crossover frequency, Linkwitz's expression [<a href="#ref">19</a>] indicates that a 60 degree vertical lobe results ...</p>
+
+<blockquote><b>Arcsin ( &lambda; / 2d )</b></blockquote>
+
+<p>where <b>&lambda;</b> is the wavelength at the crossover frequency, and <b>d</b> is the centre to centre distance between drivers (midrange and tweeter).</p>
+
+<p>From this, the smaller we can make the mouth for a given cut off, the better vertical lobe characteristic we can achieve.</p>
+<p>In the paper by Johansen [<a href="#ref">14</a>], he outlines cd horns that consist of three conical sections. These are especially attractive for us because they can be made smaller than the two cone ones and we can use a simple circular radius for the flare.</p>
+<p>For a circular radius that meets the baffle at right angles and has the desired directivity angle = a, averaged over the first section, the three angles, a,b and c, are related by...</p>
+
+<blockquote><b>&alpha; = desired radiation angle<br>
+c = (720 + &alpha;)<br>
+b = 360 – 2c + &alpha;</b></blockquote>
+
+<p>The total mouth width is then...</p>
+
+<blockquote><b>w = .333 (( k<sub>k</sub> ( bc + ac + ab )) / ( fabc ))</b></blockquote>
+
+<p>where <b>k<sub>k</sub></b> = 25,306 and <b>f</b> = lower cutoff frequency</p>
+
+<p>From this, the mouth diameter is = 0.142m for a 1.5kHz horn</p>
+<p>Both the two and three section waveguides can be placed close enough to an eight-inch driver, but a three section one is better for a ten-inch driver.</p>
+<p>For a three way system with a typical five inch midrange driver, the diameter of a 3kHz waveguide cannot exceed 100mm. Johansen shows that a
+three section conical horn has the directivity of the simple average of all three horns, provided that the wavefront "sticks to the wall " [<a href="#ref">6</a>], we then ask under what conditions does the wavefront do this?</p>
+<p>The exact explanation of this is beyond the scope of this article, as it involves some rather difficult mathematics, If however we define a dimensionless number <b><i>kr</i></b>, then ...
+
+<blockquote><b>k = ( 2 * &pi; * f ) / c</b></blockquote>
+
+<p>and <b>r</b> = radial distance from cone apex, where <b>f</b> = lower cutoff frequency and <b>c</b> = velocity of sound (234m/s).</p>
+<p>If we keep the <b>kr</b> product at between 1 to 1.28 at the lower cut off frequency, the "stretching pressure" [<a href="#ref">3</a>] dominates the propagation, and this region is known as the acoustic near field [<a href="#ref">18</a>] and the wavefront will follow the waveguide wall to a sufficient degree of accuracy.</p>
+
+<p align="center"><img src="wg-f3.gif" alt="Figure 3" border="1"><br>
+<b><small>Figure 3 - Stretching Pressure Explanation</small></b></p>
+
+<p>In a conical horn, the expansion of the wave front is analogous to a pulsating point source. For audio use we can assume that the air is not compressible and has no viscosity. This allows us to use the Bernoulli continuity equations in which both curl and div are zero and the Laplace equation has a solution. Curl zero normally implies that there is no rotation and that a periodic disturbance cannot follow a curve in such a field, however a point source has a negative "stretching" pressure that is prominent up to a <b>kr</b> value of 1 and slightly beyond. This manifests itself as an orthogonal component to the radial pressure.</p>
+<p>In this region the Laplace equation has a complex solution that has a "stream tube" as well as a potential  and the disturbance can follow the wall even though it is in a theoretically zero curl and divergence potential field.</p>
+<p>The three  section waveguide represents a solution in which the wavefront "leaves the wall " at a constant angle decided by the initial slope. This involves large amounts of vector and scalar field calculus and partial differential equations to illustrate rigorously and as this article is intended to inform the DIY person about practical methods of making waveguides this sort of content is not appropriate.</p>
+<p><small>No doubt there will be people writing into the forum (or sending e-mails to Rod) about these matters, but anybody really interested in it can read the extensive material referred to in the references (just like I did <img src="grin.gif" alt="grin">).</small></p>
+
+<hr><a id="s3"></a><b>3.0 &nbsp; Acoustic Offset and Other Benefits</b>
+<p>Another potentially useful property of wave-guides is compensation for acoustic offset. The two drivers in the above mentioned system have 22mm offset at 3kHz, and 14mm at 1.5kHz, meaning that deeper wave guide is needed to compensate for the larger acoustic offset at the higher crossover frequency. One of these will be used for the 3kHz system.</p>
+<p>It is not uncommon for constructors (and some manufacturers) to utilise a stepped baffle to accomplish "time alignment" - meaning that the driver's acoustic centres are aligned at the crossover frequency. This approach has a major disadvantage though, in that the diffraction caused by the stepped baffle can make the end result worse than if no attempt were made to align the drivers.</p>
+<p>Systems using DSP (Digital Signal Processor) based crossovers can easily apply the appropriate delay so that a flat baffle (or any other shape desired) is no longer an issue, but such systems remain rather expensive (for 'audiophile' versions), and those intended for professional sound reinforcement are often looked down upon both because of perceived poor "sound quality" and aesthetics. This argument shall be avoided vigorously here &nbsp; <img src="grin.gif" alt="Grin">.
+<p>Another benefit that is not so tangible is the virtual elimination of baffle edge diffraction. Because the waveguide determines the angle of projection, the SPL across the front of the baffle is reduced considerably.</p>
+<p>By reducing the SPL at the baffle face, the opportunity for baffle edge diffraction is dramatically reduced - to the point where while it can probably be measured, it should be inaudible in listening tests. Since it is necessary to use a large radius for effective control of edge diffraction (&frac14; of the full width of the baffle is sometimes suggested), use of a waveguide will render such irksome tasks unnecessary. While diffraction is often not considered in the design of a loudspeaker, it is nonetheless very important, and can have a profound influence on the sound quality.</p>
+<p>There is some more information on this topic in the ESP article <a href="../bafflestep.htm">Baffle Step Compensation</a>. In particular, it is interesting to see the ripples caused at higher frequencies - these are all the result of edge diffraction.</p>
+
+<p align="right"><a href="waveguides2.htm"><b>Part 2 ...</b></a></p>
+
+<hr><b>References</b>
+<a id="ref"></a>
+<ol>
+  <li>E R Geddes, "Acoustic Waveguide Theory",  AES Journal,   Vol. 37,  No. 7/8,  (1989, Jul/Aug).</li>
+  <li>D Mapes-Riordan, "Horn Modelling with Conical and Cylindrical Transmission-Line Elements",  AES Journal,  Vol. 41, No. 6,  (1993 Jun.).</li>
+  <li>K R Holland, F J Fahey, C L Morphey, "Prediction and Measurement of the One -Parameter Behavior of Horns", AES Journal,  Vol. 39,  No. 5,  (1991 May).</li>
+  <li>G R Putland, "Every One-Parameter Acoustic Field Obeys Webster's Horn Equation",  AES Journal,  Vol.41, No.6, (1993 June).</li>
+  <li>K R Holland, F. J. Fahey, P. R. Newell..."The Sound of Midrange Horns for Studio Monitors",  AES Journal,  Vol. 44, No. ½,  (1996 Jan/Feb).</li>
+  <li>P M Morse &amp; K U Ingard, "Theoretical Acoustics",  Princeton University Press, N.J.  1986.</li>
+  <li>P G A Voight, British Patent, 278,078, (1927 October).</li>
+  <li>C A Hendricksen &amp; M S Ureda, "The Manta-Ray Horns,"  AES Journal,  Vol.26, No.9,  (1978 Sept).</li>
+  <li>D Smith, D Keele &amp; J Eargle, "Improvements in Monitor Loudspeakers",  AES Journal, Vol. 31,  No. 6, (June 1983).</li>
+  <li>F E Toole, "Loudspeakers and Rooms for Multichanel Audio Reproduction",  <a href="http://www.Infinitysystems.com" target="_blank">White paper</a></li>
+  <li>F E Toole, "Loudspeaker Measurements and Their Relationship to Listener Preferences",  AES Journal,  Vol. 34, No. 5. (may 1986).</li>
+  <li>P D Bauman, A B Adamson &amp; E R Geddes, "Acoustic Waveguides in Practice",  AES Journal,   Vol.41,  No.6,  (1993 June).</li>
+  <li>L Markainen &amp; N Zacherov, "Studio Monitor Midrange and High Frequency Performance", <a href="http://www.Genelec.com" target="_blank">Genelec</a></li>
+  <li>D B Keele, "What's so Sacred About Exponential Horns?",  AES pre-print 1038, Los Angeles, (1978 May).</li>
+  <li>E R Geddes, "Acoustic Waveguide Theory Revisited,"   AES Journal,  Vol.41,  No.6,  (1993 June).</li>
+  <li>D P Berner, "On the use of Schrodinger's Equation in the Analytic Determination of Mouth Reflections" - <a href="http://www-ccrma.stanford.edu/~dpberner" target="_blank">Stanford University</a></li>
+  <li>T F Johansen, "On the Directivity of Horn Loudspeakers,"  AES Journal,   Vol.42,  No.12,  (1994 December).</li>
+  <li>E R Geddes, "Sound Radiation from Acoustic Apertures,"  AES Journal, Vol.41,  No.4,  (1993 April).</li>
+  <li>S W Rienstra &amp; A Hirchberg, "An Introduction to Acoustics",   Eindoven University Downloadable Text Book, <a href="http://w3.tue.nl/en/" target="_blank">Eindhoven University</a></li>
+  <li>S H Linkwitz, "Active Crossovers Networks for Noncoincident Drivers",   AES Journal,  Vol. 24, No. 1,  (Jan/Feb 1976).</li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Robert C White and/ or Rod Elliott, and is Copyright (c) 2002. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Robert White) and editor (Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Robert White and Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Created 03 November 2006</div>
+
+</body>
+</html>

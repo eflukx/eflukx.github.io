@@ -1,0 +1,173 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="pa, system, powered, speaker, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - Complete powered PA box amplifier.">
+	<!-- ESP Audio Projects - Complete powered PA box amplifier. -->
+	<title>Project 137-2</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 137 (Part 2)&nbsp;</td></tr></table>
+
+<p align="center"><b>Complete Powered Box For PA Applications (Part 2 of 3)</b><br />
+<small>Rod Elliott, 27 June 2012</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr>
+	<a href="pcb/pricelist.html" target="_blank"><img src="pcb.gif" alt="" width="33" height="26" border=0></a>
+	<img src="filler.gif" alt="" width="32" height="8">
+	<small><b>PCBs are available for this project. Please click PCB image for details.</b></small><br>
+<hr />
+
+<ul>
+	<li><b><a href="project137.htm">Part 1 - Introduction &amp; Preamp</a></b>
+	<li><b><a href="project137c.htm">Part 3 - Assembly Tips &amp; Mechanical Details</a></b>
+</ul> 
+
+<hr><b>Power Amplifiers</b> 
+<p>The power amplifier section is relatively straightforward. The high frequencies are handled by an LM3886 chip amp, and the mid-bass uses a BTL (bridge tied load) discrete amp based on <a href="project3a.htm" target="_blank">Project 3A</a>. There are some interesting changes though, enabling the amp to be completely free from any adjustments.
+
+<p>This is achieved by using relatively high-value emitter resistors for the output stages. These are bypassed using 1N5404 diodes so there is almost no loss of power. When the amp has to supply any significant current, the diodes conduct and limit the voltage across the 2.7 ohm resistors to about 1V at full power output. The resistor dissipation is negligible, but the higher than normal value means that bias stability is absolute. This is a very important consideration for an amp that will be pushed hard most of the time. 
+
+<p>It is extremely important that the diodes D103-104 and D203-204 are 1N4004 or similar. Do not use 1N4148 or other signal diodes, because their forward voltage is too high. This increases the quiescent current and may cause the amp to run warm at idle - it should stay close to ambient temperature with no signal.
+
+<p>Nominal voltage gain of the bridged power amps is 46 times (a little over 33dB). This is because there are two amplifiers, each with a voltage gain of 23, and the output signals add across the speaker.
+
+<p>As noted in the introduction, one thing is essential - the mid-bass driver should be chosen for high efficiency. Anything less than 95dB/1W/1m is completely unsatisfactory IMO, and a minimum of 97-98dB/1W/1m is preferable. There are many drivers that meet this criterion, and the driver must have a rated impedance of 8 ohms - not less under <i>any</i> circumstances.
+
+<p class="t-pic"><img src="p137-f6.gif" border="1" /><br />
+Figure 6 - Schematic Of Power Amplifiers</p>
+
+<p>The two bridged power amps for the mid-bass are driven with 180&deg; out-of-phase signals from the preamp. Speaker connections to the PCB are via PCB mounted 6.25mm (&frac14;") quick-connect/ Faston terminals.
+
+<p>While the power amplifiers are shown using TIP35C/36C transistors, you can use MJL21193/4 devices if you prefer. They are considerably more expensive, but do have a higher power rating and a better safe operating area. Provided the heatsink is good enough (and this is absolutely essential) the suggested devices are quite acceptable. Likewise, you can use different driver transistors as well, but double check the pinouts! TO220 devices almost always have the pins reversed compared to the TO126 drivers suggested.
+
+<p>The modules I built for my customer all used the TIP devices, and not one has failed in over two years of heavy usage by owners. With an effective load impedance of 4 ohms for each power amp (the result of using an 8 ohm driver), peak transistor dissipation is around 75W worst case (at frequencies where the speaker load is highly reactive). The average is a great deal less of course.
+
+<p>The compression horn driver uses an LM3886, and is wired without using of the mute or standby functions. There is some high frequency boost to compensate for the natural rolloff of the horn driver. This is easily modified if needs be. Voltage gain is 23 times, or 27dB. If necessary, you may need to adjust the gain of the main bridged amp to get the mid-bass and horn drivers to match efficiencies, as this is needed for a flat response. The relative gains with the values shown should bring you fairly close though, provided the mid-bass driver is a high efficiency type.
+
+<p>As shown, the LM3886 has high frequency boost due to R305 and C302. This provides about 4dB of boost at 16kHz, with the boost starting from 5Khz (+1dB frequency). The boost circuit shelves above 20kHz. The boost turnover frequency can be reduced by increasing C302, and more boost is available by reducing R305, however it is unlikely that more boost will be needed and it's not really recommended. The boost can be disabled by omitting C302 and R305.
+
+<p>If the amount of boost is increased, I suggest that you re-visit the preamp section to modify the limiter frequency compensation. This compensation is designed to limit the energy of high frequency feedback in particular, which protects the horn driver from excessive power. This is something of a trial and error process unless you have extensive measuring capabilities. Reducing the value of R18 on the preamp board will cause the limiter to react more aggressively to HF feedback or other high-pitched sounds that may cause compression driver damage.</p>
+
+<hr /><b>Amplifier Gain Vs. Speaker Efficiency</b>
+<p>It is important to match the gain of the mid-bass amp and the compression driver amp so that the sound is well balanced. Modifying the amp gain doesn't increase the available power, but it <i>does</i> change the relative power delivered to the two speaker drivers. 
+
+<p>With the values shown for all sections, the horn driver is expected to have an efficiency that's 6dB greater than the mid-bass driver. If your components have different sensitivity you may need to increase the gain of the bridged amps. Do not reduce the gain of the LM3886, as it is already close to the minimum gain where it will remain stable. It is extremely unlikely that you'll ever need to reduce the gain of the 200W amp, as that would require a 380mm driver with greater than 100dB sensitivity paired with a low efficiency compression driver. This is rather unlikely and will not be addressed.
+
+<p>While 106dB/1W/1m or better is fairly normal for compression drivers, you will also find that mid-bass drivers with 100dB sensitivity are actually not uncommon - they do exist and there are examples from most of the major manufacturers. If you can get them, do it, as driver efficiency is perhaps one of the least considered but most important aspects of a small PA system. A high efficiency speaker is like getting extra amp power for nothing.
+
+<p>To put this into perspective, if one driver is 3dB more efficient than another, it's like doubling the amplifier power, but with none of the risks. The amp can deliver around 200W into an 8 ohm load, but everything becomes far more difficult if you need 400W, and the loudspeaker is instantly placed at risk of an overheated voicecoil because of the extra dissipation. The amp also needs a bigger heatsink, larger power transformer, etc. The high efficiency driver is a bargain in all respects! 
+
+<p>IMO, a wise person never drives loudspeakers with so much power that an otherwise trifling problem cause speaker failure, and few speakers can actually handle more than 200W of continuous power without being affected by power compression due to a hot voicecoil. In turn, that means the driver is close to its limits, and further abuse will cause its demise. Give me comparatively low powered, high-efficiency drivers any day. 
+
+<p>If the amps are capable of delivering the right amount of power to keep mid-bass and high frequencies within about 2dB of each other you'll probably be quite happy with the result. As described, the system is balanced for a mid-bass driver with an efficiency of around 99dB/1W/1m, together with a horn driver having an efficiency of around 106dB/1W/1m. There will always be variations even between supposedly identical drivers, so it is unrealistic to expect perfection.
+
+<p>To get the two drivers to match acoustic output, you can just increase the gain of the bridged amps. R104/R204 are used to set the gain, and if they are reduced to 820 ohms, the overall gain is increased by 3.3dB
+
+<p>If desired, resistors can be added in parallel with the existing 1k parts for R104/R204 to allow for finer gain changes. Both amps <i>must</i> be set for the same gain. To obtain extra gain, you can place a resistor in parallel with R104/R204. For example, 8.2k parallel resistors give each amplifier an extra 0.95dB of gain, raising overall power by the same amount. Similarly, if the paralleled resistors are 3.9k the gain (and power) is increased by just under 2dB.
+
+</p>
+
+
+<table bgcolor="red" width="100%" border="1" style="border-collapse: collapse"><tr><td class="t-wht" align="center">
+<b>Warning - The following section requires mains wiring, and it is essential that all such wiring is carried out by suitably qualified persons.</b>
+</table>
+
+<p><b>Power Supply</b>
+<p>The power supply is conventional, and uses simple zener regulators for the preamp section. While this might seem to be a little too basic, in practice the system is almost silent. There is no buzz or hum, other than that which may be experienced if the system earth to chassis connection is misplaced. This is covered in Part 3, and is important to get low noise.
+
+<p class="t-pic"><img src="p137-f7.gif" border="1" /><br />
+Figure 7 - Schematic Of Power Supply</p>
+
+<p>The rectifier is a PB1004 encapsulated type. It is doubtful that any other style will fit the PCB, but the unit chosen is widely available almost everywhere. The filter caps are both 10,000uF/50V 'snap-fit' types, with an outer diameter of ~30mm and a pin spacing of 10.16mm (0.4"). Fortunately, this is a common size and you shouldn't have any difficulty finding them. The caps across the AC winding are to suppress EMI - they can usually be omitted without causing any problems though.
+
+<p>The &plusmn;15V supplies are derived via the 390 ohm 5W resistors, and are regulated using 15V zener diodes. These are standard 1W zeners. Diodes D1 and D2 are used to ensure that the low voltage DC remains after the main filter caps discharge. The time difference is only a few milliseconds, but is enough to ensure there are no loud noises when the amp is switched off.
+
+<p>The power transformer is a 300VA toroidal, although you may be able to use an E-I type if you can get them cheaply. Be aware that it might be harder to minimise hum and/or buzz though, because there is a lot more leakage flux from an E-I transformer than you get from a toroidal type. Incoming mains is via a standard combination IEC chassis-mount male socket, with integral fuseholder and switch.
+
+<p>The switches supplied with most of these mains connectors are double-pole, but I don't recommend that both active and neutral be switched unless it is mandatory where you live. The internal spacing of the switches is (IMO) inadequate, and I have seen one that failed, shorting active and neutral together. Yes, it's rare, but it can happen - especially when the switch gets a lot of (ab)use. For 230V mains, the fuse should be 3.15A slow-blow, increased to 5A slow-blow for 120V use ... or as recommended by the transformer manufacturer.
+
+<p>It is essential that the earth pin of the IEC connector is securely connected to the chassis. Failure to do so is dangerous, and because the unit is not double-insulated, failure to provide a proper safety earth connection may be illegal where you live. Attempting to achieve double insulation standards is not recommended - this unit will form part of a PA system, and as such should be properly earthed to ensure the safety of performers.</p>
+
+
+<hr />
+<ul>
+	<li><b><a href="project137.htm">Part 1 - Introduction &amp; Preamp</a></b>
+	<li><b><a href="project137c.htm">Part 3 - Assembly Tips &amp; Mechanical Details</a></b>
+</ul> 
+
+<hr /><b>References</b>
+
+<ol>
+	<li><a href="project3a.htm" target="_blank">P3A Power Amplifier</a> - The basis of the power amp
+	<li>LM3886 Datasheet
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40 /></a><b>Projects Index</b>
+<br /><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0 /></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2012. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 27 June 2012</div>
+</body>
+</html>

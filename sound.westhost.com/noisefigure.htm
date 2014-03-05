@@ -1,0 +1,57 @@
+<html><head>
+<title>Noise Figure &amp; Other Stuff</title>
+<style TYPE="text/css">
+<!--
+p { font-family: arial, helvetica, sans-serif }
+td { font-family: arial, helvetica, sans-serif }
+body { font-family: arial, helvetica, sans-serif }
+-->
+</style>
+</head>
+<body>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%" BGCOLOR="#0000FF">
+<tr><td><b><font color="#FFFFFF">Elliott Sound Products</font></b></td></table>
+<br>
+<p><b>Noise Figure</b><br>
+Before we start, there are a couple of terms that need explanation.</p>
+<p>Firstly, the term "dBv" refers to decibels relative to 1V RMS, and "dBu" means decibels relative to 775mV. This is also known as dBm, and relates to the old convention of 1mW into a 600 Ohm load. This was common in telephony (and still is in some cases), but is of little relevance to audio applications. However, we are stuck with it! 0dBv is equivalent to +2.2dBu.</p>
+<p>Secondly, noise is commonly referred to the input of an amplifier circuit. This allows the instant calculation of output noise by simply subtracting the dB figures. So an amplifier with an 'Equivalent Input Noise' (EIN) of -120dBu having a gain of 40dB will have an output noise of -80dBu (120 - 40). If the nominal output level is the industry normal of +4dBu, then signal to noise ratio is 84dB.</p>
+<p>Thirdly, it is commonly accepted that the minimum theoretical input noise (EIN) for any amplifier is -129dBu, based on a source impedance of 200 ohms. This means that a perfect (noiseless) amplifier with a gain of 40dB will have an output noise level of -89dBu, and if the gain were to be increased to 60dB, then output noise will be -69dBu. The noise in this 'perfect' amplifier comes all from the 200 ohm source resistance.</p>
+<p>It is the nature of noise that it does not add in the same way as two equal frequencies. Because of its random nature, two equal noise voltages will increase the output by only 3dB, not 6dB as might be expected. As a result, we can be sure that it is the input noise of a microphone preamplifier that will set the final limit to the signal to noise ratio in any mixer. The other possible contributor is the mixer stage itself, which with (say) 36 input channels assigned, will have a signal gain of unity, but a noise gain of 36 times. If you can't get your head around this, don't worry. I will explain exactly how and why in Project 30b (the output mixer stage).</p>
+<p>The way the noise figure of an opamp is commonly described is something else that needs a little explanation, since it is hardly specified in terms that most constructors will be able to relate to. The data sheet telling you that the "noise figure is 5nV / &radic;Hz" is not very friendly. To get this into something we can understand, first we need to take the "square root of Hz" and make some sense of it. The audio bandwidth is taken as 20Hz to 20kHz, so the square root of this is ...
+
+<ul>&radic;20,000 = 141 &nbsp; <small>(It is not worth the effort of subtracting the 20Hz, so this is close enough)</small></ul>
+
+With a noise figure of 5nV / &radic;Hz, the equivalent input noise (EIN) is therefore
+<ul>5nV x 141 = 707nV</ul>
+
+If we assume a typical gain of 100 (40dB) and an output level of 1V (0dBv), this means that the output noise equals the input noise, multiplied by gain. Signal to noise ratio can then be calculated:
+
+<ul>707nV x 100 = 70.7uV (EIN = -120.8dBu)
+<br>Signal to noise (dB) = 20 x log (1V / 70.7uV) = 20 x log(14144) = 83dB</ul>
+
+We can also calculate this using dB alone.
+
+<ul>EIN = -120.8dBu
+<br>Gain = 40dB
+<br>S/N = 120.8 - 40 = 80.8 (ref 0dBu), 83dB (ref 0dBv)</ul>
+
+For low level preamps (such as mic pre-amplifiers), it is common to specify the EIN only, allowing the user to calculate the noise for any gain setting, since it changes as the gain is varied. The same amplifier as above with unity gain will have a theoretical signal to noise ratio of 123dB (relative to 1V). All of this assumes that the passive components (especially resistors) do not contribute any noise. This is false, as any device operating at a temperature above 0K (absolute zero, or about -273 degrees Celsius) generates noise, however the contributions of passive components are relatively small with quality devices.</p>
+<p>An interesting example, using the SSM2017 at a gain of 1000 (60dB). From the data sheet, it is claimed to have a noise figure of 950nV / &radic;Hz, so we can calculate that the noise output is 134uV using the above equations. Referred to 0.775V output (which means 775uV input), this gives a signal to noise ratio of just over 75dB. This is excellent, but also implies that the equivalent input noise is -135dBu, which is a full 6dB better than theoretically possible. Hmmmm. It is worth noting that the quoted noise figure is at 1kHz (and above) - a restricted bandwidth reduces the noise, as does an input impedance lower than 200 ohms.</p>
+<p>From above, remember that a 'perfect' amplifier (contributing noise at the theoretical minimum possible), will have an equivalent input noise of -129dBu . This means that with a gain of 60dB, the best possible signal to noise ratio will be 69dB relative to 775mV (or 71.2 ref 0dBv).</p>
+<p>As an experiment, I built the three opamp preamp using 1458 opamps (equivalent to a 741). These have a noise input figure of about 4uV - this translates to about 30 to 35nV / &radic;Hz, or nearly 20dB worse than the 5534A. With a gain of 46dB (200), the circuit managed a signal to noise ratio of 65dB, referred to 0dBv (1 Volt RMS). The apparently better than expected S/N ratio is because the bandwidth was so limited because of the opamps.</p>
+<p>I measured a S/N ratio of better than 80dB (about 82dB) at full gain of 46dB using LM833 opamps (dual version of the NE5534). When I say that I measured this, it was with extreme difficulty. Because of the low noise, my test instruments were at their limits, so I had to guess a bit. The theoretical "best possible" at this gain is 85.2dB referred to 0dBv, or -83dB ref. 0dBu.</p>
+<p>Do not be tempted to use lesser devices, since their bandwidth is too limited - the 1458 was 3dB down at only 8kHz, and died rapidly after that.</p>
+
+<p><hr><b>Other Stuff</b><br>
+For all resistors in the input circuits, you absolutely, positively, must use 1% tolerance (or better if you want, but in reality you won't improve things too much). Use of 5% resistors will degrade common mode performance badly used anywhere in the input stage. Resistors should also be metal film for lowest noise.</p>
+<p>Keep all lead lengths to the minimum necessary, and don't use shielded cable inside the mixer chassis. If you do, you will possibly run into problems with oscillation (see <small>WARNING</small> below). All opamps should be bypassed as close as possible to the supply pins, using 100nF polyester caps. Each sub-module should have its own supply bypass electrolytics (100uF should be fine).</p>
+
+<p><hr><b>WARNING</b><br>
+Great care is needed when using the LM833 or NE553x devices, as they have such a wide bandwidth that they will oscillate if you do not use stopper resistors at the outputs, and a suitable RC network at their inputs. In some cases it might also be necessary to use small (20 to 100pF) capacitors in parallel with the feedback resistor to reduce high frequency gain.</p>
+<form><input type=button value="Close" onClick="self.close()"></form>
+
+<table border="1" bgcolor="#000000"><tbody><tr>
+<td><font color="#ffffff" size="-2"><b>Copyright Notice.</b> This material, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2000-2005. Please see general copyright information for the main project.</font></td>
+</tr></tbody></table>
+</body></html>

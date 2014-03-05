@@ -1,0 +1,210 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+<meta name="description" content="Audio coupling capacitors. How to choose the correct type and value.">
+<!-- Audio coupling capacitors. How to choose the correct type and value. -->
+	<meta name="keywords" content="coupling, bypass, capacitor, value, type, crossover, network, audio, diy, hi-fi, electronic">
+	<title>Coupling Capacitors</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Coupling &amp; Bypass Capacitors&nbsp;</td></tr></table>
+
+<center><p><small>Copyright &copy; 2007 - Rod Elliott (ESP)<br />
+Page Created 27 December 2007, Finalised 2011</small></center>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<br /><hr /><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" alt="Articles" BORDER=0></a><b>Articles Index<br />
+<a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" alt="Index" BORDER=0></a>Main Index</b><br />
+
+<hr /><b>Contents</b>
+
+<ul>
+  <li><a href="#p10">1.0 &nbsp; Introduction</a>
+  <li><a href="#p20">2.0 &nbsp; Coupling Capacitors</a>
+  <ul>
+	  <li><a href="#p21">2.1 &nbsp; Preamp Coupling Caps</a>
+	  <li><a href="#p22">2.2 &nbsp; Types and Values</a>
+	  <li><a href="#p23">2.3 &nbsp; Power Amp Coupling Caps</a>
+	  <li><a href="#p24">2.4 &nbsp; Types and Values</a>
+  </ul>
+  <li><a href="#p30">3.0 &nbsp; Bypass Capacitors</a>
+  <ul>
+	  <li><a href="#p31">3.1 &nbsp; Preamp Bypass Caps</a>
+	  <li><a href="#p32">3.2 &nbsp; Types and Values</a>
+	  <li><a href="#p33">3.3 &nbsp; Power Amp Bypass Caps</a>
+	  <li><a href="#p34">3.4 &nbsp; Types and Values</a>
+  </ul>
+</ul>
+
+<hr /><a id="p10"></a><b>1.0 - Introduction</b>
+<p>There seems to be some mystery in the selection of both coupling and bypass caps for audio applications. The selection is actually quite simple, and is only based on a few criteria. The value is usually not especially critical, and there are a few general guidelines that can be applied in the vast majority of cases. There is only one formula that's really needed - at least for coupling capacitors ...</p>
+
+<blockquote>C = 1 / ( 2 * &pi; * f * R ) &nbsp; &nbsp; or ...<br />
+f = 1 / ( 2 * &pi; * C * R )</blockquote>
+
+<p>The above formulae define the lower -3dB frequency, where the capacitive reactance is equal to the resistance. While one might think that when the two impedances are equal the attenuation should be 6dB, this is not the case because of phase shift.
+
+<p>Input, feedback and DC supply paths in power amps and preamps will always have a defined resistance, and the capacitor value is chosen to ensure that the lowest frequency of interest (typically 20Hz) is passed without attenuation. While the capacitor value can also be used to form a basic high-pass filter, this will often be rather poorly defined, and where a specific lower frequency limit is really needed, this is best done using a dedicated filter.
+
+<p>This might be needed where a vented woofer is used, because frequencies below the box cutoff frequency can cause huge cone excursions and speaker damage. A good example of such a filter is shown in <a href="../project99.htm" target="_blank">Project 99</a>, and this is designed for 36dB/octave rolloff below the designated frequency. As with all things, care is needed, because all filters created by coupling caps introduce two potentially unwanted effects ...</p>
+
+<ul><li>Phase shift
+<li>Group delay</ul>
+
+<p>These effects don't normally cause problems at extreme low frequencies, because the loudspeaker and room usually have a far greater influence. They are mentioned simply because they exist, and you need to know this. The two are closely related, but for simple (6dB/octave) filters, they are generally considered benign. One school of "thought" claims that the best cap is no cap. This is fundamentally nonsense and extremely silly - there is absolutely no requirement for DC coupling in any audio amplifier. DC is a decidedly unwanted component, and invariably causes far more problems than the relatively small rolloff at very low frequencies caused by the capacitor.
+
+<p>Bypass applications are more complex. The DC supply impedance is dominated by resistance, but includes inductance. While small, the inductive effects become troublesome at very high frequencies (such as those frequencies where fast opamps want to oscillate).
+
+<p>For a more detailed look at capacitors in general, have a look at <a href="capacitors.htm" target="_blank">Capacitor Characteristics</a>. That article covers many of the points made here, but in somewhat greater detail.</p>
+
+<hr /><a id="p20"></a><b>2.0 - Coupling Capacitors</b>
+<p>The purpose of a coupling cap is to pass the wanted audio (AC) signal, while blocking any DC from preceding stages or source components. DC will cause pots to become noisy (scratching noises when operate), and cause relatively loud clicks when (if) muting relays or similar are used. Since DC carries no audio information, there is no reason to allow it through your audio system. Some power amps will misbehave very badly if DC is present, and even small DC offsets into the speakers (anything above ~500mV) displaces the cone from its central position, and increases distortion. There is also a small static power dissipation - 1V DC across a 4 Ohm loudspeaker causes a constant static dissipation of 250mW. Not much, but the cone displacement can be much greater than you might expect.</p>
+
+<hr /><a id="p21"></a><b>2.1 - Preamp Coupling Caps</b>
+<p>It is often possible to eliminate both input and output caps with preamps, and even the feedback bypass cap can be omitted. The disadvantage of this is that some sources may have a small (or perhaps not so small) DC offset - especially digital sources that use a single 5V supply for the audio output. A capacitor is mandatory for these because they have a 2.5V DC offset, and if this is not removed completely, most DC connected preamps will simply saturate - the output voltage will be 2.5V multiplied by the preamp's gain. A gain of only 6 times (16dB close enough) will convert the 2.5V into the full 15V maximum output from the preamp.
+
+<p>Any DC in a preamp is bad, because it will appear across the volume pot, and this will become noisy. Switching from a source that has no DC offset to another that has some (even 100mV or less) will cause a loud BANG through the speakers when the source switch is changed. This is undesirable, to put it mildly.</p>
+
+<hr /><a id="p22"></a><b>2.2 - Types and Values</b>
+<p>In most cases, a polyester cap is the best choice. Polypropylene is popular too, but they are physically much larger and can easily dominate the preamp PCB. Some people prefer polypropylene because the popular audio myth tells them that the dielectric losses are so much smaller than polyester, and therefore they sound better. This is complete rubbish, and can be ignored. Dielectric loss (or dielectric absorption) is immaterial for slow, low level signals. Audio certainly seems to be a very demanding application, but it is very slow by comparison to other electrical signals, and capacitor losses are less than negligible in any sensibly designed circuit.
+
+<p>Another common choice is a bipolar electrolytic (or a polarised electro for some applications). While it is easily demonstrated that these caps can create distortion, one must examine not the input voltage, but the voltage <i>across the capacitor</i>. With a 1uF capacitor, the voltage across the cap at 20Hz is still very low. With 1V RMS input signal, the voltage across the cap is only 343mV RMS at 20Hz. While this may well create a small amount of distortion if a non-polarised electro is used, this distortion will still be inaudible in almost any hi-fi system. At 100Hz, the voltage has fallen to 72mV, and at 1kHz it's only 7mV. The distortion caused by such a small voltage will rarely (if ever) be measurable, let alone audible. The voltage across the cap at any low frequency is easily reduced by increasing the capacitance value.
+
+<p>The value must be chosen as described in the introduction - but with a slight twist. If the lowest frequency you need is 20Hz, then the capacitor is normally chosen to be around 1/2 to 1/3 of the minimum wanted frequency. This means that the -3dB frequency should normally be somewhere between about 6-10Hz. A common choice for ESP projects is to use a 1uF cap, and an input impedance of 22k. The -3dB frequency is just over 7Hz, and at 20Hz the signal is only 0.55dB down. Since few speakers can manage to get that low anyway (and the room will make a real mess of such low frequency signals), this is a good compromise between safety (protection from very low frequency signals) and good bass performance.
+
+<p>Now, there is nothing at all to say that you can't use a 1,000uF coupling cap, but there's simply no point. That would give a -3dB frequency of 7.2mHz (milli Hertz) - and affords no useful protection against subsonic frequencies.</p>
+
+<p align="center"><img src="ccap-f1.gif" alt="Fig 1" border="1"><br /><b><small>Figure 1 - Coupling Caps in Action</small></b></p>
+
+<p>In Figure 1, the red trace shows the effect of using a single 1uF cap into an impedance of 22k. The green trace shows what happens if you have two identical circuits (both 1uF, 22k), separated by a gain stage. The gain has been set to unity for clarity.  With a single stage, response at 10Hz is -1.8dB, and with 2 stages is -3.6dB. At 20Hz, the figures are roughly -0.5dB and -1.1dB respectively.  If you think that the low frequency response will be too limited by this, you may use (say) 10uF caps - typically bipolar (non-polarised) electrolytics.  Using this value, response at 10Hz is -22mdB (milli-dB) down for a single stage, and -45mdB for 2 stages.
+
+<p>Potentially more irksome to many is group delay and/or phase shift. A 1uF cap gives a group delay of 7.5ms for one stage, and 15.1ms for two stages. The corresponding phase shift is about 36&deg; (single stage) and 72&deg; (two stages).  While this might seem to be an issue, in the vast majority of cases the speaker box and room will create far more phase shift and group delay than any simple filter ever will.
+
+<p>Vented speakers in particular often have significant group delay and associated acoustic phase shift. Despite many claims to the contrary, there is actually very little to indicate that phase shift is audible, provided it is <i>static</i>. Moving phase shift (an example is a mid-bass driver - so-called "Doppler" distortion) can be very audible if the shift and rate of change is high enough, although this is uncommon with most mid-bass drivers.</p>
+
+<hr /><a id="p23"></a><b>2.3 &nbsp; Power Amp Coupling Caps</b>
+<p>The days of single supply amplifiers with large electrolytic coupling capacitors are now almost over, although there are still a few small low power amps that are built that way. Because these amplifiers are almost invariably considered "lo-fi" and will normally drive small speakers in horrible small plastic boxes, the coupling cap doesn't make much difference.
+
+<p>If such an arrangement were to be used in anything serious, one would make the cap very large. It is important that the AC voltage across the capacitor remains as low as possible, otherwise there will be significant measurable distortion at the lowest frequencies. Some early amps that used a speaker coupling cap included it in part of the feedback loop, thus letting the feedback correct frequency response droop and (at least to an extent) capacitor distortion. This is generally a poor choice though, and is no longer relevant.
+
+<p>Of course, there are other coupling caps too. One in particular is the feedback bypass cap. At various times, there have been some extraordinary arrangements used to either eliminate this cap entirely (a bad choice as we shall see), or concoct little networks that supposedly make the cap's contribution less intrusive. By far the simplest arrangement is to use a large value capacitor - one that is at least 10 times greater than theoretically needed.
+
+<p>While it would be nice to have the luxury of using the same ratio for speaker coupling caps, this makes the capacitor overly large and expensive. For example, a cap intended to couple a single-supply power amp into 4 ohms down to 20Hz should be 20,000uF if we apply the same formula. Because this cap will charge through the speaker, the rate of change of voltage must be kept low enough to prevent speaker damage, so the amp has to settle to the &frac12; voltage rather slowly. To maintain a peak speaker current of (say) 200mA through a cap of that size, the voltage can change at no more than 10V per second. This is not a major issue, but does need to be mentioned.
+
+<p>If any power amp is allowed to operate to DC, some interesting but undesirable factors come to light. The first is that the amp will amplify DC - any small DC that finds its way to the input will be amplified, putting speakers at risk and likely pushing the cone out of centre. This increases distortion and reduces power handling. If the amp should be driven to clipping with an asymmetrical waveform (most audio), there is a DC component that's generated. It doesn't happen if an amp is AC coupled, and since no instruments create DC and no recordings contain it, there is absolutely no reason to reproduce any DC that may happen to sneak into the system.</p>
+
+<hr /><a id="p24"></a><b>2.4 &nbsp; Types and Values</b>
+<p>Power amplifier coupling caps will generally be electrolytic types, because the values involved are large and film capacitors are simply too bulky and expensive. While many people don't like using electros, far more serious problems will occur if the feedback cap were to be a film type. One way is to use a high impedance feedback network, but this leads to noise, and much greater susceptibility to noise pickup from external sources. The other way is to use a large bank of film caps, but this will also cause problems with noise susceptibility.
+
+<p>Tantalum caps are specified in some cases, but I will never use them because they have a worldwide reputation for being unreliable. There are (allegedly) some of the newer types that are far better, but tantalum caps earned me everlasting distrust many years ago, and I have had no reason since to change my opinion.
+
+<p>If the feedback network uses a 22k resistor with 1k to ground (most ESP designs use this combination), the cap needs to have a reactance of no more than 100 ohms at the lowest frequency of interest. For typical 20Hz operation, you can calculate the value as 80uF ... for all normal applications somewhere between 100 and 220uF is perfectly alright. This keeps the AC voltage across the capacitor small, so distortion is minimal. Certainly it will be at least an order of magnitude lower than any loudspeaker at 20Hz.   
+
+<p>While it is generally considered bad form to use polarised electrolytic caps with no polarising voltage, in reality it generally doesn't bother the cap in the least. The requirement for long life when used like this is that the voltage across the cap must be as low as possible - certainly less than 1V, and preferably less than 100mV. I have seen many examples of electrolytic capacitors that have been used like this for 20 years or more, and still perform just as well as a brand new cap.</p>
+
+<hr /><a id="p3"></a><b>3.0 &nbsp; Bypass Capacitors</b>
+<p>This is an area where there is some confusion, and a great deal of disinformation ... ok, it's not actually disinformation, it's complete bollocks! The purpose of a bypass capacitor is to maintain a low impedance for the DC supply, at all frequencies where the circuit has gain. With many circuits, this extends to several MHz, and even small lengths of wire or PCB trace can introduce enough inductance to make the circuit unstable.
+
+<p>Bypass capacitors serve one function - to keep the impedance low. When you see claims that large electrolytic capacitors have lots of inductance, you are reading nonsense. Contrary to common belief, the coiled up foil in a capacitor does not constitute an inductor. There is no need for me to reproduce everything described in <a href="capacitors.htm" target="_blank">Capacitor Characteristics</a>, so I suggest that you read that if you want all the details.</p>
+
+<hr /><a id="p31"></a><b>3.1 &nbsp; Preamp Bypass Caps</b>
+<p>High speed opamps must have good bypassing. Most of the time, this will be between the power supplies, avoiding the earth (ground) circuit completely. A normal opamp has no knowledge of earth, ground planes or anything else earth related. It is only interested in the voltages present at its two inputs, and when used in linear mode will attempt to make them the same voltage.
+
+<p>Accordingly, bypass caps do not need to connect between each supply and the signal earth. If there is noise on the power supply, this will be transferred from the supply (where it may be completely harmless) to the signal earth, where it can induce noise into the circuit. My projects recommend low noise linear supplies, and generally use a couple of caps between each supply and earth, but the remaining bypassing is between the +ve and -ve supplies only.
+
+<p>Many of today's opamps are quite fast (some are very fast), and without proper bypassing they will often oscillate cheerfully. Oscillation frequencies are usually well outside the expected frequency range, and are usually well over 1MHz. PC soundcard based oscilloscopes are useless for fault finding at this level, because they are limited by the sampling frequency of the soundcard. Even at the highest available frequency (196kHz, but these are rare and expensive), you cannot see any frequency over 90kHz or so. Sometimes you might get a result using an RF detector probe (see <a href="../project74.htm" target="_blank">Project 74</a> for an example).
+
+<p>In general, a proper oscilloscope is indispensable for any DIY projects. These days, you get a lot of oscilloscope for your money, but you have to be prepared to take the time to learn how to use it properly, and how to make best use of the features offered.</p>  
+
+<hr /><a id="p32"></a><b>3.2 &nbsp; Types and Values</b>
+<p>Bulk bypass caps (where the DC enters the board) are almost always electrolytic, and can be anything from 10uF to 100uF or more, depending on the current drawn by the circuit. While most of the basic opamps don't need bypass caps across each device, a 100nF multilayer cap is cheap insurance, and allows you to use even very fast opamps if you so desire.
+
+<p>The only cap worth considering for opamp bypass is the multilayer ceramic. They have many problems (the value varies with voltage and temperature for example), and do introduce measurable distortion. However, they are used on the <i>power supply</i> pins, and distortion of DC is simply a silly concept. I have heard people claim that these caps should never be used for bypass because they ruin the sound, but this is simply nonsense.
+
+<p>Not one person who will make (or stand by) these silly claims will ever conduct a double-blind test, they will not measure the results to provide proof, nor will they accept that they are talking complete rubbish. However, these claims <i>are</i> rubbish, and should be ignored until someone offers proof that they can hear DC, and that it affects the music in a measurable way. I don't recommend that anyone holds their breath <img src="bgrin.gif" />.</p> 
+
+<hr /><a id="p33"></a><b>3.3 &nbsp; Power Amp Bypass Caps</b>
+<p>Power amplifiers are generally comparatively low speed, but bypassing is almost always needed unless the amp is only millimetres from the power supply. It is fairly common for power amps to use bypass caps ranging from perhaps 10uF up to 220uF or more, and these are often in parallel with smaller caps.
+
+<p>While adding small film or ceramic bypass caps certainly does no harm, it usually makes no difference to the amp's performance whatsoever. As noted in the Capacitor Characteristics article, large value bypass caps are always better than low values. Connecting small caps in parallel with high value electrolytic caps usually achieves nothing at all. It is common to see amplifiers power supplies, showing perhaps 10,000uF main filter caps, with paralleled 1uF film caps and perhaps 10nF ceramics. The small caps are simply wasted - they do no harm, but their reactance is so high compared to that of the 10,000uF main filter cap that they achieve nothing at all.
+
+<p>If it makes you feel better to use them, then by all means do so. They do no harm, and will not adversely affect the sound of the amp in any way. However, if you <i>do</i> include them, don't expect the amp to sound "better", because it won't. Needless to say, this means a proper double-blind test, not a silly test where those involved know if the caps are in or out of circuit. It is also a requirement of any such test that the amp is verified as being free of any form of oscillation before running the test.
+
+<p>Also, remember that even a few centimetres of wire can introduce inductance (approximately 5-6nH/cm), and that may cause parasitic oscillation. Bypassing is not an exact science, and on occasion you will find that you really do need a small bypass cap in an unlikely position. Again, without an oscilloscope, finding and fixing power amp oscillation is usually impossible. 
+
+<p>While it is common in low level circuitry - such as preamps - to use bypass caps between the supply rails with no connection to earth, this usually doesn't work with power amps. This is because significant current flows in the earth/ground circuit because of the speaker return. Almost all power amps will use caps from each power supply to earth, and this includes multi-supply amps (Class-G for example).</p>
+
+<hr /><a id="p34"></a><b>3.4 &nbsp; Types and Values</b>
+<p>As noted above, power amps will often just use electrolytic caps for bypass. Where low value film caps (typically 100nF) are needed, these will normally be polyester or similar. Because of the high supply voltages used, most multilayer ceramic caps aren't usable because they are most commonly available only up to 50V. Film caps are available for very high voltages, so there is no limitation other than cost.
+
+<p>Electrolytic bypass caps may be as large as 470uF or more, or as low as 10uF. It depends on the design of the amplifier - some can function just fine with no bypass caps at all, but modern high speed output devices make this uncommon today. Many (especially budget) commercial amps will use the smallest caps that will allow the amp to function normally - without parasitic oscillation or other misbehaviour. When things are reduced to the bare minimum it is expected that after some time there will be problems, but such problems are actually very uncommon.
+
+<p>Electrolytic caps have had some bad press over the years, but if they are kept cool and were made properly in the first place, they are surprisingly reliable. I have equipment that's over 30 years old, still with all original electros and still working just fine. I also have a stash of large "computer grade" electros, and most of them would be at least 30 years old, and haven't been powered up for perhaps 15 years or more. Those that I have pressed into service for any odd project have all been perfectly ok. In some cases it's been necessary to take them to full voltage with a current limited supply, but most can just be connected and used.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2007. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr></table>
+<div class="t-sml">Page created and copyright &copy; 27 December 2007./ Finalised Feb 2011 - article was unfinished.</div>
+</body>
+</html>

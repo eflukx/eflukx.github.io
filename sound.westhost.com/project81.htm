@@ -1,0 +1,124 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="12dB, linkwitz, riley, audio, project, diy, amp, preamp, crossover, test, power, supply, circuit, schematic, diagram, pcb">
+   <meta name="description" content="ESP Project Pages - 12dB / Octave Linkwitz Riley Crossover. Visit ESP's other pages for more audio projects and articles">
+   <title>12dB / Octave Linkwitz Riley Crossover</title>
+  <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+  <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 81&nbsp;</td></tr></table>
+
+<p align="center"><b>12dB / Octave Linkwitz Riley Crossover</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for the latest revision of this project. Click the image for details.<br>
+ &nbsp; <a href="p81-photo.jpg">Click here</a> to see a photo of the prototype (old style board), which is tuned to 90Hz. The 24dB L-R project can be seen in Project 09.<br>
+
+<hr><b>Introduction</b>
+<p>This project is essentially an adaptation of the 24dB/Octave L-R crossover featured in <a href="project09.htm" target="_blank">Project 09</a>. So much so, that it uses the same (Revision B) PCB, albeit with some components omitted, and a few wire links. For a 12dB crossover to follow the Linkwitz-Riley alignment, a sub-Bessel filter with a Q of 0.5 is used, rather than the more common Q of 0.707, which gives a Butterworth alignment. The Revision B board is very similar to the original, but allows for balanced inputs if desired.
+<p>The basic problem with Butterworth crossovers is that they have a 3dB peak at the crossover frequency, and this occurs when the outputs are summed electrically or acoustically. Using a filter with a Q of 0.5 means that the signal is 6dB down at the crossover frequency for both high and low pass sections, and the summed output is absolutely flat.
+<p>Version 1.3 of the ESP <a href="software/esp-lr13.exe">Linkwitz Riley crossover calculator</a> (88kB) makes short work of determining the component values needed for any frequency. The program is written in Visual Basic, and is not compressed. You may need the VB runtime libraries for this to run - details of how to obtain these are provided in the <a href="project09.htm" target="_blank">Project 09</a> page.
+<p>If you have access to a capacitance meter, I suggest that capacitors should be matched to within 1%. Buy more than you need, and select those that are within this tolerance. The remaining caps can be kept for use in another project. 1% metal film resistors are highly recommended, and better opamps can be substituted for the TLO72 devices shown. Bear in mind that there is unlikely to be any sonic improvement by using (for example) OPA2134s in the input buffer or filter stages, since they operate at unity gain, but they are quieter. I suggest that low noise opamps be used in the output sections, as the high pass section operates with gain (6dB), and the low pass section is inverting. Both will add some noise.</p>
+
+<hr><b>Description</b>
+<p>The circuit diagram of the filter section is shown in Figure 1. It is a completely conventional filter, and the component designations are the same as for the 24dB unit described in Project 09. It is designed primarily for 2-way electronically crossed over systems, such as adding a subwoofer or biamping an existing loudspeaker system.
+<p>Figure 2 shows the output buffers - again using the same component designators, but with some changes. The low pass section is inverted, since 12dB
+crossovers always invert the phase of one signal. If desired, the high pass section may be inverted instead - see Figure 3 for the alternative version.
+
+<center><img SRC="p81-f1.gif" ALT="Figure 1" BORDER=1>
+<br><b><small>Figure 1 - 12dB / Octave Crossover Network</small></b></center>
+
+<p>Only the left channel is shown - the right channel is virtually identical. As can be seen from Figure 1, there is an input buffer to ensure that the filter networks are driven from a low impedance. This assures an accurate response, and cannot be omitted. The output of the buffer stage drives the high and low pass sections for each channel. The filters are conventional feedback types, and have very good performance even with budget opamps.
+<p>U1B (the second half of the input buffer) is used for the right channel.</p>
+
+<center><img SRC="p81-f2.gif" ALT="Figure 2" BORDER=1 height=388 width=397>
+<br><b><small>Figure 2 - Output Buffers</small></b></center>
+
+<p>Figure 2 shows the output buffers (again, left channel only) connected in the manner I used for the prototype. The high pass section provides a gain of 6dB, and has a pot to adjust the level to allow for different loudspeaker sensitivities. The gain can be adjusted from +6dB to -8dB (approximately), which will be more than enough for any installation. The low pass buffer has a gain of -1, which is to say that gain is unity, but inverted. A phase switch can be incorporated as shown to allow
+for sub-woofer phase correction - this is not needed for a biamp setup.</p>
+
+<center><img SRC="p81-f3.gif" ALT="Figure 3" BORDER=1 height=385 width=395>
+<br><b><small>Figure 3 - Output Buffers (Alternative)</small></b></center>
+
+<p>Finally, Figure 3 shows the alternative connection for the output buffers. Some builders may find this more to their liking, although for the most part it doesn't make a great deal of difference. This can still have a phase switch, but it will be inverting the phase of the main signal if used with a sub-woofer, which is not really the ideal situation. It is better suited to biamping existing speakers though, so its inclusion is warranted.
+<p>A photo of the prototype unit I built can be seen here [<a href="p81-photo.jpg">12dB Xover Prototype</a>] for anyone who wants to see what the final PCB looks like. As stated, this used the P09 (Rev-A) board, and is easy to build with the instructions available when boards are purchased. The Revision B board is now shipping, and the old boards are no longer available.
+<p>A few examples of crossover frequencies and values are in order - one of these may coincide with what you want, so will save you the trouble of calculating them yourself. I strongly suggest that resistor values should be not lower than 2k2 and no higher than 20k - this is a reasonable compromise between opamp loading and noise.
+
+<center><table BORDER="1" align="center" width="33%">
+<tr><td width="50%">Frequency (Hz)</td><td>R</td><td>C</td></tr>
+<tr><td>90</td><td>18k</td><td>100nF</td></tr>
+<tr><td>130</td><td>12k</td><td>100nF</td></tr>
+<tr><td>200</td><td>8k2</td><td>100nF</td></tr>
+<tr><td>280</td><td>12k</td><td>47nF</td></tr>
+</table></center>
+
+<p>The frequencies are approximate only - there may be a discrepancy of a few Hertz, but this is insignificant. For other frequencies, grab a copy of the calculator program.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 01 Sept 2001./ 30 May 07 - Updated to include Rev-B PCB.</div>
+</body>
+</html>

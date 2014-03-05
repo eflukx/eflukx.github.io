@@ -1,0 +1,207 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="pa, system, powered, speaker, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - Complete powered PA box amplifier.">
+	<!-- ESP Audio Projects - Complete powered PA box amplifier. -->
+	<title>Project 137-1</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 137 (Part 1)&nbsp;</td></tr></table>
+
+<p align="center"><b>Complete Powered Box For PA Applications (Part 1 of 3)</b><br />
+<small>Rod Elliott, 27 June 2012</small></p>
+
+<!-- AddThis Button BEGIN -->
+<!-- script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img src="pcb.gif" alt="" width="33" height="26" border=0></a>
+<img src="filler.gif" alt="" width="32" height="8">
+<small><b>PCBs are available for this project. Please click PCB image for details.</b></small><br>
+
+<hr />
+<ul>
+	<li><b><a href="project137b.htm">Part 2 - Power Amplifiers &amp; Power Supply</a></b>
+	<li><b><a href="project137c.htm">Part 3 - Assembly Tips &amp; Mechanical Details</a></b>
+</ul> 
+
+<hr><b>Introduction</b> 
+<p>The project described in this article is one of the most ambitious on the ESP site. It's not for the faint-hearted, but if you happen to need a powered PA system, this is for you. It's not an inexpensive undertaking, and you'll most likely find that you can buy a system for little more than the cost of building the amp.
+
+<p>So, why would you want to make your own? The answer is fairly simple - many of the powered boxes on the market have some very fundamental problems, not the least of which is reliability. Often using no more than a couple of LM3886 ICs in parallel, the claims are regularly quite unrealistic. Some might say fraudulent, and that's sometimes hard to dispute.
+
+<p>There are other uses for the amp as well - for example it is ideally suited to a "Leslie" type speaker. All that's needed is to modify the crossover frequency to suit the longer horn used in Leslie boxes. It will outperform the standard valve amp and passive crossover easily, although the bass section is probably too powerful to use with the standard bass speaker. This is easily fixed by either reducing the supply voltage, or just using one of the amps - the other (the one that provides the inverted output) can be left unpopulated on the board. Additional details will be made available if there is any interest.  
+
+<p>No outlandish claims are made for this project, simply because I don't need to. I have built a great many of these amps for a customer, and they have proven themselves to be extremely reliable in use. In case you are wondering, my customer is perfectly happy for me to publish this as a project. The mid-bass section uses a bridge amp that delivers about 200W to an 8 ohm speaker, and the high frequency horn driver is powered with an LM3886 power amp IC.
+
+<p>One thing that's essential - the mid-bass driver should be chosen for high efficiency. There are many drivers around that claim to be able to handle insane amounts of power (they can't), but have appalling efficiency. This means they <i>need</i> insane amounts of power to make a reasonable amount of noise, but then they suffer from power compression thereby reducing efficiency even further, and they are much more likely to fail due to overheated voicecoils when driven at 'rated' power. Anything less than 95dB/1W/1m is completely unsatisfactory IMO, and a minimum of 97-98dB/1W/1m is preferable.
+
+<p>The first part of the system is the preamp, which includes the input stage, electronic crossover and driver EQ (mid-bass only, compression driver EQ is on the power amp board). There is also a peak limiter. 
+
+<p>This preamp doesn't have bells and whistles, such as tone controls and fancy digital inputs, because it's rare that these are ever used to any advantage. PA boxes are most commonly used with a mixer, and adding controls to the box does nothing useful. However, these controls (when fitted) give ample opportunities for adjustment that only results in the sound being messed up if no-one notices and therefore fails to reset controls to the flat position. 'Real' PA power amps don't have tone controls either.
+
+<p>The preamp described does feature the following ...</p>
+
+<ul>
+	<li>Mic/ Line switch for the input (useful for quick checks during setup)
+	<li>Bass augmentation with high pass filter to block frequencies below the box cutoff frequency
+	<li>24dB/octave Linkwitz-Riley crossover
+	<li>Tailored HF response to get the most from a horn-loaded compression driver
+	<li>Limiter to prevent distortion (frequency tailored to stop excessive HF energy from feedback etc.)
+	<li>Configurable to be a stand-alone powered PA or a subwoofer (with 24dB/octave LR crossover)  
+	<li>... and, of course, a level (volume) control
+</ul>
+
+<p>Before starting a project like this, you should know what you're going to have to do. Since it's pretty pointless to build just one, you'll most likely be making two or more complete amplifiers, and then of course there's the boxes, 380mm (15") bass drivers and the compression drivers and horns. This all adds up to being a significant amount of work, and money!</p> 
+
+<p>The preamp looks just a little like the photo below <img src="grin.gif" />. The preamp is complete, and wired as a normal PA box version (as opposed to the subwoofer version). Some parts are not used in this configuration.
+
+<p>The PCB is mounted to the chassis/ heatsink using the bracket seen at the right-hand end, and with screws into the PCB mounted XLR connectors. The XLRs are wired in parallel, so the signal can be looped from one box to the next. This is standard for all powered speaker systems.</p>
+
+<p class="t-pic"><img src="p137-f1.jpg" border="1" /><br />
+Figure 1 - Preamplifier Board</p>
+
+<p>Below, you see a completed power amp, but the TIP35C/36C output transistors and LM3886 IC have not been fitted. These must be left until the PCB is mounted on the heatsink so everything aligns properly. I recommend that you use a clamping bar to secure the output transistors, and don't even <i>think</i> about using Sil-Pads or similar as insulation! You must use thin mica, Kapton or similar to minimise thermal resistance.
+
+<p>You can see the brackets on the rear of the power amp board - these are addressed in Part 3. The brackets are essential to keep the PCB secure and prevent vibrations from eventually breaking the power transistor leads. They also help keep everything in place while the LM3886 and power transistors are being soldered.
+
+<p class="t-pic"><img src="p137-f2.jpg" border="1" /><br />
+Figure 2 - Power Amplifier Board</p>
+
+<p>Finally, the power supply. This is a significant break from my normal approach of not making PCBs for power supplies. Naturally, since there <i>is</i> a PCB, you have to use the same type of bridge rectifier and the same spacing for the electrolytic filter caps, or they won't fit on the board. You also need to fabricate the aluminium bracket, as this is used both to mount the board and provide heatsinking for the bridge rectifier. There is another bracket like those on the preamp and power amp boards to secure the other end of the PSU board. Note that it can also be mounted horizontally, with one screw through the bridge rectifier and two more at the other end of the board (with appropriate spacers).
+
+<p class="t-pic"><img src="p137-f3.jpg" border="1" /><br />
+Figure 3 - Power Supply Board</p>
+
+<p>Naturally, you will also need to make the chassis and heatsink assembly. The heatsink is critical - it must be large enough to ensure the output devices remain at a safe operating temperature. There are many approaches to the heatsink and chassis design, and this is something that I have to leave to the constructor. I do have a few suggestions though, and they are shown in <a href="project137c.htm">Part 3</a> of the project article.</p>
+
+<hr /><b>Description - Preamp</b> 
+<p>Due to the number of devices used in the preamp, I had to break the schematic into two sections. The audio path is not really as complex as it looks. The various blocks are shown on the circuit diagram, as this makes the overall operation clearer. Suggested opamps are either TL072 or MC4558 in all locations.
+
+<p>The balanced mic/line preamp uses a switch to change the gain, which is 1.8 (5.2dB) for line inputs and 20 (26dB) for microphone (for balanced inputs - gain is halved if the input is single-ended). Mic gain can be increased, but that would be unwise. Even as it stands with a gain of 20, it's possible to clip the balanced input amp just by shouting into a low impedance microphone at close range. It's surprisingly easy to get 1V RMS from a low impedance mic, so higher gain is not useful (especially since at close range you'll just get feedback anyway). The microphone setting is normally only useful during setup so boxes can be tested in place easily.
+
+<p>The input amp is followed by a peaking 12dB/octave high pass filter with a -3dB frequency of 35Hz, then a peaking filter tuned for 40Hz. This combination provides a little under 8dB of bottom-end boost centred on 50Hz to compensate for the use of an enclosure that's always going to be a bit too small. The standard arrangement for powered PA boxes is to use a vented enclosure, and it's important that frequencies below the box tuning frequency are attenuated to prevent excessive excursion and the resulting intermodulation distortion. 
+
+<p>The bass frequency response can be scaled if necessary to suit different driver and box combinations. You will need to model the driver/box combination (WinISD Pro is a good free utility for that), and make the necessary adjustments to the filters to suit your needs. There is no easy way to calculate the combined response of the bass EQ circuit, and it's a lot easier to simulate it using SIMetrix (for example).
+
+<p>After the volume control, the signal is limited by the opto-isolator, which uses a LED and a photo-conductive cell (LDR - light dependent resistor). If you can't obtain the Vactrol device, you can make your own as described in Part 3. The limiter is 'hard', meaning that it provides no compression, but is set to limit the maximum voltage and not allow the signal to exceed the preset peak. Adjustment is described below.
+
+<p>The next stage is a buffer, which can be configured to have gain if necessary. As shown it is unity gain, but this is easily changed by varying the values of R20 and R21. For example, if both are 10k, the stage has a gain of two (6dB). The crossover network is next, with a high and low pass section for the compression driver and bass driver respectively. The crossover frequency can be changed by scaling the capacitors in the circuit.
+
+<p>For example, if the caps are changed from 10nF and 22nF (as shown in the schematic) to 12nF and 27nF, the crossover frequency is reduced from 2,320Hz to 1,950Hz. The minimum frequency is determined by the compression driver and horn. Most of the horns used are relatively short (~200mm), so the minimum frequency is limited to that where the horn is no shorter than one wavelength (about 1,750Hz for a 200mm horn) ...</p>
+
+<blockquote>
+	f = C / &lambda; &nbsp; &nbsp; where f is frequency, C is velocity of sound (345m/s) and &lambda; is wavelength. So ...<br />
+	f = 345 / 0.2 = 1,725Hz	
+</blockquote>
+
+<p>Ignore this at your peril, as compression drivers have very limited excursion and are easily damaged if powered below the horn's cutoff frequency. This is determined by the flare rate and length, and the recommended cutoff frequency should be provided by the manufacturer of the horn itself. It's usually a good idea to purchase the horn and compression driver from the same supplier to ensure compatibility.
+
+<p>It's because of the short horn that the crossover frequency was set at 2,300Hz, and unless you use a much longer horn I recommend that you stay with the frequency selected. As you may have noticed, the caps and resistors used in the crossover are not the exact 'R.2R' and 'C.2C' values they should be for a Linkwitz-Riley filter, but the values shown cause an error of well under 1dB with electrical summing. The error may be greater when the signals are summed acoustically due to response anomalies for both mid-bass and horn drivers, but there is no requirement to attempt perfectly flat response because of the environments in which powered PA speakers are used.</p>
+
+<p class="t-pic"><img src="p137-f4.gif" border="1" /><br />
+Figure 4 - Circuit Diagram Of Preamp (Audio Path - Sheet 1)</p>
+
+<p>Finally, the output for the bass amplifiers is supplied as both normal and inverted, because the power amp is used in BTL (bridge-tied-load) mode. Each amplifier gets a signal that's 180&deg; out-of-phase. There is also provision for a quasi-balanced output from the high-pass crossover filter, but this is only used if the preamp is wired for use with a subwoofer. R36, R37 and J4 may be omitted for the arrangement shown here.
+
+<p>Note that if the board is used for a subwoofer preamp, the crossover frequency and bass EQ has to be changed. The normal frequency range would be from perhaps 35Hz to 120Hz, so both bass EQ and crossover frequency need to be altered to suit the range needed for a subwoofer. Use of the system for a sub will be covered in a separate project, but only if there is any demand.
+
+<p>The limiter is straightforward, and uses a pair of opamps to drive a simple diode rectifier. There is provision for a capacitor (C12) to give a longer decay time, but in use it only managed to mess things up - I recommend that it's not installed. The rectified signal voltage is then used to turn on a transistor which pulls current through the LED in the optocoupler and reduces the gain.</p>
+
+<p class="t-pic"><img src="p137-f5.gif" border="1" /><br />
+Figure 5 - Circuit Diagram Of Preamp (DC And Limiter Paths - Sheet 2)</p>
+
+<p>The DC circuitry is perfectly ordinary, and it shows the power connections to the opamps, bypass capacitors and two LEDs. One is on the preamp itself and peers out from the panel, and the other is optional. Typically, a blue LED is used at the front of the box as people seem to think this is a good idea. I'll leave it to the constructor to decide - I don't have any LEDs on the front of the boxes I built for my own use, but many commercial systems do.
+
+<p>The preamp draws about 50mA from the &plusmn;15V supplies as shown, but this depends on the opamps you use. With the suggested TL072 or MC4558 opamps, they draw about 5mA per package (30mA total), but NE5532 opamps (for example) can draw up to 16mA per package (close to 100mA total) which would require a change to the power supply. You need to check the data sheet for the planned opamps if you change them from those I suggest.
+
+<p>There is no requirement to select capacitor values for the crossover filters, as they are not overly critical, but few commercial systems use a 24dB/octave crossover and this creates even greater limits. This is not a hi-fi system, and all similar self-powered PA boxes have the same limitations. Response anomalies due to the electronics are very minor (less than 1dB), but those from the speaker and horn are almost always comparatively severe. This is because of the use of a relatively large speaker (typically 380mm/ 15") and a short horn. Neither has sufficient bandwidth over the crossover frequency to allow much room to move.
+
+<p>As a result, the woofer is expected to handle frequencies above that where it's really happy, and the short horn means the crossover frequency can't be reduced without placing the compression driver at risk. However (and despite these limitations), the combination usually gives a good account of itself as a PA system, or for (very) loud parties for example. These limitations have nothing to do with the design shown here - they exist because of the box format which doesn't allow for a horn of respectable length and are common to all commercial powered PA boxes.
+
+<hr /><b>Limiter Adjustment</b>
+<p>There is only one adjustment that needs to be made in the entire system, and that's for the limiter. The adjustment can be made using a sinewave or music (from an FM radio for example). The sinewave is preferred. Apply an input signal of around 1V RMS, and use the volume control to increase the input signal until the 200W power amp clips fairly heavily (you need an oscilloscope for this).
+
+<p>With no load on the power amp, adjust the limiter trimpot until the clipping just disappears - you are aiming for no visible distortion. You should now be able to change the volume control up and down over a reasonable range, and not see any change in the overall level. It should remain steady until the volume pot (or input signal) is below the limiting threshold.
+
+<p>When the speaker is connected, you <i>will</i> get the occasional transient to cause the power amp to clip, but if you adjusted the limiter properly it should be inaudible (but the system will be extremely loud, so use hearing protection!). If you use a mid-bass driver with an efficiency of 97dB/1W/1m, the peak full power level will be in the order of 120dB SPL at 1 metre.
+
+<hr />
+<ul>
+	<li><b><a href="project137b.htm">Part 2 - Power Amplifiers &amp; Power Supply</a></b>
+	<li><b><a href="project137c.htm">Part 3 - Assembly Tips &amp; Mechanical Details</a></b>
+</ul> 
+
+<hr /><b>References</b>
+
+<ol>
+	<li><a href="project3a.htm" target="_blank">P3A Power Amplifier</a> - The basis of the power amp
+	<li>LM3886 Datasheet
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40 /></a><b>Projects Index</b>
+<br /><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0 /></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2012. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 27 June 2012</div>
+</body>
+</html>

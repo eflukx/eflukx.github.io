@@ -1,0 +1,257 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="DESCRIPTION" content="Elliott Sound Products - Loudspeaker Driver Thiele Small Parameter Measurements">
+	<meta name="KEYWORDS" content="subwoofer,audio,diy,measurement,thiele,small,speaker">
+	<title>Measuring Loudspeaker Driver Parameters</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Measuring Loudspeaker Parameters&nbsp;</td></tr></table>
+
+<p align="center">Rod Elliott - ESP<br /><small>Updated 01 July 2007</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr />
+<a href="articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br><a href="index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Index" BORDER=0></a><b>Main Index</b>
+<br>
+
+<hr /><b>Measuring Thiele / Small Loudspeaker Parameters</b>
+<p>There are several different ways to measure the Thiele/Small parameters of a loudspeaker driver. The method described here provides a way for the beginner and DIY enthusiast to measure the parameters without any expensive or specialised equipment. While every care is taken to ensure that calculations and formulae are correct, ESP accepts no liability for errors or omissions.</p>
+
+<p><b>Definitions:</b>
+<table width="70%">
+<tr><td width="20%"><i>Re</i></td><td>Electrical resistance of voice coil</td></tr>
+<tr><td><i>Fs</i></td><td>Resonant frequency of loudspeaker moving mass (in free air)</td></tr>
+<tr><td><i>Qes</i></td><td>Electrical Q of loudspeaker</td></tr>
+<tr><td><i>Qms</i></td><td>Mechanical Q of loudspeaker</td></tr>
+<tr><td><i>Qts</i></td><td>Total Q of loudspeaker</td></tr>
+<tr><td><i>Vas</i></td><td>Equivalent air volume of moving mass suspension</td></tr>
+</table>
+
+<p><b>Measuring Re, Fs, Qes, Qms and Qts</b>
+<p>To measure these parameters using the method outlined below, you'll need to have the following items:</p>
+
+<ul>
+  <li>A power amplifier, rated at 1-10 Watts (RMS) or thereabouts</li>
+  <li>Audio frequency oscillator (PC based is fine)</li>
+  <li>Digital multimeter (with frequency measurement), or PC based instrument</li>
+  <li>An accurate test resistor (any value, although I suggest 10 ohms) A &frac12;W component will be quite sufficient.</li>
+  <li>Alligator clip leads - you will need 4 sets of leads (leads may be soldered instead if desired)</li>
+</ul>
+
+<p>Figure 1 shows a typical impedance curve for a loudspeaker (see Figure 5 for the equivalent circuit of this speaker, which was simulated for this article). Resonance causes a large increase in impedance, and at some higher frequency, the  inductance (or semi-inductance) of the voice coil causes the impedance to rise again. The region for the initial measurements must be within the "linear" region of the impedance curve. In the example below, resonance is at 27Hz, and the linear region ranges from about 100Hz to 400Hz.</p>
+<p>At resonance, the speaker impedance is pure resistance. As the frequency increases towards resonance, the impedance characteristic is inductive. Beyond resonance as impedance falls, the impedance characteristic is capacitive. Within the 'linear' region, the impedance is again (almost) resistive, but at slightly below the speaker's nominal impedance (nominal impedance is usually taken as an average value over the usable frequency range). At the frequency where the inductance of the voice coil becomes significant, impedance rises, and is progressively more inductive as the frequency rises. It is common to add a compensation network to maintain an overall resistive characteristic at these higher frequencies, so that the performance of the (passive) crossover network is not compromised. This is not necessary with an active crossover.</p>
+<p>Although a 'pure' inductance is shown in the equivalent circuit, this component is often referred to as 'semi-inductance'.  Because of losses (primarily eddy current losses within the pole pieces), the impedance typically rises at around 3-4dB/ octave, rather than the expected (and simulated) 6dB/ octave. This has little or no effect on resonance parameters, and can usually be ignored for these measurements.</p>
+
+<p align="center"><img SRC="tsp-f1.gif" BORDER="1" alt="Figure 1">
+<br><b><small>Figure 1 - Loudspeaker Impedance Curve</small></b></p>
+
+<p>The multimeter should be capable of measuring frequency, as well as AC voltage and resistance. If it cannot, a frequency counter is highly recommended, since the frequency measurements are critical. The amplifier must be capable of reproducing from 10 Hz to 2 kHz with no variation in output voltage. It is imperative that it is insensitive to any load above 4 ohms. The audio oscillator must also produce a signal with relatively low distortion, and the output voltage must not vary as the frequency is adjusted. If a PC signal generator is used, it will usually display the frequency fairly accurately, but you still need to verify that output level is constant with frequency. Many PC instruments are incapable of fractional frequencies, which may limit the accuracy of the final result.</p>
+
+<p><i><b><small>The need for accuracy cannot be stressed too highly if accurate parameters are expected. It should also be understood that there are many variables and many opportunities for things to go awry - during measurement, construction and normal operation. Loudspeakers are variable beasties at best, and 'perfect' results will <u>never</u> be obtained in practice. The room will usually cause more and greater errors than a small measurement error here.</small></b></i></p>
+
+<p>Measure the resistance across the speaker terminals to obtain <i>Re</i></p>
+<p>Measure the exact resistance of the 10 ohm source resistor, <i>Rs</i></p>
+<p>The loudspeaker driver should be suspended in free space, with no obstructions or interfering surfaces nearby. Any boundary closer than around 600mm (about 2ft) will affect the accuracy of the measurements</p>
+<p>Connect the circuit as shown in Figure 2, and set the oscillator to approximately 100 to 200 Hz (or around 2-3 octaves above resonance) - it must be within the 'linear' range as shown on the graph above.</p>
+<p>Set the output of the amplifier to between 0.5V and 1.0V (this is <i>Vs</i>). Check that the speaker is nowhere near resonance, by changing the oscillator frequency by 50Hz or so in either direction, and measure the voltage across the resistor. It should not change by any appreciable amount.
+<p>When you have set <i>Vs</i> to 0.5-1V, <i>Is</i> (reference speaker current) equals the meter reading (at 200Hz or other frequency as described) divided by the value of <i>Rs</i>. You are measuring the voltage across the test resistor to calculate voicecoil current.</p>
+<p>You may need to try different voltages, depending on the accuracy of your readings (or calculations). Do not be tempted to use a voltage any higher than around 1V RMS , as the speaker may be driven outside its linear range, which ruins the validity of the measurements. The parameters being measured are 'small signal', and it essential that a small signal is actually used. With an 8 Ohm driver, 10 Ohm resistor and 1V signal, you will typically have a nominal current of around 55mA.</p>
+
+<p align="center"><img SRC="tsp-f2.gif" BORDER=1>
+<br><b><small>Figure 2 - Measuring Speaker Parameters</small></b></p>
+
+<p>The traditional way to measure Q is to measure the bandwidth between the -3dB frequencies, then divide the resonant frequency by the bandwidth. For example, if resonance is at 29.6Hz and -3dB frequencies are at 25Hz and 35Hz, then Q is 2.96. This would be Qms in the calculations. This method may be suitable for low-Q drivers, but you can easily make a tiny error (causing a large final calculation error) with high-Q drivers.</p>
+<p>In Small's original paper, <i>f1</i> and <i>f2</i> are the frequencies where the drive unit impedance is &radic;( <i>r0</i> ) * <i>Re</i>. Likewise,  <i>r0</i> = ( <i>Re</i> + <i>Res</i>) / <i>Re</i>, (<i>Re</i> + <i>Res</i>) being the impedance at <i>fs</i>. He chose &radic;( <i>r0</i> ) * <i>Re</i> because this simplified the calculations for <i>Qms</i> and <i>Qes</i>.
+
+<p>Many of the methods described elsewhere rely on a more complex formula that uses -6dB or even -9dB as the reference point to determine Q. This makes the measurement accuracy slightly less critical. The method below describes the -6dB method, which gives a reasonable compromise between ease of measurement and accuracy.</p>
+<p>First, measure the resonant frequency. Adjust the frequency until the voltage across the resistor reaches a null (minimum level). Without changing anything, carefully measure the frequency and voltage across the resistor ...</p>
+
+<blockquote><table WIDTH="70%">
+<tr><td WIDTH="40%">Frequency</td><td><i>Fs</i></td></tr>
+<tr><td>Voltage across the resistor</td><td><i>Vm</i></td></tr></table></blockquote>
+
+<p>Calculate the following ...<br>
+
+<blockquote><table WIDTH="70%">
+<tr><td WIDTH="40%">Speaker current</td><td><i>Im = Vm / Rs</i></td></tr>
+<tr><td>Resonance impedance</td><td><i>Rm = (Vs - Vm) / Im</i></td></tr>
+<tr><td>r0 (reference value)</td><td><i>r0 = Is / Im</i></td></tr>
+<tr><td>-6dB current</td><td><i>Ir = &radic;(Im * Is)</i></td></tr>
+<tr><td>-6dB voltage</td><td><i>Vr = Ir * Rs</i></td></tr>
+</table></blockquote>
+
+<p>Complete the measurements for <i>Fl</i> and <i>Fh</i>, for which the voltage across the source resistor is equal to <i>Vr</i>, and as a sanity check (to ensure that your calculations and measurements are accurate), calculate the resonant frequency based on these last two measurements. Note that these measurements are critical, and even a small error will cause large deviations in the driver parameters.</p>
+
+<blockquote><table WIDTH="70%"><tr><td WIDTH="40%">Check that ...</td><td><i>&radic;(Fl * Fh) = Fs</i></td></tr></table></blockquote>
+
+<p>If the above checks out (within 1Hz or less), then <i>Qes, Qms</i> and <i>Qts</i> can be calculated as follows ...</p>
+
+<blockquote><table WIDTH="70%">
+<tr><td WIDTH="40%">Mechanical Q</td><td><i>Qms = Fs * &radic;r0 / (Fh - Fl)</i></td></tr>
+<tr><td>Electrical Q</td><td><i>Qes = (Qms / (r0 - 1)) * (Re / (Rs + Re))</i></td></tr>
+<tr><td>Total Q</td><td><i>Qts = Qms * Qes / (Qms + Qes)</i></td></tr>
+</table></blockquote>
+
+<p>You can use the spreadsheet to perform the calculations automatically for you: <b><small><a href="ls-param.zip">ls-param.zip</a></small></b></p>
+
+<hr /><b>Measuring Vas (equivalent air compliance), Method 1</b>
+<p>There are two methods for determining Vas. The first is a known box, and the procedure is as follows ...</p>
+<p>To measure Vas, use a good solid enclosure of known volume that is approximately a cube of the nominal speaker size. For example, a 300mm driver (12") needs a box of about 28 litres (1 cu ft). For reference, a cubic foot is 28.3168 litres, and one litre is contained by a cube of 100mm (10cm) to each side.</p>
+<p><b><small>HINT:</small></b> &nbsp; If you make all measurements in centimetres, the result will be in millilitres (cubic centimetres, or cc). This makes it very easy to convert to litres ... simply divide by 1,000. If you work in millimetres (mm), the result is less intuitive, although you can still get to litres by dividing by 1,000,000. &nbsp; <small>(For those who insist on using outmoded measurement systems, I can provide a spreadsheet that uses cubits as the base linear measurement, and firkins for volume. I will part with this upon receipt of a kilderkin of Australian $1 coins or its equivalent in gold bullion <img src="grin.gif"></small></p>
+
+<p align="center"><img SRC="tsp-f3.gif" BORDER="1"><br><b><small>Figure 3 - Setup for Measuring Vas</small></b></p>
+
+<p>Determine the total volume, including the speaker cut-out and that trapped by the cone with the speaker mounted on the outside of the box for easy access. Measure the resonant frequency in this situation, and use the free air space resonant frequency determined as shown above. Determining the volume trapped by the speaker cone is slightly tricky.</p>
+<p>Use one of the following methods ...</p>
+
+<ol><li>Place the driver in a plastic bag, ensuring it is completely sealed. The bag should be loose enough so that it can be pushed easily into the cone area. Place the wrapped speaker on a flat surface, with the cone facing upwards. The cone may now safely be filled with grain (such as rice, wheat, etc), and the grain carefully poured out into a measuring jug. The resulting measurement will be a little greater than the actual volume because the cone will be depressed by the mass of the grain. The area of the speaker cutout in the cabinet must still be added. Don't omit the plastic bag, as fine dust may penetrate the speaker without it.<br></li>
+
+<li>Take a series of measurements. The internal cone area is measured, then divided into sections whose volume may be calculated. For most speakers we will have two basic shapes to deal with, and although this method is not 100% accurate, it will probably give a more than acceptable result in the majority of cases.</li></ol>
+
+<p align="center"><br><img SRC="tsp-f4.gif" BORDER="1"><br><b><small>Figure 4 - Determining the Volume of the Cone</small></b></p>
+
+<p>There is a flat cylinder (disc) that is formed by the outer area of the basket and the cutout in the enclosure. While there is a small error by just assuming that the cone extends fully (rather than being truncated by the dust cap), the error will generally be small. Since loudspeaker parameters change with time anyway, the error will normally be sufficiently small as to not be an issue.  Feel free to measure the cone volume using the alternate method if it makes you feel better.</p>
+<p>The volume of the disc is given by the conventional formula ...</p>
+
+<blockquote><i>V<sub>disc</sub> = &pi; * r&sup2; * h</i> &nbsp; &nbsp;(where <i>r</i> is the radius and <i>h</i> is height)</blockquote>
+
+<p>The cone's volume is given by ...</p>
+
+<blockquote><i>V<sub>cone</sub> = (&pi; * r&sup2; * h) / 3</i></blockquote>
+
+<p>Note that the disc volume may extend to the speaker surround, and the cone diameter may be smaller than the cutout. Make sure you measure both diameters and use the correct measurement for each calculation (as shown in the drawing above).
+<p>The total speaker volume is simply the sum of the two volumes calculated above. Box volume is calculated as one normally would, taking great care to ensure that the measurements are accurate. The box may be braced, but must have no fibreglass or other sound deadening material inside. Make sure that the volume occupied by any bracing is accounted for in your calculations. Even a simple box will be sufficiently rigid at the frequencies of interest, so a completely acoustically dead cabinet is not required (although it won't hurt). Do <b>not</b> use any speaker cabinet filling material for this test.</p>
+
+<blockquote><i>Vas = Vb((Fb / Fs)&sup2; - 1)</i></blockquote>
+
+<p>where <i>Vb</i> is the volume trapped by the speaker and box, and <i>Fb</i> is the resonance frequency of speaker and box combined. <i>Fs</i> is the free air resonance measured previously.</p>
+
+<hr><b>An Example Calculation</b>
+<p>A dummy test loudspeaker was used to demonstrate the process, and I have used a simulation of this speaker in the calculations shown. The equivalent circuit is shown in Figure 5. This circuit was also used to create the impedance graph shown in Figure 1.</p>
+
+<p align="center"><img SRC="tsp-f5.gif" ALT="Figure 5" border="1"><br><b><small>Figure 5 - Dummy Test Loudspeaker</small></b></p>
+
+<p>The following screen shot shows the values for the speaker, and the only contrived (i.e. invented) value is for the resonance in the sealed box. It was necessary to invent a number here, as it is not possible to simulate it. The final figure shown is fairly typical of many such drivers, so is not too far from the truth either.</p>
+
+<p align="center"><img SRC="tsp-f6.gif" ALT="Figure 6" border="1"><br><b><small>Figure 6 - Test Box Calculation Example Using Spreadsheet</small></b></p>
+
+<p>As you can see from the screen-shot, the spreadsheet will calculate everything for you, including the cone volume, <i>Vas</i> and the values shown in the schematic of the driver. Naturally, you will get figures quite different from those shown, but the principle is exactly the same.</p>
+
+<hr /><b>Measuring Vas (equivalent air compliance), Method 2</b>
+<p>The second method is to use an added mass, M1. Typically modelling clay or Blu-Tak is simply stuck to the cone close to the voicecoil, and the change of resonant frequency allows you to determine the moving mass of the cone. Armed with this, you can then calculate the Vas.
+<p>For speakers less than 200mm (8"), use 5 grams, for 200mm use 10g, and for 250mm (10") or larger, use 20g.  You may need to add more if the mass chosen does not reduce resonance by at least 10%. The mass must be measured accurately! Even a small error can cause a large variation in the calculated Vas, so a precision scale (accurate to at least 0.1g) is essential.
+<p>You also need to measure the effective cone diameter. This is generally taken as a measurement that includes <i>half</i> the surround. Again, an inaccurate reading will make a big difference. Because of this, the test box method is probably more accurate. You don't need to worry about extremely accurate measurements that have a profound effect on the measurement result. Still, the added mass method is quick and convenient, so has been added.
+The Fs of the speaker in free air has been measured, so simply add a suitable mass to the cone and re-measure the resonant frequency. This becomes Fs&sup1;.</p>
+<p>First, measure cone diameter so that effective cone area can be determined. Measure the diameter, including half the surround. The measurement must be in centimetres for this calculation. Divide by 2 to get the radius ...</p>
+
+<blockquote>A = &pi; * r&sup2;</blockquote>
+
+<p>Calculate cone mass ...</p>
+
+<blockquote>M = M1 / (( Fs / Fs&sup1; )&sup2; -1 )</blockquote>
+
+<p>Next, determine Cms ...</p>
+
+<blockquote>Cms = 1 / ( 2 * &pi; * fs )&sup2; * M<br>
+VAS = CMS * d * c&sup2; * A&sup2;</blockquote>
+
+<p>Assume the following ...</p>
+
+<blockquote>d = density of air = 0.001204 g/ml<br>
+c = speed of sound = 345 m/s</blockquote>
+
+<p>Let's do a sample calculation using the same driver as before. The downloadable spreadsheet has been updated to include both methods, enabling a direct comparison if you use the two different calculations. Everything stays the same, but we no longer have to use a reference box. We also don't need to determine the cone volume, only the area.
+<p>For the sake of this exercise, we measure the cone diameter and obtain 200mm, including half the surround. Divide the diameter in millimetres by 20 to obtain the radius in centimetres ...</p>
+
+<blockquote>A = &pi; * r&sup2; &nbsp; &nbsp; = &pi; * 10&sup2; &nbsp; &nbsp; = 314.16 cm&sup2;</blockquote>
+
+<p>Next, we measure the driver's resonance with an added mass. The mass was carefully measured, and was 45.80 grams (note that it was indicated above that some drivers will need a lot more mass than may be indicated - this is just such a driver, because it has a heavy cone) ...</p>
+
+<blockquote>M = M1 / (( Fs / Fs&sup1; )&sup2; -1 ) &nbsp; &nbsp; = 45.8 / (( 27 / 23 )&sup2; -1) &nbsp; &nbsp; = 45.8 / ( 1.378 - 1) = 45.8 / 0.378 = 121.16 grams</blockquote>
+
+<p>Now we can calculate CMS, using the values shown above ...</p>
+
+<blockquote>Cms = 1 / (( 2 * &pi; * fs )&sup2; ) * M &nbsp; &nbsp; = 1 / ( 2 * &pi; * 27 )&sup2; * 121.14 &nbsp; &nbsp; = 1 / ( 169.64&sup2; * 121.14 ) = 2.87<sup>E-7</sup></blockquote>
+
+<p>Now that we have everything needed, VAS can be calculated, using the default values for air density and sound velocity ...</p>
+
+<blockquote>VAS = CMS * d * c&sup2; * A&sup2; * 10&nbsp; &nbsp; = 2.87<sup>E-7</sup> * 0.001204 * 345&sup2; * 314.16&sup2; * 10&nbsp; &nbsp; = 40.57 litres<br>
+<small>Note: the *10 was added to make corrections for different units being used (e.g. m/s for velocity, litres, millilitres, cm&sup2;, etc.</small></blockquote>
+
+<p align="center"><img SRC="tsp-f7.gif" ALT="Figure 7" border="1"><br><b><small>Figure 7 - Added Mass Calculation Example Using Spreadsheet</small></b></p>
+
+<p>The spreadsheet may give a slightly different answer because it calculates all values to the maximum number of decimal places. The values shown here are limited to two decimal places for clarity. Note that 3 cells (indicated by a small red triangle) have comments attached. The comment will show when your mouse pointer is over the cell. Please read before you go changing anything. All driver initial measurements are imported from the "known volume" sheet, and do not need to be re-entered.
+<p>It must be pointed out that the (imaginary) driver used for the demonstration calculations is rather unlikely, so don't expect to get even remotely similar figures. A 250mm driver with a cone weighing in at almost 122 grams would certainly have a low resonance, but would also be pathetically inefficient. However, the important thing here is to show the principles involved and the methods of calculation. Even bass drivers will usually have a lighter cone, so the Vas will be much larger than these demonstration calculations might imply. It's a sad fact of life, but loudspeakers continue to be riddled with compromise. For high efficiency you need a light cone, and a light cone means a large Vas which in turn requires a large enclosure if you actually want to get bass from it.</p>
+
+<hr><br><a NAME="ref"></a><small>My thanks to Brian Steele for allowing me to use the simplified method and formulae he devised for Thiele/Small parameter measurement, and also Vas measurement information. Brian's original data are available <a href="http://www.diysubwoofers.org/measure.htm" target="_blank"><b>Here</b></a>. My thanks also to Jay Taylor for corrections and an updated spreadsheet that managed to get the calculations right.<br><br>
+The added mass method is from "How to Design, Build, &amp; Test Complete Speaker Systems", by David Weems, published by TAB Books, 1978</small><br><br>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 2000-2009. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from the author. The formulae shown are used with the permission of Brian Steele.</td>
+</tr></table>
+<div class="t-sml">Page Created and Copyright &copy; 15 Dec 2000./ Updated 18 Aug 2003 - added guestbook suggestion (rice instead of water) + minor reformatting./ 12 Jan 2006 - changed drawings, re-measured figures to get accurate numbers, rebuilt Excel spreadsheet./ 01 Jul 07 - corrected error in formula to calculate cone volume, included added mass method, updated spreadsheet./ 28 Jun 09 - corrected errors in added mass method, included new spreadsheet.</div>
+</body>
+</html>

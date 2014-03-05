@@ -1,0 +1,337 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=windows-1252">
+	<title>ESP - MOSFET Solid State Relays</title>
+	<meta name="AUTHOR" content="Rod Elliott">
+	<meta name="description" content="MOSFET AC solid state relays - high power, low distortion">
+	<!-- MOSFET AC solid state relays - high power, low distortion -->
+	<meta name="keywords" content="ssr, solid state relay, mosfet, speaker, protection, dc arc">
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"> <!-- td { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">MOSFET Relays&nbsp;</td></tr></table>
+
+<p align="center"><b>MOSFET Solid State Relays</b><br />Rod Elliott - &copy; 2012</p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" alt="Articles" NAME="t1" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br /><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Main Index" BORDER=0></a><b>Main Index</b><br />
+
+<hr /><b>Contents</b>
+<ul>
+  <li><a href="#intro">Introduction</a></li>
+  <li>1 &nbsp; <a href="#s1">MOSFET Relay Principle Of Operation</a></li>
+  <li>2 &nbsp; <a href="#s2">Photo-Voltaic Opto-Couplers</a></li>
+  <li>3 &nbsp; <a href="#s3">Transformer Drive</a></li>
+  <li>4 &nbsp; <a href="#s4">Capacitive Drive</a>
+  <li>5 &nbsp; <a href="#s5">Stand-Alone Floating Power Supplies</a></li>
+  <li>6 &nbsp; <a href="#s6">Power Rail Supply</a></li>
+  <li>7 &nbsp; <a href="#s7">MOSFET Relay In Speaker Return</a></li>
+  <li>8 &nbsp; <a href="#s8">Final Approach</a></li>
+  <li>9 &nbsp; <a href="#s9">MOSFET Relays In Other Applications</a></li>
+  <li><a href="#outro">Conclusion</a></li>
+  <li><a href="#ref">References</a></li>
+</ul>
+
+<hr /><a id="intro"></a><b>Introduction</b>
+<p>Solid-State relays (SSRs) for AC have been around for as long as the first SCRs and TRIACs became available. However, none of these early devices was suitable for use with audio signals, because of gross distortion around the zero-crossing point of the waveform. MOSFET based SSRs have existed from around 1984, when a patent was taken out by International Rectifier Corporation for a MOSFET circuit that could handle AC with very low distortion. [<a href="#ref">1</a>]. It is not known if this is the earliest example, but it's probably close.
+
+<p>There are any number of SSRs available that are suitable for DC, but comparatively few <i>low-distortion</i> types that can handle the high AC voltages and currents that are typical of high power amplifiers. Those commercial devices that might be electrically suitable will most likely do some serious damage to your bank account. There are a many that can handle up to around 2.5A at voltages as high as 600V, but comparatively few that can handle the 30-40A or so that is needed for a high power amplifier driving low impedance loads.
+
+<p>While conventional relays can be used, they have a small problem ... when a high power amplifier fails and the output goes DC, there could be 100V or more with a load impedance of perhaps 4 ohms or less. Breaking 100V at 25A DC is a very difficult job for a relay, because the DC allows a substantial arc to be created across the contacts.
+
+<p>This arc is very difficult to stop, and the only way to actually protect the speaker is to earth the normally closed contact so that the arc is connected to the power supply common rail (earth/ ground). The relay will be destroyed, but the speakers will (probably) survive. Most mains rated electro-mechanical relays are limited to around 30V DC, but even with this seemingly low voltage it is still likely that the relay will be damaged if it ever has to protect the speakers.</p>
+
+<p class="t-pic"><img src="mosfet-ssr-f1.gif" border="1" /><br />Figure 1 - Conventional Relay Wiring</p>
+
+<p>The above shows the wiring scheme that <i>must</i> be used to protect the loudspeaker. The earth connection is often neglected in 'protection' circuits shown on the Net, and the end result is that while it may happily pass your basic tests, it will likely fail when you really need it due to the DC arc.
+
+<p>Perhaps due to the known problems with electro-mechanical relays, there seems to be some interest in solid state relays on audio forum sites, but while some of the information is actually quite good, there are many misconceptions and often a failure to understand the things that can go wrong.</p>
+
+<table width="90%">
+<tr><td valign="top"><img src="note.gif" /><td>Note that the DC detector and control circuit (not shown - see <a href="../project33.htm" target="_blank">Project 33</a> for an example) <i>must</i> be connected directly to the amplifier's output. If it's connected after the relay, fault induced DC will only be present when the relay is closed, so your speakers will be subjected to repeated pulses as the relay closes, DC is sensed, and the relay opens again. This process will continue until you switch the amp off.<br /><br />
+
+When the detector is connected to the amp output, the relay will never close because the fault condition is detected before the detector attempts to connect the speaker.
+</table>
+
+<hr /><a id="s1"></a><b>1 &nbsp; MOSFET Relay Principle Of Operation</b>
+<p>The general idea of an AC SSR is shown in Figure 2. Two N-Channel switching MOSFETs are used, with their sources and gates joined. The signal and load are connected to each of the drain terminals - it doesn't matter which is which, because the 'switch' is symmetrical. 
+
+<p>With no voltage between the gate and source terminals, the MOSFETs are off, so no current flows. Depending on the MOSFETs used, they will conduct fully when the gate-source voltage exceeds around 7 Volts. It is always a good idea to provide 10-12V gate drive to ensure that they always turn on fully. The zener diode you see is to protect the delicate insulation between the gate and MOSFET channel.
+
+<p>The gate insulation is typically rated for a maximum of around &plusmn;20V. Even a little bit of stray capacitance or resistance (moisture on the PCB for example) can easily allow the voltage to rise to destructive levels because of the very high impedance, and the zener is mandatory.
+
+<p>While the concept is very simple, in practice there may be quite a lot of additional circuitry needed because the control circuit must generally be completely isolated from the switching MOSFETs. Two complete circuits are needed for stereo, even if they are driven by the same detector. This is because the two pairs of MOSFETs cannot be connected together in any way, other than sharing a common control drive circuit such as a dual optocoupler or miniature double pole relay.
+
+<p>In addition, the MOSFETs used need to have a very low R<sub>DS (on)</sub>, or multiple smaller units used. The lower the value of drain-source resistance, the lower he distortion contributed by the circuit. Note that each MOSFET's voltage should be rated for at least 25% more than the supply rails of the amplifier with no load. This is due to the way the circuit works, and because of the possibility of instantaneous back-EMF from the speaker coil when the DC fault current is suddenly interrupted. It may be useful to include a MOV (metal oxide varistor) across the SSR switch terminals, or use a capacitor 'snubber' to prevent the likelihood of any destructive voltage spike. The latter is shown in Figure 2, along with a pair of 'catch' diodes (D2 and D3) that connect to the amp's supply rails. (Note that the diodes are also included in other drawings, as it is very important that they be included.)
+
+<p>When MOSFETs fail, they almost invariably fail short-circuit (like most semiconductors), and it is conceivable that a failure could go entirely unnoticed until your speaker catches on fire. It is essential to make sure that failure is rendered highly unlikely, or that some kind of test process be incorporated (which adds further complexity of course). Quite obviously, a conventional relay can fail too, but they are generally extremely reliable and have no sensitive electronic bits in them.</p>
+
+<p class="t-pic"><img src="mosfet-ssr-f2.gif" border="1" /><br />Figure 2 - Basic MOSFET Relay</p>
+
+<p>What we need to activate the MOSFET relay is a floating DC source. It must be electrically isolated from the amplifier's speaker output (and with high impedance) or it will either be damaged by the amp, or will damage the amp. For simplicity, the DC source is shown as a 9V battery (discussed further below). Then the DC is connected and disconnected as needed to switch the relay on and off (shown above by a switch). There are any number of different ways to implement the switching function, ranging from miniature relays, opto-isolators (either LED + LDR or LED + photo transistor) or by remotely turning the gate supply on and off by some means. The zener is used to ensure that the voltage is kept below that which may damage the gate's sensitive insulation. 
+
+<p>As noted above, the MOSFET voltage rating needs to be at least 20% more than the supply voltage. If you have &plusmn;100V supplies, the MOSFETs should be rated for at least 120V, as this provides a comfortable safety margin. You can add resistors in parallel with each MOSFET, which reduces the effects of stray capacitance and ensures that your safety margin is maintained. 100k is a good place to start, but this isn't strictly necessary (especially with the relay circuit shown in Figures 7 and 8). The likelihood of excessive voltage is most likely with the 'charge coupled' circuit in Figure 6.
+
+<p>Capacitance from the speaker output to earth must also be minimised, or there is a risk that the amp may oscillate. Ideally the floating supply should be isolated from any stray capacitance by series resistors. These damp the effect of the capacitance and render it harmless. Where an output coil is fitted to isolate the amp from speaker cables and other stray capacitance, the SSR should be between the coil and speaker terminal - never between the amp and coil.
+
+<p>Note that the MOSFET switch is completely bidirectional, and although it may seem that it must introduce considerable distortion, this is actually not the case. When the switch is closed and the MOSFETs are biased on, the only voltage that appears across the pair is due to their on resistance (R<sub>DS (on)</sub>). With suitable devices, this resistance is very low and reasonably linear. Linearity is not as good when the 'switch' is off, but that's of little consequence. Bear in mind that any series resistance reduces damping factor, so if you happen to think that very high values are essential, you may be disinclined to add a circuit that adds resistance.  
+
+<p>The choice of suitable MOSFETs is huge - so much so that I'll only attempt a couple of types for consideration. A popular and inexpensive part is the IRF540N. It's rated at 33A with a voltage rating of 100V, so it can be used with supply voltages up to about &plusmn;70V. Another worth considering is the IRFP240, 200V and 20A. R<sub>DS (on)</sub> is higher than desirable, but 2 or more can be paralleled to reduce that. There are many others, and I leave it to the reader to find a device that suits the purpose and the budget. 
+
+<p>I've shown IRF540N devices in the circuits, but that's only a suggestion. R<sub>DS (on)</sub> is quoted as 44m&Omega; for these MOSFETs, so the total series resistance will be 88m&Omega;, or 0.088 ohm. With an amp current of (say) 20A peak, there will be a loss of 1.76V peak (1.25V RMS) across the relay, and a total power dissipation of less than 150mW.
+
+<p>Note that while it would be very convenient (and easy) to use a battery as shown in Figure 2, that would be a really bad idea. Even though the MOSFET gates require minimal current, the battery will eventually discharge to the point where a significant voltage will appear across the MOSFETs because they are not switched on hard enough, and this will cause severe overheating and gross distortion. As an example, the circuit shown above has a distortion of 0.013% with 28V AC applied (a 100W/ 8 ohm amp at full power). 
+
+<p>Should the MOSFET gate bias voltage be reduced to 5V, the maximum output is dramatically reduced, and distortion becomes excessive at any level above around 50-60W. In addition, the MOSFETs will overheat badly, because normally they only need a very modest heatsink (if any at all). Once there is a significant voltage across them and they are passing current, they will dissipate power. 
+
+<p>Having ruled out using a couple of 9V batteries (at least from a purely practical perspective), we have to find an alternative solution to provide the necessary voltage needed to switch the MOSFETs on. Switching them off is easy - just take away the voltage.  Some of the options are as follows in the next sections.
+
+<p>Note that if you use a cap across the relay terminals as shown, there will be a small signal current that will be audible with high sensitivity speakers. Provided the 'clamp' diodes are used, the cap can be omitted, or you can use a MOV for protection. If used, the MOV must have an RMS voltage rating that is <i>less</i> than the rated breakdown voltage of the MOSFETs, but <i>greater</i> than the amplifier's RMS output voltage. Given that MOV devices have a rather broad tolerance and are only available with a limited range of voltages, this makes selection rather difficult.</p>
+
+
+<hr ><a id="s2"></a><b>2 &nbsp; Photo-Voltaic Opto-Couplers</b>
+<p>Several manufacturers make photo-voltaic MOSFET drivers that seem ideal (they use an infra-red LED and a bank of photovoltaic-diodes or tiny "solar cells" to generate the gate voltage) [<a href="#ref">2</a>]. While they can be obtained fairly cheaply (less than $10 if you find a supplier), a few problems exist. They are ...
+
+<ul>
+	<li>Not readily available from most normal suppliers, or the range is very limited
+	<li>Limited to relatively low gate drive voltage (some, but not all - this relates to the limited available range noted above)
+	<li>Painfully slow because of very limited output current, although some are better than others (and cost more).
+</ul>
+
+<p>The final issue is the one that is likely to cause some grief, because most have an output current that's less than 100uA, with some below 10uA. This means that the MOSFETs cannot be switched quickly (on or off), so peak power dissipation may be unacceptably high during switching. Remember that all MOSFETs have a gate-source capacitance that must be charged and discharged when the MOSFET is switched on and off. Although this must be considered, it is still possible to get switching times in the order of a few milliseconds, and this will generally be considered acceptable.
+
+<p class="t-pic"><img src="mosfet-ssr-f3.gif" border="1" /><br />Figure 3 - Photo-Voltaic MOSFET Driver</p>
+
+<p>The arrangement shown above is fairly typical of the general scheme, and will work very well provided the optimum photovoltaic optocoupler can be found at a sensible price. Ideally, you will need a photovoltaic opto that can provide at least 50uA or switching times become embarrassingly slow. In some data sheets (and included above) you will see a JFET used to speed up the MOSFET's gate discharge and turn-off time. As shown, turn-off is almost instantaneous.
+
+<p>This arrangement can also be seen if you have a look at the Vishay VO1263AB data sheet, but they use a P-Channel JFET. It is pretty much mandatory to include the JFET if you choose to use the photovoltaic isolator circuit, unless you use the circuit shown in <a href="#f9">Figure 9</a>. In other circuits you might come across, a high value resistor (~10M&Omega;) is placed across the isolator's output, but this has a <i>much</i> longer turn-off time (perhaps 100ms or even more, depending on MOSFET gate-source capacitance). This will almost certainly cause excessive peak dissipation in the MOSFETs and lead to failure.
+
+<p>The opto's LED typically needs to be driven with around 10-50mA to work, depending on the device used. This current is easily supplied by the speaker DC detector circuit. <a href="../project33.htm" target="_blank">Project 33</a> can do the job easily.
+
+<p>In case you are wondering, the JFET circuit shorts the MOSFET gate to source when there is no current from the opto. When the opto is active (supplying current), a voltage is developed across R2 that biases the JFET off, so it does not draw any current. With 50uA and a 2.2M resistor, the JFET is biased fully off. Because of the wide parameter spread of JFETs and photovoltaic isolators, you may need to experiment with the value of R2 to ensure reliable switching.
+
+<p>It is important to understand that there will be some voltage drop across R2, sufficient to bias the JFET off. This voltage is unavailable to the gates of the MOSFETs, so the already limited voltage from the coupler is reduced a little more. This may be enough to not allow the MOSFETs to conduct fully, a highly undesirable outcome. The extra resistance also means that the MOSFETs turn on slower than they otherwise would. The difference is not great, but is easily measured.</p>
+
+
+<hr /><a id="s3"></a><b>3 &nbsp; Transformer Drive</b>
+<p>Using a small transformer is a good solution, and it only requires a simple rectifier and minimal filtering to drive the MOSFET gate. Since the transformer can easily supply 10mA or more, switching times are dramatically reduced. Unfortunately, a transformer coupled circuit also needs a driver circuit to provide a signal at the secondary (or secondaries). This should operate at 50kHz or more to minimise the size of the transformer(s). Not really a problem, but there's more circuitry needed which takes up potentially valuable space.</p>
+
+<p class="t-pic"><img src="mosfet-ssr-f4.gif" border="1" /><br />Figure 4 - Transformer Based MOSFET Driver</p>
+
+<p>An example is shown above (just one of a great many possibilities), based in part on the original patent [<a href="#ref">1</a>], but somewhat simplified. While it's not overly complex, there are nuisance issues like finding a suitable transformer that have to be solved. It will generally be easier to find single secondary winding transformers, so two will have to be used for a stereo system. If a single transformer with dual secondaries is used for a stereo amp, the insulation between the primary and also between both secondaries has to be able to withstand the full amplifier supply voltage. This means that if the amp uses &plusmn;60V supplies, the insulation has to be rated for at least 120V. It would be wise to ensure that all inter-winding insulation is rated for a minimum of 500V.
+
+<p>The drive signal typically needs to be a squarewave of no less than 15V peak-peak. The advantage of using a voltage doubler is that there is a small parts saving - the caps that form part of the doubler also smooth the DC. Without the doubler, either the drive voltage has to be increased or the transformers have to be step-up types to obtain enough gate voltage.
+
+<p>Note that the diodes (D1 and D2) must be high speed types, preferably Schottky or at least 'ultra-fast' types. Normal diodes are far too slow and will cause very high losses in the rectifier - so much so that it may not even work.
+
+<p>The drive oscillator can be almost anything you like, but as noted on the circuit diagram above, you need at least 15V P-P drive voltage, at a frequency of around 50kHz. Current is fairly low at 45mA RMS for a transformer with 500uH primary inductance. Depending on the transformer you use, the current may be somewhat higher. There is no point trying to specify particular cores and formers, as their availability is highly variable - parts I can get here may be unavailable elsewhere and vice-versa.
+
+<p class="t-pic"><img src="mosfet-ssr-f5.gif" border="1" /><br />Figure 5 - Typical Oscillator</p> 
+
+<p>The oscillator shown above is the simplest possible arrangement using a 555 timer, but is perfect for this application. The output signal is close to a squarewave, and any small variation in duty cycle is handled by the capacitor feeding the transformer. This prevents any DC magnetic flux build-up that may cause the transformer to saturate. There are countless other oscillator designs that will also work, but few that are quite as simple as the one shown.
+
+<p>When the CTRL line is open circuit or high, the oscillator runs, and gate voltage is available to the MOSFET relay which turns on. When the CTRL line is pulled low, the oscillator stops and the MOSFETs also turn off once the gate caps discharge. It is possible to incorporate additional circuitry to ensure the relay turns off very quickly, but in reality anything up to a few milliseconds will be alright in most cases. A simulation tells me that as shown, it will switch off in under 1ms.
+
+<p>You may also be able to use small 'output' transformers intended for low power transistor amplifiers (portable radios for example). These provide another option - just use the core and bobbin. Remove the existing primary and secondary, and wind new ones by hand. The inter-winding insulation layers can easily be improved to suit the new requirements. We are not overly concerned with efficiency, because the power needed is negligible. Unless you have access to small ferrite cores, this is likely to be the cheapest option.
+
+<p>As an alternative to using discrete circuits, it is also possible to use miniature DC-DC converters to provide both isolation and gate drive. This is a more expensive option though, since most of these small converters are at least $15 each, even in quantity. You will have to use transistor output optoisolators if you use any kind of power supply module, or it will take far too long for the voltage to fall to the point where the MOSFETs turn off.</p>
+
+
+<hr /><a id="s4"></a><b>4 &nbsp; Capacitive Drive</b>
+<p>There is the option of doing away with the transformer(s), and simply using low value capacitors to couple a high frequency AC signal to a rectifier circuit that then drives the MOSFET gates [<a href="#ref">3</a>]. This arrangement is also known as a 'charge-coupled' circuit, and can use the same oscillator as shown above. Although the data sheet says that a 555 timer can operate at a maximum frequency of around 500kHz, I wouldn't be happy with it running that fast. Up to 250kHz should be fairly safe though.
+
+<p class="t-pic"><img src="mosfet-ssr-f6.gif" border="1" /><br />Figure 6 - Capacitive-Coupled MOSFET Driver</p>
+
+<p>Like the transformer solution, an oscillator at 50kHz or more is needed, and the coupling caps are so small that they will pass very little signal in the audio range. At the high switching frequency, the caps are almost a short-circuit, and can fully charge the gate driver within a couple of milliseconds. Current is quite low though, depending on the switching speed and capacitor value. High speed Schottky diodes are essential, as I would normally expect that switching frequencies well in excess of 100kHz be used. In the circuit shown above, the circuit can supply around 300uA, but can still switch MOSFETs on or off in a few milliseconds. The capacitors used should be rated for at least 600V DC.
+
+<p>The primary disadvantage of using capacitive drive is that the amp's output must be limited to no more than perhaps 25kHz or so. Should the amp decide to oscillate, there is a real chance that the capacitive driver circuits will be damaged. This will happen if any amplifier output frequency (intended or accidental) is high enough to pass a signal back from the speaker line to the driver circuit.
+
+<p>In addition, the voltage across C2 increases with increased amp output frequency, because the caps (especially C1) pass some of the signal and this assists the charging process. The only way to avoid this is to use a higher oscillator frequency and a smaller value for C1 and C3. For example, with an oscillator frequency of 500kHz and C1 and C3 reduced to 470pF, an amplifier signal of 25kHz at full power causes no increase in the normal voltage developed across C2. Also note that although the RMS drive current is only around 5mA, the peak value is over 30mA with the values shown.
+
+<p>Switching times are passable. While turn-on is quite fast at about 1ms, turn-off is rather lethargic - it takes just over 3ms for the MOSFETs to turn off with the values shown, so dissipation under fault conditions will be rather high. Although turn-off time can be improved by reducing the value of R3, this demands a higher drive signal (either higher voltage or frequency).
+
+<p>For the reasons described above, I do not consider this a usable approach for an audio amplifier. There are too many factors that make it unsuitable. It can be used for switching mains (50/60Hz) without any problems though.</p>
+
+
+<hr /><a id="s5"></a><b>5 &nbsp; Stand-Alone Floating Power Supplies</b>
+<p>The final option is to use conventional small power supplies that can have their outputs fully floating. A small transformer with dual secondaries is one possibility, but there is a real risk that the insulation between windings will be unable to withstand the output voltage swing from powerful stereo amplifiers. When doing some initial tests, I used a 12V DC switchmode plug-pack (aka 'wall-wart') as the voltage source (it's actually built-in as part of my workbench system, but that's irrelevant).
+
+<p>A small 50/60Hz transformer with dual windings can be used, having a conventional rectifier and filter cap on each output. As with the transformer drive approach, inter-secondary insulation has to be up to the task. This is actually rather unlikely, so it's hard to recommend this approach - it's much safer to use two transformers, but that gets bulky and rather costly. The DC to the MOSFET gates is simply switched using optocouplers with transistor outputs as demonstrated in Figure 7. 
+
+<p>This kind of approach certainly works, but the cost and space is such that you'd be a lot better off financially by using miniature DC-DC converters. It's hard to recommend the use of separate mains powered supplies as it is somewhat clumsy, physically large and comparatively expensive. However, it does offer a simple and easily implemented solution, with the minimum number of electronic bits to fail.</p>
+
+
+<hr /><a id="s6"></a><b>6 &nbsp; Power Rail Supply</b>
+<p>This arrangement perhaps doesn't really look like it could work, but that's an illusion. By taking a diode blocked resistive feed from the positive supply, the DC is stored in C1 and because of the high impedances will hold up well even at low frequencies. C1 can't discharge back through the resistor when the amplifier's output voltage swings fully positive because the diode prevents this. Note that there <i>is</i> some modulation of the supply, but this is smoothed by the zener as it simultaneously protects the MOSFET gates.
+
+The zener is absolutely essential in this arrangement (but should always be used anyway), because without it the voltage can rise to the full DC supply - gate destruction is a certainty. R4 is optional but recommended. The cap will charge whether it's there or not, as long as the amplifier or speaker remains connected (the MOSFETs' internal diodes provide the current path).
+
+<p class="t-pic"><img src="mosfet-ssr-f7.gif" border="1" /><br />Figure 7 - Supply Rail Gate Bias</p>
+
+<p>As shown, the supply resistor (R2) does provide a small DC offset current to the speaker when the SSR is turned off, but at less than 2mA with 60 volt supplies it can be ignored. This is by far the simplest way to obtain the necessary DC to keep the MOSFETs turned on. To switch them off, you may use an opto-coupler as shown, or even a small relay can be used. Note that R2 and R4 are suitable for supply voltages up to around &plusmn;50V. Higher values will be needed if the amp uses higher voltage supply rails. R4 can be connected to the -ve supply instead of earth if desired, but there's little point - the circuit won't work any better by doing so.
+
+<p>This circuit has the advantage of great simplicity compared to the other methods described. There is no need for an oscillator or transformers, no rectifiers or high speed diodes, and no side issues with high frequencies. Because of the continuous supply and use of an optocoupler, the turn-off time is also very fast. Turn-on speed is determined by the value of R3 and the MOSFET gate-source capacitance. We don't need sub microsecond switching, and in most cases the values shown will be more than acceptable.
+
+<p>It's also worth noting that the circuit doesn't actually have to be powered from the amp's supply rail. Any positive voltage source of 15V or greater is enough to allow the relay to turn on and remain on until the optoisolator turns it off again. It may be helpful if R2 is reduced to suit the lower voltage - about 22k is fine, but you might need to experiment a little. The second 'feed' resistor (R4) should be the same value. You may need to use 1W resistors with high power amps.</p>
+
+<table><tr><td valign="top"><img src="note.gif"><td><p>Note, however, that there are contra-indications to this technique. When used as shown and in the 'off' state, there is a small charging current that is rectified by the diode D1 and the MOSFET's intrinsic internal diode. When the cap is used in parallel, this tends to swamp the very small but highly distorted leakage current that flows each time the diodes conduct. While R2 (the bias feed resistor) does reduce the noise, you will hear a low-level distorted signal across the speaker - especially if the circuit is connected as shown in Figure 8. The capacitor (C2) tends to swamp this to a degree, but that allows even more signal to pass.
+
+<p>None of the above affects the relay's ability to disconnect the speaker if DC is detected, but is something you need to be aware of. The distortion component of the muted signal is especially audible if you choose to use a feed voltage that's less than the full amplifier supply voltage, and you have very sensitive speakers such as horn compression drivers. For this reason, the MOSFET relay is not really suitable as a signal mute - this should be done at the amp's input or from the mixing desk.
+</table>
+
+<p>BEWARE! - the relay's default state is ON! The external circuitry turns the relay off, but if the supply to the detection circuit is not present <i>before</i> the amplifier supply rails start to rise, DC can be fed to the speaker until such time as the detection circuits function and disconnect the load. This is easily circumvented by some additional circuitry or by leaving the detector permanently powered ... with the proviso that the amp <i>cannot</i> be turned on at all if the relay supply is not present!
+
+<p>For example, you could use <a href="../project39.htm" target="_blank">P39</a> (soft start circuit), and use its power supply to power the detector (such as <a href="../project33.htm" target="_blank">P33</a> which powers the optocoupler), as well as the soft start. While this adds some complication, a high power amp needs soft start anyway, so it's not necessarily a big deal.</p>
+
+<hr /><a id="s7"></a><b>7 &nbsp; MOSFET Relay In Speaker Return</b>
+<p>It is possible to design the overall circuit so that the power supply constraints are reduced. Instead of placing the MOSFET relay in series with the amp's speaker output, simply connect it between the speaker common terminal (normally PSU earth/ ground) and the actual PSU earth bus. Now the entire circuit has one terminal that is earth referenced, which reduces the isolation requirements between the separate power supplies. However, when switched off, the centre-tap between the two MOSFETs can easily reach a voltage that still demands good insulation of any floating supply (roughly 1/2 the +ve supply voltage). The diode shown in Figure 7 (in series with R2) is not needed in the earth-referenced circuit shown below, because C1 cannot discharge when the amp's output swings positive - the junction between MOSFETs is at (close to) zero volts when the MOSFET relay is on.</p>
+
+<p class="t-pic"><img src="mosfet-ssr-f8.gif" border="1" /><br />Figure 8 - MOSFET Relay Circuit In Earth Line</p>
+
+<p>Needless to say, this method cannot be used with BTL (bridge tied load) amps regardless of bias supply type, because each side of the speaker is driven by a separate amplifier driven 180&deg; out-of-phase with the other. Both speaker terminals are therefore 'live' with the amplified signal, so a fully floating system is definitely required. Even if you do decide to connect your MOSFET relay in the earth end of the speaker (i.e. the speaker return), I still recommend that the power supplies are properly isolated or you may have unforeseen problems (assuming that you use one of the other methods shown, not the one in Figure 8). I don't know what they might be, because they <i>are</i> unforeseen <img src="grin.gif" />
+
+<p>Another potential issue is the added resistance in the speaker line, and that will reduce 'damping factor' (assuming that you consider it to be important) and output power. Any voltage and current combination that appears across/ through the MOSFETs also causes heating. For these reasons, using MOSFETs with a very low R<sub>DS (on)</sub> is essential. The lower this resistance, the less distortion the circuit contributes as well.
+
+<p>It is possible to use a conventional relay in parallel with the MOSFET relay, so that there is no added series resistance. In the case of a fault, the relay must open first, followed by the MOSFET relay. This process will add an inevitable delay, because you must allow sufficient time to allow the electromechanical relay to be fully open before the MOSFET relay opens. The control system will also be far more complex, with more things to go wrong.
+
+<p>It is also very important to ensure that the capacitance of the power supply (when connected in the 'live' speaker line) does not impose enough capacitance to cause the amplifier to oscillate. Most amps get very upset if the output sees around 10-100nF directly to earth, so consider including 100 ohm resistors in series with the power supply as shown in Figure 4.
+
+<p>Based on simulations and some tests, distortion can be expected to be well below 0.1% unless you don't have enough gate voltage or R<sub>DS (on)</sub> is too high. Remember that there are two sets of R<sub>DS (on)</sub> in series with the speaker, so maintaining a very low figure for each MOSFET is essential. It may be necessary to use two or more MOSFETs in parallel on each side of the switch to keep the insertion loss as low as possible. For a high power amp, even 0.1 ohm represents a significant power loss, and that power is turned into heat in the MOSFETs. Any increase in temperature further increases R<sub>DS (on)</sub>, causing higher losses and more heat. Thermal runaway is possible if the MOSFETs are not sized correctly.</p>
+
+
+<hr /><a id="s8"></a><b>8 &nbsp; Final Approach</b>
+<p>The solution that you eventually use will be determined by a number of factors, including space, cost and switching speed. As always, there are trade-offs that must be made in any design to get a final circuit that does what's required, but doesn't compromise the internal layout or add excessive cost and complexity.
+
+<p>Photovoltaic optoisolators are a good solution, but the JFET (or the scheme shown in Figure 9) is mandatory to ensure fast turn-off times. The greatest obstacles you will face with this technique are cost and availability of suitable photovoltaic devices. There's a wide range available, but some will struggle to provide enough voltage to ensure the lowest possible R<sub>DS (on)</sub>. Others have very limited current - perhaps 20uA or less. These will have rather long turn-on times, but that's not a major limitation - simply mute the amp's input until the MOSFET relay is turned on.
+
+<p>A transformer coupled system that uses squarewave drive needs very little capacitance after the rectifier to get a clean DC switching waveform. This means that turn-on/ off times can be quite respectable, without having to resort to using opto-couplers. Once the oscillator is stopped, the relay will switch off within a millisecond or so.
+
+<p>The high frequency transformer drive arrangement is also fairly straightforward, and will probably work out cheaper than using photovoltaic isolators. You can almost certainly make your own transformer quite easily - at 50kHz or so you don't need many turns, so it can be wound by hand. Naturally, the secondaries must be insulated to a standard that suits the amp's output voltage - both from the primary and each other. Another possible source of suitable small transformers is to use those tiny transistor output transformers that most electronics suppliers sell. Although they are extremely basic, some suppliers ask rather silly prices for them (up to $5-6 each). While they are basically rubbish in terms of audio quality, that's the least of your concerns when they are driven with a 50kHz squarewave <img src="grin.gif" />. Their insulation may not be appropriate for a high power amp though, and this would need to be tested.
+
+<p>As noted earlier, I cannot recommend the charge coupled driver for use in an audio amp. It may be suitable for switching mains ... in which case the coupling caps (C1 and C3) <i>must</i> be Y-Class intrinsically safe. All circuitry must have the required creepage and clearance distances for separation of hazardous voltage from your control electronics.
+
+<p>Using separate DC supplies (whether via a mains transformer or miniature DC-DC converters) is expensive and rather clumsy. It's hard to recommend this approach, but it may be required for some less pedestrian uses for a MOSFET relay. Since isolated switchmode DC-DC converters are available with over 1kV isolation, the technique is suitable for switching mains, provided transistor output optoisolators are used for MOSFET control.
+
+<p>If you do use floating fixed supplies, you need to decide whether to switch the supply on and off to control your relay, or leave the supply running and use an optocoupler to control the gate voltage. The opto approach has a definite advantage in speed - it's easy to achieve sub-millisecond switching times, but at the expense of additional components. Switching the power supply on and off can result in MOSFET switch-off times of 10s or even 100s of milliseconds!
+
+<p>In terms of ultimate simplicity, the supply rail bias scheme wins hands down for power amplifiers. No oscillators or transformers, and very few parts, so there's not much to go wrong. Standard transistor output optocouplers are cheap and readily available, and the most expensive part of the system is the MOSFETs. This is the scheme that I would probably use, provided that the speaker relay isn't used for muting. It's unlikely that any alternative scheme can come close for overall cost and lack of complexity.
+
+<p>It is important to understand that it does cause a distorted signal to be produced across the speaker when turned off (especially when connected in the earth lead of the speaker oddly enough). This is of no consequence if the only goal is speaker protection, and it is by far the easiest to implement. If full muting is needed, you will need to use one of the other schemes. The circuit must also introduce a small amount of distortion when turned on, because the diodes still go into and out of conduction as the signal voltage varies. However, the amount of distortion is very low indeed, and is unlikely to be audible at any level. While I have attempted to test for this, I was unable to measure the distortion, but of course that doesn't mean it's not there.
+
+<p>It used to be quite common for power amplifiers to have meters on the front panel to show the power level. These also used diodes driven from the amp's output, and therefore introduced some non-linearity. As far as I'm aware, no-one ever heard the distortion created, and I expect much the same with the circuits shown.
+
+<p>The circuit shown below has none of the limitations of the other schemes, but is comparatively expensive because of the two optocouplers. This is really a 'cost-no-object' approach, having only one limitation - the MOSFET turn-on time. This can only be made faster by having a low impedance supply for the gates, something you can't get with photovoltaic isolators.</p> 
+
+<a id="f9"></a>
+<p class="t-pic"><img src="mosfet-ssr-f9.gif" border="1" /><br />Figure 9 - Composite MOSFET Relay Using Dual Optocouplers</p>
+
+<p>The arrangement shown above has many things to recommend it. Unlike the circuit shown in Figure 3, there is no series resistance and no JFET that must draw a tiny amount of current, thus reducing the available gate voltage and the resistor further limits the gate charge current. When the photovoltaic optocoupler is active, the transistor output opto is turned off, and all the available voltage from U2 is presented to the gates of the MOSFETs. When the input signal switches from 5V (MOSFETs on) to 0V (MOSFETs off), U1's output transistor shorts the MOSFET gates to the sources, ensuring fast turn-off.
+
+<p>The drive system is shown using 5V, but it can really be any voltage you have handy. It's just a matter of scaling R1 and R2 to get the right current into the opto's LEDs from the supply you have available. You may need to use higher voltage transistors if you want to use a voltage of over 25V or so.
+
+<p>Of course, disconnecting the speaker is not the only option. You can also use MOSFETs to switch off the amplifier's power rails when a fault is detected [<a href="#ref">4</a>], however the circuit <i>must</i> latch so that the protection system doesn't cycle. This approach also has the limitation that you can't detect the fault before the speakers are connected, since the amplifier(s) need power to trip the protection circuits, so speakers will thump loudly when the amp is turned on.</p>
+
+
+<hr /><a id="s9"></a><b>9 &nbsp; MOSFET Relays In Other Applications</b>
+<p>Although I have shown the various circuits here as speaker relays, needless to say this is only one of many applications. When switching DC loads, the schemes described here are not needed because the polarity will be known (so only a single MOSFET is needed), and for mains AC it's generally easier to use a TRIAC or a conventional relay.
+
+<p>There are applications for the MOSFET relay in AC mains circuits though - trailing-edge light dimmers being one. In addition, if used with AC it is possible to use the relay to limit inrush current by turning on the MOSFETs relatively slowly. This may be hard to recommend though, because dissipation will be high and even a small asymmetry can cause an effective DC component that will cause serious problems for motors and transformers.
+
+<p>The number of applications is almost unlimited, but I confess that I can't think of many that haven't been covered already. Low current SSRs can be used for audio signal switching, and they are not particularly expensive. While this method of switching would satisfy most consumer audio requirements, it is probable that most people who love to build hi-fi equipment would frown upon the idea of active switches. CMOS active analogue switches already exist, but it's rare to find them in the audio path of any hi-fi equipment.
+
+<p>Even when switching high power circuits, there is usually no good reason to add the extra complexity. In general it's far easier to use a more conventional approach - traditional relays, TRIAC solid state relays, etc. However, it's also important to know about other techniques that might just prove to be the perfect answer to a problem that appeared to be insoluble.</p>
+
+
+<hr /><a id="outro"></a><b>Conclusion</b>
+<p>While the MOSFET relay has some significant advantages over and above a traditional electro-mechanical relay, these advantages come at a cost. The MOSFET relay will be physically larger than a conventional relay, and the overall circuitry is more complex and costly. Where a relay can be glued into place on the rear panel of an amp, the MOSFET version requires at least one printed circuit board, as well as more wiring. While it will survive a DC fault in the amp (possibly many times over), DC faults are uncommon in well designed amps, used properly, and with good heatsinks.
+
+<p>To obtain complete isolation (full muting), you have to forego the parallel capacitor, and use a MOV and/or 'catch' diodes on the speaker side of the relay. With the cap shown in the above examples, there is a small 'leakage' current via the cap, and if the relay is used to mute the speaker output, a low-level signal is audible with sensitive speakers. Also, note the comments for my simplified 'supply rail powered' version - ignore this at your peril.
+
+<p>Yes, a conventional relay will be a real mess after the DC arc has been shorted to earth, and the relay should always be replaced if the amp has failed DC. However, the relay is cheap, easily replaced and you never have to worry too much about a multiplicity of electronic parts that can also fail, rendering the amp unserviceable even if there's no other fault. Contact resistance is sufficiently low as to ensure minimal power loss (if any), and distortion should be somewhere between zero and negligible if you have good contact materials and no oxidation. Once driven to power, any oxidation will be burnt away anyway - it is extremely uncommon for anyone to suffer from audible distortion caused by relays.
+
+<p>The MOSFET relay will survive countless DC faults, but this should never happen. All the additional complexity and cost is essentially wasted, with the exception of very high power amplifiers. It is extremely hard to find any relays that can break 100V DC at 25A or more - they exist, but are large and expensive. In such cases, it is worth considering the use of a final level of protection - a high power TRIAC that acts as a 'crowbar'. It protects the speaker by simply shorting the amp's output to earth. The amp has already failed, so additional damage is of little consequence because it will be limited when the fuse blows - which it will do spectacularly.
+
+<p>The important thing is to ensure that an amplifier failure only means that you have to repair the amp - not the speakers to which it's connected. In many cases, the loudspeaker drivers can cost more than the amplifier.
+
+<p>Naturally though, the idea of building your own MOSFET relay should have some appeal, just for the knowledge gained and the experience you'll get, not to mention the fun factor. I leave it to the reader to decide which method to explore and how much fun they should have doing so.</p>
+
+
+<hr /><a id="ref"></a><b>References</b>
+<ol>
+	<li>Solid State Relay Employing MOSFET Power Switching Devices, US Patent 4,438,356 - 20 March 1984
+	<li>Dionics DIG-1115-SM Photovoltaic MOSFET / IGBT Driver
+	<li>Charge-Coupled MOSFET Relay - David Johnson and Associates
+	<li><a href="http://www.geofex.com/Article_Folders/ampprot/dcprot.htm" target="_blank">A DC Fault Protection Circuit for Audio Amplifiers</a>
+</ol>
+
+<p>I also looked at a great many suggestions, websites and application notes - some good, some decidedly otherwise. The references shown above are intended as representative, and the same or similar information can be found elsewhere. A search is always a good place to start, but you need to know just what to look for in any circuit you may find. While some ideas seem ok on the surface, that's because the potential shortfalls haven't been mentioned (or addressed).</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2012. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Published 09 June 2012</div>
+
+</body>
+</html>

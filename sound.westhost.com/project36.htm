@@ -1,0 +1,364 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP Project Pages - Death of Zen - A new Class-A power amp. A simple but very high performance Class-A power amplifier">
+	<!-- ESP Project Pages - Death of Zen - A new Class-A power amp. A simple but very high performance Class-A power amplifier -->
+	<meta name="keywords" content="zen,bride,son,class-a,class a,audio,project,diy,amp,power,circuit,schematic,diagram">
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+	<title>Death of Zen - A new Class-A power amp</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 36&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Death of Zen (DoZ) - A New Class-A Power Amp</b><br />
+<small><b>Rod Elliott (ESP)</b><br />Updated 03 October 2005</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for the latest revision of this project. Click the image for details.<br>
+
+<hr><a href="project70.htm">Project 70</a> is based on this design, but specifically for headphones. This is where you can really get the benefits of Class-A with none of the drawbacks.
+
+<p>Because the quiescent current can be quite unstable with variations in the supply voltage. Normal changes in the AC mains can cause Iq to shift above and below the preset value. A simple modification can be added that virtually eliminates the problem (or reduces it to the point where it is immaterial). This, plus another optional modification to help stabilise the bias current are included on the new Revision-A circuit board.</p>
+
+<hr><b>Introduction</b>
+<p>The Zen - along with Zen improved, son of Zen, Bride of Zen, Second cousin of Zen (or did I imagine that one?) Class-A amp designed by Nelson Pass seems to have become popular. (See <a href="#reference">references</a>.) I cannot imagine why, since the very concept is flawed in many ways. It has minimal feedback, but that is because it has minimal gain to start with, and appears very simple. Perhaps this is the attraction - but at what price? The capacitors needed for the power supply are massive to try to get rid of hum, and massive means expensive. The "improved" Zen is a little better, since it uses an inductor (or choke) in the supply - obviously the hum drove someone mad. Inductors are expensive too, and also hard to get, and the capacitance has been doubled in at least one version I have seen - ouch, this is seriously expensive!</p>
+
+<p>Well, actually I can see why it is popular. It satisfies the requirement of many amplifier builders, in that it is simple, stable, and very tolerant of layout and component variations. The sonic characteristics will also appeal to many, due to the valve-like sound (or tube-like, if you prefer). Having looked at the original and many of the "improvements" currently on the web, I did a few tests of my own and frankly, found the amp lacking in the fidelity department. Hi-Fi this most certainly is <i>not</i>. But .... does it sound good? Apparently so, based on the number of people using (and praising) the Zen, but the feedback I have had on the DoZ so far (and my tests) is also very positive and encouraging. At the time of writing, hundreds of DoZ amplifiers have been made, with comparatively few reported problems. The issues that have been encountered have been addressed in the Revision-A circuit boards which are now shipping.</p>
+
+<p>Nelson Pass quotes Einstein as saying "Everything should be as simple as possible, but no simpler". I agree with this entirely, and quickly realised that the Zen is simpler than it should be for its intended purpose.</p>
+
+<p>Therefore, I have done some serious work on "Death of Zen", a new Class-A power amplifier that will blow the Zen and all its kin into the weeds, without busting the budget or sacrificing sound quality. Minimal global feedback and lots of local feedback to ensure a very fast and linear amplifier, using the smallest number of components possible. This is the goal, and the remainder of this section explains why.</p>
+
+<p align="center"><img src="p36-reva-pic.jpg" border ="1" alt="DoZ Photo">
+<br><b><small>Photo of Assembled Rev-A Board</small></b></p>
+
+<p>Lets look at the basic Zen concept, as shown in Figure 1. A power MOSFET is biased using a pot (needed to correct for different device characteristics) so that the voltage at the drain is about 1/2 the supply voltage. Current is limited using a constant current source, and this needs to be set to provide a current that is higher than the maximum peak current to the speaker. Since the amp is not DC coupled, an output capacitor is needed to keep the DC out of the loudspeakers. An input cap is also needed to stop the source (the preamp, or for my tests, an audio oscillator) from stealing the bias voltage.
+
+<p align="center"><img SRC="p36-fig1.gif" ALT="Figure 1" BORDER=1>
+<br><b><small>Figure 1 - Basic Zen Concept</small></b></p>
+
+<p>Now at first sight the idea looks sound (pardon the pun). We do need to do some basic maths to determine the current needed, but this is easy. Using a 35V supply, the bias point will need to be about 1/2 supply (17.5V), and this means that for ideal devices the peak speaker current is +/-17.5 / 8 = 2.19A (say 2.2A). It is necessary to add a little more current to ensure that the active device current remains high enough to stay within the linear region, so lets say 2.5A
+
+<p>In theory, the +/- 17.5V should allow a peak power of 19W, but this is not possible due to the losses in the devices.
+As a result, the amp is rated at 10W, and this is reasonable. The output resistance (at DC - this is not the same as impedance) of this output stage is easily determined from Ohm's Law, so R = V / I = 17.5 / 2.5 = 7 Ohms. Although this is the resistance, the impedance will be similar, although generally slightly lower. According to some, this is the first fault of the design, since damping factor will be at best 1.14 - this is a little shy of the 100 or more that most audiophiles strive for, but more on this later. With the addition of feedback (and yes, the Zen uses some feedback), the output impedance is quoted as about 1 Ohm.
+
+<p>Most readers of my pages will know by now that I am not a fan of switching MOSFETs for audio, since they are far less linear than bipolar transistors or lateral MOSFETs. To me, this is the first failing, since I fully expected the distortion to be somewhat higher than I would consider acceptable for a ghetto blaster, let alone a hi-fi system. Note that lateral MOSFETs are different from vertical types - the former are intended for audio, the latter for switching.</p>
+
+<hr><b>The Big Test</b>
+<p>I proceeded to set up a test, using a suitable MOSFET and comparing it with a transistor in the same circuit configuration. The test setup is shown in Figure 2, and I was able to directly substitute the transistor and MOSFET into the circuit, adjust the bias and run the test. Since I wanted to see distortion components alone, I simply used an 8 Ohm drain / collector load, as this is approximately equivalent to the circuit operating with a current source load and driving a speaker. I kept the operating level lower than normal to ensure that a suitable current reserve remained.
+
+<p align="center"><img SRC="p36-fig2.gif" ALT="Figure 2" BORDER=1>
+<br><b><small>Figure 2 - The Test Setup</small></b></p>
+
+<p>In the above, the D.U.T. is the device under test. Emitter, base and collector (or source, gate and drain) are connected as shown. For the power supply, I used my "monster" supply, which is variable only because I use a Variac (variable voltage transformer) to supply the incoming mains. I used a 22,000uF capacitor for added filtering (it was not enough!), and proceeded to take some measurements.
+
+<p>First step was to set the quiescent voltage with the pot, so I had 1/2 the supply voltage at the drain (I tested the MOSFET circuit first). With an applied DC of 30V, this meant a voltage of 15V, so the current was 1.875A or 28W dissipation (both in transistor and load - for a total of 56W). The hum was higher than I would have liked, but I can make this disappear using the averaging capability on the digital oscilloscope.
+
+<p>Applying a 1kHz sine wave, I could see that the distortion was quite visible at close to clipping, and I was able to operate at a maximum of 6V RMS output before the distortion became too noticeable. I then hooked up my trusty distortion meter to see just how much there was. Remember from the test circuit that I have included a 0.5 Ohm resistor in the source to help linearise the circuit - not to too much avail it seems, since the distortion was measured at 1.58% (after hum removal), and it increased very rapidly if I increased the voltage. Hmmm. This verified my suspicions, but now I needed to test a bipolar transistor in exactly the same test setup to compare the two.
+
+<p>I used a Darlington transistor (I dislike these too, but it was convenient and the extra gain is essential with bipolars), and was able to bias the transistor using the same circuit as before. Again, I applied a signal, and was not at all surprised to see that the maximum voltage before distortion was visible on the oscilloscope was considerably greater, and the output generally looked cleaner right up to the point of clipping. I would expect that a discrete complementary pair (the configuration I always use) will be better, but I was rushing to get this into print, so used the most convenient device to hand. At least this means that I can improve on these figures without too much trouble.
+
+<p>To be completely fair, I tested the distortion at 6V RMS again, and measured 1.03% - a worthwhile improvement I thought. Increasing the output to 8V, the distortion climbed to 1.18% - still less than the MOSFET, and with a much improved voltage swing. At this level, the MOSFET was delivering outrageous amounts of distortion, as it started to clip.
+
+<p>The measured distortions are not entirely fair, because of the distortion waveform. With the MOSFET, the distortion waveform was peaky, with quite sharp transitions (indicating high order harmonics). The RMS value is probably too low, and certainly does not indicate accurately the audible effect of the distortion. By comparison, the bipolar transistor had a very smooth and almost perfect 2nd harmonic, with very little evidence of any high order harmonics at all. Asymmetry in the residual distortion waveform showed that there was also 3rd harmonic distortion, but at a lower level - I think I will have to have a listen to the residual signal to determine the "musicality" or otherwise of the distortion I measured.
+
+<p><b>29 Oct - Further Tests</b>
+<br>The following day, I decided to buy a MOSFET rather than use the one I had, and selected a MTP3055 as a budget device designed for audio and switching. I still don't know exactly what the other one is supposed to be for, but it shouldn't matter - bipolar transistors can be selected for linearity, but it isn't that big a deal. Not so with MOSFETs as I discovered - the new one was markedly better than the original, but still fails to touch the bipolar. Incidentally, the Darlington bipolar I used was a TIP141, and is designed for switching (lest I be accused of fiddling my results by device selection). I did not retest the 60N06 at the lowest level, but given the other results I could see no point.
+
+<p>Since I now have 3 separate test results, I have tabulated them below.</p>
+
+<br>&nbsp;<table BORDER=1 WIDTH="70%" align="center">
+<tr><td width="25%"><b>Output Voltage (RMS)</b></td><td width="25%"><b>TIP141 Darlington</b></td>
+<td width="25%"><b>MTP3055E MOSFET</b></td><td width="25%"><b>60N06 MOSFET</b></td></tr>
+<tr><td>2.5</td><td>0.05% (approx)</td><td>0.47%</td><td>N/T</td></tr>
+<tr><td>6.0</td><td>1.03%</td><td>1.02 %</td><td>1.58%</td></tr>
+<tr><td>8.0</td><td>1.18%</td><td>1.80%</td><td>&gt; 2%</td></tr>
+</table>
+<center><b><small>Table 1 - Device Comparisons In The Test Circuit</small></b></center>
+
+<p>It would be useful to carry out these tests with a completely hum free supply so that the distortion is not affected by the supply ripple, but by averaging the measured result with the oscilloscope I believe the results are accurate enough for comparison, especially since the same configuration was used for all tests.
+
+<p>Quite obviously, the bipolar is a winner at low levels (where the distortion is most noticeable), and I am sure that using a nice linear transistor such as the complementary pair, these results would show the superiority of the bipolar transistor even more clearly. Again, as the supply limits are approached and the current through the devices varies the most, the bipolar is again well ahead.</p>
+
+<p><b><small>UPDATE:</small></b>&nbsp; The MTP3055 distortion figures actually are very close to those published by Pass Laboratories for the Zen, so this validates the test circuit I used, and that the figures are not exaggerated in any way. <small>(27 Nov 99)</small>
+
+<hr><b>Full Test Of Death Of Zen (DoZ) Concept</b>
+<p>The next step was to test something close to the final configuration, to see what things had an effect (profound or otherwise) on the performance. I still used the TIP141, knowing that I can improve on this greatly as I progress, although as the final circuit shows I eventually chose not to use a compound pair after all. Figure 3 shows the test circuit, still using the 8 Ohm resistor as a load, but I ran these tests using my bench supply to eliminate the hum problems. All tests were performed at an output of 6V RMS (equivalent to the 8V tests above, due to the lower supply voltage).
+
+<p align="center"><img SRC="p36-fig3.gif" ALT="Figure 3" BORDER=1>
+<br><b><small>Figure 3 - DoZ Test Circuit</small></b></p>
+
+<p>This is the basic configuration I will be using for the final design, although there will be some resistor value changes as I get closer to the final circuit, and the load resistor will be replaced by a constant current source. For those who want to try the circuit with a high output impedance, I will also include the modified feedback network.</p>
+
+<table BORDER=0 WIDTH="100%">
+<tr><td><img SRC="note.gif" alt="Note" BORDER=0 height=37 width=108></td>
+<td><big><b>STOP ! -</b> Do not build this circuit as a real amplifier. This is a test circuit, designed to verify some basic parameters of the design. The final design is shown in Figure 4.</big></td></tr></table>
+
+<p>Some interesting things came to light during testing, especially when I included the resistor (R6) from base to earth on Q2. With no resistor, I measured a distortion of 0.15%, and this was almost completely 2nd harmonic. There was a very noticeable degradation of the positive going slope on a 10kHz square wave, and a fairly low slew rate resulted. Adding the resistor improved this dramatically, and reduced the distortion to 0.05% - but it was now almost completely 3rd harmonic.
+
+<p>This will create a conundrum for some - would you rather have very low levels of 3rd harmonic distortion, or considerably larger amounts of 2nd harmonics (bearing in mind that the 3rd harmonics are still there). I cannot see any good reason to tolerate any more distortion than is absolutely necessary, so considering the much better slew rate (and therefore high frequency performance), I will be including this in the final design. You might want to leave it out if you want the 2nd harmonics, but I don't think the end result will be very satisfactory.
+
+<p>This is due to the transistor's turn-on and turn-off characteristics becoming more symmetrical by providing a base discharge path, but I did not expect such a large difference. The frequency response extends to over 100kHz at full power (6V RMS for these tests), and square wave response shows that the amp is both fast and stable - and this with a very ordinary switching Darlington. I saw no evidence of measurable distortion above the 3rd - there must be some, but I have no way of measuring it. The 3rd harmonic appears to be an almost perfect sine wave, with some very small variations.
+
+<p>Slew rate is better than 6V/us (positive going) and over 20V/us negative going - not as good as some, but I blame the TIP141 for this. I have checked the specs on it, and it is a fairly slow device (like most Darlingtons) as confirmed by these tests.
+
+<p>None of this testing has been done with a circuit board. In all cases I simply bolted the device to a heatsink, and attached the other components as required. Power connections were all made using alligator clip leads. Since I have used exactly the same "rats-nest" wiring for all testing (including these last tests), and I have not been able to induce additional (or reduced) distortion by moving leads about, the amp looks as if it will be fairly tolerant of assembly methods (all known assembly methods will be superior to what I have done so far).
+
+<hr><b>More Testing</b>
+<p>So, there I was on Saturday (27 Nov), thinking suddenly - "I wonder how the amp would work with a MOSFET instead of the transistor?"&nbsp; Off to the workshop and I tried it. The answer is ... horrible. Apart from the greatly reduced voltage swing because of the topology, the distortion at 1V (125mW into 8 Ohms) was about 0.4%, and I was mightily disappointed.
+
+<p>You see, I really would like to use a MOSFET in an amp that I would like listening to, because the idea appeals to me. They are fast, need minimal drive current, and the overall concept is wonderful. But they still don't sound any good - what a shame.  (This applies to vertical MOSFETs - lateral MOSFETs are designed for audio, and are considerably more linear.)
+
+<p>Thus chastened, I thought I would just have a quick muck about with the current source (having re-installed the bipolar transistor) and listen to it on a speaker. Even with the slow TIP141 transistors (I used one for the current source too), the rats-nest wiring I was using instantly caused me problems (clip leads all over the place, and components supported by sky-hooks and each other).
+
+<p>The issues were easily sorted out (re-arrange the clip leads <img src="grin.gif" /> ), and I ran some distortion tests with and without a load. Distortion was almost exactly the same as previous testing, and I was finally able to measure the actual output impedance, which measured at 0.22 Ohms. Not too shabby for such a simple amp.
+
+<p>As for the sound, well I must admit that it sounded just like an amplifier. I couldn't hear any nastiness, and even with the limited power it was quite loud enough. The main problem I have now is that I don't have any conventional hi-fi speakers (mine are fully active), so was forced to listen on one of my lab speakers. Even there I am limited, since the main lab system is tri-amped. Since the unit is hardly portable in its test condition, I will have to rely mainly on the distortion meter and my oscilloscope until I have a complete unit built.
+
+<p>One thing I have realised in all of this testing, is that a Class-A amp is a far more irksome thing to design and test than a Class-AB amp. This is partly because of the high current that is always present (and the fact that massive heatsinks are needed just to do simple testing), and partly because in this design I am trying to achieve maximum performance from minimum components - this has turned out to be more difficult than expected, and some of the simplest changes can make a great difference to the performance.
+
+<p>I am now leaning more and more towards the concept suggested by John Linsley-Hood [<a href="#reference">3</a>], where the bias current is modulated to provide Class-A but with less quiescent dissipation. You would be surprised how hot a pair of 1&deg;C/W heatsinks get with a quiescent current of 2.5A and a supply of 40V. Mind you, I did manage to get 18W into 8 Ohms at the onset of clipping, but with the sinks just lying on the bench I had to be careful that the whole amp didn't destroy itself. For further tests, I had to build it properly - what a pain!</p>
+
+<hr><b>12 December Tests</b>
+<p>So, pretty much having made up my mind on the topology, I set about building the amp. I must say that the final result lived up to nearly all expectations, and works extremely well. One word of warning - I used TO-3 case transistors, and I strongly suggest that you do the same. No plastic case device has good enough case to heatsink thermal resistance, and with a final dissipation of 28W per device, even the TO-3s get hot.
+
+<p>For ease of working (and so it would stabilise quickly) I only used a small heatsink, and ran a 12V fan at 6V to keep it cool. At 1/2 voltage, the fan was very quiet, so you might want to consider this as a possibility for Class-A amps in general.
+
+<p>The final circuit (at least for the time being) for the DoZ is shown in Figure 4, and it can be seen that it is a bit different from the last attempt. This being the full and proper circuit, it is fully functional, and I have tabulated test results below.
+
+<p>After all the experiments I carried out before, it turns out that the current source is more critical than I would have hoped. Although this is a simple circuit, it is supposed to supply a constant current at any frequency, and this is harder than you might imagine. R7 and R8 were added in an attempt to speed up the current source, and were only partially successful. As it stands, the amp will provide full power up to about 16kHz, which is actually more than enough for any application.
+
+<p>For final testing you will need two multimeters, one to measure current and the other for voltage. If you only have one, use a 1 Ohm resistor in series with the power supply positive lead. When you measure 1 Volt, this means that the amp is drawing 1 Amp. The resistor can remain in circuit, providing a useful reduction in supply ripple. You will lose 1.7V at operating current, and a 5W resistor is sufficient - it will get hot though.</p>
+
+<center><img SRC="p36-fig4.gif" ALT="Figure 4" BORDER=1>
+<br><b><small>Figure 4 - Semi-Final DoZ Circuit</small></b></center>
+
+<p><br><table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="Please Note" height=37 width=108></td>
+<td><big>Q3 and Q5 (the output transistors) must be on a substantial heatsink (see below), and Q2 and Q4 also need heatsinks. These do not need to be especially large - TO-220 U-shape heatsinks will be fine (or make suitable sinks with scrap aluminium). The drivers get excessively hot with no heatsink.</big></td></tr></table>
+
+<p>A quick circuit description is in order. VR1 is used to set the DC voltage at the +ve of C3 to 1/2 the supply voltage (20V for a 40V supply), by setting the voltage at the base of Q1. The 100uF cap ensures that no supply ripple gets into the input. Q1 is the main amplifying device, and also sets the gain by the ratio of R9 and R4. As shown, gain is 13, or 22dB, providing an input sensitivity of about 1V for full output.
+
+<p>Q4 is the buffer for the output transistor Q5, and modulates the current in Q2 and Q3. VR2 is used to set quiescent current, which I found needs to be about 1.7A for best overall performance. C4 and R6 are part of a bootstrap circuit, which ensures that the voltage across R6 remains constant. If the voltage is constant, then so is the current, and this part of the circuit ensures linearity as the output approaches the +ve supply.
+
+<p>After some more testing, I found that the optimum quiescent current was 0.75 times the peak speaker current. At lower currents, third harmonic distortion predominates, while at higher current distortion seems to remain stable (but device dissipation is increased).
+
+<p>You will notice that there is no Zobel network on the output, and the amp is unconditionally stable without it.
+
+<p>Before applying power, set VR1 to the middle of its travel, and VR2 to maximum resistance (minimum current). Be very careful - if you accidentally set VR2 to minimum resistance the amp will probably self destruct - more or less immediately.
+
+<p>With an ammeter (or 1 Ohm resistor) in series with the power supply, apply power, and carefully adjust VR2 until you have about 1A. Set VR1 to get 20V at the +ve of C3, and re-check the current. As the amp warms up, the current will increase, and
+you need to monitor it until the heatsinks have reached a stable temperature. If necessary, re-adjust VR2 and VR1 once the amp has stabilised. If you use a heatsink of more than 0.5&deg;C/W the amp will overheat and will be thermally unstable - <i>this is not desirable </i>(<small><i>note use of extreme understatement </i>:-</small>
+
+<p>I used a 40V supply, and was able to obtain 20W at the onset of clipping. Clipping is a lot smoother than most solid state amps, and the amp has no bad habits as it clips. Using a 1uF capacitor directly across the output caused no problems, other than some mild overshoot with a square wave input.
+
+<br><hr><a id="update"></a><b>14 Oct 2000 - Update</b>
+<p>As the supply voltage changes with normal variations in AC mains voltage, the quiescent current also shifts. This is not desirable, and is easily solved with the addition of a resistor and a zener diode (or a series string for odd voltages). If you are using a regulated supply, this mod is not needed.
+
+<p>The process is very simple. First, measure the actual nominal supply voltage - the amp(s) must be connected. Subtract 5 to 7 volts from the measured voltage, to obtain a value that can be matched by standard zener diodes. For example, your supply voltage might be 38V, so a zener voltage between 31 and 33 volts is needed. Since 33V is a standard voltage, that will be fine.
+
+<p>The complete updated circuit is shown in Figure 5, and also shows the actual circuit used on the PCB (excluding the modification described here). The voltage for the quiescent current setting and output voltage is now reasonably well fixed, so mains voltage variations will have very little effect on the overall current of the output stage. Minor variations are also prevented from causing slow voltage shifts at the output. These were never audible, as the circuit is deliberately very slow, but eliminating them cannot be a bad thing. The modification requires that one track be cut, and a resistor and zener (or zener string) attached to the underside of the board. Despite the sound of this, it is completely painless :-)
+
+<p>D1 and D2 are zener diodes - you may only need one of them, depending on your supply voltage. The selection process is described fully below. Within the useful range of zeners, the following values are standard and suitable for the purpose ...</p>
+
+<blockquote>10V, &nbsp; 2 x 12V (recommended), &nbsp; 15V, &nbsp; 16V, &nbsp; 18V, &nbsp; 20V, &nbsp; 24V, &nbsp; 30V, &nbsp; 33V</blockquote>
+
+<p>Values higher than 33V are uncommon in retail electronics outlets, and anything lower than 10V is not recommended in a series string for this application. A pair of 12V zeners gives a stabilised voltage of 24V, which is ideal for the normal supply range of 30-35V.</p>
+
+<center><p><img SRC="p36-a-sch.gif" ALT="Figure 5" BORDER=1 height=336 width=689>
+<br><b><small>Figure 5 - The Complete DoZ Schematic (With Iq Stabilisation)</small></b></center>
+
+<blockquote>
+	* These components are optional, but D1, D2 and R11 should be considered essential. C8 (shown in grey) may be needed with some combinations 
+	of semiconductors. It has been found that some P36 amps oscillate due to just the wrong combinations of f<sub>T</sub>, and adding C8 fixes 
+	the problem. Despite the apparently large value of C8, response remains flat to over 100kHz, so response is not affected.
+</blockquote>
+
+<p>There are a few other small changes to the circuit, but these are simply to reflect the PCB design and are of no real consequence. A Zobel network has been included - not because the amp needs it, but just in case a reactive load that may cause instability is connected. C5 has been reduced in value so it will fit on the board, and C3 (still very much needed !) is mounted off the board as it is too large for PCB mounting (it would almost double the board size).
+
+<p>A quick calculation example for the zener rating and resistance are in order, so it is properly understood. The maximum zener current for a given voltage is easily calculated ...</p>
+
+<blockquote>
+	<b>Iz = Pz / Vz&nbsp;&nbsp;&nbsp; </b>where Iz is zener current, Pz is the power rating, and Vz is the zener voltage
+</blockquote>
+
+<p>Small zeners are typically rated at 400mW and 1W. A 33V 400mW zener therefore has a maximum current of 12mA. Allowing for a resistor voltage drop of 5 to 7 volts means that the zener current will be 5 to 7 mA (1V across 1k gives 1mA). Since it is recommended that zeners be operated at between 5% and 80% of the maximum rated current, this fits very nicely into our requirements.
+
+<p>Should you find that you need a zener voltage of (say) 24V (recommended), then two 12V zeners would be the most appropriate. Try to ensure that the zener current is at least 5% of the maximum, or the regulation will not be as good as it should be. This means that you will need to use a pair of higher voltage zeners in preference to one high voltage and one low voltage.
+
+<p>For example, 24V (near enough) can also be created with a 20V and a 3.9V zener in series. The 3.9V zener will have a maximum current of 102mA (assuming 400mW), and you will barely achieve the 5% minimum current needed (5mA in this case).
+
+<p>The modification described here does not change the measured performance of the amp, and creates no audible differences whatsoever. It is designed to stabilise the quiescent voltage and current, and it does that quite well. Some small variations will still be measured, but are so reduced in magnitude as to be considered negligible for all practical purposes.</p>
+
+<hr><b>Test Results</b>
+<p>On the basis of the tests, I would rate this amp at 15W, although I did get more. Distortion rises with increasing level, and starts to get a bit high above 15W - at low power (such as a couple of watts) the distortion was about the same as the residual of my oscillator, which means that it must be below 0.04%, but I have no idea just how low it gets. All distortion components are predominantly second harmonic at all tested levels.
+
+<p>I simply used components as I found them, and did no matching or any selection. All test results are based on the prototype, which uses ordinary resistors, a couple of old salvaged computer caps for the high values, and standard electrolytics for the others. The input capacitor is an MKT polyester type.</p>
+
+<center><table border=1>
+<tr><td>Supply Voltage</td><td></td><td ALIGN=RIGHT>40V</td></tr>
+<tr><td>Quiescent Current</td><td></td><td ALIGN=RIGHT>1.7A</td></tr>
+<tr><td>Maximum power 8 Ohms</td><td></td><td ALIGN=RIGHT>20W (15W)</td></tr>
+<tr><td>Output Noise (unweighted) &nbsp; </td><td></td><td ALIGN=RIGHT>&lt;1 mV</td></tr>
+<tr><td>Distortion @ 1kHz, 15W</td><td></td><td ALIGN=RIGHT>&lt; 0.2%</td></tr>
+<tr><td>Output Impedance</td><td></td><td ALIGN=RIGHT>0.378 Ohm</td></tr>
+<tr><td>Frequency Response (-0.5dB @ 1W)</td><td></td><td>&lt;10Hz to >50kHz</td></tr>
+</table>
+<b><small>Table 2 - Measured Performance Of Figure 4</small></b></center>
+
+<p>I could hear no noise at all, even with power supply ripple of 300mV peak-to-peak. The noise level I measured was about 0.5mV, but it is not easy to measure accurately at such low levels. There appeared to be no residual hum that I could see on the oscilloscope, even with averaging turned on.
+
+<p>From this it appears that the amp is quite tolerant of supply ripple, and a simple supply will probably be fine. I tested with my normal "monster" supply, which has a fair bit of ripple, and still could not measure any supply hum at the output. A suitable power supply would be the capacitance multiplier circuit (<a href="http://sound.au.com/project15.htm">Project 15</a>), or a simpler one can be used.
+
+<p>The amp is extremely tolerant of voltage, so for less power, use a lower voltage supply - no other changes are necessary. I found that the amp worked perfectly with supplies down to 15V, but less than 20 is unlikely to be useful (even this will only give about 4.5 Watts into 8 Ohms).
+
+<p>Do not try to increase the power by using a higher voltage, as the dissipation in the transistors will exceed their ratings. If you need more than 15W, I strongly suggest that you use a circuit such as the 60W amp (<a href="project3a.htm">Project 3A</a>), which actually has lower distortion than this design.
+
+<p>The amp will also tolerate a short circuit with no ill effects (I wouldn't keep it up for too long though), and even (blush) reverse polarity. I accidentally connected the supply up backwards while testing, and thought "Oh, no. Now I'll have to rebuild the blessed thing" (if the truth be known I thought something much shorter!). However, I connected the supply the right way 'round, and away it went, as if nothing had ever happened. This is <i>not</i> an experiment I suggest to others.
+
+<p>I found that the design is also unaffected by quite a few component variations. When I first started testing there were no emitter-base resistors in the current source, and when I added them, I simply readjusted the two pots to get everything back where it was. I retested distortion after making the changes, and could measure no difference.
+
+<hr><b>Final Test Results + More Info</b>
+<p>Before I finish with this project, I have tried some faster transistors (see <a href="#Below">below</a>). The ones I used initially are the absolute base model 2N3055/1, so I tested with something faster (but with less power - I used plastic 130W devices). The 2N3055 comes in a whole bunch of different flavours - fast, slow, 60V, 100V etc. The ones I have are slow (FT is only 800kHz) 60V devices (I salvaged them from a bunch of old power supplies).
+
+<p>I do not suggest that you use plastic case transistors unless the supply voltage is kept below 35V, or if you must use low power plastic cased devices (such as TIP3055s) use two transistors in parallel. The latter method will make a nice simple amp quite complex. Otherwise, you can use MJL4281 or MJL21194 transistors. These are very nice devices, and have a sufficiently high power rating so that parallel operation is unnecessary.
+
+<p>As it stands, this amp is so simple that I wired mine with everything just soldered directly to the output transistors (which I put in sockets), and a couple of insulated stand-offs. I might even put in a photo of it - it looks rough (only because it is), but who cares.
+
+<p><a id="Below"></a><b>16 Dec 99: </b>I tried transistors with an f<sub>T</sub> of 2.5MHz, and it made only a slight difference to the speed of the amp (slight, as in not worth the effort). Distortion remained about the same, and the amp remained stable.
+
+<p>I also tested the amp into 4 Ohms while still set up for 8 Ohms, and it managed 10W at a distortion of about 0.4% (far too high for my liking). I had to reduce the voltage and increase current so it clipped symmetrically. I have prepared a table of voltage, current, impedance and expected power below for those who want to experiment further.</p>
+
+<center><table width="50%" BORDER>
+<tr><td><b>Z (ohms)</b></td><td><b>Volts</b></td><td><b>Iq (Amps)</b></td>
+<td><b>Diss. (W)</b></td><td><b>Power</b></td></tr>
+<tr><td>4</td><td>40</td><td>3.40</td><td>136.00</td><td>32.41</td></tr>
+<tr><td>8</td><td>40</td><td>1.70</td><td>68.00</td><td>19.81</td></tr>
+<tr><td>16</td><td>40</td><td>0.85</td><td>34.00</td><td>10.87</td></tr>
+<tr><td>4</td><td>35</td><td>3.00</td><td>105.00</td><td>24.51</td></tr>
+<tr><td>8</td><td>35</td><td>1.50</td><td>52.50</td><td>15.02</td></tr>
+<tr><td>16</td><td>35</td><td>0.74</td><td>25.90</td><td>8.26</td></tr>
+<tr><td>4</td><td>30</td><td>2.50</td><td>75.00</td><td>18.01</td></tr>
+<tr><td>8</td><td>30</td><td>1.30</td><td>39.00</td><td>10.89</td></tr>
+<tr><td>16</td><td>30</td><td>0.63</td><td>18.90</td><td>6.01</td></tr>
+</table>
+<b><small>Table 3 - Operation At Different Voltage And Impedance</small></b></center>
+
+<p>The table is not meant to be too accurate, but as a guide only (the figures were calculated in a spreadsheet, using a fairly basic empirical formula). Note that with a dissipation of 136W, 4 Ohm operation from a 40V supply is not recommended. Trying to get a continuous 68W of heat out of each transistor and into a heatsink is extremely difficult, even with TO-3 transistors. Even 34W each requires meticulous attention to detail with the transistor mounting if you want to keep the thermal resistance (and hence temperature) down.
+
+<p>If you can't keep your fingers on transistors, then they are hotter than I like to operate them - I know they will take much more, but it shortens their life.
+
+<p>In reality, the amp can be operated into any impedance you like, while still set up for 8 Ohm operation. Just remember that for lower impedances, the output will not clip symmetrically, and output power is reduced. At higher impedance, the power is reduced, but so is distortion.</p>
+
+<table><tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE CAREFULLY" height=37 width=108></td>
+<td><big>One problem with such a simple design is that the quiescent current is supply voltage dependent. Mostly this will not cause major problems, particularly if a generous heatsink has been used (any why would you use anything else?). It does require that the current is set carefully, and should be monitored to make sure it cannot reach destructive levels.</big></td></tr></table>
+
+<hr><b>Heatsink</b>
+<p>As I have said before, this amp needs a really, <i>really</i> good heatsink, as do all Class-A amplifiers. Have a look at my article on <a href="http://sound.au.com/heatsinks.htm">heatsinks</a> to see what sort of radiating surface is best. A thin coat of flat black enamel paint seems to be the most effective in my experience (other than black anodising, which is the overall winner).</p>
+
+<hr><b>Conclusions</b>
+<p>From everything that has gone on during development, I feel that my anti-MOSFET stance is justified for a Class-A design, at least, and that the concept of such an ultra simple amplifier is flawed if low distortion is the ultimate goal.  Certainly, some degree of low order harmonic distortion is not unpleasant, and may even add some degree of musicality to an otherwise "clinical" sound, but the cost (i.e. loss of definition of complex passages, etc) is too high for my liking.
+
+<p>Even the bipolar transistor version is unacceptable in the most basic configuration, since although the distortion is lower, it is still too high - this does not qualify as hi-fi by any definition. The addition of global negative feedback (as shown in Figure 3) is the <small>ONLY</small> way to reduce the distortion to within acceptable limits.
+
+<p>In the introduction, I said that I would discuss the damping factor issue further, and so I shall. In my article on impedance (see <a href="#reference">references</a>), I went into some detail about one of my amps that I modified to have a very high (about 200 Ohms) output impedance. The overwhelming majority of people who heard it said that it sounded just like a valve amp - but what is the sound of a valve amp when its at home?
+
+<p>Firstly, I have to disagree with the "overwhelming majority" to some extent. There are other subtle differences between my modified amp and a valve amp that cannot easily be eliminated. As long as the level is reasonably low (not even thinking about clipping), these differences are difficult to detect by ear, but include:
+
+<center><table BORDER WIDTH="70%">
+<tr><td><b>Valve Amp</b></td><td><b>Modified Transistor Amp</b></td></tr>
+<tr><td>Increasing distortion with level (> 0.05% and rising)</td>
+<td>Relatively constant distortion (&lt; 0.01%)</td></tr>
+<tr><td>Distortion is almost all low order</td>
+<td>Some higher order components</td></tr>
+<tr><td>Medium output impedance (about 2 to 6 Ohms, typically)</td>
+<td>Very high output impedance (> 200 Ohms)</td></tr>
+<tr><td>Relatively low bandwidth</td>
+<td>Wide bandwidth</td></tr></table>
+<b><small>Table 4 - Valve Vs Transistor Amplifiers</small></b></center>
+
+<p>The output impedance is by far the most noticeable effect, and results in <i>apparent</i> better bass (but not always - it is sometimes peaky and with some speaker systems becomes "flabby"), and also an improvement in high frequency performance. As the impedance of a speaker rises - either at low frequencies as it approaches resonance, or at high frequencies due to the inductance of the voice coil - a normal amp simply delivers less power. This is because if the voltage is fixed (by the gain of the amp), then less power is delivered to a higher impedance than a lower impedance.
+
+<p>Likewise, where there are impedance dips - often caused by crossover networks - the "normal" amp will deliver more power, often to the detriment of the acoustic balance. An amp with a high(ish) impedance can be thought of as a constant power device - for any given input voltage, the power will remain constant regardless of variations of load impedance. This is not strictly true, of course. No amp can be tailored so the output impedance is just exactly right to give equal power regardless of impedance, but you can get passably close.
+
+<p>What this means is that the speakers will provide more output at the frequencies you are unused to hearing from them, and less where they might have sounded too prominent. The overall sound is not always more accurate (often less so), but it is different, and will generally <i>seem</i> to sound better. If my tests are any guide (I hope so!), then most speakers actually benefit from a small amount of induced output impedance, and I am using this technique on my own system for the bass drivers.
+
+<p><b><small>UPDATE: </small></b>Indeed, Nelson Pass mentions this very point, and advises that some speakers will not like the output impedance of the Zen, and will not sound the way they should. (27 Nov 99)
+
+<p>The Zen (and all derivatives thereof) will produce exactly this phenomenon, and I suspect that this is one of the main attractions. If this is the case, the DoZ amplifier should be just what you are looking for. Although marginally more complex than the Zen, it will provide pure Class-A at acceptably low distortion levels.
+
+<p>I aimed for an output power of at least 12 Watts (Wow - that much!), obtained 19W, and even this will require some fairly large heatsinks to keep temperatures down to reasonable levels. The power supply is much cheaper than that of the Zen, and can use a basic supply or a capacitance multiplier to eliminate ripple, without sending the builder broke with the cost of high value capacitors. The output is capacitor coupled, allowing a simple single supply and no DC servos to try to minimise the DC offset.
+
+<p>I have also designed a simple, high performance preamp circuit (all discrete Class-A), which looks pretty good so far (it has been built and tested - see <a href="http://sound.au.com/project37.htm">Project 37</a>). Simulations of this indicated that I will be completely unable to measure the distortion (less than 0.0001%) because it is so far below the limits of my equipment. The reality is a little different, but the distortion is still very low, and frequency response is very good indeed.
+
+<p>Both the power and preamp are completely new designs, but due to the limited number of sensible amplifier topologies, will almost certainly look like something you have seen already. I have yet to include (as an option) the ability to increase the output impedance up to about 8 Ohms, so you can have the one benefit of the Zen approach without the shortcomings.
+
+<hr><a id="reference"></a><b>References</b> 
+<p><a href="http://www.passlabs.com">Zen Amplifier</a> - Designed by Nelson Pass
+<br><a href="http://sound.au.com/impedanc.htm">Impedance</a> - ESP Article, Rod Elliott
+<br><a href="jll_hood.htm">10W Class-A Amplifier</a> - An edited version of John Linsley Hood's original
+<p><b><small>NOTE: </small></b>I have not published (and do not intend to) the circuit for the Zen amp. It is not my intellectual property and to reproduce it here is not my policy. A web search for "zen" will find it (along with 10,000+ other sites), or you can just go to the Nelson Pass site above. This will not show all the variations, but the idea is much the same for all of them.
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright (c) 28 Oct 1999./ Updates:&nbsp; 12 Feb 2000 - corrected a few mistakes, and removed references to what was to be done (since it has been)./ 16 Dec - a few more test results and table 3./ 15 Dec - Added final circuit, and various commentary, fixed a couple of errors./ 29 Oct - Added test info for MTP3055 FET./&nbsp; 30 Oct - Figure 3 and text./ 27 Nov - Various notes added 27 Nov 99./ 1 Jul 2000 - added some additional commentary and removed redundant (old) comments../ 03 Oct 05 - Rev-A PCB details and photo added.</div>
+</body>
+</html>

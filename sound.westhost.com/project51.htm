@@ -1,0 +1,155 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="balanced,line driver,audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+   <meta name="description" content="ESP Project Pages - Balanced Line Driver / Receiver. Visit my other pages for more audio projects and articles">
+   <title>Balanced Line Driver &amp; Receiver</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 51&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Balanced Line Driver &amp; Receiver</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><table><tr><td><a href="pcb/pp87.htm" target="_blank"><img SRC="pcb.gif" border="0"></a></td>
+<td><b><small>PCBs are available for the updated version of this project (P87). Click the image for details.</small></b></tr></table>
+<hr>
+
+<b>Introduction</b>
+<p>Sometimes, you just can't get rid of that %$#*&amp; hum, no matter what you do. Especially with long interconnects (such as to a powered sub-woofer), earth loops can be a real pain. For this reason, just about all professional equipment uses balanced lines, which, if properly executed, will eliminate the hum completely.</p>
+
+<p>With this simple project, you can have balanced lines too, simply adapting the unbalanced inputs and outputs of your hi-fi gear to become balanced, and then back to unbalanced at the other end. You can even be extra cunning, and power the remote converter from the cables carrying the signal. Professionally, this is called "Phantom Feed", and is used to power microphones and other low current equipment. The version I have shown is actually a differential feed. Whilst not as good as a true 48V phantom powering circuit, it does work, and makes an interesting experiment (if nothing else).</p>
+
+<hr><b>Description</b>
+<p>Before we start, a brief description of the standard (unbalanced) and balanced line is in order. An unbalanced line is the type you have on the hi-fi, typically using an RCA connector, and feeding the signal through a coaxial cable. The inner cable carries the signal, and the outer shield is a screen, to prevent RF interference and general airborne noise from being picked up on the signal lead.</p>
+
+<p>This is fine, except for one small detail - the shield must also carry the signal! This is the return path, and is required in all electrical connections - otherwise there is no current flow and the system will probably just hum softly (or loudly) with none of the wanted signal.</p>
+
+<p>The problem with electricity (like water and most people) is that it always takes the path of least resistance, so when two pieces of equipment
+are connected, most likely there will be signal plus hum, because of the dreaded earth loop. This is formed when both items are connected to the mains earth, and also have their earth (zero Volt) points joined via the shields of the signal leads.</p>
+
+<p>In some cases it is possible to disconnect the earth at one end of the cable - some people have also disconnected the mains (safety) earth.
+Both achieve the same result, but disconnecting the mains earth is extremely dangerous. Unfortunately, the result is not always as one would hope.
+RF interference can become much worse, and other noises become apparent that were absent before.</p>
+
+<p>In contrast, a balanced connection uses two wires for the signal (much like the telephone circuit), with the signal equal in amplitude in each
+wire, but opposite in phase. Only the out of phase signal is detected by the remote balanced receiver, and any in phase (common mode) signal is rejected. RF interference and other noise will be picked up equally by both wires in the cable and so will be in phase. It will therefore be rejected by the receiver. In this way, it is possible to have long interconnects, with the shield connected at one end only. This cuts the earth loop, and the balanced connection ensures that only the wanted signal is passed through to the amplifier(s).</p>
+
+<p>It is very important that the two signal leads are twisted together, and the tighter the twist, the better. The shield prevents RF and other interfering signals from causing too much trouble, and the final signal should be free from hum and noise. The shield serves the same function in an unbalanced circuit, but is less effective due to the fact that it usually serves as the signal return path, and any signal that does get through becomes part of the signal.</p>
+
+<p>The idea of this project is to give you some options, and to assist in creating a solution - it should not be seen as a complete solution in itself. There are many variables - far too many to be able to say with complete confidence that this WILL prevent all hum and other interference. It might, but it is likely that some experimentation will be needed to get the results you want.</p>
+<p>Note that for both transmitter and receiver, it is essential that 1% (or better) tolerance resistors are used. If the trimming option is implemented, then you could use 5% resistors, and you will be able to adjust the circuit to get maximum common mode rejection - however I recommend that you use the 1% metal film resistors. For the small extra cost you get much higher stability, and lower noise.</p>
+
+<p align="center"><img SRC="p51-f1.gif" ALT="Figure 1" BORDER=1 height=226 width=396>
+<br><b><small>Figure 1 - Balanced Line Transmitter</small></b></p>
+
+<p>The transmitter uses one opamp to buffer the signal, and the other to buffer and invert it. This creates a balanced signal, where as the signal swings positive on one lead, it swings exactly the same amount negative on the other. The 220 Ohm resistors at the output ensure stability with any lead, and are also used to attenuate the signal slightly. The signal swing from the transmitter (across both wires) is double the voltage of the input signal.</p>
+
+<p align="center"><img SRC="p51-f2.gif" ALT="Figure 2" BORDER=1 height=226 width=396>
+<br><b><small>Figure 2 - Balanced Line Receiver</small></b></p>
+
+<p>The receiver has an optional 3.3k resistor across the inputs (RO) to help balance the input against minor variations in cable impedance between
+the individual lines. The 220pF capacitor is for HF rolloff, and will attenuate any RF that might get picked up by the lead. Any common mode signal - where both leads provide a signal of the same polarity to the receiver circuit; typically noise - is rejected, leaving only the wanted signal.</p>
+
+<p>The rest of the circuit is a conventional balanced input stage. This particular configuration is somewhat notorious for having unequal input impedances referred to earth. The 3.3k resistor helps this (a little, anyway), and the 220pF capacitor also assists at higher frequencies. A more complex circuit could have been used, but that would require 3 opamps, and for the intended task would offer few real advantages.</p>
+
+<p>With the capacitor value chosen, there is about 0.1dB attenuation at 20kHz - if you don't like this idea, reduce the value to 100pF, however since 0.1dB is quite inaudible, there seems little point.</p>
+
+<p>With the values shown, there is a very slight overall gain of just over 0.3dB. This is unlikely to be a problem. The circuit is designed to send the maximum level possible across the balanced cable, and most of the attenuation is performed at the receiver. This will reduce any noise picked up by a further 6dB for the transmitter / receiver pair.</p>
+
+<p>It is also possible to ensure that the common mode rejection is as good as it can possibly get, by making R10 variable. I suggest that you use an 8.2k fixed resistor, with a 5k multi-turn trimpot in series. To balance the circuit, you may use an oscillator and millivoltmeter, or just a small battery and a multimeter.</p>
+
+<p>Join the two inputs together, and connect the battery or audio oscillator between the two joined inputs and earth. Adjust the trimpot until there is 0V at the output - the common mode signal is now gone completely. Typically, this circuit will give a common mode rejection of about 40dB if not trimmed as described, but trimming will let you improve on this considerably.</p>
+
+<p>Although this transmitter and receiver pair will probably allow the use of unshielded interconnects, I don't recommend this. Use a good quality shielded twin microphone cable. The earthing of the shield should normally be done at the receiver end, but in some cases you might find that the noise rejection is better if the transmitter end is earthed. Experimentation will be needed.</p>
+
+<hr><b>Phantom Power (For the Experimenter)</b>
+<p>It is possible to run this unit with the signal leads also carrying the power for the receiver. We could use conventional phantom feed (using a 48V supply), but it is easier to use a differential feed, with the +ve and -ve supply voltages on the signal leads. The basic scheme is shown in Figure 3. This may be found to reduce common mode rejection, and it is essential that the power is completely noise free, or it will become part of the signal! If this method is to be tried, use the trimming option, so the supply feed resistors can be catered for. Alignment with a battery will no longer be possible, and a signal generator will have to be used - with coupling capacitors to each signal line.</p>
+
+<table width="100%" CELLSPACING=0 CELLPADDING=0 >
+<tr><td><img SRC="note.gif"></td>
+<td><i>The resistor RO must be removed in this configuration. </i>I would strongly recommend that an output coupling capacitor is used from
+the Out terminal of the receiver, since it is likely that there will be some DC offset due to capacitor leakage currents.</td></tr></table>
+
+<p align="center"><img SRC="p51-f3.gif" ALT="Figure 3" BORDER=1 height=226 width=396>
+<br><b><small>Figure 3 - Differential "Phantom" Powering</small></b></p>
+
+<p>The voltage to the receiver opamp is reduced by this technique, and the maximum signal level will be reduced too. Only by experimenting will you be able to determine the exact power losses and maximum signal level attainable. The tests I did indicate that you should not expect more than about 1V RMS, but you might get more depending on the opamp used for the receiver. The power feed resistors also load the transmitter, and reduce its output capability somewhat. You might want to experiment with a low-power opamp (such as an LF351) as the receiver, as this will
+allow a higher supply voltage and more signal before distortion.</p>
+
+<p>I would expect that the most likely use for this arrangement would be for a remote sub-woofer, where it may be very inconvenient to have to create an additional power supply. I can't say that I am completely happy with this arrangement, but it does work. A 48V phantom supply would
+be better, but it is not likely that too many constructors will want to go to this trouble.</p>
+
+<p align="center"><img SRC="p51-f4.gif" ALT="Figure 4" BORDER=1 height=174 width=567>
+<br><b><small>Figure 4 - Overall Frequency Response of Differential Feed and Both Circuits</small></b></p>
+
+<p>The shield will now have to be connected at each end, but one end can be earthed using a 10 Ohm resistor, which should be bypassed with a 100nF capacitor. Again, experimentation is needed to determine which end should have the "hard" earth. Make sure that the connectors are polarised
+so that power cannot be connected the wrong way around. Diodes may be added if desired to provide proper protection. These should be in parallel with the receiver filter caps (C+ve and C-ve), because a series connection will reduce the voltage further (there is not a lot to start with, so a further reduction would be a disaster).</p>
+
+<p>Use of a multi-cored cable and suitable connectors will allow you to run the power supply on separate wires in the cable, and the additional
+cost of the cable and connectors is likely to be offset by the simpler circuit and better performance. This may not always be possible, hence the differential phantom feed.</p>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the  intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright (c) 05 Feb 2000</div>
+</body>
+</html>

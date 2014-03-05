@@ -1,0 +1,219 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="description" content="ESP Project Pages - Capacitance Multiplier Power Supply. Visit my other pages for even more!">
+   <meta name="keywords" content="audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+   <title>Capacitance Multiplier Power Supply Filter</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 15&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>A Simple Capacitance
+Multiplier Power Supply For Class-A Amplifiers</b><br />
+<small>Rod Elliott - ESP (Original Design / Basic Principles)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>Since I have provided the schematic for John L Linsley-Hood's Class-A amplifier, I felt that some readers may wish to experiment with the concept. Unfortunately, a very low ripple power supply is needed for all Class-A amps, and the most common solution is to use a regulated supply. A basic circuit is provided in the article, but it is assumed that the builder knows all the pitfalls. The supplied schematic is in fact for a capacitance multiplier filter (not a regulator), but is somewhat lacking (I feel) and can be improved dramatically.</p>
+
+<p>While the performance of a true regulated supply will be excellent (if properly designed and built), there are a number of problems for a high-current, low ripple design if regulators are used. Two of the main ones are:</p>
+
+<ul>
+	<li>The regulated output voltage must be lower than the lowest possible voltage from the rectifier/filter combination - including mains ripple. This depends on transformer regulation and mains variations.</li>
+
+	<li>The circuit must be capable of dissipating all excess voltage from the rectifier/filter at the highest possible mains voltage.</li>
+</ul>
+
+<p>For the sake of the exercise, assume that we want the following specifications:</p>
+
+<ul>
+	<li>Output Voltage -&nbsp; 20 Volts (+ve and -ve)
+	<li>Output Current -&nbsp;&nbsp; 2.5 Amps max. (1.25 Amps average)
+	<li>Mains Voltage -&nbsp;&nbsp; 220 VAC nominal
+	<ul>
+		<li>260 VAC Maximum
+		<li>200 VAC Minimum
+	</ul>
+</ul>
+
+<p>These specifications are typical, since Europe uses 220V mains, Australia uses 240V - the voltages can easily be scaled for the US 115V mains supply - and all are subject to variations, both long and short term.</p>
+
+<p>We are not actually all that interested in the mains input voltage, only the possible variations of the output of the transformer / rectifier / filter combination.</p>
+
+<p>For a regulated output of 20 Volts, we need a minimum input voltage of about 23 Volts, since most regulator circuits have a "dropout" voltage, below which they cannot regulate. This voltage is the absolute minimum, including the mains ripple which will be superimposed on the DC (See Fig 1). Note that for all calculations I am assuming 50Hz mains supply. The results will be slightly different for 60Hz (as used in the US), but are not significant.</p>
+
+<center><img SRC="p15_fig1.gif" ALT="Figure 1" BORDER=1 height=183 width=523>
+<br><b><small>Figure 1 - Basic Rectifier</small></b></center>
+
+<p>Once the regulator's input voltage drops below the dropout voltage, regulation will naturally fail, and ripple will appear at the output. This will eventually find its way to our ears, causing much muttering and complaining, and rude words surely cannot be far behind !</p>
+
+<hr><b>Design Considerations - Regulator</b>
+<p>We must assume that the transformer / rectifier / filter will have a regulation in the order of 10% (this is fairly typical for a full-wave bridge rectifier). Using the normal 1.414 RMS to peak conversion (the square root of 2), plus a few assumptions based on experience, we therefore have our minimum requirement:-</p>
+
+<ul>
+	<li>Transformer output (at no load) - 16.3 V RMS (each supply) plus diode losses (0.65V) = 17.6V (approx)</li>
+	<li>Assume 0.3 Ohm equivalent series resistance in transformer and rectifier diodes</li>
+	<li>Assume a filter capacitance of 4700uF as an initial value</li>
+</ul>
+
+<p>This will provide a no load voltage of about 23.5 Volts as expected. When loaded to about 2.5 Amps, this will change:</p>
+
+<ul>
+	<li>Output voltage falls to 19.5 V DC (average)</li>
+	<li>Ripple voltage is just over 1 Volt RMS (1.5 Volts peak, triangular wave)</li>
+	<li>Minimum output voltage is now 19.5 - 1.5V ripple = 18 Volts</li>
+</ul>
+
+<p>(These figures were simulated, but reality will be suspiciously close!)</p>
+
+<p>It can be readily seen that far more voltage is needed to ensure that the minimum voltage of 23 Volts is maintained. It turns out (again from my trusty simulator) that a transformer voltage of 22 V RMS is needed, which provides an average DC of 25.4 Volts, less about 2 Volts peak ripple. Close enough.</p>
+
+<p>Now comes the really nasty bit! All of the above must be the case at the lowest possible mains voltage. For the sake of (my) sanity, this is assumed to be 200 V AC, so at the above worst case maximum of 260V, the 22V output of the transformer is now 28.6V. At full load (2.5A), this yields a DC voltage of nearly 35V average.</p>
+ 
+<p>So the regulator will have a minimum input voltage of 25.4 Volts, and a maximum of 35V, so power dissipation will be:</p>
+
+<ul>
+	<li>6.75 Watts average at minimum input voltage and 1.25A average current</li>
+	<li>18.75 Watts average at maximum input voltage (also at 1.25A)</li>
+	<li>Somewhere in between for nominal mains supply voltages and output current variations.</li>
+</ul>
+
+<p>Note that the above figures are for the 1.25A average, but peak dissipation (at 2.5A) will be double, at about 37W for the worst case. This is a lot of heat to dispose of, and must be catered for. I should also mention that a minimum of 200V AC for a nominal 220V is probably optimistic (10% of 220V is 22V) and in reality we may need to cater for even lower voltages. This makes the equation even worse !</p>
+
+<p>To accommodate the worst case, the heatsink for the power supply must be capable of ensuring the maximum device temperature is not exceeded at the highest mains voltage anticipated. At no "normal" mains voltage may the regulator come out of regulation, or severe ripple will appear at the output, degrading the sound quality, and causing audible hum (at double the mains frequency, and with a triangular waveshape, which sounds horrid).</p>
+
+<hr><b>Capacitance Multiplier - Design Considerations</b>
+<p>The only real thing to worry about is the degree of filtering needed! We must assume that at least 3 Volts will be lost across the capacitance-multiplier filter, to ensure that the DC input (including ripple component) always exceeds the output voltage.</p>
+
+<p>Because there is no regulation, the power amplifier must be capable of accepting the voltage variations from the mains - every standard power amplifier in existence does this quite happily now, so it is obviously not a problem. Note that the output power is affected, but this happens with all amps, and cannot be avoided without a regulator.</p>
+
+<p>We can now design for nominal mains voltage (say 220V AC), and with very simple circuitry, provide a filter which will dissipate no more than about 4 Watts in normal use - regardless of mains voltage. Figure 2 shows the basic configuration of a capacitance-multiplier filter, where the capacitance appearing at the base of the output device is effectively multiplied by the gain of the device - thus a 1000uF capacitor appears (electrically) to be a 1 Farad (yes, 1,000,000uF) cap, assuming a gain of 1000 in the output device.</p>
+
+<center><img SRC="p15_fig2.gif" ALT="Figure 2" BORDER=1 height=215 width=555>
+<br><b><small>Figure 2 - Single (Basic) Capacitance Multiplier</small></b></center>
+
+<p>One could simply use a pair of 1F caps for a dual supply, but I have noticed a dearth of such devices (other than the 5V "Supercaps" used for memory backup in computers or the massive caps often used with car power amps). Since they will need to be rated at about 35V, and be capable of considerable ripple current, I cannot help but feel that this is not a viable option.</p>
+
+<p>Both methods will provide a ripple of well under 5mV RMS, but the multiplier has the advantage of removing the triangular waveform - it is not a sinewave, but has a much lower harmonic content than would be the case even with a 1F capacitor.</p>
+
+<p>To obtain a gain of 1000 for a power transistor, we need to use a darlington - either an encapsulated darlington device, or a pair of "ordinary" transistors connected in a darlington pair (See Figure 3). The latter method is my preferred option, since it allows greater flexibility in obtaining devices, and will often have better performance.</p>
+
+<hr><b>The Final Design</b>
+<p>The simple capacitance multiplier filter described above is quite satisfactory as a starting point, but its final operating characteristics are too dependent on the gain of the output transistors. What is needed is a circuit whose performance is determined by resistors and capacitors, and which is relatively independent of active devices (although these will still have an impact on the degree of filtering provided).</p>
+
+<p>We can also improve the ripple rejection, and the final circuit for a dual supply is shown in Figure 3. This circuit reduces ripple to less than 200uV with typical devices (160uV as simulated), and dissipates less than 4 Watts per output transistor at 1.25A continuous operating current.&nbsp; It is unlikely that you will achieve this low hum level in practice, since real wire has resistance.&nbsp; However, with careful layout you should easily be able to keep the output hum and noise to less than 10mV, and this level is more than acceptable for any power amp application.</p>
+
+<p>By splitting the capacitance with an additional resistor, we create a second order filter (12dB/octave rolloff), which reduces the hum more effectively, and also removes more of the higher order harmonics (which tend to make a "hum" into a "buzz" - much more audible and objectionable). The resistor to ground stabilises the circuit against variations in transistor gain, but increases dissipation slightly. This is done deliberately to ensure that there is sufficient voltage across the multiplier to allow for short term variations.</p>
+
+<p>The 12k resistor shown may need to be adjusted to suit your transistors and supply voltage.&nbsp; Reducing the value increases dissipation in the output devices and lowers output voltage.&nbsp; It is unlikely that any benefit will be obtained by increasing this resistor, other than increased hum (hardly a benefit).</p>
+
+<center><img SRC="p15_fig3.gif" ALT="Figure 3" BORDER=1 height=367 width=544>
+<br><b><small>Figure 3 - Complete Dual Capacitance Multiplier</small></b></center>
+
+<p>This is an easy design to build, but requires great care to ensure that ripple currents are not superimposed on the output because of bad grounding or power wiring practices. The schematic is drawn to show how the grounds of the various components should be interconnected, using a "star" topology. If this is not followed, then excessive hum will be the result.</p>
+
+<p>The previous drawing (which you may have downloaded or printed) showed the bridge output not directly connected to the main filter capacitors - this was not my original intention, and the correct method is shown above.&nbsp; Normally, in a schematic diagram the idea is to show the connections, rather than the physical circuit layout.&nbsp; This diagram is an exception, and the physical layout should match the schematic (in as much as that is possible, at least).</p>
+
+<p>Note that the transformer is centre-tapped, and requires equal voltage on each side - in this case, somewhere between 18 and 22V AC. It is most important that the centre-tap is connected to the common of the two input filter capacitors (4700uF), and that this common connection is as short as possible. Use of a solid copper bar to join the caps is recommended. Likewise, a solid copper disk (or square) is suggested for the common ground, tied as closely as possible to the capacitor centre tap.&nbsp; The resistance of the main earth connection is critical to ensure minimum hum at the output, and it cannot be too low.</p>
+
+<p>Because the circuit is so simple, a printed circuit board is not needed, and all components can be connected with simple point-to-point wiring. Keep all leads as short as possible, without compromising the star grounding. For convenience, the driver transistors may be mounted on the heatsink, which does not need to be massive - a sink with a thermal resistance of about 5 degrees C per Watt (or better) should be quite adequate (one for each output device). Remember that the lower the thermal resistance, the cooler everything will run - this improves reliability.</p>
+
+<p>Increasing the capacitance (especially at the input) is recommended, and I would suggest 10,000uF as the ideal instead of the 4700uF shown. This will reduce hum even further, and provide greater stability against short term mains voltage changes.&nbsp; Increased output capacitance will help when powering Class-AB amplifiers, to account for their sudden current demands.&nbsp; I do not recommend more than 4,700uF, as the charging current will be very high.</p>
+
+<p>Although generic transistor types (such as the 2N3055) can be used, it is better if devices with somewhat more stable characteristics (from one device to the next) are used. Plastic (T0-220) devices are fine for the output as shown, but if higher voltage or current is needed you might have to use TO-3 types.</p>
+
+<p>For the components, I would suggest the following as a starting point (or equivalents):</p>
+
+<center><table BORDER=0 WIDTH="90%">
+<tr><td><b>Output Transistors</b></td><td>TIP3055 (TIP2955 for the -ve supply)</td></tr>
+<tr><td><b>Drivers</b></td><td>BD139&nbsp;&nbsp; (BD140 for the -ve supply)</td></tr>
+<tr><td><b>Resistors</b></td><td>1/4W metal film for all resistors</td></tr>
+<tr><td><b>Diodes</b></td><td>1N4001 or similar</td></tr>
+<tr><td VALIGN=TOP><b>Electros</b></td><td>No suggestions, but make sure that their operating voltage will not be exceeded, and observe polarity. (Bypassing with polyester is not really necessary, but if it makes you feel better, do it)</td></tr>
+<tr><td VALIGN=TOP><b>Bridge rectifier</b></td><td>20 to 35A Amp bridge is recommended. This is overkill, but peak currents are high, especially with large value capacitors. Also ensures minimum diode losses at normal currents.</td></tr>
+<tr><td VALIGN=TOP><b>Transformer</b></td><td>Use a toroidal.&nbsp; Power (VA) rating for supply as shown should be as required for the amplifier.&nbsp; A dual 20W Class-A amp will ideally have a minimum transformer rating of 200VA - 5 times the amplifier power.&nbsp; (Note that VA is sometimes incorrectly quoted in watts). Primary voltage is naturally dependent upon where you live.</td></tr>
+</table></center>
+
+<p>Matching the output and driver transistors is not be necessary, but will result in marginally improved performance if done. Use devices with the highest gain possible for best results.</p>
+
+<p>To use the above circuit in single-ended mode, the transformer will need only a single winding (or paralleled sindings if this is possible).&nbsp; Simply wire the transformer and bridge as shown in Figure 2, and leave off the negative multiplier circuit (i.e. everything
+below the common ground point).</p>
+ 
+<hr><b>Using A Capacitance Multiplier Filter With Class-AB Amps</b>
+<p>Note that this circuit is quite suitable for Class-AB amplifiers, but since their current requirements vary so widely adding a (much?) larger capacitance to the output, is a must. The diode is recommended as shown to prevent the possibility of reverse biasing (and destroying) the transistor(s) when power is removed.</p>
+
+<p>The benefits of such filtering are subtle, but may be worth the effort. Many power amps are now built with truly massive capacitance after the rectifier. This reduces hum which is introduced into the signal during loud passages. In theory, this is inaudible - but if so, why do amps with very large capacitor banks always seem to sound better? (Or so the reviewers keep telling us.)</p>
+
+<p>If you are desirous of trying this circuit with a Class-AB amp, I would strongly recommend that the input to output voltage differential be increased (reduce the 12k resistor to do this), or you are unlikely to be pleased with the result. For optimum performance (depending on output voltage, the current variation, etc), I would suggest that a differential of 6V to 10V should be Ok, depending upon the power of the amp. Dissipation will need to be calculated (or measured), and remember that Class-AB amps can (and do) create peak currents which can be very high indeed. For the 20V (nominal) supply shown, peak current into an 8 ohm load is 2.5A (which was the design goal in the first place), but if the voltage is increased, peak currents increase in proportion.</p>
+
+<p>As an example, consider a 100W amp (8 ohms). Peak current into a resistive load is about 3.6A, but when driven into a typical speaker load (whose impedance dips to (say) 3 ohms), the peak current will be 9.6A. This is not mere speculation, but harsh reality - such peak currents are quite common - one of the reasons many manufacturers quote the peak output current of their amps. These specs. can be as high as 40 Amps (for a 100W unit), which is probably overkill, but should be remembered.</p>
+
+<p>It must be remembered that this circuit acts in a manner very similar to a regulator - just without the regulation. If the output current is highly transient in nature, the circuit will allow hum to pass if the input voltage suddenly drops due to increased load (in the same way a regulator will).</p>
+
+<p>Also note that the supply voltage to the power amp(s) will be modulated by the instantaneous current drain of the amp (which happens with "conventional" supplies too). Maintaining a voltage differential sufficient to accommodate these variations is imperative.</p>
+
+<hr><p><b>WARNING:</b> Because this power supply is mains operated, there is the risk of electrocution if extreme care is not exercised while constructing or testing the unit. If you are not confident in your abilities with mains powered equipment, <b><i>do not attempt construction</i></b> under any circumstances .... please!</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to
+use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr>
+</table>
+<div class="t-sml">Updated 21 Apr 2001 - Changed drawings, and amended start earth and transformer rating info</div>
+</body>
+</html>

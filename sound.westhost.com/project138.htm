@@ -1,0 +1,219 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="mains, voltage, brownout, motor, tv, appliance, damage, low voltage, high voltage">
+	<meta name="description" content="Build this brownout detector/ protector to prevent equipment damage when the mains voltage falls below the minimum or rises above the maximum permissible voltage for valve amplifiers, TV sets, refrigerators, air-conditioners and any other gear that will be damaged by out-of-specification mains supply voltages.">
+	<!-- Build this brownout detector/ protector to prevent equipment damage when the mains voltage falls below the minimum or rises above the maximum permissible voltage for valve amplifiers, TV sets, refrigerators, air-conditioners and any other gear that will be damaged by out-of-specification mains supply voltages. -->
+	<title>Brownout Protector</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 138&nbsp;</td></tr></table>
+
+<p align="center"><b>Brownout Detector/ Protector</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><b>Introduction</b>
+<p>Based on things I've heard recently, it seems that more equipment is damaged by brownout (low mains voltage) conditions than ever used to be the case. I'm unsure who is to blame, but the increasing use of 'alternative' or 'green' energy supplies may have something to do with it. If your house is supplied by wind-turbines (for example) and the wind suddenly stops, there is likely to be a significant voltage sag that lasts until more capacity can be brought on-line - for example from an <abbr title="open cycle gas turbine">OCGT</abbr> power station. In addition, most power grids are now running much closer to their maximum capacity, so a small increase in demand can cause the voltage to drop well below the rated nominal value.
+
+<p>Meanwhile, if your TV is on or your refrigerator decides to switch on while the voltage is low, there is a real chance that damage will occur. Motors are particularly susceptible, especially when they have to start under load. The humble fridge is especially easy to damage with low voltage mains, because the motor <i>always</i> has to start under load. If the mains voltage falls too low, the motor can't start, but stalls and overheats quickly. While there is nearly always an over-temperature switch in the circuit, it doesn't always save the motor after repeated abuse.
+
+<p>I've also heard recently that many plasma TV sets can fail if the voltage falls too low. This may also apply to LCD sets, but I have no details about this. Other household products are also likely to be susceptible, but most people won't try to operate appliances if the voltage is low (evidenced by dim lights for example). Heating elements are immune from voltage sags, because they simply draw less current because of the low voltage. Even wide-range switchmode power supplies are affected. As voltage is reduced, current increases. For a high power application, it's easy to exceed the maximum circuit current ... just because the voltage fell below normal. For example, a 150W LED floodlight will draw 652mA at 230V, but if the mains voltage were to fall to 150V it would draw 1A. For one it's not a problem, but if you have 15 lamps on a 10A circuit, the breaker will trip if the voltage falls far enough. 
+
+<p>This project may not appear to have much to do with audio, but valve amplifiers in particular are vulnerable. Low voltage mains reduces the heater temperature which can cause cathode damage, the amp's bias circuits may only have a limited tracking range, and high mains voltages can easily stress valves and electrolytic capacitors that may only have a small margin for excess voltage. Most transistor amps are immune (many will work at reduced power with as little as 25% of the nominal mains voltage), but excess voltage can cause damage in some cases. However, there <i>are</i> amplifiers that are known to misbehave badly if the voltage is too low. Transformers are especially susceptible to excess voltage, because magnetising current increases rapidly as the core is pushed into saturation by higher than normal voltages.
+
+<p>For 230V mains, most products will work with a mains voltage between 204V to 260V (&plusmn;13%), and for 120V countries the range is from 106V to 136V. To be useful, the upper and lower limits should be able to be set independently. The easiest way to power the circuit is to use a switchmode plug-pack (wall-wart) supply. You can pull the PCB from inside and wire it directly into the box. This is by far the preferred method, because there is no likelihood of mains voltages on the low voltage insulated wiring. You can also use a small iron-core transformer with a suitable rectifier, filter and regulator, but that will be larger, use more standby power, and cost more.
+
+<p>There seem to be people posting complete drivel on the Net - I'll bet that came as a surprise! One I saw claims that there are "industry standards" that he naively assumes are adopted by "everyone" because they've been in place for over 30 years. Utter nonsense. There are exactly <i>no</i> standards that are universally adopted, and doubly so if the standard is not mandatory, if Asian manufacturers don't even know it exists, and it only applies to some items of office equipment in the US! There are no standards and no required tests for over or under voltage, other than to ensure that the item does not catch on fire and/or become electrically unsafe if subjected to mains supplies outside the nameplate rating. To assume that somehow the "magic standards fairy" will keep your equipment safe is unlikely to ensure protection. 
+
+<p>Because of the problems people are starting to experience in major metropolitan areas (where mains power has been taken for granted for a great many years), there are several manufacturers now offering under-voltage cutouts. The number of protection devices available is sure to grow over the next few years. Some equipment may have in-built protection, but it's unlikely that you'd ever know about it because wide mains variations have been uncommon until fairly recently, and no-one has bothered to mention the ability in their sales pitch.</p>
+
+<table border="1" style="border-collapse:collapse;">
+<tr><td valign="middle"><img src="mains.gif" /><td bgcolor="#8B0000"><p class="b-wht" align="center">WARNING</p>
+<p class="b-wht">All circuitry used in this project operates at mains potential, and is therefore potentially lethal. Do not attempt construction if you are not 100% confident of your abilities to safely work with and wire mains circuits. In some countries, it may be illegal for non-qualified persons to construct or work on mains powered equipment. ESP accepts no liability for death or injury if you choose to build the project. Do not ignore these warnings. The material presented in this article describes equipment that can kill or seriously injure anyone who builds it. Extreme caution is advised. <i>NEVER</i> work on the project with mains power applied.<br /><br />
+All warnings are to be observed - always! Every part of the circuit is at mains potential, including the DC output from the power supply. For this reason, an external supply should never be used. It should be internal, regardless of whether it is a conventional (transformer based) or switchmode.</p>
+</table> 
+
+<p>Please don't ignore the warnings above - they are deadly serious! It only takes a momentary lapse of concentration for you to die by electrocution or be seriously injured due to electric shock. Any adjustments should be made with the power disconnected - this may well be inconvenient, but it is generally considered that death is a great deal more inconvenient than spending a few extra minutes to ensure your safety.</p>
+
+<hr><b>Description</b>
+<p>The project is not complex, but you must take great care to ensure that it is electrically safe. This isn't just for you as you build it, but for others who may use it - perhaps many years after it was built. While it would seem logical to use a PIC rather than an analogue circuit, the benefit of the system described is that it is easily adapted to suit different voltages, and doesn't require any programming. The circuit uses readily available and cheap parts.
+
+<p>The current that can be handled by the circuit is limited by the relay you select and the maximum load permitted by the electrical circuit. Normally, a 10A relay will be sufficient for most applications, especially with 230V mains. If you are in a 120V country you may choose to use a 20A relay. Some industrial applications might need a larger relay, but this is up to the constructor.
+
+<p class="t-pic"><img src="p138-f1.gif" border=1><br />Figure 1 - Conceptual Schematic Of The Brownout Protector</p>
+
+<p>The schematic doesn't show the power supply. As noted above, this can be a switchmode power supply which should be internal. If you use an external supply, you absolutely <i>cannot and must not</i> use the standard DC connector or DC lead. These are not safe because the output of the supply is effectively connected to the mains! The DC wiring and connector must be rated for mains voltages, and cannot have any conductor part of the socket that can be touched by a finger or other object. The cable from plug-pack supplies is <u>not</u> rated for mains voltages, and I cannot recommend strongly enough against using an external power supply.
+
+<p>The circuit itself is quite straightforward. The mains voltage is 'isolated' by C1 - this isn't true isolation though, C1 acts mainly as a current limiter. The maximum current available is a little over 7mA with 230V, 50Hz mains. C1 <i>must</i> be an X-Class capacitor, designed specifically to direct connection to mains voltages. Do not even think of using a standard DC rated capacitor - X2 caps are rated for 275V RMS, but DC capacitors will fail eventually. R1 and R2 form the first section of the mains voltage divider, and although their dissipation is very low, they must be rated at 1W so they can withstand the maximum possible peak voltage without failure. There are two in series for the same reason. For 120V operation, only <i>one</i> resistor is used, either R1 or R2 - not both!
+
+<p>The AC is rectified by the 4 diodes, and is reduced by the voltage divider created by VR1. The reduced voltage from the mains is compared against a reference voltage, nominally 10V. Should the mains rise above the upper threshold or fall below the lower threshold, the relay turns off and disconnects the load.
+
+<p>When the mains returns to a safe value (between the upper and lower thresholds), a simple timer waits for a couple of minutes before allowing the relay to switch on again, restoring power to the load. This is one area where a PIC would be particularly useful, because long time delays are easy to implement. It doesn't matter though, because the delay only needs to be long enough to prevent repetitive switching at a rate that might damage connected equipment. Luckily, a cheap CMOS IC can be used easily (see full circuit below). 
+
+<p>The comparator is called a 'window comparator' because it will only provide an output if the signal is within the upper and lower limits - i.e. a 'window' of acceptable voltages.
+
+<center>
+<table border="1" style="border-collapse:collapse;" width="800">
+	<colgroup span="4" width="25%">
+	<tr><td><b>230V Operation</b><td><b>Sense Voltage</b><td><b>120V Operation</b><td><b>Sense Voltage</b>
+	<tr><td>204<td>4.42<td>106<td>4.42		
+	<tr><td>230<td>5.00<td>120<td>5.00
+	<tr><td>260<td>5.65<td>136<td>5.65
+</table>
+<small><b>Table 1 - Sense Voltages VS Mains Voltage (&plusmn;13%)</b></small>
+</center>
+
+<p>The 'sense voltage' referred to in the table is simply the voltage presented to the window comparator, based on the assumption that the optimum is exactly half the reference voltage of 10V, set by D5, a 10V zener diode. For the recommended upper and lower limits, the upper threshold is therefore 5.65V when the mains at the upper limit, and the lower threshold is 4.42V
+
+<p>If you wish to use a different mains tolerance percentage (say &plusmn;15%), then you simply multiply the reference voltage (5.00V) by 1.15 to obtain the upper threshold (5.75V, for a maximum mains voltage of 264.5V). Then divide 5.00 by 1.15 to get the lower threshold (4.35V for a minimum mains voltage of 200V). You can have different upper and lower percentages if you wish - just use the method described with your revised percentage figures.
+
+<p>These voltages need to be set fairly accurately, and fortunately this can be done with only a 12V DC power supply - you don't need any mains connection. The threshold voltages can also be set independently of each other, and can be tweaked to get the voltage range you desire. It does not have to be the same as the range I've suggested. You will see from the circuit that the voltage you are sensing is low, and the variation is small. This is unavoidable because we have to divide the peak mains voltage by 46 for 230V or by 24 for 120V. Any error setting the thresholds is therefore <i>multiplied</i> by 46 or 24 at the mains. Accurate setting and high stability are obviously important!
+
+<p>Be aware that even if you do set the voltages exactly as specified, there can still be a variation with the mains. The sense signal is based on the peak value rather than true RMS, and even tiny errors in the threshold voltages are magnified by 46 or 24 depending on your mains supply. A mains error of a couple of volts either way is not really an issue - the important thing is that you can sense out-of-range voltage and switch off the appliance. <i>Extreme</i> accuracy is not necessary, but you'd obviously like the cutout voltages to be fairly close to those you set up.
+
+<p class="t-pic"><img src="p138-f2.gif" border=1><br />Figure 2 - Full Schematic Of The Brownout Protector (Excluding PSU)</p>
+
+<p>There are some changes from the conceptual version, mainly because of the requirement for a clock signal for the timer (U2). D1-D4 must be 1N4007 diodes, and remaining diodes can be 1N4004 or 1N4007. The 10V zener (D5) stabilises the reference voltages V<small>H</small> and V<small>L</small>. As noted above, for the suggested range the voltages are 5.65V and 4.42V respectively. As with the conceptual version, for 120V operation, omit (short) R2 and R4, because R1 then sets the sense voltage at close to 5V without any other changes. R3 provides the clock signal to the 4020 CMOS counter. Capacitors C3 and C4 prevent sudden short spikes from causing the circuit to trip unexpectedly. Probably not strictly necessary, but I think they are a worthwhile addition. Remember that even a momentary pulse at the output of U1A or U1B will reset the timer and disconnect the mains.
+
+<p>I suggest that you may add a <abbr title="metal oxide varistor">MOV</abbr> across the mains input as shown. This will provide some added protection against short voltage spikes that will not be detected by the circuit. The MOV used must be appropriate for the mains voltage, so consult the supplier's data sheet to select the one that's right for you. Use the largest (physical size) MOV that you can, as their protection is far better than small units - all MOVs degrade with time and use, and larger ones simply last longer.
+
+<p>Provided the sense voltage is lower than 5.65V and higher than 4.42V, the outputs of both opamps will remain low, and U2 is not reset. If the voltage goes above the upper threshold, the output of U1B will go high, turning on the 'Protect' LED and resetting U2. Once reset, there is no voltage at Q13 (pin 2), so transistor Q1 turns off, and the relay disconnects the mains. Should the mains voltage sag so that the sense voltage is below 4.42V, U1A's output will go high - this also resets U2 and disconnects the mains.
+
+<p>Because of C2, there will always be a delay before the window comparator will operate, and this prevents false tripping with momentary variations. This delay will typically be between 100-500ms, depending on the magnitude of the 'surge' or 'sag' relative to the nominal voltage. It is possible to reduce the delay time by reducing the value of C2, but that is likely to cause more grief than it's worth. The idea of the circuit is to protect against sustained mains voltage aberrations, and making it hyper-sensitive is not likely to be useful. Any equipment that cannot withstand a short voltage variation is probably faulty and should be repaired. 
+
+<p>The timer arrangement shown is actually the easiest way to get a reasonably long time delay without having to resort to comparatively expensive analogue timer techniques. These require large capacitance and high resistance, and are subject to considerable variation over years of operation. The 4020 CMOS IC is cheap, draws very little current, and runs perfectly from the 12V supply we are using. The delay produced is approximately 2m 44s at 50Hz, or 2m 16s with 60Hz. It uses the mains frequency as the clock signal. It is approximate only because of the initial delay while C2 charges. D9 blocks the clock signal once Q14 (Pin 3) goes high, preventing the IC from constantly switching on and off as it would do with a continuous clock signal.
+
+<p>The 4020 is a 14 bit binary counter, so divides the input frequency by a maximum of 2<sup>14</sup>, which is 16,384. We can't make use of the full count range though, so it will actually stop after 8,192 clock cycles. With 50Hz input, this is 163.84 seconds or 2.73 minutes. If you wanted to make a longer delay you could use two 4020 ICs - the maximum time is then over a month with a 50Hz clock. Personally, I think this is probably too long to wait for your 'fridge to turn back on <img src="grin.gif" />. 
+
+<p>It is very likely that you won't need the full 2m 44s delay, so you can use any of the available outputs. Q13 will halve the time (1m 22s), Q12 halves it again (41s), Q11 halves that again (21.5s) and Q10 (default, as shown in the schematic) reduces the delay to 10s (near enough). You could even use Q9 (pin 12) to get a 5s delay (6 seconds including the startup delay caused by C2), but I think that's probably too short and can't recommend it. Although the circuit shows the use of Q14 (pin 3), Q10 is likely to be preferred by most people - the important thing is that you have a choice. The following table shows the IC delay for each available output. Add 1 second to allow for the charge time of C2. All values in the shaded cells are not recommended.</p>
+
+<center>
+<table border="1" style="border-collapse:collapse;" width="800">
+	<colgroup span="6" width="17%">
+	<tr><td><b>IC Output</b><td><b>Delay (50Hz)</b><td><b>Delay (60Hz)</b><td><b>IC Output</b><td><b>Delay (50Hz)</b><td><b>Delay (60Hz)</b>
+	<tr><td bgcolor="#cccccc">Q4<td bgcolor="#cccccc">160m<td>133m<td>Q10<td>10.24<td>8.5
+	<tr><td bgcolor="#cccccc">Q5<td bgcolor="#cccccc">320m<td>266m<td>Q11<td>20.5 *<td>17 *
+	<tr><td bgcolor="#cccccc">Q6<td bgcolor="#cccccc">640m<td>533m<td>Q12<td>41<td>34
+	<tr><td bgcolor="#cccccc">Q7<td bgcolor="#cccccc">1.28<td>1.07<td>Q13<td>82<td>68
+	<tr><td bgcolor="#cccccc">Q8<td bgcolor="#cccccc">2.56<td>2.13<td>Q14<td>164<td>136
+	<tr><td>Q9<td>5.12<td>4.27<td><td><td>
+</table>
+<small><b>Table 2 - 4020 Delay Times In Seconds ( * = Default )</b></small>
+</center>
+
+<p>The default is 20.5s (17s with 60Hz) as shown in the circuit diagram. Delays shorter than 5 seconds are not useful and should not be used, as it would mean that the connected load will just switch on and off if the mains were close to the upper or lower threshold. The upper threshold isn't a major issue, because when the load is disconnected the mains voltage will rise slightly - enough to ensure that the circuit remains disabled. At the lower threshold, the mains will be cut when the voltage falls far enough, but that will cause the mains voltage to rise slightly (no load voltage) and the mains would normally be switched on again as a result.
+
+<p>To prevent this, there is a hysteresis circuit (D13 &amp; R10) that means that the mains has to increase to around 210V before the power will be restored. You can adjust this by changing the value of R10. A higher resistance means less hysteresis and vice versa. The lower cutout threshold is not changed by the hysteresis circuit, except that the mains will not be restored until the 
+
+<p>Note the two transistors that activate the relay. You can use any small-signal transistors for Q1 and Q2 - the BC549 devices are only a suggestion. Q2 must have a current rating to suit the relay coil - typically around 50mA, but it depends on the relay you use.
+
+<p>When first powered on, the load will not be activated until the delay has expired. The power LED will remain on, but the protect LED will flash briefly, because as C2 charges it initially indicates that the voltage is low - this is completely normal. If the mains should fail completely (a blackout), the relay will switch off because it has no power, and your equipment is protected against short-term re-connection because of the timer. It's reasonably safe to assume that once the mains has been stable for over 2 minutes it will remain so.
+
+<p>If the mains is very close to the upper or lower threshold, the circuit may attempt to switch the load on and off. However, there is the 20s delay and hysteresis for the lower threshold, and if the window comparator detects a fault within this time, the timer is reset. Power will not be returned to the load until the voltage is stable for 20 seconds, and remains within the valid range the whole time. No protection system is infallible - the possibility always exists that power is restored, only to be disconnected again soon thereafter. The delay ensures that power cannot cycle on and off quickly - a condition that may damage some equipment. If you use this circuit with a valve amplifier, I suggest that you use a delay of 1 minute or more.</p>
+
+
+<hr><b>Construction</b>
+<p>Predictably, there is no PCB available for this project, but it's easily assembled on Veroboard or similar. Be careful with the high voltage section though - prototype boards are not designed to withstand mains voltage, and C1, the bridge rectifier (D1-D4) and resistors R1-R4 (all 1W) should be wired independently, insulated with heatshrink tubing and held in place with hot-melt glue or similar. It is vitally important that no short circuits can occur between any of these parts!  Likewise, the relay should not be mounted on the prototype board.
+
+<p>The remainder of the circuit can all be wired on a fairly small piece of Veroboard, making sure that it is firmly mounted so it can't move around. Remember that during normal operation, <strong>all</strong> parts are at mains potential. This includes the LEDs, so use standard 5mm types, as they have enough plastic in front of the LED chip to ensure safety. If you use a metal chassis, it <strong>must</strong> be connected to protective earth as shown in the schematic.
+
+<p>VR1, VR2 and VR3 should all be 10-turn trimpots. You can drill a small hole in the case to that VR1 can be adjusted, but it's not especially useful since you need to be able to measure the voltage across VR1 or C2. To this end, you can include test points (loops of tinned copper wire) so you can attach clip leads from your multimeter for final adjustment. This has to be done with the mains present, so follow the instructions below carefully to avoid a possibly fatal electric shock. Initially, set VR1 for half resistance (5k).
+
+<p>As suggested earlier, the intestines of a switchmode plug-pack is the optimum power supply. Most are wide range (&lt;100V to 265V or more) operation and are regulated. They are also surprisingly inexpensive - far cheaper (and smaller) than a transformer, bridge rectifier, filter capacitor and regulator IC. I leave it to you to figure out how to get the case apart - there are too many variations to be able to give specific recommendations. As a general rule, you can crack the glue join by squeezing the top section of the case in a vise. Be gentle - you don't want to damage the internal PCB!
+
+<p>The power supply you use <i>must</i> be regulated, and also must retain normal 12V output to a voltage at least 10% below the low mains threshold voltage. This is something that you'll need to check if you use 120V mains - with a wide range supply, there is no problem with 230V mains, as the supply will never fall low enough to cause the voltage to drop below 100V (other than during a blackout of course). The supply only needs to be rated at 400mA or so (a 5W supply), because the overall current drain is very low, typically less than 100mA when the relay is on.</p>
+
+<p class="t-pic"><img src="p138-f3.jpg" border=1><br />Figure 3 - Plug-Pack Supply PCB Mounting Example</p>
+
+<p>Once you have the board out of the case, it can be mounted as shown in Figure 3. I used a piece of acrylic, with holes drilled so the mains and DC wiring holds the board in place. Tinned copper wire makes a good mounting method, and also provides termination points. If you use a metal case, you'll need another piece of acrylic or similar underneath the mounting plate, because the mounting wires are accessible on the back of the mounting plate shown. The mains leads are connected to the board on the left side of the photo. Make sure that you cannot inadvertently mix up the mains and DC connections! If mains is applied to the DC output of the supply the results will be spectacular, to put it mildly!
+
+<p>Remember the warnings at the beginning of this article - if you are unsure of your abilities to mount the board solidly and <strong>safely</strong>, then don't even attempt this. Get assistance from someone who is used to mains wiring and knows how much insulation and clearance is needed for mains voltages. The mounting plate shown <i>must</i> be mounted using nylon screws if the screws are accessible from outside the case, and it is imperative that the screws cannot be undone from the outside, so use two nuts on the inside. Safety is paramount, and you cannot leave anything to chance. 
+
+<hr><b>Setting Up &amp; Testing</b>
+<p>Use an <i>external</i> regulated 12V supply, and ensure that all mains connections are NOT connected to the mains! Test point 0 (TP0) is the common connection, and the multimeter -ve test lead connects to this point. First, verify that the voltage across the zener diode (D5) is close to 10V, and that it doesn't get too hot. D5 current should be about 30mA with the value of R11 shown, giving a dissipation of 290mW. The zener will get quite warm - this is normal. Once you have verified this, carefully adjust VR2 to get exactly 5.65V at TP1. Then adjust VR3 to obtain exactly 4.42V at TP2. These voltages may be adjusted to provide for modified cutout voltages if desired.
+
+<p>The settings are completely independent - adjusting one will not affect the other. The divider circuit that sets the threshold voltages could have been simplified, but that would make the adjustments interdependent, so adjusting one would affect the other. The method shown is far easier to deal with.</p>
+
+<table border="1" style="border-collapse:collapse;" width="100%">
+<tr><td valign="middle"><img src="mains.gif" /><td bgcolor="#8B0000"><p class="b-wht" align="center"><i>Remember - for this final step you are working with LIVE mains powered equipment. Do not touch the multimeter, leads, or any part of the internal circuit! Use plastic tools only!</i></p>
+</table> 
+
+<p>Finally, connect multimeter +ve probe to TP3. The mains should then be connected, and the voltage at TP3 measured. It is set using VR1 to be exactly 5.00V with normal mains (at nominal value - 230V or 120V as appropriate). I recommend that you disconnect the circuit from the mains to make any adjustment. If you choose to work 'live', then use an insulated screwdriver to adjust VR1! If you don't have one, use a sharpened plastic knitting needle, shaped so it will fit the adjustment screw. If the mains voltage is high or low (for example you measure 235V), then use the following method to determine the correct voltage at TP3 ...</p>
+
+<blockquote>
+	V<sub>Sense</sub> = 5V at 230V<br />
+	230 / 5 = 46<br />
+	235 / 46 = 5.108 ... this is the voltage required at TP3 (5.11V is acceptable) 
+</blockquote>
+
+<p>The calculation is exactly the same for 120V mains - simply substitute 120 for 230, and the measured mains voltage in place of the example 235V. The same process is used if the mains is a little low. If you get a silly answer, you made a mistake in the calculation - the final voltage you arrive at should be close to 5V depending on the mains voltage at the time. As the mains varies, so does the voltage at TP3 - this is how the circuit functions.</p>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2012. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 06 July 2012.</div>
+</body>
+</html>

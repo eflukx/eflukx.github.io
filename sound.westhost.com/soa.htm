@@ -1,0 +1,302 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Semiconductor Safe Operating Area. The influences and problems faced with high power amplifiers using bipolar junction transistors (BJT).">
+	<!-- Semiconductor Safe Operating Area. The influences and problems faced with high power amplifiers using bipolar junction transistors (BJT). -->
+	<meta name="keywords" content="soa,soar,safe operating area,safe,operating,area,bipolar,transistor,bjt,mosfet,linear,audio,diy,fi-fi,electronic">
+	<title>Semiconductor Safe Operating Area</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Semiconductor Safe Operating Area&nbsp;</td></tr></table>
+
+<p align="center"><small>Copyright &copy; 2003 - Rod Elliott (ESP)<br>
+(With thanks to ON Semiconductor for additional material)
+<br>Page Created 08 August 2003</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="articles.htm" OnMouseOver="document.t1.src='arrow.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br><a href="index2.html" OnMouseOver="document.t3.src='a.gif';" OnMouseOut="document.t3.src='a1.gif';">
+<img SRC="a1.gif" NAME="t3" ALT="ESP Home" BORDER=0 height=24 width=40></a><b>Main Index</b><br /><br />
+
+<hr><b>Contents</b>
+<ul>
+	<li><a href="#s1.0">1.0 &nbsp;Introduction</a>
+	<li><a href="#s2.0">2.0 &nbsp;Amplifier Power Demands</a>
+	<ul>
+		<li><a href="#s2.1">2.1 &nbsp;Amplifier Design Parameters</a>
+		<ul>
+			<li><a href="#s2.1.1">2.1.1 &nbsp;Output Power</a>
+			<li><a href="#s2.1.2">2.1.2 &nbsp;Current</a>
+			<li><a href="#s2.1.3">2.1.3 &nbsp;Dissipation</a>
+		</ul>
+		<li><a href="#s2.2">2.2 &nbsp;Loudspeaker Loads</a>
+	</ul>
+	<li><a href="#s3.0">3.0 &nbsp;Transistor Limitations</a>
+	<ul>
+		<li><a href="#s3.1">3.1 &nbsp;Second Breakdown</a>
+		<li><a href="#s3.2">3.2 &nbsp;Device Parameters</a>
+	</ul>
+	<li><a href="#s4.0">4.0 &nbsp;Destruction!</a>
+	<li><a href="#s5.0">5.0 &nbsp;Protection Schemes</a>
+	<li><a href="#s6.0">6.0 &nbsp;Conclusion</a>
+	<li><a href="#s7.0">7.0 &nbsp;References</a>
+</ul>
+
+<hr><a id="s1.0"></a><b>1.0&nbsp; Introduction</b>
+<p>Safe Operating Area (SOA) for semiconductors is a little understood topic. Although the chart is generally provided in the data sheet, there is a great deal you need to know to be able to make proper use of it.  Without a thorough understanding of the loudspeaker load, instantaneous voltage and currents, and what happens to transistors if the SOA is exceeded, it is easy to imagine that the supply voltage for an amplifier can be increased up to the maximum voltage allowed by the transistors used.</p>
+<p>This is not the case at all, and this article discusses the problems faced in any amplifier design to create a reliable circuit that (ideally) can never place the power devices at risk. This is much easier said than done, unfortunately.</p>
+
+<hr><a id="s2.0"></a><b>2.0&nbsp;  Amplifier Power Demands</b>
+<p>Most basic analysis of a power amplifier design is done (at least initially) using circuit simulation and basic theory. None of this is at all difficult, and is essentially a matter of current analysis through the amplifier into the load. For the sake of simplicity, a resistive load is generally used for all but the most rigorous analysis, and for low powered amplifiers, this is quite sufficient.
+
+<p>When you make (for example) a 20 Watt amplifier using discrete components, most of the power transistors available have so much reserve current and power available that few problems will be encountered. Even a 100W amp is not a problem if the impedance is known in advance, and reasonable care will give a reliable circuit.
+
+<p>The problem is that real life loads are neither predictable nor reasonable, with nominal* 8 ohm loads perhaps plunging to 3 ohms or less at some frequencies, and soaring to 50 ohms or more at loudspeaker driver resonance. Four ohm loads are no better, and 2 ohm loads are a nightmare for most amps.
+
+<p>One of the problems is that music is also unpredictable. Some music has a very low "crest factor" (the ratio, in dB, between the average and peak power), so relatively high power levels are present on a more or less constant basis. Other music has a high crest factor, with a peak to average ratio of up to 20dB (a power ratio of 100:1). Classical recordings are commonly thought to have a high crest factor, but this is not always the case, with some having as little as 6dB. Yes, this is uncommon, but it can (and does) happen).
+
+<p>"Modern" music (a term that has a different meaning to everyone ;-) is not immune from high crest factors, but they are less common than in unprocessed orchestral recordings (for example).
+
+<p>It is the combination of unpredictable loads, very different musical styles and power demands, different listening preferences and (we must never forget this one!) ... heat, that can spell doom for even the best designed amplifier, if it is used outside of the original design parameters.
+
+<p><small>* Nominal - in name only. As used in electronics, "nominal" refers to the expected voltage, power, impedance, etc.,  under "normal" (or sometimes ideal) conditions.</small>
+
+<hr><a id="s2.1"></a><b>2.1&nbsp;  Amplifier Design Parameters</b>
+<p>So, what are the factors that determine if an amp will be reliable or an owner's nightmare? There are quite a few, and as an example I will use the <a href="project3a.htm">P3A 60/100W amp</a> design from The Audio Pages projects section.
+
+<hr><a id="s2.1.1"></a><b>2.1.1&nbsp;  Output Power</b>
+<p>The primary objective is to produce a design that has sufficient power to suit the needs of the owner - this is a very difficult, because of the vast differences in loudspeaker efficiency, preferred listening level, and type of music. Nonetheless, 70W is not an unreasonable figure, and is well suited for many speaker systems. Smaller 2-way units are very popular because of their relatively high spousal acceptance factor, and they are convenient, reasonably priced and can give very good performance.
+
+<p>Such systems simply will not take the full continuous power of a 250W amplifier. The sales blurb may claim they are suited to amps of "20-200W", but this often assumes a "typical" crest factor of around 10dB (10:1), where the peak power will be 10 times the average, or in some cases even more.
+
+<p>This has everything to do with the amplifier design, as it sets a reasonable expectation of the power needed, and sets us towards an understanding of the load the amp is expected to drive. A quick analysis of any 2-way or 3-way speaker will show that the impedance is far from flat, it has peaks and dips at various frequencies, and will only show the nominal impedance at a few frequencies.
+
+<p>Again, for the purpose of explanation, I must choose a speaker system, and the one used for the remainder of this article is completely imaginary.  It exists in simulation only, but has a reasonably close resemblance to many small/medium sized 2-way loudspeakers. The reason for a simulated speaker is simple ... the effects of the impedance variations are easily seen, and are actually very similar to a "real" speaker.
+
+<p>The primary requirement for obtaining power is voltage swing. This in turn is determined by the supply voltage, and the supply voltage and lowest impedance determines the maximum current.
+
+<hr><a id="s2.1.2"></a><b>2.1.2&nbsp; Current</b>
+<p>Using the (nominal) &plusmn;35V supply for P3A as the example, we must accept that even for an 8 ohm loudspeaker, the minimum impedance will be lower than claimed. Six ohms is a realistic figure (assuming a well engineered speaker), but it could be less. A 4 ohm speaker can be expected to have a minimum impedance of around 3 ohms.
+
+<p>Power transistors are assumed to be rated at 200W dissipation, and have adequate voltage and current capabilities (e.g. the recommended devices for the P3A amplifier).
+
+<p>For the 6 ohm case, peak current will be 5.8A, or 11.6A into 3 ohms. This is with a +/-35V supply, but the transformer voltage is always quoted at full (resistive) load, so typically with normal mains voltage, the supplies can be expected to be &plusmn;38V or so with no load. Large filter caps will hold this voltage for several milliseconds, so the maximum peak currents are probably closer to 6A and 12A for 8 and 4 ohm nominal loads (respectively).
+
+<hr><a id="s2.1.3"></a><b>2.1.3&nbsp; Dissipation</b>
+<p>Under ideal conditions, a transistor's power dissipation rating refers to the maximum average power that the device can handle, with the junction temperature at 25&deg; C. At any temperature above 25&deg;, the power is derated (reduced) linearly, until it reaches zero at around 150&deg; C. In some datasheets, you will see that they refer to case temperature, rather than junction temperature. Regardless to the terminology used, it is the maximum permissible temperature of the silicon die (the semiconductor junctions) that is the limiting factor. Very few transistors are designed to operate with a junction temperature above 150&deg;C.
+
+<p align=center><img src="soa-f2-1.png" border=1><br><small><b>Figure 2.1 - Typical Power Derating Curve</b></small>
+
+<p>Based on this, it is obvious that keeping the temperature down is critical, since elevated temperatures reduce the available dissipation, and reduce any safety margin that has been incorporated into the design. High temperatures also reduce device life, and the hotter a transistor runs, the expected life is reduced roughly exponentially.
+
+<p>To place the thermal issues into perspective, there is a calculation in the next section that shows average transistor dissipation to be about 40W (42.5W actually), when driving a 4 ohm reactive load at full power using &plusmn;35V supplies. For the sake of simplicity, we could assume about half that to be the continuous average with music at the highest level before clipping. 20W continuous does not sound like very much, but the thermal resistance from junction to air (per transistor) might be around 5.5&deg; C/W ...</p>
+
+<blockquote>Rth(j-c) = 0.54&deg; C/W (junction to case, assume 0.5&deg;/W for simplicity)<br>
+Rth(c-h) = 1&deg; C/W (case to heatsink - a very good figure, and difficult to achieve in practice)<br>
+Rth(h-a) = 4&deg; C/W (heatsink to ambient, based on a 1&deg; C/W heatsink and 4 transistors [two amps])</blockquote>
+
+<p>... so the temperature rise is 110&deg;. Now, add the ambient temperature - say 25&deg;C - but it could be a lot higher!. The die temperature is therefore 135&deg;C, and from the above chart, that means that continuous allowable power dissipation is reduced to about 23W, so we are way too close to the thermal limit of the transistors - even a minor obstruction over the heatsink would be more than enough to tip the balance.
+
+<p>There is a lot more than just simple dissipation though. Figure 2.2 shows the power in a transistor driving a resistive load at the onset of clipping. As you can see, the power increases until the voltage reaches the halfway point between zero volts and full supply. After that, it goes down again - in a perfect amplifier, dissipation will fall to almost zero at the clipping point.  For Figure 2.2, the applied voltage was &plusmn;35V, with a 3 ohm resistive load.
+
+<p align=center><img src="soa-f2-2.png" border=1><br><small><b>Figure 2.2 - Transistor Power Dissipation</b></small>
+
+<p>The peak power is (using 6 ohms and 35V supplies) (35/2)&sup2; / 6 = 51W, or 102W for a 3 ohm load. Average dissipation is difficult to calculate because of the waveform, but my simulator tells me that it is 15 and 30 watts respectively. Note that for the simulations, zero quiescent current has been assumed - in real circuits, this just adds to the average dissipation.
+
+<hr><a id="s2.2"></a><b>2.2&nbsp; Loudspeaker Loads</b>
+<p>Where things rapidly get out of hand is with the loudspeaker load - it is not resistive (or even close to resistive) for 99% of all loudspeakers. The impedance and phase angle of a loudspeaker varies, and as phase angle changes from zero degrees (voltage vs. current), dissipation increases further.
+
+<p>For the 3 ohm case, a reactive load (at 45&deg; phase angle) can be simulated by using a 477uH inductor in series with the 3 ohm load (for a frequency of 1kHz). With this combination, the peak transistor dissipation is 200W, with an average of almost 42.5W - note that the peak transistor power has doubled, and the average has increased by 1.414. Of particular interest is that the maximum power occurs at the voltage zero crossing point, when the maximum voltage is across the device. This is what causes transistors to fail, and the higher the voltage, the greater the risk.
+
+<p align=center><img src="soa-f2-3.png" border=1><br><small><b>Figure 2.3 - Voltage, Current and Power Dissipation</b></small>
+
+<p>While average power is well within the maximum ratings, the peak has reached the maximum device power, and we are now constrained by the SOA of the devices. Remember, this is with a supply voltage of +/-35V - higher voltages will create higher peak powers with real loudspeaker loads!
+
+<p align=center><img src="soa-f2-4.png" border=1><br><small><b>Figure 2.4 - Simulated Loudspeaker System</b></small>
+
+<p>The combination of resistors, capacitors and inductors simulates the 2 drivers in the system, along with their crossover networks. For simplicity, no impedance correction networks have been included, and the loudspeaker is vented (note the double low frequency peaks shown in Fig. 2.5). This is a typical response, but remember that this is only the electrical response of the system - acoustically, it might be good, bad or indifferent (the electrical response gives clues, but cannot be used to predict the acoustical performance - I would expect it to be very ordinary however, based on the lack of impedance correction that is clearly visible looking at the phase angle and impedance curves).
+
+<p align=center><img src="soa-f2-5.png" border=1><br><small><b>Figure 2.5 - Impedance and Phase Response Of Simulated Speaker</b></small>
+
+<p>While the impedance is more or less as expected, the phase is another matter. At a phase angle of other than zero, the voltage and current are not simultaneous - the voltage may occur before the current (leading phase, capacitive load) or after the current (lagging phase, inductive load).
+
+<p>This is a major problem for amplifier designs, since at any phase other than zero, the power delivered to the load decreases, while the transistor dissipation increases. At 45&deg;, peak transistor dissipation doubles, and power into the load is halved.
+
+<p>As the impedance rises with increasing frequency, the load appears as an inductor, and when it falls with increasing frequency, it is capacitive. Note how little time is spent at zero degrees phase shift!  This means that at nearly all frequencies in the spectrum, the amplifier sees not a resistive load, but a reactive load. A significant number of frequencies are at or near 45&deg; phase shift, so the amplifier is actually working nearly twice as hard as you thought it was.
+
+<hr><a id="s3.0"></a><b>3.0&nbsp; Transistor Limitations</b>
+<p>A bipolar junction transistor (BJT) has a negative temperature coefficient. As temperature rises, the junction voltage falls, and gain increases. Transistors are not perfect - there are always minute flaws in the fabrication, causing tiny variations in the characteristics of different parts of the transistor die.
+
+<p>Modern fabrication techniques have minimised these to a huge extent, but they still exist. Even the resistance of the conductive layers within the device becomes very significant at high currents, so perfect current distribution cannot happen.
+
+<p>Now, there is a sequence of events than can (and does) occur within the transistor. If the instantaneous power dissipation is too high, parts of the transistor die will get hotter than others. This means that the junction voltage falls, and the gain increases - but only at the most sensitive part(s) of the die. If Vbe (base to emitter voltage) falls and gain increases - at one spot in the transistor - it will naturally take more of the current, which means it gets hotter, so it takes even more of the current (and so on).  This can happen in a few milliseconds! That part of the transistor will quickly exceed the maximum permissible temperature, and the transistor will short-circuit internally.
+
+<p>All of this has happened in perhaps 10 milliseconds, and the case is not even warm. This phenomenon is called "second breakdown" (or secondary breakdown), and is the single greatest reason for transistor failure in a working circuit.
+
+<hr><a id="s3.1"></a><b>3.1&nbsp; Second Breakdown</b>
+<p>Data sheets usually have a full set of graphs and charts, showing the various device parameters as a function of voltage, current and frequency. In the design phase, all are important, but the most important of all are the two that are most often overlooked by hobbyists and experimenters - thermal derating and safe operating area.
+
+<p>From the data sheet for the MJL4381A, Fig. 3.1 shows the SOA curve for these devices. Non-repetitive peak currents of up to 30A are permissible for 10ms, but only for collector voltages up to 30V, and only with the junction temperature at 25 degrees. This is a peak power of 300W (the device rating is 230W), but it must be stressed that these conditions must not be allowed to continue beyond the time specified - 10ms is not very long!
+
+<p align=center><img src="soa-f3-1.png" border=1><br><small><b>Figure 3.1 - SOA Curves for MJL4281A/4302A</b></small>
+
+<p>If the time is extended, then the peak current is reduced for a given voltage, and for 1 second, the maximum rated current (15A) may only be drawn at collector-emitter voltages below 15V. This region is limited by the maximum rated current of the transistor, and will <i>never</i> allow continuous operation at maximum power (remember thermal derating? This is where it <i>must</i> be applied).
+
+<p>So far, all this looks pretty good if you look at it in conjunction with the demands outlined above, and it even <i>looks</i> as if it would be safe with 4 ohm loads at greater than rated &plusmn;35V. Appearances can be deceptive though! Remember that all peak currents and power dissipations referred to were for a junction temperature of 25 degrees - no transistor can maintain that temperature in real life, since there is thermal resistance between the die and case, and further thermal resistance between case and heatsink (see <a href="heatsinks.htm">Heatsink Design</a> for more information on thermal resistance and heatsinking of transistors).
+
+<p>The devices must be derated by 1.84&deg; C/W above 25&deg; (see Fig 2.1), which gives <i>zero</i> dissipation at 150&deg; C. The thermal resistance from junction to ambient air (via the case, insulating washer and heatsink) can be expected to be around 1.5-2&deg; C/W (for a <i>big</i> heatsink), so all dissipation limits quoted can be expected to be as little as 1/2 of those shown in the specifications.
+
+<p>That means that the 230W transistor is really capable of a dissipation of around 120W at typical (relatively high) operating temperatures. As a result, at &plusmn;35V with a 3 ohm resistive + 3 ohm reactive load (representing a typical 4 ohm speaker either side of resonance), the maximum limits will be exceeded!
+
+<p>Although this is completely true, in reality there are two things that will ensure that the amp remains functional (for many years) - the nature of music itself, and the collapse of the power supply under sustained load. However, continuous operation at full power into a reactance that gives a 45&deg; phase angle will cause the amp to fail, even with &plusmn;35V supply rails.
+
+<p>The variable nature of music, where the frequency and instantaneous amplitude are continually changing, means that potentially destructive signals do not last long enough to cause a problem, however increasing the supply voltage or reducing the load impedance further will almost certainly cause device failure.
+
+<p>Likewise, the bigger the heatsink, the better. The thermal resistances that cause the semiconductor die to operate at a much higher temperature than you may expect are the limiting parts of the equation - and they cannot be eliminated - at least not sensibly. It is generally considered uneconomical to provide a refrigeration system to keep the transistor temperature at low enough temperatures to avoid problems.
+
+
+<hr><a id="s3.2"></a><b>3.2&nbsp; Device Parameters</b>
+<p><b>Maximum Current:</b> The emitter area determines the maximum current capability of the device, there are many design options for emitters, for audio transistors nearly all manufacturers use perforated emitter (also called mesh emitter) designs. The perforated emitter design also gives better gain linearity than a regular "interdigitised" emitter finger design (double or single comb). The other benefit for perforated emitter designs is silicon area utilisation, you can put a lot more emitter in a given piece of silicon with this design type for lower cost.
+
+One trade-off of the perforated design is switching, devices won't be as fast but we really don't need good switching capabilities for linear transistors and for audio this is a non issue. The bonding wire size depends on the current rating of course.  Typical is around 15 mils (0.38mm) aluminium for audio high current devices.
+
+<p><b>Maximum Power Dissipation:</b> Die size is the main parameter, ON Semi's Thermal Characterization Lab has done extensive studies and created some formulas for each package type so they can predict the thermal resistance (J-C) for any Die size in a given package. There are other factors besides die size that can affect the power dissipation, like solder line thickness, solder alloy, die thickness, etc.  For good SOA performance good power dissipation is a must, thin die and very thin die attach solder are very important factors.
+
+<p><b>Second Breakdown:</b> This is tough to determine and normally is determined by testing devices in a SOA tester by forcing power between collector and emitter and measuring the power dissipation time to secondary breakdown. Vertical structure of the device (collector and base thickness and resistivity) are important device design parameters, as well as die design geometry.
+
+<p><b>Current Gain:</b> Emitter area determines the maximum current gain at high current levels of a device, too high peak hFE may result in lower BVCEO (Breakdown Voltage - collector to emitter, base open), higher hFE results in lower VCE(sat), VBE(on). As mentioned before, for good current gain linearity a perforated emitter design is best.
+
+<p><b>fT (Current Gain bandwidth Product):</b> This is directly related to device gain and also to the device physical base width (wb). Most of the audio transistors in the industry have high fT (~30MHz), the trade-off is SOA performance with high voltage conditions. ON Semi Power Base Technology (which is unique in the market) has low/medium  fT devices (8 to 12MHz) devices like the MJL21193/94 which have excellent SOA above 100V, these devices have wider Bases and also some unique "base spreading resistor" design which make them extremely rugged, used by most high end audio manufacturers.
+
+<p><b>FBSOA (Forward Biased Safe Operating Area):</b> Die size,  power dissipation, die geometry and base width are some important parameters.
+
+<p><small>(The above information kindly provided by ON Semiconductor)</small>
+
+<hr><a id="s4.0"></a><b>4.0&nbsp; Destruction!</b>
+<p>The following photos show a typical (functional) die, and two shots demonstrating destruction. The shiny sections are melted silicon! This is also a good example of the "interdigitised finger" type of emitter and base construction referred to above.
+
+<p align=center><a href="soa-f4-1.jpg" target="_blank"><img src="soa-f4-1s.jpg" border=0></a><img src="filler.gif">
+<a href="soa-f4-2.jpg" target="_blank"><img src="soa-f4-2s.jpg" border=0></a><img src="filler.gif">
+<a href="soa-f4-3.jpg" target="_blank"><img src="soa-f4-3s.jpg" border=0></a>
+<br><small><b>Figures 4.1, 2, 3 - Transistor Dies (click for full size image)</b></small>
+
+<p>The functional die (left) shows clearly what a typical transistor looks like. The emitter and base sections are clearly visible, with the emitter having the thicker "fingers" for best current carrying ability. This is not one of the new ON Semi transistors - the photo is representative only.
+
+<p>The damage in the failed die is quite obvious (centre), and there is a section of melted silicon where the transistor failed. As is the case almost 100% of the time, the transistor is shorted. Open transistors normally are the result of a bonding wire failure after the short has caused excessive current. This failed die would (probably) show the base junction as intact in a resistance test.
+
+<p>A close-up view (right) with greater damage. A large section of the die has exploded from the failure point outwards, and molten silicon has been sprayed all over the die. This failure would almost certainly indicate a short on all terminals (provided bonding wires are intact).
+
+<p>It is a sobering thought that these failures would have taken place in a matter of milliseconds - once the second breakdown region has been reached, the transistor will enter a negative resistance state, and there is nothing that will prevent total failure once the process has started. (Negative resistance is probable, but not a certainty - it depends to some extent on the fabrication method.)
+
+<p><small>(The above photographs kindly provided by ON Semiconductor)</small>
+
+<hr><a id="s5.0"></a><b>4.0&nbsp; Protection Schemes</b>
+<p>A great many protection systems have been used over the years, in the hope of protecting the transistors from damage under all conditions. Power opamp ICs have the most comprehensive protection, but often at the expense of sound quality. By necessity, the protection must operate while the transistors are still quite safe, so their maximum power is never available.
+
+<p>Discrete amplifiers usually employ a simplified system, that will afford protection from most mishaps. A completely foolproof system is usually quite complex, and considerable care is needed to ensure that it does not activate during normal operation. This also applies to simplified systems, and a great many that I have seen do not provide complete protection at all - some are incapable of protecting against short circuits, unless at the end of a length of speaker cable (i.e. the cable's resistance forms part of the protection).
+
+<p>A further problem is that a full protection system will switch the power transistors off very fast, and given that the loudspeaker load is reactive, a "flyback" voltage can be developed that can easily destroy the transistors anyway. Many amps use a pair of diodes from the output to each supply - they are designed to ensure that the output voltage can never exceed the supply rails (except by the diode voltage drop).
+
+<p>In nearly all cases, it is necessary to either use additional output transistors, or tailor the protection circuit to ensure that excessive fault currents are not possible. This invariably means that there will be regions of the signal waveform where the protection circuit will operate when it should not do so. It is thought by a great many people that protection circuits degrade sound quality, and from tests I have done, this is certainly the case if (when?) they operate on any normal loudspeaker load. The <i>only</i> way to avoid problems is to use more output devices than you planned to, and even this is no guarantee that the amplifier will survive every abuse that it will face in a typical domestic or professional application.
+
+<p>Few discrete protection circuits monitor the temperature of the output devices (or the average power level) and thus adjust to suit the conditions. This means that a hot amplifier has a lower level of protection than a cold one, and it is no surprise that amplifiers fail most when driven hard for long periods (commonly as a result of a speaker failure). Thermal tracking is "automatic" in IC power amplifiers, since all devices are on a common piece of silicon. 
+
+<p>Probably the best protection of all is a monitor that will operate if the output transistor SOA is approached, and removes the input signal. This is unfortunately much more difficult than it may seem at first, and the signal switching circuit is another candidate for sound quality degradation. Relays cannot be used, as they are not fast enough - remember, faults lasting only one millisecond can be sufficient to cause failure.
+
+<p>Fuses are used in amplifiers to prevent fire and further damage - no fuse is fast enough to protect an amplifier against fault currents, unless it is so low in value that it will blow during normal use (and even that is very doubtful).
+
+<p>Some "high end" amplifiers (where cost is no object) use a vast number of transistors, and ensure that at no normal (or abnormal) load will they ever exceed perhaps 1/2 their maximum rating. For typical consumer amplifiers (and most professional amps as well) the cost is a primary consideration, and transistors are run to their limits - to do otherwise would make the amplifier uncompetitive in the market.
+
+<p>A typical protection circuit is shown in Figure 5.1 and it is representative of the majority of those in common use. By sensing the current through the emitter resistor, the circuit detects an over-current fault, and removes base drive from the Class-A driver. As the voltage across the output transistor(s) is reduced, the sensitivity of the protection circuit is also reduced, allowing the maximum current at lower collector-emitter voltages where second breakdown is not a problem.
+
+<p align=center><img src="soa-f5-1.png" border=1><br><small><b>Figure 5.1 - Typical Output Protection Circuit</b></small>
+
+<p>How does the circuit work? It is fairly straightforward to explain. Looking only at the upper section, R1 is used to sense the current through Q3, and if it exceeds about 0.65V, Q1 will turn on, "stealing" base current from Q2 (and thence Q3). D1 isolates the circuit from the drive circuit under normal operation. At zero volts output, the current through Q3 must be limited to below the danger level on the SOA curve. With a 35V supply, there are no major problems, but above that, the SOA is severely limited. For example, at 50V, the maximum current is 4A, so R1 must be chosen to provide 0.65V at (or below) 4A - remember that the SOA is limited further with increasing temperature, so 2A would be safer.
+
+<p>As the output voltage increases, R3 (via D2) shunts some of the current sense voltage to ground, reducing the effect, and allowing more current. The danger zone (and the cause of most of the problems) remains at 0V though - with a typical loudspeaker reactive load, a significant current is needed at 0V. Even with 35V supplies (as described above), we need as much as 6.5A when the output voltage is at zero volts (see Fig 2.3). The problems caused by phase angle are such that it is almost impossible to design a current limit circuit that will allow maximum power, but still provide protection for shorted speaker leads, unless there are more output devices than appear to be required.</p>
+
+<table border=0><tr><td valign="top"><img src="note.gif"></td><td><b>Note:</b> At &plusmn;35V, an amplifier such as P3A is completely happy, and with high power (200W) transistors is operating within the SOA curve at all times and with any load (down to a typical 4 ohm nominal impedance). There is sufficient reserve power capacity to enable the amp to withstand full power into 4 ohm loads even at reasonably elevated temperatures.<br><br>However, once the supply voltage is increased, much of the reserve will be used up, making the amp liable to failure. This applies to any amplifier of similar ratings operating into typical loads - P3A has been used as an example, but the same constraints apply to any other design, used in the same way.</td></tr></table>
+
+<p>With careful component selection, circuits such as the above can work quite well. A good design will be conservative (and will therefore need additional output transistors), and will be reasonably effective in all cases. If the designer tries to get as close as possible to the transistor's ratings, the safety margin is reduced, and protection is less effective, Some legitimate signals will cause limiting, and other loads (especially at elevated temperatures) are likely to cause the transistors to exceed their ratings. There is a very good chance that the amp will survive regardless for many years, as the danger point may never be reached in some installations - others will destroy amp after amp, until one is found that can handle the abuse (or the abuse is removed).
+
+<hr><a id="s6.0"></a><b>6.0&nbsp; Conclusion</b>
+<p>It is obviously imperative to avoid second breakdown, and there are many ways that various designers have selected to do so. Protection circuits, Class-G (using two or more supply rails), variable supply voltages, and even switched supply voltages - these are common in many home theatre amps, and a switch is used to select the voltage to suit the load impedance.
+
+<p>There is also the "brute force" method, where there are so many power transistors that the cables will melt before any one transistor's ratings are exceeded, but this is uncommon except in high end amps where the added cost is not considered a problem. Many amps provide no protection at all, other than ensuring that dissipation limits are observed, but a shorted speaker lead (or a lower than recommended load impedance) can cause the amp to fail.
+
+<p>Regardless of the method used, it is important to ensure that the designers' recommendations are followed - good output transistors are expensive, and few of us can afford the luxury (??) of blowing up amplifiers for the hell of it. While a design that exceeds the transistor ratings may last for many years, there will eventually be a combination of circumstances that will cause failure. Parties are a prime cause of blown amps and speakers, and if they feature regularly in your activities, a cheap system (that can play loud, but very basic and with passable fidelity) is highly recommended. Its failure is not something you would cry over, and the main system remains intact always.
+
+<p>Finally, it is important to stress the importance of the SOA curve for any transistor used in an output stage (including driver transistors). Any design that appears to be able to get more power from smaller transistors has almost certainly pushed the devices to (or beyond) their limits, and when driven hard into a difficult load, it will most probably fail - this is an expensive exercise if it takes the loudspeaker with it (not at all uncommon). Ultimately, a "worst case" design procedure assumes that the amp will be driven hard into a difficult load, and with undersized or barely adequate heatsinks. Such a design will survive - others will not.
+
+<hr><a id="s7.0"></a><b>7.0&nbsp; References</b>
+<p>I am indebted to ON Semiconductor for reference material, die fabrication details, photographs, semiconductors and data sheets used in preparation of this article. Photos and other material provided by ON Semiconductor are used with their permission.
+<p>Further information is available in the ON Semiconductor application note <a href="http://www.onsemi.com/pub/Collateral/AN1628-D.PDF">AN1628-D</a> in PDF format.
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams (other than that material which is Copyright &copy; ON Semiconductor), is the intellectual property of Rod Elliott, and is Copyright &copy; 2003. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright (c) 08 August 2003</div>
+
+</body>
+</html>

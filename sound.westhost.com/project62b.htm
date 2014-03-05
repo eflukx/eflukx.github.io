@@ -1,0 +1,139 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="description" content="Elliott Sound Products - The Audio Pages. Build a modular lighting controller, audio projects to build, and many other articles about audio topics.">
+   <meta name="keywords" content="light,strobe,triac,dimmer,control,audio,amplifier,sound,hi-fi,schematic,electronic,xover,crossover,speaker,power,supply,projects,decoder">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <title>Elliott Sound Products - Project 62b - LX-800 Lighting Controller</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <style TYPE="text/css"><!-- th { font-size: 10pt } --> </style>
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 62-B&nbsp;</td></tr></table>
+
+<p align="center"><b>LX-800 Chaser &amp; Strobe</b></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>The strobe controller is essentially a stand-alone device, even though it is part of the console PCB. It connects through a two-wire cable to
+the remote strobe head. Control, input source selection and output routing are on the console.</p>
+
+<table BORDER WIDTH="100%">
+<tr BGCOLOR="red"><td align="center"><font color="white"><b>WARNING - Strobes can be DANGEROUS and can induce epileptic fits. Use sparingly and with caution.</b></font></td></tr></table>
+
+<p>The input to the strobe controller and/or chaser is either through a bass-beat extractor circuit or a free-running oscillator, both of which
+are shared by the chaser and the strobe controller.</p>
+
+<hr><b>Bass Beat Extractor</b>
+<p>The bass beat extractor is shown in Figure 5, and consists of an automatic gain control circuit followed by a low pass filter. The output from this circuit is fed to the next, which converts the beat into a sharp pulse suitable for triggering the strobe or chaser.</p>
+
+<p align="center"><img SRC="p62-f5.gif" ALT="Figure 5" BORDER=1 height=341 width=705>
+<br><b><small>Figure 5 - Bass Beat Extractor</small></b></p>
+
+<p>This circuit uses only the +12V supply. The limiter circuit will not win any prizes for linearity or distortion, but this is of no consequence for this purpose.&nbsp; The diodes are 1N4148, resistors are 1/4W. Capacitors should be rated at 25V minimum.</p>
+
+<hr><b>Strobe / Chaser Controller</b>
+<p>The controller is based on a pair of 555 timers. One is used to clean up the bass signal into a suitable pulse, and the other is running as an astable oscillator. The maximum frequency can be limited by adjusting the trimmer and the speed control through the front-panel control. The switches select either the bass-beat extractor output, or the free-run oscillator described here.</p>
+
+<p align="center"><img SRC="p62-f6.gif" ALT="Figure 6" BORDER=1 height=439 width=705>
+<br><b><small>Figure 6 - Strobe and Chaser Controller</small></b></p>
+
+<p>The first section is used to capture the bass peaks. The sensitivity of the bass beat extractor is adjusted with VR1. The free running oscillator is based on U3, a 555 timer, and the speed is controlled by VR2. VR3 (a trimpot) is used to set the maximum frequency. The switching determines if the strobe and/or chaser are controlled by the oscillator or the bass beat, and each is independently selectable. The signal to either can also be switched off entirely. The Flash button is used to create a single strobe flash - really useful for creating lightning effects. Diodes are 1N4148, resistors are 1/4W. Capacitors should be rated at 25V minimum.</p>
+
+<hr><b>Chaser</b>
+<p>The chaser was developed out of an urgent need by one of the directors of a show I was involved in. It was designed, de-bugged and constructed in a single evening - because the director wouldn't take no for an answer (show me a theatrical director who does!). Consequently,
+it is simple in the extreme - but still effective.</p>
+<p>It is based on a CMOS 4017 decade counter, forced to reset at the nine count and resume from count 1. There are eight steps in each cycle before it repeats itself. Outputs are routed through the usual diode-coupled precedence hook-up. Input is either from the bass-beat extractor or from the free-run oscillator.</p>
+<p>The chaser level control allows you to adjust the light level - if this is omitted, the lamps will flash at full brightness, which may not be desirable. With the level control shown, the maximum brightness will actually be a little lower than fully on - this is unlikely to be a limitation, as the light level difference will be barely noticeable.</p>
+
+<p align="center"><img SRC="p62-f7.gif" ALT="Figure 7" BORDER=1 height=464 width=705>
+<br><b><small>Figure 7 - Chaser</small></b></p>
+
+<p>The circuit uses transistors to buffer the outputs from the CMOS counter. This is done for three reasons. Firstly, the output current from a
+CMOS IC is not great, and the buffers provide protection from external static fields which will damage a CMOS device instantly. Last but by no means least, is that the level control would not be possible otherwise. All transistors are BC548 or similar (e.g. 2N2222), and diodes are 1N4148, resistors are 1/4W. Capacitors should be rated at 25V minimum.</p>
+
+<hr><b>Strobe Head</b>
+
+<br><table BORDER WIDTH="100%">
+<tr BGCOLOR="red"><td><font color="white"><b>WARNING</b> - The circuitry in a strobe head operates at very high AC and DC levels. These voltages are LETHAL. Take adequate precautions when testing, fault-finding and so on. If you are unsure of how to work with potentially lethal voltages - DO NOT ATTEMPT TO BUILD THIS CIRCUIT. Ask a competent person for help.</font></td>
+</tr></table>
+
+<p>Brian said that he is not at all comfortable designing, testing and building circuits like this. To quote his words at the time ... "The voltages are very high, with some potentially lethal potentials lurking behind capacitor terminals. So, in my typically cowardly fashion, I went looking for a solution on the web, and found this. It works well, is relatively simple and the parts are easily acquired."</p>
+<p>The strobe circuit was not provided with the remaining circuits, but you may either browse the web to see what you can find, or look at <a href="project65.htm" target="_blank">Project 65</a>.&nbsp; The only requirement is that the strobe head can be triggered by a positive-going pulse of about 12V. Strobes that rely on a contact closure (for example a modified photo-flash) will not work without further modification.</p>
+
+<hr><b>Switched Outputs</b>
+<p>In the main console drawing, there is a row of switches on the left hand side. These are used to switch any lamp fully on, and may be used on the main output bus (see below), or sent to a separate Dim-Rak 8 unit as shown earlier for a full system. While the circuitry for a row of switches is hardly challenging, it is included to complete the project.</p>
+
+<p align="center"><img src="p62-f8.gif" alt="Figure 8" border="1"><br>
+<small><b>Figure 8 - Switched Output Circuit</b></small></p>
+
+<p>There is a LED indicator for each output, and this adds an additional small load to the 10V regulator. Each LED draws around 4mA, so if all switches were on, that represents an extra 32mA from the 10V supply. The revised version will handle that with ease.</p>
+<p>It is important to realise that the general limits imposed by outlet current ratings mean that you must be very careful not to exceed the maximum current. If you were to use 8 x 1000W lamps, then you would normally only be able to switch on two at any one time. It is more likely that the switched outputs would be used for low power lights (including perhaps specialty lighting such as small lasers, mirror balls and similar relatively low current devices).</p>
+
+<table BORDER WIDTH="100%" >
+<tr><th width="16%"><a href="project62.htm">Overview</a></th>
+<th width="16%"><a href="project62a.htm">Channels &amp; S2L</a></th>
+<th width="16%">Chaser &amp; Strobe</th>
+<th width="16%"><a href="project62c.htm">Power Control</a></th>
+<th width="16%"><a href="project62d.htm">Connections</a></th>
+<th width="16%"><a href="project62e.htm">Miscellaneous</a></th></tr>
+</table><br /><br />
+
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual
+property of Brian Connell and Rod Elliott, and is&nbsp; Copyright (c) 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author/editor (Brian Connell/Rod Elliott) grants the reader the right to use this&nbsp; information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project.&nbsp; Commercial use is prohibited without express written authorisation from Brian Connell and Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright (c) Rod Elliott/Brian Connell 14 Jul 2000</div>
+</body>
+</html>

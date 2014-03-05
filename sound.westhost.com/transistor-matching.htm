@@ -1,0 +1,162 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="description" content="Matching Power and Driver Transistors - How to match the gain of bipolar transistors (BJTs) and MOSFETs for use in hi-fi power amplifiers.">
+   <meta name="keywords" content="matching, hfe, gain, current, transistor, bjt, mosfet, audio, diy, fi-fi, electronic">
+   <meta name="GENERATOR" content="Mozilla/4.77 [en] (Win98; U) [Netscape]">
+   <title>Matching Power and Driver Transistors</title>
+<!-- Matching Power and Driver Transistors - How to match the gain of bipolar transistors (BJTs) and MOSFETs for use in hi-fi power amplifiers. -->
+<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Matching Power and Driver Transistors&nbsp;</td></tr></table>
+
+<p align="center"><small>Copyright &copy; 2001 - Rod Elliott (ESP)
+<br>Page Updated 29 April 2008</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles Index" BORDER="0" height="24" width="40"></a><b>Articles Index</b>
+<br><a href="index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="ESP Home" BORDER="0"></a><b>Main Index</b><br>
+
+<hr><a id="contents"></a><b>Contents</b>
+<ul>
+  <li><a href="#intro">Introduction</a></li>
+  <li><a href="#test-equip">Test Equipment</a></li>
+  <li><a href="#basic-tests">Basic Test Process</a></li>
+  <li><a href="#high-current">High Current Test</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<hr><a id="intro"></a><b>Introduction</b><br>
+Whether you use Bipolar Junction Transistors (BJTs) or Metal Oxide Semiconductor Field Effect Transistors (MOSFETs), there are many circuits that suggest
+(or require) matched transistor pairs.&nbsp; Some retailers sell matched devices, but they are rather expensive, and not commonly available.
+<p>Matching power transistors is theoretically easy, but in reality there are quite a few parameters that should be matched to get true matched pairs. The situation is made a little harder when you have PNP and NPN (or N-Channel and P-Channel) devices, since the simpler comparison (or bridge) techniques don't work due to the opposite polarities.
+<p>This article is not intended to cover all the possibilities, since the equipment needed is out of the range of the average hobbyist. Bear in mind that some of the tests are potentially destructive if the DUT (device under test) does not have an adequate heatsink, so the provision of a fairly substantial heatsink is essential.  Ideally, a quick clamping method will be utilised so the devices don't have to be screwed down each time - this can get seriously time consuming.
+<p>Manufacturers get around the heatsink problem by pulse testing (so the device does not get a chance to get hot), but this requires expensive equipment to do, so a simpler test is needed. Simpler actually makes it more complicated for high current tests, since you will have to mount the transistor before you start. For these tests, using mica washers is out of the question (too time consuming), so the heatsink will be at the potential of the collector (BJT) or drain (MOSFET).
+<p>You will also need a fairly substantial power supply if you want to test at high current. You must also be aware of the safe operating area of the device, since exceeding this will destroy BJTs very quickly. MOSFETs are a little more forgiving, but will still fail if pushed too far.</p>
+
+<p align="center"><b><small>WARNING - The rated source to gate voltage of MOSFETs must never be exceeded</small></b></p>
+
+<hr><a id="test-equip"></a><b>Test Equipment</b><br>
+Ideally, you will have two multimeters, but one can be used if you don't have two. The meters will most commonly be digital, and a current range up to at least 2A may be useful (but not essential).
+<p>The power supply should ideally be regulated, but again, if you don't have one, then unregulated will still work, although mains voltage variations will affect the accuracy of measurements. In reality, small variations will not cause great errors, and the final result will still have some variations - finding two identical devices is not normally expected or obtained.
+
+<p align="center"><img SRC="match-f1.gif" ALT="Figure 1" BORDER="1">
+<br><b><small>Figure 1 - Power Supply (Unregulated)</small></b></p>
+
+<p>You will also need some high power resistors. The actual power rating depends on the supply voltage and the test current. For the suggested 12V supply, a maximum test current of 2A is reasonable, so the resistors should be set up as shown - four 1 Ohm 5W resistors (as shown below) will be more than acceptable for the high current tests. The others should be as shown in Figure 2.
+<p>The bridge rectifier needs to be a high current type, and given that 35A bridges are quite cheap, this is a good choice. I suggest that the power transformer should be fairly substantial, or excessive voltage sag will be experienced during testing. A 100VA trannie will be more than sufficient.
+<p>The filter cap is not even required, and leaving it out will be very useful if you have an oscilloscope, since the waveform can be observed for matching as well as the current. Having said that, my preference is to install the capacitor anyway, and using an oscilloscope is likely to be more trouble than it's worth.
+<p>The heatsink should be designed so that transistors can be mounted and unmounted easily and quickly, or the task will become a chore very quickly. A strong spring clamp will normally be sufficient to keep the transistor clamped to the heatsink and nice and cool during the test, which should still be done reasonably quickly so that device heating does not skew the results. In all cases, the test duration should be kept the same for each device, and a fan is useful one the heatsink to ensure that heating over time does not cause errors (these can become significant with even a small increase of heatsink temperature). The fan can be powered
+from the supply shown.</p>
+
+<hr><a id="basic-tests"></a><b>Basic Test Process</b><br>
+The test itself is fairly simple. The first qualifier is for gain, and the emitter-base voltage for BJTs at a known current, or the source-gate voltage for MOSFETs, again for a known current. This first test should be done with the current set for the quiescent current (per device). Figure 1 shows the set-up, and it is deliberately fairly simple. This will work for BJTs and MOSFETs, without any changes. Remember that when testing MOSFETs, the gate is static sensitive, so appropriate
+precautions must be taken so the DUT is not damaged. Never exceed the rated source-gate voltage - <b><i>ever!</i></b>
+
+<p align="center"><img SRC="match-f2.gif" ALT="Figure 2" BORDER="1">
+<br><b><small>Figure 2 - Quiescent Current Gain / Voltage Test</small></b></p>
+
+<p>VR1 needs to be a wirewound pot for testing BJTs, but can be a higher value carbon pot for MOSFETs. I suggest the wirewound pot as a matter of course, since it increases the usefulness of the test jig. The pot will get quite warm in operation (it dissipates nearly 1W), so make sure you switch off the power between tests. Test leads should be fitted with colour coded alligator clips for emitter/source, base/gate and collector/drain (BJTs and MOSFETs respectively).
+<p>Select a transistor at random from those on hand, and connect it into the test jig. Make sure that the pot is set to minimum, and that the correct polarity is selected first! Set the switch to the 10 Ohm range, and adjust the pot until the voltage across the M1 and M2 terminals is equal to 10 x Iq (in Amperes). If you want to use a quiescent current of 100mA, the voltage across the resistor will be 10 x 0.1 = 1V. Remember to divide the total quiescent current by the number of parallel
+output devices first.
+<p>For power transistors, the "Base Current Range" switch (SW4) needs to be set to the high range (100 Ohms), and base current is limited to about 60mA. With a device having a gain of 20, collector current will be about 1.2A, but that will increase to 3A if the gain is 50 (more common with modern devices). For low power devices and MOSFETs, leave the switch in the low range (~6mA). Note that the maximum gate voltage is deliberately limited to about 6V.
+<p>Now you can measure the emitter-base or source-gate voltage. Note the readings, and mark the transistor just tested (so you can correlate the device with its measured characteristics). Repeat the test with the other devices you have, reversing the polarity as required - <b><i>but do not adjust the pot</i></b> - leave it exactly where it was for the first transistor. Bear in mind that the current in subsequent transistors could vary by several hundred percent, so it may be necessary to readjust the pot and re-run the test from the beginning.
+<p>For each device, note the emitter-base (or source-gate) voltage, voltage across the resistors (or the current through them), and the reference number you marked on each device. When you have finished, you will have an array of voltages and currents (calculated from the resistor voltage if you don't use a current meter), and you can choose those devices that are the closest match. Generally, only the current is really significant except for devices in parallel, where the turn-on voltage becomes important. The source-gate voltage will not change if you are testing MOSFETs, so that only needs to be measured once.
+<p>By using a higher resistance, smaller devices can be tested in the same way. For driver transistors, the 100 ohm range would be satisfactory, and for small signal transistors, use the 1k ohm range. Be very careful that you keep the current and voltage within the device ratings! The rotary switch on the supply is designed for just this purpose. 
+<p>The test will match devices so that they are approximately equal at the all-important crossover region - if desired, you can test at an even lower current, to ensure that there is the least possible error between devices, however the tests become very time consuming, and obtaining devices that are fully matched over the full operating range is somewhat unlikely.</p>
+
+<hr><a id="high-current"></a><b>High Current Test</b><br>
+Once you have a selection of transistors that have approximately equal low current characteristics, you can do a high current test if you want to - this uses the 1 ohm range on the rotary switch. I don't recommend that you exceed 2A, unless you are sure of what you are doing. 
+<p>The test is set up in exactly the same way as before, except the current is increased to the desired test value. For each device tested, make sure that the test duration is maintained for the same time - say 10 seconds. You will need to wait for the heatsink to cool to the same temperature (or near enough to it) between tests. A fan will help here, and is highly recommended.
+<p>Again, you will note the exact current of each device with the pot in the same position as for the first transistor tested. At the end, you will have a set of figures that show the closest matching devices out of those available. I strongly suggest that you don't expect miracles - if you can get transistors that measure within 10% of each other for both the high and low current tests this is a good result. You may do better, but don't count on it, and don't get all depressed if you have to accept a wider tolerance.
+<p>For the brave (and those who have taken the time to create a really solid heatsink test set), you can run further tests at higher currents, but you will need to be extremely careful. Remember that 2A at 12V is 24W continuous dissipation, and this will heat the transistor under test very quickly - higher currents will create even more heat.
+<p>With the 1 ohm resistor, transistor dissipation is reduced only slightly, and even 24W is a lot to get rid of in any test environment. In extreme cases you will have to use thermal compound for the DUT to prevent overheating, since it will not normally be possible to take a reading quickly enough unless you have access to a digital storage oscilloscope. If you have access to one, then pulse tests are recommended for all high current testing. The way to go about this is beyond the scope of this little article though :-)</p>
+<p>An alternative approach is to take your measurements at high and low currents,, and then calculate (or plot) the transfer characteristics of each device. Although time consuming, this should give good results. Ideally, you will take measurements at a minimum of three points. Measure collector/drain voltage (and for MOSFETs, the source to gate voltage) at ...</p>
+
+<ul>
+  <li>the expected design quiescent current</li>
+  <li>close to the peak expected current, and</li>
+  <li>a point midway between the two</li>
+</ul>
+
+<p>Once you have these figures, you can then select those that represent the closest possible match. You will be very fortunate indeed if you get exact matching, but it should be possible to get several acceptably matched pairs from a batch of reasonable size (you will probably need a minimum of 10 devices, if possible from the same manufacturing batch.</p>
+
+<p><b>Parallel Transistors</b><br>
+When power transistors are used in parallel, some amplifier designs rely on close matching of all devices. Use of an emitter resistor for each device forces current sharing, but with very low values (less than 0.1 Ohm) the devices must be matched because the resistance is not sufficient to ensure equal sharing under normal operation.
+<p>Matching paralleled transistors usually requires that V<sub>be</sub> <i>and</i> gain are both matched. Gain matching should be done at a range of collector currents to ensure that the transistors share the load equally. It is the nature of bipolar transistors that the one that takes the most load (because of higher gain or lower V<sub>be</sub>) will get hotter, and this will increase gain and lower V<sub>be</sub> even further, causing it to take even more of the load.
+<p>Using emitter resistors will always help, but in some cases may not be enough to ensure long term reliability - especially if the devices are used close to their maximum ratings. Some designers include series resistors in the base circuits - these can help, but by the time the value is high enough to be useful, excessive drive voltage is lost and maximum power suffers.
+<p>Because the temperature of all paralleled transistors should be the same (for the reasons described above), it is essential that all power transistors (bipolar or MOSFET) share the same physical heatsink. By doing this, the average temperature will be very close to the same for all devices. Always use current sharing resistors if possible, and feel free to match the V<sub>be</sub> and gain of paralleled transistors (or V<sub>gs</sub> and gain for MOSFETs).</p>
+
+<hr><a id="conclusion"></a><b>Conclusion</b><br>
+The tests described are not the most accurate known, but will be well within the abilities of hobbyists. The results can be expected to be very good when used for matching, and the selected pairs will be much closer than random selection will ever give you.
+<p>Matched transistors will rarely give you "better sound" (whatever that is supposed to be). In general, distortion will be almost completely unaffected, and there is no influence on frequency response or transient response. What you will get (for paralleled devices) is greater reliability, because the transistors will share the current more equally.
+<p>Be aware that some "low feedback" designs absolutely require that the NPN and PNP transistors be matched, because there is insufficient feedback to make the circuit linear unless the individual devices have closely matched gain across the operating current range. V<sub>be</sub> matching between NPN and PNP devices is not useful with any sensible amplifier design. 
+<p>The test set is fairly cheap to make, and can be used for all sorts of transistor testing - not only for matching, but to test that transistors are functional. Since it will work with bipolar transistors and MOSFETs, it has enhanced usefulness over most conventional transistor testers for the majority of basic testing needs. The little extras added just make it that much more useful.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 06 Dec 2001. Last update - 29 Apr 08, added parallel transistor details, updated schematics.</div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="battery, charger , audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - For those who want the cleanest possible DC for sensitive preamps, battery power is ideal. Remembering to turn the charger back on is no longer a problem!">
+	<title>Automatic Charger for Battery Operated Hi-Fi Preamps</title>
+	<!-- ESP Audio Projects - For those who want the cleanest possible DC for sensitive preamps, battery power is ideal. Remembering to turn the charger back on is no longer a problem! -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 98&nbsp;</td></tr></table>
+
+<p align="center"><b>Automatic Charger for Battery Operated Hi-Fi Preamps</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<!--
+<hr size="3" width="100%"><img src="pcb.gif" alt="" width="33" height="26">
+<img src="filler.gif" alt="" width="32" height="8">
+<small><b>PCBs will be available for this project soon</b></small><br>
+-->
+
+<hr><b>Introduction</b>
+<p>For those who want the cleanest possible DC for sensitive preamps, battery power is ideal. At last, remembering to turn the charger back on is no longer a problem!
+
+<p>This project is one for the experimenter, but as shown will work extremely well. The sensing circuit can be made so sensitive that a load of only 2.5mA is enough for the circuit to detect, and disconnect the charger.
+
+<p>The idea is that the charger is left permanently connected, but of course that would normally introduce some hum into the supply lines. The sensor detects that you have switched on the preamp (or small power amp for that matter), and immediately switches off the charger, so while listening, there is no connection to the AC. Although it is possible to use a "solid state" switch, these are not as good as a standard relay, which provides perfect isolation of the AC input.
+
+<p>It will be necessary to find a sensitive relay to minimise current drain, but these are quite readily available at low cost. Although I have shown the system with an integral float charger, this is only really suitable for SLA (Sealed Lead-Acid) batteries - if you wanted to use NiCd batteries, then a proper charger designed for use with these cells should be used, although if set up as described, the charger should work quite well.
+
+<p>For Nickel-Cadmium (Ni-Cd) cells, you need 10 of them for a nominal 12V supply. The correct float charge voltage is 14.2V at 25&deg;C. In contrast, a 12V SLA requires a float charge voltage of 13.8V (again at 25&deg;C). These voltages are critical, and if they are exceeded (or the room temperature is significantly above or below the "standard" temperature), then the battery life will be significantly reduced. It is worth noting that few of the commercially available chargers make these corrections, and fewer still are designed to provide a proper float charge.
+
+<p><b>Note:</b> The voltages quoted above are for a single 12V battery - the project is designed for a +/-12V supply, so the float charge voltages must be doubled, as the two batteries are connected in series.
+
+<p>Just what <i>is</i> float charge? It is simply a method for maintaining the charge in a cell or battery - float charging is used anywhere that batteries are used infrequently, but must be kept at full charge when not in use.
+
+<p>While I do not intend this simple project to become a full scale article about batteries, it is very important that you understand that unless looked after very well, any battery will have a much shorter life than normal, and will prove very costly to replace. It is entirely up to the reader to determine the suitability of the charger shown to the intended application.
+
+<p>Please note that any modifications to this project are left entirely to the reader, and I will <i>not</i> provide any further information via e-mail, so don't ask!</p>
+
+<hr><b>Description</b>
+<p>The charger is shown in Figure 1, and is a conventional (but very simple) regulator. A 3-terminal regulator is not suitable for this, as the voltage across it will be too high if the batteries are discharged. The charger uses a standard 15V transformer (which connects to the terminals marked ~In, Fig. 2), and uses a voltage doubler to provide a nominal 40V supply for the charger.
+
+<p>R1 provides current limiting so that heavily discharged batteries will not be damaged, nor damage the charger due to excessive current. Remember that Ni-Cd cells in particular should be charged at 0.1 x capacity - a 1AH (Ampere-Hour) cell should be charged at a maximum of 100mA (0.1 x 1).
+
+<p>As shown, the maximum current is limited to about 90mA - low enough for nearly all cells likely to be used for powering preamps and such. VR1 is used to set the float voltage, and this should be done as accurately as possible - a 10 turn pot is highly recommended to enable you to get an accurate setting. At 90mA, and with deeply discharged batteries, the dissipation in Q1 will be rather high - worst case is a little over 2 Watts, and a heatsink is essential. Should more current be needed, this is easily done by reducing the value of R2 - half the value will give double the current and vice versa. It is important that you ensure that the heatsink for Q1 is sufficient for the expected load current. C1 and C2 must be rated at a minimum of 50V - not because of the voltage, but to obtain a sufficiently high ripple current rating, especially when the charger is in current limit mode.</p>
+
+<center><img src="p98-f1.gif" border=1><br><small><b>Figure 1 - Charger and Current Limiter</b></small></center>
+
+<p>All unmarked diodes are 1N4004 or similar, and all resistors may be 1/4 Watt (see Table 1 for R8 &amp; R14). Multiturn trimpots are recommended for VR1 and VR2. C3 should be polyester (or similar), and rated at 50V, C1 and C2 should be rated at 50V or higher. Other electros may be 16V types. D3 is a 15V 1W zener diode. All other components are as marked. Q1 <i>must</i> have a heatsink!
+
+<p>The AC from the transformer is connected and disconnected via RL1 and RL2 - a pair of 12V reed relays. If you use a conventional relay, then a double-pole single-throw (DPST) type may be used, as the contacts are connected as normally open (i.e. the relay must be energised to connect the charger). Because current is generally very low, a small DIL relay will normally be quite sufficient, provided that the contact current rating is 500mA or so. Most DIL relays will manage that with ease, but you must check to make sure. Reed switches (as used in reed relays) can usually handle about 1A.
+
+<p>The method shown is to use a cheap reed relay - these usually have a very high coil resistance, so the current is reduced dramatically. Typical coil current is about 12mA, compared to a 12V DIL relay, which is likely to have a coil current of over 30mA. Since the relay must be powered from the battery while it is on charge, it is important to keep the current as low as possible to make sure the charging current to the battery is not reduced too much.</p>
+
+<center><img src="p98-f2.gif" border=1><br><small><b>Figure 2 - Sensor and Relay Circuits</b></small></center>
+
+<p>In Figure 2, I have shown the reed relay connections, together with an "efficiency circuit" (R13 &amp; C4), that will reduce the holding current to the bare minimum. C4 is used to provide an initial full voltage to the relay coil, to ensure that it will pull in reliably. After C4 is charged, the only current flows through R13, and the current is just sufficient to keep the relay energised, so current drain is minimised. You may need to adjust the value of R13 depending on the relays used - as shown, it is suitable for a 12V reed relay with a coil resistance of around 1k ohm, and limits holding current to approximately 7.5mA. R16 is optional but recommended. It ensures that switching is "clean", with no relay chattering. The series combination of R7 and R15 can be replaced with a single 51k resistor if preferred.
+
+<p>The sensor works by detecting the voltage dropped across the sense resistor. When current is drawn, a small voltage is developed across the resistor (R8), and this is used to switch the opamp from a normally high output state to a voltage of about 2V. This switches off Q1, which in turn de-activates the relay and disconnects the charger. When the external circuit is switched off, the voltage across the sense resistor falls to near zero, the opamp changes output state, and the relays are energised, thus reconnecting the charger.
+
+<p>The charger must be able to supply enough current to keep the relays energised, as well as provide power to charge the batteries (and power U1 - typically about 2.5mA), so minimising relay current is important.
+
+<p>If you switch the power to your external equipment on-off-on-off quickly, you may find that the relay does not re-activate after the last power-off. This can happen if C4 is charged, and has not had time to discharge fully, so the relay coil doesn't get the "pulse" needed to close the contacts. The easy way to prevent this is not to switch on and off rapidly.</p>
+
+<table border=0><tr><td valign=top><img src="note.gif"></td>
+<td valign=top><b>Note: </b>If the battery is allowed to discharge too far, there may not be sufficient charge for the relay to activate. A switch may be used in parallel with the relay contacts to force charge the batteries under these conditions, but you <i>must</i> remember to turn it off again, or the automatic function will no longer work.<br><br>
+
+It is recommended that any battery powered circuit has a low voltage disconnect function to prevent excessive battery discharge, which will shorten the life of the batteries (sometimes dramatically!).</td></tr></table>
+
+<p>Finally, we need to establish a suitable resistor value for the sensor. Naturally, the optimum value depends on the current drain of the attached circuit(s). Table 1 shows the values that should be used for a range of loads, and in each case, we need an absolute minimum of about 10mV drop (and preferably closer to 100mV) across the resistor to ensure reliable detection.</p>
+
+<table align=center width=500 border=1 style="border-collapse: collapse">
+<tr><td width=250><b>Minimum Current<img src="filler.gif"></b></td><td><b>R8 &amp; R14 Value</b></td></tr>
+<tr><td>10 mA</td><td>10 Ohms, 1/4W</td></tr>
+<tr><td>20 mA</td><td>4.7 Ohms, 1/4W</td></tr>
+<tr><td>50 mA</td><td>2.2 Ohms, 1/2W</td></tr>
+<tr><td>100 mA</td><td>1 Ohm, 1/2W</td></tr>
+<tr><td>200 mA</td><td>0.47 Ohm, 1W</td></tr>
+<tr><td>500 mA</td><td>0.22 Ohm, 1W</td></tr>
+<tr><td>1 A</td><td>0.1 Ohm, 1W</td></tr>
+</table>
+<center><small><b>Table 1 - Resistor values for Different Load Currents</b></small></center>
+
+<p>As you can see, the relationship is quite simple, and may be extended as required. The values shown are likely to cover the vast majority of cases however. R14 should be made the same value as R8 - the voltage difference will only be very small however, and it may be omitted if desired. C5 and C6 are recommended, and may be increased if you wish. At higher load currents, the value should be increased, up to any value you are comfortable with. This will depend to some degree on the equipment being powered, and again, this is left to the reader to determine.</p>
+
+<hr><b>Construction</b>
+<p>Construction is not critical, and all circuitry can be built on Veroboard or similar. The opamp needs to be FET input to minimise input offset current, which may change the trigger point with differing room temperatures. The TL071 shown will be perfectly acceptable, or you may use any other Single FET input opamp you have in your junk box.</p>
+
+<p>R6, R7, R9, R10 and R15 should ideally be 1% tolerance metal film, or the stability and "setability" of the sensor will be compromised. All other resistors can be 1/4W, 5% carbon, with the exception of the current sense resistor (see Table 1 for values and ratings).
+
+<p>Note that there is no earth (ground) on the charger circuit, and it "floats" across the two 12V batteries. As a result, do not make voltage measurements referred to the equipment common (earth), or you will get erroneous answers! All measurements on the charger must be made with respect to the -ve end of C2.
+
+<p>Wire up all sections as per the circuit diagrams shown, taking particular care with polarised components (diodes, electrolytic caps, transistors and the opamp). Incorrect polarity will destroy many parts. When the charger is complete, it should be tested first (see below) - when that is working, make up the rest of the circuitry. Large components (e.g. electrolytic caps in high values) may need to be mounted so they have some mechanical support.</p>
+
+<hr><b>Testing</b>
+<p>Test the charger circuit first. Connect to a suitable 15V transformer (a plug-pack (wall wart) type is quite suitable), and a 20VA unit will be sufficient).  You need to short the relay contacts so the charger will operate, and if you installed the suggested "emergency" switch, simply turn that on. The use of a 100 ohm 5W resistor in series with the transformer is recommended for initial tests, so that a fault will not cause excess current and damage.
+
+<p>If all is well, the voltage at the +ve end of C1 should reach about 30V or so referred to the -ve end of C2. Adjust VR1 until the output of the regulator is at the correct voltage for your batteries, i.e. 27.6V for a pair of 12V SLA batteries, or 28.4V if you have assembled a Ni-Cd battery pack for a nominal +/-12V supply. Remove the 100 ohm resistor when you are sure that the charger works correctly.
+
+<p>Reconnect the AC supply to the charger - it is time to verify that the current limiter works. Use the 100 ohm resistor again - but this time, connect it between the +ve and -ve outputs of the charger. At about 90mA, it will get hot very quickly, but the output voltage (across the 100 ohm resistor) should be between 9 and 10V. Once this is tested and working, you can move on to the detector circuit.
+
+<p>Ideally, you will have your battery pack completed, and charged. If not, connect it to the charger overnight to make sure that it is fully charged and ready. Connect the remaining circuitry to the batteries and charger, and verify that the charger is operating. If not, you may need to adjust VR2 until the relays energise and start the charger. Now, switch on your equipment.
+
+<p>As soon as current is drawn by the preamp (or whatever), the charger should immediately be disconnected from the batteries. Verify this by checking that the voltage at the +ve end of C1 is falling towards zero, or simply measure the AC input voltage to the charger (after the relays). You may need to experiment a little with VR2 until the charger reliably cuts out as soon as current is drawn, and re-connects when the load is removed.
+
+<p>Once testing is complete and the circuit is working properly, it may be forgotten completely - your batteries will remain charged, and there will be a pure DC supply for your equipment whenever it is being used.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2003. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 04 Jan 2003./ Updated Nov 2008 - Simplified relay switching, reversed incorrect battery polarities.</div>
+</body>
+</html>

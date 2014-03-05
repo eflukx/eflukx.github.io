@@ -1,0 +1,368 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP - The Audio Pages. Inrush current - what is it, why does it happen, and how do we limit it to a 
+	safe value?"> 
+	<meta name="keywords" content="inrush, motor, transformer, toroid, mains, ac, capacitor, pfc, power factor, active pfc, power, supply">
+	<title>Inrush Current</title>
+	<!-- ESP - The Audio Pages.  Inrush current - what is it, why does it happen, and how do we limit it to a 
+	safe value? -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Inrush Current Mitigation&nbsp;</td></tr></table>
+
+<p align="center">By Rod Elliott (ESP)<br />
+<small>Page Updated 07 November 2011</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.html" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles" BORDER="0"></a><b>Articles<br>
+  <a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Index" BORDER="0"></a>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#intro">Introduction</a>
+  <li><a href="#warn">Warning</a>
+  <li><a href="#s1">What Is Inrush Current?</a>
+  <li><a href="#s2">Filament &amp; Other Lamps</a>
+  <li><a href="#s3">Power Factor Correction</a>
+  <li><a href="#s4">Inductive &amp; Transformer Inrush</a>
+  <li><a href="#s5">Capacitive Inrush</a>
+  <li><a href="#s6">Inrush Limiting</a>  
+  <ul>
+    <li><a href="#s61">Thermistor</a>
+    <li><a href="#s62">Resistor</a>
+    <li><a href="#s63">Bypass Systems</a>
+  </ul>  
+  <li><a href="#dc3">How Tests Were Performed</a>
+  <li><a href="#outro">Conclusion</a>
+  <li><a href="#ref">References</a>
+</ul>
+  
+<hr><a id="intro"></a><b>Introduction</b>
+<p>Inrush current explained very simply is the current drawn by a piece of electrically operated equipment when power is first applied. It can occur with AC or DC powered equipment, and can happen even with low supply voltages.
+
+<p>By definition, inrush current is greater than the normal operating current of the equipment, and the ratio can vary from a few percent up to many times the operating current. A circuit that normally draws 1A from the mains may easily draw 50 to 100 times that when power is applied. With AC powered equipment, the highest possible inrush current also depends on the exact time the load is switched on.
+
+In some cases, it's best to apply power when the mains is at its maximum value (RMS voltage * 1.414), and with others it's far better to apply power as the AC waveform passes through zero volts.
+
+<p>This is a surprisingly complex topic, and one that is becoming more important than ever before. More and more household and industrial products are using switchmode power supplies, and they range from just a few Watts to hundreds of Watts. Almost all of these supplies draw a significant over-current when power is applied, and almost no-one gives any useful information in their documentation.</p>      
+
+<table width="100%" cellpadding=10>
+<tr><td valign="top"><img src="note.gif" alt="NOTE"></td>
+<td><big>Please note that the descriptions and calculations presented here are for (nominal) 230V 50Hz mains. This is the nominal value for Australia and Europe, as well as many other countries. The US and Canada, along with a few other countries, use 120V 60Hz. This is not a problem - all formulae can be recalculated using whatever voltage is appropriate. For most examples, the frequency is (more or less) immaterial.</big></td></tr>
+</table>
+
+<p>It is not possible to provide a lot of detail for every example, so in many cases a considerable amount of testing or background knowledge may be needed before you will be able to make use of the information here. In addition, component suppliers do not always provide information in the same way, and some info included by one supplier is omitted by others. This can make selection a challenge at times.</p>
+
+<a id="warn"></a><table border width="100%" style="border-collapse: collapse;" cellpadding=10 bgcolor="red">
+<tr><td valign="top" align="center"><img src="mains2.gif" alt="MAINS!" height=34 width=34></td>
+<td class="t-wht"><big><b>WARNING:</b> &nbsp; This article describes circuitry that is directly connected to the AC mains, and contact with any part of the circuit may result in death or serious injury. By reading past this point, you explicitly accept all responsibility for any such death or injury, and hold Elliott Sound Products harmless against litigation or prosecution even if errors or omissions in this warning or the article itself contribute in any way to death or injury. All mains wiring should be performed by suitably qualified persons, and it may be an offence in your country to perform such wiring unless so qualified. Severe penalties may apply.</big></td></tr></table>
+
+<p><a id="s1"></a><b>1 - What Is Inrush Current?</b>
+<p>Inrush current is also sometimes known as surge current, and as noted above is always higher than the normal operating current of the equipment. The ratio of inrush current to normal full-load current can range from 5 to 100 times greater. A piece of equipment that draws 1A at normal full load may briefly draw between 5 and 100A when power is first applied.
+ 
+<p>This current surge can cause component damage and/or failure within the equipment itself, blown fuses, tripped circuit breakers, and may severely limit the number of devices connected to a common power source. The following loads will all have a significant inrush current, albeit for very different reasons ...</p>
+
+<ul>
+	<li>Incandescent lamps using a tungsten filament (AC or DC powered, any voltage)
+	<li>Fluorescent and other gas discharge lamps (including compact fluorescent types)
+	<li>Power transformers, especially toroidal types of 500VA or more
+	<li>Power supplies that obtain a low voltage AC from a transformer
+	<li>Electronic power supplies, as commonly used for personal computers, wall supplies, etc. 
+	<li>Electronic power supplies with active power factor correction (PFC)
+	<li>Electric motors of all types, with the greatest problems caused when starting under load from rest
+	<li>CRT computer monitors and TV receivers. Inrush is <i>deliberately</i> created to operate the degaussing coil(s)
+</ul>
+
+<p>While the list above may not appear to cover a great many products, with modern electronics infiltrating almost every household and industrial item used, it is actually very extensive. Few modern products are exempt. Some of the most basic items we use do not have an issue with inrush current - most are products that use heating coils made from nichrome (nickel-chromium resistance wire) or similar. The current variation between cold and full temperature is generally quite small. This applies to fan assisted, column and most radiant heaters, toasters and electric water heating elements. Apart from these few products, almost everything else will have a significant inrush current.
+
+<p>In some cases, we can ignore the inrush current because it is comparatively small, and/or extremely brief. A few products may draw only double their normal running current for a few mains cycles, while others can draw 10, 50 or 100 times the normal current, but for a very short time (often only a few milliseconds). Some products can draw many times their normal current for an extended period - electric motors with a heavy starting load or power supplies with extremely large capacitor banks being a couple of examples.</p>
+
+<hr><a id="s2"></a><b>2 - Filament &amp; Other Lamps</b>
+<p>Although they are being banned all over the place, there are still many incandescent lamps in use, and this will not stop any time soon. Most traditional filament (incandescent) lamps are known to fail at the instant of turn-on. This is for two reasons - the filament is cold so has much lower resistance than normal, and being cold it is also more brittle.
+
+<p>When power is applied, there is an enormous thermal shock along with rapid expansion of the tungsten. This doesn't affect the lamp initially, but as the filament ages it becomes thinner and more brittle, until one day it just breaks when turned on. For very large lamps used for theatrical lighting (amongst other things), the solution is to preheat the filament - just enough power is applied to keep the filament at a dull red. Full power is almost never applied instantly - it is ramped up so the lamp <i>appears</i> to come up to full brightness very fast, but this is a simple trick that works because the response of our eyes is quite slow.
+
+<p>The cold resistance of a tungsten filament is typically between 1/12 to 1/16 of the resistance when hot. Based on this, it might be expected that the initial inrush current for a cold filament would be 12 to 16 times the current at rated power. The actual initial inrush current is generally limited to some smaller value by external circuit impedance, and is also affected by the position on the AC waveform at which the voltage is applied.
+
+<p>I measured the cold resistance of a 100W reflector lamp at 41 ohms, and at 230V (assuming the power figure is accurate) the resistance will be around 530 ohms - a ratio of 12.9:1 and comfortably within the rule of thumb above.
+
+<p>The time for the initial inrush current to decay to the rated current is determined almost entirely by the thermal mass of the filament, and ranges from about 0.05 seconds in 15W lamps to about 0.4 seconds in 1500W lamps. [<a href="#ref">1</a>] This varies with the rated voltage too - a 12V 50W lamp has a much thicker (and therefore more robust) filament than a 230V 50W lamp for example. If incandescent lamps are <i>always</i> either faded up with a dimmer or use some kind of current limiter, they will typically last at least twice as long as those that are just turned on normally.
+
+<p>Traditional "iron ballast and starter" fluorescent lamps also draw a higher current during the switch-on cycle. During the startup process, there are filaments at each end of the tube that are heated, and this draws considerably more current than normal operation. Contrary to what you might hear sometimes, this startup current is typically only between 1.25 and 1.5 times the normal current, and it is <i>not</i> better to leave fluorescent lamps on than to switch them off when you leave the room. However, constant switching will reduce the life of the tube, so there is a sensible compromise that depends on the application.
+
+<p>Power factor correction (PFC) capacitors are used in parallel with many fluorescent lamp ballasts, especially those designed for industrial use. These are necessary to minimise the excess current drawn by a relatively linear but reactive load. When power is turned on, the inrush current may be very high - typically up to 25 times the rated current capacity of the PFC capacitor.
+
+<p>Many fluorescent tube lights are now using the relatively new T5 tubes, and these are specifically designed to use electronic ballasts. Even the older T8 tubes will give more light output with a high frequency electronic ballast, so we will eventually see the iron ballast disappear completely, because electronic versions can be made to be more efficient. They won't last anywhere near as long though, so some of the efficiency gained will be lost again when the ballast (or the entire fitting) has to be replaced because a $0.10 part has failed. 
+
+<p>Many other lamps also have (often very) high inrush currents, and these fall into one of the other categories described below so will not be covered here.</p>
+
+<hr><a id="s3"></a><b>3 - Power Factor Correction</b>
+<p>This is such an important topic that some explanatory notes are essential. Why is it essential to know, you may well ask. Simply because so few modern loads are resistive, and power factor correction (PFC) is used in a vast array of products. Many loads that currently have little or no PFC will be required to perform very much better in the future, and this has already happened with some categories of equipment.
+
+<p>Power factor is not well understood by many people, and even some engineers have great difficulty separating the causes of poor power factor. Simply stated, power factor is the ratio of "real" power (in Watts) to "apparent" (or imaginary) power (in Volt-Amps or VA). It is commonly believed (but only partially correct) that power factor is measured by determining the phase angle between the voltage and current (commonly known as Cos&Phi; (Phi) - the cosine of the phase angle). This is an engineering shorthand method, and <i>does not apply</i> with many loads that distort the waveform (more on this shortly).
+
+<p>An inductive load (such as an unloaded transformer) will draw current from the mains, but will consume almost no power. Fluorescent lamps use a "ballast" - an inductor that is in series with the tube. Similar arrangements are used with other types of lighting as well. For the sake of simplicity, we will use a resistive load of 100 ohms in series with a 1H (1 Henry) inductor. Voltage is 230V at 50Hz, so the reactance of the inductor is 314 ohms. Total steady-state circuit current is shown in Figure 1, for both the inductive and capacitive sections. The inductive current lags the applied voltage by about 72&deg;, and the capacitive current <i>leads</i> the voltage by 90&deg; (voltage is not shown as it would make the graph too difficult to read).</p>
+
+<center><img src="inrush-f1.gif" border=1><br><b><small>Figure 1 - Test Circuit With Voltage And Current Waveforms</small></b></center>
+
+<p>Without the capacitor (C1), the current is 698mA (700mA near enough) in this circuit - an apparent power of 161VA, but the power consumed by the load (R1) is only 48.7W. Therefore, the power factor (PF) is ...</p>
+
+<blockquote>
+	PF = P<sub>R</sub> / P<sub>A</sub> &nbsp; &nbsp; <small>Where P<sub>R</sub> is real power and P<sub>A</sub> is apparent power</small><br />
+	PF = 48.7 / 161 = 0.3
+</blockquote>
+
+<p>This is considered very poor, because the power company and your wiring must supply the full 700mA, but only a small fraction is being put to good use (about 213mA in fact), and only about 70V of the input voltage is available for the 100 ohm load. The majority of the current is out of phase with the voltage, and performs no work at all. This type of load is very common, and is easily fixed by cancelling the inductance with a parallel capacitor.
+
+<p>For the above circuit, the capacitance needed is about 9uF and it will draw around 650mA (again at 230V, 50Hz). Because the capacitive and inductive currents are almost 180&deg; out of phase with each other, the reactive parts cancel, as shown by the graph. As a result, the generator only needs to supply the 48.7W used by the load, and the supply current falls to 213mA - exactly the value needed to produce 48.7W in a 100 ohm load (ignoring losses). 
+
+<p>One of the greatest problems with the idea of power factor is that many of the claims do not appear to make sense. To understand what is going on requires a good understanding of reactive loads, phase shift and phase cancellation - even though some of might seem nonsensical, it's all very established science and it does work. For example, a leading phase angle implies that the current occurs before the voltage that causes it to flow, and while this might seem impossible, it is what happens in practice. It usually only takes a few cycles to set up the steady state conditions where this occurs.  
+
+<p>Where some of the old-timers (and the not-so-old as well) get their knickers in a twist is when the load current is distorted. It has been argued (wrongly) on many a forum that the voltage and current are in phase, so power factor is not an issue. This is completely wrong - those who argue thus have forgotten that the Cos&Phi; method is shorthand, and <i>only</i> applies when both voltage and current are sinewaves.
+
+<center><img src="inrush-f2.gif" border=1><br><b><small>Figure 2 - Non-Linear Test Circuit With Voltage And Current Waveforms</small></b></center>
+
+<p>Figure 2 shows the test circuit and waveforms for a non-linear load. These are extremely common now, being used for countless small power supplies, computer supplies, etc. Most power supplies below 500W will use this general scheme, although the load won't be a simple resistor, but a switchmode power supply used to power the equipment. Note that current flow starts just before the AC waveform peak to "top-up" the partially discharged filter cap (C1). Input current ceases just after the peak voltage, as the cap is fully charged and discharges slower than the rate-of-change of the mains voltage.
+
+<p>The power provided by the above circuit is 48W - as close as I could get to the previous example. Input current is 454mA, so apparent power is a little over 104W. Power factor (calculated the same was as above) is therefore 0.46 - again, not a good result. Most power companies prefer the PF to be 0.8 or better (1 is ideal).
+
+<p>The big problem we have with this circuit is that adding a capacitor does no good at all, nor does adding an inductor. Adding both (called a passive PFC circuit) will improve things a little, essentially by acting as a filter to reduce the current waveform distortion. Passive PFC circuits are physically large and expensive, because they require bulky components. The above circuit can have a considerably improved power factor (perhaps as high as 0.8 without becoming too unwieldy), but the inductance and capacitance needed will still be quite large. I was able to achieve a PF of 0.83 by adding a 1.5uF capacitor and a 100mH inductor, but these are neither cheap nor small. The inductor will also be quite heavy.
+
+<p>Because of the severe waveform distortion (which the power companies hate), many new switching power supplies (especially those over 500W) use active PFC. This requires special circuitry within the supply itself, and if well done can achieve a PF of at least 0.95 and I've seen some that are even better. This is not without penalty though - there is more circuitry and therefore more to go wrong, and the cost is higher. Efficiency is usually slightly lower because of the additional circuitry needed - no circuit is 100% efficient.
+
+<p>It is expected that all switchmode power supplies above perhaps 20W or so will eventually require active PFC circuitry to achieve at least 0.6 or so without serious current waveform distortion. As most people are well aware, the cost of power is increasing all the time, and anything that increases distribution costs (such as poor power factors) will be passed on to the consumer.</p>
+
+<hr><a id="s4"></a><b>4 - Inductive &amp; Transformer Inrush</b>
+<p>While incandescent lamps have always been a common source of (fairly modest by modern standards) inrush current, up until fairly recently only motors and transformers were the other sources of very high inrush currents. A 500VA transformer is hardly a monster, but is easily capable of an instantaneous current of over 100A if the external circuit will allow it. Even relatively small electric motors can draw similar instantaneous currents, but also draw a higher than normal current during the time taken for them to come up to full speed.
+
+<p>There are several added complications with electric motors that would fill a sensible sized article by themselves, so I will concentrate on transformers. Some of the factors for motors are almost identical, but others are too complex to explain for the purposes of this article. As a result, I will concentrate on transformers, because these are very near and dear to the hearts of DIY people everywhere.
+
+<p>I have described a transformer soft start circuit (see <a href="../project39.htm" target="_blank">Project 39</a>), and this is specifically designed to limit the inrush current of a large transformer. It is recommended for any tranny of 500VA or more, as these draw a very heavy inrush current. In common with anything that draws much more current at switch-on than during normal running, the maximum inrush is determined by (amongst other things) the point on the AC waveform where power is applied.
+
+<p>When we switch on an appliance, in 99% of cases it's just a simple switch, and there is no control over the point where power is connected. It may connect as the mains waveform passes through zero, it may connect at the very peak of the voltage waveform. Mostly, it will be somewhere between the two extremes, and the first partial (or half) cycle could be positive or negative. AC circuits (including power supplies with full-wave rectifiers before the main circuitry) don't care about the polarity, but they do care about the instantaneous voltage.
+
+<p>Transformers and other inductive circuits behave in a manner that is not intuitive. Should the power be applied at zero volts (the zero crossing point), this is the very worst case. The core saturates, and peak current is limited by one thing only - circuit resistance. Since a 500VA toroidal transformer will have a typical primary resistance of around 4 ohms (2 ohms for 120V countries), the worst case peak current is determined by ...</p>
+
+<blockquote>
+	I<sub>P</sub> = V<sub>P</sub> / R<br />
+	I<sub>P</sub> = 230 * &radic;2 / 4 = 325 / 4 = 81A 
+</blockquote>
+
+<p>External circuit resistance can be added, but in total it is unlikely to be more than 1 ohm in most cases, so the worst case peak current is still around 65A. Consider that a 500VA transformer at full load will draw a little under 2.2A, so inrush current may be as much as 30 times the normal full load current. This is significantly worse than a typical incandescent lamp. Note that the transformer winding can never draw more current than is determined by Ohm's law - it will usually be less, but the formula above is for the worst possible situation. 
+
+<center><img src="inrush-f3a.gif" border=1><br><b><small>Figure 3A - Measured Transformer Inrush Current</small></b></center>
+
+<p>Figure 3A shows the inrush waveform captured when power is applied at the mains zero crossing point. The transformer is a single phase, 200VA E-I type, with a primary resistance of 10.5 Ohms. Absolute worst case current is simply the peak value of the mains voltage (nominally 325V (230V mains) or 170V (120V mains)), divided by the circuit resistance. This includes the transformer winding, cables, switch resistance, and the effective resistance of the mains feed. The latter is usually less than 1 Ohm, and allowing an extra Ohm for other wiring, this transformer could conceivably draw a peak of about 26A.
+
+<p>Note that inrush current is unidirectional - all pulses are one polarity until the inrush 'event' has settled and normal operation is attained. This typically takes between 10 and 100 cycles, depending on the transformer. Some very large transformers as used in electrical sub-stations (for example) may take a lot longer to reach normal operation.     
+
+<p>If the power is connected to a transformer at the very peak of the AC voltage waveform, this is (surprisingly) a much better alternative. Inrush current will usually be quite low, generally less than 1/4 of the worst case value. Without additional relatively complex circuitry, it is not possible to choose when power is applied, so any provision for inrush current must assume the highest possible value - that which is limited only by the winding (and external) resistance.
+
+<p>Note that the following graph shows the capacitive inrush <i>only</i>, and does not include the inrush current caused by the transformer. The reason for this is simple - it is extremely difficult to simulate transformer inrush - as shown in Fig 3A it is easy to measure though - if one has the equipment. It also differs significantly each time power is applied because there is no predictable time within a mains cycle where the power is connected or disconnected. Inrush current may vary from the nominal full load current of the transformer, up to a value limited only by the winding resistance of the primary and external wiring.</p>
+
+<center><img src="inrush-f3.gif" border=1><br><b><small>Figure 3B - Transformer Feeding A Rectifier And Filter Capacitors</small></b></center>
+
+<p>Things become more complicated when the secondary feeds a rectifier, followed by a large bank of filter capacitors. Worst case inrush current is still limited by the winding (and other) resistances, but the capacitor bank appears to be a short circuit at the output of the transformer. Depending on the size of the capacitors, the apparent short circuit may last for some time. During this period, the transformer will be grossly overloaded, but this is of no consequence. Transformers can withstand huge overloads for a short period with no damage, and they will normally last (almost) forever even when subjected to such abuse many times a day.
+
+<p>Once a capacitor bank is connected to the secondary of a transformer (via a rectifier of course), it now matters not when power is applied. A large inrush current will occur regardless of the exact point on the AC waveform where the switch closes. The following example shows a transformer with a 35V secondary (unloaded), which will give a DC output voltage of 48V. The inrush current due to the capacitors alone is 26A for the first half-cycle. More capacitance means higher peak current, as is to be expected. The inrush current settles down quite quickly, and after 100ms it has all but disappeared.
+
+<p>This leads neatly into the next topic ...</p>
+
+<hr><a id="s5"></a><b>5 - Capacitive Inrush</b>
+<p>A vast number of small appliances now use what is known as an "off-line" switchmode power supply. This means that the mains voltage is rectified, smoothed (at least to a degree) with an electrolytic capacitor, then the DC is fed to the switching power supply itself. This type of power supply is found in everything from compact fluorescent lamps to DVD players, mobile (cell) phone chargers to TV receivers. They have become truly ubiquitous, and are used to run just about all mains powered appliances that need low voltage DC for operation.
+
+<p>Larger power supplies are also very common, used for PCs, some microwave ovens, high power lighting and numerous other tasks. Many of these use active power factor correction, which makes them far more friendly to the electrical grid than those with no PFC at all.
+
+<p>However, the majority of these power supplies have high inrush current - often far greater than anything we have used before. Even little compact fluorescent lamps (CFLs) have such a high inrush current that people have been surprised that large numbers of them can't be used on a single switch (or circuit breaker). A typical CFL may be rated at 13W and draw around 95mA (assuming a PF of 0.6). In theory, it should be possible to have over 80 of these lamps on a single 8A lighting circuit, but even with as few as 20, it may be impossible to switch them all on at once.
+
+<p>Predictably, the reason is inrush current. Some CFLs and other small power supplies with similar ratings use a series fusible resistor (typically around 10 ohms) in series with the mains, both as a (lame) attempt to limit inrush, and as a safety measure (a fusible resistor will act like a fuse if abused - or so we are led to believe). Even with a relatively small capacitor (22uF is not uncommon), the worst case inrush current may be as high as 30A, and that's allowing for wiring impedance.
+
+<p>Clearly, any power supply that draws up to 315 times the normal running current at switch-on is going to cause problems. Standard circuit breakers are rated for peak (inrush) currents of around 6 to 8 times the running current, so on that basis switching on just 2 CFLs at the same time and at the worst moment could trip an 8A breaker. This normally never happens, because there is enough wiring impedance (both resistance and reactance) to limit the current to somewhat saner maxima. The fact does remain though that at least in theory, attempting to switch on two CFLs could trip a standard 8A breaker.</p>
+
+<center><img src="inrush-f4.gif" border=1><br><b><small>Figure 4 - Off-Line Rectifier And Filter Capacitor</small></b></center>
+
+<p>Figure 4 shows the typical rectifier circuit, along with the waveform. For the sake of being a little more realistic, the switch was closed 0.5ms after the zero-crossing point of the AC waveform, when the voltage has only risen to 51V. As you can see, the peak is still just under 11A, and is over 100 times greater than the RMS operating current. Note that if power is applied at the voltage peak and the capacitor and wiring were perfect (no internal resistance at all) the current would be equal to 32.5A as dictated by Ohm's law (325V peak / 10 ohms).
+
+<p>When a manufacturer has gone to all the trouble of including active power factor correction, you might expect that the inrush current will be minimal because there is no large capacitor following the rectifier (see Figure 5). Unfortunately, the PFC circuitry generally will not start until there is a reasonable charge in the bulk capacitor. This issue is addressed by the diode (D1) as shown, and it conducts fully when power is first applied.</p>
+
+<center><img src="inrush-f5.gif" border=1><br><b><small>Figure 5 - Simplified Active PFC Circuit [<a href="#ref">2</a>]</small></b></center>
+
+<p>The switch and inductor form a high frequency switched boost regulator, and the DC output is usually around 400V. The inductor has almost no effect at DC though, so the bulk (storage) capacitor C1 is charged directly from the mains, via L1 and D1. It is only after the MOSFET (Q1) starts switching at high speed that L1 starts to function normally - at low frequencies (100 or 120Hz) it does nothing at all. It is well beyond the scope of this article to explain switching boost regulators in any further detail, but suffice to say that this is a very common arrangement.
+
+<p>The value of C1 depends on a number of factors, but for even a small power supply of perhaps 150W or so, C1 will be around 150uF. Most manufacturers will use a negative temperature coefficient (NTC) thermistor to limit the inrush current, but it's not at all uncommon for them to get the value horribly wrong. One that I recently came across used a 4 ohm thermistor - completely useless, and I was able to measure 80A inrush peaks easily.
+
+<p>This type of power supply behaves very differently from what we expect with normal linear loads. The operating mains current depends on the voltage, but if voltage increases the current <i>decreases !</i> This is not expected unless you are used to working with switchmode power supplies (SMPS). As a result, a 100W supply will draw 435mA at 230V, and 830mA at 120V when operating at maximum input power (output power will typically be around 10% less than input power due to circuit inefficiencies).
+
+<p>There is an expectation now that everything should work anywhere in the world without change, so universal power supplies (90 - 260V AC, 50/60Hz input range) are common. It is unfortunate that this makes the circuitry to reduce inrush current far more of a compromise than would otherwise be the case. 
+
+<p>While thermistors are cheap and effective for inrush current suppression, they have a number of serious limitations, as discussed in the next section.</p>
+
+<hr><a id="s6"></a><b>6 - Inrush Limiting</b>
+<p>The only real choice for reducing inrush current to an acceptable value is to use a resistive component. This needs to present sufficient impedance at switch-on to prevent potentially damaging current surges, but must not waste power needlessly during normal operation. The amount of current drawn during the first few milliseconds should ideally be no more than perhaps double the normal running current, but some switchmode power supplies will refuse to start if the voltage fails to rise above a preset lower limit within a specific time period.
+
+<p>There are all kinds of reasons that may limit the range of choices for the start-up current, but most are limitations (either deliberate or otherwise) within the design of the power supply. Very simple supplies will try to start working as soon as any voltage is present, but may be completely unable to operate even after the limiting resistance is out of circuit if the inrush protection is not designed correctly.
+
+<p>Other more sophisticated designs will use protective circuits that prevent the power supply from operating if the input voltage fails to reach a preset minimum, and/or does not rise quickly enough. In such cases, it may be necessary to accept a higher than desirable inrush current. Things become more complicated when equipment is "universal" - having a power supply range of 90-260V AC at 50 or 60Hz.
+
+<p>An inrush limiter that works perfectly at 230V may prevent the supply from starting at 120V, but if set for 120V operation the inrush current at 230V (or above) becomes excessive. Ideally, this should signal that the power supply itself requires a redesign, but that may not be possible if the PFC integrated circuit used has limitations of its own.</p>
+
+<hr><a id="s61"></a><b>6.1 - Thermistor</b>
+<p>NTC (negative temperature coefficient) thermistors (<acronym title="Also Known As">aka</acronym> surge limiters) are a common way to reduce inrush. They are readily available from many manufacturers and suppliers, and are well established in this role.
+
+<p>There is a very wide choice of values and power ratings, and a thermistor is just a single component. Nothing else is needed ... at least in theory. Indeed, manufacturers make a point of explaining that their thermistor is the most economical choice, and that additional parts are not required. They may or may not point out the deficiencies of this simple approach.
+
+<p>Thermistors range in value from less than 1 ohm to over 200 ohms and have surge current ratings from around 1A up to 50A or more. It is the designer's job to pick the thermistor that limits the inrush current to an acceptable value, while ensuring that the power supply starts normally and the thermistor resistance falls to a sufficiently low value to minimise losses.
+
+<p>It is useful to look at the abridged specification for what might be considered a fairly typical NTC thermistor suitable for a power supply of around 150-300W depending on supply voltage (From Ametherm Inc. [<a href="#ref">3</a>]).
+
+<center>
+<table width=700 border=1 style="border-collapse: collapse">
+<tr><td width="70%">Resistance<td>10 &plusmn;25%
+<tr><td>Max Steady State Current up to 25&deg;C<td>2 A
+<tr><td>Max Recommended Energy<td>10 J
+<tr><td>Actual Energy Failure<td>30 J
+<tr><td>Max Capacitance at 120V AC<td>700uF
+<tr><td>Max Capacitance at 240V AC<td>135uF
+<tr><td>Resistance at 100% Current<td>0.34 ohm
+<tr><td>Resistance at 50% Current<td>0.6 ohm
+<tr><td>Body Temperature at Maximum Current<td>124&deg;C
+</table><b><small>Electrical Specifications</small></b>
+</center>
+
+<p>It is important to note that the resistance tolerance is very broad - this is common with all thermistors. Expecting close tolerance parts for a critical application is not an option. The maximum capacitance values shown are for a traditional capacitor input filter following a bridge rectifier. Direct connection to mains is assumed. At rated current, the resistance is 0.34 ohm, so power dissipated is 1.36W which doesn't sound like much, but note the body temperature - 124&deg;C. I would suggest that optimum operation is at 1A, where dissipation is only 0.6W and the temperature will be lower.
+
+<p>The good part is that the surge energy is specified - in the above case it's 10 Joules. This means that it can withstand 10W for one second, or 100W for 100ms. It can also handle 1kW for 10ms or 10kW for 1ms, and unless stated otherwise this should not cause failure. Although there is some butt-covering with the maximum capacitance specification, this is largely a guide for the end-user. Based on this I'd suggest that 10kW for 1ms would probably be quite alright, as it's still only 10 Joules. Be warned though - there are probably as many ways of specifying thermistors as there are manufacturers, and not all provide information in a user friendly manner.
+ 
+<p>While it is a fairly common suggestion (and used by some people), thermistors are completely useless in any equipment that draws a widely varying current during normal operation. Power amplifiers are a case in point - certainly the transformer and filter caps will cause a high surge current when the amp is switched on, but at low listening levels the thermistor has so little current through it that its resistance will be much higher than it should be. This can lead to power supply voltage modulation, and while that might lower the output transistor dissipation slightly, the thermistor is undergoing consistent stress - heating and cooling whenever the amp is operating.
+
+<p>Thermistors should only be used where the protected equipment draws a relatively constant power after it has settled down after power is first applied. While very convenient, NTC thermistors have a number of limitations.
+
+<p>They dissipate power constantly while equipment is operating, and normally operate at a relatively high temperature. This means that they must be kept clear of temperature sensitive parts (semiconductors, capacitors, etc.). Because they run hot, this means they are dissipating power, and this adds to the heat load inside enclosures and lowers the overall efficiency of the product.
+
+<p>Because thermistors normally run hot for minimum resistance, they must have time to cool down again between the time power is removed then restored. This may not be feasible, because momentary power outages are fairly common worldwide. If the power is off for only a couple of seconds, the thermistor will not have had time to cool, and there is almost no inrush protection when the power is restored. Most NTC makers suggest that a cool-down period of 30 seconds to a couple of minutes is needed, depending on the size of the thermistor, surrounding air temperature, etc.</p>
+
+<hr><a id="s62"></a><b>6.2 - Resistor</b>
+<p>Thermistor makers like to point out that using an NTC thermistor is so much better than a resistor, because they are physically smaller for the same energy absorption. While this is certainly true, they are fairly wide tolerance devices and unsuited where the application may be subject to strict specifications. The best you can hope for is &plusmn;10%, available from some suppliers for some of the range.
+
+<p>Resistors (which will be wire-wound for this application) are a very viable alternative, but they require some method of bypassing once the surge has passed and the circuit is operational. The alternatives for this are described below.
+
+<p>Resistor selection must be made on the basis of the maximum permissible current, but this is usually an unspecified value. To an extent, experienced engineers can estimate the allowable maximum for reliable operation over an extended period, but this is always a variable and may change if the resistor supplier changes the design.
+
+<p>Some wire wound resistors are capable of astonishing surge currents, while others of apparently equivalent size and value will be destroyed instantly the first time they are used. Nevertheless, resistors remain a commonly used and extremely reliable means of protecting against inrush current. If properly sized and perhaps used in parallel to obtain the power and value needed, there is no reason that an inrush protector using resistors cannot outlast the equipment it protects.</p>
+
+<hr><a id="s63"></a><b>6.3 - Bypass Systems</b>
+<p>As noted for resistors, a bypass scheme must be used to remove the series resistance from the circuit after the surge current has passed. The humble relay is a popular choice, because they are extremely reliable and are available for almost any application known. The voltage across relay contacts is negligible when they are closed, so contact power loss is close to zero. There is a small current needed for the relay coil though, but for equipment rated at less than 1kW the relay coil should consume no more than about 0.5W.
+
+<p>Another alternative is a so-called "solid-state relay" (SSR). These are usually more sensitive than traditional relays (less energising power is needed), but they dissipate some power across the TRIAC or SCR switching component. Cost is usually significantly higher than traditional relays, but they are used in some cases.
+
+<p>It is also possible to make a solid state relay using a TRIAC or SCR directly controlled by a suitable opto-coupler. This is what's inside a "real" SSR anyway, but by making it from discrete parts gives much greater flexibility. The general schemes used are shown below, but other alternatives are possible (although I've not seen them used).</p>   
+
+<center><img src="inrush-f6.gif" border=1><br><b><small>Figure 6 - Resistor/ Thermistor Bypassing</small></b></center>
+
+<p>Many of the main complaints against NTC thermistors are completely eliminated if the thermistor is bypassed shortly after power is applied. The thermistor gets to do its job, and they are fully specified for the instantaneous power dissipation (unlike resistors). Once the circuit is operating normally, the relay shorts out the thermistor, so it is allowed to cool and adds no heat into the enclosure. This means that it is ready immediately after power is removed - no cooling time is needed at all.
+
+<p>It is very important that the relay (or other device) removes the short from the thermistor or resistor very quickly after power is removed. If not, a momentary power outage will cause all equipment to draw a very large surge current when power resumes. The bypass circuit ideally needs to disconnect within a few milliseconds, and certainly well before the power supply "hold-up" time expires.
+
+<blockquote>Many power supplies are designed to continue functioning and providing output for up to 100ms or so after mains power is removed. This is intended to guard against data loss (for example) during a momentary power outage. General purpose supplies will usually only function over one or two missing cycles of the mains power.</blockquote>
+
+<p>With a proper bypass arrangement, resistors and thermistors are both equally suitable for circuit protection from inrush current surges. Thermistors have an advantage in that they will fall to a low resistance state even if the bypass system fails to operate, so if there is a fault they will not usually be subjected to massive power dissipation and possibly destroyed.
+
+<p>Resistors do not have this fail-safe advantage, so it may be necessary to add a thermal fuse to protect against fire. Consider a 10 ohm resistor connected directly across the 230V mains. If the bypass doesn't work, power dissipation may be as much as 5kW. Current will be close to 23A, so the fuse (if fitted !) should blow, but the resistor may fail first. Higher resistance values are worse - the current is not high enough to cause the fuse to blow straight away, but the resistors will get exceptionally hot and may set the PCB on fire.</p>
+ 
+<hr><a id="outro"></a><b>Conclusion</b>
+<p>For a great many small appliances, inrush protection should be mandatory, simply because overall power consumption is falling, so people think (not unreasonably, I might add) they can use more appliances on the same circuit than was previously possible. As this article has shown, you may actually end up with far fewer than you might imagine.
+
+<p>This is especially true with lighting - the inrush current is much higher for most modern "equivalents" to traditional incandescent lamps or fluorescent tubes, regardless of whether the replacements use CFL or LED technology. Even the iron cored transformer of old for halogen lighting has given way to an electronic equivalent, which may be more efficient, but can never last as long. Indeed, a great many of the small efficiency gains that are mandated upon us by government decree can vanish in an instant if the "new, improved" replacement device fails prematurely. Yes, I know this is a separate topic, but it's important here too.
+
+<p>Until manufacturers strive to minimise surge current, installers will continue to have issues - especially if there is no inrush information provided in any of the documentation. It's actually very uncommon for any manufacturer to provide this info, even though it can (and does) cause some fairly major headaches when an installer gets caught out. The problem is bad for everyone - the manufacturer and/or distributor gets a bad name, installers have to change their wiring, and customers are inconvenienced.
+
+<p>At the very least, details of inrush current should be provided with documentation. Installers need to know how many "things" can be on a single circuit breaker, even if they are grouped of individually switched banks. This applies especially for lighting equipment, because the lower power demands of many modern lights can easily mislead people into thinking that potentially very large numbers can be used on a single circuit breaker.  While there might not be a problem if lights are switched on in some kind of sequence, a power outage will cause all lights to try to come on at once.
+
+<p>The circuit breaker may trip every time someone tries to reset it, until some of the individual banks are turned off with their individual switches. This is untenable in the workplace - unless there are regular power failures so everyone learns and knows the proper sequence, it could easily take some time before anyone figures out what needs to be done. Momentary interruptions will simply trip the circuit breaker when power resumes, and this is quite unacceptable. Doubly so because it will happen over and over again, until by chance the breaker manages to stay on. I know of two installations where this has occurred, exactly as described. The only fix was to rewire some of the lights.
+
+<p>All manufacturers of appliances that use switchmode power supplies need to provide useful information to installers or users, so that people know that these new products may behave differently from what might be expected. Even traditionally resistive loads like electric stoves are sometimes using a SMPS to power induction cooking systems, so there are very few things that are not affected. Even electric hot water systems are now available using a heat-pump (an air conditioner in reverse), and this will also have a significant inrush current.
+
+<p>Imagine the load on the electricity grid if there is a short service interruption, and 10s of thousands of high inrush current appliances all try to come back on simultaneously. As we've seen above, a 50:1 ratio is not uncommon, so if a fully loaded electrical substation suffers a momentary break in supply, how can it possibly cope with a 50 times overload when it tries to come back on-line?
+
+<p>The answer, of course, is that it can't - the substation's protective breakers will almost certainly trip, but not before hundreds of switchboard circuit breakers that are also close to their limit drop out. All this because no-one will tell installers and users that these items draw 20, 40 or 50 times the normal current when power is applied.
+
+<p>I expect that most manufacturers will eventually get it right, but based on what I've seen so far it's likely to take a while. It's not hard to imagine how this problem has come about - I'm fairly sure that they simply haven't thought about the likely consequences, and any inrush current limiting is simply to protect the product itself, without thought for the installation or the grid.</p>
+
+<hr /><a id="ref"><b>References</b></a>
+<ol>
+	<li><a href="http://www.sylvaniaautocatalog.com/sylvania/tung_fila_lamps.htm" target="_blank">Properties of Tungsten Filament Lamps -
+	Sylvania</a> 
+	<li>Texas Instruments Datasheet - UCC28060 Dual-Phase Transition-Mode PFC Controller
+	<li><a href="http://www.ametherm.com/datasheets/sl1010002.html" target="_blank">Ametherm SL10 10002 Thermistor</a>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott (Elliott Sound Products), and is Copyright &copy; 2010 - all rights reserved. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and Copyright &copy; 23 October 2010 Rod Elliott./ Updated 07 Nov 11 - added Fig 3A and text.</div>
+</body>
+</html>

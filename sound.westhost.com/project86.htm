@@ -1,0 +1,256 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="oscillator, sine, square, wave, audio, project, diy, crossover, test, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - Mini Audio Oscillator.  This oscillator can be built into a tiny case, and has excellent performance, with a frequency range from 40 Hz to 18 kHz">
+	<title>Miniature Audio Oscillator</title>
+<!-- ESP Audio Projects - Mini Audio Oscillator.  This oscillator can be built into a tiny case, and has excellent performance, with a frequency range from 40 Hz to 18 kHz -->
+ 	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 86&nbsp;</td></tr></table>
+
+<p align="center"><b>Miniature Audio Oscillator (Miniosc)</b><br />
+<small>Phil Allison/ Rod Elliott</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html#p86" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for this project. Click the image for details.<br>
+<br>
+<hr><b>Introduction</b>
+<p>The Miniosc is designed as a pocket sized high performance audio oscillator. Some time after another design was published, it occurred to me that an even simpler, battery operated version was possible and could be made at very low cost as well by using one quad op-amp to provide the entire active circuitry. Employing a nine volt battery supply would put a lower limit on the maximum output level, compared with a mains powered oscillator, meaning that about one volt or so output should still be available.</p>
+
+<table width="90%"><tr><td valign="top"><img src="note.gif"><td valign="top"><small>There was a mistake in the original schematic that increased the distortion well beyond what the Miniosc circuit is capable of. This has now been corrected, and the schematic redrawn to reflect the layout that is used for the PCB.</small>
+</table>
+
+<p>The mini version of the original Low Distortion Oscillator has been fitted into a pocket sized instrument case including a nine volt battery in its own compartment, and has level and frequency control pots on top with range and mode switches on the sides allowing one handed operation of all controls, a very useful feature.
+
+<p>A mini sized, battery powered sine and square wave source is invaluable for on site testing of all sorts of audio equipment and even workshop use where the item to be tested may not fit on the workbench, for example a 24 channel mixing console or a large powered loudspeaker system.</p>
+
+<hr><b>Description</b>
+<p>The oscillator circuit (see Figure 1) involves two unity gain phase shift stages, A1 and A2, in tandem and a gain stage, A3, with back to back diodes and resistor network providing non-linear negative feedback. At a particular frequency (determined by RT and CT - the timing components) A1 and A2 provide 90 degrees phase shift each, 180 degrees in total and the circuit begins oscillating, since A3 and its non linear network has more than unity gain for small signals. As the oscillation level increases the diodes conduct and limit the gain of A3 stabilising the output at the desired level, in this case a little over 1V RMS. However, some distortion of the sine wave peaks is caused by the diodes.</p>
+
+<center><img SRC="p86-f1.gif" ALT="Figure 1" BORDER=1>
+<br><b><font size=-1>Figure 1 - Basic Oscillator Principle</font></b></center>
+
+<p>The principle is quite simple. Using two phase shift networks, the phase is rotated by 180&deg; at one frequency. The final amplifier provides an additional inversion (effectively 180&deg; phase shift), so the circuit will oscillate. The limiter (whether diodes, thermistor or something else) is used to prevent the amplitude from building up to the point where the signal is grossly distorted. Normally, diodes are not at all effective in preventing distortion, but that's where the fourth stage comes into its own.</p>
+
+<table width="90%"><tr><td valign="top"><img src="note.gif" /></td><td><small>In the original Wireless World [<a href="#ref">1</a>] design, a thermistor Philips type, 68k, 20mW was used but you could also use a type R53 or similar if you can get one. Because these are virtually unobtainable anywhere, the current design uses diodes. You may be able to source a suitable NTC thermistor from an old audio oscillator, but even many of these used a PTC thermistor (a small tungsten filament lamp) because the "real" thermistors have always been expensive and rather fragile.</small></td></tr>
+</table>
+
+<p>The disadvantage of this simple circuit (especially if diodes are used) is that it will be almost impossible to get distortion below around 5% along with reliable oscillation. Even if you can find a suitable thermistor, the distortion will be no better than a typical Wien bridge oscillator, but with more active parts and a restricted frequency range due to the limitations of the opamps.</p>
+
+<center><img SRC="p86-f2.gif" ALT="Figure 2" BORDER=1>
+<br><b><font size=-1>Figure 2 - Expanded Oscillator Principle With Distortion Cancellation</font></b></center>
+
+<p>The fourth stage, A4, is the real secret of the design since it combines the outputs of the three preceding stages using a feedforward* approach. This is done in such a way as to reduce the third and higher odd harmonic distortion products generated in those stages due to the back to back diodes used for level stabilisation. Because the diodes are symmetrical in their effect they cause only third and higher odd harmonics of the sine wave output.</p>
+
+<blockquote><small>* Note that the term "feedforward" is not used in the strictly traditional sense here, but refers to the fact that parts of the signal are fed forwards to the final stage. This is more by way of a simple explanation than an attempt to redefine the term (just in case any of the engineering types were planning on taking me to task for my "misuse" of the word :-)</small></blockquote>
+
+<p>The net effect of A4 is to remove at least 90% of these unwanted harmonics from the output over the operating range of the oscillator. The prototype measured only 0.16% THD at 1kHz, somewhat less at lower and more at higher frequencies. At these levels the distortion is barely audible and presents a visually perfect sine wave on an oscilloscope screen. Overall, this represents a much better performance than a typical function generator.</p>
+
+<center><img SRC="p86-f3.gif" ALT="Figure 2" BORDER=1>
+<br><b><small>Figure 3 - Complete Schematic of MiniOsc</small></b></center>
+
+<p>Referring to the main circuit (Figure 2) there are only two control pots (RV1 and RV2) and two DPDT switches. The output level pot includes an on-off switch and is of logarithmic taper to allow easier setting at low (i.e. millivolt) levels. This pot is directly coupled to A4's output to minimise response errors, provided that the load impedance is constant or quite high compared to the output impedance provided by Miniosc.</p>
+
+<p>Since switched pots may be quite difficult to obtain these days, a separate on/off switch will probably be needed. This should be the same type as the others specified.
+
+<p>The frequency sweep control (RV1A/B, which must be a linear pot) has a range of about 24:1 and in combination with the High-Low range switch having a 18:1 ratio, the audio band is covered (with the exception of the lowest octave) in two overlapping ranges. The possibility of a single sweep of the audio band without the range switch was tried out and later dropped in preference to the present design.
+
+<p>The square/sine wave switch works by disconnecting the negative feedback around A4 allowing the opamp to run "open loop". In this condition it is overdriven by the oscillator stage causing its output to saturate at the positive and negative supply voltages producing a squared waveform. The additional four diode network which is switched across the output of A4 and voltage limits the output level in square wave mode to match the sine wave level and at the same time regulates against variations in the battery voltage.
+
+<p>The actual operating level of Miniosc is limited by the use of a single nine volt battery if you choose to power it this way. The discharge curves for various types show a voltage variation of from 9.5 volts down to 6.3 volts is to be expected from "fresh" to "flat". The Miniosc operates as specified over this range with a maximum output level of 1.27 volts RMS sine and 1.45 volts square. The battery drain in sine wave mode is a miniscule 1.7mA increasing to about 4.7mA in square wave mode. This very low drain is mainly the result of using the Texas Instruments TL062 low power dual FET opamp which is ideally suited to the design.
+
+<p>Types like the TL072, TL082 and other dual op-amps with compatible pinouts are not recommended for single 9V battery use due to both the increased battery drain and reduced margin of minimum operating voltage. The TL062 is alone in having operation specified down to a plus and minus 3 volt supply. Any dual opamp can be used if a pair of 9V batteries are provided, or where the oscillator will be powered from a regulated power supply of 12V or more. One dual opamp that cannot be recommended is the LM358 - it will work, but very badly.
+
+<p>Power from the standard 9V 216 style battery feeds a voltage divider (R16 and R17) to provide an artificial centre tap with bypass capacitors and a 1 amp diode to protect the IC from inadvertent reverse connection of the battery. Even a momentary reversal of a good battery would easily destroy the TL064 IC and any of its relatives. Creating balanced plus and minus 4.5 volt supply rails like this allows direct coupling between all the op-amp stages (including the output level control), and also reduces the number of components.</p>
+
+<hr><b>Performance</b>
+<p>The Miniosc is <b><i>not</i></b> a toy oscillator. It is capable of serious work testing domestic or professional audio equipment of all types and will verify normal operation, allow levels to be set, channels to be matched and response curves measured. 
+
+<p>Low distortion combined with a particularly high "envelope stability" of 0.1 dB, even when rapidly swept, is a feature lacking even in many high grade oscillators. Battery operation eliminates the possibility of mains hum in the output and also allows connection to either floating transformer or actively balanced input circuit. Direct coupling of the output circuit eliminates any response errors caused by connecting low load impedances to Miniosc.
+
+<p>Note: The lowest octave of the audio band has been designed deliberately out so as to avoid damaging speakers when using the Miniosc. There are few speaker systems that can safely accept full power input at 20Hz (or 15kHz, so be careful !). The extra low frequency octave is easily added if needed, but it is not appropriate for a portable unit that may be used to drive complete PA systems.
+
+<p>The square wave function has been included because it is so useful. The rise and fall times are relatively slow, however there is very good waveform symmetry across the audio range.</p>
+
+<hr><b>Construction Details</b>
+<p>There are several changes from the original, the most notable being that the frequency pot supports the PCB and is directly mounted. There are still several leads needed though, and assembly will require care and patience.
+
+<p>You may use any case that suits your needs - provided everything will fit of course. Panels should be carefully drilled for the switches, pots and BNC socket to be fitted. The amount of space you have depends on the case you use. The pots will probably need the shafts shortened to allow the knobs to sit flush.</p>
+
+<center><img SRC="p86.jpg" ALT="Photo" BORDER=1>
+<br><b><small>Photo of Completed MiniOsc</small></b></center>
+
+<p>The three slide switches fit into slots which are cut with a nibbling tool in the sides of the case and then filed to size. Cut only enough plastic/metal to permit full travel of the actuator. Two small holes will also need to be drilled to mount these switches. Mark their positions using a switch as a template and a sharp point or scriber. Four 2mm x 10mm long mounting screws will also need to be purchased as they are not normally supplied with the switches. It might be possible to find a miniature pot for the level control that includes the DC switch. These are common in small transistor radios, but unless you have one that can be sacrificed you'll almost certainly end up using a small toggle or slide switch.
+
+<p>The PCB may now be loaded. This work should be done carefully to avoid solder bridges and prevent overheating the components. Use a small conical tip soldering iron at a moderate temperature (about 320&deg;C). The all components resistors are mounted normally. Take particular care with the polarity of the diodes and orientation of the ICs. The board is double sided and uses solder resist on both sides, making assembly and soldering easier than might otherwise be the case.
+
+<p>MKT type PC mount capacitors have been specified for the Miniosc as they are now widely available but no other miniature components are needed despite the very small PCB.
+
+<p>Tip: Be wary of 1% metal film resistors with four band colour codes, it is more reliable to measure them with your multimeter than try to decipher the codes.
+
+<p>Wire the battery snap via the on-off contacts on the power switch. It doesn't matter which lead (red or black) goes to the switch but red is traditional. Lastly, glue a small piece of foam plastic in the battery compartment to prevent the battery rattling about.</p>
+
+<hr><b>BNC Output Connector</b>
+<p>The BNC output socket has been specified for the simple reason that the mating plug locks in place. An RCA socket was tried at first but proved unsatisfactory since the Miniosc could not be left dangling on its output lead without risk of disconnection followed by the unit going bang on the floor! Using the BNC overcomes this problem and various adapter leads allow conversion to RCA and jack plug when required.</p>
+
+<hr><b>Commissioning</b>
+<p>Once assembly is complete, double check all wiring and soldering especially for bridges between tracks or IC pins.
+
+<p>Connect a battery and switch on. If you have an oscilloscope available then a full performance check can be done otherwise simply connect Miniosc to your stereo amplifier and operate all the controls to verify correct operation. The sweep should sound smooth and the pitch should increase as the knob is turned clockwise. A large increase in frequency should be heard when the range switch is operated from Low to High.
+
+<p>The square-sine wave switch should cause a very obvious sharpening of the tone but little increase in the level. The top end of the "Hi" sweep range should just disappear into inaudibility unless you are much younger than I am!
+
+<p>Warning: Keep the level down for this last test as replacement tweeters can be expensive! High powered tests involving loudspeakers should always be mercifully brief.
+
+<p>Battery drain can be checked with a multimeter and should read around 1.7mA in sine wave mode if all is well and you are using the TL064. Excessive current drain or no oscillation will probably be due to wiring errors, solder bridges or a component or two which has not had one of its leads soldered properly. Depending on opamps used, current drain could be up to about 6mA, and anything below 10mA is most probably perfectly alright if the circuit is working normally.</p>
+
+<center><img SRC="p86-f4.jpg" ALT="Photo" BORDER=1>
+<br><b><small>Figure 4 - Waveform &amp; Distortion Residual At 1kHz</small></b></center>
+
+<p>The distortion residual above doesn't look wonderful, but the measured THD at the time was only 0.12% - well below audibility for a single tone. The distortion meter insists on providing a nice high-level signal for the residual (which is actually very useful). This is largely immaterial though - the purpose of Figure 3 is to show you the distortion waveform - that means everything that <i>isn't</i> 1kHz, including noise.</p>
+
+<hr><b>Using Miniosc</b>
+<p>Although the Miniosc is not intended to replace the usual bench audio signal generator it can at a pinch do most of the same jobs a bench model does. The fact that the output level remains particularly steady while the frequency is swept rapidly makes response testing a breeze, especially for tape recorders, equalisers, electronic crossovers and loudspeakers too if a flat response sound level meter is available. The overall performance is actually better than many budget test bench audio oscillators, especially at low frequencies. The ability to get less than 0.2% THD at 1Hz or less is generally only possible with expensive test gear. Admittedly, the high frequency performance is not as good as you'd expect from a bench oscillator, but it's still fine for most test procedures.
+
+<p>The main use I foresee for Miniosc is on the spot tests to equipment where little or no other test equipment is to hand. This might mean using your ears as the output instrument, or possibly a VU meter, LED ramp or similar level display built into the unit under test. In many cases a digital or analogue multimeter can be used as an output meter providing that its response is known to be flat over the range to be measured or it has been checked first using your new Miniosc.
+
+<p>Note: Analogue multimeters and VU meters will normally read accurately over the audio band but the same is not true of most digital multimeters where the AC readings taper off above only a few kilohertz.
+<p>Slowly turning the sweep control makes pinpointing and tracing rattles and buzzes in speaker systems very simple. Also, you can identify obvious peaks and holes in the response caused by defective drivers or passive crossover networks. Of course, be wary of rattling room heaters or window panes before you condemn the speakers.</p>
+
+<hr><b>Using Square Waves</b>
+<p>The square wave function can be used in conjunction with an oscilloscope to examine transient responses for ringing or more likely when testing by ear when checking out signal processors and effects units like delay and reverberation, whether mechanical or electronic. You need an input signal rich in harmonics for the full sound of these units to be heard. A square wave signal contains all the odd numbered harmonics of a frequency, diminishing in relative intensity, out to beyond audibility.
+
+<p>Sweeping the square wave back and forth over one or two octaves will further enhance the audibility of effects.</p>
+
+<hr><b>Output Leads</b>
+<p>A variety of output leads or adapters may be needed. I used a BNC to jack (6.35mm) lead with an adapter to RCA plug when necessary. Lead adapters to XLR plugs may also be made for use with professional type audio equipment. In most cases pins 1 and 3 (or sometimes 1 and 2) should be linked on the XLR connector to connect Miniosc to the input or else connect Miniosc between pins 2 and 3 for floating balanced (transformer) inputs.</p>
+
+<hr><b>Modifications</b>
+<p>Some modifications are possible to the Miniosc circuit as it stands and there may be others you can develop.
+
+<ol>
+	<li>Frequency limits can be altered by changing the values of capacitors C1, C2, C5 and C6. Increasing C5 and C6 for example to a value 
+	of 0.15 uF extends the range down to 20Hz. Some other values (R8 and R9) will be need altering also to prevent a gap occurring in the 
+	frequency coverage.<br /><br />
+
+	<li>The range of the sweep control can be increased or reduced by changing the value of the end resistors R8 and R9. However, do not go 
+	below a value of 680 ohms.<br /><br />
+
+	<li>The output level control can be changed to 1k if operation into low impedances needs to be optimised. This will make level setting 
+	more progressive than with the 5k ohm pot specified when feeding low impedance loads. (This will increase the sine wave battery load 
+	to 2.2mA while the square wave load remains at 4.7mA.)<br /><br />
+
+	<li>The circuit can be used with split supplies (&plusmn;9V from two batteries, &plusmn;15V from a power supply, etc.) or a single 
+	supply. If more than a single 9V supply is available, you have a much wider choice of opamps. The new circuit uses two dual opamps 
+	rather than a single quad package, for the simple reason that there is a much wider choice of opamps in the dual package.
+</ol>
+
+<hr><b>Notes</b>
+<ol>
+<li>The output frequency is given by ...<br>
+
+<blockquote><b>f = 1 / ( 2 * &pi; * R * C )</b></blockquote>
+
+where R equals resistance to ground from pins 3 and 5 of the U2, and C equals total capacitance feeding R in each case.<br><br>
+
+<li>The sine output level is unaffected by battery voltage variations provided the 6.3 volt minimum is available (TL062 or similar only).<br><br>
+
+<li>Temperature slightly affects the output level due to the effect on the diodes. An increase in temperature will cause the output to fall by approximately 0.4% per &deg;C.
+</ol>
+
+<hr>
+<p>The measured performance of the prototype is shown below. These measurements were taken with a TL064 as described in the original version of this project, but will be virtually identical with a pair of TL062 opamps. Measurements on the prototype I built using RC4558 opamps are virtually identical, except distortion was lower (0.13% THD) and supply current higher. The 4558 opamps will work down to about 5.5V (total single supply voltage), but draw a higher supply current.  I measured 4.5mA (sinewave output), but this will vary with the opamps because the supply current is not highly specified.</p>
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<tr><td rowspan=2>Frequency:<td>Low 41 - 1082 Hz
+<tr><td>High 735 - 18.1 kHz
+<tr><td rowspan=2>Output:<td>1.27 volts RMS sine (+4dBm) (note 3)
+<tr><td>1.45 volts peak square
+<tr><td>Load:</td><td>1.0 volts RMS sine into 330 ohms
+<tr><td>Flatness:<td>+/- 0.1dB (1%) 41 Hz to 17 kHz
+<tr><td>Distortion:<td>0.16% THD at 1kHz
+<tr><td rowspan=2>Square wave:<td>Rise time - 5 us at 10kHz
+<tr><td>Symmetry - 1% up to 10kHz
+<tr><td>Supply:<td>6.3 volt minimum
+<tr><td rowspan=2>Consumption:<td>1.7 mA, sine wave
+<tr><td>4.7 mA, square wave
+</table>
+<small><b>Performance of Prototype</b></small>
+</center>
+
+<p>The above is for the oscillator built exactly to the schematic shown, and with frequency setting capacitors and switching as indicated. The PCB version is virtually identical, although there are a few component rationalisations included that reduce the number of different parts. Performance is not affected by the changes.
+
+<p>These figures can be expected to be representative of performance with most opamps designed for audio usage. As noted above, avoid low power opamps such as the LM358, as they are completely unsuitable because they are too slow and have significant distortion.</p>
+
+<hr /><a id="ref"></a><b>Reference</b><br />
+The original circuit was published in Wireless World, February 1982. The original thermistor was specified as a Philips type, 68k, 20mW (type number 2322 634 32683), however a search indicates that it is no longer available. A reader kindly scanned the article, and a PDF of the 1982 article is available from ESP if desired. Please email me (see the <a href="contact.htm" target="_blank">Contact</a> page for details). 
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Phil Allison and Rod Elliott, and is Copyright &copy; 2002. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Phil Allison) and editor (Rod Elliott) grant the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Phil Allison and Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page Created and Copyright &copy; Phil Allison/ Rod Elliott 09 Mar 2002./ 15 April 2010 - Corrected drawing error, reformatted text, announced PCBs./ Dec 2010 - Added reference material and simplified schematic + description.</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<html><head>
+<title>Spreadsheet Parameters</title>
+<style TYPE="text/css">
+<!--
+ p { font-family: arial, helvetica, sans-serif }
+ td { font-family: arial, helvetica, sans-serif; font-size: 10pt }
+ body { font-family: arial, helvetica, sans-serif }
+-->
+</style>
+</head><body>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%" BGCOLOR="#0000FF">
+<tr><td><b><font color="#FFFFFF" size="+0">Elliott Sound Products</font></b></td>
+<td align=right><b><font color="#FFFFFF" size=+1>Transformers - Part 3</font></b></td></tr></table>
+
+<p>Field descriptions for TRAFO7 Excel spreadsheet ...</p>
+
+<p><table width="100%">
+<tr><td width="8%"><b>Field</td><td width="12%"><b>Type</b></td><td><b>Description</b></td></tr>
+<tr><td><i>Ud</i></td><td>Input</td><td>Si diode voltage at high current (change this voltage for using valve (tube) rectifiers, or special diodes)</td></tr>
+<tr><td><i>Ubrss</i></td><td>Input</td><td>max. allowed typical peak-peak ripple voltage</td></tr>
+<tr><td><i>Ia</i></td><td>Input</td><td>desired nom. DC output current per coil (ohmic load)</td></tr>
+<tr><td><i>alpha</i></td><td>Input</td><td>current form factor (RMS > average!) 1.5 ... 2</td></tr>
+<tr><td><i>Uaminn</i></td><td>Input</td><td>desired minimum nominal output voltage, to remember your goal</td></tr>
+<tr><td><i>Uamin</i></td><td>Input</td><td>minimum nominal output voltage for computation</td></tr>
+<tr><td><i>rho</i></td><td>constant</td><td>Copper thermal specific resistance</td></tr>
+<tr><td><i>L</i></td><td>Input</td><td>line length from house mains entry to transformer,one way (metres)</td></tr>
+<tr><td><i>A</i></td><td>Input</td><td>wire cross section area of this line with length <i>L</i></td></tr>
+<tr><td><i>Rk</i></td><td>computed</td><td>resulting line resistance for both ways</td></tr>
+<tr><td><i>Unetz</i></td><td>Input</td><td>nominal effective mains voltage</td></tr>
+<tr><td><i>fn</i></td><td>Input</td><td>mains frequency</td></tr>
+<tr><td><i>tolup</i></td><td>Input</td><td>upper limit of mains voltage variation</td></tr>
+<tr><td><i>tolow</i></td><td>input</td><td>lower limit of mains voltage variation</td></tr>
+<tr><td><i>ü</i></td><td>computed</td><td>transformation ratio</td></tr>
+<tr><td><i>ü2</i></td><td>computed</td><td>impedance transformation ratio</td></tr>
+<tr><td><i>Rks</i></td><td>computed</td><td>line resistance transformed to secondary, usually very small</td></tr>
+<tr><td><i>f</i></td><td>Input</td><td>actual used transformer loss factor</td></tr>
+<tr><td><i>f</i></td><td>computed</td><td>heuristical determined loss factor, no large difference with actually used, unless reason for this is known!</td></tr>
+<tr><td><i>U0eff</i></td><td>computed</td><td>nominal sine AC effective transformer voltage per coil with no load</td></tr>
+<tr><td><i>Ineff</i></td><td>computed</td><td>nominal sine AC effective transformer current per coil</td></tr>
+<tr><td valign="top"><i>In</i></td><td valign="top">computed</td><td>nominal sine AC transformer peak current per coil, compare with <i>Imax</i> for a hint for <i>alpha</i> (value is doubled in case of Center circuit, since only one coil at a time is conducting in this rectifier circuit, while both are conducting with pure resistive load)</td></tr>
+<tr><td><i>Imax</i></td><td>computed</td><td>secondary peak current per coil, also current through diodes, compare with <i>In</i> to avoid core saturation</td></tr>
+<tr><td><i>Idm</i></td><td>computed</td><td>average diode current</td></tr>
+<tr><td><i>Pa</i></td><td>computed</td><td>total power per winding delivered to load resistor</td></tr>
+<tr><td><i>Pn</i></td><td>computed</td><td>total transformer power, including rectifier power, load power, all coils and factor alpha</td></tr>
+<tr><td><i>Pns</i></td><td>computed</td><td><i>Pn</i> divided by number of coils (1, 2)</td></tr>
+<tr><td><i>Ua0+</i></td><td>computed</td><td>idle voltage on capacitor, including mains upper <i>Ua0+</i> tolerance</td></tr>
+<tr><td><i>Ua0</i></td><td>computed</td><td>idle voltage on capacitor, nominal mains</td></tr>
+<tr><td><i>Ua0-</i></td><td>computed</td><td>idle voltage on capacitor, including mains lower tolerance</td></tr>
+<tr><td><i>Usper+</i></td><td>computed</td><td>idle voltage stress on diodes, including mains upper <i>usper+</i> tolerance</td></tr>
+<tr><td><i>Ua8+</i></td><td>computed</td><td>infinite capacitor voltage with load and mains upper <i>Ua8+</i> tolerance, can be used to estimate e.g. amplifier losses</td></tr>
+<tr><td valign="top"><i>Ua-</i></td><td valign="top">computed</td><td>capacitor voltage (capacitance value <i>Cl</i>), including mains lower tolerance and line losses and ripple, lowest instantaneous value</td></tr>
+<tr><td><i>Ua8</i></td><td>computed</td><td>infinite capacitor voltage with load, nominal</td></tr>
+<tr><td><i>Ua8ber</i></td><td>computed</td><td>tryed infinite capacitor voltage with load</td></tr>
+<tr><td><i>r</i></td><td>computed</td><td>ratio between <i>Ua8</i> and <i>Ua8ber</i> in %, error of iteration, minimise to 0.0!</td></tr>
+<tr><td valign="top"><i>Uneff</i></td><td>iteration input</td><td valign="top">nominal effective transformer secondary voltage, this value must be iterated to minimise <i>r</i></td></tr>
+<tr><td><i>Rv</i></td><td>computed</td><td>load resistor that would draw <i>Ia</i> with infinite capacitor</td></tr>
+<tr><td><i>Ri</i></td><td>computed</td><td> transformer resistance for each coil</td></tr>
+<tr><td><i>Ri+main</i></td><td>computed</td><td>effective transformer resistance for each coil, including line losses</td></tr>
+<tr><td><i>Cl</i></td><td>computed</td><td>capacitor size for give ripple, frequency, load</td></tr>
+<tr><td><i>Pd</i></td><td>computed</td><td>power loss per diode</td></tr>
+<tr><td><i>Pg</i></td><td>computed</td><td>total power loss, sum for all diodes</td></tr>
+</table></p>
+
+<table width="100%"><tr><td width="100%" align="right">
+<form><input type=button value="Close" onClick="self.close()"></form>
+</td></tr></table>
+</body></html>

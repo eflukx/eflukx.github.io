@@ -1,0 +1,401 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="High speed opamps for audio. Visit my other pages for more audio projects and information">
+	<meta name="keywords" content="high, speed, opamp, dsl, audio, preamp, stereo, amp, diy, hi-fi, electronic">
+	<title>High speed amplifiers for audio</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">High Speed Amplifiers in Audio&nbsp;</td></tr></table>
+
+<p align="center"><small>Copyright &copy; 2001 - Rod Elliott (ESP)<br>
+Page Published 05 Jul 2001<br>Updated 18 Aug 01</small></p>
+
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="articles.htm" OnMouseOver="document.art1.src='arrow.gif';" OnMouseOut="document.art1.src='arrow1.gif';">
+ <img SRC="arrow1.gif" NAME="art1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br><a href="index2.html" OnMouseOver="document.home1.src='arrow.gif';" OnMouseOut="document.home1.src='arrow1.gif';">
+<img SRC="arrow1.gif" NAME="home1" ALT="ESP Home" BORDER=0></a><b>Main Index</b>
+
+<hr><a NAME="contents"></a><b>Contents</b>
+<ul>
+	<li><a href="#intro">Introduction</a>
+	<li><a href="#a1">1. The Need for Speed</a>
+	<li><a href="#a2">2. High Speed Opamps</a>
+	<ul>
+		<li><a href="#a21">2.1&nbsp; Cable Impedance</a>
+	</ul>
+	<li><a href="#a3">3. THS6012 Current Feedback Opamp</a>
+	<ul>
+		<li><a href="#a31">3.1&nbsp; CFB Opamp Headphone Amplifier</a>
+		<li><a href="#a32">3.2&nbsp; THS6012 CFB Pre-Amplifier</a>
+		<li><a href="#a33">3.3&nbsp; Zobel Network</a>
+	</ul>
+	<li><a href="#a4">4. IC Mounting Details</a>
+	<li><a href="#con">Conclusion</a>
+	<li><a href="#term">Terminology</a>
+</ul>
+
+<p>Most terms that require an explanation are described <a href="#term">below</a> for your convenience</p>
+
+<hr><a id="intro"></a><b>Introduction</b>
+<p>Over the past few decades, there has been much musing, discussion and outright argument about the need for wide bandwidth in audio systems. Unlike most other discussions, I am not referring to extension to 30 or even 50 kHz, but well into the RF spectrum. There is apocryphal 'evidence' that high speed amplifiers sound better, although after years of such debate and argument, no-one has been able to shed any light as to the possible reasons why this may be the case.
+
+<p>After an e-mail from Texas Instruments and a package of evaluation boards, documentation and a selection of high speed opamps, I started thinking about this issue seriously. The original aim was simply to have a look at an xDSL line driver, which was thought to have great potential as a headphone amp, and this is most certainly true - initial tests are described below.</p>
+
+<p>The real thing that got me to thinking was the seemingly impossible claim that different interconnects sounded different. The tests I have run indicate that the differences between materials is so slight that it is all but immeasurable, and this is backed up by various others who have taken a similarly scientific approach, although in many cases to a far greater degree of refinement than my own testing. Despite all the tests, there still seem to be situations where different cables seem to sound, well, <i>different</i>.</p>
+
+<p>The following is somewhat speculative, since I don't have a radio frequency interference (RFI) problem where I live, and I am understandably reluctant to create some so I can test my theory properly. Lacking a fully shielded room (Faraday cage), and a large amount of very expensive test gear, it is very difficult to prove anything one way or another. 
+
+<p>Nonetheless, I think that the discussion to follow may prove to have some merit - I am very interested to hear any feedback from anyone who
+is in a position to test the ideas that follow. The theory is quite solid, but the final proof is naturally in the listening and evaluation - provided it is done in a scientific and controlled manner. Any single non-blind (as opposed to a properly conducted double-blind) evaluation is a waste of everyone's time, as the results are purely subjective.
+
+<hr><a id="a1"></a><b>1. The Need for Speed</b>
+<p>Although you will not see it written very often, the venerable uA741 opamp is quite fast enough for audio, despite the fact that it has a slew rate of only 0.5 V/us. Contrary to popular belief, audio does not have super fast transients, since the sounds we hear are predominantly created by mechanical or biological means. No mass (including air) can change its direction instantaneously unless an infinite force is used, and although I have come across a few pretty strong drummers (for example), there are none I would describe as "infinitely powerful". These simple mechanical laws (and the filtering used on CD and when vinyl masters are cut), prevent the generation (or recording) of very high order harmonics that are needed to produce extremely fast rise times.
+
+<p>There is considerable evidence to show that many instruments (as well as speech) create harmonics in excess of 50 kHz, but they are low level, and do not (generally) contribute to fast rise times on transients. Having said that, it is universally agreed that the 741 is a sonic disaster - they generally sound bloody awful. To understand some of the reasons, we need to look at the frequency response, and its effect on the overall behaviour of the opamp.</p>
+
+<p align="center"><img SRC="hisp1-1.gif" BORDER=1 height=210 width=310>
+<br><b><small>Figure 1.1 - uA741 Frequency Response</small></b></p>
+
+<p>As you can see, there is a vast gain, but only at low frequencies. The internal compensation capacitor rolls off the response above 10 Hz,
+and this means that as the frequency increases, there is less and less feedback to correct the internal distortion. For the purposes of this discussion, there is a more insidious (and less well publicised) effect - the output impedance rises with increasing frequency. For reference, the closed loop response is shown, where the gain has been set at 10 (20 dB). As you can see, the opamp is struggling to maintain output at 20 kHz, and at slightly above this frequency, <i>it has no feedback at all</i>!</p>
+
+<p align="center"><img SRC="hisp1-2.gif" BORDER=1 height=210 width=310>
+<br><b><small>Figure 1.2 - uA741 Closed Loop Response</small></b></p>
+
+<p>Even at 10 kHz, the gain has dropped sufficiently that there is little feedback available. It must be said that even gross distortion at 10 kHz is inaudible with a single tone, but intermodulation products are generated as a result of the multiple frequencies that are present with music. The effects of such distortion do not seem to have been covered in any great detail in most journals and articles, but tests do exist. They are never applied in reviews, nor are the results quoted in manufacturers' data.
+
+<p>The high frequency intermodulation products caused by the distortion at high frequencies may well be one of the reasons that wide band opamps are said to sound so much better than the likes of the uA741. Even so, the best of the best VFB opamps will still have the same problem - only the degree is different. There is no internally compensated VFB opamp that has an open loop bandwidth that extends beyond about 1 kHz, so they will all suffer from a frequency dependent reduction in feedback factor, a consequent rise in distortion, and increase in output impedance.
+
+<p>This is where the use of very fast opamps becomes potentially important. A cable terminated by a zero ohm source will pick up very little external noise, and cable noise (microphony) is all but eliminated because it is the result of an extremely high impedance "generator" - the conductors and insulation material of the cable. Zero ohms is an impossible figure at best, and nearly all opamp circuits require a resistor in the output to prevent oscillation when a cable is connected. The "cable oscillation" topic is covered further a little later.
+
+<p>Even with a resistance of 100 ohms in series, the impedance is sufficiently low as to be quite effective in preventing noise pickup (including RF), and will still virtually eliminate microphony. Except ... as the frequency increases, so too does the opamp's output impedance. The
+100 ohms at 1 kHz (for example), becomes greater even as low as 10kHz, reducing effectiveness further and further as frequency increases.
+By 10 MHz, the opamp's output is effectively an open circuit, having an impedance many times the characteristic impedance of the cable. At lower frequencies where opamp impedance is low, the 100 ohm resistor is a passable match to the cable, but only at one end. The cable <i>will</i> become resonant at some frequency, determined by the length of the cable, its effective inductance and capacitance, and its velocity factor. This happens with all cables, regardless of price, silver, wire size, or soaking in snake oil !</p>
+
+<p align="center"><img SRC="hisp1-3.gif" BORDER=1 height=210 width=310>
+<br><b><small>Figure 1.3 - uA741 Output Impedance Vs. Frequency</small></b></p>
+
+<p>For effective shielding and transmission of RF, a cable is normally terminated at each end with its characteristic impedance. This impedance matching (source to cable to receiver) is essential to prevent reflections and standing waves at the operating frequency. Audio cables are not so terminated, and although this has no effect at audio frequencies, it potentially reduces the effectiveness of the cable at <i>rejecting</i> interfering RF signals. (It is actually undesirable to match the impedances in audio, as there is an inevitable 6 dB increase in noise, due to the reduction of signal level.)
+
+<p>The interfering RF affects not only the receiving circuitry, but the transmission end as well. RF signals that find their way into the output of an opamp that has a limited bandwidth (and high output impedance at the interfering frequency) can have a very profound effect on the sound quality. Non-linearities will always exist in any electronic equipment, but are normally reduced to very low levels (but never eliminated) by feedback. When the opamp (or any other low impedance output amplifying device) has a signal fed into its output that cannot be reduced to near zero by the low output impedance, the signal is fed back into the input, where rectification (AM detection) can take place. This phenomenon is often observed when equipment picks up AM radio stations, but with a high resolution system, there will be audio degradation well before the interfering signal is discernible as a radio station.
+
+<p>The problem may be exacerbated by the use of a feedback capacitor (as shown in Figure 1.4), which provides a low impedance path from the output back to the -ve (inverting) input. In theory, this also reduces the gain (and therefore the available feedback), but as shown, a 741 type opamp has no gain at all above 1 MHz, so any feedback path above this frequency will simply cause problems. This technique is common with fast VFB opamps, and "seems" not to cause any problems. This is a reasonable assumption in the case of an internal amplifier stage, but needs further investigation when output stages driving cables are concerned. 
+
+<p>It is worth noting that this form of feedback will simply cause a current feedback opamp (such as the THS6012 described here) to oscillate, and must not be used under any circumstances. 
+
+<p>Another technique I have rarely seen used in any commercial equipment (except for power amplifiers where it is almost mandatory), is a Zobel network at the output of preamps and other low level signal sources. This will ensure that the cable is terminated by a low impedance at nearly all frequencies, but this is difficult with opamps having limited high frequency response since the additional loading will only make distortion worse. An explanation of how (and when) this is useful will be covered later in this article.</p>
+
+<p align="center"><img SRC="hisp1-4.gif" BORDER=1 height=224 width=343>
+<br><b><small>Figure 1.4 - Feedback Cap Provides RF Path to Input</small></b></p>
+
+<p>The sources of interference are wide and varied. Some interfering signals are within the audio range, but the majority are radio frequencies, starting from the AM broadcast band at about 600 kHz, extending to the CB band (27 MHz), then through to amateur, commercial, TV bands and upwards. Other commercial sources of narrow band interference include RF welding equipment (used for welding plastics), microwave ovens, mobile phones and the like (although digital mobile phones are hardly narrow band, since the signal is pulsed).
+
+<p>In addition there are residential and commercial sources of broad band interference - brush type electric motors, arc welders, switching systems, arcing insulators on the power distribution grid - the list is almost endless.
+
+<p>Although it may seem that so far I have simply beaten the poor uA741 to death, it must be said that there are many other opamps that are very
+much faster, and also provide lower distortion, higher open loop gain and far lower noise. Even the very best of these still suffer similar
+problems at high frequencies (above 100 kHz), since they are designed for relatively conventional audio frequency applications. This does not
+necessarily mean hi-fi - there are a great many applications for the audio frequency range that have nothing to do with "audio" per s&eacute;. 
+
+<p>In case you were wondering, the noise pickup effects described above do not mean that you should rush out and get new cables. This has nothing to do with cables themselves, but has everything to do with the amplifier driving the cable, and/or receiving the signal at the other end. With the proper techniques in place, a coat hanger will outperform the most expensive cable you can buy (assuming of course that shielded coat hangers are available where you live <img src="grin.gif" /> ).
+
+<p>A conversation with a friend recently uncovered the fact that he had a customer with an RF interference problem. Substituting the original
+opamp for one with a much wider bandwidth (in this case he used an OPA2134) solved the problem. A Zobel network was also added, and this managed to help the original opamp cope a little better, but could not eliminate the interference. I don't know what the original opamp was, but in any consumer equipment we can assume that it was probably cheap and nasty.</p>
+
+<hr><a id="a2"></a><b>2. High Speed Opamps</b>
+<p>Enter the (relatively) new devices from Texas Instruments. These were designed for xDSL (e.g. ADSL, or Asynchronous Digital Subscriber Line) applications, which use a large number of high frequency carriers to convey the data via multiple simultaneous channels (255 in the case of ADSL) . The carrier frequencies are closely spaced, so very low distortion is essential to minimise cross-modulation of the carriers (basically intermodulation distortion). At the far end of an analogue telephone line the signal may be greatly attenuated, so low noise is also important.
+
+<p>The above specifications already sound very satisfactory for audio - low noise and distortion are requirements in nearly all hi-fi applications,
+but there's more. Unlike traditional voltage feedback (VFB) opamps, these new devices are current feedback (CFB), and have an extraordinarily wide bandwidth, so the degradation at the very highest audio frequencies is negligible, and there is no significant rise in distortion or output impedance until above at least 10 MHz. Indeed, the performance of the THS6012 in this regard is as good or better at 100 MHz than the uA741 at less than 100 kHz.</p>
+
+<p>The fundamental difference between VFB and CFB opamps is quite simple ... well, it <i>is</i> when you simplify it to the level I am about to
+<img src="bgrin.gif">
+
+<p align="center"><img SRC="hisp2-1.gif" BORDER=1 height=266 width=674>
+<br><b><small>Figure 2.1 - Simple CFB and VFB Opamps</small></b></p>
+
+<p>As well as those shown in Figure 2.1, other perfect examples of VFB versus CFB are some of the ESP published projects - the "El Cheapo" power amplifier is CFB (as is DoZ and the minimalist preamp), while the 60-100W and P101 MOSFET Hi-Fi amplifiers are VFB. The first thing one should notice that is different, is that the CFB amplifier has no Miller capacitor (also called the Dominant Pole). This is normally connected between the collector and base of the Class-A driver transistor. This is an absolute requirement for stability in a VFB amplifier, but with care, can be eliminated entirely (or at least reduced to a very much smaller value) in a CFB amp.
+
+<p>The result is a much wider open loop bandwidth for CFB amplifiers, but there is no longer any simple way to ensure DC levels through the amplifier are not shifted. In the case of the DoZ amp, minimalist preamp and El Cheapo, the DC shift problem is avoided by using capacitor coupling, but this is not always convenient or desirable. The issue is solved (at least to an acceptable degree) in the TI devices I have been testing, so DC offsets are not as big a problem as with relatively simple discrete designs.
+
+<p>Most commonly used opamps are VFB, and as such have an inverting and non-inverting input with approximately equal impedances. They may happily be used as either inverting or non-inverting amplifiers, and they are quite predictable in normal use. CFB opamps (to some degree) sacrifice DC accuracy for bandwidth, and this is done by eliminating the differential pair normally used as the input stage.
+
+<p>The gain in both the amps shown in Figure 2.1 is set by the ratio of (R2+R3) / R2, as one would expect, although it is not very accurate with
+the CFB amplifier (another of their little foibles). In the CFB amp above, C1 is needed because DC operation is not possible with this simple
+configuration. In a simulation done previously (see <a href="amp_design.htm">Amplifier Design</a>), the VFB amp provides an open loop voltage gain of 1,640 (64dB). By comparison, the open-loop gain of the CFB amplifier is 2,190 (67dB) - considering that all other things were maintained equal, the open loop gain is somewhat better.
+
+<p>The real difference is the bandwidth, which was not shown in the original article. The CFB amp can provide an open loop -3dB frequency of over 1MHz, while the VFB amp (using a 33pF Miller cap) only manages 30kHz. These figures are much better than any normal opamp, but it must be pointed out that the noise and distortion figures for these simple circuits will be somewhat lacking compared to a premium opamp.
+
+<p>When the gain is reduced to 20dB (10 times), the -3dB frequency of the VFB amp is 5.6MHz, which is not too shabby at all. At the same gain, the CFB amp really shows its true colours, with a -3dB frequency of 67MHz - better than 10 times the bandwidth!&nbsp; In addition, the CFB amp has a much flatter phase curve, indicating that stability is potentially much better. The 33pF capacitor used in the VFB amp is likely to be marginal in real life, and depending on the transistors used, may need to be increased to prevent oscillation.
+
+<p>As one might expect, there are disadvantages to the CFB configuration as well. As well as DC offset, there is also a lower input impedance and higher bias current. This means that for optimum results, the source impedance should be very low - this is not an issue with video distribution amplifiers or ADSL equipment, since the source impedance will typically be 50 or 75 ohms. It can be an issue in audio, and in many cases a unity gain buffer will be needed in front of the CFB amplifier. 
+
+<p>In addition, CFB opamps have different impedances for the +ve and -ve inputs. Conventional opamps use the same topology for each input - almost invariably a long-tailed pair (a.k.a. differential amplifier). As discussed in the <a href="amp_design.htm" target="_blank">Amplifier Design</a> article, using this input stage means that a Miller capacitor is essential to maintain stability. The CFB opamp has a non-inverting (+ve) input that is moderately high impedance, and an inverting (-ve) input that has an extremely low impedance. As discussed above, the gain accuracy as set by the gain and feedback resistors (R2 and R3 respectively) is not as good as a VFB amp, and some tweaking of the gain resistor will be needed to obtain a precise gain.
+
+<p>The common unity gain buffer (where the output is tied directly to the inverting input) is not possible with a CFB amplifier, and a resistance
+must always be used. In addition, the resistance value is critical to stability and bandwidth - if it is too high, bandwidth suffers, and
+if too low the amplifier will peak at some high frequency, and may easily become unstable. At very low values (or zero ohms), instability is
+guaranteed, and the amplifier <i>will</i> oscillate.
+
+<p align="center"><img SRC="hisp2-2.gif" BORDER=1 height=286 width=295>
+<br><b><small>Figure 2.2 - Relative Frequency Response Vs. Frequency</small></b></p>
+
+<p>Figure 2.2 shows the relative gain for various values of feedback resistor (adapted from the TI data sheet). The voltage gain is set at 2 (6dB), and as you can see, when using a 1k feedback resistance (the recommended compromise value), the amp is 3dB down at about 70MHz. Reducing the value will extend the -3dB frequency to around 250MHz, but at the expense of some peaking.
+
+<p>Even when set for a gain of 1000 (60dB), the THS6012's response is almost flat to 1MHz - this is more than an order of magnitude better than any compensated VFB opamp I know of - regardless of manufacturer or price. As an example of the difference, the NE5532 (dual internally compensated) will barely make it to 20kHz at the same gain. The NE5532 has a maximum open loop gain of 100dB, but only up to 1kHz - and these are still one of the fastest VFB opamps available. It is worth noting that VFB opamps must always be compensated (most commonly using the Miller or dominant pole capacitor) whenever feedback is applied. If not, they will oscillate. 
+
+<p>For audio purposes, we don't need anything above 100kHz, but an extended response ensures that the interconnect will be terminated with a low impedance at nearly all potential interfering frequencies. This can be extended easily by using a simple RC filter at the output of the preamp. More on this later.
+
+<hr><a id="a21"></a><b>2.1&nbsp; Cable Impedance</b>
+<p>The characteristic impedance of cables receives little comment in the audio industry (other that for telephone circuits), and within the audio frequency band this is perfectly reasonable, since it is unimportant. Where it is important is in RF work, but it is becoming more and more common that the two are combined - not because audio has become faster (if anything, the reverse is true), but because the sheer amount of RF pollution is increasing every day.
+
+<p>The sources of RF interference (RFI) are discussed above, but the concept of cable impedance is such that it is worth covering here - albeit briefly. There are some cables that are quoted as being a specific impedance - 50 or 75 ohm coax, 300 ohm TV twinlead and 120 ohm unshielded twisted pair (UTP) for data connections are some examples.
+
+<p>The characteristic impedance of a cable is influenced by a number of factors, and it is easily calculated - although I shall spare you the gory
+details here. Where cables become sneaky, is when they are a specific length compared to the wavelength of the signal. This is unimportant at audio, since the cable is always very short compared to wavelength, and the telephone system is the only audio application where impedance <i>is</i> important. This is due to the very long cable runs, up to 4km or more in some cases.
+
+<p>The wavelength is calculated by the following formula ...</p>
+
+<blockquote><small><b>Wavelength = C / f</b> &nbsp; (where C is velocity and f is frequency)</small></blockquote>
+
+<p>For sound in air, C is 345 m/s, but in the electrical domain (in free air or a vacuum), C is 3 x 10<sup>8</sup> m/s. The velocity is reduced in any cable, and in a typical coaxial cable, the velocity is typically about 2.4 x 10<sup>8</sup> m/s. This means that for a 70MHz interfering signal, the wavelength is 3.42 metres. The reduction in the speed of propagation is known as the 'velocity factor, and is typically between 0.6 and 0.8 for most common cables.
+
+<p>RF is sneaky and cunning, and does not behave in what we might think is a sensible manner. A length of coax 857mm long is 1/4 wavelength at 70MHz. If one end is short circuit, the other end "looks" like an open circuit. An open circuit at one end appears to be a dead short from the other!&nbsp; If an audio cable is unterminated at each end, the final effect is completely unpredictable if RF fields are present, and it is just as likely to act as an antenna. The shield will not necessarily protect the inner conductor, but is quite capable of inducing a signal into it. Being unterminated (or marginally terminated at one end only), the interconnect is now capable of injecting RF into the amplifiers' inputs and outputs - with unpredictable effects on sound quality.
+
+<p>As far as I know, there are few tests to determine the susceptibility of most audio equipment's interconnects to the effects of RF over a wide range, but there is considerable evidence to show that many amplifiers are afflicted. Make a call on a digital mobile phone near most amps, and the characteristic noise is unmistakable. What more subtle effects do lower RF levels have?&nbsp; I don't know, but I doubt that they will enhance the listening experience. 
+
+<p>So much for the technobabble. (For the time being, at least.)
+
+<hr><a id="a3"></a><b>3. THS6012 Dual Line Driver</b>
+<p>There are two devices that I shall concentrate on, being those for which samples were supplied by TI. These are the THS6012 (500 mA dual differential line driver) and the THS1431 (High speed, low noise, fully differential I/O amplifier). Highly suitable audio uses are presented for each device, but it must be said that implementation is not trivial. Because of the wide bandwidth, these devices can (and do, I can assure you!) oscillate unless proper precautions are taken. Bypassing is critical, as is the PCB capacitance - especially at the inverting input. Even a few pF to earth from the inverting input will cause frequency peaking and possible oscillation, and when one of these little guys oscillates at 100 MHz or more, the current consumption (and subsequent device heating) can cause major problems.
+
+<p>A very brief specification of the THS6012 ...
+<ul>
+	<li><small>ADSL Differential Line Driver</small>
+	<li><small>400 mA Minimum Output Current Into 25 Ohm load</small>
+	<li><small>High Speed</small>
+	<ul>
+		<li><small>140 MHz Bandwidth (-3 dB) With 25 Ohm load</small>
+		<li><small>315 MHz Bandwidth (-3 dB) With 100 Ohm load</small>
+		<li><small>1300 V/us Slew Rate, Gain = 5</small>
+	</ul>
+	<li><small>Low Distortion</small>
+	<ul>
+		<li><small>-72 dB 3rd Order Harmonic Distortion at f = 1 MHz, 25 ohm load, and 20 Vpp output</small>
+	</ul>
+	<li><small>Wide Supply Range &plusmn;4.5 V to &plusmn;16 V</small>
+	<li><small>Thermal Shutdown and Short Circuit Protection</small>
+</ul>
+
+<p>The THS6012 is probably of greatest interest to the audio fraternity, simply because it is a dual amplifier, and is suitable for use in preamps or as a headphone amplifier.
+
+<p>A preamp with such a wide bandwidth is not possible with any conventional VFB opamp, but the input impedance of the THS6012 is somewhat lower than an OPA2134 or other premium opamp, and the maximum gain will be somewhat lower before oscillation becomes an issue. Remember, we are discussing an opamp with a bandwidth of up to 315 MHz - this is in the UHF (Ultra High Frequency) RF band, a mysterious place where circuit design is as much a black art as a science.
+
+<p>Note the slew rate, which is quite exceptional, and the distortion is quoted at 1MHz, and at 20V p-p into 25 ohms!&nbsp; Lower frequency or voltage, and higher impedance loads reduce it even further, and at audio frequencies is extremely low. So low in fact that I cannot measure it with my equipment (grumble).
+
+<hr><a id="a31"></a><b>3.1 &nbsp; THS6012 CFB Opamp Headphone Amplifier</b>
+<p>Because of its high drive current, the THS6012 seemed imminently suited to a headphone amplifier, and indeed, this was the suggestion originally made by TI. Before I describe the technicalities, I will answer the question "So how does it sound?"
+
+<p>Quite frankly, I was disappointed. There was absolutely nothing that sounded of "amplifier" - this is probably as close to a straight wire
+with gain as you are likely to find. There is nothing I can say about it, other than it is as clean, tight and transparent as anyone could hope for. Bass response extends to DC, and even after the addition of a capacitor across the input to limit the HF response, it was only 0.1
+dB down at 100 kHz. In short - the performance is exemplary in all respects.
+
+<p>In the best traditions of the subjectivists, it would be nice to be able to say "Oh, yes - the imaging is to die for, and the highs are sooo transparent". The foregoing may well be true, but me, I listen for noise and other artefacts, measure distortion (if possible), verify frequency response, and generally judge an amplifier on its accuracy. The THS6012 is exemplary in all respects, but (there has to be a down side) the input impedance is somewhat lower than one might expect, and because of the extremely wide bandwidth, instability can be a real problem if the proper precautions are not taken.
+
+<p align="center"><img SRC="hisp3-1.gif" ALT="Figure 3.1" BORDER=1 height=418 width=556>
+<br><b><small>Figure 3.1 - Headphone Amplifier Test Circuit</small></b></p>
+
+<p>As discussed above, this device uses current feedback (rather than voltage feedback as used in the more traditional audio opamps). In this case, the current feedback requirement means that the feedback resistors will be of a much lower value than "normal". I configured the amp with a gain of 12 (21.7 dB), and the output level was more than sufficient to cause hearing damage (if you like that sort of thing). Ideally though, the THS6012 should be operated at a lower gain, as this helps to reduce the chance of oscillation. Accordingly, most of the gain will be in a prior stage, and assuming that a high quality opamp is used, the overall performance is astonishing. A simple gain stage based on an NE5532 or OPA2134 dual opamp will be more than sufficient. If direct coupled from an opamp stage, R1 and R6 should be omitted to prevent excessive loading.
+
+<p>Even with the THS6012 configured for nearly 22dB, I could not measure the distortion, as it was virtually the same as the residual from my oscillator, and this applies to any frequency within the audio band. This is in contrast to the majority of small power amps that are used for headphones, whose distortion increases with frequency - especially above 10 kHz. Noise was completely inaudible. Another of my tests is for clipping performance, as there are many amplifiers that are wonderful below clipping, but fall apart when a transient clips. There is more information on this topic in the <a href="amp-sound.htm" target="_blank">Amplifier Sound</a> article, for those who may be interested.
+
+<p>Clipping performance was exemplary, showing only the very slightest rail sticking (or "overhang") at the highest frequencies. At normal
+audio frequencies, the THS6012 simply clipped, and resumed normal operation virtually the instant the signal was below the supply voltage again. This is (of course) what amplifiers are supposed to do, but there are a great many that don't!&nbsp; Very slight clipping overhang was observed at above 80 kHz, but there is no musical instrument on the planet that will ever get any amp to clip at such a frequency, and even if it did, we certainly couldn't hear it.
+
+<p>The overhang when an amp clips is caused by the output devices saturating (turning on as hard as they possibly can). When a transistor saturates, it takes a finite time for the device to recover (when the base "charge" is depleted). Some of you will remember ECL (Emitter Coupled Logic) - these logic ICs are extraordinarily fast because the transistors never turn fully on or off, thus preventing the slow-down as the base charge is dissipated. Slightly off the topic, but interesting :-)
+
+<hr><a id="a32"></a><b>3.2 &nbsp; THS6012 CFB Pre-Amplifier</b>
+<p>The other primary uses for the THS6012 amplifier IC are as a preamp, or as a line driver feeding the signal through the interconnects from preamp to power amp. The huge bandwidth and current capacity of this device make it ideal for a buffer/ line driver amp at the output of any preamp circuit. The series resistance can be reduced much further than with VFB opamps, and a value of 12 ohms is quite satisfactory to prevent the cable from causing oscillation
+
+<p>This does not mean that the cheapest and nastiest cable should be used (although it will not affect the sound). A well made and sturdy cable is always the ideal, but these can be home-made for a minimal cost, and when properly driven, will outperform anything on the market.
+
+<p>As a preamp, the CFB opamp has one major drawback, and that is its input impedance. It is too low to interface with normal signal sources without an input buffer. The optimum configuration for a preamp is to use a conventional VFB opamp as the input stage, with the THS6012 as the final gain and line driver. This combines the best features of both types of opamp, and it is possible to make a preamp that will be better in all respects than any currently available (including passive versions). I know that's quite a claim, but having experimented at some length with the device, it is well justified.
+
+<p>A two stage preamp means that the VFB opamp will not need to contribute very much gain, and indeed, with two stages each having a gain of 2, the overall gain is adequate at 12 dB, and the bandwidth of such a combination can easily be made to exceed 200 kHz. With a medium input impedance (47k typical) and an output impedance of (say) 12 ohms, there is the potential to build the finest preamp in the world, limited only by your imagination and assembly skills.
+
+<p align="center"><img SRC="hisp3-2.gif" ALT="Figure 3.2" BORDER=1 height=418 width=737>
+<br><b><small>Figure 3.2 - Basic Concept of Preamp</small></b></p>
+
+<p>Again, the circuit <i>looks</i> just like any other, and the output section is in fact almost identical to the headphone amp. This preamp
+has the ability to drive and terminate the output cable to well in excess of 500MHz. To my knowledge, there is no other hi-fi preamp available anywhere that has that ability. A Zobel network at the output is recommended - not for stability, but to ensure that the output impedance remains constant up to at least 500MHz. The inductance of a ceramic capacitor's leads (although very tiny indeed) will be sufficient to cause problems above this frequency, but this is still several orders of magnitude better than any other preamp available - regardless of price. 
+
+<p>The OPA2134 input stage provides the necessary impedance conversion from the source to the input of the THS6012. This is a fast VFB opamp, and as shown has a gain of 2, or 6dB. The combined gain is about 20dB, which is more than enough, and may need to be reduced in many applications. Needless to say, a volume control is required, and with this arrangement you have little choice but to place it at the input. The same basic circuit can be used for the headphone amp as well - in effect they are identical applications, except for the higher current drain when driving headphones.
+
+<hr><a id="a33"></a><b>3.3 &nbsp; Zobel Network</b>
+<p>The use of a Zobel network is well known in power amplifiers, and the most common is 10 ohms in series with 100nF, connected from the amplifier output to earth. This has a 3dB frequency of 159kHz, so above this frequency, where speaker leads are likely to present a high Q resonant circuit, the cable is effectively terminated by a low impedance that will effectively damp the cable resonance - at least from the amplifier's perspective.
+
+<p>That this has not been used in preamps before is somewhat surprising, but the most common (and generally quite successful) method of preventing opamp oscillation is to use a 100 ohm resistor in series with the output. With lower resistances, this works with power amps too, but tends to reduce the available power and increases output impedance (thus lowering damping factor).
+
+<p>While the 100 ohm resistor (or other value, depending on the designer and the opamp) certainly works, it leaves the cable unterminated at RF,
+and increases the likelihood of interference pickup. The addition of a Zobel network to ensure that the cable remains terminated is risky
+with most opamps, since the effective impedance of the network will be very low, and because of the limited bandwidth, will need to become effective
+too close to the opamp's upper frequency limit and the upper end of the audio band.
+
+<p>This extra loading will stress the opamp - already straining to retain a flat response and with feedback falling at 6dB/octave. There is the very real likelihood that there will be an increase in distortion at high frequencies. This is not a problem in itself, but the intermodulation products will become an issue, and may be one of the reasons that opamps are often described in such derogatory terms by so many reviewers. Unfortunately (of course) most reviewers have no concept that there are different opamps with very different characteristics, so they gleefully lump them all into the same category.
+
+<p>A Zobel network intended to maintain an output impedance of 100 ohms at all frequencies will need to become effective at no less than about 150kHz for most conventional opamps, so the values would be 100 ohms in series with about 6.8nF, connected across the output as shown below.
+
+<p align="center"><img SRC="hisp3-3.gif" ALT="Figure 3.3" BORDER=1 height=174 width=393>
+<br><b><small>Figure 3.3 - Use of a Zobel Network for Preamps</small></b></p>
+
+<p>With R1 = R2 = 100 ohms, and C1 = 6.8nF ...
+
+<p>This would be almost perfect for audio preamps, but the frequency is too low and the opamp loading too high!&nbsp; The -3dB frequency is about 160kHz, so the opamp must be able to retain its output impedance at a low value (less than 10 ohms) up to this frequency. Beyond that, the Zobel network will come into play, and will maintain the 100 ohm (or lower) termination up to that frequency where the capacitor's internal inductance is high enough to reduce the effectiveness of the circuit. Ceramic capacitors are absolutely essential for this, as they have the necessary bandwidth and low inductance that is needed.
+
+<p>The effect on the sound may not be minimal as we would hope, since although the capacitor is isolated from the signal path by the resistor, its reactance is significant at normal audio frequencies. At 20kHz, the cap has a reactance of 1.2k, so the opamp is quite heavily loaded at this frequency, increasing distortion.
+
+<p>The need for speed is again obvious - We need to use a faster opamp, and a much smaller capacitor. If the far end termination is also
+used, the loading (and distortion) will be much worse, and frequency response will suffer <i>within the audio band</i>.
+
+<p>With an ultra fast device such as the THS6012, the same circuit can be modified so the cable is matched better, and the Zobel network's influence will be so far outside the audio spectrum that it will have no audible effect whatsoever (other than reducing the cable's ability to act as a combined antenna and resonant circuit).
+
+<p>Substitute R1 = R2 = 68 ohms, and C1 = 1nF ...
+
+<p>Now, the -3dB frequency at the output is 1.6MHz, and the reactance of a 1nF capacitor is about 8k ohms at 20kHz. This is an insignificant
+load for any opamp, and the cable will be terminated by an impedance of not less than 68 ohms at all frequencies from DC up to several hundred
+megahertz. This will greatly reduce the tendency of the cable to act as an antenna, feeding RF interference into the output of the source
+amplifier, and into the input at the far end. 
+
+<p>Another (identical) Zobel network across the input of the far end will maintain a reasonably good RF termination at both ends, but will have no
+deleterious effect for audio - provided the source can cope with the impedance of the two Zobel networks.</p>
+
+<table WIDTH="100%"><tr>
+<td VALIGN=TOP><img SRC="note.gif" height=37 width=108></td>
+
+<td>This should never be done unless you are certain that the preamp is capable of driving the impedance presented. A typical valve preamp with an output impedance of perhaps 10k, will be 3dB down at only 14kHz, and that is not allowing for the capacitance of the cable! The source impedance should ideally be less than 100 ohms.</td></tr></table>
+
+<p>The "far end" termination technique is intended only where wide bandwidth opamps having a very low output impedance and high drive capability are used as the line driver - it <i>will</i> cause problems with any source with an output impedance greater than about 200 ohms. With a 1k source impedance, an input circuit terminated as shown will be about 0.1dB down at 20kHz, with a 3dB frequency of about 150kHz. I do not believe that this would be good, and strongly recommend the use of a very fast, high drive capability, line driver IC.
+
+<p>Use of this technique is recommended, but only as part of a complete design, where the preamp and power amp (or electronic crossover) are designed to work together.
+
+<hr><a id="a4"></a><b>4. IC Mounting Details</b>
+<p>The circuit details of both the headphone amp and preamp/ line driver are quite straightforward, but the device and its mounting are not. These ICs are only available as surface mount, which means that they are a little less friendly than "normal" ICs for the average constructor. The advantages are such that I believe the extra effort is warranted. There are considerable constraints on the PCB design, because of the extraordinarily wide bandwidth of the IC. The use of surface mount resistors is recommended for full bandwidth operation, but this further limits the design from an audio perspective. Conventional resistors can be used, but this must be done with care, or the amp will oscillate.
+
+<p>The THS6012 opamp IC uses TI's PowerPAD&trade; technology - there is a heatsink pad on the <i>underside</i> of the device, and a suitable thermal connection is important. Suffice to say at this time that using the method suggested by Texas Instruments is not recommended
+for home construction.
+
+<p align="center"><img SRC="hisp4-1.gif" ALT="Figure 4.1" BORDER=1 height=202 width=397>
+<br><b><small>Figure 4.1 - PowerPAD Package Details</small></b></p>
+
+<p>The thermal pad sits at the surface of the PCB, and with normal surface mounting and reflow soldering, it is easy enough to ensure that the pad is soldered to the board. A ground plane on the underside of the (double sided) PCB thus acts as a heatsink. This method of thermal management is ideal for automated assembly, but is very difficult for mere mortals to accomplish at home. I have experimented with several methods that are suitable for the home constructor, but I've not been able to come up with anything that doesn't require a considerable amount of tricky engineering. These devices are not suitable for home constructors - they are designed for automated assembly and reflow soldering. 
+
+<p>Proper power supply bypassing is essential, and the supply impedance must be as low as possible. This means ceramic bypass caps, as these are the only devices with the necessary size and bandwidth requirements. The size is important, because the bypass caps must be as close to the supply pins as possible - 2.5mm is the suggested maximum distance!&nbsp; The capacitors themselves must also have extremely low inductance, and ceramic devices are the only ones that will satisfy these requirements. 
+
+<p>Otherwise, the circuits are unremarkable. They look just like any other opamp circuit, but with&nbsp; few slightly different component
+values. Well, that is until you listen to the results - there is nothing unremarkable about the sound, other than that it is as clean and un-coloured as if the amps were not there at all.
+
+<hr><a id="con"></a><b>Conclusion</b>
+<p>Does the foregoing mean that premium (conventional) opamps are a waste of time, and that the THS6012 should be the only amplifying device you will ever need?&nbsp; No. What I have attempted to convey here is that there is a place for very fast opamps, especially in areas where electromagnetic interference is a serious problem. These devices are also outstanding in all normal respects, and are (or should be) very worthy of consideration for your next preamp. The contra-indications must also be considered though ...</p>
+
+<ul>
+	<li>Input impedance is inconveniently low, and is not easily increased to the range considered normal for audio equipment.
+	<li>Power consumption is quite high, and the IC must use a heatsink. Because the heat-spreader is on the <i>underside</i> of the IC
+	it is quite irksome to add any form of heatsink. 
+	<li>Availability cannot be guaranteed for any IC of this type, as they have a highly specialised application.
+	<li>Only available in SMD package, which makes it hard to use for many hobbyists.
+</ul>
+
+<p>Simple preamps like the P37 (DoZ) or P88 are not rendered obsolete either - the THS6012 just widens the selection, and provides some excellent benefits over the alternatives, but with the caveats mentioned above.
+
+<p>All this comes at a price however. The devices themselves are not cheap, and are much harder to mount on a PCB than the alternatives. Availability may also be an issue, and we can be certain that the normal retail electronics outlets will not stock such esoteric devices unless there is a considerable demand.
+
+<p>As a headphone amplifier, these opamps are superb, with not a single negative aspect. I really doubt that there is a better headphone
+amp on the planet - and yes, I really do mean that!&nbsp; Is it all worth the effort?&nbsp; That, I shall leave up to you.
+
+<p>I would like to thank Texas Instruments for taking the time to contact me, and for providing test devices and documentation for their range of
+high speed opamps and balanced line drivers and receivers.</p>
+
+<hr><a id="term"></a><b>Terminology</b>
+<p><b><small>Slew Rate</small></b> - the maximum rate of change of voltage for an active device. Slew rate is measured in Volts per
+microsecond, so an amplifier that can swing its output from +20V to -20V in one microsecond has a slew rate of 40 V/us
+
+<p><b><small>Characteristic Impedance</small></b> - of a cable, that impedance determined by the diameter of the inner and outer conductors,
+their relative spacing and the dielectric characteristics. Typical examples are 300 ohm TV ribbon cable, and 75 ohm coax
+
+<p><b><small>Velocity Factor</small></b> - Electrical signals travel at the speed of light in a vacuum, but when trapped in a cable, their speed
+decreases. The decrease depends on the cable construction, and as an example, the velocity factor of 75 Ohm coax is generally about 0.8,
+meaning that the signal travels at only 0.8 of the speed of light (0.8 * 3*10<sup>8</sup> = 2.4*10<sup>8</sup> metres / second)
+
+<p><b><small>Narrow Band</small></b> - RF signals that are confined to a relatively narrow frequency range (e.g. 10kHz either side of the carrier signal for AM radio).
+
+<p><b><small>Broad Band</small></b> - Interference signals that spread over a wide frequency range, sometimes from the mains frequency all the way into the upper RF bands. Anything that creates arcs (such as most switches, welders, etc.) generates broad band interference.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2001. Sections of the text may also be (or describe) the intellectual property of Texas Instruments. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright (c) 06 April 2001</div>
+</body>
+</html>

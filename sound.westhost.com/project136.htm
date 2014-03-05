@@ -1,0 +1,295 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="rta, real time, analyser, analyzer, hardware, software, analog, analogue, measurement, stereo, mix, broadcast, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - Hardware based real-time spectrum analyser, using LED display and MFB filters.">
+	<!-- ESP Audio Projects - Hardware based real-time spectrum analyser, using LED display and MFB filters. -->
+	<title>Project 136</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 136&nbsp;</td></tr></table>
+
+<p align="center"><b>Hardware Based Real-Time Audio Analyser</b><br />
+<small>Raymond Quan and Rod Elliott, 20 April 2011</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b> 
+<blockquote>
+	<i>Back when I first published the <a href="project63.htm" target="_blank">Multiple Feedback Filter</a> project article, I threatened 
+	that an expandable real-time analyser was one of the projects that would eventually follow. For various reasons, it never happened - 
+	until now. The vast majority of the text here is from Raymond, although I have contributed bits and pieces, and made a few minor changes. 
+	All drawings have been completely re-done to match normal ESP format. Where my contribution is meant to stand out from the rest, it is 
+	in the same format as this section, and ends with the ESP logo ... <img src="esp-eot.gif" /></i>
+</blockquote>
+ 
+<p>The project described in this article is a fully expandable Real Time Analyser. Although there are many software RTAs available on the internet that have a lot more features and are much, much cheaper, I decided to build one because it's more "fun" and you learn stuff while building.</p> 
+
+<p align="center"><img src="p136-f1.jpg" border="1" /><br />
+<b><small>Figure 1 - The Author's Real Time Analyser "Chassis"</small></b>
+
+<p>Before embarking on a project like this, you should know what you're getting into. It's easy to be overwhelmed and lose interest due to the amount of electronic and mechanical assembly involved being that this is all hardware and no software. But the experience you gain during design and construction can be valuable. (not to mention all those solder joints you can practice and perfect your soldering skills on!) Calculating all the values and sourcing the parts can take some time as in my case, I had to go back to the store several times as they did not have enough in stock. Enough with the rambling. If you're still interested, let's get on with the project. <img src="grin.gif" /></p>
+
+<p align="center"><img src="p136-f1a.jpg" border="1" /><br />
+<b><small>Figure 1A - The Author's Completed Real Time Analyser</small></b>
+
+<p>The completed RTA is shown above. It's complete, and includes some window tint on the display for better contrast. Across the front you see many connectors, switches, etc. These are (in order from the left) ... Mic Input, Line Input, Phantom power indicator, Phantom power On/ Off, Mic/ Line selector switch, Gain, Average/Peak Indicator, Average/ Peak switch, Power Indicator, Power switch, DC input.</p>
+
+<hr /><b>Description</b> 
+<p>The filters used are from the Multiple Feedback Bandpass Filter Project 63. But you have to first decide on the frequency resolution. 1/3 octave would be very nice and the same as professional RTAs, but the number of VU meters and LEDs will become very expensive very quickly. At the very least, you will need octave band, and the suggested (and industry standard) frequencies are ...</p>
+
+<p align="center">
+<small><b>31 &nbsp; 63 &nbsp; 125 &nbsp; 250 &nbsp; 500 &nbsp; 1k0 &nbsp; 2k0 &nbsp; 4k0 &nbsp; 8k0 &nbsp; 16k</b></small></p>
+
+<p>Should you decide on 1/2 octave band frequencies, 20 filters and LED VU meters will cover the full frequency range which are ...</p>
+
+<p align="center"><small><b>
+31 &nbsp; 44 &nbsp; 63 &nbsp; 87 &nbsp; 125 &nbsp; 175 &nbsp; 250 &nbsp; 350 &nbsp; 500 &nbsp; 700 &nbsp; 1k0 &nbsp; 1k4 &nbsp; 2k0 &nbsp; 2k8 &nbsp; 4k0 &nbsp; 5k6 &nbsp; 8k0 &nbsp; 11k &nbsp; 16k &nbsp; 20k</b></small></p>
+
+<p>Lastly, 1/3 octave band needs 31 bands to cover the full frequency range to cover the entire 20Hz to 20kHz bandwidth. You can probably exclude the 20Hz and 20kHz bands but you're already building 29 filters, rectifiers and meters so what's another two? You'll just kick yourself in the behind when you later need to see the levels in those bands. :)</p>
+
+<p align="center">
+<small><b>20 25 31 40 50 63 80 100 125 160 200 250 315 400 500 630 800 1k0 1k2 1k6 2k0 2k5 3k2 4k0 5k0 6k3 8k0 10k 12k 16k 20k</b></small></p>
+
+<p>Although commercial RTAs are usually 31 Band, There is no reason at all that the unit has to be 1/3 octave all the way. The beauty of DIY is that you get to choose what you want. The midrange can be 1/3 octave for better resolution, but can go to 1/2 octave at the extremes. I would prefer 1/3 octave up to 1kHz, then 1/2 octave from 1kHz to 8kHz. The final filters would be a 1 octave band at 16kHz. The sequence now looks like this ...
+
+<p align="center">
+<small><b>31 40 50 63 80 100 125 160 200 250 315 400 500 630 800 1k0 1k4 2k0 2k8 4k0 5k6 8k0 16k</b></small></p> 
+ 
+<p>This gives 23 filters, rectifiers and LED VU meters, a reasonable compromise that should give excellent results. To ensure reasonable continuity, the filters at 1kHz and 8kHz will need to be a compromise. 1/3 octave filters need a Q of 4, and 1/2 octave filters use a Q of 3, so the 1kHz filter will actually have a Q of 3, and the 8kHz filter will be best with a Q of 2. This might look daunting, but the MFB Filter design program will make short work of determining the component values. Unfortunately, this is only available for users of Microsoft Windows. If you want to use the frequencies shown above, the following table shows the values for each filter.</p>
+
+<center><table width="700" border="1" style="border-collapse:collapse;">
+<colgroup span=10 width="10%">
+<tr><td bgcolor="#dddddd"><b>Freq</b><td><b>R1</b><td><b>R2</b><td><b>R3</b><td><b>C1, C2</b>
+<td bgcolor="#dddddd"><b>Freq</b><td><b>R1</b><td><b>R2</b><td><b>R3</b><td><b>C1, C2</b> 
+<tr><td bgcolor="#dddddd">31<td>82k<td>2k7<td>160k<td>220nF<td bgcolor="#dddddd">500<td>27k<td>820<td>56k<td>47nF
+<tr><td bgcolor="#dddddd">40<td>82k<td>2k7<td>160k<td>180nF<td bgcolor="#dddddd">630<td>27k<td>820<td>56k<td>39nF
+<tr><td bgcolor="#dddddd">50<td>82k<td>2k7<td>160k<td>150nF<td bgcolor="#dddddd">800<td>27k<td>820<td>56k<td>27nF+2n7
+<tr><td bgcolor="#dddddd">63<td>82k<td>2k7<td>160k<td>120nF<td bgcolor="#dddddd">1k0<td>8k2<td>510<td>18k<td>47nF+4n7
+<tr><td bgcolor="#dddddd">80<td>82k<td>2k7<td>160k<td>100nF<td bgcolor="#dddddd">1k4<td>8k2<td>510<td>18k<td>39nF
+<tr><td bgcolor="#dddddd">100<td>82k<td>2k7<td>160k<td>82nF<td bgcolor="#dddddd">2k0<td>8k2<td>510<td>18k<td>27nF
+<tr><td bgcolor="#dddddd">125<td>82k<td>2k7<td>160k<td>56nF+5n6<td bgcolor="#dddddd">2k8<td>8k2<td>510<td>18k<td>18nF+1n5 
+<tr><td bgcolor="#dddddd">160<td>82k<td>2k7<td>160k<td>47nF<td bgcolor="#dddddd">4k0<td>8k2<td>510<td>18k<td>12nF+1n8
+<tr><td bgcolor="#dddddd">200<td>82k<td>2k7<td>160k<td>39nF<td bgcolor="#dddddd">5k6<td>8k2<td>750<td>18k<td>8n2
+<tr><td bgcolor="#dddddd">250<td>82k<td>2k7<td>160k<td>27nF+4n7<td bgcolor="#dddddd">8k0<td>8k2<td>1k2<td>18k<td>4n7
+<tr><td bgcolor="#dddddd">315<td>82k<td>2k7<td>160k<td>22nF+2n7<td bgcolor="#dddddd">16k<td>8k2<td>1k2<td>18k<td>2n2
+<tr><td bgcolor="#dddddd">400<td>82k<td>2k7<td>160k<td>18nF+1n5<td bgcolor="#dddddd"><td><td><td></table>
+<small><b>Table 1 - Frequency &amp; Component Values For 23 Bands</b></small></center>
+
+<p>I have tried to keep the values reasonably sensible. This is not easy with 1/3 octave band analysers, but all in all the results are quite acceptable (not too many different values). Note that the Q of the filters is changed as the frequency increases - feel free to use the ESP Multiple Feedback <a href="mfb-filter.exe">calculator</a> to reverse calculate the values to see the actual gain, Q and frequency error. None of these will be significant in use. Note that the calculator program is an executable file, and requires the Microsoft Visual Basic runtime libraries to run. Please see the <a href="download.htm" target="_blank">download</a> page for more information.
+
+<p>You can download the <a href="DIY_RTA_spreadsheet.xls">spreadsheet</a> and get the component values for octave, 1/2 octave and 1/3 octave analysers. There are separate sheets for 10 band, 20 band and 31 band values and includes suggested values. The sheets are protected to prevent inadvertent deletion/modification of formulas but do not need a password to unlock. Note that there are series-connected resistors and paralleled capacitors in the filter tables to obtain close to the desired frequencies.</p> 
+
+<hr /><b>Basic Circuit block</b>
+<p>The whole analyser project can be broken down into this simple block. Since this project would require a lot of similar building blocks, I decided to splurge and had PCBs professionally made but with surface mount devices as to keep size manageable. There is no reason that you cannot use through hole components and Veroboard or similar but it <i>will</i> be a lot of additional work to the already significant work involved.
+
+<p align="center"><img src="p136-f2.gif" border="1" /><br />
+<b><small>Figure 2 - PCB Block Diagram</small></b>
+
+<p>A single PCB module would hold a buffer, MFB filter, full wave rectifier and LED VU meter. Each section will be further explained below.</p>
+
+<hr /><b>Buffer Stage</b> 
+<p>As there will be a lot of filters to drive, it will be a difficult chore to keep the source impedance low as to prevent unwanted shifts in the MFB filter response if the source impedance is high. The buffer shown below is composed of two op amps (one dual op amp package) wired in parallel to increase the output current capability.
+
+<p align="center"><img src="p136-f3.gif" border="1" /><br />
+<b><small>Figure 3 - Buffer Stage</small></b>
+
+<p>Gain of IC1B is set by R3 and R4. IC1A is a "helper" opamp and the two opamp outputs are paralleled through the resistors R5 and R6. Don't be tempted to use a TL072, because its output current is very limited. Much more current can be achieved using NJM4560, NE5532 or OPA2604 op amps. The Burr Brown op amps at a few dollars a pop could get really expensive especially if you decide to build the full 31 Band version. The performance gain is not necessary so I would recommend the NE5532 as the best combination for price vs. performance.</p>
+
+<hr /><b>Filters</b> 
+<p>Determining the required Q is the first step in the design process. The requirements are shown in the following table. The gain in each case is unity (actually -1, meaning a gain of unity, but the signal is inverted, or 180 degrees out of phase).</p>
+
+<blockquote>
+	<table>
+	<tr><td><big><b>Bandwidth</b></big> &nbsp; &nbsp; <td><big><b>Required Q</b></big>
+	<tr><td><big>1/3 Octave</big><td><big>4.32</big>
+	<tr><td><big>1/2 Octave</big><td><big>2.87</big>
+	<tr><td><big>1 Octave</big><td><big>1.41</big>
+	</table>
+</blockquote>
+
+<p>This is where the fun starts. With a 31 Band unit, you'll need 31 of these filters. Each with different component values from the next. 
+
+<p align="center"><img src="p136-f4.gif" border="1" /><br />
+<b><small>Figure 4 - Filter And Rectifier</small></b>
+
+<p>The MFB resistor names are the same from the P63 page but are split into two resistors in series (e.g. R1 -> R1A + R1B). This was done so that I could get a closer value to the ones computed from the formula using standard resistor values. Although more tedious, it allows to have a much closer Gain, Q and frequency to the desired values. I managed to match the response of all filter frequencies to within 2%, Gain and Q to within 0.02 of the ideal values. I think it doesn't make much sense to be better than that as parts tolerance begin to dominate.
+
+<p>The capacitors were decided on which is readily available in the parts bin. I then bought a resistor assortment kit online and used a spreadsheet to calculate all ideal and actual values from the available resistors.
+
+<p>The op amp shown is a TL072. Any op amp with decent speed should work but a FET input is recommended for low DC offset because of the high impedances involved. LF353 and TL082 should also work fine.
+
+<p>In theory, for lowest DC offset, the non-inverting input of U2 should return to ground via a resistor with a value equal to R3A + R3B, but this is not necessary in this application. This is covered in more detail in the P63 page if you decide to incorporate it. This is not required at all if you use FET input opamps.
+
+<p>The output of the filter is inverted by another op amp and the two outputs are rectified through a pair of 1N4148 diodes to make a simple full wave rectifier.
+
+<p>R13 sets the discharge time of the capacitor C3. R14 limits the maximum current drawn from the op amps and function somewhat as an averaging feature so that very fast peaks are ignored.
+
+<p>R10, R11 and Q1 are used to switch R12 into or out of the rectifier circuit. Applying 12-15V into the Fast/Slow terminal will turn on Q1 and connects R12 in parallel with R13 making the VU meter respond to the signal faster. With R13 alone, The VU meter responds to the peaks and holds the maximum level, similar to a Peak program meter.
+
+<p>A switch can then be used to select for average/peak hold modes by applying +15V to this input.
+
+<p>Although not tested in the prototype, using a lower value for R12 and applying variable PWM to the fast/slow terminal could allow the user to have continuously variable response time. It may or may not work, I don't know because I have not tried it but may be a possibility.
+
+<blockquote>
+	<i>The PWM idea will work fine as described. The signal applied to the Fst/Slo terminals needs to be a variable duty-cycle squarewave, and 
+	should run at a minimum of 20kHz. When the duty cycle is 50%, the effective value of R12 is double its actual value. When the MOSFET is off,
+	R12 is out of circuit as you would expect, and when continuously on the resistor behaves as normal.<br /><br />
+	Note that the relationship between duty-cycle and effective time constant is not a linear function, so the calibration of such a system is 
+	the responsibility of the constructor (as is the design of the PWM drive circuit).</i> <img src="esp-eot.gif" />  
+</blockquote>
+
+<p>If an adjustable response time is not needed, these parts (R10, R11, R12 and Q1) can be omitted and select the R13 value to the desired response time. The value of R14 sets the attack time constant, and determines the shortest impulse that the RTA will display. As shown, the time constant is 27ms, but it can be extended or reduced. C3 can also be changed if you can't find 3.3uF caps, as that's not a readily available value with some suppliers). 2.2uF is more common, and will work fine. I suggest a low leakage electrolytic if available.</p> 
+
+<hr /><b>VU Meter &amp; Power Supply</b>
+<p>The LM3915 circuit described here differs from the P60 page as I changed where the high reference (R<sub>HI</sub>, pin 6) is connected. This configuration allows the user to vary the reference voltage without changing the current drawn from Vref (pin 7) thereby maintaining constant brightness of the LED display but allows adjustable reference voltage. It looks familiar? Yes, The idea is similar to the LM317 adjustable voltage regulators. <img src="grin.gif" /></p>
+
+<p align="center"><img src="p136-f5.gif" border="1" /><br />
+<b><small>Figure 5 - VU Meter</small></b>
+
+<p>I chose to vary the ref voltage rather than add a pot at the input to maintain high input impedance and minimise loading on the rectifier output. The 5k trimmer gives a V<sub>Ref</sub> adjustment range of 5.8V (minimum resistance) to 11.04V (max resistance) applied to R<sub>HI</sub> (pin 6). 
+
+<p>J1 is used to select BAR or DOT mode. To switch to BAR Mode, short J1. Leave it open for DOT mode (BAR mode is <i>not</i> recommended for this application, due to very heavy current drain).
+
+<p>Each PCB holds several capacitors for local decoupling ... two 10uF caps for local bulk storage and 100nF ceramic caps at the supply pins of each IC and LED common.</p>
+
+<blockquote>
+	<i>33uF caps were originally specified, but with 31 of them, the maximum output capacitance of the switchmode supplies is exceeded. The
+	datasheet says that no more than 705uF should be connected to the outputs, and 31 x 33uF is 1023uF.</i> <img src="esp-eot.gif" />  
+</blockquote>
+
+<hr /><b>Putting Them Together</b>
+<p>Once all the basic blocks have been built, this is how I wired the prototype together. 
+
+<p align="center"><img src="p136-f6.gif" border="1" /><br />
+<b><small>Figure 6 - RTA Complete Block Diagram</small></b>
+
+<p>Only 11 buffers are needed because one is used as a preamp (gain stage ... R3 = 2.2k, R4 = 33k, gain ~ 16) and used to fan out and drive the other ten (which adds a bit more gain R3 = R4 = 10k, Gain = 2) and those next buffer stages drive three or four MFB filter inputs each. Doing it that way limits the maximum gain the op amp needs to have to maintain enough bandwidth to beyond audibility and less strain on each of the buffer stages having to drive low impedance loads without the constructor having to make another 21 more for the 31 band version.
+
+<p>The first of the ten buffers will drive 20, 25, 31 and 40Hz bands. I chose this buffer to drive these four inputs as low frequencies have high value input resistors so loading would not be a problem. The other nine buffers will drive 3 filters each.
+
+<p>For the microphone input, any mic preamp with decent frequency response can be used. Project 122 with increased input capacitor values is a good candidate. Most (if not all) measurement mics need phantom power and Project 96 can be used for that purpose.
+
+<p>A possible substitute would be a DIY 4ma current loop microphone based on Project 134 and use one of the extra buffers configured with high gain to act as a mic preamp. ESP already had all the necessary building blocks. Just needed someone to put them all together. <img src="grin.gif" />
+
+<p>The line input is simply added for the chance that "you might need it someday". It can be used for example, checking the frequency response of an EQ or tone control or just make the LEDs dance with music from the CD player. 
+
+<p>Feeding pink noise from a suitable source (see Project 11) into an EQ or tone control and feed the output into the RTA and you'll be able to see how the knobs/sliders affect frequency response in real time.</p>
+
+<hr /><b>Power Supply</b>
+<p>Because the prototype unit is a full 31 Band Analyser, power consumption can be a rather serious affair.
+
+<p>The prototype used 32x TL072 for the filters and mic preamp, 11x NJM4560 for the buffers, 31x LM3915s and 310 LEDs in all had a measured current consumption of 340mA on the +15V, 160mA on the -15V and a little over 300mA on the LED+ rail with all LEDs lit at +5V and DOT Mode. Consumption on the +/-15V rails are constant but the LED+ rail varies depending on how many LEDs are lit. The current consumptions listed are for the particular op amps and will change if different op amps are used so the PSU should have at least twice the current capacity to ensure reliability.
+
+<p>When all LEDs are lit in BAR mode, they will draw over 3 Amps with the consumption of all the LED+ pins combined together. Unless you have a very good reason to use BAR mode, it should not be used for this project, and if you use it, it is entirely at your own risk. There are many ways that you can supply a lower average voltage to the LEDs, but they become complex if a high current is drawn. I suggest that you stick to DOT mode to limit overall current drain and keep dissipation in the LM3915 LED drivers to a safe value.</p>
+
+<p align="center"><img src="p136-f7.gif" border="1" /><br />
+<b><small>Figure 7 - Power Supply Using Switchmode Modules</small></b>
+
+<p>The 15V regulated SMPS modules are similar to <a href="http://www.pduke.com/e-pduke/doc/FEC15.pdf" target="_blank">these</a>, although there are others with very similar performance. It is also possible to run the opamps from &plusmn;12V, so only a negative voltage converter is needed, plus that for the LEDs. All opamp circuits will work fine at the lower voltages. Although a 78SR5 switchmode 5V regulator is shown with a zener to raise the LED supply voltage to 8V, a standard linear regulator can also be used. With each LED drawing ~10mA, the total current drain will be about 310mA (allow 350mA), and a linear regulator will dissipate less than 2W (it will need a heatsink though). 
+
+<p>There are a couple of tricks to limit power dissipation on the LED drivers. One would be to use a lower supply voltage for the LEDs. One such method is described in the P60 page where the LEDs are powered off the unfiltered raw DC. Another method which I incorporated in the prototype is using a step down DC-DC converter ... basically similar to a 7805 but switching type, but these are expensive when new and may be hard to find for many hobbyists.
+
+<p>To some extent, it is necessary to leave the power supply design to the constructor, because there are so many possibilities. P05 can easily provide the &plusmn;15V for the opamps and LED drivers (with heatsinks!), and raw (unfiltered) DC can be used for the LED supply. Dissipation in the LED drivers will be quite low provided the unit is <i>always</i> operated in DOT mode.</p>
+
+<hr /><b>Calibration</b>
+<p>If you were able to match individual filter gain and Q very closely, there might be no need to calibrate, but it must be done because the LED drivers have a comparatively wide tolerance for the reference voltage. If you would like to calibrate the unit, a suitable oscillator (with stable output voltage when varying the frequency - P86 can be used here) or a pink noise source is required.</p>
+
+<p>Using pink noise:<br />
+Simply feed pink noise into the line input and adjust the trimmers until the graph displayed is a flat line. The pink noise source needs to be substantially flat amplitude across the entire audio spectrum. The unit described in <a href="project11.htm" target="_blank">Project 11</a> is very suitable, and can be incorporated into the analyser if desired.</p> 
+
+<p>Using an oscillator:<br />
+Adjust the frequency to 1kHz and vary the amplitude so that the RTA displays the #6 LED of the 1kHz band. Sweep the frequency up and down slowly and note the maximum amplitudes of the LEDs of the various bands. If the peak displayed amplitude varies, adjust so that all the bands display the same peak levels when the frequency is swept the whole 20Hz to 20kHz range.</p>
+
+<hr /><b>Input Signal Clipping</b>
+<p>It has to be pointed out that even if you're familiar with what clipping sounds like, you won't be able to hear the input stage clip. It <i>will</i> change the frequency spectrum that is displayed so it should never be allowed. A clipped waveform will have harmonics so a single tone would be displayed as a wide bandwidth signal (fundamental + harmonics) rather than a single peak in the display. Experiment by using a sine wave tone and a scope to see how the display changes when distortion sets in. If an oscilloscope is not available, Input a sine wave and note the graph displayed. Then input a square wave and observe the difference. A clipping indicator would be a nice addition but was not added to the prototype. Maybe a future upgrade. <img src="grin.gif" />
+
+<blockquote>
+	<i>A clipping indicator is not actually needed for line level signals, because there are 31 clipping indicators already available. When 
+	the unit is calibrated, make certain that each LED display unit reaches full scale <u>before</u> the input stage clips. This means that 
+	the LED	meter circuits should be set for a sensitivity of around 6.4V RMS (9V peak).<br /><br />
+	With the suggested gain structure and at maximum gain (pot fully clockwise), input sensitivity will be 200mV. The only part where clipping 
+	can occur is now the mic preamp. If the mic preamp gain is adjustable and the main gain control is left at maximum, the maximum mic preamp
+	output level will be 200mV at full scale ... well below the clipping level of any part of the circuit.</i> <img src="esp-eot.gif" />  
+</blockquote>
+
+<hr /><b>References</b>
+
+<ol>
+	<li><a href="project63.htm" target="_blank">P63 MFB Filter</a> - Filter calculation/ band frequencies
+	<li><a href="project60.htm" target="_blank">P60 LED VU Meter</a> - Rectifier and LED VU meter circuit
+	<li>LM3915 Datasheet - Calculation on Vref and resistor divider values
+	<li><a href="http://www.sengpielaudio.com/calculator-bandwidth.htm" target="_blank">Filter Qs for different octave values</a>
+	<li><a href="project75.htm" target="_blank">P75 Expandable Graphic Equaliser</a> - Used as a page template as the design considerations 
+	are somewhat similar
+</ol>
+
+<p><b>Further reading</b><br />
+<a href="http://www.quan-diy.com/projects/diyrta/rta.htm" target="_blank">Additional info and pictures of the author's 31 band 1/3 octave unit.</a>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40 /></a><b>Projects Index</b>
+<br /><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0 /></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Raymond Quan and Rod Elliott, and is Copyright &copy; 2011. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The authors (Raymond Quan and Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Raymond Quan and Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Raymond Quan and Rod Elliott 20 April 2011</div>
+</body>
+</html>

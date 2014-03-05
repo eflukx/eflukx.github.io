@@ -1,0 +1,753 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+<meta name="description" content="ESP - The Audio Pages.  Tips and techniques for passive crossover network design, including a design spreadsheet.  Much more information than you are used to on this topic.">
+<meta name="keywords" content="audio, crossover, passive, diy, fi-fi, electronic, speaker, design">
+<title>Passive Crossover Network Design</title>
+<!-- ESP - The Audio Pages.  Tips and techniques for passive crossover network design, including a design spreadsheet.  Much more information than you are used to on this topic. -->
+<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Design of Passive Crossovers&nbsp;</td></tr></table>
+
+<p align="center"><small>Copyright &copy; 2001 - Rod Elliott (ESP)<br />Page Updated 03 May 2012</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t1" ALT="Index" BORDER="0" height="24" width="40"></a><b>Articles Index</b>
+<br /><a href="index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" ALT="ESP Home" BORDER="0"></a><b>Main Index</b><br />
+
+<hr /><a id="contents"></a><b>Contents</b>
+
+<ul>
+  <li><a href="#intro">1.0 &nbsp; Introduction</a>
+  <li><a href="#s2.0">2.0 &nbsp; Filter Types</a>
+  <li><a href="#s3.0">3.0 &nbsp; Speaker Effects on Filter Response</a>
+    <ul><li><a href="#s3.1">3.1 &nbsp; Impedance</a>
+      <ul><li><a href="#s3.1.1">3.1.1 &nbsp; Woofers and Midrange</a>
+      <li><a href="#s3.1.2">3.1.2 &nbsp; Midrange and Tweeters</a></li>
+    </ul>
+    <li><a href="#s3.2">3.2 &nbsp; Amplifier Impedance</a>
+    <li><a href="#s3.3">3.3 &nbsp; Temperature</a>
+    <li><a href="#s3.4">3.4 &nbsp; Atmospheric Changes</a>
+    </ul>
+  <li><a href="#s4.0">4.0 &nbsp; Selecting the Filter Slope, Alignment &amp; Components</a>
+    <ul><li><a href="#s4.1">4.1 &nbsp; Filter Slope</a>
+    <li><a href="#s4.2">4.2 &nbsp; Filter Alignment</a>
+    <li><a href="#s4.3">4.3 &nbsp; World's Worst Passive Component</a>
+    </ul>
+  <li><a href="#s5.0">5.0 &nbsp; The Maths Behind the Filters</a>
+  <li><a href="#s6.0">6.0 &nbsp; Attenuation Networks</a>
+  <li><a href="#s7.0">7.0 &nbsp; Power Losses / Resistor Power</a>
+  <li><a href="#s8.0">8.0 &nbsp; Winding the Coils</a>
+  <li><a href="#s9.0">9.0 &nbsp; Conclusion</a>
+  <li><a href="#ref">References</a>
+</ul>
+
+<hr /><a id="intro"></a><b>1.0 &nbsp; Introduction</b>
+<p>While there are many articles elsewhere that discuss passive crossover design, not all follow a scientific approach. There are several 'off-the-wall' designs scattered throughout the Internet that are a case in point, and unless there is <i>real</i> science described in any article you see, it is best avoided.</p>
+
+<p>Highly recommended reading is <a href="project82.htm" target="_blank">Project 82</a> - Loudspeaker Test Box. This will make quite a bit of the testing described below redundant, and you will be able to see at a glance what network is best suited to your drivers. It does not do notch filters though, so this is something that you may still need to determine mathematically (or just cheat and use the spreadsheet <img src="grin.gif" alt=":-)"> )</p>
+
+<p>Most people who have read my pages will know by now that I am not a fan of passive crossovers. However, sometimes it is the only sensible approach, or is necessary because of financial considerations or just for simplicity. Before deciding on the use of a passive rather than active crossover, the following article will surprise you - perhaps even enough to make you decide to go active after all.</p>
+
+<p>Where passives are to be used, I prefer a simple 6dB/octave unit, but in many cases this is not possible - most commonly because of the low rate of roll-off, which can cause excessive power to be delivered within the stop band. This can excite the resonant frequency of tweeters, and causes a honkiness in the upper midrange - usually subtle, but audible nonetheless.</p>
+
+<p>A conventional Butterworth 12dB/octave filter is still by far the most common crossover, but is now under threat from the Linkwitz-Riley alignment. The latter has a crossover frequency where the output of each filter is 6dB down, and this has the advantage of a zero rise in output at the crossover frequency. The 'conventional' crossover filter is 3dB down at crossover, and the summed output shows a slight peak of 3dB at the crossover frequency. This phenomenon occurs with both electronic and passive crossovers using the Butterworth alignment. While it is possible to modify the frequency or slope of either the high or low pass section to compensate (usually by manipulation of both amplitude and phase response), this is uncommon in budget designs, and non-existent for off-the-shelf crossover networks.</p>
+
+<p>All crossover networks have problems. Some have more than others. The ideal loudspeaker is a single point source (i.e. small compared to all wavelengths of interest) that reproduces all frequencies. Such a driver is not possible with any technology currently available, so (as always) we must compromise.</p>
+
+<p>The most common compromise is to use two (or more) loudspeakers, each optimised for the frequency band it must cover. Since it is highly undesirable that drivers intended for high frequencies be subjected to low frequencies (and vice versa), the audio signal is separated into bands by a crossover network - either electronic or passive, or a combination of the two.</p>
+
+<p>In this article, I have concentrated on a two-way crossover network. Three-way (and above) will become a nightmare if you must use passive crossovers all the way through. My recommendation is that all low frequency crossovers should be active, and if you must use a passive network, then it should be for the mid to high frequency section only. The basic principles apply to all drivers regardless of frequency range, so it is not hard to extrapolate the examples given to low frequency networks.</p>
+
+<p>The purpose of this article is to explain how to obtain the best possible performance from a passive crossover network, and avoid the major pitfalls that await us in our endeavours. Crossovers are not simple. Electronic units require us to have a multiplicity of amplifiers (one for each loudspeaker driver), and passive units impose other constraints and limitations - not all of which are satisfactorily addressed by loudspeaker manufacturers (including some 'high end' components).</p>
+
+<p>There is information presented here that I have not seen in any other material on the subject of crossovers, with the exception of my article, "Biamping - Not Quite Magic, but Close". Specifically, this is to do with the shift of filter frequency and alignment that occurs when a voice coil is hot. Since a stable operating temperature will never be achieved with music signals, there will be a constantly shifting crossover frequency, and a peak in the frequency  response where the amplitude is dependent on the power at any instant in time. This cannot be considered a satisfactory situation, and is quite possibly one of the most compelling reasons to use active crossovers whenever possible.</p>
+
+<p>The article that follows requires that you are very familiar with the use of a spreadsheet or scientific calculator. There are many calculations and measurements to be made to get it right - but the end result will be well worth the effort.</p>
+
+<center><p><img SRC="lrp-f11.gif" ALT="Figure 1.1" BORDER="1">
+<br /><b><small>Figure 1.1 - Speaker Test Setup</small></b></center>
+
+<p>You will need to set up the equipment shown in Figure 1.1 to carry out any tests on the speakers. The millivoltmeter may be a digital, if you are sure that it has a good enough frequency response. A frequency meter is also very helpful, but is not essential if the oscillator is well calibrated. If an amp larger than 10W is used, make sure that you keep the volume right down - most tests will require a maximum of 1V RMS, so even a 1W amp will be enough.</p>
+
+<p>A spreadsheet is now available to perform the maths for you. You still need to measure the drivers, but once measured, you can simply insert the values into the spreadsheet for a complete starting point. The spreadsheet cannot compensate for all possibilities, and some experimentation will almost always be needed to arrive at the optimum solution.
+
+<blockquote><b><a href="http://sound.westhost.com/xover.zip">Passive Crossover Design Spreadsheet</a></b></blockquote>
+
+<p>Ideally, when you use the spreadsheet, you should use the <i>actual</i> measured impedance of the loudspeakers at the frequency of interest, rather than the quoted nominal impedance. Using the test set shown above makes this quite easy.</p>
+
+<table width="100%"><tr><td><img src="note.gif" alt="Note"></td><td>Remember that once a Zobel or notch filter has been determined for a driver, that becomes <i>part of the driver</i>. The network and driver must be treated as one, since the network's purpose is to remove some objectionable characteristic of the attached driver - most commonly unwanted impedance variations.</td></tr></table>
+
+<p>To use the test set, follow these steps ...
+
+<ul>
+	<li>Disconnect the speaker, and set the voltage to a convenient level (say 1V)</li>
+	<li>Connect the speaker, and sweep the frequency to locate the centre of the "flat" range, where the voltage does not change appreciably</li>
+	<li>Measure the voltage</li>
+</ul>
+
+Impedance may be calculated, based on the known input voltage and the voltage measured across the loudspeaker. Using the long way (because it is easier) ...
+
+<blockquote>
+	<b>Vr = Vin - Vs</b>
+</blockquote>
+
+<small>Where Vr is voltage across resistor, Vin is unloaded voltage, Vs is voltage across speaker</small>
+
+<blockquote>
+	<b>I = Vr / R</b>
+</blockquote>
+
+<small>Where I is current, and R is the value of the resistor (10 ohms is suggested)</small>
+
+<blockquote>
+	<b>Z = Vs / I</b>
+</blockquote>
+
+<p>Assume an input of 1V, R = 10 ohms and Vs = 400 mV
+
+<blockquote>
+	<b>Vr = Vin - Vs</b> &nbsp; <small>= 1 - 0.4 = 0.6 V</small><br />
+	<b>I = Vr / R</b> &nbsp; <small>= 0.6 / 10 = 0.06 A</small><br />
+	<b>Z = Vs / I</b> &nbsp; <small>= 0.4 / 0.06 = 6.67 Ohms</small>
+</blockquote>
+
+<p>This calculation is also done by the spreadsheet.</p>
+
+<hr /><a id="s2.0"></a><b>2.0 &nbsp; Filter Types</b>
+<p>A comparison of filter alignments is in order, so that the reader not experienced in such matters will know what I am on about. There are three primary filter alignments that can be used, and they differ only in the damping (or "Q") factor. Q, or "quality factor" is an abstract term that is applied to many passive components in many applications, and is effectively the inverse of damping. Thus, Q=1/d or d=1/Q. Fascinating stuff (if you happen to be a mathematician :-)</p>
+
+<center><table width="700" border=1 style="border-collapse: collapse">
+<colgroup span=4 width="25%">
+<tr><td><b>Filter</b></td><td><b>Main Characteristic</b></td><td><b>Other Characteristics</b></td><td><b>Q</b></td></tr>
+<tr><td>Butterworth</td><td>Maximally flat amplitude</td><td>-</td><td>0.707</td></tr>
+<tr><td>Bessel</td><td>Maximally flat phase</td><td>Fastest settling time</td><td>0.5 to 0.7 (typ)*</td></tr>
+<tr><td>Chebyshev **</td><td>Fastest rolloff</td><td>Slight peaks / dips</td><td>0.8 to 1.2 (typ)</td></tr>
+</table><b><small>Table 1 - Filter Characteristics</small></b></center>
+
+<p>*<small> &nbsp;A true Bessel filter has a Q of 0.57, however there are many 'almost Bessel' alignments in common use</small><br />
+**<small> also spelled Tchebychev in some texts</small>
+
+<p>One of the "magical" number in electronics is &radic;2, or 1.414, and its inverse, 0.707 and the latter can be seen in the table as the figure that provides "maximally flat" frequency response. This means that the response in the pass band is as flat as it can possibly be, until the cutoff (-3dB) frequency is reached. This forms the classic Butterworth filter that has been the mainstay of nearly all crossover systems in common use.</p>
+
+<p>A Bessel filter has a slower and "sloppier" response, that starts to droop well before the cutoff frequency, but has the minimum phase shift (and best transient response), and one that is comparatively gentle.  6dB/octave filters are neither fish nor fowl - i.e. they may be thought of as a poor Bessel, Butterworth <b>and</b> Chebyshev all rolled into one, and have a Q of 0.5 - this cannot be changed by any topology, regardless of whether electronic of passive crossovers are used.</p>
+
+<p>The Chebyshev filter is characterised by peaks and/or dips in its response, and usually has a (slight) rise in amplitude just before the cutoff frequency, the magnitude of which is determined by the Q. The higher the Q, the greater the peak in the response. Depending on the order of the Chebyshev filter, it may have dips as well as peaks. Many vented subwoofers use a Chebyshev response for the port tuning, as do quite a few sealed enclosures. The Q will typically be about 0.8, so the rise in amplitude is less than 1dB, but some will use a Q as high as 1.0 to make the loudspeaker sound as if it has more bass.</p>
+
+<p>Chebyshev filters are rarely used in crossovers - some electronic crossovers have used them, but these are most uncommon. This alignment will not be discussed further (except where it happens by accident due to impedance variations).</p>
+
+<hr /><a id="s3.0"></a><b>3.0 &nbsp; Speaker Effects on Filter Response</b>
+<p>The amplitude and phase of a filter is easily plotted by means of circuit simulation. Amplitude response may be measured using a simple signal generator, small power amplifier (for loudspeaker crossover filters) and an AC voltmeter, which must have a bandwidth that covers the audio spectrum - not all do, especially cheap analogue and digital meters. Phase shift is very difficult to measure without an oscilloscope. Digital oscilloscopes have the added advantage of cursors that can be used to obtain accurate readings of time delay at any given frequency, and phase shift can be calculated from this.</p>
+
+<p>Fortunately, once armed with enough information, phase shift measurements are not generally needed. This simplifies the design process considerably, since the phase shift of any given filter type will be known in advance. </p>
+<p>In this section, we shall examine some of the possible influences that have (or may have) an adverse effect on the performance of a crossover network. Some of these are well known and are catered for in many (but by no means all) commercial and hobbyist (DIY) loudspeakers. Others are less well known, and are ignored completely by virtually all loudspeaker builders - perhaps with good reason, perhaps not.</p>
+
+<p><a id="s3.1"></a><b>3.1 &nbsp; Speaker Impedance</b>
+<br />One area where measurement is essential when designing passive crossovers, is the loudspeaker driver itself. There is usually very little information in the makers' data that will prepare you for the behaviour of a loudspeaker / crossover network combination, and these data are usually derived empirically. In some cases the voice coil inductance will be quoted, and if so, this may be a bonus, as will be shown shortly.</p>
+
+<p><a id="s3.1.1"></a><b>3.1.1 &nbsp; Woofers and Midrange Drivers</b>
+<br />In almost every case, the crossover frequency selected for the woofer and midrange driver will be at a frequency where the voice coil inductance is significant. As frequency increases, the effect of the voice coil inductance is to increase the driver's impedance, and this plays havoc with the crossover network's performance.</p>
+
+<p align="center"><img SRC="lrp-f31.gif" ALT="Figure 3.1" BORDER="1">
+<br /><b><small>Figure 3.1 - Equivalent Circuit of a Loudspeaker</small></b></p>
+
+<p>Examination of a simulated low frequency driver depicted in Figure 1, shows a large peak at resonance, and a relatively small section where the impedance is flat. This equates to the nominal impedance of the speaker, but as shown below, this covers a limited frequency range. The biggest problem for the crossover is not resonance (for a woofer, at least), but the rise in impedance as the voice coil inductive reactance starts to become significant relative to the nominal impedance.</p>
+
+<p align="center"><img SRC="lrp-f32.gif" ALT="Figure 3.2" BORDER="1" />
+<br /><b><small>Figure 3.2 - Impedance Curve of "Simulated" Loudspeaker</small></b></p>
+
+<p>The green line on the above graph represents the 'semi-inductance' of the voicecoil. Because the coil is surrounded by conductive metal (steel), its inductance is not linear with frequency. This creates a lossy inductor, and as such it cannot actually achieve the 6dB/ octave (20dB/ decade) impedance rise that one would normally expect. The actual rise varies from one driver to the next, and cannot be simulated in general terms - it must be measured. The real impedance rise due to voicecoil inductance (or semi-inductance) is usually between 3 and 5dB/ octave. For the range of frequencies that we need to be concerned with for a crossover network, the error introduced into the formulae that follow is minimal, and can be ignored.</p>
+
+<p>This is most commonly corrected with a Zobel network (Figure 3.3), connected in parallel with the speaker. As the inductive reactance rises, the capacitive reactance falls, and the resistance is typically made equal to the DC resistance of the voice coil. The net result is a flat impedance curve, as shown in Figure 3.4. This is absolutely essential for proper behaviour of the crossover network, but sadly is not used in a great many designs. The result is a shift in the crossover frequency, and phase response that is not exactly ideal. The crossover may be designed to work with the impedance actually presented by the driver, in which case it will be asymmetrical, having different inductance and capacitance from the theoretical values that one might expect.</p>
+
+<p>In the case of the speaker shown above, at a typical crossover frequency of perhaps 3kHz, the impedance (as simulated) is a little over 28 Ohms, or about 22 Ohms for semi-inductance - imagine the error if a crossover designed for 8 Ohms were used without correction!</p>
+
+<p align="center"><img SRC="lrp-f33.gif" ALT="Figure 3.3" BORDER="1" />
+<br /><b><small>Figure 3.3 - Addition of an Impedance Correction Zobel Network</small></b></p>
+
+<p>The Zobel network will flatten the impedance of the speaker, but at the cost of power dissipation, and a slightly lower than expected overall impedance. Naturally, the power dissipated by the resistor is turned into heat, not sound, reducing effective efficiency. The lower impedance may cause some stress to certain amplifiers, but most should be able to cope with the slight extra loading. It must be understood from the outset that the flattened impedance curve does not make the speaker perform any better at the higher frequencies - the sole purpose of the Zobel network is to ensure that the impedance presented to the crossover network remains essentially constant over the frequency range where variations would cause an unacceptable frequency response variation in the filter network. The determination of the required values for the Zobel network is most easily done by measurement and experimentation.</p>
+
+<p>Once determined, the Zobel network must be treated as part of the loudspeaker. All measurements or calculations for the crossover network <i>must</i> include the Zobel network and loudspeaker driver combined. If correctly done, the combination of the two will give an acceptably flat and very usable impedance across the entire crossover region. This will result in a crossover filter with the minimum error possible.</p>
+
+<p>If the voice coil inductance is known, then a suitable value of capacitance may be calculated quite readily. The first thing to determine is that frequency where the inductive reactance is equal to the DC resistance of the voice coil ...
+
+<blockquote>
+	<b><small>f = Rvc / ( 2 &pi; Lvc )</small></b>
+</blockquote>
+
+Where ...
+<blockquote><small>f = frequency
+<br />Rvc = Resistance of voice coil
+<br />Lvc = Inductance of voice coil</small></blockquote>
+
+Once this figure is found, it is a simple matter to calculate the capacitance for the Zobel network ...
+
+<blockquote>
+	<b><small>C = 1 / ( 2 &pi; f Rvc )</small></b>
+</blockquote>
+
+Using the simulated speaker above as an example, we already know that Rvc is 6.2 ohms, so ...
+
+<blockquote>
+	<b><small>f = 6.2 / ( 2 * &pi; * 1.5<sup>E-3</sup> ) = 658Hz<br />
+	C = 1 / ( 2 * &pi; * 658 * 6.2 ) = 39<sup>E-6</sup>F = 39uF</small></b>
+</blockquote>
+
+<p>It should come as no surprise that this is almost exactly the value found by simulation, so we can safely assume that the formula works, and is easy enough to use. The resistance will nearly always be approximately equal to the voice coil resistance - in some cases it may be found that a small variation is needed, but this is unlikely to be significant.
+
+<p>Although the capacitor does not have to be "audiophile" quality, and a bipolar electrolytic could be used, the main problem with bipolars is that they are not stable over time. I recommend that polyester, polypropylene or oil filled paper cap be used, and suggest that you will be faced with a not inconsiderable expense to implement this scheme properly. Is it worth it? <b><i>Absolutely!</i></b>
+
+<center><p><img SRC="lrp-f34.gif" ALT="Figure 3.4" BORDER="1" />
+<br /><b><small>Figure 3.4 - Resulting Loudspeaker / Zobel Impedance Curve</small></b></center>
+
+<p>The red trace shows the uncorrected impedance, and the green trace shows the impedance with the correction network in place. Naturally, it is important that the crossover is designed for the actual (rather than the nominal) impedance presented by the driver at the crossover frequency. An 8 ohm speaker will rarely be 8 ohms in reality, and this is especially true when an impedance correction circuit is used.
+
+<p>As noted above, one could also design the crossover for the impedance actually presented at the crossover frequency, but this varies with frequency. Unless the impedance remains reasonably constant for at least 2.5 octaves (and preferably more) above and below the crossover frequency, the network cannot be expected to provide a predictable response. As a direct result of this, a 6dB/octave passive crossover at (say) 300Hz is barely acceptable, because of the impedance peak of the woofer. Although it is possible to equalise the woofer's impedance peak, the components needed will be very large (electrically and physically), and will be very expensive.
+
+<p>If the loudspeaker is installed in a vented enclosure, then there will be two impedance peaks to equalise out - this can become very tedious, and will be costly to implement. There is usually little to be gained by equalising the woofer impedance peaks, and if an electronic crossover network is used, there is absolutely no reason to do so.
+
+<p>When you have completed the network, connect it (and the speaker) to the test setup shown in Figure 1.1 and measure the response. It should be quite flat (within 1dB) up to the highest frequency of interest.
+
+<p><a id="s3.1.2"></a><b>3.1.2 &nbsp; Midrange and Tweeter Drivers</b>
+<br />Most tweeters and midrange drivers can benefit from using a compensation circuit at their resonant frequency when a passive crossover is used. This is especially true if you are using a crossover network with a slow rolloff, or the frequency is too close to the resonant frequency of the driver. With a 6dB/octave filter, I suggest an absolute minimum of about 1.5 octaves between the driver resonance and crossover frequency. A tweeter with a 900Hz resonance should therefore be crossed over at a minimum of 2,500Hz, but preferably higher. If you use the minimum possible frequency separation, there will be a small peak at tweeter resonance - this is a combination of the tweeter's resonance itself, and the fact that the crossover cannot maintain the correct rolloff if the load impedance changes.
+
+<p>Although there are allegedly formulae to calculate the values needed to make a network whose impedance is the exact opposite of the resonance peak, I suggest that they are of minimal use in practice. One I have seen requires the Thiele/Small parameters, and these are rarely available for tweeters in particular. One could measure the parameters, but the effort of doing so is equal to (or greater than) the effort needed to experiment with a few selected values. With experience, this will become quite easy - albeit a little tedious.</p>
+
+<p align="center"><img SRC="lrp-f35.gif" ALT="Figure 3.5" BORDER="1" />
+<br /><b><small>Figure 3.5 - Tweeter Resonance</small></b></p>
+
+<p>Experimentation is made easier with the following procedure. The first requirement is to plot the impedance of the tweeter or midrange driver, which should be done with reasonable accuracy. The resistance used in the network will be equal to the DC resistance of the voice coil - that much at least is quite straightforward. With the procedure explained below, I eventually arrived at the network shown in Figure 3.6 - this is hardly a trivial circuit to implement, especially with a relatively large capacitance. Again, the capacitor does not necessarily have to be "audiophile" quality, so a bipolar electrolytic could be used in this circuit as well - but the same caveats apply as with the woofer inductance compensation circuit. A bipolar electrolytic will change value over time, and the compensation circuit's performance will deteriorate as capacitance is reduced with age.
+
+<p>There is a strong case for manufacturers of midrange and tweeter drivers to offer a compensated version of their drivers, which would simplify the process considerably. At the very least, the needed parameters should be supplied to allow us to calculate the values needed. Regrettably, I have never seen the parameters or a suggested circuit with the specifications for any tweeter - IMHO this is the very least the manufacturers could do to help us all out on this. Instead, we are left to our own devices to determine the network by trial and error. I find this to be somewhat
+irritating.
+
+<p align="center"><img SRC="lrp-f36.gif" ALT="Figure 3.6" BORDER="1" />
+<br /><b><small>Figure 3.6 - Compensation Circuit, and Equivalent Circuit of Tweeter</small></b></p>
+
+<p>Unfortunately, it is extremely difficult to get the required details for most tweeters. The resonance is almost always quoted, but most of the time it is difficult to find the voice coil inductance, let alone the Qts and Vas, which would enable one to calculate the required network. The values I used in the simulations are assumed, and gave a resonance at about the right frequency - the reality will (of course) be different, and will differ even further from one tweeter to another. Some basic measurements on a selection of tweeters confirmed that the simulation is not too far off, although it may be a little broader than some tweeters.</p>
+
+<p>The Q of the compensation circuit must be the same as the resonance Q, or it will simply form a sharp notch in the middle of the resonance peak (Q too high) or a broad notch that spans the resonance (Q too low). Unfortunately, this is not as easy as it may first appear, but it is not actually difficult once you know what to do.</p>
+
+<p>As a first approximation, find the (actual) resonant frequency of the tweeter. You will need a small amplifier, and a resistance of about 10 ohms. Wire the 10 ohm resistor in series with the amplifier output and the tweeter. Keep the output voltage as low as possible (less than 1V RMS). Change the frequency of the audio oscillator slowly and note the frequency where the voltage directly across the tweeter terminals is at its maximum. Reduce the frequency slowly, until the level has decreased by 3dB (i.e. 0.707 of the previous level). From this, you can calculate the required capacitance that will null the inductive component of the resonant peak.</p>
+
+<p>Measure the DC resistance of the voice coil, and note the resonant (Fo) and -3dB (F3) frequencies - you will need both for the next steps. 
+
+<p>Capacitance and inductance are calculated from the formulae ...
+
+<blockquote><b><small>C = 1 / ( 2 * &pi; * Rvc * F3 )
+<br />L = 1 / ( 4 * &pi;&sup2; * Fo&sup2; * C )</small></b></blockquote>
+
+The details of the simulated tweeter are ...
+<blockquote><small>Rvc = 5.8 Ohms
+<br />Fo = 907 Hz
+<br />F3 = 635 Hz</small></blockquote>
+
+Substituting our tweeter, we will obtain the following ...
+
+<blockquote><b><small>C = 1 / ( 2 * &pi; * 5.8 * 635) = 43uF
+<br />L = 1 / ( 4 * &pi;<sup>2</sup> * 907<sup>2</sup> * 43<sup>E-6</sup> ) = 716 uH</small></b></blockquote>
+
+<p>These values will be difficult to obtain, and substituting 40uF and 800uH caused such a small error that it is of little consequence (it actually improved matters very slightly <img src="grin.gif" alt=":-)"> ).</p>
+
+<p>Note that this procedure is intended as a starting point only, and you will almost certainly need to experiment if you want the flattest possible impedance. Small variations will not cause significant errors, so it is not beneficial to go to extremes.</p>
+
+<p>Again, when you have completed the network, connect it (and the tweeter) to the test setup shown in Figure 1.1 and measure the response. It should be quite flat (within 1dB) across the resonance frequency.</p>
+
+<p align="center"><img SRC="lrp-f37.gif" ALT="Figure 3.7" BORDER="1" />
+<br /><b><small>Figure 3.7 - Tweeter Impedance With Correction Circuit</small></b></p>
+
+<p>The impedance is now commendably flat, but at the expense of overall impedance, which is reduced from the nominal 8 ohms to the real impedance of the tweeter - in this case, about 6 ohms. This figure must be used when the crossover network is designed - <b><i>not</i></b> the nominal 8 ohms impedance. This is a very common mistake made by the novice, and from what I have seen, quite a few professionals as well. The nominal impedance is just that - nominal. When designing the crossover, the actual measured impedance must be used - <b><i>always!</i></b></p>
+
+<p>Figure 3.8 shows the result of the crossover with and without the correction network. This was simulated with a 12dB Bessel filter, and as you can see, there is a profound difference. This is the AC amplitude response only - the actual frequency response (dB SPL) will be quite different in most cases, but will reflect (to a modest degree) the problems that are immediately apparent from the diagrams.</p>
+
+<p>An uncompensated (or partially compensated) tweeter can actually be used in a 12dB filter with little audible difference, provided there is sufficient "distance" between the crossover frequency and resonance. However if you are going to go to all that trouble to build the "ultimate" speaker system, you might as well go the extra mile (kilometre?) and get it right.</p>
+
+<p>Ferro-fluid damped tweeters will usually have an impedance that changes so little that compensation is not required. Regardless, the tweeter should be measured to make sure it will not upset the crossover network.</p>
+
+<p align="center"><img SRC="lrp-f38.gif" ALT="Figure 3.8" BORDER="1" />
+<br /><b><small>Figure 3.8 - 12dB Filter Response With (a) and Without (b) Compensation</small></b></p>
+
+<p>The effect is much worse with a 6dB filter, and this is shown in Figure 3.9. Note the tweeter resonance - it is completely undamped, and the attenuation of a 6dB filter is obviously not sufficient to reduce power to a respectably low level, even though the crossover frequency is set to 3kHz.</p>
+
+<p align="center"><img SRC="lrp-f39.gif" ALT="Figure 3.9" BORDER="1" />
+<br /><b><small>Figure 3.9 - 6dB Filter Response With (a) and Without (b) Compensation</small></b></p>
+
+<p>As you can see in (a), the tweeter signal is down by only about 10dB at resonance, and the uncompensated version is very much worse. Somewhat surprisingly (somewhat ??), the audible effect is not as bad as these diagrams indicate, but there is no doubt that for a high quality system, the effects are there to be heard - you just have to know what to listen for.</p>
+
+<a id="s3.2"></a><b>3.2 &nbsp; Amplifier Impedance</b>
+<p>If the speaker impedance has an effect on the crossover performance, then it follows that the amplifier's output impedance will also have an influence. With the majority of transistor amps, this is not an issue, but a valve amp is very different indeed.</p>
+<p>Most valve amps have an output impedance that is at least a few ohms, and for the sake of the exercise, we will assume an impedance of 4 ohms. </p>
+
+<p>In a crossover that was previously completely flat when driven from a zero ohm source (a 12dB 'sub-Bessel' filter with a Q of 0.5), there is a 1.5dB (approx.) peak at the crossover frequency when the source impedance is increased to 4 ohms. The effect is less pronounced than with a variation in loudspeaker impedance, but may be considered objectionable nonetheless.</p>
+
+<p>Again, this is not allowed for in any speaker that I know of. If a speaker is to be able to be driven with either a valve or transistor amp, then a switch is needed to modify the crossover to suit the source impedance. Any claim as to "audiophile" performance is negated if the speaker cannot be accurately matched to the amplifier that will be driving it.</p>
+
+<p>This also rather destroys the "audibility of cables" argument, since those who can "clearly hear a difference" between two equivalent quality cables, rarely seem to hear the peak in response that occurs when they use a valve vs. transistor amplifier. One of these effects is far more pronounced than the other - I shall leave it to the reader to decide which is likely to be more audible&nbsp;<img SRC="grin.gif" alt=":-)">.</p>
+
+<center><table width="90%" border=1 style="border-collapse: collapse" bgcolor="#f0f0f0">
+<tr><td><i>A word of warning is worthwhile here. <b>Never</b> operate an amplifier into a crossover network with the drivers disconnected. It may be tempting to look at the response, but at a frequency equal to the series resonant frequency of the inductor and capacitor, the network may present almost a dead short circuit to the amplifier (depending on the filter type - second order filters are the greatest risk).<br /><br />
+Current is limited only by series resistance, and dangerous voltages can be developed across the capacitor and inductor. These can be sufficient to damage the capacitor (due to over-voltage), and can give you a very nasty electric shock. The amplifier may not survive this abuse either, so it could be a very expensive temptation indeed.<br /><br />
+
+With only 10V RMS applied at the resonant frequency of the 3kHz filter shown below (and assuming a total series resistance of 1 ohm), the amplifier will be supplying 8.3A RMS, and there will be 98V RMS across the inductor and capacitor. Provided the Zobel network is left in place, the resonance is damped so heavily that any risk is eliminated.</i></td></tr></table></center>
+
+<p><a id="s3.3"></a><b>3.3 &nbsp; Temperature</b>
+<br />In case you were wondering, the voice coil temperature used in the examples below (150&deg;C) is not as outrageous as it may seem. Since loudspeakers have an efficiency of typically 1% or less, this means that 99% of all the power going to the speaker must be dissipated as heat. Although there is some air movement through the voice coil gap, it cannot keep the temperature down low enough to ensure that the effects described will not disturb the behaviour of the crossover network. An efficiency of 1% indicates just over 92dB/m/W, which is quite a respectable figure in the world of loudspeakers!</p>
+
+<p>Copper has a thermal coefficient of resistance such that its resistance increases by 0.395% per &deg;C (variously listed as anything from 0.39% to 0.43% on different websites). We can safely assume that the impedance is based on "room temperature", which will generally be in the order of 20&deg;C. When power (in the form of music or test signals) is applied to a speaker, the voice coil temperature must rise. Given a typical 6.6 ohm (DC) voice coil for an 8 ohm nominal speaker, at 150&deg;C, the resistive component alone will rise to 10 ohms - and naturally the impedance must be somewhat greater than this figure.</p>
+
+<p>The loading on the crossover network is then radically different from the basic design figure of 8 ohms, or any corrected impedance obtained by using a Zobel network. The real issue here is that there is virtually <i>nothing</i> you can do about it, so the loading on the crossover network will vary depending on how loud the speakers are playing!</p>
+
+<p>You may have read reviews where a loudspeaker system was described as becoming "edgy" or "brittle" at higher levels. This may be because the amplifier was clipping, but it could also be the result of what is called "power compression". Woofers are particularly susceptible to this phenomenon, since they are expected to handle more power than tweeters. Many tweeters use ferro-fluid in the voice coil gap, which not only improves damping and reduces resonances, but also gives a higher power handling. This means that the voice coil temperature rise will often be much lower than for the woofer, so the relative efficiency (in dB/m/W) from the tweeters remains the same, and that of the woofer falls (as it must if the impedance increases).</p>
+
+<p>Of course, some speakers may have been optimised for a higher than average listening level, and these are likely to sound somewhat dull at "normal" listening levels.</p>
+
+<p>That the impedance varies with power level is not conjecture, it is a fact, and the effects can be proven in demonstrations and by measurement - this variation is as dictated by the laws of physics, and no speaker manufacturer has been able to break those laws.
+
+<blockquote>The question remains - what can be done about it?
+<br />The answer (regrettably) remains - virtually nothing!</blockquote>
+
+<p>It would be possible to use a thermistor (a special resistor whose resistance varies with temperature), but matching its thermal characteristics to the voice coil would be a formidable task. Since a thermistor is by definition a non-linear device, it may also introduce distortion of its own - a less than desirable outcome.</p>
+
+<p>It is not only the power compression of relative levels that has an effect in this case - the crossover frequency will shift with volume! It really has no choice, since the voice coil will change impedance, and the crossover frequency (and filter damping) is determined by the load - the loudspeaker, and any additional network you use to equalise its response.</p>
+
+<p align="center"><img SRC="lrp-f310.gif" ALT="Figure 3.10" BORDER="1">
+<br /><b><small>Figure 3.10 - Filter Performance at Ambient Temperature (Z = 8 Ohms)</small></b></p>
+
+<p>As an example, let's assume that a loudspeaker has a flat impedance curve, and is exactly 8 ohms. A Butterworth crossover may be designed that will have a -3dB frequency of 3kHz (Figure 3.8). Should the impedance rise to 11 ohms (as in the above example of a 150&deg;C voice coil temperature), the -3dB frequency will increase to over 3.8Hz, and the filter shape is changed. A Bessel filter will become Butterworth, or a Butterworth filter will now be Chebyshev! This is shown in Figure 3.11, and the typical peak before rolloff of a Chebyshev filter response is easily seen - as is the frequency shift.</p>
+
+<p align="center"><img SRC="lrp-f311.gif" ALT="Figure 3.11" BORDER="1">
+<br /><b><small>Figure 3.11 - Filter Performance at Elevated Temperature (Z = 11 Ohms)</small></b></p>
+
+<p>Meanwhile, because of the relatively low power in the tweeter, and possibly due to the effects of ferro-fluid, its temperature rise may have caused the impedance to rise to only 9 ohms (example only). Even this is sufficient to cause the crossover frequency to fall to about 2.7kHz, and will also change the filter shape (but to a lesser degree).</p>
+
+<p align="center"><img SRC="lrp-f312.gif" ALT="Figure 3.12" BORDER="1">
+<br /><b><small>Figure 3.12 - Combined Crossover Response at Elevated Temperature</small></b></p>
+
+<p>A crossover that at ambient temperatures had a nice stable (and well defined) crossover frequency of 3kHz, now has a 1.1kHz overlap! The audible effect is a disaster, since there will be quite a prominent peak (almost 5dB) at around 2.8kHz - the approximate centre frequency of the overlap region. Needless to say, if the tweeter had an equivalent temperature rise (due to the use of an aluminium voice coil, for example), then the overlap region becomes greater, and the peak is worsened - the amplitude will be relatively unaffected, but the peak will be wider as the two speakers are reproducing the same frequencies. The effects on relative phase and dispersion are less predictable, but we can safely assume that the outcome will be undesirable! (To put it mildly.)</p>
+
+<p>A further consideration (although probably of minor consequence except in extreme circumstances) is that the tweeter will now absorb a little more power, causing its voice coil temperature to rise further, thus lowering the crossover frequency and allowing more power, thus raising the temperature even further (etc.). Whether this would reach destructive levels is doubtful - but the possibility exists! An amplifier pushed into distortion for extended periods could conceivably lead to this self destructive behaviour (assuming that the tweeter survives the high average power to start with).</p>
+
+<p>This behaviour could be made to disappear completely when an electronic crossover is used. Although the details are not relevant to this article, a signal processor can be adapted to adjust the level to compensate for power compression in the drivers. To my knowledge this has never been done &sup1;. The truth is, this is far less of an issue when an electronic crossover is used - the power compression still occurs, but there is no shift of the crossover slopes, so the effect is only on relative levels, and not the designed crossover frequencies. It is a simple matter to adjust the relative outputs of the electronic crossover to match the average power that will be used, so one could have a switch, marked "Soft", "Normal" and "Loud" if desired :-)</p>
+
+<blockquote>&sup1; <small>I have since been advised that B&amp;O do use this exact technique with the Dalek (aka BeoLab 5). I don't know how effective it is, but at least someone has thought of it. In reality it's probably not needed for a home system sub because few people will push the system hard enough to invoke thermal compression.</small></blockquote>
+
+<p><a id="s3.4"></a><b>3.4 &nbsp; Atmospheric Changes</b>
+<br />The loading on a loudspeaker cone, and therefore its Thiele/ Small parameters, will also vary with changes in the atmospheric conditions. High humidity, altitude or temperature make air less dense - such variations will cause changes to the loading on the cone, and thus the speaker's parameters. </p>
+
+<p>In reality, these are relatively small, except at extremes. Even at the extremes, the physiological effect on the listener will probably be far greater than the atmospheric effects on the loudspeaker, but I know of no tests that have been performed to measure the changes experienced by any driver with differing atmospheric conditions.</p>
+
+<p>I doubt that there are vast differences, but it is an additional consideration worthy of further investigation - preferably by someone with access to an environmental test chamber. Relying on the vagaries of the weather and quickly taking some measurements is unlikely to yield meaningful results.</p>
+
+<p>Fortunately, it is unlikely that the performance of a passive crossover will be affected to any audible degree by normal variations in atmospheric conditions.</p>
+
+<hr /><a id="s4.0"></a><b>4.0 &nbsp; Selecting the Filter Slope, Alignment &amp; Components</b>
+<p>Having digested the above, you now bravely decide to go ahead regardless. The next task is to select the filter slope and alignment. Again, there are compromises that must be made, and it is important to select the most appropriate crossover to suit the drivers you are using.</p> 
+
+<p><a id="s4.1"></a><b>4.1 &nbsp; Slope</b>
+<br />Selecting the best slope is important, both to protect the tweeter (in particular), and to ensure that the drivers are all operated within their optimum frequency and power handling ranges. A first order (6dB/octave) filter has the most predictable response, and is affected less by impedance variations than higher orders. On the negative side, the loudspeaker drivers will be producing sound at frequencies that are very likely outside their upper or lower limits. At low powers (less than 10W or so), this is usually not a major issue, but it becomes much more important when amplifier powers of 50W or more are considered.</p>
+
+<p>Second order filters (12dB/octave) are better at keeping unwanted frequencies out of the individual speakers, but are more complex, and are affected by impedance variations to a much greater degree. The tolerance of the components used will also have a greater effect, so it is not uncommon for designers to make the inductors specifically for the job, rather than attempting to use "off the shelf" coils. The capacitance used must also remain predictable and constant over time and power, which specifically excludes the use of bipolar electrolytics (well apart from any other failings they may have - either real or imagined).</p>
+
+<p>The design task becomes more complex and the tolerances more exacting as the order is increased. A third order (18dB/octave) filter requires closer tolerances than a second order, and is again even more susceptible to any impedance variations than the 12dB filter. Fourth order (24dB/octave) increases the complexity and tolerance requirements even further - a point must be reached where the requirements versus the complexity and sensitivity will balance out. With passive crossovers, I now believe that anything over 12dB is a waste of time, especially when the effects of voice coil temperature are considered.</p>
+
+<p>Even with the second order filter, the possible variations (especially those caused by voice coil temperature) can totally ruin the sound - regardless of the quality of the components or care in making the crossover. I shall leave it to the reader to determine for him/her self where to draw the line.</p>
+
+<p><a id="s4.2"></a><b>4.2 &nbsp; Filter Alignment</b>
+<br />The traditional passive crossover is (and for the most part always has been) the Butterworth - at least for second order filters and above. Although this may seem the ideal, it is not, since there is a 3dB peak at the crossover frequency when the outputs are summed. It is now commonly accepted that this peak is also present in almost all speaker systems when the loudspeaker outputs are summed acoustically - i.e. in normal operation. Many (reputable and/or higher priced 'audiophile') loudspeaker manufacturers will modify the crossover to compensate for this effect, but most of the formulae you find on the Net (and even in books and magazines) will simply use the nominal impedance of the drivers, and work out a pair of conventional Butterworth filters. IMO, this is not usable as a crossover for high quality reproduction, but it remains firmly entrenched regardless.</p>
+
+<p>Again, this is a world of compromise. My preference is for a sub-Bessel alignment with a Q of 0.5, since it provides a close approximation to a Linkwitz-Riley alignment, and has zero peak or dip at the crossover frequency. Since the Q is lower, it is also marginally less sensitive to variations in loudspeaker driver impedance, but this is not something that should be relied upon. </p>
+
+<p>As I mentioned above, a first order filter has a Q of 0.5 as a matter of course, and this cannot be changed.</p>
+
+<p>Second order filters have an overall phase reversal, and this must be accounted for. In a two-way system, the tweeter is usually connected out of phase - the negative terminal is connected to the "positive" or hot output of the filter network. In the case of a three way system, the midrange driver is most commonly reversed in phase, with the woofer and tweeter connected normally. This maintains the overall phase integrity of the crossover for all drivers. A deep notch is created at the crossover frequency if the phase reversal(s) is/are not done properly - this is objectionably audible!</p>
+
+<hr /><a id="s4.3"></a><b>4.3 &nbsp; World's Worst Passive Component</b>
+<p><b><i>Inductors</i></b><br />
+It is worth pointing out that inductors are, in general, the worst passive component imaginable. This is particularly true for use in crossover networks. Because it is not possible to use a core material without introducing audible distortion, the coils used for crossovers are nearly always air-cored. This means that many more turns than might otherwise be needed must be used to get the needed inductance, and that means either a very large, heavy and expensive coil, or a smaller and lighter coil with significant resistance.</p>
+
+<p>Because inductor coils use magnetic coupling, they are sensitive to stray magnetic fields, or any source of variable magnetic flux. This includes cross-coupling from other inductors in the network, or even speaker magnet flux modulated by cabinet vibration. The latter is unlikely in a well constructed enclosure, but it is sensible to keep the coils well away from strong magnets.</p>
+
+<p>Coils also have inter-winding capacitance, and this causes them to have a self resonant frequency that may fall within an amplifier's pass-band ... although rarely if ever within the audio band. The possibility cannot be discounted that an amplifier may be confronted by a very low impedance at some frequency determined by the inductors in the system.</p>
+
+<p>The biggest problem is resistance. Some people will spend a huge amount on 'special' low resistance cables, and/ or an amplifier with a very high damping factor. A typical loudspeaker crossover inductor will undo all of that instantly, adding perhaps 0.1 to 0.5 Ohm resistance in series with the bass driver (which is the very one that supposedly needs maximum damping). Resistance also causes power loss, and heat. For a crossover inside the cabinet, the last thing needed is another heat source!</p>
+
+<p>So, the world's worst component is the inductor, with those used in crossover networks generally being the worst of the worst. Adding a core to reduce losses simply increases distortion (usually dramatically), so there is no easy way out (other than to use a fully active system, of course ... hint, hint <img src="grin.gif" alt=":-)"> ).</p>
+
+<p>Because of the losses, inductors should be wound with the highest gauge wire that you can - within reason of course. To prevent mechanical noise (rattles, buzzes), it is worth impregnating the finished coil in varnish. Soak the coils in a suitable varnish for an hour or so before draining and drying. The varnish doesn't need to be electrical grade, because the voltages are small and the final temperatures should never get high enough to cause thermal damage.</p>
+
+<p>To avoid unwanted interactions, inductors should be mounted at right angles to each other (see below for more on this), and should also be located at a 'safe' distance from ferrous (iron/ steel) materials.  What is a 'safe' distance?  That depends on the size of the ferrous material, and large pieces (such as loudspeaker driver motor assemblies) should be considered potentially hostile. A (measured) 460uH air-cored coil I tested increased to 480uH at 10mm from a smallish sheet of thin (0.8mm) steel plate, so I would expect a minimum distance of 50mm would probably be acceptable in most cases.  This inductor has a DC resistance of 0.38&Omega;, and this gave a dissipation factor of 0.24 according to my meter.</p>
+
+<p><b><i>Capacitors</i></b><br />
+By comparison to inductors, capacitors are positively benign. Their series (internal) resistance is usually extremely low, and self-resonance is influenced more by lead length than by the component itself. Even high loss capacitors will dissipate far less power than the best low loss inductors. There are some capacitors that should be avoided though, most notably bipolar (non-polarised) electrolytics. When they are new, they work very well, but if they handle appreciable current they will lose capacitance (and gain distortion) over time.</p>
+
+<p>In nearly all domestic systems, all film caps will be quite alright - there is no real need to insist on film and foil types unless there are very high currents involved. Metallised film caps will usually have more than sufficient current carrying ability for systems rated at up to a couple of hundred Watts, and often a lot more. Much has been made of the dielectric material, but this is generally wishful thinking, perpetuated by a fringe area of audio that insists that no reasonably priced component can ever sound any good. In many cases, you may <i>pay</i> the top price for polypropylene, but get polyester anyway, and few people know how to tell the difference between them.</p>
+
+<center><table width="700" border=1 style="border-collapse: collapse">
+<tr><td width="40%"><b>Capacitor Type</b></td><td><b>Typical Temperature Coefficient</b></td></tr>
+<tr><td>Polyester (Mylar<sup>&reg;</sup>)</td><td>600 to 900 ppm/&deg;C</td></tr>
+<tr><td>Polypropylene</td><td>-200 ppm/&deg;C</td></tr>
+<tr><td>Polystyrene</td><td>-125 ppm/&deg;C</td></tr>
+<tr><td>Polycarbonate</td><td>+100 ppm/&deg;C</td></tr>
+</table><b><small>Table 2 - Capacitor Dielectric Characteristics</small></b></center>
+
+<p>From the above table, you can see that only polypropylene and polystyrene dielectrics have a negative temperature coefficient, so when heated (a hot air gun is one easy way), their capacitance will fall slightly. Polyester and polycarbonate will show an increase in capacitance when heated. All capacitors used in crossovers should be located away from any extreme heat source.</p>
+
+<p>A perfectly ordinary 2.2uF polyester cap measured a dissipation factor of 0.02 - vastly better than the inductor. Although this can be improved upon, the change is unlikely to be audible in the vast majority of cases.</p>
+
+<p>Because capacitors have a small variation with temperature, it is sensible to ensure that they are well separated from any resistor expected to get hot in normal use.</p>
+
+<p><b><i>Resistors</i></b><br />
+Resistors are again benign, although they will always contribute heat if dissipating any power. While non-inductive resistors are available and are recommended, the error introduced by a normal (slightly inductive) resistor will typically be far smaller than the normal production differences between supposedly identical loudspeaker drivers. Any errors introduced will generally not be apparent within the audio band. The inductance of most power resistors is such that the wiring may introduce greater errors than the resistors themselves, given that each 10mm of (straight) wire adds about 5nH of inductance to the circuit.
+
+<p><i>Bear in mind that some "non-inductive" resistors are identical to "ordinary" resistors except for the non-inductive marking and the price. I've seen and measured some so marked and compared them with the same value of standard wire-wound resistor, only to find no worthwhile difference whatsoever. This does <u>not</u> mean that all suppliers of non-inductive resistors are cheating, but some most certainly are.</i>
+
+<p>It is important to ensure that the power rating for all resistors is well above (preferably double) the expected power or which they will be subjected. This is much lower than a full power steady state (sinewave) analysis might indicate, but it may be necessary to experiment a little during the final tweaking phase.</p>
+
+<p>Naturally, any resistor that gets hot cannot be glued to the crossover board with hot-melt adhesive, and ideally should be clamped with a metal bracket to help dissipate heat and ensure that vibration cannot move the part - this may cause the lead(s) to eventually fracture. Rattles inside the box are definitely not desirable either!</p>
+
+<hr /><a id="s5.0"></a><b>5.0 &nbsp; And Now ... Some (more) Maths</b>
+<p>The formulae for calculating the various filter component values are not at all complex, although they may appear so at first glance. There are quite a few variations, depending mainly on the slope and alignment. I have included those for 6dB and 12dB variations only, as I don't feel that there is anything useful to be gained by using higher order passive filters - especially in light of the discussions above.
+
+<p>Since it has been shown that the speaker impedance will rarely be 8 ohms - particularly when impedance correction has been applied - I will use 6 ohms for all calculations to follow. You will need to determine the exact impedance of your impedance corrected drivers yourself. It is unlikely that they will exactly correspond to my examples, but you might be lucky <img src="grin.gif" alt=":-)">.</p>
+
+<p align="center"><img SRC="lrp-f51.gif" ALT="Figure 5.1" BORDER="1" />
+<br /><b><small>Figure 5.1 - 6dB/Octave 2-Way Passive Crossover</small></b></p>
+
+<p>The first filter must be a 6dB two way crossover. This is about as simple as a circuit can get (except that it is actually quite complex when all the parameters are considered). Impedance correction components have been included for reference. I designed this filter using the same drivers used as examples above, and the crossover frequency is 3,000Hz. Note that although I have shown a traditional parallel network above, with first order filters (and <i>only</i> first order filters) there is much to be gained by using the series connection.  (See <a href="parallel-series.htm" target="_blank">Series vs. Parallel Crossover Networks</a> for more on this subject.)</p>
+
+<blockquote><b><small>C = 1 / ( 2 &pi; Z f )
+<br />L = Z / ( 2 &pi; f )</small></b></blockquote>
+
+Where:
+<blockquote><small><b>C</b> = capacitance in farads
+<br /><b>L</b> = inductance of the coil in Henrys
+<br /><b>f</b> = frequency in hertz
+<br /><b>Z</b> = (actual) impedance of the speaker in ohms</small></blockquote>
+
+These can be "simplified", and reduce to the following ...
+<blockquote><small><b>C = 0.159 / ( Z f )
+<br />L = ( 0.159 Z ) / f</b></small></blockquote>
+
+Thus, for a crossover frequency of 3,000Hz at 6 ohms (a standard I shall use throughout these examples) ...
+
+<blockquote><b><small>C = 0.159 / ( 6 * 3,000 ) = 8.83 uF
+<br />L = ( 0.159 * 6 ) / 3,000 = 318 uH</small></b></blockquote>
+
+<p>The crossover frequency is the -3B point on the response curve, but since this is a sub-Bessel filter (having a Q of 0.5, or a damping of 2), the response is completely flat across the crossover point.</p>
+
+<p>A schematic for a 12dB crossover using the simulated drivers as used above is shown in Figure 5.2, and again includes the impedance correction circuits. The schematic for nearly all conventional parallel crossovers is the same, only the component values change. Note that the component values have been calculated for the simulated drivers, and should not be used as shown - this also applies to Figure 5.1</p>
+
+<p>Note especially that the tweeter is wired with its phase reversed - this is important, and must not be forgotten. This only applies to the 12dB example.</p>
+
+<p align="center"><img SRC="lrp-f52.gif" ALT="Figure 5.2" BORDER="1">
+<br /><b><small>Figure 5.2 - 12dB/Octave 2-Way Passive Crossover</small></b></p>
+
+<p>The same circuit is used for all calculations for 12dB filters. Using a 12dB filter network with a Q of 0.5 (which gives an approximation of a Linkwitz-Riley alignment) the following (simplified) formulae will determine the component values ...
+
+<blockquote><b><small>C = 0.0796 / ( Z * f )
+<br />L = ( 0.3183 * Z ) / f</small></b></blockquote>
+
+The derivation of these is marginally interesting, and will help you to understand the Butterworth and (sub) Bessel alignments a little better. The full original formulae are ...
+
+<blockquote><b><small>C = 1 / ( 2 * &pi; * Z * d * f )
+<br />L = ( Z * d ) / ( 2 * &pi; * f )</small></b></blockquote>
+Where ...
+<blockquote><small><b>d = 1/ Q = 1 / 0.707 = 1.414</b> &nbsp; (Butterworth)
+<br />or ...
+<br /><b>d = 1 / Q = 1 / 0.5 = 2</b> &nbsp; (sub-Bessel)
+<br /><b>d = 1 / Q = 1 / 0.57 = 1.75</b> &nbsp; (Bessel)</small></blockquote>
+
+<p>A sub-Bessel filter (for our purposes) has a Q of 0.5 or a damping of 2. Note that this has nothing to do with amplifier 'damping factor' which is completely different, and as long as it exceeds about 10, has no influence on crossover performance (although woofer performance may require the amplifier damping factor to be higher than this).</p>
+
+<hr /><a id="s6.0"></a><b>6.0 &nbsp; Attenuation Networks</b>
+<p>It is rare that the woofer and tweeter (or midrange driver) will have the same sensitivity (i.e. efficiency). The woofer should have the lowest efficiency, since it will require the most power, and any network that reduces the level to the woofer will absorb a disproportionately high power, and will adversely affect the damping factor.</p>
+
+<p>The driver selection is very important - ideally, all drivers will have the same efficiency, and no attenuation will be needed. In the real world, this will rarely be the case. Attenuator networks are a necessary evil - it is immeasurably better not to use them at all, but they cannot be avoided unless the drivers have <i>exactly</i> the same sensitivity.</p>
+
+<p>For the purpose of the exercise, assume that the tweeter has an efficiency 2.8 dB greater than the woofer/midrange. This means that the level must be reduced by 2.8dB, or the speaker system will sound too bright. Remember that this network can alter the impedance presented to the crossover network, so you either must design for the impedance with the attenuator in circuit, or ensure that the attenuator presents exactly the same impedance as the speaker.</p>
+
+<p>The very first exercise is to determine the resistive drop caused by the low pass inductor (this step is almost always forgotten!). A typical coil of this value, using 0.8mm wire, will have a resistance (Rl) of about 0.53 Ohm. We can calculate the low frequency loss in dB with the formula ...
+
+<blockquote><b><small>dB = 20 log ((Rl / Z) + 1)</small></b></blockquote>
+For our example, this gives ...
+<blockquote><b><small>dB = 20 log ((0.53 / 6) +1) = 20 log (1.088) = 0.73 dB</small></b></blockquote>
+
+<p>We have now found that the woofer's sensitivity is slightly lower than before, so we need an attenuation of 2.8+0.73=3.53dB, which we can safely round down to 3.5dB. The tweeter must therefore be reduced in level by 3.5dB so that it matches the sensitivity of the woofer.</p>
+
+<p>The attenuator must be placed either before the filter (basically not a good idea), or between the crossover filter and the driver - including any impedance compensation. The driver and its associated impedance correction network should be considered as one, and they should not be separated (unless you feel like re-calculating the entire crossover and compensation networks). I have seen a number of design examples that state that the attenuator should be before the crossover - <i>wrong, wrong, wrong!</i>
+
+<p>This practice increases power dissipation needlessly, since the attenuator must work over the entire frequency range. If attenuation is after the crossover, then power requirements are greatly reduced.</p>
+
+<p>The simplest attenuator is a series resistor, but this changes the load presented to the crossover network. Unless the network is designed for the impedance presented by the combination of driver and attenuator resistor, this is unacceptable. As a result, the most common attenuator is an "L" pad. This is shown in Figure 6.1, and maintains an impedance of 6 ohms to the crossover, but reduces the tweeter level by 2dB.</p>
+
+<p align="center"><img SRC="lrp-f61.gif" ALT="Figure 6.1" BORDER="1">
+<br /><b><small>Figure 6.1 - 2dB L-Pad Attenuator</small></b></p>
+
+<p>The calculations are quite irksome, and (as always) can be tiresome. The problem is that the resistances are interdependent - if one changes, then so does the other. The idea is to maintain the same impedance we had before, or re-calculate the crossover network. The latter is very much easier, but means that the high and low pass sections will no longer have the same component values. For the purposes of the exercise, I will maintain the crossover, and make the resistors provide the same 6 ohm load as before.</p>
+
+<p>Essentially, there are two ways to calculate an L-Pad - the simple way and the hard way. I am going to use the hard way, because it is simpler! How can this be? If I give you a formula that just spits out the value, that is easy, but you will <i>never</i> remember the formula. On the other hand, if I show you how to derive the formula using simple ohm's law, then you will be able to use the basic method, and you will have a much better chance of remembering it.</p>
+
+<p>As suggested, the tweeter in this example is 3.5dB more efficient than the woofer + inductor combination, so must be attenuated by this amount. Please remember that these are examples only, and your situation will probably be completely different. First, we need to convert 3.5dB into a voltage ratio (Vr) ...
+
+<blockquote><b><small>dB = 20 log (V1/V2) = 20 log (Vr)</small></b>,&nbsp; so reversing the formula we get ...
+<br /><b><small>Vr = 1 / (antilog (dB / 20))</small></b></blockquote>
+
+For this example, we have 3.5dB, so substituting ...
+<blockquote><b><small>Vr = 1 / (antilog (3.5 / 20)) = 1 / (antilog 0.175) = 1 / 1.496 = 0.668</small></b></blockquote>
+
+<p>The voltage presented to the tweeter will therefore be 0.668 of the input voltage. Since we want to preserve the impedance presented to the crossover network (rather than redesign the rotten thing :-) this makes the calculations a little harder.</p>
+
+<p>As I said above, it is not impossible to derive a formula for the pad, but it is more convenient to work it out the long way - largely because this provides a better understanding of the process. We will assume an input of one volt - simply because it is convenient to do so. </p>
+
+<p>Firstly, we need to determine the current that will flow into the load (<b><small>Z</small></b>) ...
+
+<blockquote>
+	<b><small>I = V / Z = 1 / Z</small></b>
+</blockquote>
+
+Now, find the voltage drop across the series resistor <b><small>Rs</small></b>, then the value of <b><small>Rs</small></b>
+...
+
+<blockquote>
+	<b><small>Vs = 1 - Vr
+	<br />Rs = Vs / I</small></b>
+</blockquote>
+
+The process is quite simple so far. Now we need to determine the value of the parallel resistor, <b><small>Rp</small></b>. We already know that the voltage across the parallel combination of <b><small>Z</small></b> and <b><small>Rp</small></b> - it is equal to <b><small>Vr</small></b> (I told you that an input voltage of 1V was convenient, didn't I?&nbsp; <img src="grin.gif" alt=":-)">.  &nbsp; The value if <b><small>I</small></b> (current) does not change, so we can determine the current through <b><small>Z</small></b> and <b><small>Rp</small></b> easily, and then <b><small>Rp</small></b> itself ...
+
+<blockquote>
+	<b><small>Iz = Vr / Z
+	<br />Ip = I - Iz
+	<br />Rp = Vr / Ip</small></b>
+</blockquote>
+
+Now, let's substitute all the values for the example into the formulae. As I said, this is a little tedious, but easily remembered. Recall does not come from rote learning, it comes from <i>understanding</i>, and this is just simple arithmetic and Ohm's law.
+
+<blockquote>
+	<b><small>I = 1 / Z = 1 / 6 = 0.1667 Amps
+	<br />Vs = 1 - Vr = 1 - 0.668 = 0.332 Volts
+	<br />Rs = Vs / I = 0.332 / 0.1667 = 1.99 (2.0) Ohms</small></b>
+</blockquote>
+
+That was easy enough, so now for Rp ...
+
+<blockquote>
+	<b><small>Iz = Vr / Z = 0.668 / 6 = 0.111 Amps
+	<br />Ip = I - Iz = 0.1667 - 0.111 = 0.0557 Amps
+	<br />Rp = Vr / Ip = 0.668 / 0.0557 = 11.99 (12.0) Ohms</small></b>
+</blockquote>
+
+Now we might want to check that the values really will give us what we wanted - I recommend this final check, because there are resistor values that are easily created (or are standard), and we want to use these if possible. As a result, we will substitute 2R (2 x 1R in series) for Rs, and 12R for Rp, as these are standard values. The first thing we need, is to determine Rt - the total parallel combination of Z and Rp (Z || Rp). We could do that from the current calculated earlier, but that may re-introduce any error made earlier.
+
+<blockquote>
+	<b><small>Rt = 1 / (1 / Rp + 1 / Z) = 1 / (1 / 12 + 1 / 6) = 1 / (0.0833 + 0.1667) = 4 Ohms
+	<br />Vd = (Rs / Rt) + 1 = (2 / 4) + 1 = 1.5
+	<br />dB = 20 log(Vd) = 20 log (1.5) = 3.52 dB</small></b>
+</blockquote>
+
+Damn!&nbsp; That was close&nbsp;<img SRC="grin.gif" alt=":-)">
+
+<p>An error of less than 0.1dB is completely insignificant, and can be ignored completely, but in this case, we got almost <i>exactly</i> the attenuation we determined right at the beginning. In case you were wondering, this was not deliberate - it just turned out that way. If you are careful with your calculations, it will always turn out this way.</p>
+
+<p>The resistors should be wirewound power types, and the actual power is determined by the input power from the amplifier.</p>
+
+<hr /><a id="s7.0"></a><b>7.0 &nbsp; Determining Power Losses</b>
+<p>There will always be power losses in a passive system - this is generally referred to as "insertion loss", and all resistors and inductors will create power loss and thus, heat. Capacitors will generally contribute very little loss, and will not get hot - a potentially notable exception being bipolar electrolytics. This is another very good reason not to use them, but the main reason is that their value will change over time, and will upset the crossover frequency.</p>
+
+<p>The power loss is naturally proportional to the input power, and for our example, I shall assume a maximum amplifier power of 100W. Use the chart below to determine how much power will go to the tweeter, using a crossover frequency of 3.0kHz.</p>
+
+<p align="center"><img SRC="lrp-f71.gif" ALT="Figure 7.1" BORDER="1">
+<br /><b><small>Figure 7.1 - Power Distribution Chart</small></b></p>
+
+<p>Working along the frequency axis, we see that at 3kHz, the power in the low pass section will be about 85% of the maximum (85W), so the high pass power level is about 15%, or 15W for our 100W system. We are now in a position to work out some power ratings for the resistors, and can also calculate the inductor losses. Not that we can do anything about losses in inductors, but we can at least decide whether they need to be mounted on fire proof material (just kidding).</p>
+
+<p>We already know that the woofer's Zobel network only needs to operate at over 650Hz, so using the chart again, we see that the low pass section will get about 65% (65W) at that frequency. The Zobel network is a high pass section (yes it is!), so the maximum power will be at above 650Hz, where high frequency energy is less than 35W. Since the power progressively reduces, the resistor will never have to deal with more than about 20W peak. Since no-one (well, no-one who is going to go to all this trouble to make an almost perfect crossover) will listen at 100W continuous, we can safely assume an average power of about 10W - this corresponds to the "typical" peak to average ratio for music of 10dB.</p>
+
+<p><b>Woofer Zobel resistor ...</b>
+<br />I would suggest a power rating of 10W for the Zobel resistor - this provides a very large safety margin.
+<p><b>Tweeter resonance compensation ...</b>
+<br />The tweeter power at resonance is more than 20dB down from the maximum level using a 12dB crossover. Since this is the case, a 5W resistor is more than adequate.</p>
+
+<p><b>Tweeter L-Pad ...</b>
+<br />The L-Pad will be subjected to a maximum of 15% of the power, but will dissipate very little of this. 5W resistors are again more than enough to handle the power.</p>
+
+<p><b>Woofer inductor ...</b>
+<br />Since we determined that the resistance will be about 0.53 ohms, so at full power it will dissipate less than 10% of the 100W input, which is about 10W. (0.53 ohms is 8.8% of 6 ohms) The average will be much less than this, and heating will not be a major problem.</p>
+
+<p>Note that all the losses above are wasted power, so in all, only about 90W of the amplifier power will ever get to the speakers themselves, and about 10% will simply be wasted as heat - inside the cabinet! This will eventually cause the air inside the box to heat up enough to change the characteristics of the enclosure - especially sealed boxes. This is added to the heat generated in the loudspeaker voice coil, a good proportion of which will remain in the cabinet, having no means of escape.</p>
+
+<p>Perhaps you would be better off either mounting the crossover network on a heatsink on the outside of the box, or install it in a false (ventilated) base. And yes, I am serious. Apart from the heat (which is actually relatively low compared to that generated in the voice coil), the high sound pressure will cause vibration of the components. While I think that this is unlikely to be audible if everything is well fastened, there are claims from some quarters that microphony at this level is definitely audible. For the small additional effort, external mounting is recommended. It also make minor tweaks and adjustments much easier, since you don't have to remove speakers to get at the crossover.</p>
+
+<hr /><a id="s8.0"></a><b>8.0 &nbsp; Winding The Coils</b>
+<p>Using the drivers simulated in this article, and using all the networks that were devised along the way, we have examined the complete 12dB/octave crossover network implementation. The tweeter is 2.8dB more efficient than the woofer (not allowing for the additional inductor loss), and is padded back with an L-Pad that reduces the signal while maintaining the impedance.</p>
+
+<p>Use the examples above to work through your own crossover design - the final result is quite complex, and will not be inexpensive to build. This is the price to pay when the best possible performance is to be obtained from a passive crossover (now, wouldn't it have been easier to tri-amp the system instead?).</p>
+
+<p>All that remains is to explain how to wind the coils you will need. It may be possible to obtain them commercially, but I doubt it, since the values are unlikely to match those you will find at most electronics outlets. You may be able to get coils that are slightly above the values you need, and remove a few turns until you get it right.</p>
+
+<p>An inductance meter is essential for any of this - many are available in (even relatively cheap) digital multimeters, and these should be sufficiently accurate. It will be virtually impossible to get the coils right without a meter - you can measure their resonant frequency with a known capacitance and calculate inductance from that, but it is very tedious!</p>
+
+<p>If you want to wind your own coils, I suggest you use either of the following the online calculators, available at ...
+
+<blockquote>
+	<a href="http://www.colomar.com/Shavano/inductor_info.html" target="_blank">Shavano Online Music - Inductance Calculator</a>
+	<br /><a href="http://www.coilgun.info/mark2/inductorsim.htm" target="_blank">Barry's Inductor Simulator</a>
+</blockquote>
+
+<p>Both of these are very much easier than using the formula below. You will still need to measure the final result to make sure that it is within a reasonable tolerance. Much as it might appeal, don't use iron or ferrite cored inductors for crossovers. There are advantages in that they are smaller and have less power loss, but the distortion and risk of saturation (at which point inductance drops dramatically) are not worth it (IMHO).</p>
+
+<p align="center"><img SRC="lrp-f81.gif" ALT="Figure 8.1" BORDER="1">
+<br /><b><small>Figure 8.1 - Typical Coil Former and Dimensions</small></b></p>
+
+<p>From the above, the necessary dimensions used in the formulae can be easily determined. These apply to the winding itself, not the former (which may be a temporary affair, as it is only needed while winding the coil). There are actually several different formulae that may be used - all are empirical, and require some experimentation to arrive at the correct value (or the correct number of turns for a given inductance and wire size).</p>
+
+<p>Some I found are not worth the paper they are written on - they either don't work, or work only under certain limited circumstances. The formula below is due to Wheeler ("Simple inductance formula for radio coils" 1928), and is still probably the most accurate so far (which is scary - a formula over 70 years old has never been surpassed). The original (using inches (mutter, mutter)) is ...
+
+<blockquote>
+	<b><small>L = 0.8 * a&sup2; * N&sup2; / (6a + 9l + 10c) uH</small></b>
+</blockquote>
+
+Where
+<blockquote>
+	<small>N is the number of turns.
+	<br />a is the average radius.
+	<br />c is the height of the windings
+	<br />l is the length of the coil.</small>
+</blockquote>
+
+All dimensions are in inches. This is easily converted in a spreadsheet or program, but modifying the formula itself is too tedious. For a real example of a coil wound with 0.83 mm (20 AWG) wire, having a design inductance of 637 uH and a resistance of 0.53 ohms has the following dimensions ...
+
+<blockquote>
+	<small>N = 99 turns
+	<br />l = 11.2 mm (0.44")
+	<br />Id = 44.8 mm (1.76")
+	<br />Od = 58 mm (2.28")
+	<br />c = 6.64 mm (0.26")</small>
+</blockquote>
+
+<p>These figures were arrived at from one of the Shavano online simulators, and when the data is plugged into the very basic spreadsheet I have done so far indicates that this coil will have an inductance of 635.17 uH. This is a very small error, and will be of no consequence in practice. According to the simulator, power handling is 180 Watts, and it will require approximately 15.9 metres (52.3 feet) of coil winding wire.</p>
+
+<p>Never use plastic coated wire for winding inductors - enamelled winding wire is essential. In most cases, it is probably simpler to buy ready made coils (of higher inductance than required) and remove turns to get the exact value you need.</p>
+
+<p>When the inductance is correct, soak the coil in varnish for an hour or so (most clear floor varnishes are quite acceptable), drain, and let it dry thoroughly before use. This ensures that the turns cannot move - we don't want to add vibration sensitive coils to the already suspect passive crossover. It will also prevent rattles - of the type that will drive you nuts, because you will have no idea where (or what) is rattling! Vacuum impregnation is nice, but few constructors will have the necessary equipment. If desired, coils may have potted centres to facilitate mounting, but you <i>must</i> use nylon or brass screws - steel screws will increase the inductance significantly! Brass screws may decrease the inductance ever so slightly, but the error is unlikely to be significant.</p>
+
+<p align="center"><img SRC="lrp-f82.gif" ALT="Figure 8.2" BORDER="1">
+<br /><b><small>Figure 8.2 - Mounting Inductors to Minimise Coupling</small></b></p>
+
+<p>When mounting the coils, keep them well separated, firmly attached to the mounting board, and ensure that there is minimal mutual coupling by placing the axes at right angles to each other as shown in Figure 8.2 - transformers in the crossover you <b><i>don't</i></b> need. Use cable ties and silicone, hot-melt or epoxy glue to make sure the inductors are firmly fastened to the mounting board and cannot move. Any movement will eventually fracture the copper wire if it is rigidly attached, so a loop of wire from the coil (or stranded wire leadouts) will ensure that you don't have electrical failures.</p>
+
+<p>It has been pointed out by a reader that one can economise on the inductor wire if the finished product is going to be installed with a series resistance (to equalise impedances, or provide a level of correction for example). Simply using a thinner wire will make the inductor smaller and cheaper, and if you are very lucky may eliminate the resistor altogether.  One must be careful that the coil resistance is the same or lower than any external series resistance - if resistance is too high, there is nothing you can do to lower it again.</p>
+
+<hr /><a id="s9.0"></a><b>9.0 &nbsp; Conclusion</b>
+<p>This article has covered the topic in far more detail than you will find in most references, and explains some of the things that most articles don't even touch upon. One thing that should be quite clear by now, is that a full 3-way passive crossover, with everything done properly will be <b><i>very</i></b> expensive to build. It is also time consuming, and the final result will only ever be as good as the effort you are willing to put into getting everything right. </p>
+
+<p>A few generalised recommendations are in order ...
+
+<ul>
+	<li>Sub-Bessel filters are to be preferred for flattest overall response (Similar response to Linkwitz-Riley alignment and easier 
+	to design)</li>
+	<li>There is a vast amount to be gained by using a biamped system to cover the bass and mid+high crossover. Keep passives for higher
+	frequencies, where their bulk, cost, power loss, and other flaws are minimised.</li>
+	<li>A really well designed crossover is of no use if the box is not designed correctly, is inadequately braced, or has drivers mounted
+	equidistant from two or more edges - these cause high frequency refractions that "smear" the stereo image.</li>
+	<li>Likewise, voice coil (time) alignment can make a huge difference to the linearity of the system as a whole.</li>
+	<li>The crossover will never compensate for a poor selection of drivers, regardless of the work you put into it.</li>
+	<li>Some very simple crossovers may appear to give a more "musical" sound reproduction, but are not accurate - in the long term, they 
+	cause listener (and driver) fatigue, and are adding things to the music that was never there in the first place.</li>
+	<li>Your listening room has more effect on the sound than any of the other points made above! However, a good system has a much better 
+	chance of sounding acceptable in a bad room than a bad system (which will sound bad everywhere!).</li>
+	<li>A fully active system (using electronic crossovers and separate amps for all drivers) will almost certainly give a better result 
+	than the most carefully designed passive system, and may even work out cheaper ... Some passive crossover networks can become very complex 
+	and expensive indeed.</li>
+</ul>
+
+<p><b><small>A Quick Rant</small></b>
+<br />The "simple" passive crossover is actually vastly more complex than is commonly believed. The Diaural&trade; "inductor only" crossovers are <b><i>not</i></b> a panacea for the ills of the world (despite <i>massive</i> marketing hype to the contrary), but fall into the 'overly simple and grossly coloured' category. There is nothing (repeat - nothing!) about the Diaural system that is new, or will benefit the vast majority of systems. They will probably sound "lively" and perhaps "musical" by initial direct comparison to a conventional crossover, but require very careful driver selection indeed if gross response and phase errors are to be avoided. These are even patented - how in God's name those ratbags got a patent on something that has been done by others for years, we will never know. I have a copy of the patent, and all the variations are shown - so much for the "cone of silence" that was placed on anyone who saw them in the early days. There is absolutely nothing remarkable about the principle, other than the complete and total neglect of almost everything I covered in this article. Especially noteworthy is the fact that they use ... inductors, which as discussed above have more compromises than any other passive component.</p>
+
+<p>So there we have it. I doubt that this is the "last word" on passive crossovers, and I'm equally sure I have left out something that should have been included. I don't profess to be an expert on the design of passives, but my design background and experience (as well as that of a few others) has helped in the analysis of the loudspeaker driver behaviour, in the electrical sense at least.</p>
+
+<p>The mechanical behaviour is something else again, and many excellent papers have been written on the subject. In particular, I suggest Lynn Olson's series of articles (of which I was made aware just as I had almost completed this paper). These are not (IMO) definitive articles, but have sufficient good information to make them recommended reading. Some readers may be mystified that I would include 'subjectivist' material in my reading list, but the fact is that some of the points made are just too important to ignore, and are not often measured by hobbyists and even some manufacturers. That the effects are measurable is not in doubt here ... intermodulation and harmonic distortion are easily measured, but no manufacturer of loudspeaker drivers is going to do so until this is demanded by their customers.
+
+<blockquote>
+	Lynn Olson ...
+	<ul>
+		<li>Looking Over My Shoulder, Parts I and II</li>
+		<li>The Soul of Sound</li>
+	</ul>
+</blockquote>
+
+<p>The material presented is mainly to do with cone break-up effects, but some mention is given to impedance correction as well. There are obviously many others, and an enormous amount of research has been done by a vast number of people, all striving for the same thing - the perfect loudspeaker. We don't have it, and may never get it - but when (or if) we do, there will always be someone who says it stinks. Such is Hi-Fi.</p>
+
+<hr /><a id="ref"></a><b>References</b>
+<p>Unfortunately, the only linked reference I cited has disappeared. It was called 'Compendium of facts and recommendations', but has now vanished.</p>
+<!-- http://leonardo.eeug.caltech.edu/~ee14/lab1cds.html -->
+
+<p>Most other reference material is either based on general knowledge, or is gathered from a wide range of sources (including ESP articles) too numerous to mention.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr></table>
+<div class="t-sml">Page created and copyright &copy; 20 May 2001 Updated 09 Aug 2004 - added material, and corrected some small errors./ 04 Nov 2003 - corrected attenuator calculation./ 17 Jun 2002 - added spreadsheet and impedance info./ 08 Oct 05 - Included component selection info, table 2, etc./ 03 May 12 - removed dead link in references section.</div>
+</body>
+</html>

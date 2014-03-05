@@ -1,0 +1,162 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott">
+	<meta name="description" content="ESP Project Pages - Simple (but very old) 40W Power Amplifier design">
+	<meta name="keywords" content="audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<title>Simple 40 Watt Power Amplifier</title>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 12A&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>El Cheapo - A Really Simple Power Amplifier</b><br />
+<small><b>Rod Elliott - ESP</b><br />
+(Original Design by R.R. Moore,  Published in Audio Magazine, November 1964)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>Based on information supplied by a reader, I have learned that my recollection of the El Cheapo design was rather badly flawed. It seems I had mixed up recollections, and merged a couple of completely different designs into one - none of which resemble the original El Cheapo in any way.</p>
+
+<p>Originally designed by R.R. Moore and published in Audio Magazine (November 1964 edition), the design is presented more for historical interest than as a recommended design.  While not a bad amp by the standards of the day, it will be found lacking if compared to any more modern offerings. This will apply even using the latest transistors, because the amp has very limited open loop gain.  To some people, this is seen as a benefit rather than a limitation, but it does mean that low-level non-linear distortion will be higher than you are used to.</p>
+
+<hr><b>Description</b>
+<p>The amp was called "El Cheapo 2-30", and was rated at a maximum of 30W per channel into 16 Ohms (which used to be a very common speaker impedance). It used a single regulated power supply and capacitor coupled speaker. Having a scan of the original, I can now reproduce the exact circuit details. It was a very simple amp, and used quasi-complementary symmetry for the output stage. For those younger than I who have no idea what I'm talking about, quasi-complementary symmetry was a scheme used in the days when PNP power transistors were expensive and silicon devices were pretty much useless. If you wanted any sort of voltage and current rating, you had to use NPN devices. The quasi-complementary output stage used a (discrete) Darlington for the positive side, and a complementary pair for the negative (i.e. a PNP driver coupled to an NPN power transistor).</p>
+
+<p>Meanwhile, in those days, if you wanted high gain and reasonable current capacity, germanium transistors still ruled supreme. Provided they were used in applications where leakage was not a major problem, germanium devices worked very well - this did not really include the output stages of power amps though. Back then the majority of loudspeakers were 16 Ohms, with only a few venturing down to 8 Ohms. Anything lower than that was almost unheard of in 1964.</p>
+
+<p>Figure 1 shows the circuit - it <b>was</b> a cheap amp compared to most offerings of the day. It also managed to sound respectable - again by comparison - and I and many of my friends of the day built these amps with abandon - guitar amps, hi-fi, you name it, El-Cheapo was in there!
+
+<p>Note that the transistor types are the original specified devices. Most are obsolete now, but a list is shown below of suitable candidates.
+
+<p align="center"><img SRC="p12a-f1.gif" ALT="Figure 1" BORDER="1" />
+<br><b><small>Figure 1 - Original El-Cheapo Circuit</small></b></p>
+
+<p>These were the days when the 2N3055 was the pre-eminent power transistor (NPN of course), and there were no vaguely equivalent PNP devices for less than about 5 times the price, and even these were highly inferior. As a result, the quasi-complementary output was very common, and indeed this is still the case with most IC power amps. The quasi-complementary output stage was the most popular until relatively recently, until decent PNP power devices became more readily available. Immediately, just about everyone started using NPN and PNP Darlington coupled devices for the output stages (as shown for Q3 and Q4) - the funny part is that it was demonstrated back in the mid 1970's that the full Darlington connection actually sounds (or at least measures) worse than quasi-complementary stages. Is not progress a wonderful thing?</p>
+
+<p>The input stage of the El-Cheapo is not subject to the phase problems of the long tailed pair, since the Class-A driver (or VAS - Voltage Amplification Stage) is used as the input.  Amps driven in this manner tend to be inherently stable. There is a <i>major</i> problem with DC offset of course - the input is referenced to the negative supply. If this is earth (ground) then it's not an issue, but it precludes using this design with a dual supply. The DC was not a problem with capacitor coupled speakers.</p>
+
+<p>As shown, the gain for audio frequencies is 18 (25dB), which means an input sensitivity of 1V for an output of 40W. The closed loop gain is set by R4 and R7. Since the feedback is taken after the output coupling cap, the latter has no influence on the low frequency response - however, this arrangement creates an underdamped filter network that causes a 4.5dB peak at about 5Hz.  Increasing C7 to 4700uF eliminates this problem for all intents and purposes.</p>
+
+<p>In the original article, there were several variations of the design, however I will only present the amp in basic 40W form here. The variants were mainly based on using lower supply voltages, but included a dual (parallel) output stage for the odd low impedance load.</p>
+
+<p>Note that the amp is inverting, and the input impedance of the power amp itself is 1k (R4). Because of this, there is an emitter follower (Q1) before the amp proper to convert the impedance to something usable. The arrangement shown is less than ideal though - a better solution would be to delete everything to the left of C2, and drive the circuit from an opamp (C2 would have to be reversed if the opamp uses dual supplies).</p>
+
+<center>
+<table width="400" border=1 style="border-collapse: collapse">
+<tr><td width="30%">Q1</td><td>BC559</td></tr>
+<tr><td>Q2</td><td>BD139</td></tr>
+<tr><td>Q3</td><td>BD139</td></tr>
+<tr><td>Q4</td><td>BD140</td></tr>
+<tr><td>Q5</td><td>2N3055</td></tr>
+<tr><td>Q6</td><td>2N3055</td></tr>
+</table><b><small>Suggested Modern Transistors</small></b></center>
+
+<hr><b>Regulated Power Supply</b>
+<p>The power supply was specified as regulated, and for a single supply amp with low open-loop gain this is a good idea to maintain low hum levels. Using a regulated supply is not normally desirable, but in this case was probably warranted. Germanium transistors were used as shown in Figure 2 (all medium and high power germanium transistors are/were PNP). Since the amp will have a PSRR (Power Supply Rejection Ratio) of only about 36dB, supply noise will be a problem with an unregulated supply. It is worth noting that the emitter follower stage (Q1) contributes most of the supply noise - another good case for driving the amp from an opamp stage.</p>
+
+<p>The regulator is only simple, but would have worked well enough as shown.  The Zener diode would normally be a 62V 1W unit, to obtain a 60V supply voltage for the amp (equivalent to using &plusmn;30V with a more conventional split supply). By the standards of today, the filter caps are probably too small (as is the speaker coupling cap), but I am presenting this as it was originally described.</p>
+
+<p align="center"><img SRC="p12a-f2.gif" ALT="Figure 2" BORDER="1" />
+<br><b><small>Figure 2 - The Original Power Supply (Using Germanium Transistors)</small></b></p>
+
+<p>I have spared readers the potential agony of the pilot lamp and its ballast resistor (LEDs?  In 1964? The LED was only invented in 1962, and was still a curiosity when this design was published). If anyone <i>really</i> wants to build an original El-Cheapo then I'm sure you can work the details out for yourself. In case you may consider asking ... No, I will not assist. Same applies for the germanium transistors originally used - they are obsolete, and there is simply no point specifying the type numbers.</p>
+
+<p>All diodes should be rated at 5A minimum, and 400V types should be used. The benefit and usefulness of D5 and D6 is rather suspect. I don't recall the reason they were included originally, but modern practice would be to leave them out altogether. Today it would also be normal practice to use a reasonable sized electrolytic capacitor (1,000uF or so) directly across each amplifier's supply (after the fuse, and close to the power amp itself).</p>
+
+<p align="center"><img SRC="p12a-f3.gif" ALT="Figure 2" BORDER="1" />
+<br><b><small>Figure 3 - Power Supply Modified to Use Silicon Transistors</small></b></p>
+
+<p>The regulator shown in Figure 3 is a better proposition these days, and silicon NPN transistors can be used for Q1 and Q2. A single Darlington device could also be used.  It may be necessary to reduce R1 from the 820 Ohms shown, depending on the gain of the transistors. Again, I will leave that to prospective constructors (assuming that anyone wants to build one <img src="grin.gif"> ).</p>
+
+<p>Despite initial appearances, the two regulator circuits are functionally identical. Since the circuit of Figure 3 is likely to be the most commonly used (if it <i>is</i> ever used), and suitable transistors would be BD139 for Q1, and 2N3055 for Q2. The transformer secondary should be 55V RMS, and this will give an unregulated voltage of around 77V. That means that only 17V will be dropped across the regulator, and with a worst case current of well under 4A (both channels, and assuming 8 Ohm speakers!) the peak dissipation will be around 38W - the average will be a lot less. Transformer rating is around 250VA - a lot higher than you'd expect because of the regulator.</p>
+
+<p>Needless to say, the regulator requires a heatsink as well as the amplifier output transistors, so you will spend a lot more on heatsinks than components.</p>
+
+<p>The mains fuse will need to be a slow-blow type, and the amp supply fuses must be fast blow.</p>
+
+<hr><b>Conclusion</b>
+<p>There's not a great deal to say about the amp.  It is simple, and as such may appeal to some readers. The three diode string sets the bias, and it will be found to be quite variable in real life. Ideally, the diodes should be mounted in contact with the heatsink, but if the sink is adequately sized this should not be necessary.</p>
+
+<p>The input capacitor is much larger than it needs to be, and there is a real benefit if it is reduced to 1uF. Since input impedance is about 50k at the base of the emitter follower (Q1), a 1uF input cap will still provide a -3dB frequency of just under 4Hz - provided the output cap is increased to 4700uF.</p>
+
+<p>With an open loop gain of only 180 (45dB), there is not as much feedback as we are used to with modern amps. However, the amp remains essentially flat to 10kHz open loop, and this is dramatically better than most amps having a massively high open-loop gain. Because of the small amount of feedback, it may be thought that output impedance would be somewhat higher than we have come to expect. This is not the case though, and Z<sub>out</sub>will normally be less than 100 milliohms (a damping factor of &gt;80 for an 8&Omega; load).</p>
+
+<p>Speaking of feedback - because the input stage creates an inherently stable amp, there is no reason to expect that TIM (Transient Intermodulation Distortion - assuming that you believe it exists of course *) will be a problem, since feedback is simply applied to the base of the input amp, and very little frequency "compensation" is needed. Although a 68pF cap was specified for the original, it should be possible to reduce this if wider open loop bandwidth is your goal.</p>
+
+<p>* <small> &nbsp; TIM was once claimed to be the cause of alleged 'bad sound' from transistor amplifiers, but its very existence has been challenged, with virtually no-one being able to produce it in any sensible amplifier design. With a realistic signal input (such as music), I have never seen any of the problems associated with TIM - the only way it can be induced is to feed an amplifier with a signal that is not representative of any normal music signal.</small></p>
+
+<hr><b>Construction Hints</b>
+<p>Construction is non-critical, within the normal bounds of amplifier building at least, and will not be discussed in any detail. I will, however, make the following observations ...
+
+<ul><li>I would recommend that the speaker coupling cap be as large as practicable. Measurements made by <a href="dself.htm" target="_blank">Douglas Self</a> (and others) show low frequency distortion is generated by electros (although the actual mechanism that creates the distortion is unclear). What is clear is that the distortion becomes measurable when the reactance of the cap becomes significant with respect to the load impedance.</li>
+
+<li>The trimpot VR1 is used to set the DC voltage at the output to &frac12; the supply voltage (&plusmn; 1V). This should be set finally after the
+amp has had time to stabilise, which will require at least 30 minutes of operation.</li>
+
+<li>Make sure that there is sufficient heatsinking for the power transistors to avoid excessive temperature rise. I tend to prefer a heatsink which is too large rather than the other way 'round, and anything better than about 1&deg;C / Watt should be good - if a little on the large and expensive side. This will be the same for any amplifier you build, regardless of complexity for a given output power.</li>
+
+<li>With this amp, quiescent power will vary depending on the forward voltage drop of D1-D3. It is uncommon - but possible - for amps to run at their worst case dissipation during normal use, but it should be accounted for. With a heatsink of 1&deg;C/W, this means that the transistors may reach a temperature of 100&deg;C or more, which will reduce their life expectancy considerably. With heatsinks, size <b>does</b> matter.</li>
+
+<li>Because of the limitation described above, there is a great deal to commend using a traditional transistor bias servo to replace D1-3 in the power amp. An example is shown in the P3A amplifier (<a href="project3a.htm">Project 3A</a> - Q9, VR1 and R16). In the circuit presented here, the transistor should be in good thermal contact with the heatsink.</li></ul><br>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams as presented on this Web page, is the intellectual property of Rod Elliott, and is Copyright &copy; 2005. The original article and amplifier design is copyright &copy; R.R. Moore and Audio Magazine, 1964.</td>
+</tr></table>
+</body>
+</html>

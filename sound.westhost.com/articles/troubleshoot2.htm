@@ -1,0 +1,189 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+<meta name="description" content="Troubleshooting, Part 2 - Preamps, electronic crossovers, equalisers and other opamp based small signal audio circuits">
+<!-- Troubleshooting, Part 2 - Preamps, electronic crossovers, equalisers and other opamp based small signal audio circuits -->
+<meta name="keywords" content="troubleshoot, fault, finding, opamp, preamp, crossover, equaliser, eq, small, signal, audio, diy, hi-fi,electronic">
+<title>Troubleshooting - Part II</title>
+<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Troubleshooting - Part II&nbsp;</td></tr></table>
+
+<p align="center"><b>Fault Finding Opamp Based Small Signal Audio Circuits</b><br />
+<small>Copyright &copy; 2006 - Rod Elliott (ESP)<br />
+Page Updated 13 Jan 2007</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t1" alt="Articles" BORDER="0"></a> <b>Articles Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" alt="Index" BORDER="0"></a><b>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#intro">Introduction</a></li>
+  <li><a href="#s10">1.0  - Initial Tests</a></li>
+  <li><a href="#s20">2.0 - Circuit Tests</a><ul>
+    <li><a href="#s21">2.1 - Signal Tracing</a></li></ul></li>
+  <li><a href="#s30">3.0 - Shorted Rails</a></li>
+  <li><a href="#s40">4.0 - Main Points</a></li>
+  <li><a href="#s50">5.0 - Replacing Parts</a></li>
+  <li><a href="#outro">Conclusion</a></li>
+  <li><a href="../troubleshooting.htm">Troubleshooting - Part 1 (Power Amps)</a>
+</ul>
+
+<hr><b><a id="intro"></a>Introduction</b>
+<p>Provided that your preamp (etc.) was once working, troubleshooting is usually fairly simple. If it has just been built and doesn't work, then you have made a mistake somewhere. All ESP circuits are known to work, and those that have a PCB have some history - many people before you will have built one, and I test each new board to make sure there are no mistakes. Although I use the term 'preamp' in this article, the device could be a mixer, crossover, subsonic filter, or any other linear (audio processing) circuit. Some other circuits are not linear, so many of the points will not apply. This article does not cover non-linear circuits!
+<p>As with power amps, nearly all faults from new are the result of a wiring mistake. Transistors, diodes or opamps may have been inserted backwards, or there will be one or more dry solder joints or solder bridges. Other common problems include incorrect resistor and/or capacitor values in one or more locations.
+<p>Another very common problem is failure to connect the power supply earth (ground). There are normally three connections from the power supply to the preamp, crossover or other line level circuit. A few may use a single supply, in which case there are two connections - +ve supply and earth.
+<p>For testing, you need a multimeter at the very least. An oscilloscope is very useful if you have one, and you must also have a signal source. The latter can be a CD player, FM radio, pink noise generator or an audio oscillator. You usually cannot find a fault with no signal source, because you have no way to trace the signal through the circuit. A signal tracer (described below) is a good alternative to an oscilloscope.</p>
+<p>Make sure you also read <a href="../troubleshooting.htm#opamp">Troubleshooting - Part 1 (Power Amps)</a>, as this also has some information that is relevant to preamp circuits. This is especially true when describing noises - to obtain assistance from anyone, you <u>must</u> know how to describe a noise correctly. Sounds silly really, but people tend to get very annoyed when they answer a bunch of questions based on the description of a noise, only to find that the description was wrong.</p>
+
+<hr><b><a id="s10"></a>1.0 - Initial Tests</b>
+<p>The first test - always - is to check the supply voltages. First, measure the output voltage from the output pins on the power supply itself. Assuming a dual supply, the two should be equal, and will typically be &plusmn;15V for most ESP projects. The exact voltage doesn't matter - even a volt or so difference between the supplies is usually perfectly alright.
+<p>For any supply that has adjustment pots, set the outputs to the recommended voltage. Most regulators are fixed, and cannot be adjusted. If one supply is radically different from the other, you must repair the power supply before continuing. Some power supplies (such as that used for the P27B guitar preamp) use zener diodes and power resistors from the main supply. This still needs to be tested - dry solder joints or faulty zeners can still bring you undone.
+<p>Once the power supply is verified as being correct, you may now continue to the circuit that you need to check. Failure to test the supply first is very common, and can result in great frustration - especially if it turns out that the supply was at fault from the beginning.</p>
+
+<hr><b><a id="s20"></a>2.0 - Circuit Tests</b>
+<p>Connect the black meter probe to a suitable earth point on the PCB (an input, output or supply ground pin can be used). Check the positive and negative supplies - they should be close to +/-15V (or whatever the power supply is meant to provide). If the supply ground isn't connected, you may find that the supplies are not equal. You could even get a situation where the positive supply (for example) is only 2 volts, and the negative supply measures 28V. This is a sure sign that you have a disconnected supply ground, or the supply itself is faulty. Check the supply (again).  If it measures the correct voltages and the preamp doesn't, then the ground is missing or broken.
+<p>Once you are sure that the supplies are correct, make sure that no opamps get hot. Once you are satisfied that there are no power problems, an oscilloscope and audio generator are your very best friends. Fault-finding can be done just with a meter, but is a lot more time-consuming.
+<p>NOTE: It is assumed at this point that all initial tests were performed with safety resistors installed between the supply and the preamp, and that circuits are powered from &plusmn;15V supplies. If a different supply voltage is used, most points still apply, but if the circuit uses a single supply, the reference to "earth" (or "ground" does not apply.
+<p>Next, verify that all opamp output pins are at close to zero volts. Although most circuits will still work with even a few volts at the output pin(s), this is not normal and the cause must be found. Any outputs that are not close to zero indicate a fault in the stage you are measuring, or one before. Work back from the output to the input until you find a stage where the voltage is normal.
+<p>If an opamp is found with an abnormal output voltage, check the inputs as well. Opamps happily amplify DC just as well as AC, so an output fault may simply be the result of DC getting into an input. In a working linear opamp circuit, the two inputs will show the same voltage, but a high resistance circuit can trick you very easily.</p>
+
+<center><img src="ts2-f1.gif" alt="Fig 1" border="1"><br>
+<b><small>Figure 1 - Open Circuit Opamp Input</small></b></center>
+
+<p>Figure 1 shows an example of the equivalent circuit of an opamp with the input resistor not connected because of a bad solder joint. The only reference for the non-inverting input is the leakage of the PCB itself, and the resistance will be very high - this is shown as Rp1, Rp2 (resistance, parasitic). When you measure the output, for this example you see 10.4V DC. You will also measure 945mV on pin 2. Next, you measure pin 3, which should be at the same voltage as pin 2 because this <i>is</i> a linear circuit.
+<p>The problem is that as soon as the meter is connected, the input now has a ground return, and the output will settle at the normal zero volts level. But you don't see that happen, because the meter is no longer connected to the output, so the +ve input reads normal, but the output shows some voltage (which may vary with time). When the lead is connected to the input pin, the input cap charges (or discharges), and that will make the stage appear to be fine for a while. If you get this problem, it will usually show itself as a DC voltage at the output that slowly swings positive or negative, depending on the opamp type.
+<p>There is actually very little that can go wrong in an opamp based circuit. Opamps usually work or they don't - intermittent states can occur, but are very uncommon. It might be assumed that opamps can be faulty from new, and while this is certainly possible it is extremely rare. Over the years, I have built hundreds of opamp circuits, and in all that time I've only seen a couple of new devices faulty from the beginning.
+<p>Almost all faults with a newly built opamp based circuit will be the result of wiring mistakes. It is easy to make mistakes using prototype board, but a great deal harder with a PCB. However, incorrect placement of resistors or capacitors can have very unexpected results.
+
+<hr><b><a id="s21"></a>2.1 - Signal Tracing</b>
+<p>The technique of signal tracing is perfect for opamps circuits, especially where there are several stages. The ideal signal tracer is an oscilloscope, but may hobbyists can't justify the expense. This may not be a great as imagined though - one local electronics supplier in Australia sells a basic CRO (cathode ray oscilloscope) for less than AU$130. Similar prices should be available where you live - it's always worth checking. The CRO is such a useful tool that you'll quickly wonder how you ever survived without one.
+<p>Assuming that an oscilloscope is not available, you need a small power amplifier with a suitable speaker - something around a couple of Watts at the most. I don't recommend headphones, as you may probe a point with a high signal level and risk hearing damage.
+<p>The tracer amplifier needs lots of gain, and a gain (or volume) control is essential. It also needs to have high input impedance so it doesn't load the circuit under test. Nothing fancy is needed though - a gain controlled opamp input followed by small power amp IC is ideal.
+
+<center><img src="ts2-f2.gif" alt="Fig 2" border="1"><br>
+<b><small>Figure 2 - Signal Tracer Amplifier</small></b></center>
+
+<p>A suitable circuit is shown above. A TL072 is used for the input because it has high input impedance, and the other half is used as the basis of a crude but usable power amp. As shown, you will get 1-2 Watts quite easily. The two transistors must be mounted on a heatsink. The circuit will drive an 8 ohm speaker quite effectively. Don't imagine that the circuit as shown is any use for low power hi-fi though - the output stage has crossover distortion that will be audible with some signals. This is of no consequence for the circuit though - feel free to use a "real" power amp if it makes you feel any better, but you only need a couple of Watts at the very most.
+<p>The maximum gain is very high indeed. The first stage can have a gain of up to 100 as shown, and the second stage has a fixed gain of 5.5 - this allows a total maximum gain of 550 (55dB). The circuit will be noisy, will pick up hum, and is generally fairly awful, but is perfect for the simple task of signal tracing. At maximum gain, frequency response is fairly limited as well, but it doesn't matter.  All it is for is to allow you to trace the signal through the circuit, and you can listen to whatever you can pick up at each point along the way.
+<p>C1 can use a lower voltage cap if the tracer will never be used with valve (tube) amplifiers. The purpose of R1, D1 &amp; D2 is to ensure that transient signals cannot damage the opamp input if the tracer is connected to a high voltage point. Even if you never work with valves, I recommend that these diodes be included. At some stage, you may wish to listen to the power supply ripple of a power amp (for example).
+<p>A simple sinewave oscillator can be used for the input, or you can use the output from a PC sound card, CD player, etc. If you are testing a crossover network, you need to use either broadband noise (pink noise is ideal) or a full range music signal. If you use a single tone, you can't hear if the filters are working properly, and if too far from the crossover frequency, you may hear nothing at all.
+<p>To use the signal tracer, simply apply your input signal to the input(s), and trace it through the circuit from the input (right where the signal is applied) through to the output. When you find the point where the signal disappears, you have found the general location of the fault. After this, you know where to concentrate your efforts.
+<p>The tracer amplifier has a lot of gain, so always start with the gain pot at minimum, and advance it until you can hear the signal. As you progress through the circuit, the signal will get louder (for a preamp), or you will hear the effects of the filters (for crossover networks or equalisers). You can check that volume controls are working, and that each active stage passes the signal.
+<p>If you do have an oscilloscope, exactly the same technique is used, except you look at the signal rather than listen to it. Because the oscilloscope makes no noise, you don't have to worry about a high level signal making a terrible racket either.
+<p>As an alternative to either of the above methods, you can use an AC millivoltmeter or even your digital multimeter switched to AC. These methods don't tell you very much though - just a voltage reading, but no indication of what the signal is like. Cheap digital multimeters also have limited frequency range, and most don't use an input capacitor, so whatever you measure might even be DC.</p>
+
+<center><img src="ts2-f3.gif" alt="Fig 3" border="1"><br>
+<b><small>Figure 3 - Tracing a Preamp Circuit (P88)</small></b></center>
+
+<p>Above, you can see the general idea with a preamp - in this case, Project 88. Although I have shown the voltage measured at each point, you won't know the actual voltage unless you use an oscilloscope or AC millivoltmeter. There is no reason that a millivoltmeter and tracer amplifier can't be used at the same time. A sinewave input signal is assumed.</p>
+
+<center><img src="ts2-f4.gif" alt="Fig 4" border="1"><br>
+<b><small>Figure 4 - Tracing a Crossover (P09)</small></b></center>
+
+<p>Next, we look at a Project 09 crossover. I used a sinewave again, in this case set exactly at the crossover frequency. The level at each point is shown, but of course you may not see (or hear) exactly the same thing because of signal frequency etc. Because the filters are very steep rolloff, it is usually better to use a full range signal so that you will hear (or see) something regardless of the crossover frequency. Bear in mind the level of the low frequency signal will still be very low if the crossover frequency is set below 50Hz unless the material has substantial deep bass (which the tracer amplifier's speaker will be unable to reproduce well, if at all).
+<p>If you use a sinewave test, remember that the slope of the P09 is 24dB/octave, so even a small sinewave frequency variation will cause large variations in AC levels. You may need to sweep the frequency above and below the crossover frequency to verify that both sections are working properly.</p>
+
+<hr><b><a id="s30"></a>3.0 - Shorted Rails</b>
+<p>If supply voltages are not right, the fault may be with the board or the power supply. Test the supply first! You will need to know the approximate current drawn by the (faulty?) board under normal conditions. This information may or may not be available, and depends on the devices on the board. Some opamps, logic chips, etc., draw much more current than others. You can often get a rough idea from the power supply. Big heatsinks and hefty PSU components indicate high current, but TO220 devices with a small (or no) heatsink mean the current is fairly low (probably less than 200mA). Apply a suitable load to the supply based on the above, and make sure the voltage remains stable.
+<p>While shorted supply rails are not common with opamp circuits, it can happen. The problem is then to find out just which component caused the short. If the supply rails use tantalum capacitors for bulk bypass (i.e. board level rather than chip level bypass) this should be your first place to look. As regular readers will know by now, I <i>really</i> dislike tantalums - they are one of the least reliable components ever made. Look for small holes in the case or any other sign of distress. Do the same with the opamps - if the supply has enough current available, you may see slight signs of distress on the shorted device. Small bulges in the case or a cracked case are a dead giveaway, but you won't always be so lucky.
+<p>Trying to find a short with an ohm meter is usually pointless unless you have one that will resolve milli-Ohms or micro-Ohms. The next best thing is to use a power supply that can dump an amp or two into a dead short without damage - you may need to use a current limiting resistor of around 4.7&Omega;, rated at 10W or more. Apply power to the board with care - the power tracks on some boards are not rated for much current, and you don't want to cause more damage than has already been done. Damaged tracks can be fixed, but will never look much good.
+<p>At around 1-2 amps, the faulty part should start to get hot. The resistance of the silicon and bonding wires is enough to generate a fair bit of heat, and you will either be able to feel the heat with a finger (at relatively low current - perhaps 500mA or so), or at higher current the faulty part will start to smoke. Having found the problem device, it can now be replaced.
+<p>It is very important that the external 'brute force' power supply voltage does not exceed the maximum voltage rating of the opamps (or other components) used. In some cases, the smoke test will cause the faulty device to become open-circuit (internal bond wire fusing for example), and if the external voltage is too high, other parts may be damaged. The idea is to find and fix the original fault - <i>not</i> to introduce new ones.
+<p>In some cases, your final resort is to cut tracks. If the track is cut with a sharp knife, you can isolate half the circuit at a time until the fault is located. Divide the board in half with the first cut - one half will show a short, the other should be normal. By dividing the shorted half in two each time, you will find the short on a PCB with 12 active devices (opamps, logic chips, etc.) in a total of 3 or 4 cuts.
+<p>To repair the tracks is quite easy - simply smooth the cut edges with a small screwdriver or similar, and solder across the cut. This is as reliable as the original track if done carefully. If the PCB has solder resist, this should be removed around the cut by scraping gently with a razor blade. A dab of nail polish or similar can be used after the track repair is complete if desired.</p>
+
+<hr><b><a id="s40"></a>4.0 - The Main Points</b>
+<p>The idea of this article is to provide pointers to assist you to locate the fault. Because building errors are so diverse, it is impossible to demonstrate each type. Once you understand the principles though, you should have no difficulty working through any similar circuit.
+<p>If you follow these pointers, you should have no difficulty finding out what's wrong with almost any circuit. Some won't make sense for a while, until you get used to knowing what to look for and what you expect to find.</p>
+
+<ol>
+<li>Always remember to measure the supplies first. Even experienced technicians have been caught trying to find why a circuit doesn't work as it should, only to (eventually) find that the supply voltages are wrong, or one is missing altogether.<br><br></li>
+<li>Verify that bad or missing supply voltages are caused by the PCB or the power supply. If the supply is alright with no PCB and with a suitable load resistor, but the supply voltage disappears when the board is connected, then the board is faulty.<br><br></li>
+<li>Apply a signal to the input, and trace it through the circuit, one stage at a time. Make sure that volume pots (etc.) are set at maximum. Make sure that your signal is suitable for what you are testing - using a phono cartridge to fault-find a crossover is pointless (for example).<br><br></li>
+<li>Use the circuit diagram, and follow the signal logically. Don't poke about randomly, as you will only ever get random answers that don't mean anything.</li>
+</ol>
+
+<p>Once you have used the technique a few times, you will get used to the process, and will develop a "feel" for what you should expect. Don't wait until you have a fault - use the techniques described on known working circuits.
+<p>Never forget that if a circuit has two channels and one is working, that you have a perfect way to compare voltages and signal levels. This can make the whole process almost completely painless <img src="grin.gif" alt=":-)">.</p>
+
+<hr><b><a id="s50"></a>5.0 - Replacing Parts</b>
+<p>Removing parts from a PCB can be difficult, and unless you are experienced and have a good solder-sucker, you risk damaging the board. In general, once you are reasonably certain that a component is either the wrong value or is faulty, cut the legs/pins off first. Then, use a solder sucker (or solder wick) to remove the solder from the joint. The cut pins should fall out - do not try to pull them off the board or through the board! This almost guarantees that the PCB will be damaged.
+<p>With many capacitors, it is usually impossible to get to the pins to cut them off, so extreme care is needed. Use the solder sucker and solder wick as needed to ensure that the cap can be removed without ripping the pad. You may be able to trim the lead and solder very close to the pad itself with very sharp side cutters. This leaves almost no lead if done carefully, and the cap should come out without damaging the PCB.
+<p>The tracks and pads can only withstand so much heat and stress before they will fall off, so always use a temperature controlled soldering pencil. These are not cheap, but if you get one of reasonably good quality it will last for many years. Temperature control is essential to ensure that neither components or PCB are overheated. The temperature should be set no higher than 325&deg;C for normal work. If you absolutely <i>must</i> use lead free solder (revolting stuff that it is), you will need to increase the temperature to a minimum of 350&deg;C - my condolences to all those in Europe who are so affected.
+<p>Before soldering in the new part, make sure that it is correctly oriented (for polarity sensitive devices). If you are using lead free solder (all you will be able to get in Europe), make sure that the component leads are clean and shiny - lead free solder is fairly useless stuff, and cannot adhere to even a slightly oxidised surface. Clean the leads with fine steel wool if they are tarnished, but make sure that no strands of steel wool get onto the PCB to cause further problems.</p>
+
+<hr><b><a id="outro"></a>Conclusion</b>
+<p>The key to fault finding is practice. The more circuits you test (working or not), the more knowledge you gain about the way opamps work in audio circuits. As you continue to practice and test everything that you can, you will rapidly learn about gain structures, what individual stages do and (along with the schematic and description) how they do it.
+<p>The worst approach is to get flustered and start removing components at random (or semi-random). You learn nothing that way, and will usually end up ruining the PCB. The tracks and pads on any circuit board can only take so much heat and movement before the adhesive breaks down and the track lifts or the pad just breaks off.
+<p>By adopting a disciplined and logical approach, you get more done with less damage - both to the PCB and your self-esteem.</p>
+<p align="right"><a href="../troubleshooting.htm">Troubleshooting - Part 1 (Power Amps)</a></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../articles.htm" ONMOUSEOUT="document.b1.src='a1.gif';" ONMOUSEOVER="document.b1.src='a.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles" BORDER=0></a><b>Articles Index</b>
+<br /><a href="../index2.html" ONMOUSEOUT="document.b2.src='a1.gif';" ONMOUSEOVER="document.b2.src='a.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Main Index" BORDER=0></a><b>Main Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 23 Dec 2006./ Published 06 Jan 2007</div>
+</body>
+</html>

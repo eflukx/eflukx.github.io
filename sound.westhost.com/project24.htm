@@ -1,0 +1,122 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Rod Elliott">
+  <meta name="description" content="ESP Project Pages - Hi-Fi Headphone Amplifier. Visit my other pages for even more!">
+  <meta name="keywords" content="audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+  <title>Hi-Fi Headphone Amplifier</title>
+  <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+  <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 24&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Hi-Fi Headphone Amplifier</b></br>
+Contributed by Richard Crowley<br>
+<small>(Additional Notes by Rod Elliott)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>This design for a headphone amplifier arose after the purchase of commercial equipment with separate pre and power amplifiers without a headphone output.</p>
+<p>It is based on designs for a headphone amplifier by John Linsley-Hood, and an active volume control, using a linear pot, by Doug Self (the "pot" circuit was originally designed by P.J. Baxandall), both published in Electronics and Wireless World in recent years.</p>
+<p>Its advantages are ...</p>
+
+<ul>
+  <li>low output impedance to drive several pairs of phones</li>
+  <li>the active gain stage is, almost, perfectly logarithmic and ...
+  <ul>
+	  <li>is independent of the absolute value of the pot</li>
+	  <li>has excellent channel tracking</li>
+	  <li>the O/P noise reduces with gain reduction.</li>
+  </ul>
+</ul>
+
+<hr><b>Description</b>
+<p>The intention is to permanently insert the headphone amp between pre and power amps, although it can be used as a stand-alone item. The input relay is operated by auxiliary contacts on the headphone sockets through a transistor driver (with a small delay) so as to mute the power amp input when listening on headphones.</p>
+<p>The relay contact arrangement enabling it (the headphone amp) to be left switched off when normally not in use. The relay is a high quality, sealed, gold plated contact, TQ signal switching type, reputedly with a very long life expectancy.</p>
+<p>The gain control being used to pre-set the gain so that the pre-amp's gain control is normally used for setting the listening level.</p>
+
+<p align="center"><img src="p24_fig1.gif" border="1" alt="Figure 1" height="358" width="763">
+<br><b><small>Figure 1 - The Headphone Amp Circuit</small></b></p>
+
+<p><small>One channel only is shown, so two units are required for stereo. The gain control pot must be a dual-gang linear type, as the circuit configuration provides the logarithmic law required. This is similar to the circuit shown in Project 01 (except that this version provides a useful reduction of noise). A value of 47k or 100k should be fine in this circuit. Diodes should be 1N4148.</small></p>
+<p>The first stage is a conventional series feedback circuit using the ubiquitous NE5534, the gain being set by the feedback AOT (adjust on test) resistor to suit individual needs, this stage provides the necessary low impedance output for the variable gain stage. The resistor/ capacitor networks around the input stage may seem a little extravagant, but are necessary to reduce any possible RF pickup especially the 470 pF between
+the two IC + and - inputs.</p>
+<p>The complete second stage consists of a zero gain follower, an inverting gain stage and the output emitter followers, 'volume control' gain being set around these three stages. The x10 gain of the inverting stage gives the closest approach to a logarithmic law, stability being ensured by the 27pf capacitor in this stage's feedback. The output complementary pair runs in Class-A at about 80 mA and should be mounted on a small heatsink.</p>
+<p><small>Dissipation is about 1.8 Watts for each device, and they must be isolated from the heatsink with mica washers and mounting bushes to prevent short-circuiting the power supply (the collectors are connected to the case). Make sure that heat-conducting paste is used, or use sil-pads for mounting - these require no thermal compound and are very convenient for low power operation.</small></p>
+
+<p align="center"><img src="p24_fig2.gif" border="1" alt="Figure 2" height="178" width="496"><br>
+<b><small>Figure 2 - Alternative Relay Driver, and Component Pinouts</small></b></p>
+
+<p>The OPA2604 was chosen because its high, FET based, input impedance provides better DC conditions for setting the O/P at 0V DC than the NE5532 alternative, its low output impedance has no problems in driving difficult loads, but it is still relatively cheap.</p>
+<p>The power supply is a fairly conventional split variety, the regulated O/Ps feeding the ICs - note the decoupling arrangements - and the 22V pre-regulated supply feeding the O/P transistors, the relay supply being rectified and regulated separately for the necessary isolation, separate signal and supply star earthing being essential.</p>
+
+<p align="center"><img src="p24_fig3.gif" border="1" alt="Figure 3" height="337" width="624"><br>
+<b><small>Figure 3 - Power Supply</small></b></p>
+
+<p>The output jack sockets, with independent changeover contacts, are obtainable from Maplin Electronics and have proved extremely reliable over many years of regular use.&nbsp; If these are not obtainable a circuit is included for use with conventional break contact jack sockets.</p>
+<p>The LED series resistors will need to supply a current of about 7.5mA, so 2.2k should be used. Diodes for the supply should be 1N4004 or equivalent.<br><br>
+If desired, the 12V regulator may be dispensed with, and suitable value resistors placed in series with each relay coil to retain the correct operating voltage. It is the constructor's responsibility to determine the value of these, as the relay current cannot be predicted as there are so many different types available. Use of 15V relays is also possible, if available.<br><br>
+If this arrangement is used, a slight amount of noise may be introduced as the relay operates, because of the sudden application (or removal) of the additional load. It is not expected that this would be a problem in use.</p>
+
+<hr>My thanks to Richard for submitting this circuit - it is sure to provide a very high sound quality, and is not overly complex. The active gain control (originally designed by Peter Baxandall) is very effective.<br><br>
+As always, resistors should be 1% metal film types for all signal paths. Their use in the power supply and relay circuits is not necessary, but will not do any harm, either.
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Richard Crowley and Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Richard Crowley) and editor (Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott and Richard Crowley.</td></tr>
+</table>
+</body>
+</html>

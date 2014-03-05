@@ -1,0 +1,157 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="Author" content="Rod Elliott">
+	<meta name="description" content="ESP Project Pages - Pink Noise Generator For Audio Testing.">
+	<meta name="keywords" content="pink,noise,generator,audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+	<title>Pink Noise Generator for Audio Testing</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 11&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Pink Noise Generator for Audio Testing</b><br />
+<small><b>Rod Elliott - ESP</b><br />
+Updated 19 February 2011</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr />
+<p>For audio testing, a pink noise source is an invaluable tool. It is essentially a flat frequency response noise source, and will quickly show any anomalies in speaker systems, room acoustics and crossover networks.</p>
+
+<p>White noise (the sound you hear when a TV is tuned to a non-existent station) has a frequency characteristic which raises the power level by 3dB with each increasing octave, and is not suitable for response testing (and will probably blow your tweeters as well). By combining a 3dB / octave filter and a white noise source, we can get a very good approximation to 'perfect' pink noise, where the power in the octave (for example) 40 to 80Hz is exactly the same as in the octave 10kHz to 20kHz. There's only one small problem - the most basic filter rolls off at 6dB/ octave, so to create a 3dB/ octave filter we have to use multiple filter sections. The number of sections determines how flat the filter will be, and more is better.</p>
+
+<p>Figure 1 shows the circuit diagram for a basic filter, which can use a variety of dual opamps. I have shown the RC4558, but you can use the LM1458 dual op-amp for economy. There is no point using a low-noise device in something which is specifically designed to make noise, so this op-amp is fine for the purpose. While this is a nice simple circuit and will be acceptable for most applications, it has a limited frequency range, and it can be improved - naturally at the expense of complexity. The filter doesn't have enough break points to cover the audio band particularly accurately, although it is better than you might imagine.</p>
+
+<center><img src="p11_fig1.gif" alt="Figure 1" border="1"><br /><b><small>Figure 1 - Pink Noise Generator Circuit Diagram (Basic Filter)</small></b></center>
+
+<p>The BC548 transistor is connected so its emitter-base junction is reverse biased, which creates a nice noisy zener diode. With the values shown, the average noise output is about 30mV (broadband). The transistor zener voltage is a bit iffy, mine runs at about 9V, but it could be anywhere from 5V up to 10V. In some cases, you may find that the transistor is not noisy enough, so try a few until you get one that makes lots of noise. Don't re-use the rejects! Because they have been abused, they are likely to be very noisy if used as an amplifier, and gain will probably be greatly reduced as well.</p>
+
+<p>The first op-amp stage acts as an amplifier / buffer, providing a very high input impedance (so as not to load the noise source), and having a gain of 11 (20.8dB). The DC voltage at the output of the buffer should be the same (or very close to) that at the transistor zener.</p>
+
+<p>The positive battery supply connects to pin 8 of the op-amp, and the negative to pin 4 - don't mix up the battery polarity, or the op-amp will die.</p>
+
+<p>The 10uF capacitors marked "NP" are bipolar (non polarised) electrolytics. Although film caps can be used, they will contribute nothing but cost to the final project. Non-polarised caps are needed because of an unpredictable polarity for C4 and no little or no DC across C8, but C8 can be a normal polarised electrolytic cap if you wish (the voltage across it will be well under 1V, which is quite safe for normal electros). In case you were wondering, the point marked "Output" is used by the IEC filter shown below if you decide to include it.</p>
+
+<p>The second stage is a 3dB / octave filter, which is fairly linear across the frequency band 20Hz to 20kHz. This converts the white noise into pink noise, having equal energy in all 10 octaves of the audio band. Although this filter has only three break points (the frequencies are shown on the schematic), it's perfectly alright for most applications.
+
+<p>Because of the comparatively high zener voltage of the transistor, the supply voltage needs to be somewhat higher - 2 standard size 9V alkaline batteries in series (18V) should run the unit for far longer than you will ever want to listen to it. Because of the limited capacity of the 9V batteries, no indicator LED has been included, as this would draw more current than the rest of the circuit. The power switch must be a Double Pole, Single Throw (DPST) type, as both batteries must be disconnected. The centre-tap of the batteries is the earth (ground) for the unit. All earth points must be connected together. Naturally, the unit can also be mains powered (using P05 for example) with +/-15V supply rails. While this is a more expensive alternative initially, IMO battery powered instruments are often more of a hassle than mains power - especially for instruments that aren't used often. The batteries die and have leaked corrosive goop over everything the next time you need the instrument (personal experience).</p>
+
+<p>The pink noise filter shown in Figure 1A is more complex, but is far more linear over a wider range ... 1Hz to 100kHz within 1dB across the full 50dB range. It's been deliberately designed to be as flat as possible, so has many more filter sections than you may expect. It is possible to get better than shown, but the number of sections grows alarmingly. Again, the frequency for each filter section is shown, and each covers approximately one decade. </p>
+
+<center><img src="p11_fig1a.gif" alt="Figure 1A" border="1"><br /><b><small>Figure 1A - Alternative 3dB/ Octave Filter</small></b></center>
+
+<p>The entire circuit can be laid out on a piece of prototype board, and mounted in a suitable plastic or metal box. No special precautions are needed, other than ensuring that polarised components (transistor, op-amp, and electrolytic capacitors) are connected the right way 'round. Values of components are not critical, so standard tolerance components should be fine throughout. The use of 1% metal film resistors to keep noise to a minimum is not required in this circuit! The transistor can actually be any small signal type you have handy, and so can the dual opamp (or a pair of single opamps can be used - note that their pinouts are completely different).</p>
+
+<p>If you have an oscilloscope or can get access to one, check that the noise output is not clipping - you won't be able to hear it, but if it clips the energy spectrum will be modified. There is no easy way to check without a 'scope, and the noise output from transistors used in this way tends to vary somewhat. If clipping is observed (or you suspect it), increase the value of R3 or R4 (both 10k). Doubling the value (of one or the other - not both) will reduce the output by half. There are digital "pseudo-random" noise generators available, but I don't like them much because they have a cycle which eventually repeats, and this is very audible. By contrast, the unit described is completely random, as only analogue can be.</p>
+
+<center><img src="p11_fig2.gif" alt="Figure 2" border=1><br /><b><small>Figure 2 - Frequency Response of Basic Filter</small></b></center>
+
+<p>Figure 2 shows the 3dB/ Octave response obtained from the basic circuit. It is not perfect (I have never seen one that was - other than that shown below which is better than any I've come across), but it is more than close enough for all but the most exacting of requirements. There is additional low bass rolloff created by C4 and C8, but these are not included in the graph. The error is typically less than 1dB over the audio band, although individual points may exceed that. The ripple in the rolloff slope is characteristic of a filter that is acceptable, but not optimised.</p>
+
+<center><img src="p11_fig2a.gif" alt="Figure 2a" border=1><br /><b><small>Figure 2A - Frequency Response of Alternative Filter</small></b></center>
+
+<p>As you can see the curve is almost a perfectly straight line from 1Hz to 100kHz. The attenuation for each decade is also shown - they don't add up to the total because the individual decade values have been rounded to one decimal place. For any individual decade, (e.g. from 400Hz to 4kHz, or from 27Hz to 270Hz) the error is less than 1dB, and in most cases will be less than 0.5dB. It is almost impossible to get any noise signal to have a perfect pink noise characteristic, so small errors are simply a part of life. Adding extra break point frequencies doesn't improve the response shown above, in fact it becomes worse. Decade spacing appears to be close to optimum. There is a small amount of ripple in the filter slope (this is visible in the plotted response). This is a characteristic of all 3dB/ octave filters, but you will not find one published that is as good as that shown. I'm rather pleased with the response, especially since it uses a simple cascade of standard component values. Note that the effect of C4 is well below the lowest frequency, so has no effect. With C8 at 100uF (or more if you prefer) that will have no effect on response either.
+
+<p>It is perfectly acceptable to delete the lowest frequency filter if you don't need the full bandwidth, but the filter components can't simply be removed. The existing 1.8M resistor (R8) is replaced with 1M, and the 1M + 100nF filter (Rf1 and Cf1) is then removed. At the high frequency end, Cf7 should remain as shown.
+
+<p>Be warned that the frequencies below 20Hz can have a high amplitude, and can easily cause amplifier clipping and/ or excessive cone displacement unless a high pass filter is used. If the signal is connected to a tweeter via an amplifier but no filter, it is virtually guaranteed that the tweeter will be destroyed. The filter maintains boost at well below 1Hz - it has a maximum at 0.1Hz (25dB boost), but C4 will limit anything below 0.16Hz - still a potentially dangerously low frequency.</p>
+
+<hr /><b>IEC Pink Noise Filters</b><br />
+Because of the potential for high energy at very low frequencies and damaging high frequencies, the IEC has defined a standard filter that can be used with pink noise generators. IEC 60268-1 defines a filter that is substantially flat between 22.4Hz and 22.4kHz.
+
+<p>The required response is shown below. You might need to implement this filter if you are testing to any IEC standard that specifies band limited pink noise, but if your application is critical you'd have to get the final unit officially certified and calibrated. Expect this service to cost several times the construction cost of the noise generator and filter.</p>
+
+<center><img src="p11_fig3.gif" alt="Figure 3" border=1><br /><b><small>Figure 3 - IEC Pink Noise Filter Response</small></b></center>
+
+<p>The intent is for the final filter's response to remain within the area bounded by the red and green traces. This gives a predictable final response, but as is often the case with standards bodies, there is needless over-complication in the way things are specified. It would be far simpler to just provide the required filter slopes (as shown) and designate the -3dB frequencies. If the values are then calculated accurately, the response will automatically fit the required curve.</p>
+
+<center><img src="p11_fig4.gif" alt="Figure 4" border=1><br /><b><small>Figure 4 - Pink Noise Filter Schematic</small></b></center>
+
+<p>Figure 4 shows an implementation of the filter that does fit the requirements. The input is taken directly from pin 7 of U1B (in Figure 1 or 1A). The first stage is a 12dB/octave high pass filter having a -3dB frequency of 22.7Hz, and this is followed by an 18dB/octave low pass filter set for 24.1kHz. This is a little higher than the specification indicates, but it fits inside the 'window' shown.
+
+<p>Part of the circuit looks more complex than it really is, because I have deliberately designed it so that the minimum number of different component values are needed, and that all values can be obtained. By using 2.2nF caps in series and parallel as needed, the requirement for impossible values is removed completely. 3.0k resistors are a standard value in the E24 series - unfortunately there was no choice for these. The filter has been slightly changed from the original I posted, as I discovered that the high-pass section didn't quite fit the window. The new values are shown for R9, R10 &amp; R11 - these were all 33k, but the new values work better.
+
+<p>As shown, there is a spare opamp (U3B). It should be connected with pins 6 and 7 shorted, and pin 5 returned to ground. Naturally you can use the opamp for something if you need to, but I couldn't think of anything useful. It could be used as an additional gain stage if needed, or to buffer the output after the level control.</p>
+
+<center><img src="p11_fig5.gif" alt="Figure 5" border=1><br /><b><small>Figure 5 - Response of Pink Noise Filter</small></b></center>
+
+<p>This is (close to) the frequency response of the filter circuit shown in Figure 4 - it's actually changed very slightly due to the revised component values. This meets the requirements of IEC 60268-1, but more importantly should meet the needs of people performing pink noise testing. By eliminating significant out-of-band energy, the tests will be more reliable and predictable, with a reduced chance of damaging loudspeakers or amplifiers.</p>
+
+<hr /><b>Using A Noise Generator</b><br />
+<p>Connect the generator to your preamp, and slowly advance the level control until the sound level is at about the level of normal speech (about 65dB). Carefully listen for any "tonality" in the sound, such as a low hum, or a point where the signal seems to disappear (sometimes referred to as a "suckout"), or anything which does not sound like pure noise. This will probably take a little practice - if you have a graphic equaliser handy, this is a great way to introduce peaks and dips to hear what they sound like.</p>
+
+<p>Try listening through a good set of headphones, and compare the result with the speakers and room acoustics, you might be surprised at the result. I once read a story where an engineer was trying to find out where the hum in his noise generator was coming from. It turned out that the noise generator had no hum at all, but he was hearing the bass resonance from a badly designed loudspeaker - you can get surprising results from pink noise testing!
+
+<p>Remember that if you use the alternative filter and use larger than normal caps to get response down to 1Hz, this will cause very large cone excursions with no audible output. This is especially true of vented speaker enclosures, so extreme care is needed to ensure that you don't cause speaker damage.
+
+<p>There is a lot to be said for using the IEC filter. It adds complexity and some cost, but the band limited noise signal is probably far more useful than an unrestricted noise source that includes a lot of energy outside the audible spectrum. Naturally, you can include a switch so you can have both.</p>
+
+<hr />
+<blockquote>
+	<small><b><u>References</u></b><br />
+	<img src="dot.gif" /> &nbsp; Electronics Today International, November 1981 - Audio White Noise Generator Employs Digital
+	Technique (original 3dB/octave filter component values)<br />
+	<img src="dot.gif" /> &nbsp; IEC 60065, Annex C (Normative), Band-pass filter for wide-band noise measurement (extract from IEC 60268-1)
+</small>
+</blockquote>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br /><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Updates ... 1999 - original publication./ 2002 - minor update./ 24 Apr 2010 - Added alternative filter, updated original response graph./ 19 Feb 11 - included IEC filter and response curves./ 21 Aug 12 - adjusted values for IEC filter.</div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Phil Allison (For Elliott Sound Products)">
+   <meta name="description" content="VI Limiters in Amplifiers. Visit my other pages for more audio projects and information">
+   <meta name="keywords" content="short circuit protection amplifier audio preamp stereo amp diy hi-fi electronic">
+   <title>VI Limiters in Amplifiers</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">VI Limiters in Amplifiers&nbsp;</td></tr></table>
+
+<p align="center"><b>Phil Allison</b><br /><small>Edited by Rod Elliott &amp; Copyright &copy; 2000</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b><br>
+  <a href="index.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="ESP Home" BORDER=0></a><b>Main Index</b><br />
+  
+<hr><b>Introduction</b>
+<p>This is another of Phil Allison's contributions, and discusses specific experience that Phil has had with short circuit protection circuits in power amplifiers.&nbsp; These are commonly called VI Limiters, since they limit current (I) based on the voltage (V) across the power transistors.
+
+<p>As Phil will explain, not all manufacturers get these circuits right, and the sonic artefacts can be extremely unpleasant.&nbsp; In extreme cases, the very circuit designed (?) to protect the output stage
+can do exactly the opposite, and cause the amplifier to fail, and / or damage tweeters into the bargain.&nbsp; Have I ever mentioned in these pages that I don't like protection circuits?&nbsp; Hmmm, I thought so <img src="grin.gif"></p>
+
+<hr><b>Testing Amplifiers To Their Limits</b>&nbsp; (By Phil Allison)
+<p>Virtually any power amplifier would be quickly destroyed by a short on the output if there were no internal limit on the output current. This is because the power supply can deliver a short term power level much greater than the capacity of the transistors used in the output stage.&nbsp; The answer is some form of output current limiting to prevent damage under short circuit or near short condition on the speaker
+terminals.&nbsp; Many schemes have been used to protect the output devices in an amplifier, from fuses and current trips in the power supply to elaborate electronic circuits.
+
+<p>The most common technique used is known as "VI limiting".&nbsp; A pair of NPN and PNP transistors is connected across the drive signal to the output devices and fed from a resistor network that senses both the voltage across and the current through them. When the combination of V and I, which is the power dissipation, is more than what can be handled safely then the protection transistors conduct the drive signal away just enough to prevent output transistor failure (see Figure 1).</p>
+
+<center><img SRC="vi-f1.gif" ALT="Figure 1" BORDER=1><br /><b><small>Figure 1 - Basic VI Limiter Circuit</small></b></center>
+
+<p>The output transistors are shown in representative form, coloured grey, and may be darlington, compound pairs, or any combination thereof.&nbsp; The remainder of the amplifier is not shown, since this
+is largely irrelevant to the operation of the protection circuit.&nbsp; The diodes shown in grey are sometimes included (see <a href="#ed">Editorial Comment</a>).
+
+<p>You may wonder why amplifiers need to deliver any current into a short circuit, after all surely this is a fault situation.&nbsp; True enough, provided all the amplifier ever had to do was drive pure resistors.&nbsp; The problem becomes more obvious when you consider that amplifiers have to drive loudspeakers.&nbsp; Real loudspeakers are a "reactive load", that is their impedance changes with frequency.
+
+<p>For example, a nominal 8 ohm 12 inch driver in a sealed enclosure will have a bass resonance at some low frequency and around that same frequency an impedance peak of 20 ohms or more.&nbsp; At frequencies above 1 to 2 kHz the impedance rises doubling each octave due to the inductance of the voice coil.&nbsp; Systems having tuned ports result in double impedance peaks in the low frequency range only dropping to the "nominal" value at two points, in the middle of the peaks and at 250 Hz where the figure is often measured.&nbsp; An impedance that rises with increasing frequency is inductive and the opposite capacitive.&nbsp; While a loudspeaker's low frequency impedance peaks are caused mechanically, by the back EMF generated by the moving voice coil, they look to the amplifier exactly as if tuned circuits had been connected.&nbsp; An equivalent electrical circuit can be derived and contains large inductances in parallel with large capacitances.&nbsp; This is in addition to any passive crossover network that may be installed.&nbsp; The amplifier is required to drive this complex load at any frequency and level without distortion.&nbsp; Figure 2 shows the equivalent circuit of a single driver in a sealed enclosure.</p>
+
+<center><img SRC="vi-f2.gif" ALT="Figure 2" BORDER=1><br /><b><small>Figure 2 - Equivalent Circuit Of A Typical Loudspeaker Driver</small></b></center>
+
+<p>Figure 3 shows the impedance versus frequency for the simulated speaker, and as can be seen, it looks very similar to the impedance response curve you see with many real loudspeakers.&nbsp; This (of course) is the whole point of the exercise.</p>
+
+<center><img SRC="vi-f3.gif" ALT="Figure 3" BORDER=1><br /><b><small>Figure 3 - Impedance Curve Of Simulated Loudspeaker</small></b></center>
+
+<p>This can be built using the component values specified in Figure 2, or you may want to experiment further.&nbsp; Attempting to make the simulation "look" like a real loudspeaker system, including crossover networks and additional drivers is possible, but becomes quite complex.&nbsp; Since all speakers are different, this approach is neither suggested nor recommended, due to the cost of trying to re-create simulated versions of even a small number of systems.</p>
+
+<p><b>Out of Phase Current</b>
+<br />A load impedance that is inductive or capacitive has one important characteristic, the current and voltage are "out of phase".&nbsp; Having a current and voltage phase shift means zero volts and zero amps no longer coincide.&nbsp; The amplifier has to produce high current when its output voltage is zero.&nbsp; Also, it will have to produce negative current when the output voltage is positive.
+
+<p>An amplifier which limits heavily into a short circuit can do neither of these things.&nbsp; The amount of out of phase current a good amplifier should be able to deliver is a moot point.&nbsp; Amplifier makers want speaker makers to tame their designs to make life easier for them.&nbsp; Speaker makers reject any restrictions and often produce systems that only the best amplifiers can drive without VI limiting.&nbsp; The market has to sort out which combinations don't work together.&nbsp; This is not a happy situation but it is reality.&nbsp; Amplifier makers take for granted a few facts about speakers.&nbsp; Systems are mostly nominal 8 ohm or 4 ohm and their impedance does not go much below this value as it is close to the DC resistance of the driver(s) involved.
+
+<p>The assumption based on experience and used by many amplifier designers is that the phase angle will at worst be no more than 45 degrees and then be at an impedance that is about 40% higher than the nominal value.&nbsp; For most loudspeaker systems this assumption would be true.&nbsp; The above situation can be simulated by a load impedance formed by a power resistor of 4 or 8 ohms in series with
+an air cored inductor of about 5 to 10 millihenrys.&nbsp; At the frequency where the phase angle is 45 degrees the load will be either 5.6 ohms or 11.2 ohms (see note 2).&nbsp; Any good amplifier should be able to drive this combination at full level and any frequency without problems.&nbsp; However, even some well known ones don't.
+
+<p><b>What's the Problem?</b>
+<br>If the VI limiting circuit prevents current from reaching the value needed to drive a load at a particular frequency then an unexpected thing happens.&nbsp; The stored energy takes over from the amplifier and dumps a large spike of voltage and current back into the output stage, twice each cycle.&nbsp; Each spike is equal to or more than the amplifier supply voltage and starts around the zero crossing of the wave form lasting about half a millisecond (Figure 4).&nbsp; Such spikes of possibly over 100 volts sound very nasty.&nbsp; They usually don't damage the bass driver but other speaker components (like piezo horns) and even an amplifier has been known to quickly fail because of them.</p>
+
+<center><img SRC="vi-f4.gif" ALT="Figure 4" BORDER=1><br /><b><small>Figure 4 - Voltage Spikes Caused By VI Limiter</small></b></center>
+
+<p><b>Why don't amplifier makers get it right?</b>
+<br />Mostly they do. The release in the late 1970s of Hitachi's Power Mosfets eliminated the need for VI limiting allowing most MOSFET amplifiers to have only a simple peak current limit set by zener diodes across the MOSFET gate drive and rely on supply rail fuses to open when the amp was shorted.&nbsp; These amps can drive any known loudspeaker (See note 1).&nbsp; Amplifiers using bi-polar output transistors, even the likes of Motorola's best, are at higher risk of failure and fuses don't blow fast enough.&nbsp; Cost restrictions set a limit to how many output devices can be used, and sometimes the need to prevent output stage overheating and device failures when shorted produces a design which is unable to drive nominal 4 ohm loudspeakers.&nbsp; Another reason for not getting it right is that there is no industry standard for reactive load testing.&nbsp; Resistive load tests are all that are normally done or specified.&nbsp; Similarly speaker makers don't fully specify their products either.
+
+<p><b>How much out of phase current do amplifiers need?</b>
+<br />It depends on the loudspeaker, but the more the better.&nbsp; A first class amplifier is one that can deliver the same current at zero volts as it does at maximum output reducing only when the output swings to the opposite polarity.&nbsp; Such an amplifier rated at 800 watts into 4 ohms would have a short circuit current of at least +/- 20 amps.&nbsp; A lower current capability is often considered acceptable as it will satisfy the majority of loudspeakers, a level of 50% of the maximum output current available at zero volts reducing to zero at full opposite supply.&nbsp; This takes into account the 40% higher  impedance expected at the frequency of a 45 degree phase angle and the fact that current is 71% of maximum at zero volts.
+
+<p><b>Testing the Amplifier</b>
+<br />To find what a particular amplifier can deliver in the way of out of phase current requires a couple of bench tests. Neither is complicated or out of the reach of the average technician.&nbsp; Only a few low cost items are needed - a high power air cored 5 mH inductor (see Note 3) and a 0.1 ohm 10 watt resistor as well as the usual 4 and 8 ohm dummy load resistors.</p>
+
+<blockquote><b>Test 1</b>
+<br />Connect the 5 mH inductor in series with the dummy load and the amplifier with the oscilloscope connected across the amplifier output as usual. Set the sine wave generator at about 250 Hz and using the 8 ohm load gradually increase the level until either spikes are seen or clipping occurs. If there is no problem switch the load to 4 ohms and the generator to 127 Hz and repeat the above. The generator can be swept from 50 Hz to 500 Hz to investigate further for any spiking though if there is no problem at either of the test frequencies then there will usually be no problem at any other. Note the power level at which
+any spiking occurs.</blockquote>
+
+<blockquote><b>Test 2</b>
+<br />Connect the 0.1 ohm resistor to the amplifier and the oscilloscope leads directly to the resistor.&nbsp; Set the generator to 250 Hz and switch to square wave. Couple the signal into the amplifier input through a capacitor of about 2.2 nF (0.0022 uF). This creates a series of spikes of low average power that does not stress the amplifier. Increase the input level until clipping of the spikes is visible and note the oscilloscope reading in each polarity.&nbsp; Multiply by 10 to get the answer in amps. This test reveals the current available at zero volts and should be compared with the rated output current into 4 or 8 ohms derived from the power output specification. If the positive and negative current readings are asymmetrical or very high there may be a fault with the VI limiting circuit itself or the amplifier is NOT short circuit proof.</blockquote>
+
+<hr /><b>Conclusion</b>
+<p>A load using a resistor equal to the rated impedance and an inductor in series driven at 45&deg; phase angle allows a simple pass or fail test for an amplifier depending on whether any spikes on the sinewave are heard or seen on a oscilloscope screen. The amount of current available into a short circuit is also a useful guide. It should be 50% of the peak current output into the rated load. Amplifiers that fail these tests may be put on "restricted duties" and used only with 8 ohm nominal loads or speakers that are known as easy to drive. Modification of the VI circuit is always possible but you have to know exactly what
+you are doing as the output stage may be rendered vulnerable.</p>
+
+<hr><b>Notes:</b>
+<ol><li>The Perreaux 8000B MOSFET, rated at 800 watts 4 ohms, has a maximum peak current of 60 amps at any output voltage. There are 5 power mosfets in parallel, with zener diode limiting to about 12 amps each.</li>
+
+<li>The formula for the frequency for 45&deg; phase angle in an RL network is the same as for the -3dB frequency point ... namely&nbsp; <b>f<sub>45&oslash;</sub> = R / 2 * &pi; * L</b> &nbsp; &nbsp; 
+For example, for 4 ohms and 5 mH, the frequency is 127Hz.</li>
+
+<li>Any inductor used for testing should be air cored to prevent saturation distortion and should have low resistance.&nbsp; If the resistance is other than negligible, adjust the resistor value to compensate.</li>
+</ol>
+
+<hr><a id="ed"></a><b>Editorial Comment</b> &nbsp; (By Rod Elliott)
+<p>Some amplifier circuits show diodes connected between the output and the +ve and -ve power rails - these are shown in grey in Figure 1.&nbsp; The purpose of these should now be obvious - they will "catch" the spikes generated under the conditions Phil has explained.&nbsp; These will (hopefully) prevent the destruction of output transistors by shunting the excess voltage and current back into the power supply which simply absorbs the energy.&nbsp; The diodes prevent the amplifier's output voltage from ever exceeding the supply by more than 0.65 volt or so, and therefore prevent reverse biasing of the transistors under fault conditions.
+ 
+<p>Needless to say, this provides zero sonic benefit, since the spikes will still occur, but they will now be limited to a little over the amplifier's supply voltage.&nbsp; The amp will probably not self destruct, but it will sound just as horrible when driven beyond its current limits.
+
+<p>Some years ago, high power amplifiers (i.e. anything over about 400W) nearly always used MOSFETs rather than bipolar transistors, and this was especially true of professional units for sound reinforcement.&nbsp; There were very good reasons for this, as Phil has explained. Most newer amps use bipolar transistors, as they are cheaper, and modern BJTs are very rugged.
+
+<p>The ability to drive virtually any load without the need for VI limiter protection is one of the all time great advantages of power MOSFETs.&nbsp; Naturally, the requirement that there are sufficient output devices to handle the load still exists, but MOSFETs are far more tolerant of fault conditions than bipolar transistors, and are not subject to a most undesirable problem known as "second breakdown".
+
+<p>This occurs in bipolar transistors when a small section of the silicon die becomes hotter than the rest due to an overload condition, or where the devices are too small for the job.&nbsp; This increases the gain in that small section, and it therefore does even more of the work, causing it to get hotter still.&nbsp; Thus a repeating the cycle is started, which results in device destruction.&nbsp; This happens very fast (in as little as a few tens of milliseconds), and it is virtually impossible to protect the device once second breakdown has started.&nbsp; The VI limiters are designed to prevent the device(s) from ever exceeding the manufacturer limits where second breakdown is known to occur.
+
+<p>As Phil has shown, some attempts at achieving that goal are somewhat less than a complete success.</p>
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="articles.htm" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b><br />
+  <a href="index.html" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="ESP Home" BORDER=0></a><b>Main Index</b><br /><br />
+  
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Phil Allison (plus editorial material by Rod Elliott), and is Copyright &copy; 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International
+Copyright laws. The author (Phil Allison) and editor (Rod Elliott) grant the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference.&nbsp; Commercial use is prohibited without express written authorisation from Phil Allison and Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 19 Aug 2000</div>
+</body>
+</html>

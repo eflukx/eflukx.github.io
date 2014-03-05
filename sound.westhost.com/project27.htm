@@ -1,0 +1,229 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="description" content="ESP Project Pages - 100W Guitar Amplifier (Mk II). Includes wide range tone controls, volume and master (to get that fat fuzz overdrive), and complete schematics. Also suitable for bass and keyboards.">
+   <meta name="keywords" content="guitar, bass, keyboard, audio, project, diy, amp, preamp, power, supply, circuit, schematic, diagram">
+   <title>100W Guitar Amplifier (Mk II)</title>
+	<!-- ESP Project Pages - 100W Guitar Amplifier (Mk II). Includes wide range tone controls, volume and master (to get that fat fuzz overdrive), and complete schematics. Also suitable for bass and keyboards. -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 27&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>100W Guitar Amplifier Mk II</b><br>
+<small>Rod Elliott (ESP)
+<br>New Version Created 27 Jan 2002<br>
+Updated 11 Jan 2008</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for for both power amp and preamp. Click the image for details.<br>
+
+<hr><b>Introduction</b>
+<p>Guitar amplifiers are always an interesting challenge. The tone controls, gain and overload characteristics are very individual, and the ideal combination varies from one guitarist to the next, and from one guitar to the next. There is no amp that satisfies everyone's requirements, and this offering is not expected to be an exception. The preamp is now at Revision-A, and although the complete schematic of the new version is not shown below, the fundamental characteristics are not changed - it still has the same tone control "stack" and other controls, but now has a second opamp to reduce output impedance and improve gain characteristics.
+<p>One major difference from any "store bought" amplifier is that if you build it yourself, you can modify things to suit your own needs. The ability to experiment is the key to this circuit, which is although presented in complete form, there is every expectation that builders will make modifications to suit themselves.
+<p>The amp is rated at 100W into a 4 Ohms load, as this is typical of a "combo" type amp with two 8 Ohm speakers in parallel. Alternatively, you can run the amp into a "quad" box (4 x 8 Ohm speakers in series parallel - see Figure 5 in Project 27b, the original article) and will get about 60 Watts. For the really adventurous, 2 quad boxes and the amp head will provide 100W, but will be much louder than the twin. This is a common combination for guitarists, but it does make it hard for the sound guy to bring everything else up to the same level.
+<p><b>Note: </b>This is a fully revised version of the original 100W guitar amp, and although there are a great many similarities, there are some substantial differences - so much so that a new version was warranted. This is (in part) because PCBs are now available for both the power and preamps. The update was sufficiently substantial to warrant retaining the original version, which is still available as <a href="project27b.htm" target="_blank">Project 27b</a>.
+<p>Typical of the comments I get regularly about the P27 power and preamp combo is this e-mail from Tony ...</p>
+
+<blockquote><i><small>I'm delighted with the P27B/27 combination. It gives me the clear, punchy, uncluttered sound I've been looking for.<br><br> 
+I've grown tired of whistles, bells and other embellishments that some anonymous guitar amp designer somewhere is telling me I've got to have. I've now got the sound I was hoping for. Love the Twin Reverb treble boost. Takes me back to 1960 !!<br><br>
+Without your module/boards and advice I'd have been playing about with breadboards for hours unsuccessfully searching for THE sound. Thanks.</small></i></blockquote>
+
+<p>This is just one of many, many e-mails I've received, but manages to sum up most of the comments in a couple of short sentences. This has been a popular project from the beginning, and is a solid and reliable performer that does not sacrifice sound or performance.</p>
+
+
+<table width="100%" border=1 bgcolor="red" style="border-collapse: collapse">
+<tr><td><center><b><font color="white">Special Warning to all Guitarists</font></b></center><br>
+<font color="white">When replacing guitar strings, <i>never</i> do so anywhere near an amplifier (especially a valve amp), nor close to a mains outlet. Because the strings are thin - the top "E" string in particular - they can easily work their way into mains outlets, ventilation slots and all manner of tiny crevices. The springiness of the strings means that they are not easily controlled until firmly attached at both ends.  This is very real - click for an <a href="guitar-string.html" target="_blank">image</a> of an Australian mains plug that was shorted out by a guitar string.</font></td></tr></table>
+
+
+<br><br><b>The Pre-Amplifier</b>
+<p>A photo of the Revision-A preamp is shown below.  You'll see that there are two dual opamps, but the schematic only shows one. This is the main part of the Rev-A update - the output section now has gain (which is easily selected), and a better buffered low output impedance. The remainder of the circuit is unchanged. Full details of the new version are available on the secure site for those who purchase the PCBs.</p>
+
+<p align="center"><img SRC="p27b-pic.jpg" ALT="photo" BORDER=1>
+<br><b><small>Guitar Pre-Amplifier Board (Revision A)</small></b></p>
+
+<p>The preamp circuit is shown in Figure 1, and has a few interesting characteristics that separate it from the "normal" - assuming that there is such a thing. This is simple but elegant design, that provides excellent tonal range. The gain structure is designed to provide a huge amount of gain, which is ideal for those guitarists who like to get that fully distorted "fat" sound.
+<p>However, with a couple of simple changes, the preamp can be tamed to suit just about any style of playing. Likewise, the tone controls as shown have sufficient range to cover almost anything from an electrified violin to a bass guitar - The response can be limited if you wish (by experimenting with the tone control capacitor values), but I suggest that you try it "as is" before making any changes. (See <a href="#bass">below</a> for more info.)</p>
+
+<p align="center"><img SRC="p27-f1.gif" ALT="Figure 1" BORDER=1 height=355 width=708>
+<br><b><small>Figure 1 - Guitar Pre-Amplifier</small></b></p>
+
+<p>From Figure 1, you can see that the preamp uses a dual opamp as its only amplification. The lone transistor is an emitter follower, and maintains a low output impedance after the master volume control. As shown, with a typical guitar input, it is possible to get a very fat overdrive sound by winding up the volume, and then setting the master for a suitable level. The overall frequency response is deliberately limited to prevent extreme low-end waffle, and to cut the extreme highs to help reduce noise and to limit the response to the normal requirements for guitar. If you use the TL072 opamp as shown, you may find that noise is a problem - especially at high gain with lots of treble boost. I strongly suggest that you use an OPA2134 - a premium audio opamp from Texas Instruments (Burr-Brown division), you will then find this quite possibly the quietest guitar amp you have ever heard (or not heard :-). At any gain setting, there is more pickup noise from my guitar than circuit noise - and for the prototype I used carbon resistors!</p>
+
+<table WIDTH="100%">
+<tr><td valign="top"><img SRC="opamp.gif" alt="opamp"></td>
+<td><small><b>Notes:</b><br>
+1 - IC pinouts are industry standard for dual opamps - pin 4 is -ve supply, and pin 8 is +ve supply.<br>
+2 - Opamp supply pins must be bypassed to earth with 100nF caps (preferably ceramic) as close as possible to the opamp itself.<br>
+3 - Diodes are 1N4148, 1N914 or similar.<br>
+4 - Pots should be linear for tone controls, and log for volume and master.</small>
+</td></tr></table>
+
+<p>The power supply section (bottom left corner) connects directly to the main +/-35V power amp supply. Use 1 Watt zener diodes (D5 and D6), and make sure that the zener supply resistors (R18 and R19, 680 ohm 1 Watt) are kept away from other components, as they will get quite warm in operation. Again, the preamp PCB accommodates the supply on the board.
+<p>The pin connections shown (either large dots or "port" symbols) are the pins from the PCB. Normally, all pots would be PCB types, and mounted directly to the board. For a DIY project, that would limit the layout to that imposed by the board, so all connections use wiring. It may look a bit hard, but is quite simple and looks fine when the unit is completed. Cable ties keep the wiring neat, and only a single connection to the GND point should be used (several are provided, so choose
+one that suits your layout. VCC is +35V from the main supply, and VEE is the -35V supply.
+<p>If you don't need all the gain that is available, simply increase the value of R6 (the first 4k7 resistor) - for even less noise and gain, increase R11 (the second 4k7) as well. For more gain, decrease R11 - I suggest a minimum of 2k2 here.
+<p>If the bright switch is too bright (too much treble), increase the 1k resistor (R5) to tame it down again. Reduce the value to get more bite. The tone control arrangement shown will give zero output if all controls are set to minimum - this is unlikely to be a common requirement in use, but be aware of it when testing.
+<p>The diode network at the output is designed to allow the preamp to generate a "soft" clipping characteristic when the volume is turned up. Because of the diode clipping, the power amp needs to have an input sensitivity of about 750mV for full output, otherwise it will not be possible to get full power even with the Master gain control at the maximum setting.
+<p>Make sure that the input connectors are isolated from the chassis. The earth isolation components in the power supply help to prevent hum (especially when the amp is connected to other mains powered equipment).
+<p>If problems are encountered with this circuit, then you have made a wiring mistake ... period. A golden rule here is to check the wiring, then keep on checking it until you find the error, since I can assure you that if it does not work properly there is at least one mistake, and probably more.
+<p>The input, effects and output connections are shown in Figure 1B.
+
+<ul>
+<li><b>Input</b> - these are quite the opposite of what you might think. The same basic idea is used on Fender amps, as well as nearly all others that have dual inputs for a channel. The Hi input is used for normal (relatively low output) guitar pickups, and is "Hi" gain. "Lo" in this design has about 14 dB less gain, and is intended for high output pickups so the first amplifier stage does not distort. The switching jack on the Hi input means that when a guitar is connected to the Lo input, it forms a voltage divider because the other input is shorted to earth.<br><br></li>
+<li><b>Effects</b> - Preamp out and power amp in connections allow you to insert effects, such as compression (for really cool sustain, that keeps notes just hanging there), reverb, digital effects units, etc. The preamp out is wired so that the preamp signal can be extracted without disconnecting the power amp, so can be used as a direct feed to the mixer if desired. This is especially useful for bass. The preamp output can also be used to slave another power amplifier (as if you need even more - you do for bass, but not guitar).<br><br></li>
+<li><b>Output</b> - A pair of output connectors is always handy, so that you can use two speaker boxes (don't go below 4 ohms though), or one can be used for a speaker level DI box. Because of the high impedance output stage, headphones cannot (and <b><i>must</i></b> not!) be connected to the speaker outputs. The 'phones will be damaged at the very least, but (and much, much worse) you could easily cause instant permanent hearing loss.</li>
+</ul>
+
+<p align="center"><img SRC="p27-f1b.gif" ALT="Figure 1b" BORDER=1 height=391 width=646>
+<br><b><small>Figure 1B - Internal Wiring</small></b></p>
+
+<p>The connections shown are very similar (ok, virtually identical :-) to those used in my prototype. Noise is extremely low, and probably could have been lower if I had made the amp a little bigger. All connectors must be fully insulated types, so there is no connection to chassis. This is very important <b><i>!</i></b>
+<p>You will see from the above diagram that I did not include the "loop breaker" circuit shown in the power supply diagram. For my needs, it is not required, for your needs, I shall let you decide. If you choose to use it, then the earth (chassis) connection marked * (next to the input connectors) must be left off.
+<p>A few important points ...
+
+<ul>
+<li>The main zero volt point is the connection between the filter caps. This is the reference for all zero volt returns, including the 0.1 ohm speaker feedback resistor. Do <b><i>not </i></b>connect the feedback resistor directly to the amp's GND point, or you will create distortion and possible instability.<br></li>
+<li>The supply for the amp and preamp must be taken directly from the filter caps - the diagram above is literal - that means that you follow the path of the wiring as shown.<br></li>
+<li>Although mentioned above, you might well ask why the pots don't mount directly to the PCB to save wiring. Simple really. Had I done it that way, you would have to use the same type pots as I designed for, and the panel layout would have to be the same too, with exactly the same spacings. I figured that this would be too limiting, so wiring it is. The wiring actually doesn't take long and is quite simple to do, so is not a problem.<br></li>
+<li>I did not include the "Bright" switch in Figure 1B for clarity. I expect that it will cause few problems.</li>
+</ul>
+
+<hr><a NAME="bass"></a><b>Bass Guitar, Electric Piano</b>
+<p>As shown, the preamp is just as usable for bass or electric piano as for rhythm or lead guitar. A couple of changes that you may consider are ...</p>
+
+<ul><li>Delete the clipping diodes (unless fuzz bass/piano is something you want, of course). If these are removed, then the output should be taken directly from the Master output pin (M-OUT in Figure 1), so leave out / change the following ...<ul>
+  <li>Delete R14, and D1-D4</li>
+  <li>Delete Q1 and associated components (C14, C15, R15, R16, R17)</li>
+  <li>Delete VR5</li>
+  <li>Change R13 from 4.7k to 100 ohms</li></ul></li>
+</ul>
+
+<p>You may also want to experiment with the tone control caps - I shall leave it to the builder to decide what to change, based on listening tests. C3 and C8 may be increased to 4.7uF to provide an extended bass response. If the gain is too high, simply increase R11 (10k would be a good starting point and will halve the gain).</p>
+
+<hr><b>Power Amplifier</b>
+<p>The power amp board has remained unchanged since it was first published in 2002. It certainly isn't broken, so there's no reason to fix it.  The photo below shows a fully assembled board (available as shown as <a href="pcb/pm27a.htm" target="_blank">M27</a>). Using TIP35/36C transistors, the output stage is deliberately massive overkill. This ensures reliability under the most arduous stage conditions. No amplifier can be made immune from everything, but this does come close.</p>
+
+<p align="center"><img SRC="p27a-pic.jpg" ALT="photo" BORDER=1>
+<br><b><small>Guitar Power Amplifier Board</small></b></p>
+
+<p>The power amp (like the previous version) is loosely based on the 60 Watt amp previously published (Project 03), but it has increased gain to match the preamp. Other modifications include the short circuit protection - the two little groups of components next to the bias diodes (D2 and D3). This new version is not massively different from the original, but has adjustable bias, and is designed to provide a "constant current" (i.e. high impedance) output to the speakers - this is achieved using R23 and R26. Note that with this arrangement, the gain will change depending on the load impedance, with lower impedances giving lower power amp gain. This is not a problem, so may safely be ignored.
+<p>Should the output be shorted, the constant current output characteristic will provide an initial level of protection, but is not completely foolproof. The short circuit protection will limit the output current to a relatively safe level, but a sustained short <i>will</i> cause the output transistors to fail if the amp is driven hard. The protection is designed <i>not</i> to operate under normal conditions, but will limit the peak output current to about 8.5 Amps. Under these conditions, the internal fuses (or the output transistors) will probably blow if the short is not detected in time.
+
+<p align="center"><img SRC="p27-f2.gif" ALT="Figure 2" BORDER=1 height=412 width=716>
+<br><b><small>Figure 2 - Power Amplifier</small></b></p>
+
+<p>Figure 2 shows the power amp PCB components - except for R26 which does not mount on the board. See Figure 1B to see where this should be physically mounted. The bias current is adjustable, and should be set for about 25mA quiescent current (more on this later). The recommendation for power transistors has been changed to higher power devices. This will give improved reliability under sustained heavy usage.</p>
+
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE CAREFULLY" height=37 width=108></td>
+<td>As shown, the power transistors will have an easy time driving any load down to 4 ohms. If you don't use the PCB (or are happy to mount power transistors off the board), you can use TO3 transistors for the output stage. MJ15003/4 transistors are very high power, and will run cooler because of the TO-3 casing (lower thermal resistance). Beware of counterfeits though! There are many other high power transistors that can be used, and the amp is quite tolerant of substitutes (as long as their ratings are at least equal to the devices shown). The PCB can accommodate Toshiba or Motorola 150W flat-pack power transistors with relative ease - if you wanted to go that way. TIP3055/2966 or MJE3055/2955 can also be used for light or ordinary duty.</td>
+</tr></table>
+
+<p>At the input end (as shown in Figure 1B), there is provision for an auxiliary output, and an input. The latter is switched by the jack, so you can use the "Out" and "In" connections for an external effects unit. Alternatively, the input jack can be used to connect an external preamp to the power amp, disconnecting the preamp. 
+<p>The speaker connections allow up to two 8 Ohm speaker cabinets (giving 4 Ohms). Do not use less than 4 ohm loads on this amplifier - it is not designed for it, and will not give reliable service! 
+<p>All the low value (i.e. 0.1 and 0.22 ohm) resistors must be rated at 5W. The two 0.22 ohm resistors will get quite warm, so mount them away from other components. Needless to say, I recommend using the PCB, as this has been designed for optimum performance, and the amp gives a very good account of itself. So good in fact, that it can also be used as a hi-fi amp, and it sounds excellent. If you were to use the amp for hi-fi, the bias current should be increased to 50mA. Ideally, you would use better (faster / more linear) output transistors as well, but even with those specified the amp performs very well indeed. This is largely because they are run at relatively low power, and the severe non-linearity effects one would expect with only two transistors do not occur because of the parallel output stage.
+<p>Make sure that the bias transistor is attached to one of the drivers (the PCB is laid out to make this easy to do). A small quantity of heatsink compound and a cable tie will do the job well. The diodes are there to protect the amp from catastrophic failure should the bias servo be incorrectly wired (or set for maximum current). All diodes should be 1N4001 (or 1N400? - anything in the 1N400x range is fine). A heatsink is not needed for any of the driver transistors.
+<p>The life of a guitar amp is a hard one, and I suggest that you use the largest heatsink you can afford, since it is very common to have elevated temperatures on stage (mainly due to all the lighting), and this reduces the safety margin that normally applies for domestic equipment. The heatsink should be rated at 0.5&deg; C/Watt to allow for worst case long term operation at up to 40&deg;C (this is not uncommon on stage).
+<p>Make sure that the speaker connectors are isolated from the chassis, to keep the integrity of the earth isolation components in the power supply, and to ensure that the high impedance output is maintained.
+
+<hr><b>Power Supply</b>
+<p><font color="#FF0000"><b>WARNING</b> - Do not attempt construction of the power supply if you do not know how to wire mains equipment.</font>
+<p>The power supply is again nice and simple, and does not even use traditional regulators for the preamp (details are on the preamp schematic in Figure 1). The power transformer should be a toroidal for best performance, but a convention tranny will do just fine if you cannot get the toroidal.</p>
+
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" alt="NOTE" height=37 width=108></td>
+<td>Do not use a higher voltage than shown - the amplifier is designed for a maximum loaded supply voltage of +/-35V, and this must not be exceeded. Normal tolerance for mains variations is +/-10%, and this is allowed for. The transformer must be rated for a nominal 25-0-25 volt output, and no more. Less is Ok if the full 100W is not needed.</td></tr></table>
+
+<p align="center"><img SRC="p27-f3.gif" ALT="Figure 3" BORDER=1 height=235 width=476>
+<br><b><small>Figure 3 - Power Supply</small></b></p>
+
+<p>The transformer rating should be 150VA (3A) minimum - there is no maximum, but the larger sizes start to get seriously expensive. Anything over 250VA is overkill, and will provide no benefit. The slow-blow fuse is needed if a toroidal transformer is used, because these have a much higher "inrush" current at power-on than a conventional transformer. Note that the 2 Amp rating is for operation from 220 to 240 Volt mains and as shown is suitable for a 200VA transformer - you will need an 4 or 5 Amp fuse here for operation at 115 Volts. Smaller transformers can use a smaller fuse - I am using a 2A slow blow fuse in my prototype (160VA transformer at 240V mains input), which seems to be fine - it allows for a maximum load of 480VA which will never be achieved except under fault conditions.
+<p>Use good quality electrolytics (50V rating, preferably 105&deg;C types), since they will also be subjected to the higher than normal temperatures of stage work. The bridge rectifier should be a 35 Amp chassis mount type (mounted on the chassis with thermal compound).
+<p>The earth isolation components are designed to prevent hum from interconnected equipment, and provide safety for the guitarist (did I just hear 3,000 drummers asking "Why ??"). The 10 Ohm resistor stops any earth loop problems (the major cause of hum), and the 100nF capacitor bypasses radio frequencies. The bridge rectifier should be rated at least 5A, and is designed to conduct fault currents. Should a major fault occur (such as the transformer breaking down between primary and secondary), the internal diodes will become short circuited (due to the overload). This type of fault is extremely rare, but it is better to be prepared than not.
+<p>Another alternative is to use a pair of high current diodes in parallel (but facing in opposite directions). This will work well, but will probably cost as much (or even more) than the bridge.
+<p>All fuses should be as specified - do not be tempted to use a higher rating (e.g. aluminium foil, a nail, or anything else that is not a fuse). Don't laugh, I have seen all of the above used in desperation. The result is that far more damage is done to the equipment than should have been the case, and there is always the added risk of electrocution, fire, or both.
+
+<p><b>Electrical Safety</b>
+<br>Once mains wiring is completed, use heatshrink tubing to ensure that all connections are insulated. Exposed mains wiring is hazardous to your health, and can reduce life expectancy to a matter of a few seconds <b><i>!</i></b>
+<p>Also, make sure that the mains lead is securely fastened, in a manner acceptable to local regulations. Ensure that the earth lead is longer than the active and neutral, and has some slack. This guarantees that it will be the last lead to break should the mains lead become detached from its restraint. Better still, use an IEC mains connector and
+a standard IEC mains lead. These are available with integral filters, and in some cases a fuse as well. A detachable mains lead is always more convenient than a fixed type (until your "roadie" loses the lead, of course. You will never do such a thing yourself :-)
+<p>The mains earth connection should use a separate bolt (do not use a component mounting bolt or screw), and must be very secure. Use washers, a lock washer and two nuts (the second is a locknut) to stop vibration from loosening the connection.
+
+<hr><b>Testing</b>
+<p><i><u>If you do not have a dual output bench power supply</u></i> 
+<br>Before power is first applied, temporarily install 22 Ohm 5W wirewound "safety" resistors in place of the fuses. Do not connect the load at this time! When power is applied, check that the DC voltage at the output is less than 1V, and measure each supply rail. They may be slightly different, but both should be no less than about 20V. If widely different from the above, check all transistors for heating - if any device is hot, turn off the power immediately, then correct the mistake.
+<p><i><u>If you do have a suitable bench supply</u></i>
+<br>This is much easier! Do not connect a load at this time. Slowly advance the voltage until you have about +/-20V, watching the supply current. If current suddenly starts to climb rapidly, and voltage stops increasing then something is wrong, otherwise continue with testing. (Note: as the supply voltage is increased, the output voltage will fluctuate initially, then drop to near 0V at a supply voltage of about +/-15V or so. This is normal.)
+<p>Once all is well, connect a speaker load and signal source (still with the safety resistors installed), and check that suitable noises (such as music or tone) issue forth - keep the volume low, or the amp will distort badly with the resistors still there if you try to get too much power out of it.
+<p>If the amp has passed these tests, remove the safety resistors and re-install the fuses. Disconnect the speaker load, and turn the amp back on. Verify that the DC voltage at the speaker terminal does not exceed 100mV, and perform another "heat test" on all transistors and resistors.
+<p>When you are satisfied that all is well, set the bias current. Connect a multimeter between the collectors of Q10 and Q11 - you are measuring the voltage drop across the two 0.22 ohm resistors (R20 and R21). The desired quiescent current is 25mA, so the voltage you measure across the resistors should be set to 11mV +/-2mV. The setting is not overly critical, but at lower currents, there is less dissipation in the output transistors. Current is approximately 2.2mA / mV, so 10mV (for example) will be 22mA.
+<p>After the current is set, allow the amp to warm up, and readjust the bias when the temperature stabilises. This may need to be re-checked a couple of times, as the temperature and quiescent current are slightly interdependent. When you are happy with the bias setting, you may seal the trimpot with a dab of nail polish.</p>
+
+<table><tr><td valign="top"><img src="note.gif" alt="NOTE"></td><td><font size="+0"><b>Note:</b> If R22 gets hot or burns out, the amplifier is oscillating! This is invariably because of poor layout, inadequate (or no) shielding between preamp and power amp, or use of unshielded leads for the amplifier input. Please see the <a href="http://sound.westhost.com/project27-pix.htm" target="_blank">photos</a> of my completed amp to see how it should be laid out.</font></td></tr></table>
+
+<hr>Please see <a href="project27b.htm">Project 27B</a> for the box designs and other useful info. <a href="project27-pix.htm">Click here</a> to see photos of the new amp.<br /><br />
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Updated 02 Feb 2002 - corrected a couple of minor errors, added testing info.</div>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Robert C White, Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Loudspeaker Compliance Scaling - Fitting just about any driver to just about any alignment">
+	<!-- Loudspeaker Compliance Scaling - Fitting just about any driver to just about any alignment -->
+	<meta name="keywords" content="loudspeaker, compliance, thiele, small, enclosure, vent, port, impedance, amplifier, theory, design, audio, diy, fi-fi, electronic">
+	<title>Loudspeaker Compliance Scaling</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"> <!-- td { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+<script language="javascript" type="text/javascript">
+<!--
+/****************************************************
+     Author: Eric King
+     Url: http://redrival.com/eak/index.shtml
+     This script is free to use as long as this info is left in
+     Featured on Dynamic Drive script library (http://www.dynamicdrive.com)
+****************************************************/
+var win=null;
+function NewWindow(mypage,myname,w,h){
+{LeftPosition=(screen.width)?(screen.width-w)/2:100;TopPosition=(screen.height)?(screen.height-h)/2:100;}
+settings='width='+w+',height='+h+',top='+TopPosition+',left='+LeftPosition+',scrollbars=yes,location=no,directories=no,status=no,menubar=no,toolbar=no,resizable=no';
+win=window.open(mypage,myname,settings);}// -->
+</script>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Compliance Scaling&nbsp;</td></tr></table>
+
+<p align="center"><b>Compliance Scaling and Other Techniques</b><br />
+(Fitting just about any driver to just about any alignment)<br />
+Robert C White / Rod Elliott<br />
+<small>05 June 2005</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm"  OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" alt="Articles" BORDER=0></a> <b>Articles Index</b>
+<br><a href="../index2.html"  OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" alt="Index" BORDER=0></a><b>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#s1">1 &nbsp; Introduction</a></li>
+  <li><a href="#s2">2 &nbsp; T-S Parameters and Compliance</a></li>
+  <li><a href="#s3">3 &nbsp; Using The Transforms</a></li>
+  <li><a href="#s4">4 &nbsp; Using the Qb5 Table</a></li>
+  <li><a href="#s5">5 &nbsp; Calculating kp</a></li>
+  <li><a href="#s6">6 &nbsp; Increasing Qt</a></li>
+  <li><a href="#s7">7 &nbsp; Auxiliary Filter Damping</a></li>
+  <li><a href="#s8">8 &nbsp; A small Satellite Surround Speaker</a></li>
+  <li><a href="#s9">9 &nbsp; The B5 Alignments</a></li>
+  <li><a href="#s10">10 &nbsp; References</a></li>
+</ul>
+
+<hr><a id="s1"></a><b>1 &nbsp; Introduction</b>
+<p>Since Thiele published his seminal paper on the design of reflex enclosures [<a href="#ref">1</a>], his original table of 28 'alignments' has been greatly extended, and these are widely available in both speaker design cook books and on the net.</p>
+<p>The impression that seems to be given about these alignments is that they are chiseled in stone, and that if one has a particular driver then one is stuck with the f3 and box volume dictated by the alignment. This however is not true. The fact that the driver's suspension compliance is very insensitive to system parameters, i.e. ...</p>
+
+<blockquote><b>&alpha;, &nbsp; h, &nbsp; f3</b></blockquote>
+
+<p>means that very many alignments exist that are close to but not quite the 'classical' ones usually published and, as White states, 'virtually any driver can be fitted into an alignment', [<a href="#ref">2</a>, p.892]. Thiele states that from certain points of view the suspension compliance is <i>'unimportant'</i> (his italics), [<a href="#ref">1</a>, p.188].</p>
+
+<p>The miracle of fitting just about any driver to just about any alignment is performed by a procedure called 'compliance scaling', and was, as far as the author is aware first published by Keele, in a 1974 AES paper, [<a href="#ref">3</a>].</p>
+
+<p>In addition to compliance scaling two other techniques are outlined, electronically increasing Qt and modifying auxiliary filter damping factor.</p>
+
+<p>Programs available as downloads such as WinISD do a good job of system modeling, the difficulty is that once one strays from the standard alignments that these usually have as defaults, one is in the dark as to what to change and by how much, in order to achieve the desired response.</p>
+
+<p>What follows is a simple method that yields some figures to enter into such programs to give a desired result, and allows you to design a box with a particular driver to achieve a target f3, and or a target box volume, also included is a method of increasing Qt.</p>
+
+<p>But first a word about compliance in relation to the Thiele - Small parameters.</p>
+
+<hr><a id="s2"></a><b>2 &nbsp; T-S Parameters and Compliance</b>
+<p>The T-S parameters have become the standard way of specifying the performance parameters of low frequency moving coil drivers. This is because they clump the fundamental physical properties together in such a way as to ease the problem of calculation and specification.</p>
+
+<p>they are related to the physical properties by the following relationships ...</p>
+
+<blockquote><b>Vas = <i>po</i>C&sup2; CmsSd&sup2;<br>
+Qt = &radic;(Mms / Cms) (1 / Rmt)<br>
+Fs = 1 / (2&pi; &radic;(Mms Cms)</b></blockquote>
+
+<p>Where <b>Cms</b> = suspension compliance (m/N), <b>Mms</b> = moving mass (kg), <b>Sd</b> = diaphragm area (m&sup2;), <b><i>po</i></b> = density of air (1.2kg / m&sup3;), and <b>c</b> = speed of sound (343m/s).</p>
+
+<p>As can be seen compliance plays an important role in all of the above, and also in the system parameters, <b>&alpha;, h, f3</b></p>
+
+<p>As stated by Keele, [<a href="#ref">4</a> p.254], typical batches of drivers have a 10-20% variation in T-S parameters, and this is largely due to differences in suspension compliance, but luckily for the speaker designer this has little effect upon the frequency response in a given box because of the insensitivity of this to alignment.</p>
+
+<p>The actual scaling procedure entails applying a set of transforms to a 'seed' alignment to give use a new set of system parameters, and this uses a 'normalised compliance' constant, <b>Cn</b> defined as ...</p>
+
+<blockquote><b>Cms / Cms'</b></blockquote>
+
+<p>Where <b>Cms</b> is the driver compliance, and <b>Cms'</b> is the driver compliance that would be needed for the driver to be 'correct' for the alignment. <b>Cn</b> then gives us the transform set ...</p>
+
+<blockquote><b>h = h' &radic;Cn<br>
+Qt = Qt' / &radic;Cn<br>
+&alpha; = &alpha;'Cn<br>
+f3 / fs =  f3' / fs' &radic;Cn<br>
+fa = fa' &radic;Cn</b></blockquote>
+
+<p>Applying these transforms to a standard B4 alignment gives the following results, (Data copied from, [<a href="#ref">2</a>, p.892]), for the Cn values of 0.25, 1.0, 4.0 ...</p>
+
+<p align="center"><img src="cs-f1.gif" border="1" alt="Figure 1"><br><b><small>Figure 1 - Transformed B4 Alignments</small></b></p>
+
+
+<p>In the above graph the blue plot is for a Cn = 0.25, this corresponds to a Qt of 0.624, the magenta line is for Cn = 1, Qt = 0.312, the exact B4 alignment, and the green is for a Cn of 4, Qt being 0.156  It can be seen that the greatest deviation is for low Cn values. Figure 2 is for a filter assisted B6 alignment ...</p>
+
+<p align="center"><img src="cs-f2.gif" border="1" alt="Figure 2"><br><b><small>Figure 2 - As Above, With Filter Correction</small></b></p>
+
+<p>The Cn values are the same for this plot, and the low Cn plot is somewhat smoother than for the non filter assisted case. Overall the Qt can vary over a wide range without any significant change in overall frequency response and at the low frequencies involved this slight aberration is completely swamped by room effects.</p>
+
+<hr><a id="s3"></a><b>3 &nbsp; Using The Transforms</b>
+<p>We usually have a specific f3 or box volume in mind when we design a speaker. The techniques that follow allow you to obtain a specific f3 or box volume. Also discussed is the method of alignment adjustment by means of increasing power amplifier source impedance by means of current feedback around the power amplifier, (see Rods article). To make it easier the tables that follow contain two constants, one enables a particular f3 to be obtained, another a particular box size. From the transforms we can write f3 as ...
+
+<blockquote><b>f3 = (fs / f3' Qt') / (Qt fs')</b></blockquote>
+
+<p>This separates into two constants, one characteristic of the enclosure, the other of the driver, these are ...</p>
+
+<blockquote><b>kbf = (f3' qt') / fs'</b> &nbsp; and &nbsp; <b>kdf = fs / Qt</b></blockquote>
+
+<p>Likewise the expression for Vb ...</p>
+
+<blockquote><b>Vb = (Vas Qt&sup2; Vb') / (Vas Qt'&sup2;)<br>
+kbv = Vb' / (Vas x Qt'&sup2;)</b> &nbsp; and &nbsp; <b>kdv = Vas x Qt&sup2;</b></blockquote>
+
+<p>Table #1 has the values of kbv and kbf for the Qb5 alignments (alignment table in 'Satellites and Subs' article).</p>
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<tr><td><b>Qt</b></td><td><b>kbv</b></td><td><b>kbf</b></td><td></td><td><b>Qt</b></td><td><b>kbv</b></td><td><b>kbf</b></td><td></td><td><b>Qt</b></td><td><b>kbv</b></td><td><b>kbf</b></td></tr>
+<tr><td>0.324</td><td>4.789</td><td>0.303</td><td></td><td>0.445</td><td>9.182</td><td>0.445</td><td></td><td>0.514</td><td>7.101</td><td>0.529</td></tr>
+<tr><td>0.318</td><td>4.702</td><td>0.318</td><td></td><td>0.425</td><td>7.372</td><td>0.490</td><td></td><td>0.517</td><td>7.099</td><td>0.533</td></tr>
+<tr><td>0.311</td><td>4.618</td><td>0.329</td><td></td><td>0.415</td><td>6.783</td><td>0.505</td><td></td><td>0.520</td><td>7.112</td><td>0.536</td></tr>
+<tr><td>0.303</td><td>4.546</td><td>0.338</td><td></td><td>0.405</td><td>6.351</td><td>0.528</td><td></td><td>0.523</td><td>7.127</td><td>0.540</td></tr>
+<tr><td>0.295</td><td>4.464</td><td>0.345</td><td></td><td>0.394</td><td>6.009</td><td>0.541</td><td></td><td>0.526</td><td>7.157</td><td>0.543</td></tr>
+<tr><td>0.287</td><td>4.378</td><td>0.351</td><td></td><td>0.384</td><td>5.685</td><td>0.554</td><td></td><td>0.530</td><td>7.177</td><td>0.547</td></tr>
+<tr><td>0.279</td><td>4.295</td><td>0.356</td><td></td><td>0.373</td><td>5.425</td><td>0.565</td><td></td><td>0.534</td><td>7.201</td><td>0.550</td></tr>
+<tr><td>0.271</td><td>4.217</td><td>0.361</td><td></td><td>0.362</td><td>5.202</td><td>0.575</td><td></td><td>0.538</td><td>7.258</td><td>0.554</td></tr>
+<tr><td>0.263</td><td>4.147</td><td>0.365</td><td></td><td>0.352</td><td>4.982</td><td>0.585</td><td></td><td>0.543</td><td>7.294</td><td>0.558</td></tr>
+<tr><td>0.255</td><td>4.088</td><td>0.368</td><td></td><td>0.342</td><td>4.792</td><td>0.594</td><td></td><td>0.549</td><td>7.340</td><td>0.562</td></tr>
+<tr><td>0.247</td><td>4.041</td><td>0.370</td><td></td><td>0.331</td><td>4.659</td><td>0.599</td><td></td><td>0.555</td><td>7.412</td><td>0.566</td></tr>
+<tr><td>0.240</td><td>3.975</td><td>0.373</td><td></td><td>0.322</td><td>4.498</td><td>0.608</td><td></td><td>0.562</td><td>7.503</td><td>0.570</td></tr>
+<tr><td>0.233</td><td>3.921</td><td>0.376</td><td></td><td>0.312</td><td>4.392</td><td>0.612</td><td></td><td>0.569</td><td>7.626</td><td>0.574</td></tr>
+<tr><td>0.226</td><td>3.880</td><td>0.378</td><td></td><td>0.303</td><td>4.280</td><td>0.618</td><td></td><td>0.577</td><td>7.781</td><td>0.577</td></tr>
+<tr><td>0.219</td><td>3.852</td><td>0.379</td><td></td><td>0.294</td><td>4.190</td><td>0.623</td><td></td><td>0.587</td><td>7.973</td><td>0.581</td></tr>
+<tr><td>0.213</td><td>3.804</td><td>0.381</td><td></td><td>0.286</td><td>4.092</td><td>0.628</td><td></td><td>0.598</td><td>8.249</td><td>0.584</td></tr>
+<tr><td>0.207</td><td>3.767</td><td>0.383</td><td></td><td>0.278</td><td>4.013</td><td>0.632</td><td></td><td>0.610</td><td>8.614</td><td>0.587</td></tr>
+<tr><td>0.201</td><td>3.742</td><td>0.384</td><td></td><td>0.270</td><td>3.953</td><td>0.635</td><td></td><td>0.625</td><td>9.143</td><td>0.589</td></tr>
+<tr><td>0.196</td><td>3.692</td><td>0.386</td><td></td><td>0.262</td><td>3.910</td><td>0.637</td><td></td><td>0.643</td><td>9.913</td><td>0.592</td></tr>
+<tr><td>0.190</td><td>3.692</td><td>0.386</td><td></td><td>0.255</td><td>3.851</td><td>0.640</td><td></td><td>0.664</td><td>11.228</td><td>0.594</td></tr>
+<tr><td>0.185</td><td>3.665</td><td>0.387</td><td></td><td>0.249</td><td>3.778</td><td>0.645</td><td></td><td>0.691</td><td>13.962</td><td>0.595</td></tr></table><b><small>Table 1 - Qb5 Alignments</small></b>
+</center>
+
+<a id="s4"></a><b>4 &nbsp; Using the Qb5 Table</b><br>
+In recent years the tower type loudspeaker system has become popular, these have the major advantage of a high SAF (Spouse Acceptance Factor). The larger of these generally has two 200mm drivers in either a two, two and a half or three way configuration. Two 200mm drivers have sufficient cone area and excursion to provide useful bass down to 30Hz, especially if used in a filter assisted alignment. A  typical high quality 200mm driver is the Peerless Model CSX 217H, from the data in WinISD, This has ...
+
+<blockquote><b>kdf = 27.4 / 0.281 = fs / Qt = 97.51</b></blockquote>
+
+<p>This needs ...</p>
+
+<blockquote><b>kbf = 30 / 97.51 = 0.308</b></blockquote>
+
+<p>From the QB 5 Class I alignment table the suitable alignment is No. 1 with a <b>kbf</b> = 0.303, so ...</p>
+
+<blockquote><b>&radic;Cn = 0.324 / 0.281 = 1.153</b>, therefore <b>Cn = 1.329<br>
+a = 1.989 x 1.329 = 2.64<br>
+h = 0.995 x   1.153 = 1.322<br>
+fa = 0.944 x 1.153 = 1.255</b></blockquote>
+
+<p>multiplying or dividing the a, h and fa data in the QB5 table by <b>Cn</b> or <b>&radic;Cn</b> as appropriate, gives the transformed values ...</p>
+
+<blockquote><b>Vb = (2 x 81.58) / 2.64 = 61.8 litres<br>
+Fb = 27.4 x 1.322 = 36.2 Hz<br>
+Fa = 27.4 x 1.255 = 34.4 Hz</b></blockquote>
+
+<p>Putting these figures into WinISD gives the result ...</p>
+
+<p align="center"><img src="cs-f3.png" border="1" alt="Figure 3"><br><b><small>Figure 3 - WinISD Plot of Scaled Peerless Box</small></b></p>
+
+<p>By using the compliance scaling and filter assistance this is a much better result than would normally be expected. The filter is a second order high-pass, having a -3dB frequency of 29.8Hz and a Q of 2.141</p>
+<p>Should anyone simply select the same driver and run WinISD, the optimum result is actually far from optimal, having a -3dB frequency of almost 47Hz. While the box is smaller, it will be sadly lacking in the bottom end.</p>
+
+<hr><a id="s5"></a><b>5 &nbsp; Calculating kp</b>
+
+<p>Small's power handling parameter 'kp', is a very useful tool in determining the excursion limited power handling of a particular system. I have yet to find any reference to it on the Net except for my QB5 alignment article, I suspect this is because kp is difficult and tedious to calculate, and programs like WinISD provide a plot of maximum SPL. However, I still like to check by calculating kp, and the simplest way I have found is as follows ...</p>
+
+<ul><li>Enter the data for the exact QB5 alignment for your driver</li>
+<li>Find pk. Excursion for this</li>
+<li>Enter the data for your transformed alignment</li>
+<li>Find pk. Excursion for this</li></ul>
+
+<p>Divide the peak excursion for your transformed alignment by the 'correct' one, and substitute in Small's expression, [<a href="#ref">5</a>, P.439] ...</p>
+
+<blockquote><b>kp1 = 0.425 / ((f3 / fs)<sup>4</sup> j(xmax)<sup>2</sup>)</b></blockquote>
+
+<p>Where kp' is the correct 'seed',  kp</p>
+
+<blockquote><b>J(xmax)' = (0.424 / ((f3 / fs)<sup>4</sup> / kp)<sup>0.5</sup><br>
+J(xmax) = ((pkx / pkx')  j(max))'<br>
+Kp' = 0.425 / ((f3' / fs')<sup>4</sup> j(xmax)'<sup>2</sup>)</b></blockquote>
+
+<p>In our first example the low pk. Excursion is = 1.69mm and the high pk = 0.873mm, an average of 1.28mm. The 'correct' alignment has low pk = 0.532 and high pk = 0.977, averaging 0.755</p>
+
+<p>The correct alignment has a kp of 9.349, giving j(max.)' of 0.131, j(max) is then = 0.222 giving Kp = 5.98</p>
+
+<p>Giving a conservatively rated output of around 105db Peak for a pair before the linear excursion limit is reached, the SLS 213 driver will give more output before excursion limiting, but at the expense of a box twice as large. It should also be noted that since the class I alignments have an average of  6db of boost at around the f3, they need around four times the power that the nominal efficiency would indicate, this is the price we pay for a small box.</p>
+
+<hr><a id="s6"></a><b>6 &nbsp; Increasing Qt</b>
+<p>We can increase Qt by increasing Qe, and this can be done by increasing the driving amplifiers output impedance by means of current feedback,[<a href="#ref">6</a>], (Rods article).</p>
+<p>If we write Qe as [<a href="#ref">7</a>] ...</p>
+
+<blockquote><b>Qe = Rvc / Lces ws</b></blockquote>
+
+<p>We can increase Qe by adding a source resistance to Rvc</p>
+
+<blockquote><b>Qe' = (Rvc + Ro) / Lces ws</b></blockquote>
+
+<p>If the Qe we need is = Qe', then The required Qe' is given by ...</p>
+
+<blockquote><b>Qe' = 1 / (1 / Qt' - 1 / Qm)</b></blockquote>
+
+<p>Where Qt'= the required Qt., The required source resistance is then ...</p>
+
+<blockquote><b>Kl = Rvc/Qe<br><br>
+Ro = Qe'Kl - Rvc</b></blockquote>
+
+<p>[<img src="esp-eot.gif" alt="ESP">] &nbsp; The following diagram shows the essentials of modifying the amplifier's output impedance, giving a circuit that is relatively easily scaled for any loaded gain and a defined output impedance. The calculations for this are fairly straightforward, but only if you can accept an apparently random loaded gain. If you want to specify the loaded gain, the calculations become extremely tedious. While a far better mathematician than the editor may be able to derive a suitable equation, I was unable to do so, and as a result have written a small Visual Basic application to perform the maths needed to arrive at a satisfactory set of component values. This is still under development to get it right - the full details will be published in a second part to the current page.</p>
+<p>Although I did try this with a spreadsheet (and that's where the formulae I eventually used came from), it is a reiterative process. Those wishing to experiment are encouraged to do so. All the necessary formulae and the finalised calculator will be available with Part 2 of this article.</p>
+<p>Essentially, the calculations involve solving for an unbalanced Wheatstone bridge network, with specific desired end results. Of course you can always cheat and use a series resistor of the appropriate value, but this will have to dissipate considerable power with any amplifier capable of reasonable output power.</p>
+<p>In essence, the determination of the correct values is not easy. Because we generally need to specify the output impedance, as well as the normal loaded gain (so the amp is in line with others in the system), we end up with too many unknown variables - the circuit may look simple, but calculations for it are not.</p>
+
+<p align="center"><img src="cs-f4.gif" border="1" alt="Figure 4"><br>
+<b><small>Figure 4 - Amplifier With Defined Z<sub>out</sub></small></b></p>
+
+<p>The circuit above is almost identical to that shown in the article / project <a href="/project56.htm">Variable Amplifier Impedance</a>. By varying R2, R3 and R4, it is possible to achieve a wide range of impedances that will be usable in this application. The circuit can be made variable, however this is not normally useful except for ongoing design and experimentation.</p>
+
+<p align="center"><img src="cs-zout.png" alt="calculator"><br>
+<small><b>Screen Shot of the Calculator with the Values Needed For this Example</b></small></p>
+
+<p>The above screen shot shows the values determined for the example presented here using the first draft of the calculator program. Standard values were used for R2 and R3, and the results checked as shown. The difference between the desired 1.68 ohms and the calculated 1.71 ohms is minimal and will not have a significant effect on the result.</p>
+<p>Note that the loudspeaker driver's nominal impedance is used to determine the loaded gain, and this is useful because nearly all ESP amps are designed with a gain of 23 (approx. 27dB). The calculator program is (unfortunately) not available as a download. Although the process seemed simple enough when I started, something went wrong in the internal calculations and I was unable to get it to work reliably. I may be forced to try it again at some stage, but since I classify myself as a "recreational" programmer, I don't recommend that you hold your breath <img src="grin.gif" alt=":-)">.</p>
+<p>As shown above, the values apply for the following example. R1 is 22k as used in most ESP amplifier designs, and the feedback resistor (R4) is 0.1 ohm. Using 2.4k (2 x 1.2k in series) for R2 and 1.2k for R3, the output impedance is 1.71 Ohms, and the loaded gain is 23.29 - almost exactly the same as other amps as may be used in the system. &nbsp; [/<img src="esp-eot.gif" alt="ESP">]</p>
+
+<p>This scheme is especially useful for increasing the Qt of low Qt high efficiency drivers, such as the JBL K140. This driver is still much available on the internet as a re-cone, and is especially designed for bass guitar applications. If we put it into a filter assisted alignment the result is an increase power handling. Increasing Qt has the advantage  that the drivers high efficiency is preserved whilst achieving a low enough f3 in a small box. We want f3 = 40Hz for the usual bass guitar tuning.</p>
+
+<p>Looking at the QB5 class I alignments the required f3 / fs of 1.333 is achieved by the alignment No. 7, this needs a Qt of  0.271, and a box of 92 litres ...</p>
+
+<blockquote><b>Qe' = 1 / (1 / 0.271 - 1 / 5) = 0.287<br>
+Ro = 1.68</b></blockquote>
+
+<p>The above values are perfect, with only the smallest discrepancy which is of no consequence in the final design. WinISD gives the following ..</p>
+
+<p align="center"><img src="cs-f5.png" border="1" alt="Figure 5"><br><b><small>Figure 5 - WinISD Plot of JBL K140 With Modified Qt</small></b></p>
+
+<p>This is achieved by using the amplifier set for an output impedance of 1.7 Ohms, and with a second order 40Hz high-pass filter having a Q of 1.658. It is worth noting that using any one or two of the techniques described will not work - the final result is derived only by the combination of compliance scaling, elevated source impedance and filter assistance applied as a complete system solution.</p>
+
+<hr><a id="s7"></a><b>7 &nbsp; Auxiliary Filter Damping</b>
+<p>Thiele points out that all other things being equal, doubling Qt results in a +6db peak at the resonant frequency, [<a href="#ref">1</a>], i.e.
+
+<blockquote><b>20 Log(Qt / Qt')</b></blockquote>
+
+From this we can fit a driver to a particular filter assisted alignment by modifying the fa damping by the amount
+
+<blockquote><b>dbfa' = dbfa - (20 Log(Qt / Qt'))</b></blockquote>
+
+<hr><a id="s8"></a><b>8 &nbsp; A small Satellite Surround Speaker</b>
+<p>With the advent of five and now seven speaker surround systems, there is an increasing need for small speaker systems with good power handling, and the all important SAF index improves with less intrusive enclosures. A typical high quality 150mm. Bass/mid. Driver is the Vifa P17WJ. In this case we fit it to a box  that will give an f3 of around 80Hz, making it suitable for use as a satellite, and use a QB5 class II alignment, this optimizes excursion limited power handling.</p>
+
+<p>If we use the QBQ class II alignment No. 14, we have </p>
+
+<blockquote><b>Vb = 12.6 litres, fb = 68.6 Hz, Fa = 78.1 Hz, 1/Qfa = 1.9</b></blockquote>
+
+<p>Giving the WinISD plot ...</p>
+
+<p align="center"><img src="cs-f6.png" alt="Figure 6"><br><b><small>Figure 6 - WinISD Plot of QB5 Alignment Response</small></b></p>
+
+<hr><a id="s9"></a><b>9 &nbsp; The B5 Alignments</b>
+<p>In some cases we only want to use a simple passive first order filter, in others we only want to use two passive first order sections, in which case we have a fixed auxiliary filter damping factor of two. This is characteristic of the auxiliary filters in the QB5 class III alignments. In the case of being able to use only a single first order section,  the B5 alignments [<a href="#ref">8</a>], are useful, these are reproduced in table #2.</p>
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<colgroup span=7 width="14%">
+
+<tr><td><b>Qt</b></td><td><b>Vas/vb</b></td><td><b>Fb/fs</b></td><td><b>Fa/fs</b></td><td><b>F3/fs</b></td><td><b>kbf</b></td><td><b>kbv</b></td></tr>
+<tr><td>1.320</td><td>0.0438</td><td>0.695</td><td>0.431</td><td>0.651</td><td>0.859</td><td>13.10</td></tr>
+<tr><td>1.230</td><td>0.0561</td><td>0.709</td><td>0.455</td><td>0.66</td><td>0.812</td><td>11.78</td></tr>
+<tr><td>1.120</td><td>0.0711</td><td>0.725</td><td>0.485</td><td>0.671</td><td>0.752</td><td>11.21</td></tr>
+<tr><td>1.010</td><td>0.0914</td><td>0.745</td><td>0.526</td><td>0.686</td><td>0.693</td><td>10.725</td></tr>
+<tr><td>0.881</td><td>0.126</td><td>0.774</td><td>0.588</td><td>0.712</td><td>0.627</td><td>10.225</td></tr>
+<tr><td>0.791</td><td>0.163</td><td>0.801</td><td>0.645</td><td>0.736</td><td>0.582</td><td>9.805</td></tr>
+<tr><td>0.727</td><td>0.200</td><td>0.824</td><td>0.694</td><td>0.76</td><td>0.553</td><td>9.460</td></tr>
+<tr><td>0.666</td><td>0.251</td><td>0.852</td><td>0.746</td><td>0.79</td><td>0.526</td><td>8.920</td></tr>
+<tr><td>0.633</td><td>0.289</td><td>0.870</td><td>0.781</td><td>0.811</td><td>0.513</td><td>8.636</td></tr>
+<tr><td>0.564</td><td>0.406</td><td>0.917</td><td>0.862</td><td>0.871</td><td>0.491</td><td>7.743</td></tr>
+<tr><td>0.529</td><td>0.499</td><td>0.948</td><td>0.917</td><td>0.915</td><td>0.484</td><td>7.161</td></tr>
+<tr><td>0.508</td><td>0.567</td><td>0.967</td><td>0.943</td><td>0.944</td><td>0.480</td><td>6.834</td></tr>
+<tr><td>0.497</td><td>0.614</td><td>0.979</td><td>0.962</td><td>0.964</td><td>0.479</td><td>6.594</td></tr>
+<tr><td>0.489</td><td>0.645</td><td>0.987</td><td>0.98</td><td>0.977</td><td>0.478</td><td>6.484</td></tr>
+<tr><td>0.478</td><td>0.701</td><td>1.00</td><td>1.00</td><td>1.00</td><td>0.478</td><td>6.243</td></tr>
+<tr><td>0.435</td><td>0.97</td><td>1.05</td><td>1.088</td><td>1.10</td><td>0.479</td><td>5.448</td></tr>
+<tr><td>0.392</td><td>1.39</td><td>1.10</td><td>1.20</td><td>1.25</td><td>0.490</td><td>4.682</td></tr>
+<tr><td>0.346</td><td>2.03</td><td>1.13</td><td>1.348</td><td>1.48</td><td>0.512</td><td>4.115</td></tr>
+<tr><td>0.328</td><td>2.36</td><td>1.13</td><td>1.42</td><td>1.60</td><td>0.525</td><td>3.934</td></tr>
+<tr><td>0.317</td><td>2.55</td><td>1.13</td><td>1.466</td><td>1.68</td><td>0.533</td><td>3.902</td></tr>
+<tr><td>0.309</td><td>2.72</td><td>1.12</td><td>1.506</td><td>1.76</td><td>0.544</td><td>3.850</td></tr>
+<tr><td>0.298</td><td>2.94</td><td>1.12</td><td>1.56</td><td>1.86</td><td>0.554</td><td>3.830</td></tr>
+</table><small><b>Table 2 - B5 Alignments</b></small>
+</center>
+
+<p>A driver that is popular for computer speakers is the Tangband,  W3-926S. Using a B5 alignment with an F3 = 100Hz. Gives a box of 4.7 litres, tuned to 105Hz. This achieves its rated x<sub>peak</sub> with <i>one Watt</i> of input. If you put this driver into a sealed box the maximum output at 100Hz is 77.9dB, with the B5 box this is raised to 89.9db. Using a QB5 class III box gives a rather large 7.5litres.</p>
+<p>It also should be noted that putting a capacitor between 150 and 220 uF. in series with the driver only changes the frequency response by around 2db. As shown in the Matlab plot of Figure 7 the frequency response with 220uF is not as smooth as with an isolated filter, but is within acceptable limits.</p>
+
+<p align="center"><img src="cs-f7.gif" alt="Figure 7" border="1"><br>
+<b><small>Figure 7 - Capacitor Coupling (Non-Isolated Filter)</small></b></p>
+
+<p>In some instances it is convenient to provide one isolated and one non isolated filter, i.e. by means of an input coupling capacitor on the amplifier, and a capacitor in series with the driver. Using a first order isolated filter of twice the non isolated filters f3 gives a plot of Figure 8.</p>
+
+<p align="center"><img src="cs-f8.gif" alt="Figure 8" border="1"><br>
+<b><small>Figure 8 - Isolated Plus Non-Isolated Filter</small></b></p>
+
+<p>As illustrated in this  article it is possible to fit just about any driver to just about any alignment using the three techniques outlined, or indeed a combination of them.</p>
+<p>All efforts have been made to make the calculations of the simple plug in the numbers variety, I apologise where this is not possible. Anybody is at liberty to turn this article into a spread sheet, or some other easy to use form, do not ask me for this however - programming computers is a thing that I dislike, and  avoid at all costs.</p>
+
+
+<hr><a id="s10"></a><a id="ref"></a><b>10 &nbsp; References</b>
+<ol>
+  <li>A.N. Thiele, "Loudspeakers in vented boxes",  (reprint) proc. IREE (Australia), Vol.22, (Aug.,1961)
+  <li>J.N. White, "Loudspeaker athletics", AES Journal, Vol. 27, No. 11, (November, 1979)
+  <li>D.B. Keele Jnr, "A new set of sixth-order vented box loudspeaker alignments", AES Journal, Vol. 23, (June, 1975)
+  <li>D.B. Keele Jnr, "Sensitivity of Thiele's vented loudspeaker enclosure alignments to parameter variation", AES Journal, Vol. 21 (May, 1973)
+  <li>R.H. Small, "Vented box loudspeaker systems Part II: Large signal analysis", AES Journal, Vol. 21, No. 6 (July/August, 1973)
+  <li>R. Elliott, "Effects of source impedance on loudspeaker drivers", Articles, www.sound.com.au
+  <li>J.E. Benson, "An introduction to the design of filtered loudspeaker systems", AWA Technical review, Vol.15, No.1 (1973)
+  <li>R.A.R. Bywater &amp; H.J. Wiebell, "Filter assisted loudspeaker systems with enclosure losses", "Loudspeakers, an  Anthology, Volume 2" AES New York,  1984,  pp.310-321
+</ol><br>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Robert C White and Rod Elliott, and is Copyright &copy; 2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The authors grant the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Robert C White and Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 04 Jun 2005</div>
+</body>
+</html>

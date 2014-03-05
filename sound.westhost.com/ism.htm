@@ -1,0 +1,356 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta id="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta id="GENERATOR" content="Mozilla/4.77 [en] (Win98; U) [Netscape]">
+   <meta id="description" content="Current sources, sinks and mirrors - how they are used and what they are used for">
+   <!-- Current sources, sinks and mirrors - how they are used and what they are used for -->
+   <meta id="keywords" content="audio, amplifier, sound, hi-fi, schematic, electronic, xover, crossover, speaker, power, supply, projects, current, mirror, source, sink">
+   <title>Current Sources, Sinks and Mirrors in Audio</title>
+   <LINK REL=StyleSheet HREF="esp.css" TYPE="text/css" MEDIA="screen, print">
+   <style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Using Current Sources, Sinks &amp; Mirrors In Audio&nbsp;</td></tr></table>
+
+<p align="center">Rod Elliott<br /><small>Last Updated 25 Apr 2007</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="index2.html" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br><a href="articles.htm" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Articles" BORDER=0></a><b>Articles Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#intro">Introduction</a></li>
+  <li><a href="#p1">1.0 - The Perfect Current Source</a></li>
+  <li><a href="#p2">2.0 - Common Emitter Amplifier</a></li>
+  <li><a href="#p3">3.0 - Local Feedback</a></li>
+  <li><a href="#p4">4.0 - The Current Source As A Load</a></li>
+  <li><a href="#p5">5.0 - Real-Life Current Sources</a><ul>
+    <li><a href="#51">5.1 - Bootstrap Current Source</a></li>
+    <li><a href="#52">5.2 - Voltage References</a></li></ul></li>
+  <li><a href="#p6">6.0 - Circuit Applications</a></li>
+  <li><a href="#p7">7.0 - Current Mirrors</a></li>
+  <li><a href="#p8">8.0 - Differential Pair (Long Tailed Pair)</a></li>
+  <li><a href="#outro">Conclusion</a></li>
+  <li><a href="#ref">References</a></li>
+</ul>
+
+<hr><a id="intro"></a><b>Introduction</b>
+<p>Integral to most audio amplification systems, the current source and current sink are indispensable. For the purposes of this article, sources and sinks shall be treated as being the same thing - which they are, depending upon how one views the circuit. In essence, the functionality (and purpose) are identical - force the current through another device to be constant, as long as the voltage is within the boundaries of the power supply (less some voltage drop across the source / sink).
+
+<p>Current mirrors have the ability to greatly increase open loop gain and linearity, giving better closed loop performance. This short article looks at the various types, from the theoretical "perfect" device, through various practical examples.</p>
+
+<p>Throughout this article, I have neglected the Early effect, where the gain of a bipolar transistor is affected by the emitter-collector voltage. Although this is very real and does influence real circuits to a greater or lesser degree, it needlessly complicates the descriptions and explanations. As a result of the Early effect (which is named after James M. Early), a basic theoretical analysis not including it will predict better performance than will actually be achieved in practice. While this could be a real problem with precision or instrumentation applications, the effect on audio amplifier performance will generally be insignificant.
+
+<p><small>Some of the simulations used in the original version of this article were done with an older simulator that had rather basic (and not very accurate) models for transistors. This generally resulted in somewhat optimistic figures for maximum gain and distortion. These have been corrected, although the general concepts and descriptions remain pretty much unaffected.</small></p>
+
+<hr><a id="p1"></a><b>1.0 - The Perfect Current Source</b>
+<p>A perfect current source can be constructed very simply, requiring only an infinite voltage and an infinite resistance. Unfortunately, this will also provide an infinite current (which will be infinitely constant), but is (infinitely?) excessive for an infinite number of applications. <img src="grin.gif" alt=":-)">
+
+<p>Sorry, I was being facetious, but the principle is nonetheless sound. In reality, a sufficiently high voltage can produce a current through a varying resistance that is essentially constant, provided that the voltage swing on the resistance is a small fraction (&lt;100th) of the supply voltage. This will provide an accuracy of 1% at 100:1 voltage ratio.
+
+<p>This is a method that was common years ago, and I still have (and use) a transistor tester that uses this method to provide a constant base current to the device under test. With a supply voltage of 250V feeding the base-emitter junction (0.65V typically) via switched resistances, the current is not affected to any significant degree by the variation in the base-emitter voltage under load.
+
+<p>The principle works well, but no-one wants to have to use such high voltages in equipment these days.
+
+<p>So why mention this method at all? Simply because the operation and characteristics of current sources are not well understood by most non-engineers (and quite a few engineers, too). Figure 1 shows a resistive current source that will maintain the set current of 1mA to an accuracy of within better than 1% over the range 0-10V.</p>
+
+<center><img SRC="ism-fig1.gif" ALT="Fig 1" BORDER=1><br>
+<b><small>Figure 1 - Simple Resistive Current Source</small></b></center>
+
+<p>The first thing that we need to be aware of is that the impedance is very high, and a perfect current source (as described above) does indeed have an infinite impedance. Although this is impossible to achieve in practice, impedances of many, many Megohms are quite possible, and are used regularly in many different circuit types. The actual impedance is so high that PCB insulation resistance and transistor leakage current may become the determining factors.
+
+<hr><a id="p2"></a><b>2.0 - The Common Emitter Transistor Amplifier</b>
+<p>If we look at a simple common emitter transistor amplifier (Figure 2), the output impedance is equal to the collector resistance, and the gain is equal to the collector resistance divided by r<sub>e</sub> - the transistor's internal emitter resistance. This is equal to approximately ...
+
+<blockquote><b>r<sub>e</sub> =  26 / I<sub>e</sub> (in mA)</b></blockquote>
+
+<p>Naturally, r<sub>e</sub> varies (widely) with the current. Please note that biasing components have been omitted for clarity, but in reality they must be used.
+
+<p>For all examples, a transistor with a current gain of 100 is used and the bias current will be set at exactly 100th of the expected collector current (using a simulated current source, naturally).</p>
+
+<center><img SRC="ism-fig2.gif" ALT="Figure 2" BORDER=1><br>
+<b><small>Figure 2 - Simple Common Emitter Transistor Amplifier</small></b></center>
+
+<p>At low output levels, the gain should be 385, but as simulated is actually 333. This is well within the degree of accuracy we want to go to in this article, so practice correlates well with theory (one would hope so, or we would all be in trouble).
+
+<p>As the transistors output voltage increases, the available collector current (and hence emitter current) falls, so r<sub>e</sub> increases (and vice versa). The higher the output voltage (relative to the supply voltage), the less emitter current flows, and the lower the gain becomes. As the transistor turns on (reducing the output voltage), the exact opposite occurs, and the gain rises. This effect is immediately evident in the output waveform, which is distorted. This is shown in the oscilloscope trace in Figure 2, and the distortion is clearly visible, with the tops of the waveform flattened out, and the bottoms "stretched". This is typical of any transistor amplifier operating without feedback, and is also true of valves and FETs.
+
+<hr><a id="p3"></a><b>3.0 - Local Feedback</b>
+<p>One method of reducing this distortion is to introduce a resistance into the emitter circuit (local feedback) to reduce the gain and swamp the variations in r<sub>e</sub>. This works, but we still have a relatively low output impedance, and distortion is still evident - although much reduced. This is shown in Figure
+3, where a 100 Ohm emitter resistor has been added.
+
+<p>A commonly held belief is that local emitter feedback reduces the output impedance - this is simply not true - the output impedance of a common emitter amplifier is equal to the collector resistance, regardless of emitter degeneration. To reduce the output impedance, it is necessary to apply feedback around the entire circuit - from the output back to the input. The proof of this is outside the scope of this article, but it is nonetheless a fact.</p>
+
+<center><img SRC="ism-fig3.gif" ALT="Figure 3" BORDER=1><br>
+<b><small>Figure 3 - Common Emitter Stage With Local Feedback</small></b></center>
+
+<p>With all this talk of distortion, I can almost hear all the thermionic valve (tube) enthusiasts cheering "I knew it - and here is the proof I have been looking for!"
+
+<p>Sadly, this is not the case. Valves do exactly the same thing, as do FETs of all types - the mechanism is different in each, but the result is the same.  Gain varies with current in all known amplifying devices to a greater or lesser degree, so the principles outlined here are valid for any device. I am staying with transistors
+because they are the most commonly used of all the devices currently available.
+
+<p>In this case, the gain of the stage works out to be just over 76, and theory would predict a gain of 79, so again the correlation is very good. Remember that with an emitter current of 1.001 mA (collector current plus base current), the value of r<sub>e</sub> is about 26, and this must be added to the external resistance R<sub>e</sub>.
+
+<hr><a id="p4"></a><b>4.0 - The Current Source As A Load</b>
+<p>Since we have determined that the load resistance affects gain, and that variations of collector current (and hence emitter current) affect linearity, if a current source were to be used instead of the 10k resistor, we should get vastly more gain, and the distortion should be negligible.
+
+<p>In reality, this is exactly what will happen, and Figure 4 shows a theoretical current source as the collector load. The current source is set to provide a current of 10 mA as before. No oscilloscope trace is shown, because the linearity is so good that no distortion is visible, and a trace of a sinewave gets tedious after a while. <img src="grin.gif" alt=":-)">
+
+<center><img SRC="ism-fig4.gif" ALT="Figure 4" BORDER=1>
+<br><b><small>Figure 4 - Use of Current Source as Load</small></b></center>
+
+<p>Figure 4 shows the circuit, which (theoretically) has a gain of about 3150. Naturally, real life will reduce this. Figure 5 shows the same circuit with a real current source, and the gain from this (again, the transistors all have an h<sub>FE</sub> of 100) is still quite astonishing. We still manage a gain of 2834.
+
+<p>This form of circuit can no longer be biased using a simple current source, because the circuit gain is so high that even the smallest variation in transistor h<sub>FE</sub>, or the tiniest variation in a resistor value will cause the output to "go to ground" or sit at the supply voltage. Consequently, an opamp has been added to apply bias, otherwise the circuit is almost impossible to stabilise. The use of a bias servo in this manner is not too common, but it is used in a number of applications. Care needs to be taken to ensure that a low frequency phase shift oscillator is not created if you want to experiment with this idea.</p>
+
+<center><img SRC="ism-fig5.gif" ALT="Figure 5" BORDER=1>
+<br><b><small>Figure 5 - Real-Life Current Source Load With Bias Servo</small></b></center>
+
+<p>For a current source of this type, the current is equal to ..
+
+<blockquote><b>I = (( V - 0.65 ) / R ) * h<sub>FE</sub></b></blockquote>
+
+<p>Where <b>I</b> is the current, <b>V</b> is the supply voltage, <b>0.65</b> is the emitter-base voltage (typical), <b>R</b> is the base resistor and <b>h<sub>FE</sub></b> is the forward current gain of the transistor.
+
+<p>The current source shown is workable, but is highly dependent upon the gain of the transistor and the supply voltage. It is not used in any sensible circuit, although variations are not uncommon - especially where the current setting is not critical. Now that the basic principles have been examined, we shall look at some real current sources (or sinks, depending on how you look at it).
+
+<hr><a id="p5"></a><b>5.0 - Real-Life Current Sources</b>
+<p>The "classic" current source is shown in Figure 6 (Q2 and associated components form the current source), and is reasonably stable with transistor gains and temperature. In audio work, absolute stability is not really necessary, since the feedback loop is used to ensure that bias voltages are maintained at the correct value. In some cases a DC servo circuit may be used (as shown in Figures 6 and 7), but this is not really necessary in the majority of cases. The DC servo is shown here because that's what was simulated, and it also helps to build an overall understanding of circuit techniques.
+
+<p>Figure 6a shows the two main variations used for current sources. Both are very common, and there are small variations as well. For example, a zener or LED may be used instead of the two diodes. This improves performance, but reduces the maximum voltage swing. Of the two, the dual transistor version is preferred by many (including me), as it has much better performance than the circuit using a diode reference.</p>
+
+<center><img SRC="ism-fig6a.gif" ALT="Figure 6a" BORDER=1>
+<br><b><small>Figure 6a - The Two Main Current Source Circuits</small></b></center>
+
+<p>In each case, the 330 ohm emitter resistor sets the current. Assuming that the diodes and transistors all have junction voltages of 0.65V, the theoretical current is ...</p>
+
+<blockquote><b>I = 0.65 / RE</b> = 0.65 / 330 = 1.96mA</blockquote>
+
+<p>Where <b>RE</b> is the total emitter resistance - the internal r<sub>e</sub> of the transistor plus the external resistance R<sub>e</sub>.&nbsp;
+The reference current (via R1 or R4) should be between 10 - 20 times the expected base current.
+
+<p>Both circuits have acceptable current stability as temperature changes, but both will change with temperature. The V<sub>be</sub> of a silicon transistor varies at about 2mV/&deg;C, and this causes the current to vary accordingly.</p>
+
+<center><table width=640 border=1>
+	<tr><th></th><th colspan="3">Transistor + 2 diodes</th><th></th><th colspan="3">Two transistor</th></tr>
+	<tr><td><b>RL1, RL2</b></td><td><b>Current mA</b></td><td><b>Voltage</b></td>
+	<td><b>Impedance</b></td><td></td><td><b>Current</b></td><td><b>Voltage</b></td><td><b>Impedance</b></td></tr>
+	<tr><td>0</td><td>2.3020</td><td>0</td><td>n/a</td><td></td><td>1.9516</td><td>0</td><td>n/a</td></tr>
+	<tr><td>1k</td><td>2.2967</td><td>2.2967</td><td>433k</td><td></td><td>1.9506</td><td>1.9506</td><td>1,951k</td></tr>
+	<tr><td>2k</td><td>2.2912</td><td>4.5824</td><td>833k</td><td></td><td>1.9496</td><td>3.8992</td><td>3,899k</td></tr>
+	<tr><td>3k</td><td>2.2851</td><td>6.8553</td><td>1,124k</td><td></td><td>1.9484</td><td>5.8452</td><td>4,871k</td></tr>
+	<tr><td>4k</td><td>2.2774</td><td>9.1096</td><td>1,183k</td><td></td><td>1.9471</td><td>7.7884</td><td>5,991k</td></tr>
+	<tr><td>5k</td><td>2.2718</td><td>11.3590</td><td>2,028k</td><td></td><td>1.9457</td><td>9.7285</td><td>6,949k</td></tr>
+	<tr><td>6k</td><td>2.2644</td><td>13.5864</td><td>1,836k</td><td></td><td>1.9442</td><td>11.6652</td><td>7777k</td></tr>
+	<tr><td>7k</td><td>2.2563</td><td>15.7941</td><td>1,950k</td><td></td><td>1.9424</td><td>13.5968</td><td>7554k</td></tr>
+	<tr><td>8k</td><td>2.2476</td><td>17.9808</td><td>2,067k</td><td></td><td>1.9405</td><td>15.5240</td><td>8171k</td></tr>
+	<tr><td>9k</td><td>2.1269</td><td>19.1421</td><td>159k</td><td></td><td>1.9383</td><td>17.4447</td><td>7929k</td></tr>
+	<tr><td>10k</td><td>1.9188</td><td>19.1880</td><td>92k</td><td></td><td>1.9205</td><td>19.2050</td><td>1079k</td></tr>
+</table><b><small>Dynamic Characteristics of Current Sources</small></b></center>
+
+<p>The average impedance (excluding the lowest and highest currents) is 1,432k for the diode referenced source and 5,895k for the two transistor version. Quite clearly, the two transistor current source has much better linearity over a wider range, but this level of accuracy is not usually necessary - although it doesn't hurt either. The primary benefit is that the impedance is a great deal higher - it remains above 1Meg at all output loads, right up to the point where there is only 0.15V remaining across the transistor (Q2). The circuits shown below use both types of current source.</p>
+
+<center><img SRC="ism-fig6.gif" ALT="Figure 6" BORDER=1>
+<br><b><small>Figure 6 - The "Classic" Current Source</small></b></center>
+
+<p>The gain is relatively unaffected by the change in the configuration of the current source. In either of these cases, the inclusion of an emitter resistor (100 Ohms for example) reduces the gain.</p>
+
+<center><img SRC="ism-fig7.gif" ALT="Figure 7" BORDER=1>
+<br><b><small>Figure 7 - The Preferred Current Source</small></b></center>
+
+<p>The two transistor current source is probably one of the most commonly used, and has excellent stability, especially if the two transistors are thermally bonded. This is not needed for most applications, since as mentioned previously, absolute current accuracy / stability is not (or should not) be a requirement for an audio amplifier.
+<p>This is a very simple circuit, but will give excellent results wherever it is used. Current is calculated by ...
+
+<blockquote><b>I = 0.65 / Re</b></blockquote>
+
+<p>In this case, the internal emitter resistance is not an issue, since the second transistor (Q3) allows only that exact amount of base current for the current source (Q2) to develop 0.65 Volt across the resistor. Should the current try to increase, Q3 simply turns on harder, and steals more of the base current. The current through Q3 should be at least 10 times as great as the expected base current of Q2 (the current source).
+
+<p>With all the circuits shown, output impedance is very high, and by my tests is about 8.2k. Inclusion of the emitter resistor (providing local feedback) has only a very small effect on the output impedance - it primarily reduces the gain.
+
+<p>It is not uncommon to see a single reference transistor (Q3 in Figure 7) controlling two or more current sources (which may be supplying different currents). The reference should always control the current source transistor that has the most stable current. For example, if there were a current source for the input stage and the Class-A amplifier, the reference should always be taken from the source used for the input stage.
+
+<p><a id="p51"></a><b>5.1 - Bootstrap Current Source</b>
+<br>The final (and least understood) of all the current sources is the so-called "bootstrap" amplifier. While not as good as an active current source, its performance is still very good, and in the example shown in Figure 8 manages to provide a gain of 8,860. Bear in mind that this is at a current of only 1mA (the others all used
+10mA), so the gain is reduced somewhat. However, this circuit is not in the same league as the gain of millions from the current source, but in real terms its performance is more than enough for the Class-A amplifier / driver stage of a power amplifier.
+
+<p>There are some advantages and disadvantages to this circuit, and it is dependent on the application whether it will be suitable. Where a true current source has the same (more or less) impedance at all frequencies right down to DC, the bootstrap circuit has a low frequency cut-off point determined by the resistance and capacitance used. This makes DC biasing easier (since the gain is quite low at DC), but since it reduces gain (and global feedback) at DC, there may be more DC offset at the amplifier's output as a result.
+
+<p>Distortion will also increase at very low frequencies, since the constant voltage across resistor R2 will not be maintained as phase shift (and LF rolloff) start to take their toll.
+
+<p>One of the benefits of the arrangement is that the voltage at the junction of R1 and R2 can exceed the supply voltage. This is especially useful if the circuit is driving MOSFETs, as it can provide the necessary extra voltage to drive the gates without an auxiliary supply. Unfortunately, this little trick only works with one polarity. The other benefit is simplicity - passive components that are operated well within their ratings have an indefinite life. It is extremely rare for a bootstrap capacitor to fail - I have even seen a circuit where the cap was installed with reverse polarity, and the amp was working fine. Where current sources can be damaged if an output device fails, the bootstrap circuit won't.
+
+<center><img SRC="ism-fig8.gif" ALT="Figure 8" BORDER=1>
+<br><b><small>Figure 8 - Bootstrap Current Source</small></b></center>
+
+<p>Since it is so misunderstood, it is worth a few words of explanation. R1 and R2 supply a nominal current of 1 mA (resistors are 5k each). Under normal (i.e. quiescent) conditions, there will be 5 Volts across each resistor. As the output varies, the capacitor couples the output signal back to the centre tap of the two
+resistors, and if the emitter follower were a perfect buffer amplifier, this would exactly equal the input. As a result, the voltage across R2 is kept constant - if the voltage across a resistor is constant, then it follows that the current through the resistor must also be constant. The current through R1 varies considerably, but R2 maintains a constant current over the full output operating range.
+
+<p>Small differences in voltage (due to the loss through the emitter follower) or in phase (due to the capacitive reactance starting to become significant with decreasing frequency) both cause the bootstrap current source to reduce its effectiveness, so impedance and gain drop, and distortion increases. In a well designed circuit, these effects are minimal at all normal operating frequencies, but cannot be discounted.
+
+<p><a id="p52"></a><b>5.2 - Voltage References</b>
+<br>All current sources/sinks require a voltage reference. While most discrete circuits use a diode, transistor junction or a LED as a voltage reference, these all have (often significant) variations with temperature. Most of the time, this actually doesn't matter much - an audio amplifier is not a precision instrument, and the variations experienced will rarely cause any problems (I have never seen an issue with a current source in any audio application).
+
+<p>ICs, and especially those used for voltage regulators or other precision applications, generally use a band-gap reference (see Reference <a href="#ref">1</a>). While these can be made using discrete devices, their performance will never be very good. Because the transistors in an IC are all on the same substrate, and are generally well matched (and thermally coupled), the performance of IC references is far better than you will obtain from discrete circuits. Since absolute accuracy is never needed for audio applications, use of discrete band-gap voltage references is not recommended. If you <i>do</i> need that degree of accuracy, use a commercial IC voltage reference IC - it will be far better than one you build using separate transistors.</p>
+
+<hr><a id="p6"></a><b>6.0 - Practical Applications</b>
+<p>Now that we have looked at the various types of current source (there are many more, but the others will not be examined here), we can examine where they are best used, and why.
+
+<p>I am mainly interested in audio amplification, and will therefore concentrate on this aspect of the use of current sources and mirrors. There are naturally countless other applications, but I will leave it to the reader's imagination to explore the additional uses.
+
+<p>One of the most irksome loads for any amplifier is one that has inherent non-linearities, and the output stage of an audio amp definitely fits this description. Consider the worst case, where there is no forward bias applied to the output devices, which are operating in Class-B. The global feedback in an amplifier is generally considered to the be main saviour, by reducing the distortion components by using the input stage as an error amplifier.
+
+<p>This is actually only a small part of the story - a properly designed Class-A amplifier will have both high gain and high output impedance, both of which are useful in reducing the otherwise inevitable crossover distortion. Consider Figure 9a and 9b, showing the same output stage delivering the same peak output voltage to the same resistance.
+
+<p>The first is using a low impedance amplifier (an opamp) with unity gain as shown, but will normally be adjusted to give the required output, while the second uses a high impedance source having a high gain and impedance, but still providing the same output voltage.
+
+<center><img SRC="ism-fig9a.gif" ALT="Figure 9a" BORDER=1>
+<br><b><small>Figure 9a - Use Of A Voltage Source Driving an Unbiased Output Stage</small></b></center>
+
+<p>The load for each amplifier is 100 Ohms, and it is clear from the first figure (9a) that crossover distortion is gross. Figure 9b shows how the high impedance drive to the output stage overcomes the crossover distortion - the output waveform is not shown, because there is virtually no distortion visible in the oscilloscope trace,
+so it looks just like a sinewave.
+
+<center><img SRC="ism-fig9b.gif" ALT="Figure 9b" BORDER=1>
+<br><b><small>Figure 9b - Use Of A Current Source Driving an Unbiased Output Stage</small></b></center>
+
+<p>Remember that this is with no feedback whatsoever - the addition of feedback will reduce the distortion even more - as will some biasing on the output stage - neither of these were included to show the effect more clearly. Note that the settings on the oscilloscope were not changed between these simulations, to ensure that the full effect was not obscured (or accentuated) for each example.
+
+<p>The inescapable conclusion is that the high impedance drive will greatly assist in overcoming non-linearities in the output stage, even those as nasty as a completely unbiased complementary pair as shown. Naturally other non-linearities are also negated (to some degree) by these techniques, which are pretty much universal in modern amplifier designs.
+
+<p>None of the above should be taken to mean that we no longer need negative feedback - the idea is to make the amplifier as linear as possible before feedback is added. This makes a good amp better - feedback will never make a bad amp good !
+
+<hr><a id="p7"></a><b>7.0 - Current Mirrors</b>
+<p>The next item is current mirrors, another little understood circuit. These are extremely useful in amplifier design, and in this section I will show where they can be used, and the benefits that can be obtained.
+
+<p>The basic current mirror is shown in Figure 10, and it can be seen that whatever current is injected into the left side is mirrored, and the right hand side is a constant current source (sink) reflecting the injected current. Should the input current at change, so will the output current, but it will remain constant, regardless
+of the actual voltage (provided it remains within the supply limits of course).
+
+<center><img SRC="ism-fig10.gif" ALT="Figure 10" BORDER=1>
+<br><b><small>Figure 10 - A Basic Current Mirror</small></b></center>
+
+<p>The problem with this circuit is that the current in the two halves is different - the mirrored current is too low, differing by 19 uA (it is actually 20 uA, but the simulation accuracy used was not great enough to show this). If we check, we will find that the emitter currents of both transistors are identical, so the 20 uA that
+"disappeared" is the base current that must be supplied to each transistor (10 uA each).
+
+<p>Adding emitter resistors does absolutely nothing to alleviate this, but is useful if the transistors are not matched. Even then the resistors do not really do a lot of good, unless the voltage developed across them is significant (at least 100 mV, and preferably more) but it helps a little bit.
+
+<center><img SRC="ism-fig11.gif" ALT="Figure 11" BORDER=1>
+<br><b><small>Figure 11 - Buffered Current Mirror</small></b></center>
+
+<p>A better solution is to use a buffer as shown in Figure 11. This removes the base current component of the error, and makes the current mirror matching a lot better. This simple addition has reduced the error dramatically, but it can be improved even more. While not generally needed for audio amplification, improved performance is essential for test and measurement, or other critical applications.
+
+<center><img SRC="ism-fig11b.gif" ALT="Figure 11B" BORDER=1>
+<br><b><small>Figure 11b - Four Transistor Current Mirror</small></b></center>
+
+<p>As you can see from the above, Figure 11B [<a href="#ref">1</a>] is almost perfect - the current balance is extremely good. While this arrangement is used in analogue opamps and other circuits requiring high precision, there would be no advantage using it in a power amplifier. There simply is no need for such precision. It will not generally improve distortion, bandwidth or dynamics, but may give a marginal improvement in DC offset (which can be up to 100mV without causing any problems whatsoever in most power amps used for audio). All we need to do now is find a use for these circuits.
+
+<hr><a id="p8"></a><b>8.0 - Differential Pair Amplifier</b>
+<p>Consider the differential pair (aka long tailed pair or LTP). Most of the time, we are losing half the gain of the circuit, since the output is taken from only one collector as shown in Figure 12. This configuration also suffers from linearity problems, unless the output is current only - as is the case when driving the base
+of a transistor (this is shown below).
+
+<center><img SRC="ism-fig12.gif" ALT="Figure 12" BORDER=1>
+<br><b><small>Figure 12 - The Long Tailed Pair As A Voltage Amplifier</small></b></center>
+
+<p>The circuit as shown (without the essential biasing components, which were omitted for clarity) has a voltage gain of 285 (again using transistors with a h<sub>FE</sub> of 100), and is quite linear at low output voltages. The linearity will suffer badly as the level increases, and even with the +/-20 volt supplies used is not satisfactory (10% THD) as a voltage amp for outputs greater than 1.35 Volts RMS (this is at an input voltage of 5 mV).
+
+<p>Using a current source / sink in the "tail" is very common in amplifier circuits, and this variant is shown below. It is commonly (but entirely mistakenly) assumed that this increases the gain (in the circuit shown, gain is reduced to 168), but the real purpose is to improve the common mode capability of the circuit. Common mode signals are those that are applied to both inputs in the same polarity, and are generally required to be rejected. Using a simple resistive tail severely limits the common mode voltage that can be accommodated before severe distortion occurs, and indeed the common mode rejection of the circuit is almost useless.
+
+<p>In the example above, the common mode rejection is well under 1dB but with a current sink tail the rejection is almost 65dB. In most amplifier circuits common mode signals (of the undesirable kind) are not an issue if the input stage is properly designed. Although a high common mode ability is usually considered necessary, this is not always the case.  For a typical power amplifier, the common mode voltage cannot exceed the input voltage for full power. There are other good reasons to use a current source/sink though, one of which is to ensure that circuit stabilises at a low voltage, eliminating (or at least minimising) switch-on / off thump.
+
+<p>If a current mirror is used as the load, gain is increased by a very useful amount, and Figure 13 shows the arrangement used. The stage gain is now 850 and the use of a current sink as the tail has no effect (provided that the current is maintained at 4 mA). This circuit is shown in Figure 13, and although useful in certain applications, it is not suitable to drive the output stage of a power amplifier.
+
+<center><img SRC="ism-fig13.gif" ALT="Figure 13" BORDER=1>
+<br><b><small>Figure 13 - Using A Current Mirror The LTP Load</small></b></center>
+
+<p>If we really wanted to get silly (and I have seen it done), we can put all the bits together in one place, and finish up with an input stage + Class-A driver, with a total open loop gain (i.e. without feedback) of 33,800 or 90dB (but still loaded with 100k). This will not increase dramatically when the output is buffered - the output impedance is actually reasonably low, at about 4k. The buffered current mirror does not help the gain, but reduces output offset. The complete circuit is shown in Figure 14, and is a useful example of the techniques discussed in this article. Open loop distortion is about 5% at 6V RMS output, but will fall dramatically when feedback is applied.</p>
+
+<center><img SRC="ism-fig14.gif" ALT="Figure 14" BORDER=1>
+<br><b><small>Figure 14 - Combination LTPs and Current Mirror</small></b></center>
+
+<p>This circuit uses an input LTP that drives a secondary LTP as the Class-A amplification stage. The load for this second LTP is a current mirror, and this arrangement has excellent linearity. I suspect that it could be a cow to stabilise in a real amplifier circuit, and quite frankly, I do not see any reason to go this far. Many amplifiers have been designed using this arrangement, and it's very common with MOSFET output stages. Initial measurements on a MOSFET amp using this drive stage show that stability is not as good as I would like to see (there are traces of oscillation at some output levels), but overall stability seems to be acceptable. I expect that the wide bandwidth of the MOSFET output devices might make this arrangement a little more tractable than would be the case with bipolar transistors. I have not found it to be necessary though, and the P101 MOSFET amp does not use this input/driver stage combination.
+
+<hr><a id="outro"></a><b>Conclusion</b>
+<p>At this stage, I suspect that I have either cleared up some degree of confusion, or created even more. There are so many choices, and so many reasons to use (or not use) any one of them. This article is meant only to describe and explain - you can see where my own preferences lie from the circuits published in the projects
+pages. I happen to be a strong supporter of the KIS principle (keep it simple), and in my own designs have not found it necessary to make the circuit any more complex than is needed to make it work and provide good distortion figures. Listening tests bear this out, and IMHO I do not believe that the difference between a highly complex amp and a simple one (provided that both are well designed) is audible under any listening conditions.
+
+<p>This being the case, I cannot think of any good reason to go for the complex solution, especially since it will almost certainly be much harder to stabilise (I happen to think that this is extremely important), and will use more parts. Granted that the additional cost is minimal in the greater scheme of things, but sound for
+sound, simple and reliable has to win out.
+
+<p>As a final point, with the LTP configuration and current mirrors, it is often beneficial to match the transistors, so they have gains that are approximately equal, and emitter-base voltages that are as closely matched as possible. It is also useful with both of these configurations and two transistor current sources to thermally
+bond the two transistors to prevent mismatch due to thermal effects.
+<p>Remember that the emitter-base voltage of a transistor falls at a rate of 2mV / &deg;C, so even a small temperature difference will change the DC offset performance quite dramatically.
+
+<p>For more information on the design of amplifier stages, please refer to the <a href="amp_design.htm">Amplifier Design</a> page.</p>
+
+<hr><a id="ref"></a><b>References</b>
+<p>Most of the circuits shown are reasonably generic, and although I obviously found them somewhere, it was a very long time ago. As a result, most of the material isn't referenced to anything in particular, as it can be found in many books, websites, existing circuits, etc. 
+<ol>
+  <li><a href="http://www.designinganalogchips.com/_count/designinganalogchips.pdf" target="_blank">Designing Analog Chips</a></li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999-2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Revision History: 28 Jan 2000 - Corrected some errors and typos./ Page Created - 15 Aug 1999</div>
+</body>
+</html>

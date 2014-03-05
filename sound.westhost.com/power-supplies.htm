@@ -1,0 +1,763 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP - The Audio Pages. Linear power supply design information - Learn how to design your own high performance amplifier power supply.">
+	<!-- ESP - The Audio Pages. Linear power supply design information - Learn how to design your own high performance amplifier power supply. -->
+	<meta name="keywords" content="linear, power, supply, audio, amplifier, sound, hi-fi, schematic, circuit, transformer, toroid, ei, hum, buzz, smps, voltage, current, noise, interference">
+	<title>Elliott Sound Products - Linear Power Supply Design</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Linear Power Supply Design</td></tr></table>
+
+<p align="center"><a href="#copyright">Rod Elliott - Copyright (c) 2001</a><br />
+<small>Page Last Updated 12 Sep 2011</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="index2.html"  OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t1" ALT="Home" BORDER=0 height=24 width=40></a><b>Main Index
+<br /><a href="articles.htm" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" ALT="Articles" BORDER=0></a>Articles Index</b>
+
+<hr /><a id="contents"></a><b>Contents</b>
+
+<ul>
+  <li><a href="#intro">Introduction</a>
+  <li><a href="#amp-definitions">Power Amplifier Definitions</a>
+  <li><a href="#supply-requirements">Power Supply Requirements</a>
+  <li><a href="#transformers">Transformers</a>
+  <ul>
+    <li><a href="#xfmr-series-r">Transformer Series Resistance</a>
+  </ul>
+  <li><a href="#VA-vs-W">VA Versus Watts</a>
+  <li><a href="#further-analysis">Further Analysis</a>
+  <ul>
+    <li><a href="#ripple-current">Voltages and Currents</a>
+    <li><a href="#bigger">Increasing Capacitance / Transformer Size</a>
+    <li><a href="#myth">Major Myth Regarding Capacitance</a>
+  </ul>
+  <li><a href="#rectifiers">Rectifier Types</a>
+  <ul>
+    <li><a href="#fullwave">Full Wave</a>
+    <li><a href="#doubler">Full Wave Voltage Doubler</a>
+  </ul>
+  <li><a href="#temperature">Temperature</a>
+  <li><a href="#capacitor-value">Capacitor Value</a>
+  <ul>
+    <li><a href="#ripple">Capacitor Ripple Current</a>
+  </ul>
+  <li><a href="#diodes">Rectifier Diodes</a>
+  <li><a href="#dc-sound">DC Sound</a>
+  <li><a href="#summary">Summary</a>
+  <li><a href="#fuse">Fusing and Protection</a>
+  <li><a href="#smps">Switchmode Power supplies (SMPS)</a>
+  <li><a href="#disclaim">Disclaimer</a>
+  <li><a href="#reference">References</a>
+</ul>
+
+<hr /><a id="intro"></a><b>Introduction</b>
+<p>Having searched the Web for reference material (and found very little!), this would appear to be the definitive article on the design of a 'simple' linear power supply for a power amplifier. Power supplies are needed for every type of amplifier (or any other electronic equipment for that matter) we will ever use. I do not intend to deal with "esoteric" designs with interesting names, but the simple, linear power supply that is still the mainstay of audio.</p>
+
+<p>These supplies should not create any problems for anyone, because they are so simple, right? <i>Wrong!</i> They appear simple, but there are many inter-related factors that should be considered before just embarking on your next masterpiece. The purpose of this article is to explain the terminology used, traps and pitfalls, and give some insight by way of a few practical examples.</p>
+
+<hr /><a id="amp-definitions"></a><b>Power Amplifier Definitions</b>
+<p>Power supplies themselves require several definitions (these are discussed later in this article), but the requirements of the amplifier that is to be connected need to be understood before we start. This makes a very big difference to the way the supply performs.</p>
+
+<p>Poor earthing practices, such as connecting components to the nearest available ground reference can (and do) also create problems, and these can introduce hum, or more usually a "buzz" into the signal circuits. This applies equally to Class-AB and Class-A amplifiers, but is usually more apparent with Class-A since the maximum current is drawn on a continuous basis.</p>
+
+<p><b>Class-AB Amplifiers</b>
+<br />I shall refer to the standard power amplifier as Class-AB - of all the amplifier types, these are the most common. Any amp that draws a quiescent current through the output devices is by definition, Class-AB. For true Class-B, there is no quiescent at all, and the output devices will conduct for exactly 180 degrees - this is rare.</p>
+
+<p>Class-AB amps have a very widely varying current drain, which may be only 100mA or less with no signal, but rising to many amps when driven. The main problem is the revolting waveshape of the current on each supply lead, typically half-wave pulses, in sympathy with the program content. 
+
+<p>These waveforms - this is current, not voltage - have sharply defined transitions, and as such will generate a magnetic field which varies with the current. Since a sharp transition equates to high order harmonics, care must be taken to ensure that voltages are not induced into the input stages of the amp from the supply lines. Because of the low inductance of the wiring of an amp, these problems are going to create distortion components which will tend to be worse at higher frequencies.
+
+<p>It is not only the amplifier which creates current pulses, but the rectifier/ filter capacitor combination as well. The power supply rectifier diodes usually conduct for only a short time during each AC cycle - this may be as little as 3 or 4 degrees at idle, but both the angle of conduction and the amplitude of the current pulse will increase as more power is drawn from the supply.</p>
+
+<p><b>Class-A Amplifiers</b>
+<br />The other common amplifier type is Class-A. These amps draw a large current on a continuous basis, and place a completely different loading on the supply. The current pulses are gone from the supply leads, but the rectifier and filter now must handle the maximum current on a continuous basis.
+
+<p>The continuous load creates a new set of constraints on the design of a power supply, and the use of a Class-A amp implies that the builder already wants the very lowest noise. Although the noise of the power supply DC output (hum/ ripple) will normally be low because of extensive filtering, regulation or a capacitance multiplier, the switching noise of the diodes in the rectifier can become more than a nuisance if proper care is not taken.</p>
+
+<hr /><a id="supply-requirements"></a><b>Power Supply Requirements</b>
+<p>Somewhat surprisingly perhaps, the fundamental requirements of the final design are not greatly influenced by the different loading presented by the two amp types described above. The continuous rating of a Class-A amp means that you must design the supply for a continuous (rather than transient) current, but since we are discussing properly designed, quality power supplies, the final result will often be quite similar.
+
+<p>When a power supply is used with an amplifier, the basic things we need to know before starting are as follows
+
+<blockquote>
+	Power output and minimum impedance, or ...<br />
+	Peak / average current<br />
+	Acceptable power supply ripple voltage
+</blockquote>
+
+<p>With only these three criteria, it is possible to design a suitable supply for almost any amplifier. I shall not be describing high current regulators or capacitance multipliers in this article - only the basic elements of the supply itself. These other devices are complete designs in themselves, and rely on the rectifier/ filter combination to provide them with DC of suitable voltage and current.</p>
+
+<hr /><a id="transformers"></a><b>Transformers</b>
+<p>The first component of the power supply is the transformer. Using magnetic coupling between windings, the transformer is used to isolate the amplifier (and the users) from the mains voltage, and to reduce (for solid state equipment at least) the voltage to something the amplifier can tolerate. The primary winding will be rated at 240, 220 or 120V AC depending on where you live, and the secondary will be a more user friendly (or less user hostile) voltage to suit the amplifier.
+
+<p><b>DC Output:</b> The DC output is approximately equal to the secondary voltage multiplied by 1.414, but as we shall see, this is a rather simplistic calculation, and does not take the many variables into consideration. At light loading, this rule can be applied without fear, and it will be accurate enough for most applications. When an appreciable current is drawn, this simple approach falls flat on its face.
+
+<p><b>Mains variations:</b> These occur in all situations, and the mains voltage at any point in time will usually be
+somewhat different from the nominal voltage quoted by the supplier. Any variation of 10% or less can be considered "normal", and greater variations are not at all uncommon. In nearly all cases, an amplifier is rated at a certain power output into a specified load impedance, and at the nominal mains voltage. For those who live close to a sub-station or pole transformer, expect the voltage (and power output) to be higher than quoted - the rest of us can expect a lower mains voltage and less power, especially during peak electricity usage times.
+
+<p><b>Losses:</b> Since all transformers have losses, these cannot be ignored in the design phase. Magnetising loss (AKA iron loss) is the current that is required to maintain the design value of magnetic flux in the transformer core. There is nothing you can do to affect this loss, as it is dependent on the size of the core and the design criteria of the manufacturer. Large transformers will have a larger magnetising loss than small ones, but will be less affected by it due to the larger surface area which allows the transformer to remain cool at no load. Small transformers have a greater loss per VA than bigger ones, and this is one of the reasons that small transformers run quite warm even when unloaded.
+
+<p>The iron losses are greatest at no-load and fall as more current is drawn from the transformer. Copper losses are caused by the resistance of the winding, and are negligible at no load, and rise with increasing output current. There is a fine balance between iron and copper losses during transformer design. A relatively high iron loss means that copper losses will be reduced (thus improving regulation), but if too high, the transformer will overheat with no load. A full description of
+the magnetising current and its effect on regulation is outside the scope of this article, and since there is little you can do about it, it shall be discussed no further.
+
+<p><b>Mains noise:</b> Noise can easily get through a transformer, both in transverse and common modes. Transverse noise is any noise or waveform distortion that is effectively superimposed on the incoming AC waveform, and this is coupled through the transformer along with the wanted signal - the mains.
+
+<p>Common mode noise is any noise signal that is common to both the active (hot) and neutral mains leads. This is not coupled through the transformer magnetically, but capacitively. The higher the capacitance between primary and secondary windings, the more common mode noise will get through to the amplifier. The much loved toroidal transformer is much worse than conventional "EI" (Ee-Eye) lamination transformers in this respect because of the large inter-winding capacitance. An electrostatic shield will help, but these are uncommon in mass produced toroidal transformers. The conventional transformer is usually better, and by using side-by-side windings instead of the more common (and cheaper) concentric windings, common mode noise can be reduced by an order of magnitude.
+
+<p>Input mains filters can remove either form of high frequency noise component to some degree, and large spikes can be removed using Metal Oxide Varistors (MOVs) that effectively short circuit the noise pulse, reducing it to a level that is (hopefully) inaudible. Contrary to the beliefs of some, there is no panacea for noise, and it is best attacked in the equipment, rather than the now popular (but mainly misconceived) notion that an expensive mains lead will cure all.</p>
+
+<p><b>Regulation:</b> When specified, regulation is based upon a resistive load over the full cycle, but when used in a capacitor input filter (99.9% of all amplifier power supplies), the quoted and measured figures will never match.
+
+<p>Since the applied AC spends so much of its time at a voltage lower than that of the capacitor, there is no diode conduction. During the brief periods when the diode conducts, the transformer has to replace all energy drained from the capacitor in the intervening period between diode conductions.
+
+<p>Consider a power supply as shown in Figure 1. This is a completely conventional full-wave capacitor input filter (it is shown as single polarity for convenience). The circuit is assumed to have a total effective series resistance of 1 Ohm - this includes transformer winding resistances (primary and secondary) and diode losses. The capacitor C1 has a value of 4,700uF. The transformer has a secondary voltage of 28V.</p>
+
+<p align="center"><img SRC="psu-f1.gif" ALT="Figure 1" BORDER="1">
+<br /><b><small>Figure 1 - Full Wave, Capacitor Input Filter Rectifier</small></b></p>
+
+<p>The transformer is rated at 60VA and has a primary resistance of 15 Ohms, and a secondary resistance of 0.5 Ohms. This calculates to an internal copper loss resistance of 0.75 Ohm.
+
+<p>With a 20 Ohm load as shown and at an output current of 1.61A, diode conduction is about 3.5ms, and the peak value of the current flowing into the capacitor is 5.36A - 100 times per second (10ms interval). Diode conduction is therefore 35% of the cycle. RMS current in the transformer secondary is 2.98A.</p>
+
+<blockquote>
+  <table width=640>
+  <tr><td>Secondary AC Amps</td><td>2.98A RMS</td><td>7.0A Peak</td></tr>
+  <tr><td>Secondary AC Volts (loaded)</td><td>26.39V RMS</td><td>35.11V Peak</td></tr>
+  <tr><td>Secondary AC Volts (unloaded)</td><td>28.00V RMS</td><td>39.61V Peak</td></tr>
+  <tr><td>DC Current</td><td>1.61A</td><td></td></tr>
+  <tr><td>DC Voltage (loaded)</td><td>32.2V</td><td></td></tr>
+  <tr><td>DC Voltage (unloaded)</td><td>38.45V</td><td></td></tr>  
+  <tr><td>DC Ripple Voltage</td><td>722mV RMS</td><td>2.24V Peak-Peak</td></tr>
+  </table>
+</blockquote>
+
+<p>Ripple across the load is 2.24V peak-peak (722mV RMS), and is the expected sawtooth waveform. Average DC loaded voltage is 32.2V. The no-load voltage of this supply is 38.45V, so at a mere 1.6A load, the regulation is ...
+
+<blockquote>
+	Reg (%) = ((V<sub>n</sub> - V<sub>l</sub>) / Vn) * 100
+</blockquote>
+
+<p>Where V<sub>n</sub> is the no-load voltage, and V<sub>l</sub> is the loaded voltage
+
+<p>For this example, this works out to close enough to 16% which is hardly a good result. By comparison, the actual transformer regulation would be in the order of 5% for a load current of 2.14A at 28V. Note that the RMS current in the secondary of the transformer is 2.98A AC (approximately the DC current multiplied by 1.8) for a load current of 1.61A DC - this must be so, since otherwise we would be getting something for nothing - a practice frowned upon by physics and the taxman. 
+
+<p>Output power is 32.2V * 1.61A = 51.8W, and input power is 28V * 2.98A = 83 VA.
+
+<p>Because of the power factor, the power is just under 62W, so power factor is ...
+
+<blockquote>
+	PF (Power Factor) = Actual Power / Apparent Power = 62 / 83 = 0.75
+</blockquote>
+
+<p>There are many losses, with most being caused by the diode voltage drop and winding resistance of the transformer. Even the capacitors ESR (equivalent series resistance) adds a small loss, as does external wiring. There is an additional loss as well - the transformer core's "iron loss" - being a combination of the current needed to maintain the transformer's flux level, plus eddy current losses which heat the core itself. Iron loss is most significant at no load.
+
+<p>Even though the transformer is overloaded, provided the overload is short-term no damage will be caused. Transformers are typically rated for average power (VA), and can sustain large overloads as long as the average long-term rating is not exceeded.</p>
+
+<hr /><a id="xfmr-series-r"></a><b>Transformer Series Resistance</b>
+<p>As described above, I assumed a total equivalent series resistance for the transformer of 0.75 Ohm, which is about typical for a 60VA transformer as used here. Larger transformers will have lower series resistance (and vice versa), and the equivalent may be calculated - this is easier than actually measuring it under load.
+
+<p>If the secondary resistance is (say) 0.5 Ohm for a 240V to 30V transformer, it will be found that the primary resistance is (or should be) in the order of 15 Ohms. The actual figure will vary from one transformer type to another (e.g. "conventional" EI (ee-eye) laminations versus toroidal).
+<p>The effective primary series resistance is calculated (approximately) by ...
+
+<blockquote>
+	R<sub>e</sub> = R<sub>p</sub> / (T<sub>r</sub>)&sup2;<br /><br />
+	Where R<sub>e</sub> is equivalent primary resistance, R<sub>p</sub> is measured primary resistance, and T<sub>r</sub> is the turns ratio (in
+	this case, 240 / 30 = 8<br /><br />
+	Therefore ...<br /><br />
+	R<sub>e</sub> = 15 / 64 = .234 Ohm
+</blockquote>
+
+<p>This value is now added to the secondary resistance to calculate total series resistance. Please don't bother to e-mail to tell me that these figures are not correct - this is intended as a rough approximation - calculating actual values for transformers is worthy of an article in itself (which I am not about to write! <img src="grin.gif" />)
+
+<p>The sad truth is that accuracy here is completely unimportant, as there is also series resistance in the mains power wiring from the power generation plant all the way to the power transformer primary winding. This is going to vary from one outlet to another and from one house to the next. Although it can be measured, this is a completely pointless exercise since it will only be relevant for one household. Other factors are the actual supply voltage (nominal 115V, 220V, 240V, etc.) which varies widely from day to day and hour to hour. (For what its worth, the actual supply voltage was 233V when I measured the mains impedance at approximately 0.8 Ohms at my workbench - does this help?). We shall now do what everyone else does, and ignore it completely.
+
+<p>However - again for what its worth - your 100W / 8 Ohm amplifier will be reduced to just over 90W, simply by connecting a 2400W heater to an adjacent power outlet, based on 0.8 Ohms mains wiring impedance and a genuine 240V supply voltage (before connection of the heater). The situation is likely to be slightly worse in the US, because the much lower AC supply voltage means that all currents are doubled for the same power.</p>
+
+<hr /><a id="VA-vs-W"></a><b>VA Versus Watts</b>
+<p>An important distinction must be made between power (Watts) and VA. Power is a measure of work, and it is quite possible (common, actually) to have a situation where there is voltage and current, but little or no work. The product of voltage and current is Volts * Amps, or VA, and there is commonly a wide variance between VA and Watts.
+
+<p>Various loads (capacitive or inductive) will draw current from the output of a transformer, amplifier or the mains supply. If the load is purely inductive or capacitive, there is no power (work) at all, even though the current may be quite high. Fluorescent lighting fixtures are renowned for this, where the current can be several times what was expected based on the power rating of the tubes.
+
+<p>This phenomenon is called "power factor", and a power factor of 1 means that there are no power losses due to inductance or capacitance. Likewise, a power factor (PF) of 0 means that there is lots of voltage and current, but no power. In the case of fluorescent lighting, power factor correction capacitors are used to try to maintain the PF at as close to unity as possible. If this were not done, the wiring to the fittings (especially in large commercial buildings) will overheat, and a much greater load than necessary is placed on the local power sub-station, and indeed on the entire power grid. Electricity supply companies worldwide have the same problems, and in most countries, there is legislation that determines the minimum acceptable power factor for any installation.
+
+<p>The switch mode power supplies used in computers have a very poor PF, and there are many new designs that improve this. These can be expected to become mandatory in the not too distant future, as a poor power factor makes electricity more expensive to supply, and therefore more expensive for the consumer.
+
+<p>Note that I do not propose to cover the topic of power factor in depth (in fact that was it!), but a basic understanding is useful, and will make some of the following information more sensible. For those who really want to know more, see <a href="lamps/pfc.html">Active Power Factor Correction</a> and <a href="lamps/reactance.html">Reactance</a>. These articles discuss power factor in depth.
+
+<p>A power transformer does not care if work is being done at the output or not. It has internal resistance and inductive losses, and cares only about the output voltage and current. A power transformer can be overloaded and destroyed by a large capacitance directly across the output terminals. The capacitor does not even get warm, since it dissipates no power and does no work. The transformer "sees" only the load current, and heats up proportionally - if the VA rating is exceeded consistently, the transformer will eventually overheat and die. 
+
+<p>Equally, a transformer may be operated at 500% of its ratings for a short period, and as long as it has enough time to cool down between overloads, will be unaffected by the ordeal. Unfortunately, this otherwise useful characteristic is pointless in audio, since the voltage will fall too far with the load, and amplifier power output suffers badly. Having said this, most "mainstream" power amps will economise on the transformer, and rely on the duty cycle of typical programme material to provide an adequate supply voltage for normal music signals. The continuous (erroneously called "RMS") power will be lower, sometimes significantly.
+
+<p>The term "dynamic headroom" used to be used to describe the difference between continuous and peak output power. A large figure (2dB or more) indicates that the transformer is too small for the job, since the supply voltage collapses under a sustained load.
+
+<p>Because we are going to use the transformer in an unfriendly manner, with a rectifier and large capacitance as the load, the VA rating is much higher than the power rating of the amplifier may indicate. There are some basic rules of thumb for the most common rectifier types, and these are shown below.</p>
+
+<hr /><a id="further-analysis"></a><b>Further Analysis</b>
+<p>To properly see the effects of the losses and currents involved, a simpler circuit will be used from this point. This consists of a 25V RMS "ideal" generator, and the copper losses are simulated by a resistance. Since the full-wave bridge rectifier is a very common configuration, this is what shall be used for the detailed analyses that follow. There are variations and exceptions to everything, but simulations and real-life testing on these simple circuits are very close, so this is what shall be used.
+
+<p>A simple resistance is the load, and we shall see the vast differences in peak AC current, capacitor ripple current and output voltage as the various parameters are changed. A solid understanding of the behaviour of the transformer, rectifier and filter capacitor is essential if worthwhile power supplies are to be designed.</p>
+
+<hr /><a id="ripple-current"></a><b>Voltages and Currents</b>
+<p>Figure 2 shows the voltages and currents present in a typical supply. The waveforms will be examined shortly - for now we are interested in the average current and voltage in each section of the supply. The generator voltage is 25V RMS, and for this supply I have used a winding resistance of 0.75 Ohm - roughly equivalent to a 120VA transformer. The voltages and currents are all RMS - although in practice very few RMS meters can give an accurate reading of the spiky current waveform.</p>
+
+<p align="center"><img SRC="psu-f2.gif" ALT="Figure 2" BORDER=1>
+<br /><b><small>Figure 2 - Basic Bridge Rectifier - Voltages and Currents</small></b></p>
+
+<p>Note the big difference between DC output current, capacitor ripple current and AC input current. The important parameters are listed in the table below ...</p>
+
+<table width=640 border=1 style="border-collapse: collapse" align="center">
+<colgroup span=3 width="33%">
+<tr><td><b>Parameter</b></td><td><b>RMS</b></td><td><b>Peak</b></td></tr>
+<tr><td>AC Voltage</td><td>23.55 V</td><td>31 V</td></tr>
+<tr><td>AC Current</td><td>2.71 A</td><td>6.40 A</td></tr>
+<tr><td>DC Voltage</td><td>28.9 V</td><td>-</td></tr>
+<tr><td>DC Current</td><td>1.44 A</td><td>-</td></tr>
+<tr><td>Ripple Current</td><td>2.29 A</td><td>4.95 A **</td></tr>
+<tr><td>Ripple Voltage</td><td>655 mV</td><td>2.08 V (P-P)</td></tr>
+<caption ALIGN=BOTTOM><b><small>Table 1 - Supply Voltages and Currents</small></b></caption></table>
+
+<p><small>** This figure is somewhat misleading, since there is both a charge and discharge cycle. During the discharge, there is a relatively constant current of -1.44A (the negative means the current is flowing out of the capacitor). During the charge period, the rectifier takes over the supply of current to the load and re-charges the capacitor at the peak current shown.</small>
+
+<p>Input VA (volts * amps) is 25V * 2.7A, or 67.75 VA, input power is 49.5W (simulated), and output power is 41.8W, so in all, 7.7W has been lost in the rectification and filtering process. Overall power factor is determined by ...</p>
+
+<blockquote>
+	PF = Power / VA<br />
+	PF = 49.5 / 67.75 = 0.73
+</blockquote>
+
+<p>The power factor on the transformer primary will be very close to that shown for the secondary with a good quality transformer. Power factor is not considered to be especially important for linear power supplies suited to audio applications, because the average power is quite low. This changes for industrial applications, because many large power consumers are charged extra if they do not maintain a power factor of at least 0.9 (resistive loads have a unity power factor, which is ideal).
+ 
+<p>About 5.5W is lost as copper losses in the transformer (dissipated in the 0.75 ohm resistor that simulates the winding resistances). Each diode dissipates around 550mW (a total of 2.2W for all 4 diodes), making the total loss 7.7W as shown above.
+
+<p>Attempting to quantify each individual loss is a relatively pointless exercise, since the end result is to make a power supply that works - we can do nothing about the losses. In reality, the losses may different from those calculated, since the RMS values are based on a pure sinewave input - this is somewhat dubious (although quite OK for the purpose of this article) because mains power is never a perfect sinewave.
+
+<p>About 0.7 to 0.9V is lost across each diode during conduction, but this will vary in practice, based on the current capacity of the rectifier diodes. Since this is a bridge rectifier, there are two diodes conducting at the +ve and -ve peaks of the waveform, so the total voltage loss is 1.8V - so the output DC <i>should</i> be around 32V. The measured values of 23.55V AC and 28.9V DC are a direct result of the waveform distortion. Because current is drawn only at the peak of the AC waveform, the input to the rectifiers is not a sinewave. The voltage and current waveforms are shown below, and it can be seen that the voltage waveform has been "flattened" at the peaks. This is due to the high peak current drawn during this time, and no voltmeter will give the correct value - you must use an oscilloscope to be able to measure the peak-to-peak value of the
+waveform.</p>
+
+<p align="center"><img SRC="psu-f3.gif" ALT="Figure 3" border=1>
+<br /><b><small>Figure 3 - Voltage and Current Waveforms</small></b></p>
+
+<p>This reveals additional information to the voltage and current measurements taken before. Both are essential in understanding the rectification process. The peak AC input is only 32V, where we would normally expect 25 * 1.414 = 35V. We appear to have some missing voltage (35V - 1.8V diode drop is 33.2V), not the 28.9V DC measured with a multimeter. Examination with an oscilloscope and measuring peak currents (either simulated or using a current probe), we find that the voltage drop across the transformer winding resistance is much greater than expected due to the current peaks of 6.4A. This causes an internal voltage drop of 4.8V ... not the 2V that may have been assumed based on a resistance of 0.75 ohms and an average current of 2.71A.
+
+<p>An oscilloscope shows that the peak DC voltage is higher than the average value shown by the meter, and is 29.96V ... everything really does fall into place, but only when the whole process is examined carefully. You will never really understand the entire process unless you examine each of the many contributing factors.
+
+<p>Note that the waveforms of Figure 3 were taken at different locations within the circuit, and are in phase. The positive going part of the output ripple voltage, the peaks of the AC current, the positive peaks in capacitor ripple current and the flattening of the AC input voltage all occur at exactly the same time.</p>
+
+<hr /><a id="bigger"></a><b>Increasing Capacitance / Transformer Size</b>
+<p>It is well known that bigger transformers have better efficiency than small ones, so it is a common practice to use a transformer that is over-rated for the application. This can improve the effective regulation considerably, but also places greater stresses on the filter capacitor due to higher ripple current. This is quoted in manufacturer data for capacitors intended for use in power supplies, and must not be exceeded. Excessive ripple current will cause overheating and eventual failure of the capacitor.
+
+<p>Capacitor ripple current ratings can be ignored at your peril, but in an audio amplifier reproducing music the average current will be considerably less than the worst case figure.
+
+<p>Large capacitors usually have a higher ripple current rating than small ones (both physical size and capacitance). It is useful to know that two 4,700uF caps will usually have a higher combined ripple current than a single 10,000uF cap, and will also show a lower ESR (equivalent series resistance). The combination will generally be cheaper as well - one of the very few instances where you really can get something for nothing. Using ten 1,000uF caps will generally give even better overall figures again, but the cost (in time and effort) of assembling them into a proper filter bank may not be felt worthwhile.
+
+<p>Above a specific value, as the capacitance is increased, the peak charging current will remain much the same for the same sized transformer, but the capacitor retains more of its charge between cycles. The switch-on current will be very much higher, and the surge will last longer as the capacitor charges. At capacitor values below optimum, the peak charge current will decrease somewhat, but there will be far greater output ripple.
+
+<p>There is no hard and fast rule for determining the optimum value for the filter cap, but in general I would suggest that the value should be at least that required to give a full load ripple voltage of less than 5V peak to peak. Based on this, my recommendation is that the absolute minimum value is 2,000uF per amp DC, so a 5A (continuous) power supply will have an absolute minimum of 10,000uF capacitance.
+
+<p>What is achieved by increasing the capacitance, is the ability of the capacitors to retain more of their charge between AC cycles. Since the current demands of a Class-AB amplifier vary so widely - with the majority of the time at very low average currents - the actual operating voltage will be closer to the no-load voltage.
+
+<p>With large capacitors, the momentary current peaks created by the program material will not be of sufficient duration to discharge the caps to the full load voltage levels, so there is more voltage available on a more or less consistent basis. This equates to more power for transient signals, and lower ripple voltages the rest of the time.
+
+<p>With a 4,700uF capacitor and a peak current of 5A (equivalent to the peak current of a 100W amp into 8 Ohms), the capacitor will lose voltage at the rate of 1V / ms between "charges". As the capacitance is increased, this discharge rate naturally falls proportional to the capacitance. Doubling the capacitance halves the discharge rate and the ripple voltage for a given current, but increases the capacitor ripple current and the peak AC current - although the average value remains much the same. There are some small variations, but these are eventually accounted for if we analyse the waveforms critically - again, this is a relatively pointless exercise, and will not be undertaken.</p>
+
+<p>What we will do, is see what happens in each individual case when ...</p>
+
+<ul>
+	<li>The capacitance is increased</li>
+	<li>The transformer is made bigger</li>
+</ul>
+
+<p>Table 2 shows the currents and voltages with the same transformer used in Figure 2, but with a 10,000uF filter cap. There are insignificant increases in currents, and no worthwhile increase in the average DC output voltage. Output ripple is half that of the previous example. As can be seen, more capacitance will affect the DC ripple voltage but little else, and one may wonder if it is worth the effort (the answer is generally "yes", but it depends on the application).</p>
+
+<table width=640 border=1 style="border-collapse: collapse" align="center">
+<colgroup span=3 width="33%">
+<tr><td><b>Parameter</b></td><td><b>RMS</b></td><td><b>Peak</b></td></tr>
+<tr><td>AC Voltage</td><td>23.6 V</td><td>31 V</td></tr>
+<tr><td>AC Current</td><td>2.71 A</td><td>6.27 A</td></tr>
+<tr><td>DC Voltage</td><td>28.8 V</td><td>-</td></tr>
+<tr><td>DC Current</td><td>1.44 A</td><td>-</td></tr>
+<tr><td>Ripple Current</td><td>2.29 A&nbsp;</td><td>4.8 A</td></tr>
+<tr><td>Ripple Voltage</td><td>306 mV&nbsp;</td><td>1 V (P-P)</td></tr>
+<caption ALIGN=BOTTOM><small><b>Table 2 - 120 VA Transformer / 10,000uF</b></small></caption></table>
+
+<p>Table 3 is the same data, with the original 4,700uF capacitor, but now with a transformer having 0.5 of the original total winding resistance (0.375 ohms) - this is equivalent to a transformer of about 4 times the 120VA rating used before (or about 500 VA).</p>
+
+<table width=640 border=1 style="border-collapse: collapse" align="center">
+<colgroup span=3 width="33%">
+<tr><td><b>Parameter</b></td><td><b>RMS</b></td><td><b>Peak</b></td></tr>
+<tr><td>AC Voltage</td><td>24.2 V</td><td>32 V</td></tr>
+<tr><td>AC Current</td><td>3.15 A</td><td>8.32 A</td></tr>
+<tr><td>DC Voltage</td><td>30.3 V</td><td>-</td></tr>
+<tr><td>DC Current</td><td>1.52 A</td><td>-</td></tr>
+<tr><td>Ripple Current</td><td>2.76 A&nbsp;</td><td>6.8 A **</td></tr>
+<tr><td>Ripple Voltage</td><td>731 mV&nbsp;</td><td>2.2 V (P-P)</td></tr>
+<caption ALIGN=BOTTOM><small><b>Table 3 - 500 VA Transformer / 4,700uF</b></small></caption></table>
+
+<p>The increases in both average and peak currents are quite substantial, and the output voltage is higher by a small (but not especially useful) amount. The DC current is higher, only because the voltage is greater, and this is the sole reason for the increase in ripple voltage. The big test is to use the 10,000uF filter cap with this very much larger transformer, and see what increases occur.</p>
+
+<table width=640 border=1 style="border-collapse: collapse" align="center">
+<colgroup span=3 width="33%">
+<tr><td><b>Parameter</b></td><td><b>RMS</b></td><td><b>Peak</b></td></tr>
+<tr><td>AC Voltage</td><td>24.2 V</td><td>32 V</td></tr>
+<tr><td>AC Current</td><td>3.15 A</td><td>8.52 A</td></tr>
+<tr><td>DC Voltage</td><td>30.4 V</td><td>-</td></tr>
+<tr><td>DC Current</td><td>1.52 A</td><td>-</td></tr>
+<tr><td>Ripple Current</td><td>2.79 A&nbsp;</td><td>7.0 A **</td></tr>
+<tr><td>Ripple Voltage</td><td>345 mV&nbsp;</td><td>1.16 V (P-P)</td></tr>
+<caption ALIGN=BOTTOM><small><b>Table 4 - 500VA Transformer / 10,000uF</b></small></caption></table>
+
+<p>In case anyone is wondering why I used a load resistance of 20 Ohms, this was to simulate one half of a 55W Class-AB amplifier operating at the onset of clipping into an 8 Ohm load, with a steady sinewave input. Any dynamic analysis is very difficult, and the results are not particularly meaningful unless the exact signal source is known, along with the specifics of the power amplifier that is connected to the supply.</p>
+
+<p><small><b>Note:</b> &nbsp; Actually, the current of 1.44A is slightly on the high side, since the RMS current will only be about 1.375A, which is 1/2 the speaker current (the other half of the speaker current is provided by the negative power supply).</small>
+
+<p>In these calculations, I also made no allowance for the fact that nearly all transformers are rated for an output voltage at full current - this is invariably the voltage into a resistive load, and not a rectifier / filter combination. This means that the voltage will always be a little higher than specified at no load, and now you know why the DC is less than expected at full load.</p>
+
+<hr /><a id="myth"></a><b>Major Myth Regarding Capacitance</b>
+<p>I only heard about this myth recently, and while I can imagine how it came about, it's completely bogus. Some people claim that as the capacitance is increased for a given sized transformer, the peak current is also increased. There are conflicting additional claims that the RMS input current to the transformer either A) does, or B) does not increase as well. Added to this is a further claim that the transformer will overheat because the current is higher.
+
+<p>In essence, <i>this is all complete rubbish</i>. Incorrect measurement techniques or bad simulation practices may lead one to believe that this is the case, but it is not. The important thing is that we can only examine the steady state current - inrush current will quite obviously be greater with larger capacitance, but this is a transient event. Because transient events are just that - transient - there is no point analysing them and making absolute claims, because every transient will be different. Transformers can survive massive short term overloads without any harm, and a soft start circuit will tame the transient currents to something less scary.
+
+<p>The steady-state conditions are applicable to most power supplies within about 100ms after power is applied. If one were to use a 2 Farad capacitor on a 15VA transformer, this time will be extended considerably, but this would be silly, and we are not interested in the effects of silly combinations.
+
+<p>If we use the transformer/rectifier circuit described above as an example, we can either measure or simulate the effects of using a much larger than normal capacitor. As shown in Figure 2, the selected capacitor is 4,700uF and the load current is 1.44A - all fairly normal. The transformer secondary current is 2.7A RMS, so a 120VA transformer is well within its ratings. Even overloads are not a problem - if they are infrequent, the transformer will be perfectly happy as long as it has a chance to cool down so its maximum temperature is never exceeded. A fan can be used to increase the VA rating of most transformers, albeit with some variability.
+
+<p>No problems so far. However, many audiophile expectations will demand that the capacitance be at least 10,000uF, around 50,000uF for passable performance, but (of course) 100,000uF would be much better. This is (IMHO) rather pointless. I won't argue with 10,000uF, but any more is really wasted and not necessary.
+
+<p>Now, according to the myth (sorry -"theory"), this extra capacitance will cause the transformer's RMS current to increase, accompanied by a dramatic increase (or not) of the peak current - all during steady state conditions. It simply doesn't happen that way.
+
+<p>Adding more capacitance will ...</p>
+
+<ul>
+  <li>Decrease the ripple voltage
+  <li>Increase the average DC voltage very slightly
+  <li>Increase the inrush current (dramatically for larger capacitance values)
+  <li>Barely affect the steady state RMS current
+  <li>Have almost zero effect on the steady state peak current
+  <li>Not cause the transformer to overheat, provided sensible limits are placed on the cap value
+</ul>
+
+<p>What is sensible? As with all things, it depends on the context. For a 25V transformer providing a worst case rectified and smoothed current of 1.44A into a 20 ohm load (as described above), a sensible upper limit would be perhaps 50,000uF, although even 100,000uF will cause no harm. Sensible values are those that consider the law of diminishing returns, where, after a certain point is reached further increases yield little additional benefit.
+
+<p>If we do an analysis of the different capacitor values whilst keeping everything else the same, the effects can be seen quite clearly. The table below shows a range of capacitor values, the transformer RMS secondary current, peak current, diode conduction period and load power. As capacitance is increased, the load power also increases. Because the DC voltage has less ripple, the average voltage is very slightly higher. As a result, the load resistor dissipates a bit more power, and this accounts for the small increase in RMS current (remember, you can't get something for nothing).</p>
+
+<table width=640 border=1 style="border-collapse: collapse" align="center">
+<colgroup span=6 width="16%">
+  <tr><td><b>Cap Value</b></td><td><b>I<sub>sec</sub> RMS</b></td><td><b>I<sub>sec</sub> Peak</b></td>
+  <td><b>Diode Conduction</b></td><td><b>Load Power</b></td><td><b>Ripple (P-P)</b></tr>
+  
+  <tr><td>4,700 uF</td><td>2.65 A</td><td>6.18 A</td><td>3.58 ms</td><td>40.89 W</td><td>2.008 V</td></tr>
+  <tr><td>10,000 uF</td><td>2.66 A</td><td>6.21 A</td><td>3.63 ms</td><td>41.05 W</td><td>0.953 V</td></tr>
+  <tr><td>22,000 uF</td><td>2.66 A</td><td>6.22 A</td><td>3.63 ms</td><td>41.08 W</td><td>0.432 V</td></tr>
+  <tr><td>50,000 uF</td><td>2.66 A</td><td>6.23 A</td><td>3.64 ms</td><td>41.09 W</td><td>0.191 V</td></tr>
+  <tr><td>100,000 uF</td><td>2.66 A</td><td>6.23 A</td><td>3.64 ms</td><td>41.09 W</td><td>0.096 V</td></tr>
+</table>
+<center><small><b>Table 5 - Transformer Current and Load Power as a Function of Capacitance</b></small></center>
+
+<p>As you can see, the difference is very small for steady state conditions. Inrush current is another matter though, and we need to examine that to ensure that nothing is stressed so much as to cause failure after a few years of operation. Before we do that, it is fairly clear that the law of diminishing returns is in full effect with any capacitance above 10,000uF. The increase in load power is negligible for the higher values.
+
+<p>If you wish to simulate the myth in action, all you need is an ideal (zero ohm output impedance) voltage source and ideal diodes. Neither of these are actually available in the real world, but you can pretend. With these imaginary components, everything is different, and bigger caps cause huge increases in peak current. Since this has nothing to do with reality, it can be ignored. As noted, Table 5 was compiled from simulation data based on the circuit shown in Figure 2, using a non-zero source, and non-ideal diodes. Once the simulation has some vestige of reality to work with, we get answers that will match measured results remarkably well.</p>
+
+<table width=640 border=1 style="border-collapse: collapse" align="center">
+<colgroup span=4 width="25%">
+  <tr><td><b>Cap Value</b></td><td><b>&frac12; Cycle Peak</b></td><td><b>Duration ... 50% of Max.</b></td>
+  <td><b>Duration ... Steady State</b></td></tr>
+  
+  <tr><td>4,700 uF</td><td>24 A</td><td>&lt; 1 cycle (20 ms)</td><td>&lt; 1 cycle (20 ms)</td></tr>
+  <tr><td>10,000 uF</td><td>30 A</td><td>&lt; 1 cycle (20 ms)</td><td>65 ms</td></tr>
+  <tr><td>22,000 uF</td><td>36 A</td><td>&lt; 30 ms</td><td>200 ms</td></tr>
+  <tr><td>50,000 uF</td><td>39 A</td><td>65 ms</td><td>345 ms</td></tr>
+  <tr><td>100,000 uF</td><td>41 A</td><td>125 ms</td><td>425 ms</td></tr>
+</table>
+<center><small><b>Table 6 - Transformer Peak Current at Switch-On as a Function of Capacitance</b></small></center>
+
+<p>The first value is the capacitance, followed by the transformer secondary current for the first half cycle. It does <i>not</i> include the transformer's inrush current. The peak secondary current is limited to a maximum value based on the effective transformer winding resistance plus diode resistance, and the peak voltage less diode forward voltage drop. The capacitor's ESR (equivalent series resistance) also has an effect, but this is generally small - especially with large value caps. Cable resistance will also affect the final result, but if the cables are thick enough the error is very small.
+
+<p>The third value is the time before the peak current has fallen to half the maximum. This was included to give you an idea of the duration of the inrush surge. The fourth column is an estimation, and shows the time from switch-on until the surge current has fallen to within 10% of the steady state value.
+
+<p>The figures shown here are an example, based on the schematic shown in Figure 2. Anyone wanting to do so can repeat the simulations I did, but you <i>must</i> ignore the first part of the waveform with the inrush current. If this is included in an RMS analysis, you will not get the proper steady state value, but a value that includes the steady state and inrush currents. This is simply the way 99% of simulators work. For the figures shown, I ran the simulator for 2 seconds, and ignored the first 1.9 seconds. Data was only shown (and measured) for the last 100ms. If the entire 2 second simulation's data were used, the RMS current for a 100,000uF cap will be incorrectly shown as 5.64A, which is quite clearly wrong.
+
+<p>Needless to say, these tests are also easily run using a real transformer, diode bridge, filter cap and load. The figures will be slightly different, but the overall values will show exactly the same trend as shown. The transformer current waveform is best monitored across a low value resistor, with 0.1 ohm being about right. This will have a small effect on the peak current measured, but the measurements will correlate very well with those shown here.</p>
+
+<p align="center"><img SRC="psu-f4.gif" ALT="Figure 4" border=1>
+<br /><b><small>Figure 4 - Peak Current Waveforms</small></b></p>
+
+<p>Figure 4 shows the peak waveforms with 4,700uF, 22,000uF and 100,000uF. They are all at the same scale, and all were taken after 1.9 seconds to ensure that the steady state conditions had been reached. As you can see, it is almost impossible to tell them apart, because they are almost perfectly overlayed. Since the peak values are almost unchanged, so too is the RMS value.
+
+<p>While it may <i>seem</i> that a higher capacitance should draw larger peak currents, it must be understood that the larger values of capacitance discharge less between charge pulses, and ultimately require <i>exactly</i> the same "top-up" energy as a smaller cap. This effect can be seen just by looking at the ripple voltage figures - with lower ripple voltage, there is less voltage change when the diodes conduct, so the peak current and waveform remain relatively constant.
+
+<p>If the capacitor is smaller than optimum, then there will be very large differences between various values. Smaller than optimum is absolutely not recommended, and peak to peak ripple voltage should be no more than 10% of the total supply voltage for best results. The 4,700uF cap just makes it, and for normal listening would be perfectly alright.</p>
+
+<hr /><a id="rectifiers"></a><b>Rectifier Types</b>
+<p>So far we have looked at the full wave bridge rectifier, and this is but one of several different configurations. The most common (and/or simplest) rectifiers are ...</p>
+
+<ul>
+  <li>Half Wave (not recommended for <i>any</i> current exceeding a couple of milliamps)</li>
+  <li>Full Wave Bridge</li>
+  <li>Full Wave</li>
+  <li>Dual Full Wave (Full Wave Centre Tap)</li>
+  <li>Full Wave Voltage Doubler</li>
+</ul>
+
+<p>There are others, but they are not commonly used in low voltage amplifiers. The dual full wave (using a bridge rectifier and a centre tapped transformer) is probably the most common of all, and some further analysis of this rectifier shall be covered next. I have chosen to ignore half wave rectifiers (in all their forms), but decided to add voltage doublers. These are normally only useful for low power applications where their operation is not critical. This is especially true of preamp supplies, which will almost always be followed by a regulator.
+
+<p>Half wave rectifiers should never be used. At any appreciable current (more than a few milliamps), the half wave rectification process means that the transformer is also subjected to a half wave rectified current, and this can cause the core to saturate at surprising small currents - especially with toroidal transformers. In general, avoid the use of half wave rectification altogether.
+
+<p>The full wave voltage doubler is still common in valve amplifier circuits and for some preamp supplies. For example, the <a href="project05b.htm">Project 05</a> preamp supply offers a full wave voltage doubler as an input option. More on this below.
+<p>Of the major types, the generally accepted voltage and current ratios are as follows ...</p>
+
+<table width=640 border=1 style="border-collapse: collapse" align="center">
+<colgroup span=3 width="33%">
+<tr><td width="34%"><b>Rectifier Type</b></td width="33%"><td><b>Filter Type *</b></td><td width="33%"><b>RMS AC Input</b></td></tr>
+<tr><td>Full Wave</td><td>Capacitor Input</td><td>DC x 1.2</td></tr>
+<tr><td>Full Wave CT</td><td>Capacitor Input</td><td>DC x 1.2&nbsp; **</td></tr>
+<tr><td>Bridge</td><td>Capacitor Input</td><td>DC x 1.8</td></tr>
+<tr><td>Full Wave Doubler</td><td>Capacitor Input</td><td>DC x 3.3</td></tr>
+<caption ALIGN=BOTTOM><small><b>Table 7 - DC Output Vs. AC Input Current</b></small></caption></table>
+
+<blockquote><small>* &nbsp; Choke input filters have not been included, since although they provide superior filtering and lower noise, they are very expensive to produce because of the sheer size of the inductance.
+<br />** This figure is for each winding of the transformer.</small></blockquote>
+
+As can be seen from the circuits analysed so far, the figure for bridge rectifiers (AC current 1.8 times the DC current) is close enough to what was measured. It must be remembered that this is not an exact science, since there are so many variables to deal with.
+
+<hr /><a id="fullwave"></a><b>Full Wave Rectifier</b>
+<p>Unlike the bridge rectifier which uses 100% of the transformer winding at all times, the full wave rectifier uses only half of the winding on each half cycle of the AC waveform. This leads to some additional losses, since the winding must be double the number of turns of that for a bridge rectifier. This either means that the winding resistance is more than double that for a bridge rectifier, leading to higher resistive losses, or that twice as much area is taken up in the window of the transformer, so all windings are thinner than they could be.</p>
+
+<p align="center"><img SRC="psu-f5.gif" ALT="Figure 5" BORDER=1>
+<br /><b><small>Figure 5 - Full Wave Rectifier</small></b></p>
+
+<p>I have reverted to a transformer for this section, rather than the simulated version used before. This makes the drawings clearer, and the same depth of analysis will not be performed again this time. The capacitor ripple current is unaffected in principle, except that it will be slightly lower for a given VA rating since it is directly related to transformer winding resistance.
+
+<p>For the example in Figure 5, the AC current in each winding is 1.82A for a 1.47A DC load. This is quite close to the ratio of 1.2:1 shown in Table 5, and the difference is readily explained by measurement inaccuracy.
+
+<p>The VA rating for the transformer is the same for bridge and voltage doubler types, but is a little higher for the full wave. Despite apparent variations, wasted power is restricted to diodes and transformer winding resistive losses, and this assumes that windings are properly sized in all cases.</p>
+
+<p align="center"><img SRC="psu-f6.gif" ALT="Figure 6" BORDER=1>
+<br /><b><small>Figure 6 - Full Wave Centre Tapped Rectifier</small></b></p>
+
+<p>This version now uses the entire winding all the time - each winding is used for both positive and negative supplies. Full winding utilisation means that the AC current is now the same as for a bridge rectifier, at 1.8 times the DC current, but only for a common mode load (i.e. between the supplies, rather than from one supply or the other to ground - this is identical to equal current from each supply to ground). Where the load is from only one supply or the other, the 1.2 rule applies, but power amplifiers will draw from both supplies (more or less) equally. The frequency of the signal waveform is mostly above the power supply input frequency, so the supply will effectively be loaded as common mode. All dual power supply designs must assume this load, or the result will be most unsatisfactory.</p>
+
+<hr /><a id="doubler"></a><b>Full Wave Voltage Doubler</b>
+<p>This type of supply often has a bad reputation, and is considered useful only for certain applications. Typically, the efficiency and regulation are considered by many to be rather poor, so it often tends to be used only for comparatively low current supplies. This need not be the case though. Because only half as many turns are needed, the wire can be twice the diameter, and will have &frac14; of the resistance of a winding for a bridge rectifier. If this is done, performance is almost identical to a bridge. The doubler used to be a common supply in valve amplifiers (although not centre-tapped as shown below), since it halves the voltage across each capacitor and allows the use of lower voltage caps. They do need to have twice the capacitance though because the caps are in series, so the total capacitance is half that of each individual cap (hence the 10,000uF caps instead of 4,700uF as used before).</p>
+
+<p align="center"><img SRC="psu-f7.gif" ALT="Figure 7" BORDER=1>
+<br /><b><small>Figure 7 - Full Wave Voltage Doubler</small></b></p>
+
+<p>Using the same voltage and load current as before, we can do a quick analysis of the circuit. The first thing to know is that the ripple voltage frequency at the centre tap of the two caps is the same as the applied mains (50 or 60Hz). Ripple at the main output is 100/120Hz.
+
+<p>The voltage only manages to get to &plusmn;26.8V with a 1.5A load (actually a little less - about 1.49A). The ripple voltage is 2.3V peak-to-peak, but the AC input current is now slightly over 4.9A RMS. With a 25V winding and that much current, the transformer now has to be rated at 122.5VA, while delivering a fraction under 80W to the load. It should be quite apparent that this is not a particularly good way to build a power supply for high current, and in general my recommendation is that it be used only for relatively low current supplies.</p>
+
+<p align="center"><img SRC="psu-f8.gif" ALT="Figure 8" BORDER=1>
+<br /><b><small>Figure 8 - Full Wave Voltage Doubler, Single Ended</small></b></p>
+
+<p>When used in valve (tube) amplifiers, the current is usually manageable, but a centre tapped supply isn't required. It is a simple matter to change the earth reference from the centre tap to the negative end of the supply as shown in Figure 8, so you end up with a 54V supply from a 25V transformer winding. The half voltage tap (between the two caps) is useful for supplying screen grids of output valves, and for the preamp stages. Note that the high voltage tap now has 100Hz ripple, and the half voltage tap has 50Hz ripple (120Hz and 60Hz respectively for 60Hz mains). Note that for valve equipment, the voltages will generally be closer to 500V and 250V than shown above.
+
+<p>Interestingly, this type of supply is (or was up until fairly recently) fairly common with computer power supplies and the like. When used at 120V, the voltage switch on the back of the supply converted it from a bridge rectifier to a voltage doubler, and the SMPS circuitry works from a 300-340V DC supply as a matter of course. At that voltage, current is typically fairly low (around 500mA for a 150W supply). In use in this manner, it is mandatory that some form of inrush current limiting is used, because the mains has such a low impedance that diode or capacitor failure is almost guaranteed with possible inrush currents of hundreds of amps.</p>
+
+<hr /><a id="temperature"></a><b>Temperature</b>
+<p>In all power supply designs where the power is significant, the transformer temperature rise must be accounted for. Apart from the transformer radiating its heat to nearby components, any temperature rise will increase the copper losses, leading to reduced performance and even more heat. Use of a larger than required transformer will help considerably, but at the expense of capacitor ripple current. Fan cooling of the transformer can increase its rating quite dramatically if done properly.
+
+<p>Naturally, an increase in ripple current will cause the capacitors to become hotter, and as always, an increase in temperature causes increased losses and shortened component life expectancy.
+
+<p>For similar reasons, it is unwise to mount the filter capacitors anywhere near a significant heat source, such as large wirewound resistors, heatsinks or other heat generating components. Valve amplifiers are the natural enemy of electrolytic caps, due to the often elevated temperatures within the chassis. Some manufacturers have resorted to mounting the filter caps in a separate metal enclosure on the outside of the chassis (and reasonably well away from output valves) in an attempt to keep temperatures down.</p>
+
+<hr /><a id="capacitor-value"></a><b>Capacitor Value</b>
+<p>The required capacitance for a given load current and ripple voltage is determined (approximately) by the formula [<a href="#reference">1</a>]...</p>
+
+<blockquote>
+	C = ( I<sub> L</sub> / &Delta;V) * k * 1,000 uF ... where
+		<blockquote>
+			<small>I<sub> L</sub> = Load current<br />
+			&Delta;V = peak-peak ripple voltage<br />
+			k = 6 for 120Hz or 7 for 100Hz ripple frequency</small>
+		</blockquote>
+</blockquote>
+
+<p>Since all my calculations above were done at 100Hz ripple current, this can be checked easily, so ...</p>
+
+<blockquote>
+	I<sub> L</sub> = 1.44, ripple = 2V p-p, therefore C = 5,040uF
+</blockquote>
+
+<p>It can safely be concluded that this formula is more than acceptable for our needs, the error being about 7%, which is far better than the tolerance of electrolytics anyway. The net result is that the required capacitance is about 3,500uF per amp, for a 2V peak to peak ripple (50Hz supply). The required capacitance will be less for 60Hz countries, at 3,000uF per amp - again for a 2V p-p ripple voltage.
+
+<p>I have seen it advocated that 100,000uF is the minimum that should be used with a powerful amp (say 200W / channel or so), but I find this difficult to justify. The law of diminishing returns comes into play quite quickly, and with both capacitance and transformer VA rating, this law becomes significant once you have doubled each of these values. With Class-AB amps, a ripple voltage of 2V P-P at full power will do nothing more than reduce the power by a few watts at the onset of clipping. Even reducing the capacitance further to (say) 1,500uF per amp will only reduce the continuous power output by a small amount. Normal music signals with their dynamic range will allow an amp with a relatively small capacitance to still provide the same maximum power for short transients.
+
+<p>As an example, a 100W/ 8 Ohm power amp will have a maximum output current of about 3.5A RMS into a resistive load. Since we know that a loudspeaker is not resistive, this figure should be doubled, to 7A. This is not an absolute rule - you can multiply by three if that makes you any happier. The supply current for each supply (+ve and -ve) will therefore have a peak value of about 10A (7 * 1.414), and the average will be 1/2 of the speaker current, or 3.5A. Based on the 3,500uF / amp figure above (assuming a 50Hz supply), 12,250uF per side is enough to ensure that ripple voltage never exceeds 2V P-P, but since this is a non-standard value, we would use 10,000uF.
+
+<p>In reality, it is probably going to be quite OK with 4,700uF, and the loss of power is negligible in real terms. As stated above, continuous power will be reduced, but normal music signals will not have transients of sufficient duration to discharge the filter caps appreciably. Note that this does not apply to amplifiers that are used for sub-woofers, nor for Class-A amps. These will place a greater load on the supply, and on a more consistent basis.
+
+<p>If we were to increase the capacitance to infinity (big cap!), the ripple voltage will be 0V, and we will get an extra volt (peak) from the amp before the onset of clipping with a continuous signal. This represents about 4W increase, which is completely insignificant - especially when we remember that the mains voltage could (will - at some stage) fall by up to 10%, which represents a power drop of around 20W - the 100W amp will only be capable of 80W with 10% low mains. Considering that an amplifier should not be operated at or near clipping anyway, the difference is inconsequential.
+
+<p>Use of a small (e.g. 1uF) polyester or polycarbonate capacitor across the DC output is a common practice. Electrolytics all exhibit a small inductance, and this causes their impedance to rise at higher frequencies. This is dependent on the physical size (specifically the length) of the cap - bigger caps usually have greater inductance. Again, the use of a paralleled bank of small (1,000uF) electros will be better in this respect than a single large can type, and will also be easier to mount and cheaper. I have never found the necessity to add a bypass cap to maintain amp stability, but it cannot hurt (some amplifiers <i>will</i> oscillate if the supply impedance is allowed to exceed some specific (low) impedance at high frequencies). Essentially it is a good idea, and in the greater scheme of things, is inexpensive. Should you choose not to include a film bypass, it is unlikely that anything 'bad' will happen - the impedance of the large electrolytic will remain much lower than that of the film cap at frequencies up to 1MHz or so.</p>
+
+<hr /><a id="ripple"></a><b>Capacitor Ripple Current</b>
+<p>The manufacturers' ripple current rating is the maximum continuous ripple if the quoted life expectancy of the capacitor is to be achieved (usually 2000 hours, but 12000 to 26000 hours for some manufacturers). The ripple current rating is for the capacitor operating in an ambient of 85&deg;C (or higher for high temperature types) and the maximum ripple current can be increased by up to 2.5 times as the operating temperature is reduced (2.5 times at 30&deg;C), though going above about 1.5 times is risky because the ESR increases as the capacitor ages and causes more heat for the same ripple current. [<a href="#reference">3</a>]. Personally, I prefer not to exceed the quoted ripple current rating.</p>
+
+<p>Capacitors in power supplies feeding Class-A amps should be operated well within their ripple current rating. In a Class-AB amp, the maximum ripple is at maximum output which only occurs occasionally (if at all!). Occasional excursions up to or even above the maximum ripple current will not significantly affect the life of the capacitor. In a Class-A, however, the ripple is at a maximum whenever the amp is switched on. If the ripple current is at the maximum for the capacitor, the life expectancy would be 2000 hours (for the normal types). This equates to a life of less than 2 years if the amp is used for 3 hours a day.
+
+<p>A formula for calculating ripple current would be very useful, but unfortunately (despite claims made in some articles I have read), it is almost entirely dependent on the series resistance provided by the incoming mains and the power transformer. Any formulae that do exist are only true for "sub-optimal" values of capacitance (in other words, the cap is too small to be useful). The summary (below) has some guidelines that may be useful, but be aware that these are guidelines only - the final outcome has so many variables that it is impossible to give an accurate prediction of capacitor ripple current.
+
+<p>Remember that large capacitor values will have a smaller surface area per unit capacitance than smaller ones, so the use of multiple small caps instead of a single large component can be beneficial. There is more surface area, the ESR will be lower, ripple current rating higher, and the combination will most often be cheaper as well. This is an "all win" situation - rarely achieved in any form of engineering. An example is worth showing - the following details are from an Australian electronics retailer's catalogue:</p>
+
+<table width=640 border=1 style="border-collapse: collapse" align="center">
+<colgroup span=6 width="16%">
+<tr><td VALIGN=TOP><b>Value (uF)</b></td><td VALIGN=TOP><b>Voltage</b></td>
+<td VALIGN=TOP><b>Size (mm)<br />Dia x H</b></td><td valign="top"><b>Surface Area (mm&sup2;)</b></td>
+<td valign="top"><b>Ripple Current (mA)</b></td><td VALIGN=TOP><b>Price (AU$)</b></td></tr>
+<tr><td>1,000</td><td>63</td><td>16 x 32</td><td>1659</td><td>1,400</td><td>1.95</td></tr>
+<tr><td>2,200</td><td>50</td><td>16 x 35</td><td>1810</td><td>1,900</td><td>2.85</td></tr>
+<tr><td>4,000</td><td>75</td><td>30 x 80</td><td>7634</td><td>4,600</td><td>14.50</td></tr>
+<tr><td>8,000</td><td>80</td><td>35 x 76</td><td>8467</td><td>3,460</td><td>18.95</td></tr>
+<tr><td>10,000</td><td>100</td><td>51 x 85</td><td>13779</td><td>8,100</td><td>32.95</td></tr>
+<caption ALIGN=BOTTOM><small><b>Table 8 - Capacitor Comparison</b></small></caption></table>
+
+<p>For the sake of the exercise, we will assume that we need 8,000uF at a minimum of 50V, and with a ripple current rating of 7A - this is more than adequate for a 100W amp, and meets all the design criteria.</p>
+
+<ul>
+  <li>A single 8,000uF 80V cap could be used, with a price of $18.95, ripple current of 3.46A and a surface area of 8467 mm&sup2; Overall, 
+  a simple solution but  ripple current rating is 1/2 what I want, so it is excluded.<br /><br /></li>
+  <li>Two 4,000uF 75V caps will cost $29, but have a ripple current of 9.2A and a surface area of 15,268 mm&sup2;. Considerably more expensive, 
+  but very good performance.<br /><br /></li>
+  <li>Four 2,200uF 50V caps cost $11.40, ripple current is 7.6A, and surface area is 7,240 mm&sup2;. The most economical, but there is a minor
+  performance deficiency by comparison with the previous and next options (but you do get some extra capacitance). This would be my choice for most
+  systems, as it meets or exceeds all requirements.<br /><br /></li>
+  <li>Eight 1,000uF 63V caps will cost $15.60. The ripple current is 11.2A, and surface area is 13,272 mm&sup2;. For performance vs. price, there
+  really is no contest. More effort is required to mount them, though.<br /><br /></li>
+  <li>Naturally, you could also use the 10,000uF cap, but why would you do that?</li>
+</ul>
+
+<p>I shall leave it to you to do your own comparisons, but most of the time you will get similar results. This is a very good way to reduce the size requirements as well - it is far easier to fit a number of small caps into an enclosure than a couple of large ones, and since there is an overall improvement in specs as well as a price advantage, it is an elegant solution.
+<p>It is worth pointing out that historically, filter capacitors are the number one cause of power supply failure. This is almost always because of the effects of temperature and ripple current, and close attention to this is very much worth your while.</p>
+
+<hr /><a id="diodes"></a><b>Rectifier Diodes</b>
+<p>One thing I strongly recommend is the use of 35A chassis mounted bridge rectifiers. Because of the size of the diode junctions, these exhibit a lower forward voltage drop than smaller diodes, and they are much easier to keep cool, since they will be mounted to the chassis which acts as a heatsink. As always, lower temperatures mean longer life, and as was demonstrated above, the peak currents are quite high, so the use of a bigger than normal rectifier does no harm at all.
+
+<p>Even given the above, I have had to replace bridge rectifiers on a number of occasions - like any other component, they can (and do) fail. The bigger transformers increase the risk of failure, due to the enormous current that flows at power-on, since the capacitors are completely discharged and act as a momentary short circuit.
+
+<p>Diodes used in a FWCT (Full Wave Centre Tapped) or single Full Wave supply rectifier must be rated at a minimum of double the worst case peak AC voltage. So for example, a 25V RMS transformer will have a peak AC voltage of 35V when loaded, but may be as high as 40V unloaded, and double this is 80V. 100V Peak Inverse Voltage (PIV) diodes would be the minimum acceptable for this application.
+
+<p>For a single bridge rectifier, PIV needs to be greater than the peak AC voltage, since there are effectively two diodes in series.
+
+<p>In the case of a dual supply (using a 25-0-25V transformer), the worst case peak AC voltage is 80V, so the diodes must be rated at 200V PIV. The most common 35A chassis mounted bridge rectifiers are rated at 400V, and this is sufficient for all supplies commonly used for power amplifiers of any normal (i.e. &lt; 500W into 8 ohms). Beyond this, the voltage rating is fine, but the current rating is inadequate, and a higher current bridge should be used.
+
+<p>There is currently a trend towards using fast recovery diodes in power supplies, since these supposedly "sound better". This is basically a bad idea, and there is absolutely no requirement for them. The purpose of a fast recovery (or any other fast diode) is to be able to switch off quickly when the voltage across the diode is reversed. All diodes will tend to remain in a conducting state for a brief period when they are suddenly reverse biased. This is extremely important for switched supplies, since they operate at high frequency, and have a squarewave input. Standard diodes will fail in seconds with the reverse current, since it causes a huge power loss in the diode.
+
+<p>At 50 or 60Hz, and with a sinewave input, the slowest diodes in the universe are still faster than they need to be. Indeed, Nelson Pass suggests that even the standard diodes should be slowed down with paralleled capacitors [<a href="#reference">2</a>]. This can be an excellent idea, as it reduces the radiated harmonics from the diode switching. 
+
+<p>Typically, 100nF capacitors (optionally with a small series resistance) are wired in parallel with each diode in the bridge, and this is quite common with some high end equipment and test gear where minimum noise is essential.</p>
+
+<hr /><a id="dc-sound"></a><b>DC Sound</b>
+<p>For reasons that I find completely obscure, there are some who claim that there are audible differences between power supply filter caps, diodes and mains leads. The net result of all the transforming, rectifying and filtering described above, is to produce DC. OK, it is not pure DC, in that it has some superimposed AC, as ripple voltage. Very few power amplifiers are so intolerant of ripple or other signals on their supply lines that a couple of volts will be audible. If this is the case, then a regulated supply, or at least a capacitance multiplier, is essential.
+
+<p>Very small amounts of noise that manage to get through the supply also should have no effect on an amp, and if the amp is so afflicted, the remedy is the same as for ripple. Remember that at all audio frequencies, the reactance of the capacitor is very low, and will act as a short circuit for any stray noise signals. A 10,000uF cap has a theoretical reactance (impedance) of 1.6 milliohms at 10kHz. This will never be achieved in practice - the wire has more resistance than that. Suffice to say that the impedance is pretty low, and it is extremely hard for any appreciable signal to get past the filter capacitors. The addition of one or more 1uF film type bypass caps ensures that impedance stays low even as the inductance of the electrolytics starts to have an influence.
+
+<p>The above assumes that the problem is noise, but this is rarely stated as the "improvement" - it is more likely to be bass "authority" or extension, or perhaps the "veil" is lifted from the highs. It can readily be demonstrated that as long as a power supply is well engineered in the first place, the "quality" of the DC output is unaffected by any of the "remedies". Ripple voltage will remain the same, amplifier power output (at all frequencies) will be unchanged, and mostly the signal to noise ratio will be unaffected. It is very easy to monitor the supply rails with an oscilloscope and a monitor loudspeaker (capacitively coupled of course), and from this it is possible to directly assess any difference should it exist.
+
+<p>In a similar vein, I have yet to hear from anyone who can give a plausible explanation or send me a sound file that demonstrates the difference between any two mains leads, all else being equal.</p>
+
+<hr /><a id="summary"></a><b>Summary</b>
+<p>In conclusion, there are some rules of thumb that can be applied to save calculations and test measurements. These should not be considered as gospel - they are merely my suggestions on acceptable minimum requirements for a power supply.
+
+<p><b>Diode Ratings</b>
+<ul>
+	<li>For most amplifiers or 50W or greater, use a 35A 400V rectifier bridge. Smaller amps can naturally use something with lower ratings. 
+	Current should be based on 10A per 100W for an 8 ohm load, or 20A per 100W for 4 ohms.</li>
+	<li>Voltage rating must be a minimum of 200V for 100W into 8 ohms, or 100V for 100W for 4 ohms. This is not linear, so direct extrapolation 
+	is not advised. 400V diodes are adequate for amplifiers up to 2000W/ 8 ohms.</li>
+</ul>
+
+<b>Capacitor Value</b>
+<ul>
+	<li>Capacitance
+	<ul>
+    	<li>Class-AB: The filter cap should be a minimum of 4,700uF per 100W into 8 ohms, and 10,000uF per 100W into 4 ohms. The actual value can 
+		be extrapolated from here. It is often possible to use less than the suggested capacitance, and the values shown may be halved without 
+		a significant loss of performance - this is up to the individual constructor.</li>
+		<li>Class-A: The cap needs to be selected on the requirements of the amplifier, but a minimum of 4,700uF for each 10W into 8 ohms is
+		recommended.<br />
+	</ul>
+	<li>Voltage rating is as required by the maximum DC supply, and will usually be 50, 75 or 100V<br /></li>
+	<li>Ripple current ranges (from the examples shown here) from 3.3 times the load current up to 4.6 times load current, depending largely on 
+	the transformer size.
+	<ul>
+		<li>Class-AB: Because the amplifier will rarely draw maximum current for prolonged periods, a ripple current rating equal to double the 
+		peak output current will usually be enough. Thus a 100W/ 8 ohm amp having a peak output current of 3.5A will usually be OK with a ripple
+		current rating of 7A. (Note: guitar amplifiers are specifically excluded from this! - I suggest double the above value as a minimum.)</li>
+		<li>Class-A:&nbsp; For the worst case possibility, I suggest that the ripple current rating should be 5 times the load current for these
+		amplifiers. A 20W/ 8 ohm Class-A amp will draw a continuous 2.5A (typical), so ripple current rating for the capacitors needs to be 12.5A.
+	</ul>
+</ul>
+
+<b>Transformer</b>
+<ul>
+	<li>The voltage is determined by the power that you need from the amplifier. Calculate power from the formula ...<br />
+	&nbsp; &nbsp; P = Va&sup2; / R &nbsp; Where P is power in Watts, Va is RMS speaker voltage, and R is speaker nominal impedance<br />
+
+	<li>The supply voltage (allowing only for basic losses) is calculated as follows<br />
+	&nbsp; &nbsp; V<sub>RMS</sub> = Va * 1.1 &nbsp; Where V<sub>RMS</sub> is the transformer secondary voltage (for each supply rail)<br /><br />
+
+	<li><b>VA Rating - Class-AB</b>
+	<br />The absolute minimum VA rating suggested is equal to the amplifier power. A 50W amp therefore needs a 50VA transformer, or 100VA for
+	stereo 50W amps. Larger transformers (up to double the amp power rating) will provide a "stiffer" power supply, and this may be beneficial. For
+	continuous operation at full power (never actually needed in audio), the transformer should have a VA rating of up to 4 times the amplifier
+	power.<br /><br />
+
+	It is suggested by some transformer manufacturers (and no doubt gleefully adhered to by many amplifier makers) that the VA rating needs only 
+	to be 0.7 of the maximum amplifier power. While this will work well enough in most cases, you will not have a "stiff" power supply - I would
+	suggest "soggy" as an appropriate term - the voltage will waffle about like a limp biscuit.<br /><br />
+	</li>
+
+	<li><b>VA Rating - Class-A</b><br />
+	The minimum VA rating suggested is 4 to 5 times the amplifier power. A 20W Class-A amp therefore needs an 80-100VA transformer, or 160-200VA 
+	for stereo 20W Class-A amps. Larger transformers will again provide a "stiffer" power supply, and this will be beneficial. Nelson Pass 
+	suggests the ratio should be 7.5 times the amp power [<a href="#reference">2</a>].</li>
+</ul>
+
+<hr /><a id="fuse"></a><b>Fusing and Protection</b>
+<p>Since the power supply is connected to the mains, it is necessary to protect the building wiring and the equipment from any failure that may occur. To this end, fuses are the most common form of protection, and if properly sized will generally prevent catastrophic damage should a component fail.
+
+<p>Toroidal transformers have a very high "inrush" current at power-on, and slow-blow fuses are highly recommended to prevent nuisance blowing. In the case of any toroid over 500VA, a slow-start circuit is very useful to ensure that the initial currents are limited to a safe value. An example of such a circuit is presented on the <a href="projects.htm" target="_blank">Project Pages</a>, and represents excellent insurance against surge damage to rectifiers and capacitors.
+
+<p>Calculating the correct value for a mains fuse is not easy, since there are many variables, but a few basic rules may help.
+
+<br />First, determine the maximum operating current of the system, based on continuous maximum power. The calculations done previously will help ...
+
+<p>The mains current is determined by the turns ratio of the transformer, calculated by</p>
+
+<blockquote>
+	Tr = Vpri / Vsec &nbsp; Where Tr is turns ratio, Vpri is primary (mains) voltage, and Vsec is secondary voltage
+</blockquote>
+
+<p>A 240V to 25-0-25V (i.e. a 50V secondary! - the whole secondary winding must be used in the calculations) transformer has a turns ratio of 4.8:1, the same transformer with a 120V secondary has a turns ratio of 2.4:1 - this can be calculated for any transformer. The primary current is calculated by ...</p>
+
+<blockquote>
+	Ipri = Isec / Tr &nbsp; Where Ipri is primary current, Isec is secondary current
+</blockquote>
+
+<p>A supply designed for our hypothetical 100W/ 8 ohm amplifier will have a secondary current of about 6.3A at full power, so primary current (for 240V) is about 1.3A. A 2 Amp fuse would seem OK for this, but if a 500VA transformer was used (for example), this is barely enough to handle the maximum transformer primary current. A 3A slow-blow fuse should be used, and this should survive the inrush current (120V countries will need a 6A slow-blow fuse).
+
+<p>Thermal protection (often by way of a once-only thermal fuse) is often included in transformers. If the "one-time" thermal fuse has been used, should the transformer overheat it must be discarded, since the fuse is buried inside the windings and cannot be replaced. All the more reason to ensure that the transformer is properly protected at the outset.</p>
+
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE:" height=37 width=108></td>
+<td><big>Note that primary fuse or circuit breaker protection does not protect the amplifier against overload or shorted speaker leads. If this happens, or should the amplifier fail, the primary fuse offers no protection against catastrophic failure and possibly fire. For this reason, secondary DC fuses should always be used - no exceptions.</big></td></tr></table>
+
+<p>Multi-tapped primaries (e.g. 120, 220, 240V) create additional problems with fusing, and often a compromise value will be used. The transformer protection is then not as good as it could be, but will generally still provide protection against shorted diodes or filter caps. 
+
+<p>Additionally, it may be an advantage to fit Metal Oxide Varistors (MOVs) to the mains - between the active and neutral leads. These will absorb any spikes on the mains, and help to prevent clicks and pops coming through the amplifier.</p>
+
+<hr /><a id="smps"><b>Switchmode Power supplies (SMPS)</b></a>
+<p>For many applications, the power supply of choice has now become one of the many different switchmode types. Some larger SMPS have active power factor correction to minimise the mains current when heavily loaded. I will only look at the basic principles here, because SMPS design is a complete career in itself. Any attempt to try to explain the finer points is futile because this is just one page of my site. Entire sites are devoted to SMPS design, and the design is non-trivial in every respect.
+
+<p>Manufacturers use a SMPS because it is much smaller than an equivalent linear supply, and as noted can include active power factor correction (PFC). This is designed to keep the mains waveform as close to the mains voltage waveform as possible. This minimises current for the same power, and reduces mains distortion (which is becoming a major problem).</p> 
+
+<p align="center"><img SRC="psu-f9.gif" ALT="Figure 8" BORDER=1>
+<br /><b><small>Figure 9 - SMPS Block Diagram</small></b></p>
+
+<p>The PFC circuitry uses raw (unfiltered) rectified AC, so it has a huge ripple component. The ICs are specifically designed to be able to deal with this waveform, and the output of the PFC circuit is DC - usually at around 350V. Depending on the application, it may be either well regulated or just have basic regulation. If PFC is not used, the PFC block above is replaced with a conventional rectifier and high voltage filter capacitor(s). The PWM switching circuit is then responsible for all regulation (if used).
+
+<p>The DC is then chopped at high speed (typically 50kHz or more) into a pulse width modulated (PWM) squarewave signal. This allows the transformer to be very small even for high power systems, due to the high operating frequency. The output of the transformer is rectified and filtered, and then goes to the (sometimes optional) monitoring circuitry. This is usually designed to provide tightly regulated supplies, and/or to monitor the output current for fault conditions, etc.
+
+<p>The overall circuitry may initially appear simple if you look at the printed board for such a supply, but then you realise that it's almost always completely surface mount devices (SMD), with tiny components on both sides of the PCB. The overall complexity is astonishing, and the possibility of servicing these supplies ranges from dubious to not-a-chance. It might be possible if you have full schematics and a manufacturer supplied test procedure (along with full SMD rework facilities), but in many cases the only option is to replace the PCB.
+
+<p>It's not at all uncommon for the PCB to be burned when a SMPS fails, because the protection circuits can only function if the circuitry is functional. There are countless failure modes that defeat all attempts at protection.
+
+<p>SMPS are used because people want gear that's light, powerful and cool running. Manufacturers like them because they are fairly cheap to make, and shipping and handling costs are reduced because of the low weight. No more bulky transformers and huge capacitors.
+
+<p>Expected life of a conventional linear supply is close to infinite. There are few parts, all are easily procured (even custom transformers aren't overly expensive) and service is a breeze. Any SMPS can be expected to last until it's first used, and with any luck it can last for quite a few years thereafter. Will you be able to repair it in 20 or 30 years? Not a chance. The power supply and amplifier become electronic waste once the specialised ICs are no longer made. Some of these parts have a single production run, and are never made again.
+
+<p>Whether I like the idea or not is beside the point - this is what's being made today, and customers have to put up with it. DIY people will be making linear supplies for quite some time yet though, and they will most likely still be repairable in 50 years time!</p>
+
+<p>For those who want to know more about SMPS in general, there is some more info on the ESP site, and the OnSemi <a href="#reference">reference</a> has some excellent introductory info (although the very latest developments are not included as it was published in 2002). There is another OnSemi document that explains power factor correction.</p> 
+
+<hr /><a id="disclaim"></a><b>Disclaimer</b>
+<p>The information presented in this article is intended as a guide only, and the author takes no responsibility for any damage, disfigurement or injury to persons (including but not limited to loss of life) or property that results from the use or misuse of the data or formulae presented herein. It is the readers' responsibility absolutely to assess the suitability of a design or any part thereof for the intended purpose, and to take all necessary precautions to ensure the safety of himself/ herself and others.
+
+<p>The reader is warned that the primary and secondary voltages present in nearly all power supplies for amplifiers are potentially lethal, and to observe all applicable laws, statutory requirements and other restrictions or requirements that may exist where you live.</p>
+
+<table BORDER=1 WIDTH="100%">
+<tr><td width=50 align="center"><br /><img SRC="mains.gif" alt="MAINS!" height=26 width=33><br /><br /></td>
+<td BGCOLOR="#FF0000"><font color="#FFFFFF"><b>WARNING: &nbsp; All mains wiring should be performed by suitably qualified persons, and it may be an offence to perform such wiring unless so qualified. Severe penalties may apply.</b></font></td></tr></table>
+
+<p>All power supplies must be fused or protected by an approved circuit breaker, and all mains wiring must be suitably insulated and protected against accidental contact to the specifications that apply in your country.
+
+<hr /><a id="reference"></a><b>References</b>
+
+<ol><li>Voltage Regulator Handbook - National Semiconductor Corp. - 1981 Edition</li>
+<li>Manufacturers Report - "The Importance of the Power Supply" - May, 1997&nbsp; (By Nelson Pass)</li>
+<li><a href="http://www.onsemi.com/pub_link/Collateral/SMPSRM-D.PDF" target="_blank">SWITCHMODE&trade; Power Supplies</a> - Reference Manual and design Guide (OnSemi)</li>
+<li><a href="http://www.onsemi.com/pub/Collateral/HBD853-D.PDF" target="_blank">Power Factor Correction Handbook</a> (OnSemi)</li>
+<li>Information also supplied by Geoff Moss, my unofficial editor from the UK. As always, thanks Geoff!</li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Updates: 18 Oct 03 - Minor changes only./ 24 Mar - some minor reformatting, and some additions./ 03 Mar - added protection, disclaimer and cap comparison info./ 25 Feb 2000 - created as a new page (formerly part of amp design)./ 10 Dec 2006 - Updated basic transformer example, corrected HTML errors./  03 Dec 07 - Added section on "excessive" capacitance./ 06 Aug 2010 - added SMPS info.</div>
+</body>
+</html>

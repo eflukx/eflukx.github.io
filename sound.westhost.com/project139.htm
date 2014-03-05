@@ -1,0 +1,230 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="current, monitor, analyser, analyzer, hardware, software, analog, analogue, measurement, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - Current monitor ... measure the current drawn by mains appliances safely and easily with this adapter.">
+	<!-- ESP Audio Projects - Current monitor ... measure the current drawn by mains appliances safely and easily with this adapter. -->
+	<title>Project 139</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 139&nbsp;</td></tr></table>
+
+<p align="center"><b>Mains Current Monitor</b><br />
+<small>&copy; Rod Elliott, 01 October 2012</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b> 
+<p>The project described in this article is a mains current monitor. The idea was originally suggested by Phil Allison (who has contributed a number of articles and projects), and the article was spurred on by a similar device published in a local electronics magazine. This version is much better than the one published though, because it has far lower noise and has several ranges. The heart of the monitor is a Honeywell CSLA2CD Hall effect open loop current sensor. These are available from RS Components worldwide - part number is 181-2129, and they cost just over AU$40 when I last checked. Several other major distributors also supply the sensors, so just do a quick search. There are quite a few different versions, but the one suggested is most likely to satisfy the greatest number of users.
+
+<p>This device has a linear range up to 72A, and provides a nominal output of 32.7mV/A for a single turn, or 327mV/A for 10 turns. Both are used in this design, but the signal is amplified by ~3 to provide 100mV/A and 1V/A (both are adjustable with preset pots for calibration). An additional x10 range is provided by a second switchable resistor and trimpot (x100 total), giving a maximum sensitivity of 10V/A (or 1V/100mA). The sensor operates from a nominal 8V supply, and is biased to 4V at the output.
+
+<p>At maximum peak current (&plusmn;72A), the output will vary over the range from 1.64V to 6.35V, and it can measure DC as well as AC. When measuring DC, it is necessary to include an offset control, especially when the x10 amplifier is in use. When measuring AC only, the signal is capacitor coupled to remove any DC component. The capacitor is deliberately large so that 'transient' DC events are still captured accurately.</p>   
+
+<p class="t-pic"><img src="p139-f1.jpg" border="1" /><br />Figure 1 - CSLA2CD Current Transducer</p>
+
+<p>The above photo shows the transducer and the sensor board (I don't recommend that you detach it though). Connected in the circuit described here, you can expect to be able to measure down to a few milliamps easily, and without excessive noise making the oscilloscope display unreadable. The noise on the mains itself will often be the limiting factor, not the current monitor. 
+
+<p>As a service tool, a current monitor is almost indispensable, because it allows you to monitor the current drawn by the unit being tested. In conjunction with a Variac (see <a href="articles/variac.htm" target="_blank">article</a>), you can tell instantly if the <abbr title="Device Under Test">DUT</abbr> is drawing excessive current, well before you get blown fuses and/ or other additional damage. More to the point, you can do it with complete safety, because the current monitor has an output that's completely isolated from the mains.
+
+<p>A current monitor is also ideal for monitoring a power amplifier's quiescent current. With no load, almost all amps will draw a small but measurable mains current. If the bias is unstable, the mains current will reflect this, without having to resort to connecting a multimeter with clip leads. Tests can be performed with the amp's cover in place so you get to see if there is any tendency towards thermal runaway with the amp operated normally.
+
+<p>The output can go to an RMS multimeter and/or an oscilloscope. Not only do you see the actual current waveform, but you can also take an accurate measurement. Note that with many products that draw a non-linear mains current, an ordinary (ie. not true RMS) meter will be inaccurate, giving a reading that may be far less than the real value. This is especially true of the typical waveforms you'll see with switching power supplies. Because these current waveforms typically consist of repeated narrow &plusmn;spikes, an average-reading meter can easily underestimate the current by a factor of four or more.
+
+<p>Note that this piece of kit is something that you <i>must</i> make for yourself if you decide that you need one. To the best of my knowledge, there is nothing like it on the market. Yes, you can get clamp meters that you might be able to modify, and current probes for oscilloscopes, but the former don't have the versatility of the design shown here and the latter are seriously expensive (and they are limited too). With this current monitor, you can measure and/or view mains current from a few milliamps up to many amps, with peak current measurements over 70A!
+
+<p>For many people, this project will be seen as overkill because the features (and very wide bandwidth) just aren't needed for what you need to do. Not a problem - just go to <a href="project139a.htm">Project 139a</a> instead. The accuracy and linearity will never be as good as the unit shown here, but it has the great advantage of not needing a power supply, because there are no electronics at all. If this sounds like what you need then P139a is for you <img src="grin.gif" /></p>  
+
+<hr /><b>Description</b> 
+<p>As noted above, the CSLA2CD is a Hall-effect device, and uses from 1 to 10 turns (or more if you wanted to) through the ferrite ring. The current through the 'primary' causes a magnetic field in the ferrite core, and the field strength is sensed by a Hall effect device. This is directly proportional to the current in the wire. Adding turns increases the sensitivity, so with 10 turns the output is (nominally) 327mV/A. A single turn allows for a linear peak current of &plusmn;72A peak or 50A RMS, and 10 turns allows for up to &plusmn;7.2A peak - 5A RMS. The CSLA2CD draws about 20mA from an 8V DC supply, and the output floats at 1/2 supply voltage. The output from the sensor is amplified by around 3, to give a single-turn reading of 100mV/A and a 10-turn reading of 1V/A.
+
+<p>By adding the facility for x10 gain (a total gain of ~30 times), the sensitivity is increased further, to &plusmn;720mA peak or 500mA RMS (10V/A or 1V/100mA). In each case, the maximum output from the sensor is &plusmn;2.35V, referred to the 1/2 supply voltage. The maximum supply voltage for the CSLA2CD is 12V, and this increases the sensitivity to about 49mV/A with a single turn. This gives a useful improvement in sensitivity and therefore requires less amplification (which reduces noise), and I recommend using a slightly higher supply voltage than the suggested 8V (&plusmn;4V). In the design presented, the supply voltage is &plusmn;5.1V. The gain stages use &plusmn;12V supplies, and this allows plenty of headroom after the signal is amplified. Maximum output voltage is &plusmn;7.2V peak (5V RMS) for full scale on each range. The opamp outputs will limit the maximum peak to about &plusmn;10V, or &plusmn;100A peak. This is slightly outside the linear range, but will usually be fine in practice.  
+
+<p>The gain stage is simple, and can be built on prototype board. The opamp stage operates with either of two gain levels that are set with trimpots, so the unit can be calibrated. The stage operates with DC coupling so that direct current can also be measured. This may be very useful if you are trying to track down noisy toroidal transformers which are badly affected by any mains DC. (See the article <a href="articles/xfmr-dc.htm" target="_blank">Blocking Mains DC Offset</a>.) However, DC coupling is entirely optional. The low frequency response is more than sufficient to allow transient DC events (such as transformer inrush current) to be measured easily, even when AC coupled.
+
+<p>A complete schematic for the unit is shown below, excluding the DC power supply. There are several possibilities, but the most straightforward is to use <a href="project05b.htm" target="_blank">Project 05</a>, but the supply shown in Figure 3 will normally be quite satisfactory. The arrangement shown allows you to use a single 12V AC transformer to obtain the required &plusmn;12V for the monitor. As seen in the circuit diagram, the &plusmn;5.1V supplies are derived from the main supplies, and they use simple zener regulators. In use, the transducer supply voltage will stabilise quite quickly and it benefits from the regulated main power supply. 
+
+<p>The advantage of the arrangement shown is that all voltages are (more-or-less) completely symmetrical around the earth reference. A simpler supply circuit could have been used, but would need level-shifting to allow DC to be measured. This makes the circuit more complex, and also makes it harder to apply DC offset so that measurements can include any DC component. 
+
+<p class="t-pic"><img src="p139-f2.gif" border="1" /><br />Figure 2 - Schematic Of The Current Monitor</p>
+
+<p>There really isn't a great deal involved, and it's easily wired on Veroboard or similar (see the photo of my unit below). Make sure that you double check the sensor connections against the datasheet - the view in Figure 2 is from the bottom, but you need to be absolutely certain that you get the connections right. If you get the +ve and -ve connections wrong you are likely to damage the sensor. Likewise, make sure that the opamp supplies are correct or the magic smoke will escape.</p>  
+
+<table bgcolor="red" border="1">
+	<tr><td><p align="center"><b>WARNING</b>
+	<p align="justify">The wiring for the lower half of the schematic shown in Figure 2 operates at mains voltage, and may be lethal if touched. All mains wiring must 
+	be performed by a suitably qualified person, using cable that is rated for mains voltages. It may be an offence where you live to perform mains wiring if unqualified. 
+	Wire diameter must be adequate to ensure that there is no possibility of overheating if the current monitor is used with the maximum available current.</p>  
+</table>
+
+<p>The 1 and 10 turn coils shown are wound through the hole in the sensor, in the same way as if you were winding an inductor. The single turn coil simply passes through the centre - it makes no difference if the coil is open or closed outside the ferrite ring. The 10 turn coil requires exactly 10 turns, where a 'turn' is defined as the wire passing <i>through the hole</i>. Anything on the outside of the ferrite ring doesn't count, but all turns must be in the same direction of course. (See Figure 4.) 
+
+<p>The two 1N5404 diodes (D3, D4) are to prevent a break in the supply if/when you change ranges. The voltage across them will normally never be sufficient to cause conduction, except for the brief period when the range switch is changing between the two primary windings. Depending on the load, a very high current may be drawn if the mains is interrupted briefly. The diodes prevent this from happening. You can also use a bridge rectifier (preferably 10A) with the +ve and -ve terminals shorted, which provides 4 diodes in a series/parallel circuit. 
+
+<p>Both the range and power switch must be rated for at least 10A (preferably 20A in 120V countries), and also must be suitable for mains use. Don't even think of using mini-toggle switches - they can't handle the current and are also unsafe because they don't have good enough isolation between live parts and the metal switch body or toggle. You <i>can</i> use a mini-toggle to activate a relay though - that's what I did in my unit.
+
+<p>The gain stage is straightforward, and can use pretty much any single opamp that you have available. I've suggested the TL071 as a good general purpose opamp that has fairly low DC offset. The DC offset control is only needed when you need to measure DC. With a 330k resistor as shown for R2, that gives a range of &plusmn;0.15V at the output of U1 when set for a gain of 3. This becomes &plusmn;1.5V at the output when it's switched to x10 gain. If offset cannot be reduced to zero with 330k installed, reduce the value of R2.
+
+<p>When set for AC (switch open), the offset control doesn't do anything useful. If you don't think that you'll need DC coupling you can omit the AC/DC switch. I suggest that you retain the DC offset control, but it can be an internal trimpot. The circuit deliberately has quite a long time-constant, so transient DC events will still be clearly visible on an oscilloscope even when used with AC coupling. This is at the expense of settling time - the current monitor will need about 1 minute to stabilise after the power supply is turned on.</p>
+
+
+<hr /><b>Filters</b> 
+<p>For most applications, a bandwidth of 10kHz will be more than enough, and that's accomplished by means of a simple 6dB/octave filter at the output of the transducer. R1 and C1 form the filter, and you can include a switch to change the bandwidth from 10kHz to 100kHz. The filters aren't exact, but are close enough for this application. If a centre-off switch is used you can retain full bandwidth (which may be limited by the opamp at maximum gain).
+
+<p>If desired, you can hard-wire the filter at the required frequency, or they can be omitted. There's a small noise penalty with no filters, but it's unlikely to cause problems except at very low current. Naturally, you can change the capacitor(s) to get different filter frequencies. The normal resistor/capacitor filter formula applies ...</p>
+
+<blockquote>
+	C = 1 / 2 * &pi; * R * f<br />
+	where C is capacitance in Farads, R is resistance (1k) and f is the -3dB frequency in Hertz 
+</blockquote>
+
+<p>For example, if you use a 100nF capacitor, the filter will give a -3dB frequency of 1,590Hz - a bit too low for many applications. However, if you only need to see the 50/60Hz current waveform and don't care too much about upper harmonics, a low cutoff frequency means that you can look at very low currents with minimal noise.</p>
+
+
+<hr /><b>Power Supply</b>
+<p>Using a traditional linear power supply will give very good results. The benefit of this is that there is no high frequency noise that you'd get using a switchmode supply. The noise from a <abbr title="switchmode power supply">SMPS</abbr> can be very difficult to remove, it will show up on your oscilloscope trace all the time, and makes accurate measurements (especially at low current) very difficult. The supply shown is based on the original version of the P05, or you can use the <a href="project05b.htm" target="_blank">latest version</a> with adjustable regulators. You can increase the voltage to &plusmn;15V if you wish, but you need a transformer with ~16V AC output, and you'll have to change the value of R7 and R8 (increase to 180 ohms, 1W). The current transducer will be well outside its linear range at maximum output voltage (typically around &plusmn;14V or 140A at minimum sensitivity) so there is no good reason to use the higher supply voltages. 
+
+<p class="t-pic"><img src="p139-f3.gif" border="1" /><br />Figure 3 - Power Supply Schematic</p>
+
+<p>If you plan to use the monitor in conjunction with a Variac, you will need <i>two</i> incoming mains leads. At low voltages from the Variac, the power supply won't provide enough voltage and the circuit won't work, so you need a second mains connection (or the wall transformer) that is connected to the mains normally (without the Variac). This ensures that the circuit is fully operational regardless of the voltage from the Variac to the device being tested.</p>
+ 
+<hr /><b>Calibration</b>
+<p>Before calibrating the current monitor, you first need to trim the DC offset. Set the output for DC coupling (switch closed) and x10 gain for the second preamp, apply power and allow a couple of minutes (more is better) for everything to stabilise. Carefully adjust the DC offset control (VR3) until the voltage at the output reads as close to 0V as possible. Reduce preamp gain to x1 and verify that the output remains at 0V. There may be a small amount of drift over the first 30 minutes or so - re-test and adjust as necessary. 
+
+<p>To calibrate the current, you'll need a suitable current source that can supply at least 100mA AC. I suggest using the output from a transformer and a suitable dummy load, such as a 25V transformer and a 220 ohm 5W resistor. You also need two accurate multimeters (preferably true RMS) as references. Wire the transformer secondary, 270 ohm resistor, one multimeter and current sensor coil circuit in series, with the multimeter set to the correct AC current range.
+
+<p>Set VR1 and VR2 to roughly half resistance to start with. Connect the second multimeter (set for AC volts) to the output of the monitor. With the unit set for x10 range (10 turn coil) and x1 preamp gain, adjust VR1 until the output voltage from the current monitor shows exactly 10 times the reading shown on the multimeter. For example, if the multimeter shows 0.110A, the output from the current monitor should be 1.10V. Next, switch over to the 1 turn coil (x1), and switch the monitor to x10 preamp gain. Adjust VR2 until you get the same reading again (check against the current measuring multimeter in case the mains voltage has changed).
+
+<p>If you included the DC option, calibration can be done using DC instead of AC. This is likely to be more accurate (the DC ranges are usually more accurate that AC ranges on multimeters), and you don't need meters with true RMS. Any DC power supply and suitable load resistor can be used, and again you are aiming for around 100mA. Otherwise, the process is virtually identical to that described above, except that all measurements are DC, not AC.
+
+<p>Double check all settings and adjust carefully as needed until you are satisfied with the calibration. Once this is done, the unit can be fitted into a case.</p>
+
+<hr /><b>Final Assembly</b>
+<p>Make the case ready, adding a mains outlet, switches and combination binding posts for the output. Incoming mains lead(s) can connect using fixed leads or IEC sockets. Remember that if you plan to use a Variac, the current monitor's power supply <i>must</i> have its own power lead. In this case, do not link the two mains connections - the lower part of Figure 2 is a completely separate circuit and is only for measurement. Note that power supply wiring is not shown below for clarity. Needless to say that the +ve, -ve and earth connections must be run from the power supply to the preamp board. Don't attempt to reproduce the layout of the preamp in the drawing - it is conceptual, and is intended only to give you the general idea. 
+
+<p>Make sure that the transformer (if an internal unit is used), all Veroboard and/or other PCBs are properly mounted and permanently connect all wiring. Make sure that AC mains wiring is safe, that there are no live mains connections that can be touched, and that none of your wiring can come adrift. Make sure that you heed all local/country specific requirements for mains wiring!
+
+<p class="t-pic"><img src="p139-f4.gif" border="1" /><br />Figure 4 - Suggested Internal Layout (Concept)</p>
+
+<p>Shown above is a suggestion for the internal layout. I've assumed that the current monitor will be used in conjunction with a Variac, so there are two mains leads. The test circuit lead can be fixed or may use an IEC connector, as can the power supply lead. If you don't have a Variac (and don't plan to get one), only a single mains lead is needed. This may be fixed or you can use the IEC socket. Note that "A E N" stands for "Active (Line), Earth (Ground), Neutral". The Earth lead should be securely fixed to the case as shown.
+
+<p>The wiring shown is merely a suggestion, but the <i>mains</i> wiring should be followed fairly closely. You will see that all mains wiring is separated from the low voltage circuits, and is cable tied to ensure it can't go anywhere that may cause a problem.  The two 1N5404 diodes and the back of the coil switch should be insulated with heatshrink tubing or similar, along with any other exposed live connections.
+
+<p>The single and 10-turn windings through the transducer must be wound with mains rated cable. Neatness is not essential - only the number of turns is important. Wiring can be fixed using cable ties when the coils are wound, and that will stop them from trying to escape (which <i>will</i> happen if they are not restrained). 
+
+<p>I suggest that you use a standard mains outlet (either a single wall-plate or a surface mount outlet that is designed for the standard mains cable used where you live. There are many different styles, and I'm unable to cover them all. Some may be more user-friendly than others. Note that you <i>must</i> use an outlet that includes protective earth (where there is a choice), and that the incoming mains is also earthed to the case and outlet socket.
+
+<p>While it's not uncommon for experimental circuits and test fixtures to be somewhat ... shall we say "avant-garde" <img src="grin.gif" /> compared to consumer products, there's no point making a test unit that tries to kill you every time it's used. This current monitor will commonly be used as a matter of course whenever you are testing anything, and it will show you immediately if something is wrong and drawing excessive current. The next step would be to add a true RMS detector and a LED or LCD panel meter so you have a permanent readout of the current drawn by anything you are working on. 
+ 
+<p>Double check your wiring, then retest the current monitor once it's fully assembled in the case. 
+
+<p>You now have a very useful piece of test equipment. It is unlikely to be used every day (unless you are servicing equipment or just love testing things), but you'll probably wonder how you got along without it when the time comes. If it semi-permanently wired in as part of your test bench you'll find yourself using it whenever you are working on any mains powered equipment.
+
+<p>It's especially educational to observe the mains current waveform of different loads on an oscilloscope - you will be surprised at some of the things you see. You'll quickly discover that the vast majority of mains operated equipment (at least anything with a power supply) draws a very distorted current waveform.</p> 
+
+<hr /><a id="pix"></a><b>Photo, Tests &amp; Measurements</b>
+<p>Having presented all this info, it would be remiss of me not to show you the innards of my unit, along with a few sample measurements. This includes examples of the difference between my digital oscilloscope (which calculates the true RMS value), a true RMS bench multimeter and a 'conventional' average-reading, RMS calibrated meter. This can't be ignored, because the difference can be significant with non-linear waveforms. As a test load, I used a 5V/1A plug-pack switchmode supply. As shown below, my current monitor gives a very good account of itself when measuring an RMS mains current of only 3mA. Yours will do the same if built as described.
+
+<p>Pictures are always interesting, so here is an interior shot of my monitor that help to illustrate the general construction. Mine has an extra feature, in that I included a voltage output as well. This is used primarily to show phase angles for loads with lagging or leading power factors, but it's not essential unless this is something you <i>really</i> need to be able to capture. In case you are curious, yes, the transformer is <i>way</i> too big, but it was one I had to hand and it had the right voltages, so was much cheaper than buying one. A 10VA transformer will normally be quite sufficient to power the monitor. I also used a simplified power supply, but I do recommend the fully regulated split supply shown above as it will give better results than mine.
+
+<p class="t-pic"><img src="p139-f5.jpg" border="1" /><br />Figure 5 - Interior Photo Of ESP's Current (and Voltage) Monitor</p> 
+
+<p>You can see the voltage monitor terminals and calibration pot on the bottom right, and you can also see that I used mini-toggle switches! However, they operate at low voltage and the sensor coils are switched using the relay you can see on the board. Feel free to do the same if it makes your wiring easier or if you simply feel better doing it that way. The relay simply replaces the coil switch, so there is nothing difficult about it. You can also see that I've used the "do as I say, not as I do" approach, in that there are accessible live termination points. Please don't follow my lead - I've been doing this stuff for close to 50 years and I take shortcuts for equipment that only I will ever use (the unit does have a cover though <img src="grin.gif" /> ). The pink wiring for the mains might not look much, but that's Teflon coated wire - you don't have to use anything quite so up-market, but I have a roll of it so ...
+
+<p>Where things get really interesting is when the measurements from my oscilloscope, a true RMS meter, and a 'normal' meter are compared. I tested the power supply both unloaded, and loaded with 8 ohms (625mA DC output at 5V - 3.125W). The readings are tabulated below.
+
+<center>
+	<table width="700" border="1" style="border-collapse:collapse;">
+	<colgroup span="7" width="14%">
+	<tr><td><b>Load</b><td><b>'Scope Volts</b><td><b>'Scope Amps</b><td><b>RMS Volts</b><td><b>RMS Amps</b><td><b>Meter Volts</b><td><b>Meter Amps</b>
+	<tr><td>None<td>33.3 mV<td>3.33 mA<td>32 mV<td>3.2 mA<td>11 mV<td>1.1 mA
+	<tr><td>8 Ohms<td>388 mV<td>38.8 mA<td>370 mV<td>37.0 mA<td>155 mV<td>15.5 mA
+	</table>
+	<small><b>Table 1 - Comparison Between Readings From Digital Oscilloscope, True RMS Meter &amp; Standard Meter</b></small>
+</center>
+
+<p>The true RMS meter reads a little lower than the digital oscilloscope simply because it has a restricted bandwidth (around 2kHz maximum). When I applied a 2kHz low pass digital filter to the oscilloscope, I obtained almost identical readings. As is quite obvious, a standard (non-true RMS) meter underestimates the reading, showing less than half the actual value.
+
+<p class="t-pic"><img src="p139-f6.png" border="1" /><br />Figure 6 - No-Load And Full Load, Current Waveform And Harmonics</p>
+
+<p>The no-load waveform is on the left, and at the time the reading was taken you can see that the RMS voltage displayed is 33.7mV (3.37mA) with the current monitor set for maximum gain (1V/100mA). The harmonics are a direct result of the wave shape - it's just a series of spikes, each measuring &plusmn;150mV (15mA peak). At an output load of 625mA (3.125W), the current spikes reach &plusmn;1.6V (160mA peak). Of interest (but not part of what the current monitor can do), the no load (real) power was measured at 0.31W, and loaded power was 4.72W. 
+
+<p class="t-pic"><img src="p139-f7.png" border="1" /><br />Figure 7 - No-Load And Full Load Current And Voltage Waveforms</p>
+
+<p>Here you can see the relationship between voltage and current. When discussing power factor (which is dreadful), the traditional concepts of "leading" or "lagging" are irrelevant, because the waveform is non-linear. For what it's worth, the loaded power factor is 4.72W / 8.88VA = 0.53. This is quite typical for small switchmode supplies, compact fluorescent lamps and many of the cheap LED lamps that are now available.
+
+<p>In short, this is a very useful and versatile piece of test gear, and is particularly well suited for use while repairing and testing equipment. It is also fascinating to examine the mains current drawn by different types of power supplies. Best results will always involve an oscilloscope. You can also examine transformer inrush current (both with and without a rectifier and filter caps on the secondary), and you can even see the current surge drawn by a conventional incandescent lamp.</p>
+
+<hr /><b>References</b>
+
+<ol>
+	<li><a href="csla2cd-current-sensor.pdf" target="_blank">Honeywell CSLA2CD Hall Effect Current Transducer Datasheet</a>
+</ol>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-1947877433449191";
+/* 728x90 */
+google_ad_slot = "9701674198";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40 /></a><b>Projects Index</b>
+<br /><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0 /></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2012. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author grants the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 01 October 2012</div>
+</body>
+</html>

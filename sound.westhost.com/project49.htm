@@ -1,0 +1,145 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP Project Pages - Guitar Vibrato Unit. Visit my other pages for more audio projects and articles">
+	<!-- ESP Project Pages - Guitar Vibrato Unit. Visit my other pages for more audio projects and articles -->
+	<meta name="KeyWords" content="guitar,vibrato,vox,ac30,audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+	<title>Guitar Vibrato Unit</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 49&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Guitar Vibrato Unit</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>Vibrato is used to obtain a variation in pitch (as opposed to tremolo, which varies the amplitude). This unit was inspired by the Vox AC-30 guitar amp, but the resemblance stops there. I was originally going to emulate the valve circuit using opamps, but I since saw a "new" Vox circuit where they had done just that (except transistors were used). I was not impressed - especially after doing a few tests, so decided to do it more or less conventionally, but have added a new feature which gives more scope for different sounds.
+
+<p>Well, when I say "new" feature, this is pushing the limits a bit, because "phasers" have had the same facility since the beginning. The difference is that this is adjustable, and is applied to a unit with only two phase shift networks. So it can act as a limited phaser, but the effect is good - it is a simple variation on what various makers of phasers have been doing all along, except it is adjustable. I can't recall having seen this done before - although it is so simple I don't know why.
+
+<p><small><b>Update - </b>I only just noticed that there was an error in Figure 2, with the transistor being driven from the opamp output (a square wave). This has been corrected (12 Aug 2003).</small></p>
+
+<hr><b>Description</b>
+<p>The circuit of the unit is fairly simple, but is a bit irksome to set up. The reason is that obtaining matched FETs is not easy, so I had to make sure that the circuit would work with off-the-shelf FETs. Figure 1 shows the circuit for the vibrato system, and consists of an input buffer and two phase shift (all pass filter) networks. 
+
+<p>The phase shifter is a standard opamp circuit, and has been used for this sort of application many times. After experimenting with alternative variable resistors, I decided that the FET was still the best choice, although they are fairly critical to set up, and have linearity problems. Most vibrato circuits use only one stage, but the effect is not as good (especially at low rates), and the <small>EFFECT</small> control is completely useless with a single stage.</p>
+
+<center><img SRC="p49-f1.gif" ALT="Figure 1" BORDER=1 height=364 width=709>
+<br><b><small>Figure 1 - The Vibrato Circuit</small></b></center>
+
+<p>The circuit is conventional, except for the <small>EFFECT </small>control. With this, you can select the clean signal direct from the buffer stage, the fully phase (and hence frequency) modulated signal from the output of U2A, or a mixture of the two. With the pot centred, there is a loss of bass, but a very strong vibrato effect with an interesting tonal change. The 100 Ohms resistor prevents the opamps from oscillating with long guitar leads.
+
+<p>The FETs are used as a variable resistance, and although they introduce some 2nd harmonic distortion, are fine for guitar, and the distortion will be audible only with very high output pickups. Even then, it is minor, and probably less than that introduced by a valve guitar amp. Figure 2 shows the modulator oscillator, which is a conventional opamp feedback
+circuit. The modulation signal is taken from the capacitor, and is nominally a rounded triangle wave. This is buffered by Q1 to prevent loading of the oscillator. Closing the switch disables the oscillator, and stops the vibrato effect - any tonal variation obtained by the <small>EFFECT</small> control remains. To eliminate this effect, a complete bypass is required
+- see <a href="#bypass">Figure 4</a> for an example.</p>
+
+<center><img SRC="p49-f2.gif" ALT="Figure 2" BORDER=1 height=329 width=709>
+<br><b><small>Figure 2 - Modulator Circuit</small></b></center>
+
+<p>The switch SW1 is used to disable the oscillator. If connected remotely, this must be wired with a shielded lead to prevent extraneous noise disturbing the oscillator circuit. The <small>SPEED</small> control changes the rate from about 3Hz (S) to 13Hz (F). This can be extended, but below 3Hz the effect is not very great, and above 13Hz it becomes a bit silly - by 40Hz, it sounds like a ring-modulator, and generates sum and difference frequencies in the audio range. Although these sound interesting, they are harmonically unrelated (depending on the note played), and are discordant - sometimes revoltingly so!&nbsp; Reduce the value of R17 to 10k if you want to be able to use this effect, which will give a maximum frequency of about 45Hz (the minimum is increased to around 3.5Hz).
+
+<p>The <small>DEPTH</small> control determines the amount of modulation (frequency shift), and is variable from zero to the maximum allowed by the FET gate divider circuits. At the maximum, you will probably find that the vibrato effect becomes a little "disjointed" - you will either like the effect or not.
+
+<p>If you wanted to make a "real" phaser (no, not a ray gun :-) then just add another 4 phase shift networks. You should use an opamp instead of Q1 to buffer the oscillator, because the loading will become a bit much with 6 bias networks to feed.
+
+<p>Although the opamps I have specified are very basic, they are adequate for the job. If you want to, substitute TL072 FET input opamps. These are quieter and a far better opamp, but will give a marginal improvement (if any) to sound quality. If lowest noise is an issue, then I suggest that the TL072 be used. There are quieter and better opamps, but I shall leave this to the reader to decide. Personally, I wouldn't bother. Most dual opamps use the same pinouts, so the circuit is unchanged.
+
+<p>When building the circuit, make sure that there are no signal leads anywhere near the output of U2B, R15, R16, or R17. The signal here is a square wave, and will make clicking noises in the audio signal. Better (faster) opamps will make this much worse.</p>
+
+<hr><b>Setting Up</b>
+<p>If we could get hold of FETs that were matched for gate voltage, setup would be simple, but we can't. TP3 (trimpot 3) is used to set the operating range for both FETs, and TP1 and TP2 set the individual operating point for each. The setup is as follows -</p> 
+
+<ol>
+	<li>Set <small>SPEED</small> and <small>EFFECT</small> to the centre, <small>DEPTH</small> to about 3/4 (towards C4)</li>
+	<li>Set TP1 and TP2 to about 3/4 (towards Bias line)</li>
+	<li>Set TP3 to about 3/4 (towards the 5k6 resistor)</li>
+	<li>Use a jumper lead to short Q3 from Source to Drain</li>
+	<li>Carefully adjust TP3 for the strongest effect</li>
+	<li>Remove short from Q3, and apply in the same way to Q2</li>
+	<li>Carefully adjust TP2 for the strongest effect</li>
+	<li>Remove short from Q2, and reapply short to Q3</li>
+	<li>Carefully adjust TP1 for maximum effect</li>
+</ol>
+
+<p>You might want to repeat steps 6 to 9 a couple of times to make sure that the bias point is as good as you can get it. Note that the trimpots are fairly savage, and must be adjusted very slowly, or you might not get the correct operating point. This is unavoidable, since the FETs have a wide variation, with the applied bias ranging typically from -2.8V to about -3.3V, but there could be even wider parameter spread depending on the devices you obtain, and I had to make provision for these.
+
+<p>To ensure that the operating points do not shift, (if you use single turn pots, which are cheap), seal them with clear nail varnish or similar - but <b><small>NOT</small></b> on the track surface!&nbsp; The supply also needs to be regulated, but typically a simple zener regulator is sufficient. Figure 3 shows a suitable power supply ,and uses a 16V plug-pack type transformer - this give the necessary voltage, and ensures electrical safety.</p> 
+
+<center><img SRC="p49-f3.gif" ALT="Figure 3" BORDER=1 height=173 width=472>
+<br><b><small>Figure 3 - Power Supply Circuit</small></b></center>
+
+<p>The power supply circuit can be mounted inside the main case, which is most easily a floor mounted unit, but the entire vibrato unit can be installed in the amplifier chassis if space (and front panel space!) permits. In this case, use the existing preamp supply - as long as it is regulated. 
+
+<p>D1 and D2 should be 1N4004 or similar, the zeners must be rated at 1W. C6 and C7 need to be 35V caps, but C8 and C9 can be 16V or 25V units. R20 and R21 can be 1/2W, but 1W components would be preferred. You can use 3-terminal regulators if you want to, but it is not necessary. 
+
+<hr><a NAME="bypass"></a><b>Bypass Circuit</b>
+<p>In some instances, you might want to bypass the vibrato completely. Depending on the setting of the <font size=-1>EFFECT</font> control, there may be some change in tone that are undesirable. Figure 4 shows how this can be done, with a SPDT switch. A complete bypass (removing all circuitry from the signal path) is less desirable, because of changes in the impedance presented to the guitar when the vibrato in or out of circuit.
+
+<center><p><img SRC="p49-f4.gif" ALT="Figure 4" BORDER=1 height=221 width=383>
+<br><b><small>Figure 4 - Bypass Switching</small></b></center>
+
+<p>The extra capacitors and resistors are to prevent clicks as the unit is switched in and out of circuit. You might be able to get away without them, but for a few cents, it's not worth it. The point marked U1.1 goes to pin 1 of U1, R3 is disconnected from the jack, and connected to the point marked R3, and the output goes to the jack. The switch is shown in the "Normal" position.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright (c) 20 Jan 2000./ Updated 12 Aug 2003 - corrected error in Fig 2</div>
+</body>
+</html>

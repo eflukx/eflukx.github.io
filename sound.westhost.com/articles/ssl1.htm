@@ -1,0 +1,202 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Robert C White, Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Small satellite loudspeaker system">
+	<!-- Small satellite loudspeaker system -->
+	<meta name="keywords" content="loudspeaker, compliance, thiele, small, enclosure, vent, port, impedance, amplifier, theory, design, audio, diy, fi-fi, electronic">
+	<title>Small satellite loudspeaker system</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">	
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Satellite Loudspeaker (1)&nbsp;</td></tr></table>
+
+<p align="center"><b>Small Satellite Loudspeaker System (Part 1)</b><br>
+Robert C White, Edited by Rod Elliott<br>
+<small>10 May 2007</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm"  OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" alt="Articles" BORDER=0></a><b>Articles Index</b>
+<br><a href="../index2.html"  OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" alt="Index" BORDER=0></a><b>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#s1">1 &nbsp; Introduction</a></li>
+  <li><a href="#s2">2 &nbsp; Driver Plus Crossover Transfer Functions</a>
+  <li><a href="#s3">3 &nbsp; Tweeter</a>
+  <li><a href="#s4">4 &nbsp; Crossover</a><br><br>
+  <li><a href="ssl2.htm">Satellite Speaker - Part 2</a>
+  <li><a href="#ref">References</a>
+</ul>
+
+<hr><a id="s1"></a><b>1 &nbsp; Introduction</b>
+<p>This is a small satellite speaker system that puts together speaker design ideas found in several ESP articles. It stems from the need to get the most high quality sound from the least space, and to have the "big speaker" effortless sound quality in a small package.
+<p>As mentioned in the QB5  article [<a href="#ref">1</a>], a good way to start is to ensure that the drivers always operate within their linear cone excursion up to the peak output required.
+<p>The speaker system accordingly has a QB5 II alignment using the "small front speaker" output of a 5.1 receiver as a high pass filter, and also has a waveguide tweeter for directivity control and increased power handling.
+<p>Since the lower cut off for non-THX  receivers is generally in the 100Hz region, several examples in a range of good quality nominally five inch driver can, with a QB5 II alignment, go down to 100Hz. and produce peak outputs of 110dB for the pair without exceeding their  linear excursion limit (although not by much in some cases).
+<p>These drivers generally need a box of around 8-9litres in this application. Looking at good quality drivers from several manufactures the one that stands out as suitable for our purpose is the Peerless 850488, and the tweeter originally chosen was the (now  discontinued) Vifa D19-05-06, as the 1700Hz resonant frequency of this would allow the use of a third and fourth order quasi Linkwitz Riley crossover described by Leach [<a href="#ref">3</a>].
+<p>The 850488 is chosen over its more expensive phase plugged cousin the 850489, because it has better second roll off characteristics, potentially allowing  the use of a second order filter to obtain an overall fourth order characteristic. From the frequency response data, a notch filter may well be needed for the phase plugged driver.
+<p>The 850488 driver has been discontinued and the 830860 is recommended as a replacement As it turns out the 830860 driver also needs more complex crossover. It also has inferior excursion limited power handling down to its cut off frequency, this is illustrated in the win ISD plots of figure 1 ...</p>
+
+<p align="center"><img src="ssl-f1.gif" border="1" alt="Fig 1"><br>
+<b><small>Figure 1 - WinISD Plot of Maximum Excursion Limited Power Handling</small></b></p>
+
+<p>Both drivers have a similar cut lower off frequency and are mounted in an 8 litre box and fed from a second order Butterworth filter at 100Hz. As can be seen the 850488 driver has better power handling and is capable of more SPL before excursion limiting.</p>
+
+<hr><a id="s2"></a><b>Driver Plus Crossover Transfer Functions</b>
+<p>The measured frequency response of the driver is shown in figure 2 ...</p>
+
+<p align="center"><img src="ssl-f2.gif" border="1" alt="Fig 2"><br>
+<b><small>Figure 2 - Measured Frequency Response of 830860 Driver</small></b></p>
+
+<p>As can be seen, the driver has a response peak at 5kHz. This peak does not appear on the manufacturers published frequency response chart.</p>
+
+<p align="center"><img src="ssl-f3.gif" border="1" alt="Fig 3"><br>
+<b><small>Figure 3 - Driver With Linkwitz-Riley Crossover Simulation</small></b></p>
+
+<p>The effect of using a Linkwitz-Riley filter on this driver is illustrated in figure 3. As can be seen the frequency and phase response of this combination falls far short of the ideal L-R characteristic. The actual roll off does not occur until the drivers second roll off peak, and the phase characteristics are not all pass.
+<p>Luckily there is something we can do about this, and that is to use one of the notched low pass filters described by Thiele [<a href="#ref">4</a>]. This has been modified to include a damping resistor (see figure 4), and illustrates the type of response we can expect from this, with a Q=5.
+
+<p align="center"><img src="ssl-f4.gif" border="1" alt="Fig 4"><br>
+<b><small>Figure 4 - 830860 Driver With Notched Crossover Simulation</small></b></p>
+
+<p>Overall the rolloff and phase response follows the L-R  curve more accurately than figure 3. Although the response again departs from the ideal, the above is a better match to the ideal L-R, and to get it significantly better increases the coil count.
+<p>In the notched crossover chosen the notch is put at the 5kHz peak in the driver response and the nominal roll off frequency is 3kHz.</p>
+
+<p align="center"><img src="ssl-f5.gif" border="1" alt="Fig 5"><br>
+<b><small>Figure 5 - Notched Low Pass Filter Arrangement</small></b></p>
+
+<p>An advantage of the notched type of crossover is that it swamps the out of band characteristics of the drivers. It leaves the crossover region close to an ideal L-R all pass characteristic even if significant deviations (such as a second roll off peak), are in evidence. In this case for instance, the woofer has a second roll off Q of around 2, and the tweeter has a smooth lower roll off with a Q in the 0.7 region and yet we can get good phase characteristics through the crossover region leading to good lobing performance. (The final crossover is shown in figure 9.)
+
+<p align="center"><img src="ssl-f6.gif" border="1" alt="Fig 6"><br>
+<small><b>Figure 6 - Measured Frequency Response of 830860 Driver With Notched Crossover</b><br>
+(Blue = 27 Ohm resistor, Green = no resistor)</small></p>
+
+<p>Figure 6 shows the measured response of the driver plus crossover. The notched "NTM" (Neville Thiele Method) fourth order filter can be seen as a resonant trap cascaded with a second order low pass section. The filter characteristics can be modified by the inclusion of a damping resistor, and this provides a simple means of fine tuning the crossover.
+
+<hr><a id="s3"></a><b>3 &nbsp; Tweeter</b>
+<p>I looked at several types of tweeter including Vifa 20mm soft dome types. One difficulty with the Vifa 20mm soft dome tweeter is that it has the diaphragm and  coil assembly mounted directly to the front plate and this presents difficulties in fitting a waveguide, and the frequency response down to 3kHz is not especially good. Apart from any of this, the aluminium dome 20mm tweeter sounds better.
+<p>Having a pair of the trusty (but now discontinued) D25AG tweeters on hand I pressed these into service, mounted on the waveguide shown below.</p>
+
+<p align="center"><img src="ssl-f7.gif" border="1" alt="Fig 7"><br>
+<b><small>Figure 7 - Tweeter Waveguide</small></b></p>
+
+<p>This waveguide is formed directly in the baffle and is of the three section sort described in the waveguide article [<a href="#ref">5</a>]. Using this waveguide in conjunction with the mounting ring brings the acoustic centers of the drivers to within a few millimeters of each other.</p>
+
+<p align="center"><img src="ssl-f8.gif" border="1" alt="Fig 8"><br>
+<b><small>Figure 8 - Acoustic Offset of Drivers</small></b></p>
+
+<hr><a id="s4"></a><b>4 &nbsp; Crossover</b>
+<p>The use of a notched response low pass section makes a notched high pass section virtually mandatory, leading to a four coil crossover.</p>
+
+<p align="center"><img src="ssl-f9.gif" border="1" alt="Fig 9"><br>
+<b><small>Figure 9 - Final Crossover Circuit</small></b></p>
+
+<p>The frequency response of the prototype of this crossover is shown in figure 10.
+
+<p align="center"><img src="ssl-f10.gif" border="1" alt="Fig 10"><br>
+<b><small>Figure 10 - Frequency Response of System With Illustrated Crossover</small></b></p>
+
+<p>As can be seen the response is within +- 2dB in the 1k-15kHz region. At this stage the reflex box is not in operation, hence the limited frequency range.</p>
+
+<p align="center"><img src="ssl-f11.gif" border="1" alt="Fig 11"><br>
+<b><small>Figure 11 - System Impedance</small></b></p>
+
+<p>The impedance shows a relatively smooth curve, peaking at 8.4 ohms in the 2kHz region and dipping to a low of 3.9 ohms at 20kHz. The overall impedance can be rated at 6 Ohms, and is compatible with 5.1 receivers rated for 6 Ohms.</p>
+
+<p align="center"><img src="ssl-f12.jpg" border="1" alt="Fig 12"><br>
+<b><small>Figure 12 - Completed Crossover Board</small></b></p>
+
+<p>The crossover system is built upon a  75 x 150mm piece of PC board, and attached to the inside of the removable section of the back panel. As can be seen, the capacitors are mostly the bipolar electrolytic type, as there is little room for anything else. Despite all of the hype to the contrary you really can't hear them.
+<p>Those who look up Thiele's original paper will note that the actual component values differ from those indicated there. This is because the parameters have been adjusted so that standard value inductors can be used, (I am far to lazy to wind my own), and the values shown maintain a close approximation to an all pass characteristic when the driver transfer functions are taken into account.</p>
+
+<hr><p align="right"><a href="ssl2.htm"><b>Part 2</b></a> &nbsp; &nbsp; <a href="ssl3.htm"><b>Part 3</b></a>
+
+<hr><a id="ref"></a><b>References</b>
+<ol>
+  <li>R.C. White &amp; Rod Elliott - <a href="../qb5align.htm" target="_blank">Satellites and subs</a>, QB5 alignments" Articles section, loudspeaker design
+  <li>W.M. Leach Jnr - "Electroacoustic system realizations of the Linkwitz Riley crossover networks", AES Journal, Vol. 35, &#x2116; 10, (Oct 1987)
+  <li>A.N. Thiele - "Loudspeaker crossovers with notched responses",   AES Journal, Vol. 48,  No.9,  (September 2000).
+  <li>R.C. White &amp; Rod Elliott - <a href="waveguides1.htm" target="_blank">Practical DIY waveguides</a>
+  <li>R.C. White &amp; Rod Elliott - <a href="cscaling.htm" target="_blank">Compliance scaling</a>
+  <li>W. Collison - <a href="http://www.subwoofer-builder.com/flare-it.htm" target="_blank">Flare it</a>, software down load
+  <li>J.K. Iverson - "The theory of loudspeaker cabinet resonance's",  AES Journal,  Vol.21,  No. 3, (April 1973).
+  <li>R.H. Small - "Simplified loudspeaker measurements at low frequencies", AES Journal,  Vol. 20,  (Jan-Feb 1972).
+  <li>K.J. Bastyr &amp; D.E.Capone - "On the acoustic radiation from a loudspeaker cabinet",  AES Journal, Vol. 51, No. 4,  (April 2003).
+  <li>R.C. White &amp; Rod Elliott - <a href="boxstuff.htm" target="_blank">Volume filling a reflex box</a>
+</ol><br>
+<b>Additional reference data</b>
+<ol>
+  <li>S. Timoshenko &amp; S. Woinowsky-Krieger. - "Theory of plates and shells,"  McGraw-Hill, 1959.
+  <li>Russ Elliott - <a href="http://www.clag.org.uk/beam-menu.html" target="_blank">The deflection of beams</a>
+  <li>Machinery's Handbook.  Industrial press Inc. N.Y.
+</ol>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Robert C White and Rod Elliott, and is Copyright &copy; 2007. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The authors grant the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Robert C White and Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 10 May 2007</div>
+</body>
+</html>

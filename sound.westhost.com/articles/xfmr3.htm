@@ -1,0 +1,337 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP. Transformers - Part 3 of an in-depth series on the operation of transformers for audio or power use.">
+	<!-- ESP. Transformers - Part 3 of an in-depth series on the operation of transformers for audio or power use. -->
+	<meta name="keywords" content="transformer, beginner, power, diy, fi-fi, electronic, winding, cores, hysteresis, magnetism">
+	<title>Guide to Transformers Part 3</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+<script language="javascript" type="text/javascript">
+<!--
+/****************************************************
+     Author: Eric King
+     Url: http://redrival.com/eak/index.shtml
+     This script is free to use as long as this info is left in
+     Featured on Dynamic Drive script library (http://www.dynamicdrive.com)
+****************************************************/
+var win=null;
+function NewWindow(mypage,myname,w,h){
+{LeftPosition=(screen.width)?(screen.width-w)/2:100;TopPosition=(screen.height)?(screen.height-h)/2:100;}
+settings='width='+w+',height='+h+',top='+TopPosition+',left='+LeftPosition+',scrollbars=yes,location=no,directories=no,status=no,menubar=no,toolbar=no,resizable=no';
+win=window.open(mypage,myname,settings);}// -->
+</script>
+
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Beginners' Guide to Transformers&nbsp;</td></tr></table>
+
+<p align="center"><b>Transformers - The Basics (Section 3)</b><br />
+<small>Copyright &copy; 2001 - Rod Elliott (ESP)<br />
+With Thanks to Martin Czech and Geoff Sevart for Additional Material.<br />
+Page Published 16 Jan 2006</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm"  OnMouseOver="document.art1.src='arrow.gif';"  OnMouseOut="document.art1.src='arrow1.gif';">
+ <img SRC="arrow1.gif" NAME="art1" BORDER=0></a> <b>Articles Index</b>
+<br><a href="../index2.html"  OnMouseOver="document.home1.src='arrow.gif';" OnMouseOut="document.home1.src='arrow1.gif';">
+ <img SRC="arrow1.gif" NAME="home1" BORDER=0></a><b>Main Index</b><br><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#s1.0">1.0 &nbsp; Introduction</a>
+  <li><a href="#s2.0">2.0 &nbsp; Transformer Analysis</a>
+    <ul>
+    <li><a href="#s2.1">2.1 &nbsp; Transformer Analysis 1</a>
+    <li><a href="#s2.2">2.2 &nbsp; Transformer Analysis 2</a>
+  </ul>
+  <li><a href="#s3.0">3.0 &nbsp; Transformer Design</a>
+  <li><a href="#s4.0">4.0 &nbsp; Taking Measurements</a>
+  <li><a href="#s5.0">5.0 &nbsp; Conclusion</a>
+  <li><a href="#s6.0">6.0 &nbsp; Downloads</a>
+</ul>
+
+<hr><a id="s1.0"></a><b>1.0 - Introduction</b>
+<p>In this section, we will look at taking measurements from existing transformers to assess their ability to be re-used, some basic calculations usable for transformer design (thanks to Geoff Sevart) and look more closely at power supply analysis (thanks to Martin Czech). In all, there are three different programs that you can download and use presented here. It is also highly recommended that you use a good simulator to verify the final design - as always, I suggest <a href="http://www.simetrix.co.uk/" target="_blank">SIMetrix</a>. Before simulating, you will need to know the parameters to build the equivalent circuit - see section 2 for more information on this topic.</p>
+
+<hr><b><a id="s2.0"></a>2.0 - Transformer Analysis</b>
+<p>Transformer analysis largely involves determining if a given transformer will provide a level of performance that meets your design goals. Three completely different approaches are provided here - one is an executable program that provides a fairly accurate assessment of the transformer's performance based on a few measurements that you perform.</p>
+
+<p>The other is a Microsoft Excel spreadsheet that does much the same thing. The main difference is that the spreadsheet does not have an on-line help facility, so all instructions are provided here (as well as in a 'readme' file included in the compress archive).</p>
+
+<p>Finally, the third program can be used to reverse engineer a transformer, or to design one that meets your needs. Only the basics are covered, and you need to be well versed in the requirements for insulation (both inter-winding and intra-winding). You may also need to know the details of the steel used - assumptions are not always valid. Remember that in all cases, it is your responsibility to ensure that the design is safe (or remains safe if you modify an existing transformer).</p>
+
+<p>There are some differences in the way the three analysis processes work, and it is up to you to decide which one is most suitable. None is intended for beginners or those with an aversion to taking measurements and experimenting - these are all serious tools to allow you to analyse or determine the suitability of any given transformer.</p>
+
+<hr><b><a id="s2.1"></a>2.1 - Transformer Analysis 1</b>
+<p>The transformer analysis program (xformer.exe) can be downloaded from the <a href="../downloads.htm" target="blank">Downloads</a> page or from the downloads section of this page, as a zipped archive. It has very extensive help facilities, and is complete with test circuits, a transformer equivalent circuit (with all explanations), and the complete sequence to evaluate an unknown transformer. It will provide the DC output at the specified load, and includes duty cycle calculations so that you can see what happens when the transformer is overloaded.</p>
+
+<center><img src="xfmr3-f1.jpg" alt="Fig 1"><br><small><b>Figure 1 - Screen Shot of XFORMER.EXE</b></small></center>
+
+<p>The box marked 'Instructions &amp; Comments' is context sensitive, so it will display relevant information based on the current mouse position. To find out more about any parameter, simply position the mouse over the text box or its adjacent label. A great deal more information is available from the help screens.</p>
+
+<p>As with any program, there will be some variation between what it claims and reality, so the measured values will not always be in complete agreement with those calculated. There is only so much that can be conveniently determined, but the results will be close enough for almost all applications. Where extreme accuracy is needed, you will have to build the circuit to verify exactly what it does, however the very nature of a power supply is such that accuracy is not normally a major issue.</p>
+
+<p>The program uses SI units only, and assumes a dual polarity full-wave bridge rectifier (conventional &plusmn; amplifier type power supply). At this stage, no other supply types are available, and probably will not be added because the default is suitable for most applications. In normal use, a single supply is still easily tested. You will need to experiment with the program to find out if it does exactly what you need.</p>
+
+<hr><b><a id="s2.2"></a>2.2 - Transformer Analysis 2 (Martin Czech) - How to use the Excel spreadsheet</b>
+
+<p><b>2.2.1 - Purpose</b><br>
+This Excel spreadsheet is made for convenient "linear PSU" design. This is a PSU made using a transformer, rectifier diodes and filtering capacitors. The load presented to the PSU is a resistor. The sheet was tested against SPICE simulations and has shown accuracy to about 2% or better.</p>
+
+<p>However, since not all possible configurations can be checked it should always be verified by a subsequent SPICE simulation.</p>
+
+<center><img src="xfmr3-f2.gif" alt="Fig 2"><br><small><b>Figure 2 - Partial Screen Shot of TRAFO7.XLS</b></small></center>
+
+<p><b>2.2.2 - Assumptions</b><br>
+This Excel spreadsheet tries to model the nonlinear behaviour of such a PSU with simple equations and estimations. The transformer is modelled as a non ideal voltage source, i.e. an ideal voltage source plus series resistance. It uses only SI units (m,A,V, Ohm, etc.).</p>
+
+<p>Four common circuits can be calculated ...
+
+<ul>
+  <li>Bridge - single coil transformer with diode bridge</li>
+  <li>d. Bridge - double coil transformer with diode bridge for each coil, dual output voltage, very heavy load (1000W)</li>
+  <li>Center - centre tap two coil circuit with two diodes for single output voltage, only useful for very low power and low voltage, less diode drop</li>
+  <li>d. Center - centre tap two coil circuit with four diodes for dual output, for low to high output power until the highest, less diode losses than "d. Bridge"</li>
+</ul>
+
+<p>Usually a given transformer is specified with Uneff (effective value of secondary voltage under full resistive load, and Pn (nominal output power with said resistive load) and loss factor f (ratio between U0eff and Uneff, U0eff being the effective value of output voltage with no load), and of course the primary effective voltage Unetz.</p>
+
+<blockquote>I.e.: <i>U0eff = f * Uneff</i></blockquote>
+
+Out of <i>Pn</i> and <i>Uneff</i> we get the load current <i>In</i> (<i>In = Pn / Un</i>). The series resistance is therefore 
+
+<blockquote><i>(U0eff - Uneff) / Ineff = (f * Uneff - Uneff) / Ineff<br>
+= Uneff * (f - 1)/In<br>
+= Uneff * 2 * (f - 1) / Pn</i></blockquote>
+
+<p>the latter is convenient because it uses only the usually given parameters. This applies also to transformers with several identical coils. It does not apply for additional auxiliary windings and taps, which can have lower power spec and therefore more series resistance than perhaps expected.</p>
+
+<p>The sheet works for one coil or two identical coils, due to the symmetry of the circuit and load situation the same current and voltage values will appear. Therefore they are only given once in the sheet.</p>
+
+<p>Sadly, <i>f</i> (loss factor) is not given by many vendors. So the spreadsheet has some heuristic formula to determine <i>f</i> out of the transformer total power rating. This works from about 5 VA up to 1000 VA. This is no big science, but relates to the usual tradeoffs when winding transformer coils. The value is valid for toroidal types, <i>f</i> is often lower for EI types. However, if you can obtain a data sheet with <i>f</i>, then do not use the heuristic value.</p>
+
+<p>The spreadsheet does also include mains voltage variation. In central Europe this is tending to +-10% of the nominal value, guaranteed at the house main power entry. Some additional wiring can be added to that (be it house installation or additional cables, perhaps during live shows). The transformed total mains resistance will simply add to the transformer series resistance.</p>
+
+<p>The remaining interesting part of the formulas is derived by approximating the voltage sine waves with parabola, in order to get any analytic result. Unfortunately the resulting nonlinear equation can only be solved by program, I used an iteration approach in this Excel sheet.</p>
+
+<p>The load is assumed to be a resistor. In reality this not always the case. Some circuits tend to be constant current drains (regulator plus electronic circuit). Others have variable current consumption (power amplifiers), but also there the current does not depend on PSU voltage. A starting point for the later cases is to make the delivered output power equal, i.e. choosing the output current and resistor in that way.</p>
+
+<p><b>2.2.3 - How to do it</b><br>
+The Excel sheet has a yellow title range. Below that on the left hand side we find explanations to the parameters, the salmon colored column shows the parameter name. The next column is commonly used for all four possible circuits, the next four columns carry the results and entries for each circuit individually.</p>
+
+<p>Anything shown below in <i>italics</i> indicates that it is a field in the spreadsheet.</p>
+
+<p>First you have to enter data into the white common fields. Each field must be filled. Most of this is very easy. You enter ...
+
+<ul>
+  <li>The Si diode forward voltage drop [<i>Ud</i>] (recommended 1V)</li>
+  <li>Specify peak-to-peak ripple voltage under load [<i>Ubrss</i>]</li>
+  <li>The desired nominal output current [<i>Ia</i>] (together with output voltage this will define the delivered power) </li>
+  <li>The current form factor [<i>alpha</i>]. The transformer has to deliver current peaks instead sine AC current, the copper losses will be higher than nominal.</li>
+</ul>
+
+This makes it necessary to use a higher transformer nominal power. Under-dimensioning can lead to ...
+
+<ol>
+  <li>More than nominal copper loss</li>
+  <li>Enormous heat development in coil wires</li>
+</ol>
+
+<p>Usually alpha is chosen to be 1.5 ... 2, even large over dimensioning is possible with modern toroid types, because idle losses are still low.</p>
+
+<p><i>Imax >> In</i> means that in this PSU the peak current is much larger than in the situation where the transformer drives only a resistive load to the rated power. One should compute the RMS value from simulation to estimate the loss. Based on that choose alpha to be higher.
+
+<ul>
+  <li>Your desired nominal DC output voltage [<i>Uaminn</i>] (just to remember)</li>
+  <li>Your desired minimum nominal output voltage [<i>Uamin</i>] this has to be higher than <i>Uaminn</i> because of wiring losses and mains power variation, if the mains variation to lower is perhaps 10%, give <i>Uamin</i> 10% more, as a starting  point</li>
+  <li>The assumed wiring length from mains house entry to your transformer [<i>L</i>], in a normal house this can be 10 - 20 m, in a big hall this can be 100m</li>
+  <li>The mains wiring cross section area [<i>A</i>], typical 1.5 mm&sup2;</li>
+  <li>The mains nominal effective voltage [<i>Unetz</i>] (e.g. 110V or 230V)</li>
+  <li>The mains AC frequency [<i>fn</i>] (e.g. 50Hz or 60Hz)</li>
+  <li>The mains tolerance upper value [<i>tolup</i>] (e.g. 10% by law in Germany,  meaning 230V and up to 253V)</li>
+  <li>The mains tolerance lower value [<i>toloe</i>] (e.g. -10% by law in Germany, meaning 230V and down to 207V)</li>
+</ul>
+
+<p>You are done with the common data. Now you can decide which circuit column you need to use. It is only necessary to fill in that column, but it is also possible to use several or all in parallel for study or comparison.</p>
+
+<p>Now the Excel sheet knows the output power [<i>Pa</i>], nominal power per coil [<i>Pns</i>], and the total nominal transformer power [<i>Pn</i>]. The heuristic formula can therefore suggest a value for the toroid loss factor [<i>f</i>]. If you have no better data, enter this value in the white field "actual transformer loss factor". Now you have completed all white fields, you are nearly done.</p>
+
+<p>In the last step you solve the nonlinear equation by manual iteration. You enter a nominal coil voltage  [<i>Uneff</i>] (pink field) and change it, until the relative iteration difference [<i>r</i>] (light blue) is 0.0% (or near to that). In this case the single coil output voltage under load with infinitely large capacitor [<i>Ua8</i>] will match the iterated single coil output voltage [<i>Uaber</i>] (darker blue).</p>
+
+<p>Now you have solved the equation, but is the worst case voltage [<i>Ua-</i>] as expected? You should compare this lowest per coil output voltage under load [<i>Ua-</i>] with your intended desired minimum nominal output voltage [<i>Uaminn</i>]. If [<i>Ua-</i>] is too low, the circuit will have too low voltage in case of low mains voltage, a longer than expected cable can add to that.</p>
+
+<p>This makes perhaps no difference for a power amp, since a few % amplitude loss is not audible. In the case of a subsequent voltage regulator a too low voltage will simply mean loss of regulation with perhaps additional artefacts, this is clearly not acceptable. Give more [<i>Uamin</i>] in such a case, and iterate again.</p>
+
+<p>Take care: this can influence the power, so the current [<i>Ia</i>] may need some adjustment, too. Finally power change can change loss factor [<i>f</i>], so this has also to be adapted. If the initial guess was good enough, little or no modification needs to be made on that side.</p>
+
+<p>So now you are done. You should take the relevant data from the sheet (<i>U0, Un, Pn, f</i>) and do a SPICE simulation to verify. A second computation is always good, since you are going to spend a lot of money for a PSU!</p>
+
+<p><b>2.2.4 - What else does the sheet tell you</b><br>
+It not only tells you <i>Uneff, Pn, f, Unetz</i> to order your transformer, it also tells you the size of the filter capacitors <i>Cl</i>, and <i>Ua0+</i>, this idle output voltage plus tolerance tells you about the voltage stress these and other devices connected to your PSU have to take.</p>
+
+<p><i>Imax</i> is the periodic peak current in the transformer windings and diodes, so it will tell you something about fuse stress and diode stress, as well as capacitor ripple current.</p>
+
+<p>The total rectifier loss power <i>Pg</i> and the maximum diode reverse voltage <i>Usper+</i> will also help to buy the right rectifier.</p>
+
+<p>All the devices need not only cope with the rated voltage stress, but even more has to be considered because of possible mains transients. A factor of 2 over dimensioning is not too expensive in most cases, an exploded cap or whole PSU plus circuit certainly is.</p>
+
+<p>If your output voltage is so high that voltage over dimensioning is not possible, primary side varistors should be used to handle transients. They should be used anyway.</p>
+
+<p><b>2.2.5 - Explanation of Parameters</b><br>
+The parameters used in the spreadsheet are listed <a href="xfmr3-pp.htm" onclick="NewWindow(this.href,'','800','600');return false" onfocus="this.blur()">here</a>. Although some of these may appear daunting at first, it is not difficult to figure out what they are all for. Note that the derivation of some of the terms is directly from German (netz = mains, for example).  Many of the parameters used are fixed - there is no need to change them once they have been set for local conditions - examples are mains voltage and frequency, upper and lower tolerances, etc. The line length applies only if there is a significantly long extension lead used, such as setup in an auditorium where a nearby power outlet is not available. For most applications this may be set to 1 (metre) with little loss of accuracy.</p>
+
+
+
+<hr><b><a id="s3.0"></a>3.0 - Transformer Design</b>
+<p>This next program is thanks to 'Particle' otherwise known as Geoff Sevart. With this, you can either analyse or design a transformer, although for proper design work you need to know a bit more than the program provides from its interface. Although fairly simple, it does give good results if you know what you are trying to achieve, and know some of the basics of the core material.</p>
+
+<p align="center"><img src="xfmr3-f3.jpg" alt="Fig 3"><br><small><b>Figure 3 - Screen Shot of TRANSFORMER CALCULATOR.EXE</b></small></p>
+
+<p>The screen shot above shows the complete program interface. You insert your known data into the section on the left side, and all calculated values are shown on the right. You need to input either the core area or the VA rating of the transformer, but not both. When that is done, you enter any <i>three</i> of the four remaining fields ...
+
+<ul>
+  <li>Voltage - the primary voltage for the transformer. This will nearly always be known.</li>
+  <li>Frequency - mains frequency for a power transformer, or the lowest frequency of interest for a signal or output transformer</li>
+  <li>Flux - the maximum flux density that the transformer core will be subjected to. *</li>
+  <li>Turns - the number of turns on the primary. This is the least likely to be known, but it can be determined (see below)</li>
+</ul>
+
+<p>* Click the 'Reference' button for hints. Typical power transformers will operate at around 1 Tesla. Higher flux density means the core is likely to saturate and be noisy, lower flux makes a mechanically quiet transformer, but at the expense of efficiency. Low flux density is essential for audio transformers, as even approaching saturation can cause high distortion levels.</p>
+
+<p>If your transformer allows you to add some temporary turns, you can determine the number of turns/volt by adding 10 turns of thin insulated wire. Apply power to the primary, and measure the mains voltage (<u>very carefully!</u>). Now, measure the voltage across your extra 10 turn winding. If (for example) you measure 3.3V AC, that means the transformer has ...
+
+<blockquote><i>TPV = Turns / Voltage</i> = 10 / 3.3 = 3 Turns Per Volt</blockquote>
+
+From that, you can calculate the number of turns on the primary, using the measured applied mains voltage (assume 230V) ...
+
+<blockquote><i>Tp = Vp * TPV</i> = 230 * 3 = 690 turns</blockquote>
+
+<p>This figure may be used instead of the assumed flux density, and you will then know the actual flux density being used for the transformer you are testing.</p>
+
+<p>When you click 'Calculate', the program shows the following calculated values ...</p>
+
+<ul>
+  <li>Core area, in cm&sup2; or inches&sup2;, depending on whether you selected metric or imperial</li>
+  <li>VA rating for the transformer</li>
+  <li>Primary voltage</li>
+  <li>Frequency</li>
+  <li>Flux density</li>
+  <li>Primary turns</li>
+  <li>Turns per volt</li>
+</ul>
+
+<p>Although it may be more difficult using metric calculations as a matter of course, it is highly recommended that you do so anyway. There is nothing in the imperial system that actually makes any sense, so it is far better to use metric whenever possible.</p>
+
+<hr><b><a id="s4.0"></a>4.0 - Taking Measurements</b>
+<p>The equivalent circuit shown in Figure 5 allows you to see where the main losses occur with any transformer. The lumped parameter model is the most commonly used, as it gives a very good representation of a real component and is easy to manage for almost any normal load or signal.</p>
+
+<center><img src="xfmr3-f5.gif" alt="Fig 5" border="1"><br><small><b>Figure 5 - Transformer 'Lumped Parameter' Equivalent Circuit</b></small></center>
+
+<p>For most measurements in electronics, a multimeter is all you need. This is not good enough and will become inaccurate when working with transformer winding resistances. Because very low resistances are to be measured, few multimeters have a useful low ohms range. To get sensible results, the measurements you take <i>must</i> be accurate. Very low resistance is always hard to measure, and it can only be done using DC. Many very low ohm meters use AC, but this will give large errors because of the transformer inductance.</p>
+
+<p>The easiest way to measure a very low resistance is to inject a known current, and measure the voltage across the device under test. For example, if you subject a transformer winding to (exactly) 1A DC, and measure 448mV across the winding, its resistance is 0.448&Omega;. A regulated DC supply and a 10 ohm 5W resistor is ideal for this. Measure its value carefully - if it measures 10.1 ohms, then 10.1V dropped across the resistor means the current is exactly 1A. This is shown in Figure 4.</p>
+
+<center><img src="xfmr3-f4.gif" alt="Fig 4" border="1"><br><small><b>Figure 4 - Measuring Very Low Resistance &amp; Leakage Inductance</b></small></center>
+
+<p>Figure 4 also shows the basic method for measurement of leakage inductance. The load resistance across the secondary is determined by ...
+
+<blockquote><i>R<sub>-3dB</sub> = VS / (VA / VS)</i> &nbsp; <small>Where <i>R<sub>-3dB</sub></i> = Test resistance, <i>VS</i> = Secondary Voltage, <i>VA</i> = Volt-Amp Rating</small></blockquote>
+
+So for a 300VA transformer having a rated total secondary voltage of 70V ...
+
+<blockquote><i>R<sub>-3dB</sub></i> = 70 / (300 / 70) &nbsp; = 70 / 4.3 = 16&Omega;</blockquote>
+
+<p>Note that this does not have to be extremely accurate, as it is only designed to provide a representative load. This value is only used in the first program shown (<small>TRANSFORMER.EXE</small>), and it is used primarily to determine the transformer's short circuit (fault) current. Leakage reactance can then be determined using the -3dB frequency and the load impedance. Leakage inductance is also useful to know as a comparative figure, allowing you to make meaningful comparisons between different transformers. Transformers with high leakage inductance will inject noise into adjacent circuits, and generally have poorer regulation when high peak currents are expected.</p>
+
+<hr><b><a id="s5.0"></a>5.0 - Conclusion</b>
+<p>With the programs and spreadsheet detailed here, you have an excellent range of tools at your disposal to ensure that the power supply for your latest masterpiece is as good as you can get it. At last, it is possible to easily analyse an existing transformer, work out just how well (or badly) a given transformer will work in the intended circuit, or even design your own transformer from scratch.</p>
+
+<p>The performance of a transformer when loaded by a diode bridge and capacitor input filter (99% of all power supplies used) is never as good as we might hope or imagine, and these tools will allow you to predict how the supply will behave. By comparing the performance of the final supply with the predictions, you will find that there is fairly good correlation - certainly well within the accepted mains tolerance.</p>
+
+<hr><b><a id="s6.0"></a>6.0 - Downloads</b>
+<p>These downloads are free for personal use. They may be re-distributed, but no fee is to be charged for the software. No part of the software may be de-compiled, reverse engineered or used in any way contrary to the general principles of free software distribution. Program copyright belongs to the author of the program. No warranty is expressed or implied - the programs and spreadsheet are provided 'as is', and no responsibility is accepted by the authors for any damages howsoever caused. It is the wholly the users responsibility to determine the validity of the calculations.</p>
+
+<p>All programs are tested and checked and are believed to be free of any computer virus or other 'malware'. It is the user's responsibility to scan all files to ensure that they have not been corrupted or infected.</p>
+
+<p>Various support files needed may or may not be available on your PC, and if not, you will need to obtain them so the programs will run. Full details of the necessary files are shown below for each program.</p>
+
+<hr><b><small>TRANSFORMER.EXE</small></b> &copy; Rod Elliott<br>
+The executable file is 188,416 bytes. It is in a compressed archive, along with a 'readme' file that explains the support files and their required locations within the Windows file system. It requires the Visual Basic 6.0 runtime library <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=bf9a24f9-b5c5-48f4-8edd-cdf2d29a79d5&amp;displaylang=en" target="_blank">vbrun60sp5.exe</a> which is available from Microsoft, and contains all files needed to run any application written in Visual Basic 6.0
+
+<p>Click <a href="transformer1.zip">TRANSFORMER1.ZIP</a> (or right click, and select 'Save [Link] Target As ...' ) to download the zipped archive for the program.</p>
+
+<hr><b><small>TRAFO7.XLS</small></b> &copy; Martin Czech<br>
+This is the Excel spreadsheet analyser (25,600 bytes). You will need Microsoft Excel&trade; so it will run. Alternatively, you may use <a href="http://www.openoffice.org/" target="_blank">OpenOffice</a>, a free version that appears to run the spreadsheet perfectly.
+
+<p>Click <a href="transformer2.zip">TRANSFORMER2.ZIP</a> (or right click, and select 'Save [Link] Target As ...' ) to download the zipped archive for the spreadsheet. Make sure that you read the file 'readme.txt' - this is a plain text file, and contains a full description of all fields used and their meanings.</p>
+
+<hr><b><small>XFORMER.EXE</small></b> &copy; Geoff Sevart<br>
+The transformer design program (61,440 bytes) requires the Microsoft '.NET' framework. Click <a href="http://www.microsoft.com/net/basics.mspx" target="_blank">here</a> to find out more about the .NET system as a whole. This is normally supplied with Windows&reg; XP, and more information (including download) is available from the <a href="http://msdn.microsoft.com/netframework/downloads/updates/default.aspx" target="_blank">Microsoft .NET Framework Developer Center</a>.
+
+<p>Click <a href="transformer3.zip">TRANSFORMER3.ZIP</a> (or right click, and select 'Save [Link] Target As ...' ) to download the zipped archive for the program.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott. Parts of this article are also Copyright &copy; Martin Czech and Geoff Sevart. Downloadable program files are copyright as indicated above. These are supplied as freeware, and no fee is to be charged for their distribution.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 24 Oct 2005./ Published 16 Jan 2006.</div>
+</body>
+</html>

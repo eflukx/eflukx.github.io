@@ -1,0 +1,408 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Low power supplies, traps, pitfalls and the downright lethal">
+	<!-- Low power supplies, traps, pitfalls and the downright lethal -->
+	<meta name="keywords" content="power, supply, transformer, transformerless, low, current, preamp, PIC, amplifier, theory, design, audio, diy, hi-fi, electronic">
+	<title>Small Power Supplies</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"> <!-- td { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Small Power Supplies&nbsp;</td></tr></table>
+
+<p align="center"><b>Small, Low Current Power Supplies</b><br>
+<small>Rod Elliott - Updated 18 May 2008</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm"  OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" alt="Articles" BORDER=0></a><b>Articles Index</b>
+<br><a href="../index2.html"  OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" alt="Index" BORDER=0></a><b>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#s1">1 &nbsp; Introduction</a>
+  <li><a href="#s2">2 &nbsp; Basic Theory</a>
+  <li><a href="#s3">3 &nbsp; Regulator Requirements</a>
+  <li><a href="#s4">4 &nbsp; Common IC Regulators</a>
+  <li><a href="#s5">5 &nbsp; "Super" Regulators</a>
+  <li><a href="#s6">6 &nbsp; Shunt Regulation</a>
+  <li><a href="#s7">7 &nbsp; Transformerless Power Supplies</a>
+  <li><a href="#s8">8 &nbsp; Cheap Death (or How Not to Design a Power Supply)</a>
+  <li><a href="#s9">9 &nbsp; Another Alternative</a>
+  <li><a href="#s10">10 &nbsp; Conclusion</a> 
+  <li><a href="#s11">11 &nbsp; References</a>
+</ul>
+
+<hr><a id="s1"></a><b>1 &nbsp; Introduction</b><br>
+Across the Web, there are countless designs for low current (typically 1A or less) power supplies for preamps, small PIC based projects, ADCs, DACs and almost any other project you can think of. Many are very basic, using nothing more elaborate than a resistor and zener diode for regulation, while others are very elaborate indeed.
+
+<p>For most beginners and many experienced people alike, it becomes very hard. One has to decide where extreme precision is needed, how much noise can be tolerated and just how complex the supply needs to be for the application. Some assume that a "super regulator" of some kind <i>must</i> be better than a readily available IC solution, whether or not it will make an audible difference is neither checked nor tested.
+
+<p>It must be understood that a regulator (in almost any form) is an amplifier. Admittedly the amplifier is "unipolar", in that it is designed for one polarity, and can only source current to the load. Very few regulators can sink current <i>from</i> the load, but shunt regulators are an exception!
+
+<p>Since amplifiers can oscillate, it follows that regulators (being amplifiers) can also oscillate. As the bandwidth of a regulator is increased to make it faster, it will suffer from the same problems as any other wide bandwidth amplifier, including the likelihood of oscillation if bypassing isn't applied properly.
+
+<p>There is also an endless fascination by some to build the smallest and cheapest power supply possible. Many circuits can be found that don't even use a transformer, and while some have acceptable or adequate warnings about safety, others don't. Indeed, there is one published design that breaks the wiring code of every country on earth, has no warnings, and is a death trap (this one has its own section in this article - see <a href="#s8">Cheap Death</a>).</p>
+
+<hr><a id="s2"></a><b>2 &nbsp; Basic Theory</b><br>
+We'll start with the ideal regulator and work back from there. The ideal regulator has perfect regulation, so the voltage does not change regardless of load. It is also infinitely fast, so infinitely sudden load changes (over an infinite range of current) have no effect. Noise is non-existent (which also means zero ripple), the output is not affected by any variation of input voltage provided it's above the output voltage, and the voltage remains stable over the entire temperature range ... from -50&deg;C to 150&deg;C would be sufficient.
+
+<p>Needless to say, the ideal regulator does not exist. All regulator circuits have limitations, and it is the job of the designer to determine which limitations will have the greatest impact on the device being powered, and work to minimise those at the expense of other parameters. For example, a simple discrete based preamp will have relatively poor power supply rejection, so noise is a potentially major problem. Since the current won't vary much in use (for this hypothetical design), extreme speed is not needed. This hypothetical supply needs to be reasonably stable and have very low output noise - high speed and extremely good regulation are not necessary.
+
+<p>Another supply might be needed for a medical application where the voltage is critical and the load varies in fast steps (a high speed analogue circuit followed by an ADC, and with digital logic control perhaps). Noise needs to be low, since although the ADC chip has its own voltage reference, this probably won't include filtering. This supply needs to be very fast to keep up with the changing load current, and requires accurate voltage. It will also need to be intrinsically safe, because it's for a medical instrument.
+
+<p>The above are but two (extreme) examples of possible supply requirements, but there are as many different requirements as there are circuits. In some cases, it is not possible to suggest a supply unless you know exactly what will be powered from it. In others, almost anything will work just fine. Since The Audio Pages are mostly about audio, I shall concentrate on supplies that are applicable to audio projects, however the same basic principles apply for all power supplies, large and small.
+
+<p>Since most hi-fi products are powered from the mains, we need to galvanically isolate the output of the supply from the mains voltage. This is a vital safety requirement, and cannot - <i>ever</i> - be ignored, regardless of output voltage or power requirements. Galvanic isolation simply means that there is no metallic electrical connection between the mains and the powered device. A transformer satisfies this requirement, but is not the only solution. One could also use a lamp and a stack of photo-voltaic cells ("solar" cells), but this is extremely inefficient. Because most of the alternatives are inefficient or just plain silly (such as the example above),  transformer based supplies represent well over 99.99% of all isolation methods. Switchmode supplies also use a transformer, so are included in the above.
+
+<p>Transformers only work with AC, so the output voltage must be rectified and filtered to obtain DC. This is shown in Figure 1 - the transformer, rectifier and filter are shown on the left. For simplicity, only single supply circuits will be examined in this article - dual supplies essentially duplicate the filtering and regulation with the opposite polarity. The filter is the first stage of the process of noise removal, and deserves some attention.</p>
+
+<center><img src="psu2-f1.gif" alt="Figure 1" border=1><br><small><b>Figure 1 - Basic Power Supply Schematic</b></small></center>
+
+<p>C1 (the filter capacitor) needs to be chosen to maintain the DC (with superimposed AC as shown in Figure 2) above the minimum input voltage for the regulator. If the voltage falls below this minimum because of excess ripple, low mains input voltage or higher current, noise will appear on the output - even if the regulator circuit is ideal. No conventional regulator can function when the input voltage is equal to or less than the expected output. It can be done with some switching regulators, but that is outside the scope of this article.
+
+<p>In the above schematic, there is about 380mV RMS (1.24V peak-peak) ripple at the regulator's input, but only 4.5mV RMS (14.2mV p-p) at the output. This is a reduction of 38dB - not wonderful, but not bad for such a simple circuit.  Load current is 142mA. With the addition of 1 extra resistor and capacitor to create a filter going to the base of Q1, ripple can be reduced to almost nothing. If you wish to experiment, replace R1 with 2 x 560 Ohm resistors in series, and connect the junction between the two to ground via a 100uF capacitor. This will reduce ripple to less than 300uV - 62dB reduction. Alternatively, one might imagine that just adding another large cap at the output would be just as good or perhaps even better. Not so, because of the low output impedance. Adding a 1,000uF cap across the load reduces the output ripple to 3.8mV - not much of a reduction. While simple, this regulator will actually cost more to build and use more PCB real estate than a typical 3-terminal IC regulator. The IC will also outperform it in all significant respects.</p>
+
+<center><img src="psu2-f2.gif" alt="Figure 2" border=1><br><small><b>Figure 2 - Voltage Waveforms for Figure 1 Power Supply</b></small></center>
+
+<p>The regulator in Figure 1 is very basic - it has been simplified to such an extent that it is easy to understand, but it cannot work very well. This is not to say that it's useless - far from it. It must be remembered that the simple regulator will cost more than a 7815 3-terminal regulator IC though !
+
+<p>While a simple regulator may well be all that's needed for many applications, especially for circuits that use opamps, the regulator itself is generally not particularly critical. This is because most opamps have a very good power supply rejection ratio (PSRR) - the TL072 has a PSRR of 100dB (typical). This means that any low frequency signal on the supply (or supplies) is attenuated by 100dB before finding its way to the opamp's output pin. This does vary with frequency though!
+
+<p>Please note that the above <i>does not apply</i> if there is a connection from either supply to an input pin. If this is the case, extensive filtering may be needed to remove supply noise. If any supply noise is presented to an opamp input, it will be amplified along with the signal.
+
+<p>Referring to Figure 2, it should be obvious that the filter capacitor C1 removes much of the AC component of the rectified DC, so it must have a small impedance at 100Hz (or 120Hz). If the impedance is small at 100Hz, then it is a great deal smaller at 1kHz, and smaller still at 10kHz (and so on). Ultimately, the impedance is limited by the ESR (equivalent series resistance) of the filter cap, which might be around 0.1 Ohms at 20&deg;C.
+
+<p>It is important that capacitive reactance is not confused with ESR. A 1,000uF capacitor has a reactance of 1.59 Ohms at 100Hz, or 15.9 Ohms at 10Hz. This is the normal impedance introduced by a capacitor in any circuit, and has nothing to do with the ESR. At 100kHz, the same cap has a reactance of only 1.59 nano-Ohms, but ESR (and ESL - equivalent series inductance) will never allow this to be measured.  Indeed, at very high frequencies, the ESL becomes dominant, but this does not mean that the capacitor is incapable of acting as a filter. It's effectiveness is reduced, but it still functions just fine. Some people like to add 100nF caps in parallel with electros, but at anything below medium frequency RF (less than 1MHz), such a small value of capacitance will have little or no effect. While this is easily measured in a working circuit, few people have bothered and the myth continues that electrolytic caps can't work well at high frequencies.
+
+<p>Contrary to popular belief in some quarters, electrolytic capacitors do not generally have a high ESL. Axial caps are the worst because the leads are further apart. ESL for a typical radial lead electro with 12mm lead spacing might be expected to be around 6nH. A short length of track can make this a great deal worse - this is not a fault with the capacitor, but with the PCB designer.</p>
+
+<hr><a id="s3"></a><b>3 &nbsp; Regulator Requirements</b><br>
+The regulator itself has a number of primary functions. The first (surprisingly) is not regulation as such, but reduction of the power supply filter noise - mainly ripple. Including a reasonably stable voltage as part of the process is not difficult with ICs, so this is included as a matter of course. The regulated voltage is not especially accurate, but this is rarely an issue. 
+
+<p>The output impedance should be low, because this allows the voltage to remain constant as the load current changes. For example, if the output impedance were 1 Ohm, then a 1A current change would cause the output voltage to change by 1V. This is clearly unacceptable, and one might expect the output impedance to be less than 0.1 Ohm - however, this is frequency dependent and may include some interesting phenomena with some regulators (LDO - low drop-out regulators can be especially troublesome).
+
+<p>In order to maintain low impedance at very high frequencies, an output capacitor is commonly used. This is in addition to any RF bypass capacitors that may be required to prevent oscillation.
+
+<p>It must also be remembered that in any real circuit, there will be PCB traces that introduce inductance. Capacitors and their leads also have inductance, and it is theoretically possible to create a circuit that may act as an RF oscillator if your component selection is too far off the mark (or your PCB power traces are excessively long).
+
+<p>Bypassing is especially important where a circuit draws short-term impulse currents. This current waveform is common in mixed signal applications (analogue and digital), and the impulse current noise can cause havoc with circuitry - an improperly designed supply path can cause supply glitches that cause false logic states to be generated. Even the ground plane may be affected, and great care is needed in the layout and selection of bypass caps to ensure that the circuit will perform properly and not have excessive digital noise.
+
+<p>In general, linear opamp circuits will not cause impulse currents, because the audio signal is relatively slow. In many cases, the power supply current will not be modulated at all, because the opamp's output current remains substantially within its linear (Class-A) region. Even where the supply current <i>is</i> modulated, it will a relatively slow modulation, and track inductance is generally insignificant.</p>
+
+<center><img src="psu2-f3.gif" alt="Figure 3" border=1><br><small><b>Figure 3 - Regulator Internal Diagram</b></small></center>
+
+<p>The essential sections of almost all regulators are shown above. The voltage reference is most commonly a band-gap reference, because these are very stable, easy to implement during IC fabrication, and have excellent performance. The nominal reference voltage is 1.25V, and this is easily amplified to achieve the required voltage. Alternatively, the band gap reference can be used to control a current source that supplies a 6.2V zener diode. This voltage is chosen because the positive and negative voltage coefficients of the zener cancel, providing a very stable reference voltage over a wide temperature range.
+
+<p>The error amplifier simply compares the output voltage with the reference. If they are the same (the output voltage may be scaled using a resistive divider as shown), then all is well. If the output voltage is low, the error amplifier makes the appropriate correction, and passes this to the series pass device (most commonly a BJT (bipolar junction transistor), and this process continues (extremely quickly) until the output voltage is restored. Should the output rise (reduced load), the opposite occurs. In many circuits, the output current is constantly changing, so the error amplifier is always working.
+
+<p>The regulator circuit uses feedback to maintain a low output impedance and to maximise noise rejection. Because all feedback circuits have stability criteria that must be met to prevent oscillation, there will always be a frequency above which the regulator cannot function well. A suitably sized output capacitor is used to maintain the low impedance up to the highest frequency of interest.
+
+<p>Because of the amount of feedback used, most regulators have a very low output impedance. As a result, adding a very large output capacitance does not necessarily reduce the noise as much as one might expect - or even at all. Where extremely low noise is essential, a simple resistor/capacitor filter can be added, but at the expense of load regulation.
+
+<p>There are a number of terms that are used to describe the performance of any regulator. These are listed below, along with brief explanations.</p>
+
+<table width="100%"><tr>
+<td width=20></td><td><b>Parameter</b></td><td><b>Explanation</b></td></tr>
+<tr><td></td><td>Load Regulation</td><td>A percentage, being the change of voltage for a given change of output current</td></tr>
+<tr><td></td><td>Line Regulation</td><td>A percentage. being the change in output voltage for a given change of input voltage</td></tr>
+<tr><td></td><td>Dropout Voltage</td><td>The minimum voltage differential between input and output before the regulator can no longer maintain acceptable performance</td></tr>
+<tr><td></td><td>Maximum Input Voltage</td><td>The absolute maximum voltage that may be applied to the regulator's input terminal with respect to ground</td></tr>
+<tr><td></td><td>Ripple Rejection</td><td>Expressed in dB, the ratio of input ripple (from the unregulated DC supply) to output ripple.</td></tr>
+<tr><td></td><td>Noise</td><td>Where quoted, the amount of random (thermal) noise present on the regulated output DC voltage</td></tr>
+<tr><td></td><td>Transient Response</td><td>Usually shown graphically, shows the instantaneous performance with changes in line voltage or load current</td></tr>
+</table>
+
+<p>There are obviously many more, such as power dissipation, maximum current, current limiting characteristics, etc. These are dependent on the type of regulator, and the specifications and terminology can vary widely. Many of the parameters are far too complex to provide a simple "figure of merit", and graphs are shown to indicate the transient performance (load and line) and other information as may be required to select the right part for a given task.
+
+<p>One special family of regulators are called LDO (low drop-out) regulators. Where a common regulator IC might need 2 to 5V input/output differential, an LDO type will generally function down to as little as perhaps 0.6V between the input and output. These are commonly used in battery operated equipment to maximise battery life. Some of these devices are also very low power, so there is a minimum of power wasted in the regulator itself.
+
+<p>Few (if any) regulator ICs presently available have poor performance. While there may be "better" types one can use, this does not mean that a better (more expensive) regulator will cause a system to sound any different.</p>
+
+<hr><a id="s4"></a><b>4 &nbsp; Common IC Regulators</b><br>
+Very few audio applications really need anything more than the traditional fixed voltage regulators, such as the 7815 (positive) and 7915 (negative). Yes, they are somewhat noisy, but the noise is generally (but not always) immaterial when the circuit is opamp based. See <a href="#s51">below</a> for the reason.
+
+<p>A 7815 (or 7915) has a typical output range of from 14.4V to 15.6V, so expecting the voltage to be exact is unrealistic. The load regulation (i.e. the change in output when the load current is changed) is anything from 12mV to 150mV when the load current is changed from 5mA to 1.5A. For this test, the input voltage is maintained constant.
+
+<p>Ripple rejection is quoted as a minimum of 54dB to a typical value of 74dB. These figures can be bettered by using the LM317/337 variable regulators. These have lower noise and better ripple rejection than the much older fixed regulators, but in most circuits it makes no difference whatsoever. Claims that there is some "quality" of DC that is somehow (magically?) audible are nonsense. The use of super regulators (at super prices) is usually unjustified for any opamp circuit, and has marginal justification at best even with very basic discrete designs.
+
+<p>There are quite a few other regulator types on the market, but the National Semiconductor types seem to have the lion's share of the market as far as normal retail outlets are concerned. Not that there is anything wrong with them - they perform well at a reasonable price, and have a very good track record for reliability. While one can obtain more esoteric devices (with some searching), many of the traditional manufacturers are concentrating on switching regulators, and don't seem to be very interested in developing new analogue designs.
+
+<p>While there are many discrete or semi-discrete regulators to be found in various books, websites (including this site) and elsewhere, they are usually only ever used because no readily available IC version exists. An example is the ESP <a href="../project96.htm" target="_blank">P96</a> phantom power regulator - this design is optimised for low noise and the (relatively) high voltage needed by the 48V phantom system. Regulation is secondary, since the phantom power voltage specification is quite broad. It is still quite credible in this respect, but it has fairly poor transient response, which is not an issue for the application.
+
+<p><b>LDO Regulators</b><br>
+LDO (low drop-out) regulators are becoming much more popular, because people like to be able to have regulated supplies, but use batteries down to the last drop (as it were). The low dropout regulator achieves this by using a PNP series pass transistor (for a positive regulator), and the voltage differential between input and output can be less than 0.6V, compared to a couple of volts or more for a traditional regulator. There are some caveats when using LDO regulators though, because they are far less stable than their conventional counterparts.
+
+<p>The series pass transistor operates with gain because it's not an emitter follower. This introduces additional phase shift, and the output is from the collector of the series pass transistor instead of the emitter. Capacitance and inductance at the output pin have to be within specified limits to prevent oscillation, so there is some loss of flexibility. A normal 78xx regulator can usually have anything from 100nF to 10,000uF across the output and it will work perfectly happily regardless, but no such liberties can be taken with the LDO version.
+
+<p>In many cases, just substituting the output cap with a another having a lower ESR (equivalent series resistance) can convert a stable and happy regulator into an RF oscillator. It is essential to get the data sheet for any LDO regulator and make sure that you follow all recommendations to the letter.</p>
+
+<hr><a id="s5"></a><b>5 &nbsp; "Super" Regulators</b><br>
+The easiest way to make a super regulator is to use two regulators in series, with the first one at a higher voltage than required at the output. For example, a 15V output might have an input to the second regulator of perhaps 22V, and additional filtering (as shown below) may be added as well. While ripple will be reduced to virtually nothing at all, will doing any of this improve the sound? Almost certainly, the answer is "no". While many have claimed superior performance (with the usual superlatives and a complete lack of any objective evidence), it is unlikely that anything changed. Note that only the positive side is shown in Figure 4. Refer to the article for complete details.
+
+<p>One popular version is the Jung "Super Regulator". While I have no doubt whatsoever that its performance is exemplary, the level of performance achieved is simply not necessary in most audio circuits. The general arrangement is a pre-regulator (an LM317), followed by an opamp based error amplifier, precision reference diode and series pass transistor. In other words, two cascaded regulators. Although it also allows remote voltage sensing in some versions, this is of little use when the power supply and the audio boards are only 100mm or so from each other. The use of a fast opamp and optimised circuitry will certainly give excellent transient response, but no normal audio signal has a high enough frequency to make transient response an issue.
+
+<p>Superlatives abound on many sites describing the circuit, some people have noted that it may be prone to oscillation (so has to be made slower) in some configurations (including emails I have received where this has happened), but no-one seems to have noticed that the opamps being powered don't actually care one way or another if the DC has 1 or 100uV of supply noise.
+
+<p>Naturally, since the Jung version is popular, others have jumped on the bandwagon. As a result there are several versions of alternative super regulators, many of which will be prone to oscillation, and will almost certainly not provide any measurable improvement in audio performance ... unless they <i>do</i> oscillate of course - this will completely ruin the sound with most opamps.</p>
+
+<center><img src="psu2-f4.gif" alt="Figure 4" border=1><br><small><b>Figure 4 - Cascaded P05 "Super" Regulator</b></small></center>
+
+<p>For anyone who wants to make a super regulated system, a far cheaper option would be to use a pair of P05 (Rev-B) boards. At an output current of over 180mA, the input filtering scheme (C1, R1, C3) reduces the ripple from 1.7V peak-peak to less than 200mV p-p (about 84mV RMS) before the regulator. The LM317 has a typical ripple rejection of 65dB, so output ripple will be around 112uV - peak to peak! Add the 70dB PSRR of any reasonable opamp, and the expected output noise is so far below the noise floor of any system that no further improvement will yeild any audible difference. For lowest possible noise, a cap is commonly used from the adjustment pin to earth (ground), and this should have a discharge diode fitted between the adjust and output pins (oriented appropriately for polarity of course).
+
+<p>Now, if a second P05 is added in series (the second filter was omitted in my calculations, by the way), the expected output ripple of the cascaded supplies will be around 64nV, and it is guaranteed that your case and wiring will <i>never</i> be anywhere near good enough to maintain such a low level. Consider that this noise is almost 64dB below the output level of an unamplified low sensitivity moving coil phono cartridge (I've been extremely generous and allowed an output voltage of only 100uV, rather than the 500uV that is typical).
+
+<p>Remember that this is the voltage on the <i>power supply</i>, and the PSRR of any opamp circuit hasn't been considered yet. Discrete circuitry, and especially low feedback designs, are less tolerant of supply ripple, so some circuits of this type may benefit from the additional ripple filtering offered by a cascaded regulator circuit. However, unless you are amplifying exceeding low level signals, it is unlikely that any of the above will be necessary.
+
+<p>It is also worth remembering that even straight wires have resistance and inductance, so even if transient response and regulation were <i>perfect</i> at the power supply, 100mm of wire will instantly introduce losses. Remote sensing can be used to counteract this, but for an audio circuit ... complete overkill to achieve no useful purpose.</p>
+
+<hr><a id="s51"></a>Because noise is not just 100/120Hz supply ripple, we also need to look at regulator (wide band) noise. Common 78xx/79xx regulators have pretty good ripple rejection, but are usually quite noisy. The noise is predominantly high frequency, and is at frequencies where opamp PSRR is nowhere near as good as it is for low frequencies. As a result, some opamp circuits may produce audible noise that comes directly from the power supplies. In general, this is a non-issue and will not cause any problems at all, but for those occasions where noise is audible, the fixes are quite simple.
+
+<p>One solution is to use adjustable regulators such as the LM317/337. These are much quieter than the 78/79 series ICs, and the difference may be audible, especially in high gain circuits. As an example, the original version of the ESP <a href="../project37.htm" target="_blank">P37</a> discrete preamp has a PSRR of around 31dB for wide band noise. 10mV of supply noise will result in 297uV of output noise. This may be audible under quiet listening conditions, although few (if any) regulators will be that noisy. 10mV was a convenient reference level - the data sheet for an LM7815 says maximum noise level is 90uV. In reality, most off the shelf regulators will be fairly similar.
+
+<p>If the noise floor is audible, then two possible causes need to be addressed. If it's caused by the opamp itself, then replacement with a different type is the only solution. If the source is power supply noise, the easiest way to get rid of the vast majority of this noise is simply to use a simple RC (resistance, capacitance) filter at the output of the regulators. Using 10 ohm series resistors from the supply with 1,000uF caps to ground for each polarity, noise is almost completely eliminated, and the supply voltage is reduced by only 100mV for each 10mA of current drawn. This is a far cheaper option than using a relatively expensive discrete power supply that requires exotic opamps and costly "audio grade" capacitors and other components. The noise can be expected to be reduced by at least 60dB with this simple filter. High frequency noise (the most intrusive, and least affected by the opamp's PSRR) is affected the most by the filter. Note that it is pointless adding a large cap without a series resistor - the output impedance of most regulators is so low that it will have almost no effect.</p>
+
+<p>High frequency noise from the regulators can be reduced by adding a capacitor from the ADJ terminal to earth/ common. It is then essential to add a diode from ADJ to the output to discharge the cap should the output be shorted. There are very few opamp circuits that will benefit from the extra filtering though.
+
+<hr><a id="s6"></a><b>6 &nbsp; Shunt Regulation</b><br><br>
+Shunt regulators have some advantages over traditional series regulators, despite their low efficiency and comparatively high power dissipation. The advantages of shunt regulators are as follows ...
+
+<ul>
+  <li>Inherently short-circuit proof
+  <li>Can sink current from the load as well as sourcing current <i>to</i> the load
+  <li>They provide (almost) fool-proof over voltage protection, including transient suppression
+  <li>Can be very simple (a resistor and a zener)
+</ul>
+
+<p>There are also disadvantages, as is to be expected ...</p>
+
+<ul>
+  <li>Comparatively high power dissipation regardless of load current
+  <li>Dissipation <i>increases</i> as load current is reduced
+  <li>Simple versions may have relatively poor overall performance
+</ul>
+
+<p>The simplest shunt regulator consists of nothing more than a resistor and a zener. If designed properly, this is a very simple power supply arrangement, and offers acceptable performance for many applications. For example, the P27B guitar amplifier preamp has a pair of zener shunt regulators on the board, and these give hum free performance despite the very high gain of the preamplifier.
+
+<p>There are very few shunt regulators used in modern equipment. This is not necessarily a good thing, since almost no-one designs in an over-voltage crowbar circuit, so failure of a series regulator is often accompanied by wholesale destruction of the circuitry that uses the regulated supply. This is especially so with logic circuitry ... 5V logic circuits will typically suffer irreparable damage with a supply voltage above 7V.
+
+<center><img src="psu2-f5.gif" alt="Figure 5" border=1><br><small><b>Figure 5 - Shunt Regulators</b></small></center>
+
+<p>In the circuits shown above, it is quite obvious that the high performance circuit will outperform the simple zener. As a quick test (which is by no means conclusive, but gives a good indication), the circuits were simulated. The DC input was deliberately "polluted" with a 2V peak (1.414V RMS) 100Hz sinewave to measure the ripple rejection of each version. The zener alone was able to reduce the ripple to 11mV RMS, a reduction of  just over 42dB.
+
+<p>If R1 and R2 are replaced with a single 100 ohm resistor (omitting C2), ripple rejection falls to 25dB (82mV RMS ripple). This technique for ripple reduction used to be very common when people built discrete regulated power supplies. Note that a split resistor is essential - if the 470uF cap were simply in parallel with the zener, there is very little improvement - the RMS ripple voltage is only halved to 40mV, rather than the 11mV measured using the split resistor method. Why? Because the zener has a low impedance, and this acts in parallel with the cap's impedance. By splitting the resistance, the capacitor works with the effective impedance of the two resistors in parallel - this is much greater than the impedance of the zener, so the cap has more effect. Needless to say, a larger capacitance gives better ripple performance - doubling the capacitance halves the ripple voltage for example.
+
+<p>The opamp based version achieved 2.3uV RMS - over 116dB rejection. This figure must be taken with a (large) grain of salt of course - simulators and real life don't often coincide. In reality, I'd expect about 80-90dB reduction for a "real" circuit. Please be aware that the opamp based regulator circuit is shown as an example - it is not a working circuit, and would almost certainly oscillate if constructed as shown.
+
+<p>Both circuits are supplying a load current of about 75mA (15V, 200 Ohm load).
+
+<p>For the simple zener version with full load, the zener dissipation is 440mW.  This rises to almost 1.7W with no load. If a 1W zener were used, it would fail if the circuit were operated with no load for more than a few seconds. Resistor dissipation remains the same whether the circuit is loaded or not, but it increases if the output is shorted to ground. The two resistors need to be at least 1W, since each dissipates about 500mW.</p>
+
+<p>The high performance version needs a 5W resistor for R3. Transistor Q2 has maximum dissipation with no load, and this will be around 3.5 Watts. Dissipation is around 2.3W with the rated load of 75mA. While the shunt current can be reduced from the 250mA used in Figure 5, performance will suffer if it falls below about 150mA. This can be reduced by using the same split resistor scheme used for the simple zener regulator, and this will potentially improve ripple rejection performance further as well.
+
+<p>It's worth noting that most shunt regulator designs (whether opamp or discrete based) regulate their own supply voltage. This gives an inherent advantage, in that the supply to the circuitry is stable, thus ensuring that the overall performance is optimised without any requirement for pre-regulation.</p>
+
+<center><img src="psu2-f5a.gif" alt="Figure 5" border=1><br><small><b>Figure 5A - P37 Shunt Regulator</b></small></center>
+
+<p>Finally, a version that has been used by many constructors is shown in Project 37. This is a simple shunt regulator, but the zener power is boosted by adding a transistor as shown above. Note that the resistor is split, with a cap between the two. As noted in the article, noise is extremely low - 100/120Hz hum can be expected to be less than 20uV or so. I found that it was almost impossible to measure hum in the prototype, since normal circuit and test equipment noise was predominant.</p>
+
+<hr><a id="s7"></a><b>7 &nbsp; Transformerless Power Supplies</b><br><br>
+<table width="100%" border=1 style="border-collapse: collapse" bgcolor="red">
+<tr><td><font color="white"><big><b>WARNING :</b> The following circuit is not isolated from the mains and must <i>never</i> be used with any form of general purpose input or output connection. All circuitry must be considered to operate at the full mains potential, and must be insulated accordingly. No part of the circuit may be earthed via the mains safety earth or any other means. Do not work on the power supply or any connected circuitry while power is applied, as death or serious injury may result.</big></font></td></tr>
+</table>
+
+<p>To some, the idea of making a power supply that does not use a transformer is appealing. Even relatively small transformers are bulky and heavy, and they will always radiate a small amount of magnetic interference. However, these supplies are not isolated from the mains supply and are inherently extremely dangerous.
+
+<p>They are usable in a very limited range of products, and such products can have no directly connected input or output connections. This limits their usefulness somewhat, since most projects require some connection to the outside world. While isolation is possible using opto-couplers, these are generally slow and not very linear, so hi-fi applications are ruled out.
+
+<p>Where such circuits are used, they will be completely enclosed, and may have circuit functions accessed by well insulated push-buttons, infra-red or radio remote controls. Well insulated (plastic shaft) pots can also be used. Typical applications are wide-ranging, and include motor speed controllers, "high tech" light dimmers, temperature controllers and many others. Audio is <i>not</i> included in any common application.
+
+<p>While it would be possible to isolate inputs and outputs using transformers, no-one makes "line level" transformers that are rated to withstand mains voltages, and even if they were available, the cost would be far greater than a small mains tranny.
+
+<p>Consequently, the applications are strictly limited to areas where the necessary inputs and outputs can be opto-isolated, or where there is no direct connection to the outside world at all. Many PIC based projects are intended for controlling mains appliances, and these can use a transformerless supply without problems. Naturally, external probes or other sensors must also be insulated in their entirety. They must withstand the full mains voltage, safely, and for well beyond the expected life of the apparatus.</p>
+
+<center><img src="psu2-f6.gif" alt="Figure 6" border=1><br><small><b>Figure 6 - Typical Transformerless Power Supply</b></small></center>
+
+<p>Now, looking at the circuit, it is obvious that one side is referenced to the neutral, and neutral is connected to the building's safety earth. Therefore, the circuit should be safe. However, the regulatory bodies in every country insist that the neutral is a "current carrying conductor", and it is recognised everywhere that the possibility exists for active (aka live) and neutral to be interchanged. This may occur in old buildings (wired before any standard was applied), or could be caused because of a mis-wired extension lead. Many countries have non-polarised mains plugs that may be inserted into an outlet either way.
+
+<p>Any one of the above makes the circuit lethal. The negative output becomes referenced to active, not neutral, so all connected circuitry is at mains potential. For this reason, circuits such as that shown may <i>only</i> be used in such a manner that no part of the power supply or its connected circuitry may be accessible to the end user. This means no connectors for input or output, and all components must be fully insulated to prevent accidental contact.
+
+<p>Now that the necessary disclaimers are completed, we can look at the circuit itself. The fuse (F1) is obviously intended to guard against the risk of fire, by opening if the current exceeds that expected. The fuse rating may be much lower than shown. R1 limits inrush current, which can be very high if power is applied while the AC input is at its maximum value. R1 needs to be at least 1W, and it is intended that its value is considerably less than the capacitive reactance of C1. In some cases, R1 may be a fusible resistor, thereby eliminating the separate fuse. I consider this to be a poor protection mechanism, but it's cheap.
+
+<p>C1 is the actual current limiter. By using a capacitor, there is almost no lost power - capacitors used within their ratings have extremely low losses. R2 is intended to discharge the capacitor when mains is disconnected. Without it, C1 can hold a significant change for several days, so anyone touching the pins of the mains plug could receive a very nasty shock. R2 <i>must</i> be rated for the full mains voltage. It may be necessary to use 2 resistors in series to ensure they will withstand the applied voltage continuously.
+
+<p>C1 will have almost the full mains voltage across it (240V RMS for the circuit shown), and <i>cannot</i> be a DC rated capacitor. While a 400V DC cap will work with 120V mains (although I consider this to be most unsatisfactory), the voltage should be a minimum of 275V AC if used with 240V mains. In general, it is unwise to use DC rated capacitors where high AC voltages will be across the cap - the use of AC rated components is highly recommended in all cases. "X" class capacitors are designed to be connected across the mains, and are the only type that should be used.
+
+<p>D1 and D2 form the rectifier. D2 must be installed to prevent C1 from charging to the peak of the mains voltage (340V, via D1). Without D2, the circuit will not work! C2 is the filter cap, and needs only to be rated at slightly above the zener voltage. A 6.3V electrolytic will be quite acceptable. Finally, D3 (a 5.1V zener diode as shown) provides regulation. The DC will have significant ripple - in the circuit shown and at 50Hz input, there will be about 325mV peak-peak of ripple on the supply. This is normally quite acceptable for a PIC circuit, provided it is not expected to perform any accurate analogue to digital or digital to analogue conversions. Ripple can be reduced by adding a resistor (R3) between C2 and D3, but care is needed to keep the voltage across C2 within ratings. For example, a 33 ohm resistor reduces ripple to about 63mV peak-to-peak and keeps the voltage across C2 just below 6.3 volts. Figures shown are for a 220 ohm load at 5.1V - about 23mA. 
+
+<p>As should be quite apparent, this type of power supply is completely useless for general purpose work and cannot be recommended for audio because of the serious electrical safety issues. There are only a few applications for circuits such as this, and these are generally control systems and the like. Remember that <i>all</i> external connections, probes, etc, must be isolated to the standards required for the full mains voltage.
+
+<p>It has been suggested several times that the 120V mains (as used in the US and Canada) could be rectified and used directly as an amplifier power supply. This will give an effective supply voltage of about &plusmn;85V with the use of a suitable splitter circuit. While the idea seems plausible ...</p>
+
+<p><b><i>Don't even think about it !</i></b></p>
+
+<p>The problem is that the entire amplifier must be considered to be at mains potential, and all inputs have to be isolated using transformers. This scheme used to be quite common for radio receivers and TV sets - they were referred to as "hot chassis" sets. Because it's relatively easy to isolate the antenna connection with a high voltage capacitor, these sets were popular because they were cheaper to make. None that I know of ever had auxiliary audio (or video) inputs, as these would have to be transformer isolated.</p>
+
+<hr><a id="s8"></a><b>8 &nbsp; Cheap Death (or How Not to Design a Power Supply)</b>
+<p>With all these nasty limitations, a chap called Stan D'Souza at Microchip Technology decided that there had to be a way to make the circuit "safe". Thus, in 2000, a technical bulletin (TB008) was issued that claimed to overcome the inherent safety issues of the traditional transformerless power supply. According to Stan, his circuit could be used just like any normal transformer based supply, but without the expense of a transformer.
+
+<p>What he completely failed to recognise is that the circuit described violates the wiring rules of every developed country on the planet! The circuit is shown below - this is not the exact same circuit as described in TB008, but is based (for clarity) on that described in Figure 5. The overall concept is identical.</p>
+
+<center><img src="psu2-f7.gif" alt="Figure 7" border=1><br><small><b>Figure 7 - TB008 Cheap Death Power Supply</b></small></center>
+
+<p>At first glance, it seems to be alright. Look closely! It uses the earth pin of a 3-pin power connector as the return path for the circuit - this is not allowed in any country that I know of. The earth pin is for <i>safety earth</i>, and is intended to carry fault current away from the appliance to prevent electrocution. The earth (ground) pin <i>must not</i> be used as a current-carrying conductor. All current-carrying conductors must be insulated from earth and/or chassis with wiring suitable for the mains voltage used. No country's wiring rules will consider the neutral conductor to be "safe", because there will always be situations where active and neutral are swapped over - perhaps because of very old wiring, inexperienced persons failing to appreciate the difference, incorrectly wired extension leads, etc.
+
+<p>Next, there is a fuse joining earth and neutral. Again, this is not permitted under any wiring codes. By joining the earth and neutral, it will instantly trip any electrical safety switch (aka earth leakage circuit breaker, ground fault interrupter, core balance relay, etc., etc). While most countries use what is called the MEN system (main earth neutral) albeit by a different name, the link between the incoming neutral conductor and the earth (safety ground) stake is permitted at <i>one location per installation</i>. While it is possible that the rules elsewhere might allow multiple connections, the connection will <i>never</i> be allowed in any appliance.  There are very good reasons for this, and the following is only one of many possible scenarios ...
+
+<p>What happens if the active and neutral in a wall outlet are reversed (and the earth is connected)? Firstly, the fuse will blow (violently), and the loud bang and bright flash will give the poor user a terrible fright. This in itself is unlikely to be deadly. It is after the fuse has blown that things become really dangerous, because if plugged into another outlet (provided the earth connection is sound and the safety switch doesn't operate), the circuit will continue to work.
+
+<p>Most householders will be baffled - "Gee, it just blew up, but everything still works!"  The next thing will be to try it in the original outlet again ... "Hell, why not, it still works." But remember, this outlet has active and neutral reversed, so it won't work in that outlet - there is no connection to active. The poor user is now flummoxed, so chucks the (whatever it might be) in a corner and forgets about it.
+
+<p>In the US, Canada and some European countries, it is quite common for appliances to have a 2-pin non-polarised mains plug, with no earth pin. If the owner of this particular appliance with its "Cheap Death" power supply decides to simply replace the 3-pin plug with a 2-pin version, the real fun can start. Whether the fuse is intact or not is more or less immaterial, because only one of the two ways a 2-pin plug can be inserted is safe. Should the wrong choice be made (and the poor user has no knowledge that there is a "safe" and "unsafe" way to plug the supply into an outlet), the entire circuit is now at the full mains potential. Anyone touching any part of the circuit - chassis, connectors, etc. - is now connected directly to the mains via the capacitor. The cap is capable of passing more than enough current for a fatal electric shock.
+
+<p>Even assuming that nothing untoward happens (and there is no installed safety switch), if there is a significant load on the branch circuit where this monstrosity is connected, there is a very real possibility that the fuse will blow because of the potential difference between the neutral and earth connections. An electric kettle or a heater can quite easily elevate the neutral lead by a couple of volts with respect to earth, and the fuse will blow. Any pretense of "protection" afforded by the fuse is now gone.
+
+<p>There are many other "what if" possibilities that I urge you to explore, any one of which could result in the chassis becoming live, resulting in death or injury. Remember that it doesn't matter how unlikely a given scenario may seem to be, it will happen somewhere, sometime, if there are enough devices using the technique available. A one in a million chance becomes a certainty if there are a million users.
+
+<p>Because of the extreme danger posed by the circuit scheme, I contacted Microchip's technical support group with the following information (both messages are verbatim, including errors, grammatical mistakes, spelling, etc.) ...</p>
+
+<table width="80%" border=1 style="border-collapse: collapse" align="center">
+<tr><td>This issue applies to Application Note TB0008.  The circuit shown is inherently lethal, and violates every mains wiring code on the planet.  Tying neutral to earth (ground) is not allowed anywhere, and using a fuse for the purpose does nothing for the "safety" of the published circuit.<br><br>
+
+I strongly recommend that the app note TB0008 be withdrawn before someone kills themselves with it.  I cannot believe that you actually published this circuit without so much as a single warning that it is potentially lethal.<br><br>
+While similar circuits have been used for many years, no-one <b>ever</b> has thought to tie the neutral to earth, and where used, such circuits are always intended to be totally isolated from contact by any person.<br><br>
+To say that I am shocked by the circuit is both a terrible pun and a gross understatement.  Please remove it - someone <b>will</b> think it's a good idea, and will kill themselves or someone else if it is ever constructed as shown.<br><br>
+Cheers,    Rod Elliott</td></tr>
+</table>
+
+<p>A few days later, the following was received (with no name or direct contact details). That the response is unsatisfactory is to put it very mildly. This was Microchip's "proposed resolution" (again, the text is verbatim).</p>
+
+<table width="80%" border=1 style="border-collapse: collapse" align="center">
+<tr><td>Rod,<br><br>
+We apprecaite your saftety concern and taking the time to contact us.<br><br>
+I've looked into the design quite carefully, and there is no issue with the design.  The purpose is to cover the accidental case of plugging in the plug backwards (unlikely since most plugs are no polarized), and to cover the common case of a miswired outlet of a swapped hot and neutral.  If these situations occurred with this design, the neutral would have power on it (due to the swap) and would be immediately grounded.<br><br>
+The result would be a rapidly blown fuse (the one connecting to neutral in the design) and thus provides a safety to prevent the neutral line from having hot on it.  The hot line would actually then be connected to neutral, thus the design would have no power, and no return, and no hot connection in this case.<br><br>
+I'd agree that since it is a high voltage design, a warning would be a good idea if only from a legal perspective.  However, this was not a design presented in some magazine to the public, but is an engineering document.  It is assumed that engineers would be viewing it and would take normal precautions when working with AC power circuits.  However, we should not make that assuption, so I will request a warning be added regarding working with AC power.<br><br>
+
+The design otherwise does not contain a flaw.<br><br>
+
+Also, if the power is connected correctly (neutral to neutral, etc), then the connection of neutral to earth should be harmless since they are supposed to be at the same potential.  If they are not, it suggests a wiring fault, or other issue.  I'd argue that perhaps a small resistor should be added to deal with ground being a few volts above and below neutral and not blow the fuse - this situation can happen when heavy loads are placed on the power lines, and the voltage drop it causes can cause a small difference in voltage between grounds of outlets on different circuits, or a difference in neutral and ground potentials.<br><br>
+If after this discussion you still feel the circuit presents a hazard, please detail how this is the case - where the current would flow, what conditions, etc.  It would also be helpful to indicate where this violates code.  I do believe that it is not permitted in house wiring, but there is nothing I am aware of that says it can not be done in a design.  Also note the lines are not directly connected, but are fused.  However, the worst case even for a non fused link, would be to trip the circuit breaker on the house, which would detect the excessive ground current (due to the live being connected to ground).<br><br>
+If the resolution provided does not solve your problem, you may respond back to the support team through the web interface at support.microchip.com.  Telephone support is also available Monday-Thursday between the hours of 8:00am and 4:00pm MST and on Friday between 10:00am and 4:00pm. 
+</td></tr>
+</table>
+
+<p>Unbelievable! Remember, this is verbatim, replete with spelling and other errors. Although I immediately posted a response through the tech support contact form, no further reply was ever received - Microchip's tech support people seem to think the issue is "resolved", simply by stating that they see no issues in the circuit. A far as the person who examined the problem is concerned, it is perfectly alright. What makes this far worse is that it was claimed that "engineers would be viewing it" - well, TB008 can be found all over the Net. Because it was produced by a large (and popular) company, a great many beginners will assume that it <i>must</i> be safe, and that any criticism is unfounded and has no credibility (at least by comparison). There is even one site that has a link to the article for use by schools!
+
+<p>Interestingly, Microchip has also released AN954, which also describes a transformerless power supply. It has many highlighted warnings throughout the text, and TB008 is cited as a reference. This version does not attempt to use safety earth as a current carrying conductor, and quite correctly has no connection between earth and neutral. TB008 seems to have been buried in the Microchip website, and I was unable to find the original. An admission of wrongdoing would have been nice, but I suppose that's too much to ask for.</p>
+
+<hr><a id="s9"></a><b>9 &nbsp; Another Alternative</b>
+<p>Where a physically small power supply is required for a project (including audio, but not necessarily for true hi-fi use), one can use the intestines of a miniature "plug-pack" (wall-wart") SMPS. Although only small, some of these are capable of considerable power, but installation is not for the faint-hearted. Quite obviously, the circuit board must be extremely well insulated from chassis and protect against accidental contact when the case is open.
+
+<p>The advantage is that the project does not require an external supply, which is often a real pain to implement, because there is always the possibility that the wrong voltage or polarity can be applied if the external supplies are mixed up (which is not at all uncommon).</p>
+
+<table width="100%" border=1 style="border-collapse: collapse" bgcolor="red">
+<tr><td><font color="white"><big><b>WARNING :</b> The following description is for circuitry, some of which is not isolated from the mains. Extreme care is required when dismantling any external power supply, and even greater care is needed to ensure that the final installation will be safe under all foreseeable circumstances (however unlikely they may seem). All primary circuitry operates at the full mains potential, and must be insulated accordingly. It is highly recommended that the negative connection of the output is earthed to chassis and via the mains safety earth. Do not work on the power supply while power is applied, as death or serious injury may result.</big></font></td></tr>
+</table>
+
+<p>The photo in Figure 7 shows a typical 5V 1A plug-pack SMPS board. As removed from the original housing, it has no useful mounting points, so it is necessary to fabricate insulated brackets or a sub-PCB (made to withstand the full mains voltage) to hold the PCB in position. Any brackets or sub-boards must be constructed in such a manner that the PCB cannot become loose inside the chassis, even if screws are loose or missing. Any such board or bracket must also allow sufficient creepage and clearance distances to guarantee that the primary-secondary insulation barrier cannot be breached. I shall leave the details to the builder, since there are too many possible variations to consider here.
+
+<p>This arrangement has some important advantages for many projects. These supplies are relatively inexpensive, and the newer ones satisfy all criteria for minimum energy consumption. Most will operate at less than 0.5W with no load, and they have relatively high efficiency (typically greater than 80% at full load). The output is already regulated, so you save the cost of a transformer, bridge rectifier, filter capacitor and regulator IC.</p>
+
+<center><img src="psu2-f8.jpg" alt="Figure 8" border=1><br><small><b>Figure 8 - External SMPS Circuit Board</b></small></center>
+
+<p>The SMPS pictured is a 5V 1A (5W) unit, and for most PIC based projects this will provide more than enough current. Consider the safety advantage compared to a transformerless supply - the finished project can have accessible inputs and outputs, and is (at least to the current standards) considered safe in all respects. Personally, I would only consider it to be completely safe if the chassis is earthed. However, it is legally allowed to be sold in Australia, and we have reasonable safety standards for external power supplies. They are "prescribed items" under the safety standards, meaning that they must be approved before they can be sold.
+
+<p>There is no more effort required to install a supply such as this instead of a transformerless supply, and at least you can work on the secondary side without having to use an isolation transformer. While it is more expensive, how valuable is a life? Far more than any power supply, and that's for certain.</p>
+
+<hr><a id="s10"></a><b>10 &nbsp; Conclusion</b>
+<p>Decisions, decisions. The main purpose of this article is to provide some general information about small power supplies, regulation, their application and potential dangers. There is no doubt that the traditional transformer based supply is the safest. It is extremely easy to ensure that no live connections are accessible, often needing nothing more than some heatshrink tubing to insulate joined wires. Note that if possible, two layers of heatshrink should be used to provide "reinforced" insulation over joined wiring.
+
+<p>Because the transformer has full galvanic isolation and requires no EMI filtering, leakage current is extremely low, and a well made transformer based supply is so reliable that it will almost certainly outlive any equipment into which it is installed. While certainly not the cheapest option, a transformer provides a reasonable attenuation of common mode mains noise, and the final supply can be made to be extremely quiet, with virtually no hum or noise whatsoever.
+
+<p>The next best option is a modified plug-pack SMPS or a purpose built chassis mounting SMPS. These are useful where high efficiency is needed, along with very low standby power requirements. They are rather noisy though, and the full range of voltages is simply not available. There are few (if any) &plusmn;15V SMPS available for example, so powering preamps and other low power audio equipment will be easier and ultimately cheaper with a transformer.
+
+<p>As a last resort, a transformerless supply can be used, but only where the current drain is low (typically less than 20mA or so), and only where there is no possibility of contact with any part of the connected circuit. There is no such thing as a "safe" transformerless power supply, and Microchip's TB008 should be withdrawn immediately, as it is potentially lethal. There are so many limitations and so few advantages to this approach that IMO it is usually a pointless exercise, unless one has a mains powered appliance that needs a low current supply that can remain <i>completely</i> isolated from contact with the outside world.</p>
+
+<hr><a id="s11"></a><a id="ref"></a><b>11 &nbsp; References</b>
+<ol>
+  <li><a href="http://www.kyocera.co.jp/prdct/electro/pdf/technical/esreslti.pdf" target="_blank">The Effects of ESR and ESL in Digital Decoupling Applications</a> - Jeffrey Cain, PhD, AVX Corporation
+  <li><a href="http://www.evox-rifa.com/electrolytic_cat/electrolytic_appguide.pdf" target="_blank">Electrolytic Capacitors Application Guide</a> - Evox-Rifa
+  <li><a href="http://www.epcos.com/inf/20/30/db/aec_07/B41696__B41796.pdf" target="_blank">Aluminum electrolytic capacitors</a> - Epcos
+  <li>National Semiconductor LM78XX Voltage Regulator Data Sheet.
+  <li><a href="http://www.national.com/rap/Application/0,1570,24,00.html" target="_blank">The Design of Band-Gap Reference Circuits: Trials and Tribulations</a> - Bob Pease
+  <li>Jung Super Regulator - Walt Jung, various references on the Net (schematics may be difficult to obtain).
+  <li>TB008 - Transformerless Power Supply - Stan D'Souza, Microchip Technology Inc. (Thankfully, seems to have been removed)
+  <li><a href="http://ww1.microchip.com/downloads/en/AppNotes/00954A.pdf" target="_blank">AN954 - Transformerless Power Supply</a> - Reston Condit, Microchip Technology Inc.
+  <li><a href="http://www.national.com/appinfo/power/files/f4.pdf" target="_blank">Linear and Switching Voltage Regulator Fundamentals</a> - National Semiconductor
+  <li><a href="http://www.audiodesignline.com/howto/206800872" target="_blank">Yet More on Decoupling - Part 1 ...</a> - Kendall Castor-Perry (also see <a href="http://www.planetanalog.com/showArticle.jhtml?articleID=202402836" target="_blank">Planet Analog</a>)
+  <li><a href="http://www.waltjung.org/" target="_blank">Walt Jung's Website</a> - See Library for articles etc.
+</ol><br>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page published and copyright &copy; 12 May 2008./ Updated 18 May 08 - added shunt regulator section and additional reference./ 04 Jun 10 - removed Microchip link to TB008, added LDO info.</div>
+</body>
+</html>

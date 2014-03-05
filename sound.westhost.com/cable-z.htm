@@ -1,0 +1,383 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="What is the effect of the characteristic impedance of a loudspeaker cable? Is it important to match the cable to the speaker load impedance, or is this simply a marketing ploy?">
+<!-- What is the effect of the characteristic impedance of a loudspeaker cable? Is it important to match the cable to the speaker load impedance, or is this simply a marketing ploy? -->
+	<meta name="keywords" content="loudspeaker, cable, characteristic, impedance, zobel, amp, amplifier, instability, stability, audio, diy, fi-fi, electronic">
+	<title>Loudspeaker Cable Characteristic Impedance</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Loudspeaker Cable Characteristic Impedance&nbsp;</td></tr></table>
+
+<p align="center">Copyright &copy; 2003 - Rod Elliott (ESP)<br />
+<small>Page Published 17 Oct 2003</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+
+<hr /><a href="articles.htm" OnMouseOver="document.t1.src='arrow.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br><a href="index2.html" OnMouseOver="document.t3.src='a.gif';" OnMouseOut="document.t3.src='a1.gif';">
+<img SRC="a1.gif" NAME="t3" ALT="ESP Home" BORDER=0 height=24 width=40></a><b>Main Index</b><br /><br />
+
+<hr><b>Contents</b>
+<ul>
+	<li><a href="#s1">1.0&nbsp; Introduction</a>
+	<ul>
+		<li><a href="#s11">1.1&nbsp; Impedance Matching</a>
+	</ul>
+	<li><a href="#s2">2.0&nbsp; About the Simulations</a>
+	<ul>
+		<li><a href="#s21">2.1&nbsp; Amplifier</a>
+		<li><a href="#s22">2.2&nbsp; Cables</a>
+		<li><a href="#s23">2.3&nbsp; Loudspeaker</a>
+	</ul>
+	<li><a href="#s3">3.0&nbsp; Simulations</a>
+	<ul>
+		<li><a href="#s31">3.1&nbsp; "Special" Cable</a>
+		<li><a href="#s32">3.2&nbsp; 12 Gauge "Zip" Cable</a>
+		<li><a href="#s33">3.3&nbsp; DIY Cross Connected Coax Cable</a>
+	</ul>
+	<li><a href="#s4">4.0&nbsp; Further Investigations</a>
+	<ul>
+		<li><a href="#s41">4.1&nbsp; Aussie "Figure 8" Cable</a>
+		<li><a href="#s42">4.2&nbsp; Transmission Line or Cable?</a>
+	</ul>
+	<li><a href="#s5">5.0&nbsp; Frequency Response</a>
+	<ul>
+		<li><a href="#s51">5.1&nbsp; Amplifier Vs. "Ideal" Source</a>
+		<li><a href="#s52">5.2&nbsp; Response Simulations</a>
+	</ul>
+	<li><a href="#copyright">Copyright</a>
+</ul>
+
+<HR><A id="s1"></A><b>1.0&nbsp; Introduction</b>
+<p>What is the effect of the characteristic impedance of a loudspeaker cable? Is it important to match the cable to the speaker load impedance, or is this simply a marketing ploy?</p>
+
+<p>Much has been said by many cable vendors about loudspeaker cables characteristic impedance, with claims that it should match the speaker impedance for "optimum results". Likewise, there is also a great deal that we are <I>not</I> told, and this is of much greater concern.</p>
+
+<p>One thing the cable vendors have completely neglected to point out, is that the characteristic impedance is <I>only</I> important (and relevant) when the source impedance, cable impedance and load impedance are <U>all</U> matched. Having an extremely low impedance at one end (the amplifier) and a variable impedance at the other (the majority of all loudspeakers) makes true matching impossible.</p>
+
+<P>Having said that, even with a very low impedance at one end of the cable, most cables can be made to have a passable match at low to mid radio frequencies (RF) by terminating at the far end only. (Note that at the frequencies we are looking at they are not really transmission lines, although I may use the two terms interchangeably.) Some degree of "matching" may be (to a degree) because the amplifier's output impedance rises as the frequency increases, but all amplifiers will be different in this respect.</P>
+
+<P>To improve the impedance match and reduce the reflections that are caused by an unterminated transmission line, some vendors recommend a Zobel network - a resistor and capacitor in series, typically 10 ohms and 100nF. This, they tell you, should be installed at the speaker end of the cable. The usefulness of this may be dubious as will be shown later in this article, but in most sensible cable constructions, it will do no harm. For some of the more exotic constructions, a far-end Zobel is essential, however most are incorrectly designed.</P>
+
+<P>Another "minor" detail that the cable vendors fail to mention is that the characteristic impedance of a cable varies with frequency. At DC, the characteristic impedance of all cables is infinite (for all intents and purposes), and the rated impedance is usually not reached until the signal frequency is well above the audio band - typically around 100kHz or more, depending on the cable's construction and length. Any cable consisting of parallel or concentric conductors (including flat conductors, multi-wire ribbon cables and Litz cables) acts as a transmission line at high frequencies, or (at least to a degree) if the line is extremely long (usually several to many kilometres). All transmission lines have a characteristic impedance, and this is a basic principle of physics - at issue is the flippant way many vendors handle the truth.</P>
+
+<P>But wait! What <I>is</I> characteristic impedance anyway? The characteristic impedance of a cable (Zo) is a complex function of the diameter (or dimensions if other than round) of the conductors, their relative spacing, and the insulation material. Simplified, it is determined (for high frequencies) as Zo = <img src="sqrt.gif">L/C, where Zo is characteristic impedance, L is inductance and C is capacitance.</P>
+
+<P>Note that Zo is a constant, and is independent of the length of the cable. An ideal cable (for a high powered audio system) will have low inductance, low capacitance and low DC resistance (DCR), but it is important to understand that the Zo of the cable is completely unimportant at audio frequencies.</P>
+
+<P>In order to obtain a low characteristic impedance, it is necessary to have very low inductance and relatively high capacitance, and the high capacitance may impose serious constraints on the amplifier. Indeed, many amplifiers will become unstable if there is sufficient capacitance connected directly to the output, causing oscillation which may damage the amplifier. As described above, regardless of anything else, the cable does <I>not</I> act as a true transmission line at audio frequencies, and claims to the contrary are fallacious.</P>
+
+<P>For these esoteric cables, their high capacitance dictates that there will be the opportunity for the insulating material to contribute its "sound" to the overall signal fed to the loudspeakers. It must be pointed out that this is hotly disputed by many engineers, and there is no conclusive evidence that any one dielectric material is "sonically superior" to any other. I know of no properly conducted Double-Blind Test (DBT) where the listening panel was able to pick the difference with greater than 50% accuracy - i.e. pure chance. However, the possibility cannot be discounted, so it is worth mentioning.</P>
+
+<HR><A id="s11"></A><b>1.1&nbsp; Impedance Matching</B>
+<P>For RF applications, or for extremely long signal runs, such as telephone circuits, impedance matching is essential. Matched impedances mean that the source, cable and load impedances are all the same. For video, the standard impedance is 75 ohms, so the output impedance of a video line driver will be 75 ohms, 75 ohm coaxial cable is used for connections, and the receiving end is also 75 ohms. There are nearly always mismatches because of the use of RCA connectors (typically about 40 ohms impedance), but in a domestic installation this usually does not cause a problem, since the cable runs are relatively short. It is generally accepted that if the transmission line length is less than around 1/10th of the shortest wavelength, then impedance matching is not overly important - again, we will see that this is not necessarily the case, since an audio amplifier's bandwidth can easily exceed the audio bandwidth by a factor of 10 or more - the effects may not be directly audible, but amplifier oscillation is to be avoided under any circumstances.</P>
+
+<P>Matched impedances ensure maximum power transfer from source to load, and this is obviously very important for RF transmitters and telephony applications. It is completely irrelevant for a solid state audio power amplifier however, since the drive principle (known as voltage drive, or constant voltage) does not rely on maximum power transfer, but relies instead on the amplifier maintaining a low output impedance with respect to the load.</P>
+
+<P>The ratio of amplifier output impedance to load impedance is called "damping factor", and with modern amplifiers it can easily exceed all normal (real life) requirements. Power amplifiers usually have an output impedance of between 10 and 100 milliohms, giving damping factors of between 800 and 80 (respectively). Valve amplifiers may have a damping factor as low as unity (i.e. the amplifier's output impedance is equal to the load impedance). No amplifier manufacturer quotes damping factor with cables attached, and in reality it is always less than claimed.</P>
+
+<P>The damping factor (DF) figures are theoretical, and are rarely (if ever) achieved in practice. For the remainder of this article, I will use the output impedance of my simulated amplifier for reference (about 24 milliohms). This figure is passably realistic in a real world amplifier, but the internal wiring will increase it somewhat.</P>
+
+<p>Even though most power amplifiers are limited to at most a few hundred kHz or so, there can still be some energy at higher frequencies - typically noise. What often happens is that an amp can be quite stable with a capacitive load and no signal, but as soon as it is driven it "excites" the whole system, and it then bursts into sustained oscillation.
+
+<p>It is almost impossible for any amp to reproduce high levels at extremely high frequencies, and they are not present in the source material. This has never stopped an amp from oscillating though, usually at a frequency high enough to cause simultaneous conduction of the power transistors, since they cannot switch off quickly enough, and both will be turned on at the same time.</p>
+
+<p>This simultaneous conduction is what causes damage, since the output devices heat up very quickly and may go into second breakdown - if that happens, then it's all over - the amplifier will fail with blown output devices. Anyone who has had an amplifier on a test bench and supplied it with an input signal at 100kHz or more will have seen this - even with no load, the amp will draw a lot of current even at low output levels. If maintained for any period of time, the amp will fail.</p>
+
+<HR><B><A id="s2"></A>2.0&nbsp; About the Simulations</B>
+<P>The details of any test or simulated test are imperative for a full understanding. With this in mind, the following section describes the simulated amplifier that was used, the unloaded frequency and phase response, and the simulated cable and loudspeaker details.</P>
+
+<HR><A id="s21"></A><b>2.1&nbsp; Amplifier</B>
+<P>The simulated amplifier schematic is shown in Figure 1. The phase angle at unity gain - at round 10MHz - is 150&deg; (or a phase margin of 30&deg; - i.e. a very stable amplifier). Phase is relatively unaffected by load resistance, or the presence of the amplifier's internal Zobel network. The latter is to ensure stability with an inductive load, but is ineffectual against capacitive loading.</P>
+
+<P>To verify that the simulation represents reality to an acceptable degree, a 100nF capacitor placed across the output will cause instability, and this is substantially in agreement with empirical data on real amplifiers. It is worth noting that the simulated transistors have a much wider bandwidth than the majority of real life transistors, and this shifts the results up in frequency. Most of the amplifier effects seen at 10MHz will actually occur at perhaps 1MHz. All transmission line effects (in particular the peaks caused by impedance mismatches are exactly as shown - these are determined by the cable and its length, and are independent of the amplifier. Also note that many amplifiers will oscillate with a great deal less capacitance than the simulated version.</P>
+
+<CENTER><IMG SRC="cz-f1.png" border=1><BR><B><small>Figure 1 - Simulated amplifier</small></B></center>
+
+<P>The amplifier used for these simulations was as shown in Figure 1 and it is a completely conventional (if somewhat simplified) circuit, typical of those used for hi-fi applications (in fact, fairly typical of the majority of amplifiers for any purpose). The closed loop frequency and phase response are shown in Figure 2. The phase margin (the number of degrees of phase shift between the actual unity gain frequency (Ft, or transition frequency) and 180 degrees. At 180 degrees phase shift, an amplifier's negative feedback is reversed in phase, so becomes positive feedback. If the amplifier has gain greater than unity at that frequency, it will oscillate. </P>
+
+<CENTER><IMG SRC="cz-f2.png" border=1><BR><b><small>Figure 2 - Frequency and Phase Response</small></b></center>
+
+<P>Neither frequency response nor phase response are affected by a resistive load. Inductive loads (of less than a few hundred uH - micro Henrys) are compensated by the Zobel network C3 and R7, with typical values being 100nF and 10 ohms, although this varies to some degree with the particular design. For reference, the simulated amp's output impedance at selected frequencies is shown below.</P>
+
+<CENTER><TABLE BORDER CELLSPACING=1 WIDTH=640 style="border-collapse: collapse">
+<TR><TD WIDTH="20%"><B>Frequency</B></TD><TD WIDTH="17%">1 kHz</TD><TD WIDTH="16%">20 kHz</TD>
+<TD WIDTH="16%">100 kHz</TD><TD WIDTH="16%">1 MHz</TD><td width="16%">2 MHz</TR><TR>
+<TD><B>Impedance</B></TD><TD>24 m&Omega;</TD><TD>25 m&Omega;</TD><TD>45 m&Omega;</TD>
+<TD>444 m&Omega;</TD><td>515 m&Omega;</td></TR></TABLE>
+<small><B>Table 1 - Output Impedance Vs. Frequency</b></small></center>
+
+<P>In many amplifier designs, the speaker line capacitance is "decoupled" from the amplifier by the combination of L1 and R8. Again, fairly typical values are 800nH in parallel with 10 ohms, but as always, this can vary. Inductance above 1 or 2uH is rare, as it will have an audible effect on the overall frequency response, especially with low impedance speakers (for example, a 10uH inductance causes a 0.4dB loss at 20kHz and a 4&Omega; load, and that's with no cable at all). The resistor damps the Q of the inductor to prevent (or at least minimise) the possibility of the inductor and cable forming a resonant circuit. This network can be replaced with an 0.1 ohm resistor, but that approach is rare. Simulations were performed without the series inductor, since its presence swamps the very effects we are looking for so that amplifier instability can occur. The amplifier's RC Zobel network was retained for all simulations - very few amplifiers will be stable with any normal speaker and load without this network.</P>
+
+<p>Note that in some of the simulations that follow, the phase margin may <i>appear</i> adequate to maintain a stable system. This is a direct result of simulations and real life failing to coincide, and it is imperative that you understand that the results shown may appear to "trivialise" the effects. Cables such as Sample #3 <i>will</i> cause most amplifiers to become unstable - the phase results shown also appear to be static, but in fact they change with amplitude, and anything that creates a radical phase shift at the amp's output will almost certainly cause oscillation in real life.</p>
+
+<HR><A id="s22"></A><b>2.2&nbsp; Cable</B>
+<p>Figure 3 shows the schematic of the simulated cable, and the "far-end" Zobel network. Also shown is a "near-end" (i.e. at the amplifier) Zobel, but this is not needed for the most part. It is recommended if you use a series inductor at the amplifier output (or if you know that one has been included by the manufacturer). Leaving it out of circuit will normally have little or no effect on amplifier stability, and only serves to terminate the cable properly at very high frequencies.</P>
+
+<CENTER><IMG SRC="cz-f3.png" border=1><BR><b><small>Figure 3 - Simulated Cable &amp; Termination</small></B></center>
+
+<p>Although most people (myself included) will not like the idea of a ceramic capacitor in the audio path (for the C element of the zobels), ceramic is actually the best choice for this application. It is important that the inductance of the capacitor (primarily lead and capacitor body length) is as low as possible, or response will be limited at exactly the frequencies where it becomes important. Even if the capacitor is non-linear (which is a characteristic of ceramics), it is in parallel with the load and amplifier output, and will have no audible effect on the signal. Remember that we are dealing with a small capacitance (100nF is typical), and its reactance (or impedance) is 100&Omega; at about 16kHz. A non-linear device with that much impedance will not affect any known amplifier, and the cap is also in series with a resistor, further reducing its already negligible contribution.</p>
+
+<p>The use of "audiophile grade" polypropylene or other film caps is strongly discouraged, since their performance at several MHz is degraded by internal inductance (which determines the 'self resonant frequency of the cap). The capacitor(s) should be rated at a minimum of 50V AC (or 100V DC), although the voltages actually developed across the caps should be much lower than this at any frequency.</p>
+<p>The resistor should be a carbon or metal film type, and a rating of 0.5 - 1W is normally quite sufficient. The power developed with normal signal will be a lot less than 0.5W, even with powerful amplifiers. If you feel that you <i>must</i> use a wirewound resistor, then it must be a non-inductive type.</p> 
+
+<HR><A id="s23"></A><b>2.3&nbsp; Loudspeaker</B>
+<P>The loudspeaker is a two-way, fully impedance compensated design. It uses a Zobel network to null the woofer's rising impedance caused by voicecoil inductance, and a tweeter resonance compensation circuit. This is based on a simulated loudspeaker system used by Jon Risch (the designer of Cable Sample #2) for some of his measurements and simulations, and is a reasonable approximation of a real speaker system. A resistance (or a much simpler simulated loudspeaker) could have been used, but this would not provide a "real life" experience for the simulations. </P>
+
+<CENTER><IMG SRC="cz-f4.png" border=1><BR><b><small>Figure 4 - Simulated Loudspeaker System</small></B></center>
+
+<A id="s3"></A><b>3.0&nbsp; Simulations</B>
+<P>Three different cables were used in the simulations that follow. It is important to note that these are simply used as representative, and no conclusions should be formed when comparing to manufacturer's stated (or claimed) data. No endorsement is implied for any configuration, manufacturer or anything else, other than a final recommendation below.</P>
+
+<CENTER><TABLE BORDER CELLSPACING=1 WIDTH=640 style="border-collapse: collapse">
+<TR><TD WIDTH="15%"><B>Sample</B></TD><TD WIDTH="17%"><B>Resistance</B></TD><TD WIDTH="17%"><B>Inductance</B></TD>
+<TD WIDTH="17%"><B>Capacitance</B></TD><TD WIDTH="17%"><B>Impedance</B></TD><TD WIDTH="17%"><B>Reference</B></TD></TR>
+<TR><TD>1</TD><TD>11.15 m&Omega;</TD><TD>626.64 nH</TD><TD><P>68.90 pF</TD><TD><P>95.37 &Omega;</TD><TD>12# Zip</TD></TR>
+<TR><TD>2</TD><TD>14.57 m&Omega;</TD><TD>219.82 nH</TD><TD>114.83 pF</TD><TD>43.75 &Omega;</TD><TD>Jon Risch</TD></TR>
+<TR><TD>3</TD><TD>14.44 m&Omega;</TD><TD>32.81 nH</TD><TD>1640.42 pF</TD><TD>4.47 &Omega;</TD><TD>Goertz MI 1</TD></TR>
+</TABLE><small><B>Table 2 - Simulated Cable Parameters (per metre)</b></small></center>
+
+<P>All values are per metre of cable length, and the simulations were performed using a 4 metre length (a little over 13 feet), as this is fairly typical of most domestic installations. As cables are made longer, the effects described occur at lower frequencies.</P>
+
+<P>In the following sections, a great many possibilities are looked at, and graphs of the response are provided. By necessity, these are smaller than optimum, otherwise the page would take 3 weeks to load. The effects of different combinations are very clear, and additional descriptions point out the areas of interest. </P>
+
+<HR><A id="s31"></A><b>3.1&nbsp; "Special" Cable</B>
+<P>The first graph shows Cable 3. I selected this for the first simulation, as it is the most likely to cause amplifier instability with no termination Zobel. Although the radical changes in phase are quite visible, it is a little difficult to see the effect on the amplifier. It transpires that this cable produces an output phase on the amplifier of that is well outside its phase margin, at around 192&deg;.</P>
+
+<CENTER><IMG SRC="cz-f5.png" border=1><br><b><small>Figure 5 - Cable 3, No Far End Termination</small></b></center>
+
+<P>As you can see, the cable has a large peak in the response at a little under 10MHz, and the phase response is savage. Each kink or discontinuity in the plot indicates a reflection, and note the phase angle  - it shows 700&deg; of phase shift at 100MHz! </P>
+
+<CENTER><IMG SRC="cz-f6.png" border=1><br><b><small>Figure 6 - Cable 3, Far End Terminated (4.7 Ohms)</small></b></center>
+
+<P>Adding the far end Zobel network, as you can see here the cable's response decay is perfectly smooth with a 4.7 ohm resistor. This is the optimum match, and is the value that <I>should</I> be used - <I>not</I>10 ohms as supplied (see below). </P>
+
+<CENTER><IMG SRC="cz-f7.png" border=1><br><b><small>Figure 7 - Cable 3, Far End Terminated (10 Ohms)</small></b></center>
+
+<P>Even 100nF in series with 10 ohms restores the amplifier phase margin to normal (150&deg;). As seen above, 4.7 ohms is preferable, but the phase margin is barely affected.</P>
+
+<P>The speaker end response has a small "lump" with 10 ohms, and phase goes "wobbly" at above 20MHz. This is probably not a concern, and you will almost certainly get away with it. It is very evident that this particular cable should <I>never</I> be used without a Zobel at the speaker end, and it is equally obvious that the vendor does not really understand transmission line theory, since the zobels supplied with the cable (and you have to ask!) are incorrect. This is not difficult to get right, and if they are off base with something a simple as a resistor value, I would be disinclined to believe their other material. </P>
+
+<P>While the results aren't actually appalling, it is quite obvious that the performance is not as good as with the correct termination resistance. At this level (and since the impedance of the cable is quoted on the web site), I find it difficult to understand how they could have made such an error. Not that this manufacturer is alone by any means - "experts" will emerge from the woodwork, suggesting a that 10 ohm, 100nF Zobel is the panacea - it is, but <I>only</I> for 10 ohm cables! </P>
+
+<HR><A id="s32"></A><b>3.2&nbsp; 12 Gauge "Zip" Cable</B>
+<P>This seems to be the standard against which all other cables are judged, so it is next on the list. As you can see, there is a pronounced reflection at almost exactly the same frequency as before. This must be, since the cable (transmission line) is the same length, and the first reflection will occur at the same frequency. Small variations do occur, and are the result of differing velocity factors. Velocity factor refers to the speed at which an electrical signal passes through a cable. Typically, this is between 0.6 and 0.8 of the speed of light (3 x 10<SUP>8</SUP> metres per second.)</P>
+
+<CENTER><IMG SRC="cz-f8.png" border=1><br><b><small>Figure 8 - Cable 1, No Termination</small></b></center>
+
+<P>The response is relatively benign, despite the quite large peak at 10MHz. The reflection spike causes no change to the amplifier's phase response until it is above 40MHz and will have no effect. There is a very slight reduction of level at 100kHz (and down to 20kHz), but this is measured in fractions of a dB, so can safely be ignored. A greater disturbance to the in-room response will be experienced by moving the listening chair or a nearby coffee table.</P>
+
+<CENTER><IMG SRC="cz-f9.png" border=1><br><b><small>Figure 9 - Cable 1, Far End Terminated (100 ohms)</small></b></center>
+
+<P>This is a perfect result. There are no spikes, no response anomalies, and the amp's phase margin is unchanged. For the cost of a 100 ohm resistor (close enough) and a 100nF ceramic capacitor, the cable is nicely terminated, and although virtually any amplifier will drive this cable with no ill effects even when unterminated, there is the potential to reduce RF pickup.</P>
+
+<CENTER><IMG SRC="cz-f10.png" border=1><br><b><small>Figure 10 - Cable 1, Far End Terminated (10 ohms)</small></b></center>
+
+<P>It is apparent that a 10 ohm termination impedance is "sub-optimal". In reality, it is not that bad, and the effects will almost certainly be inaudible. Something that is not obvious is a peak at around 10kHz - it is not large (about 0.1dB relative to 1kHz), and the top-end response is down by about 0.2dB at 23kHz (note that the effect will be a little worse with a 4&Omega; speaker). As a compromise, a 47 ohm resistor will cause no major peaking, and presents a passable match to a wide range of "zip" cables. Because these cables are already benign, they are much more tolerant of mismatch.</P>
+
+<HR><A id="s33"></A><b>3.3&nbsp; DIY Cross Connected Coax Cable</B>
+<P>It was actually a reference to this particular cable on the Audioholics website that caused this investigation in the first place. Comments were posted and re-posted, as were claims and counter-claims. This design is also relatively benign, and I do not propose to cover all the issues raised previously - I am interested only on the cable's effect on the amplifier, and whether it is likely to cause instability. </P>
+
+<CENTER><IMG SRC="cz-f11.png" border=1><br><b><small>Figure 11 - Cable 2, Unterminated</small></b></center>
+
+<P>As can be seen in Fig. 10, even when unterminated, the result <i>looks</i> pretty severe (note the height of the spike at 10MHz), but is not very much worse than cable #1. There is a phase anomaly at 10MHz, but the amplifier is well within its phase margin, and few (if any) amplifiers will be affected by this. Not as visible on the chart, but present nonetheless, is a slight broad peak in response centred on 5kHz. The amplitude is well under 0.1dB (0.04dB to be precise) and is insignificant. Amplifier phase margin is not affected, but cable response extends to over 100kHz - I can't hear it and nor can anyone else, but this also means that there is less rolloff with a lower impedance speaker.</P>
+
+<CENTER><IMG SRC="cz-f12.png" border=1><br><b><small>Figure 12 - Cable 2, Far End Terminated (39 ohms)</small></b></center>
+
+<P>Since this cable has a Zo of 37 ohms, a 39 ohm termination resistance is close to optimum. The response again is virtually flawless, and reflections are eliminated completely.</P>
+
+<CENTER><IMG SRC="cz-f13.png" border=1><br><b><small>Figure 13 - Cable 2, Far End Terminated (10 ohms)</small></b></center>
+
+<P>Overall, this cannot be considered a bad result. In fact, the mismatch actually improves the response, although it is well outside the audio spectrum.  That it is less than optimum is not at all obvious (although there are some tiny ripples on the phase response at above 20MHz), but amplifier stability is not compromised, and there is no peaking. Also obvious is the divergence of the amplifier and loudspeaker-end responses (also visible on the other graphs where impedances were mismatched), and this is a clear indicator of a mismatch - even if it is well outside the audio bandwidth.</P>
+
+<P>My personal choice would be to use a 39 ohm resistor, since that is a much closer match to the line impedance, but the resulting differences will certainly not be audible.</P>
+
+<HR><A id="s4"></A><b>4.0&nbsp; Further Investigations</B>
+<P>Using the decoupling RL network at the output of the amplifier will provide protection against all but the most radical of speaker cable designs, but it must be noted that it is a rather pointless exercise to spend a great deal of money to get cables with the lowest possible inductance, and then have to add an inductor so your amplifier doesn't oscillate. </P>
+
+<P>The obvious (and recommended) cable constructions are samples 1 and 2, and both of these will give good performance for a very reasonable outlay. Cable sample #3 cannot be recommended, not only because of its high capacitance, but because it is much more expensive than the other two, and the actual benefits are minimal. If you can afford to purchase such cables, then that is up to you, but bear in mind that the manufacturer cannot even manage the correct value for the Zobel network that <I>they</I> supply. In my books, that does not qualify them for anything more than a shake of the head, a mild chuckle and "Not today, thanks".</P>
+
+<HR><A id="s41"></A><b>4.1&nbsp; Aussie "Figure 8" Cable</B>
+<p>Since I had the simulations all set up, I figured that a quick test of what is commonly known in Australia as "Figure 8" cable (basically the same as zip cable) was in order. The standard "hardware store" offering is not especially robust, being 22 strands of 0.022mm wire per conductor (0.75mm<sup><small>2</small></sup>). It is 240V insulated wire, commonly used for lamps and the like ("lamp cable"). I use this for basic test leads in my workshop, and the figures for a 4 metre length are ...</p>
+
+<blockquote>
+	Resistance = 150 m&Omega;<br>
+	Inductance = 3.9 uH<br>
+	Capacitance = 217 pF
+</blockquote>
+
+<p>Impedance works out to about 134 &Omega;. This is a very benign cable, and I have never seen an amplifier oscillate because of it, so, what do the simulations say?</p>
+
+<CENTER><IMG SRC="cz-f14.png" border=1><br><b><small>Figure 14 - "Figure 8", No Termination</small></b></center>
+
+<p>No surprises at all really. There is an obvious loss at 20kHz (still less than 0.5dB though), the spike that we now expect, and zero phase anomalies.
+
+<center><IMG SRC="cz-f15.png" border=1><br><b><small>Figure 15 - "Figure 8", 120 Ohm Termination</small></b></center>
+
+<p>Again, this is to be expected. Response is -3dB at 67kHz at the speaker end, which actually will do me just fine, since I certainly can't hear the loss (less than 1dB at 20kHz). The termination again removes the spike in the response, and there are zero phase effects at the amplifier. It goes without saying (but I will anyway ;-) that termination causes zero audible difference, however, in the presence of strong RF fields, a terminator <i>should</i> reduce or even eliminate RF interference. This is difficult to test because my workshop is nowhere near any RF sources powerful enough to cause problems, but a friend is going to run a test for me when he gets the opportunity, and I will add the results when known.</p>
+
+<HR><A id="s42"></A><b>4.2&nbsp; Transmission Line or Cable?</B>
+<P>It is worth noting that any of these cables will exhibit further anomalies and discontinuities if driven from an amplifier with infinite bandwidth. These have not been invented yet, so the amplifier-end mismatch is not a major problem, but if an inductance isolation network is used in an amplifier, then a second Zobel following the inductor is recommended. This ensures that the transmission line is terminated with the correct impedance at both ends. </P>
+
+<P>In addition, it was stated at the beginning of this article that characteristic impedance is irrelevant at audio frequencies. The frequency at which a pair of wires line starts to act like a transmission line is determined primarily by its length. Fortunately for the purposes of research, simulators can provide a signal source with zero impedance and infinite bandwidth, so the limitations of the physical world need not concern us. Using a 50 ohm transmission line (purely for convenience), the following points are of interest ... </P>
+
+<UL>
+	<LI>When driven and terminated by 50 ohms, a line with (essentially) zero DCR has a flat response from DC to daylight. It is true transmission line, and behaves exactly as one would expect, regardless of length. </LI>
+	<LI>A line with "typical" DC resistance is dominated by the DCR up to a frequency that is dependent upon its length. A transmission line is not influenced by DC resistance, so as long as the DCR is dominant, the line is <I>not</I> a true transmission line. This is hard to comprehend, but it is so, and any reference book on the topic will verify this "strange but true" fact. </LI>
+	<LI>At audio frequencies, speaker cables are <I>not</I> transmission lines. They are merely cables, with inductance, capacitance and resistance. Despite popular belief, they are bereft of any magical properties, only physics.</LI>
+</UL>
+
+<P>Now, let's look at each of these claims. If a cable acts like a transmission line, is properly matched at each end, and has essentially zero resistance, then 1V from the generator will result in 0.5V at the input of the cable, and 0.5V at the output, since the system behaves like a simple resistive voltage divider. The cable is irrelevant. I will spare you the tedium of looking at a graph with a straight line at exactly 0.5V from 1Hz to 100MHz, since it has zero interest value. </P>
+
+<P>In order to highlight the resistive effects, I simulated a 100 metre cable, with 1 ohm per metre DCR. This is obviously not a useful cable (at least not as a speaker cable), but it shows the effect very clearly. Figure 16 shows the test circuit, and current was monitored at the output of the AC generator. </P>
+
+<center><IMG SRC="cz-f16.png" border=1><br><b><small>Figure 16 - Transmission Line Test</small></b></center>
+
+<P>In Fig. 17, you can see that the output current is clearly dominated by the resistance until the cable behaves like a transmission line. The current from the generator (AC) should be equal to V/R ... V is 1 Volt, and R (for the 100 metre line at 1 ohm/ metre) is 200 ohms (including the two external resistors). This works out to 5mA, and indeed, that's exactly what is measured - until the "magic" frequency of 100kHz, where the current increases.</p>
+
+<p>Above 1MHz, the current is 10mA (1V /100&Omega;), meaning that the cable resistance has disappeared! In the space of one decade in frequency, the cable has transformed itself into a true transmission line, where the signal is not conducted as such, but transferred by a waveguide (waveguides are usually just tubes for UHF signals [e.g. microwave], however a wired transmission line is also a waveguide). Naturally, the resistance never <i>really</i> disappears, but its influence is greatly reduced.</P>
+
+<p>It is worth noting that a cable will <i>never</i> act as a true transmission line with a defined (and maintained) Zo unless its source and load impedances are equal to the line impedance. This means that no audio cable will ever be a transmission line, (almost) regardless of length, unless the amplifier output impedance, cable impedance and load impedance are all equal at all frequencies within the desired range. No known amplifier or loudspeaker system can meet these criteria. Alternatively, the cable may be infinitely long, however this is usually impractical in a domestic environment.</p>
+
+<center><IMG SRC="cz-f17.png" border=1><br><b><small>Figure 17 - Transmission Line Current Vs. Frequency</small></b></center>
+
+<P>Obviously, the cable is just a pair of wires below the transition frequency, and <i>your</i> speaker cables (regardless of claims or cost) are exactly the same. In case you may want to simulate this effect yourself, I used DCR=1&Omega;, L=200nH and C=100pF per metre, and used a 100 metre line. A shorter line does exactly the same thing, but the frequency where it becomes a transmission line (rather than a couple of wires) increases as the line length is reduced. For a 10 metre cable, the frequency is 1Mhz, and for 3 metres this increases further to 3.3MHz. These effects were present in all the previous simulations, but were masked by the amplifier's rolloff.</P>
+
+<HR><A id="s5"></A><b>5.0&nbsp; Frequency Response</B>
+<p>To be fair, it is unreasonable to investigate these cables without looking at the frequency response, so the following tests were done. In each case, response at the far end (loudspeaker) was plotted in dB, with only the cables resistive component (red graph) and with inductance and capacitance included (green graph). Response plots were done from 10Hz to 100kHz, and it is obvious that there are some differences. The same simulated amplifier was used for all tests, so its influence on the response is included. Again, all cables were measured using a 4 metre length.</p>
+
+<p>Even with the very worst cable (the Aussie "Figure 8" lamp cable), response is dominated by resistance at low frequencies. The addition of inductance and capacitance actually improved matters for the 12 gauge zip cord and Figure-8, and the far-end Zobel makes no difference (it was included for all tests, and was 100nF in series with 100&Omega;).</P>
+
+<HR><A id="s51"></A><b>5.1&nbsp; Amplifier Vs. "Ideal" Source</B>
+<p>For comparison purposes, I checked the 12 gauge zip cable with a "perfect" zero ohm source. The maximum deviation was 0.106dB, and the predominant frequency was at 7.8kHz. This shows quite clearly that for most cable constructions, the amplifier's output impedance is a factor at low to medium frequencies. Cable inductance affects the signal at above 20kHz, while capacitance is not really an issue at all - other than its potential to make an amplifier oscillate if high enough.</p>
+
+<p>The variation between a "perfect" (or ideal) source having zero ohms impedance and response from DC to daylight, compared to an amplifier with 24m&Omega; output impedance is not great with any cable - the 12 gauge zip shows a variance of only 0.03dB (close enough) between the two sources, and this has the lowest DC resistance of the cables tested. Obviously, the lower the DCR of a cable, the more influence the amp's output impedance has on the overall result ... until inductance becomes the predominant factor.</p>
+
+<p>Note that all response measurements were done using a nominal 8 ohm load, and that inductance will have a greater effect if the load is 4 ohms (or less). The following table shows the -1dB frequency for 8&Omega; and 4&Omega; loads, with a range of inductances from 1uH to 10uH.</p>
+
+<center><TABLE BORDER CELLSPACING=1 WIDTH=640 style="border-collapse: collapse">
+<tr><td width="34%"><b>Inductance</b>
+</td><td width="33%"><b>8&Omega; -1dB</b></td><td width="33%"><b>4&Omega; -1dB</b></td></tr>
+<tr><td>1 uH</td><td>647 kHz</td><td>325 kHz</td></tr>
+<tr><td>2 uH</td><td>324 kHz</td><td>162 kHz</td></tr>
+<tr><td>3 uH</td><td>216 kHz</td><td>109 kHz</td></tr>
+<tr><td>4 uH</td><td>162 kHz</td><td> 82 kHz</td></tr>
+<tr><td>5 uH</td><td>130 kHz</td><td> 65 kHz</td></tr>
+<tr><td>6 uH</td><td>108 kHz</td><td> 54 kHz</td></tr>
+<tr><td>7 uH</td><td> 92 kHz</td><td> 46 kHz</td></tr>
+<tr><td>8 uH</td><td> 81 kHz</td><td> 41 kHz</td></tr>
+<tr><td>9 uH</td><td> 72 kHz</td><td> 36 kHz</td></tr>
+<tr><td>10 uH</td><td> 65 kHz</td><td> 32 kHz</td></tr></table>
+<small><b>Table 3 - Frequency Rolloff Vs. Inductance and Load Impedance</b></small></center>
+
+<p>It is quite obvious that a total inductance of up to 10uH will be quite acceptable for the highest of fidelity with any loudspeaker that has a benign impedance at the high end of the audio spectrum, at either 4 or 8 ohms. Most speaker systems are reasonably consistent at the high frequency end, but obviously there are exceptions, and these <i>will</i> cause audible differences.</p>
+
+<HR><A id="s52"></A><b>5.2&nbsp; Response Simulations</B>
+<p>These results are all simulated (rather than measured), since this is the fastest way to achieve the results, and the simulations will agree with "reality" very well. While there are other factors that are not taken into account (such as skin effect or insulation material "soakage"), these are generally considered to be inaudible, and no proof has ever been offered that anyone can distinguish the difference in a DBT. That there <i>are</i> differences is undeniable, they can be measured quite easily with the right equipment (which I don't have), but any such effects are well below the noise floor and/or resolution of even the best amplifiers and speakers. Indeed, atmospheric changes will cause <i>far</i> greater variations in the signal you hear.</p>
+
+<center><IMG SRC="cz-f18.png" border=1><br><b><small>Figure 18 - Cable #3 Frequency Response</small></b></center>
+
+<p>This looks terrible, until you notice the dB range. Total variation is from a low of 26.8dB at 20kHz to a peak of 26.93dB at about 27Hz (woofer resonance, and the highest impedance the loudspeaker presents). A total variation of 0.13dB.  Midband level is 26.826dB at 200Hz.</p>
+
+<center><IMG SRC="cz-f19.png" border=1><br><b><small>Figure 19 - Cable #1 Frequency Response</small></b></center>
+
+<p>The zip cable looks better, and at a very small fraction of the cost. Minimum is 26.8dB at 20kHz and maximum is 26.93dB at woofer resonance - a total deviation of 0.13dB. The HF rolloff between 10kHz and 20kHz is 0.1dB (hardly woeful - find a tweeter that good!) Midband level is 28.84dB at 200Hz.</p>
+
+<center><IMG SRC="cz-f20.png" border=1><br><b><small>Figure 20 - Cable #2 Frequency Response</small></b></center>
+
+<p>Cable #2 is again at 26.8dB at 20kHz, peaking at 26.93dB - a total variation of 0.13dB. Midband level is 26.82dB at 200Hz.</p>
+
+<center><IMG SRC="cz-f21.png" border=1><br><b><small>Figure 21 - "Figure 8" Frequency Response</small></b></center>
+
+<p>Last (in all respects) comes the Figure-8 cable, but at the equivalent of perhaps 14 gauge (US gauge numbering), one expects it to be less than impressive. Minimum level is 26.6dB at 20kHz, and maximum is around 26.91dB - a total deviation of 0.31dB. Midband level is about 26.68dB at 200Hz.</p>
+
+<p>It is worth noting that none of these cables is 1dB down on midband level at any frequency up to 20kHz, and even the Figure-8 lead is only 1dB down at 50kHz - it is a rare tweeter indeed that will be anywhere near as good, regardless of price.</p>
+
+<p>So, what do you get for your money? Quite obviously, very little improvement is afforded by any of these cables over another - 12 gauge zip cable is cheap and easy to make into a speaker lead, Jon's cable is a little more expensive, and there is a fair amount of work involved, and the Goertz cable will set you back about US$200 a pair for 4 metre lengths (and maybe make your amplifier oscillate). Naturally, you can spend a great deal more (and still make the amp oscillate), but I don't see much point.</p>
+
+<p>If it makes you feel better to have sexy looking cross-connected coax leads, then far be it for me to attempt to deny you that pleasure, besides, it might be fun to do (which is far more important). I still can't recommend the Goertz cable, as its capacitance is just too high. A Zobel tames that, but I would be reluctant to use it anyway, and I certainly wouldn't pay their prices for it!</p>
+
+<p>The Web has a great many examples of over-the-top cable pricing (although some are a lot cheaper than others), claims and mistakes. This is not to single out any manufacturer - it is simply to point out that a great many examples can be found of "high-end" cables with claims that cannot be substantiated by DBT listening test or simulation. There are (of course) so many that they are too numerous to mention.</p>
+
+<p>Decisions, decisions ....</p>
+
+<HR><A id="s6"></A><b>6.0&nbsp; References</B>
+<p><a href="http://www.radioelectronicschool.com/reading/reading38.pdf">Online Radio and Electronics Course</a></p>
+<p><a href="http://www.tpub.com/neets/book10/41.htm">Principles of Transmission Lines</a></p>
+
+<p>All simulations were carried out using SIMetrix, and a free demo version is available from <a href="http://www.simetrix.co.uk/">SIMetrix</a> in the UK. This is (IMO) an outstanding simulator, and regularly produces results that can be transferred directly from a simulation to a working circuit, without the need for any changes at all.</p>
+
+<p>Cable parameters were taken from the <a href="http://www.audioholics.com/">Audioholics</a> website, and I thank Gene DellaSala for permission and for his support for this article.</p>
+
+<p>The simulated loudspeaker is based on a version published by <a href="http://www.geocities.com/jonrisch/">Jon Risch</a>, and his DIY cross-connected coaxial cable was used for sample #2 in the simulations. For those who wish to experiment with "exotic" designs, those published by Jon are high performance and cheap to build - certainly a major departure from the US$1000/metre offerings that seem to proliferate in the market. Jon's designs are also far less likely to cause amplifier instability than many of the commercial offerings!</p>
+
+<p>Finally, the parameters for cable #3 were obtained from the <a href="http://www.alphacore.com/mispeaker.html">Alpha-Core</a> website.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2003. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 04 May 2003./ Published 17 Oct 2003</div>
+</BODY>
+</HTML>

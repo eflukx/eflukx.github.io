@@ -1,0 +1,205 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Bucking Transformers - What they do, how they do it, and how to determine the proper transformer to use">
+	<!-- Bucking Transformers - What they do, how they do it, and how to determine the proper transformer to use -->
+	<meta name="keywords" content="INSERT HERE, audio, diy, hi-fi,electronic">
+	<title>Bucking Xfmrs</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Bucking Transformers&nbsp;</td></tr></table>
+
+<p align="center">Copyright &copy; 2010 - Rod Elliott (ESP)<br>
+<small>Page Created 22 May 2010</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t1" alt="Articles" BORDER="0"></a> <b>Articles Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" alt="Index" BORDER="0"></a><b>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul><li><a href="#intro">Introduction</a></li>
+  <li><a href="#s10">1 &nbsp; Step Down Transformer</a>
+  <li><a href="#s20">2 &nbsp; Autotransformer</a>
+  <li><a href="#s30">3 &nbsp; Bucking Transformer</a>
+  <li><a href="#s40">4 &nbsp; Boosting Transformer</a>  
+<li><a href="#outro">Conclusion</a>
+<li><a href="#ref">References</a>
+</ul>
+
+<hr><a id="intro"></a><b>1.0 - Introduction</b>
+<p>Before I describe or explain any part of the information on this topic, you <i>must</i> be aware that ...</p>
+
+<table width="100%" border=1 style="border-collapse: collapse"><tr><td>&nbsp;&nbsp;<img src="mains.gif">&nbsp;&nbsp;<td bgcolor="red"><font color="white" size="+0">Everything in this article involves working with mains voltages. Do not attempt construction or experimentation unless you are skilled and/or qualified to work with mains voltages. In some jurisdictions, mains wiring must be performed by suitably qualified persons, and it may be an offence to perform such wiring unless so qualified. Severe penalties (including an accidental death penalty) may apply. No ... I'm not kidding.</font></table>
+
+<p>There is regularly a need to reduce the mains voltage. In some cases, it's because where you live it's just too high and causes problems with electronic equipment. Sometimes, you might have a great transformer for a project, but the voltage is just a bit higher than recommended. A very common requirement is to be able to use 220V equipment at 240V - while this is within the "normal" range, it can be bad news for some gear. Valve amplifiers in particular can be fairly fussy, and there's definitely a need to reduce the voltage if the heater voltage is much above the typical nominal value of 6.3V.
+
+<p>Many of the articles on the Net also suggest that a bucking transformer can be used in boost mode. Perfectly true, but there are times when this is a very, very, bad idea. Most of the material I've looked at leaves out a great deal of the info you need, so I figured it was time I described the process properly, and ensured that you have all the information needed to build a safe bucking transformer system. A great many of the search results for "bucking transformers" point to questions being asked on forum sites, so it's obvious that they are not well understood, and often not explained very well.
+
+<p>For the purpose of the exercise here, we'll assume that the mains voltage is 240V and the maximum load is 220V at 10A (2,200VA). This is a large transformer, which will be heavy and expensive. We'll also look at a mains voltage of 120V with a requirement for 110V at 20A - also 2,200VA. Note that transformers are <i>always</i> rated in VA (Volt-Amps) rather than Watts. The two figures are only the same when the load is purely resistive. Most loads are either reactive (contain capacitance or more commonly inductance) or are non-linear. Nearly all electronic circuitry presents a non-linear load.
+
+<p>In each case below, I will only show a basic arrangement, because that will be the most common. There are countless variations that may be provided on some commercial or custom-built products, but including all possibilities is both pointless and impossible.</p>
+
+<table width="100%">
+<tr><td valign="top"><img src="note.gif"><td><big>All transformer windings shown have a dot at one end. This is the traditional way to indicate the start of a winding, so that windings can be connected in series or parallel correctly. If winding polarities are reversed, the transformer will either give a completely different voltage from that expected, or you can even make the transformer look like a short circuit across the mains.</big>
+</table><br>
+
+<p>All voltages referred to herein are assumed to be (more or less) exact, but of course the mains voltage is "nominal" (meaning in name only), and is subject to significant variations from day to day and even at certain times of day. Most equipment is designed to be able to cope with normal variations, but there are small differences that have crept into the mains voltage specifications over time that can place older equipment at risk. Imported equipment intended for a lower voltage (220 vs 240 for example) can fail because either the voltage really is outside the allowable range or is simply incorrectly specified. In some parts of Australia (especially remote outback areas), it's not uncommon for the "240V" mains to measure 260V!
+
+<p>In the US, a lot of older equipment is designed for 110, 115 or 117V, but the "correct" nominal voltage is 120V.  If you use equipment that really was designed for 110V, but the mains at your house measures 120V and sometimes goes a little high (125V perhaps), the vintage gear will likely have a short life if used consistently at the higher voltage.
+
+<p>In some cases, you might simply want to extend the life of incandescent lamps so they last longer and you can keep using them after they are banned (this has already happened in Australia). Whatever your reasons for reducing the mains voltage by (say) 10-15%, the following will be useful and will allow you to do so cheaply and safely.</p>
+
+<hr><b><a id="s10"></a>1.0 - Step Down Transformer</b>
+<p>For this application, the first thing that most people think of is a step-down transformer. Since it will be rated at 2,200VA (2.2kVA) this is a <i>big</i> transformer, and it will be expensive. At around this size, you can expect a toroidal transformer to weigh in at about 12-14kg, not including any housing, connectors or anything else. A conventional E-I laminated core tranny will be larger and heavier - expect as much as 22kg for a 2kVA unit. Figure 1 shows the configuration of the transformer. As shown, there are no taps or adjustments - the ratio is fixed at 1.09:1 which will convert 240V to 220V or 120V to 110V. 
+
+<p><i>You cannot use the same transformer for both applications</i>! Transformers must be designed for the actual voltage and current at which they will be used. In many cases, and especially for trannies that are intended for a particular use in the country of origin, they will also be designed for the frequency used (50 or 60Hz). A 60Hz transformer is smaller than one designed for 50Hz, but may fail if operated at the lower frequency.</p>
+
+<center><img src="buckx-f1.gif" border=1><br><b><small>Figure 1 - Conventional Step-Down Transformer</small></b></center>
+
+<p>There are many variations. Tapped secondary windings may be provided to give more range and a closer match. While tapped transformers are useful, they are (or should be) reserved for more critical applications. The number of taps provided can vary widely, and there are many possible variations. Adding taps increases the size and cost slightly, but also gives the non-technical user many opportunities to use the wrong tapping and cause damage to equipment.
+
+<p>While the standard step-down transformer is a good solution for our specific goal, it is the least efficient and most costly. It will also introduce a couple of problems. One is that the extra resistance of the windings will reduce the regulation of the mains supply, so the voltage will fall further than normal at full load. Regulation can be expected to be no better than about 4%, meaning that the output voltage will fall by at least 4% when the load is increased from zero to full power.
+
+<p>The second issue is more serious - it renders any safety switch useless for the equipment on the secondary side of the transformer. Safety switches have many names, depending on where you live. They may be called core balance relays, earth leakage circuit breakers, ground fault interrupters, etc.
+
+<p>Needless to say, this limitation is by far the most important, although reduced regulation may be a major issue in some cases. There is a very small number of applications where isolation of the mains is required along with a <i>small</i> step down (or up) of voltage. Operation of household equipment - TV sets, hi-fi (valve or transistor), kitchen appliances, etc. - never requires isolation, and because it defeats the safety switch has to be considered a bad idea.</p>
+
+<hr><b><a id="s20"></a>2 - Autotransformer</b>
+<p>If used for 240-120V step down applications, I would generally recommend very strongly <i>against</i> using an autotransformer. Since we are looking at only a small reduction of voltage, there are no issues with electrical safety, an autotransformer is perfectly alright here (see <a href="50-60hz.htm" target="_blank">Importing Equipment From Overseas ...</a> for more on the safety issues). An autotransformer is shown below - there are no longer two separate windings - everything is handled by a single winding with a tapping that gives the same 1.09:1 ratio as before.</p>
+
+<center><img src="buckx-f2.gif" border=1><br><b><small>Figure 2 - Step-Down Auto-Transformer</small></b></center>
+
+<p>In this application, the autotransformer has a number of advantages. Because there is only one winding, thicker wire can be used and a smaller core is suitable, and regulation will be better and the transformer can be made smaller and lighter. You can even have both - better regulation <i>and</i> smaller, lighter and cheaper, and not break the laws of physics. Outstanding <img src="grin.gif">.
+
+<p>In addition, your electrical safety switch still provides protection, although with a small reduction of sensitivity. Overall, this is a great solution. It would be the ideal solution if auto transformers were always wound properly, since the size can be reduced dramatically. Sadly, this may not be the case unless you have a tame transformer winder who knows what he's doing. You could easily end up with a transformer weighing about half that of an isolation transformer, where it only needs to weigh a couple of kilograms at most. In addition, whatever you need will be a custom job, since I know of no transformer makers that produce a stock range of autotransformers (other than 240/220V - 120V and vice versa).
+
+<p>The ultimate autotransformer is a <a href="variac.htm" target="_blank">Variac</a> which allows continuous variation of the mains voltage from zero to (typically) 110% of the applied voltage. For critical applications, Variacs have been fitted with servo systems that automatically adjust the setting to maintain a very stable mains voltage, regardless of variations caused by normal fluctuations. Such a system will not be described here, as it is completely outside the scope of this article. Variacs are also rather expensive, especially in larger sizes.</p>
+
+<hr><b><a id="s30"></a>3 - Bucking Transformer</b>
+<p>The bucking transformer has been around for a long time - probably almost as long as transformers themselves. The primary reason for using a bucking transformer instead of a traditional step-down transformer is size and cost, and because of this people often assume that it must be a bit dodgy and not as good as a "real" transformer.
+
+<p>This is not the case at all - a properly designed bucking transformer will perform just as well (or better) than a step-down. Like the autotransformer, there is no isolation, so the mains voltages are just as dangerous as they always are, however, the safety switch is still functional so you are protected.
+
+<p>A bucking transformer is really a modified version of an autotransformer. The difference is that only a small part of the winding has to carry the full load current. This is a commonly overlooked aspect of an autotransformer - looking back at Figure 2, only the top section of the winding carries the full load current, so the remainder of the winding can use a smaller wire gauge than may otherwise be used.
+
+<p>The bucking transformer works by placing the secondary of a (relatively small) transformer in series with the mains, but wired out-of-phase so the voltage is "bucked" or reduced by subtraction. Only the secondary winding needs to carry the full mains current. This means that for 240V to 220V we need to "buck" 20V at 10A - a maximum of 200VA. Likewise, for 120V to 110V, we only need to buck 10V at 20A ... also 200VA.
+
+<p>To understand how the bucking action works, it's just a matter of remembering some basic school maths. If a transformer winding is wired out-of-phase, it can be given a negative sign. In our examples, we will have 240V +  ( -20V ), which equals 220V (try that on a calculator if you don't believe me). Likewise, for 120V we end up with 120 + ( -10 ) = 110V. It really is that simple <img src="grin.gif">.
+
+<p>At the end of this exercise, a 200VA transformer wired as a bucking tranny does the same job as a 2,200VA conventional transformer. The 200VA transformer can be expected to weigh less than 2kg (again excluding case, connectors, etc.). This is not only a significant weight and size reduction, but it will also cost far less than a conventional transformer. This seems too good to be true, but it really does work as described.</p>
+
+<center><img src="buckx-f3.gif" border=1><br><b><small>Figure 3 - Traditional Bucking Transformer</small></b></center>
+
+<p>The schematic above shows how it's done. The voltage in the secondary is wired out-of-phase, so removes (by subtraction) the secondary voltage from the mains voltage supplied to your appliance. The maximum current that flows in the secondary is the full load current, so is 10A at 220V or 20A at 110V. Regulation can be improved by using a slightly larger than necessary transformer if it's critical, but it will still be far cheaper and lighter than a conventional transformer. At 240V input, the primary current is a mere 833mA at the maximum load of 2.2kVA. Predictably, this increases to 1.66A for the 120V version.
+
+<p>Because your safety switch is not disabled, there is no increased risk of electric shock. If you ever need to reduce the mains voltage by a set amount to improve the longevity of an appliance, this is a cheap and effective way to do it. In many areas, the mains voltage can be significantly higher than the nominal, and this is a simple and cost-effective way to reduce the voltage to something that doesn't cause your expensive equipment to blow up at regular intervals. Take special note of the winding polarities, and make sure that you test your wiring (with a filament lamp in series with the mains in case of a serious mistake).
+
+<p>What is commonly overlooked when auto transformers are specified, is that the requirements are actually almost the same as for a bucking transformer. As a result, there is no reason not to connect your bucking tranny as an autotransformer.  This means the normal thin primary wire for the majority of the winding, and thick secondary wire <i>only</i> for the high current part of the winding. Current in the lower section of the winding is reduced to 775mA for the 240V version. From this, we can do a bit of lateral thinking and reconfigure the bucking transformer so that it works <i>properly</i>. This increases the output voltage by a small amount - it will be of no consequence in most cases. This is just as cheap and effective as the bucking transformer shown above, but is slightly more efficient.</p>
+
+<center><img src="buckx-f4.gif" border=1><br><b><small>Figure 4 - Proper Way To Wire A "Bucking" Transformer</small></b></center>
+
+<p>You won't see this arrangement described very often (if at all), but it is a far better solution. In Figure 4, I have simply rewired the circuit as an autotransformer. The transformer is exactly the same. The incoming mains connects across the entire winding ... the primary in series with the secondary, wired in phase. The output voltage is taken from the tap - this is identical in every way to a normal autotransformer connection. The output voltage is fractionally higher than with the bucking configuration - the 240V version gives 221.5V RMS output (110.75V RMS for the 120V version). Again, double check all winding polarities before connecting to any equipment.
+
+<p>You can also push this version a little harder than a traditional bucking transformer. The normal output current (based on our initial criteria) is 10A at 220V, but with the arrangement shown in Figure 4 you can have an output current of about 10.8A (a total of 2,400VA) without exceeding the transformer's secondary current rating. That's because the currents are subtracted <i>within the winding itself</i>, because of the transformer action. The main primary runs at a current of about 835mA at the maximum output of 2.4kVA.
+
+<p>A simple reconfiguration of an old technique therefore provides better efficiency and lower losses than the traditional bucking transformer. It is important to understand that we are not getting something for nothing, we are simply minimising losses</p>
+
+<hr><b><a id="s40"></a>4 - Boosting Transformer</b>
+<p>There are also occasions where the voltage you get is consistently too low. The same technique can be used to give your supply a lift so that it's closer to where it should be. Be very, very careful with this setup though. It should only be used where the mains voltage actually <i>needs</i> to be boosted because it is <i>always</i> too low. You cannot use this trick to get a bit more voltage from a transformer or to get more power from an amp, because you will be operating everything at a voltage that causes additional stress. This could easily prove fatal for your equipment!</p>
+
+<center><img src="buckx-f5.gif" border=1><br><b><small>Figure 5 - Boosting Transformer</small></b></center>
+
+<p>The transformer requirements are exactly the same as for a bucking transformer, except that the secondary voltage is now <i>added</i> to the incoming mains voltage, rather than being subtracted. As before, your electrical safety switch still works normally.
+
+<p>Note that the boost configuration is already wired as an autotransformer, and it can't be improved.</p>
+
+<hr><b><a id="outro"></a>Conclusion</b>
+<p>Note that great care must be taken with construction and mounting of any transformer used as buck, boost or autotransformer. All parts of all windings are effectively at the full mains voltage, and insulation must be adequate to ensure that the end result is safe under all likely conditions (including faults). If the transformer has additional secondary windings, <i>do not be tempted to use them for anything</i>! Since some of the secondary is at mains voltage and the insulation between secondary windings is rarely (if ever) designed to withstand mains voltage, any remaining secondaries are potentially lethal.
+
+<p>The final assembly should be protected against excess current by a fuse (minimal protection) or a circuit breaker. Depending on the intended purpose, it may also be wise to include a thermal cutout (either self resetting or a one-time thermal fuse). The case must also comply with all requirements as determined by the electrical codes where you live, and should always include a mains earth (ground). Ensure adequate ventilation for the transformer, consistent with the need to keep small fingers well away from dangerous voltages or sharp edges.
+
+<p>For a bucking transformer, the circuit shown in Figure 4 is obviously the most sensible. This is actually a true autotransformer, and the secondary winding no longer bucks (or opposes) the incoming mains. Efficiency is improved, and a given transformer wired this way can provide a little more output current than if it's wired as a bucking transformer. The small extra voltage should not be an issue, and in many cases will not even be apparent because transformers are wound to ensure that you get rated voltage at the maximum permitted current.
+
+<p>Naturally, if you want to use the traditional bucking configuration you may do so, but it will have worse regulation than the Figure 4 alternative. With typical winding resistances and 240V applied, a bucking transformer will provide 216V into a 22 ohm load (1.8% regulation), and the autotransformer configuration will give 218V (1.6% regulation). There isn't a big difference, but it's measurable. These regulation figures may be slightly worse for the 120V version because of the much higher current, however, the autotransformer configuration wins again.
+
+<p>Autotransformers (or bucking transformers) are best and most effective where the voltage change is relatively small - typically no more than a 20% change. The maximum ratio is 2:1 or 1:2 (double or half voltage) before any autotransformer becomes uneconomical and/or pointless. Even at this ratio (typically used for 110V equipment used in 220V countries or vice versa), there are risks and dangers that are not immediately obvious - <i>especially</i> when 110-120V US equipment is used in Australia, the UK or Europe etc. (220-240V). In this case, the <i>only</i> safe option is a proper isolated step down transformer. The article <a href="50-60hz.htm" target="_blank">Importing Equipment From Overseas ...</a> explains all the reasons.
+
+<p>Finally, consider the use of a larger transformer than theoretically necessary if the load is constantly close to the maximum. Such operation means that the transformer will run at a higher temperature than we might like, and it will be heavily stressed in use. Using a larger transformer gives better regulation and cooler running. Remember that the operating life of many electrical and electronic components is halved for every 10&deg;C rise in temperature. This includes the insulation used in transformers, so cool running means a long trouble-free operating life and lower operational losses. The theoretical transformer described above (Figure 4) has a total loss of perhaps 20W at full power. This is power that you have to pay for, and over a period of time a larger transformer with lower losses may work out cheaper.</p>
+
+<hr><b><a id="ref"></a>References</b>
+<p>Although I looked at a few websites discussing bucking transformers, none had the level or depth of information that I feel is needed to understand the concept properly. That is one of the main reasons that this page now exists. On the strength of this it should be apparent that there are no references as such.
+
+<p>Even though there were no useful references for bucking transformers, <a href="http://ecmweb.com/mag/electric_basics_autotransformers/" target="_blank"><i>EC&amp;M</i></a> (Electrical Construction &amp; Maintenance) on-line magazine does describe the proper way to design an autotransformer (which verifies my approach taken in Figure 4), and includes formulae to allow you to calculate the required size for a given VA rating. The article also refers to drawings, but there are none that I could find.</p>
+
+<p><a href="http://static.schneider-electric.us/docs/Web%20Hub/products-services/products/transformers/low-voltage-transformers/nonventilated-general-purpose-transformers/I1%28R1%29.pdf" target="_blank">Dry-Type Transformer Study Course</a> - Square D Company, (Transformer Manufacturing Division, &copy; 1993) has some great info for those who really want to study transformers in more detail. The material describes mainly large trannies, in particular power distribution types. This does not change the principles though, which are just as valid at 100VA as 100kVA.</p>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2010. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 22 May 2010</div>
+</body>
+</html>

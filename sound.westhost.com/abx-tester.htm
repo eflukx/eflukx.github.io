@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=windows-1252">
+	<title>Project ABX</title>
+	<meta name="AUTHOR" content="Steven Hill">
+	<meta name="description" content="ESP Project Pages - Use this ABX teter to find out if there is *really* a difference between amps or preamps">
+	<!-- ESP Project Pages - Use this ABX tester to find out if there is *really* a difference between amps or preamps -->
+  	<meta name="keywords" content="abx,audio,project,diy,circuit,schematic,diagram">
+  	<LINK REL=StyleSheet HREF="esp.css" TYPE="text/css" MEDIA="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project ABX&nbsp;</td></tr></table>
+
+<p align="center"><b>ABX Double Blind Audio Tester</b>
+<br /><small>Steven Hill / Rod Elliott</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>This project describes the construction of test equipment for double-blind or ABX testing of source components - preamplifiers, tuners, DACs etc. or even, if that is your particular vice, interconnects.  It builds on the work done by Phil Allison described in Project X.  I recommend that you read that project description before you commence this one.  If you do not like what you read there, then you might as well stop reading at this point.</p>
+
+<p>Double-blind and ABX tests do not allow the listener to know which component they are listening to, and furthermore don't allow the test controller to know either.  This guards against visual cues to the audience (including body language).</p>
+
+<p>There is information on the principles behind ABX testing elsewhere on the WWW,  therefore, I intend to give only the briefest description here.</p>
+
+<p>An ABX test allows the listener to select either A or B as many times as they like, and ultimately decide which of these is X, where X is randomly selected by the equipment to be either A or B, and the responses are logged for correlation when the test is complete.  For example, a 1000Hz tone is assigned as A, and a 1500Hz tone as B.  Random selection determines which of these is X.  Listen to A then X, listen to B then X, and decide if A or B sounds like X (this would be a rather easy test for anyone to get right, of course- but if B were to be 1001Hz it may be more of a challenge).</p>
+
+<p>True ABX testing is normally not easy and uses a microcontroller or a PC to interface to the switching module.  This was not an option as the project is meant to be simple and inexpensive.  The simple remote control (part 2) requires an operator to control switching between A and B and to whom the active channel is known.  However, if you proceed to build the double-blind remote (part 3), then the unit is a true ABX comparator - you select the next test in the sequence with the 12-position rotary switch and then have the opportunity to decode if X is input A or input B.  This is "double-blind" because the sequence is not known until the test has been completed.</p>
+
+<p>With the basic unit, two pieces of equipment (for example, two preamplifiers) are under comparison (A and B).  They are fed from the same source.  The audience hears first A and then B.  Thereafter, the test controller selects either A or B as X and repeats the test for up to (about) twenty iterations, changing from A to B at his or her whim, and the audience is required to write down which they think it is for each iteration.  Thereafter, the results are analysed to find out whether the audience was able accurately to identify which piece of equipment was in use at each iteration of the test.</p>
+
+<p>There is no requirement that A and B are selected the same number of times during any single test.  In fact, a test controller once ran a whole test with A.  None of the members of the audience selected "A" for each iteration.  I leave you to consider what that result says about people's confidence in their ability to identify different components.</p>
+
+<p>The project is in three parts of which you must build at least two.  I recommend that you build only parts 1 and 2 to start with.  You might find that your experience of this piece of test equipment is so infuriating that you will regret the time spent on building part 3 if you proceed with it immediately.</p>
+
+<p>It is vitally important that the output of the devices under test is equal.  A difference of 1dB is normally sufficient to bias the test, normally in favour of the louder channel.  Therefore, you will need a test-tone CD for calibration purposes if using CD as your source or an LP with test tones if using vinyl.  If comparing tuners, you will probably find that tuning in the white noise between stations is the only way you can calibrate the two pieces of equipment.  You will also need a multimeter.  Unless you are using a (very expensive) true RMS digital multimeter, you should not use a test tone above 500Hz.  With an analogue meter you can use a higher pitch but I do not recommend that you go higher than 1kHz.</p>
+
+<hr><b>Part 1:  The controller box</b>
+<p>The circuit diagram should be fairly easy to understand.  There is nothing difficult about it, and no electronics are involved in the audio path.</p>
+
+<center><img src="abx-f1.gif" alt="Figure 1" border="1"><br><small><b>Figure 1 - The Switching Unit</b></small></center>
+
+<p>Connections 1 through 4 go to either of the remotes and should be wired to a four-pin connector.  The relays K1-3 can be low current types.  The battery must match the voltage of the relays.  I used 6V DPDT relays.  K3 and K2 are used to select input A or B respectively.  K1 mutes the output for calibration purposes.  You could replace K1 with a switch if you wish but you then have to run more wires inside the box.  The voltmeter connects externally to the two pins marked "Calibrate". Pots are used on both inputs solely for consistency - if a pot is used on only one of the inputs, then some people may use this as "proof" that the device modifies one channel and not the other, and this can be used as an excuse as to why the results failed to correlate "correctly".</p>
+
+<p>The circuit should be built on a piece of Veroboard or similar and mounted in a shielded metal case.  SW1 and D4 are mounted on the outside of the case, as are the connectors for attaching the voltmeter, the 4-pin connector for connection to the remote and the RCA plugs for the A and B inputs and the X output.</p> 
+
+<p>If you are proposing to use only the remote described in part 2 you do not need to take any precautions to ensure that K2 and K3 are inaudible at the listening position.  However, testing using the part 3 controller requires that the relays be inaudible at the listening position.  To do this you will have to mechanically decouple the circuit board from the case and also use some acoustic dampening material in the case.  See note 2 below.</p>
+
+<p><b>WARNING:</b>&nbsp; I do not recommend that you omit the muting part of the circuit.  When you come to use this device, you will first choose the music you wish to hear for the test and establish a realistic listening level  Then you mute the output and use the 0dB level test tone to adjust the levels of both channels to the same voltage.  You will probably find that the steady-state voltage is greater than 2V RMS.  Unless you have monster loudspeakers, a tone at this level, fed through a power amplifier with a 30dB gain (which is common), will probably destroy your speakers and will do nothing for your hearing.</p>
+
+<p>I have found that different pieces of music require different volume settings to establish a realistic listening level.  An AB test where you are wincing at the volume or straining to hear the music is of no use. The calibration mute circuit has been included to speed up the recalibration between tests using different pieces of music.</p> 
+
+<p>That said, however, if you wish to go through the process of either (a) turning off your power amplifier(s) or (b) disconnecting your loudspeakers each time you need to recalibrate, you can omit this part of the circuit.  However, you have been warned. (And you have forgotten to reconnect the speakers and/or turn on the amp(s) before proceeding with the test.)</p>
+
+<p>VR1 (and optionally VR2) is included for trimming of the voltages during calibration. Obviously, the volume should be set using the preamps' volume controls (if those are what you are comparing). However, if you are testing preamps, both of  which have stepped volume controls, you might find it difficult to match the voltages at your realistic listening level.  That is what VR1 is for. If you don't expect to be doing this, VR1 can be omitted. For A-B testing of other equipment, such as tuners, VR1 will be required.</p>
+
+<hr><b>Part 2:  The Manual Remote and its Operating Procedure</b>
+<p>This is a simple selector which can be built in a small plastic box and is connected to the controller using four-core cable.  Heavy duty cable is not required.  The cable should be long enough that the operator can sit further away from the source equipment than a person in the normal listening position.  SW1 is a 3-position rotary selector switch used to select A or B or null (centre position).  The channel selected is indicated by the relevant LED.  SW2 is a DPDT toggle switch which flips the channel from A or B or vice versa.  This can be used for simple A-B testing.  I have found that there is an audible break when a toggle switch is used for SW2.  You might find no break is audible if you use a rotary selector.</p>
+
+<center><img src="abx-f2.gif" alt="Figure 2" border="1"><br><small><b>Figure 2 - The Basic Remote Schematic</b></small></center>
+
+<p>To do an AB test with this remote you will need a (patient) assistant.  The procedure (using as an example two preamps as the devices under evaluation) is as follows:</p>
+
+<table cellpadding="2" cellspacing="2" border="0" style="text-align: left;" width="100%">
+<tr><td width=25 valign="top">a)</td><td valign="top">Use Y-splitters to connect the source equipment to each of the preamps.  Connect the output of one preamp to input A and the other to input B on the controller box.  Connect output X to your crossover or power amplifier.</td></tr>
+<tr><td>
+<tr><td valign="top">b)</td><td valign="top">Select one of the channels and play some music adjusting the volume on that channel to the desired realistic listening level.</td></tr>
+<tr><td>
+<tr><td valign="top">c)</td><td valign="top">On the controller box, mute the output using the switch provided.  Connect a voltmeter to the calibration terminals.  Insert the test tone CD, play a 0dB calibration  tone and note the voltage.  Use SW1 on the remote to change to the other channel and adjust the volume so that the same voltage is displayed.  If stepped volume controls are in use, you might need to trim using VR1 on the controller.  (Set VR1 to the maximum before calibrating and use it to attenuate the voltage.)  Once the voltage is adjusted, remove the test-tone CD and replace the music CD and turn off the muting switch.  Do not touch the volume controls again for the duration of the test.</td></tr>
+<tr><td>
+<tr><td valign="top">d)</td><td valign="top">Assume your normal listening position.  You will need a pencil and paper to record your choices.</td></tr>
+<tr><td>
+<tr><td valign="top">e)</td><td valign="top">The person conducting the test (the operator) should sit out of view of the listener with the remote to hand.  The listener must not be able to see the LEDs on the remote.  Decide which one of you controls the source and how many iterations of the test will take place.</td></tr>
+<tr><td>
+<tr><td valign="top">f)</td><td valign="top">The operator selects first channel A and the listener familiarizes him/herself with the particular characteristics of the preamp connected to that channel.  Channel B is then selected and familiarization of that channel takes place.</td></tr>
+<tr><td>
+<tr><td valign="top">g)</td><td valign="top">The operator now selects either channel, the music is played and the listener to writes down whether A or B is his choice for X.  The listener does not divulge to the operator his choice.  The test is then continued for the number of iterations agreed upon, with the operator selecting either A or B.  I recommend that, to avoid any unintentional bias, the sequence of changes be determined in advance of the test by some random operation (tossing a coin, throwing a die, for example).  The operator should carry out this random operation prior to conducting the test.</td></tr>
+<tr><td>
+<tr><td valign="top">h)</td><td valign="top">The last iteration of the test having been concluded you may either check the results or return to step (b) with another piece of music.</td></tr>
+</table>
+
+<p>The listener's choices are then compared with the operator's notes of the actual channel in use during each iteration. It should be immediately apparent whether any there is any correlation between the listener's choices and the actual selections.</p>
+<p>If you do not have a patient assistant, or patience has run out, you might wish to proceed to ...</p>
+
+<hr><b>Part 3:  The double-blind remote and its operating procedure</b>
+<p>This remote uses cascaded SPDT slide switches to set up an A-B sequence which can be used blind for testing purposes and then read back to check the results. It should be apparent from the schematic how this works. The separate poles of SW1 and SW2 must each connect to lines 3 (A) and 4 (B). SW3 selects between SW1 and SW2. For each position on the rotary selector SW4, three SPDT slide switches are required. I have built this with a twelve-position selector using 36 slide switches.</p>
+
+<center><img src="abx-f3.gif" alt="Figure 3" border=1><br><small><b>Figure 3 - ABX Remote Random Switching Unit</b></small></center>
+
+<p>In the above, "n" is the number of poles on the rotary switch. If a 12 position switch is used for SW4, then "n" is 12, and "n-1" is 11.</p>
+
+<p>The schematic, for clarity, shows the switches SW1, SW2 and SW3 connected together in a regular sequence.  However, when building this remote, the switches are hooked up in an irregular fashion so that it is not possible from the outside of the box to identify what function any particular switch has, nor how they are wired in relation to one another.  The separate poles of each switch (SW1 and SW2), however, must each connect to the A and B buses.  If you do not do this you will introduce a bias in favour of one of the channels.  The photo shows my own unit.  Properly constructed, it should look like a mess of wires, as does mine.  The orange and blue wires are the bus lines, the green wires the connections between the centre poles of the SW1s and SW2s and the brown wires go to the rotary selector.</p>
+
+<center><img src="abx-f4.jpg" alt="Figure 4"><br><small><b>Figure 4 - The Wiring of the Remote (SW6 Not Visible)</b></small></center>
+
+<p>If you decide to proceed with this part of the project, I must warn that this remote is tedious to construct and you must proceed with great care because trouble-shooting an incorrect hook-up or a dry joint can be difficult.  You should first wire between the centre poles of the SW1s and SW2s to the SW3s, then run the bus wires to the outside poles of the SW1s and SW2s and finally connect from the centre pole of the SW3s to the rotary selector.  Solid-core or magnet wire is recommended.  The remote can be constructed in a plastic case.</p>
+
+<p>So how do we use this abomination?</p>
+
+<table cellpadding="2" cellspacing="2" border="0" style="text-align: left;" width="100%">
+<tr><td width=25 valign="top">i)</td><td valign="top">It is connected to the control box with the same four-core connector that you made up for part 2.</td></tr>
+<tr><td>
+<tr><td valign="top">j)</td><td valign="top">Before proceeding with the test,  set up the test sequence by moving half of the total number of slide switches on the box.  SW5 must be open at this time;  no LEDs illuminated.</td></tr>
+<tr><td>
+<tr><td valign="top">k)</td><td valign="top">SW6 switches selects A or B for calibration as per (b) and (c).  SW5 is closed (LEDs in circuit) during this step.</td></tr>
+<tr><td>
+<tr><td valign="top">l)</td><td valign="top">Open SW5 so that no LEDs are illuminated.</td></tr>
+<tr><td>
+<tr><td valign="top">m)</td><td valign="top">Assume your normal listening position and use SW6 to select A and B as in step (f)</td></tr>
+<tr><td>
+<tr><td valign="top">n)</td><td valign="top">Move SW6 to the X position.  Is it A or B?  Write down your choice.  Proceed through all the other positions on SW4 marking down your choice each time.</td></tr>
+<tr><td>
+<tr><td valign="top">o)</td><td valign="top">When all positions have been sampled, close SW5, rotate the selector SW4 and observe which channel was in use for each iteration of the test.  Correlate your results.</td></tr>
+<tr><td>
+<tr><td valign="top">p)</td><td valign="top">If you wish to repeat the test, proceed again from step (j).</td></tr>
+</table>
+
+<p>Notes</p>
+1. &nbsp; It is probably legitimate to build part 3 with only an 8-position switch (24 slide switches) and run the test twice for 16 iterations (or a 10-position switch with 30 slide switches for 20 iterations).  In this case, you would read back the results as in (o) note them down without correlating them, stop the music, perform step (j) and then proceed again from (m).<br><br>
+
+2. &nbsp; I mentioned in part 1 that, if you were considering building part 3 of the project you should ensure that the relays are not audible from the listening position.  This is because, with an "off-the shelf" rotary switch, even thought they are nominally break-before-make, you will probably find that there is no interruption of the sound when changing positions even
+if there is a change of channel.  If this is the case and if there is no change of channel, the relevant relay will not drop out.  However, a change of channel will cause the relays to switch and you will hear it at the listening position, which is something of a give-away!  If this troubles you, specify true "break-before-make" switches for SW1 and SW2 and then the relays will always click.  (Actually, this is probably less troublesome than trying to insulate the controller box but has the downside that there might be an audible break in the music.)<br><br>
+
+3. &nbsp; You should be able to acquire all of the parts, including the cases, for less than $100.  Parts 1 and 2 are simple to build.  Part 3 will take a fair amount of time.  However, the results of using this equipment may well astound or confound you and those to whom you demonstrate it.  Did you ever wonder why your local high-end audio store does not have something so inexpensive like this so that you can compare your modest preamp, or whatever, with the mega-bucks piece of kit you have been drooling over ever since some reviewer's panegyric:  "The best preamp I have ever heard for (only) the cost of a small family car."?<br><br>
+
+4. &nbsp; I mentioned at the beginning that you could use this to compare interconnects.  How?  Simply connect it in reverse:  source into X, the cables under comparison to A and B then via a Y-splitter to the preamp.  The presence of the Y-splitter and the controller box does not invalidate the test because the same "degradation" of the signal occurs to both cables.  The author accepts no responsibility for domestic discord or other unpleasantness arising out of the use of this test equipment for such purposes.<br><br>
+
+5. &nbsp; ABX testing of CD players, turntables and cartridges etc. is problematic because of the difficulty of synchronizing them.  However, the flip switch on the manual controller can be used to make a direct comparison between the two pieces of equipment.<br><br>
+I hope that this little project will amuse you.<br><br>
+Steven Hill, August 2002<br><br>
+
+<hr><b>Editor's Notes</b>
+<p>Steven has done something I had thought would only really be possible using a microcontroller or a PC to achieve. The random switching is of such complexity that it would be virtually impossible for anyone to know and remember the combinations created by each switch. Especially if assembled according to the instructions - the switches are not only capable of giving an excellent randomisation of their own accord, but if they are wired in a random fashion as you build the unit, the likelihood of being able to remember the combinations is extremely low.<br><br>
+
+Will it be worth the effort? Only you can answer that, and it depends on how serious you are about being able to tell the difference between pieces of equipment. Just like Phil's original Project "X", your first reaction may be that the unit is not working - the LED indicator that Steven included in the design to allow you to correlate the results will certainly prove that A and B are being selected, and if you are <i>really</i> unsure, you can always switch off one of the units under test.<br><br>
+
+All in all, this is an ambitious project, but one that every hi-fi reviewer should make (or have made) - I expect that if this were done, a great many of the glowing reviews we currently see would diminish. They may even vanish altogether.<br><br>
+Needless to say, the tester can be also used to verify that the expensive capacitors you bought really don't make any difference, or that all well constructed interconnects sound the same. This is all very confronting, but it is necessary if we are to get hi-fi back on track, and eliminate the snake oil.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b0.src='arrow.gif';" OnMouseOut="document.b0.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b0" ALT="Index" BORDER=0 height=24 width=40></a><b>Projects Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br /><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b3" ALT="ESP Home" BORDER=0 height=24 width=40></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Steven Hill and Rod Elliott, and is Copyright &copy; 2002. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Steven Hill) and editor (Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Steven Hill and Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Created 08 Aug 2002</div>
+</body>
+</html>

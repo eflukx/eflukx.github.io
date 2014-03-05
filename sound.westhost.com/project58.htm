@@ -1,0 +1,144 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="linkwitz,cosine,burst,generator,audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+	<meta name="description" content="ESP Project Pages - Linkwitz Cosine Burst Generator. Visit my other pages for more audio projects and articles">
+	<title>Linkwitz Cosine Burst Generator</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 58&nbsp;</td></tr></table>
+
+<p align="center"><b>Linkwitz Cosine Burst Generator</b><br />
+<small>Updated 17 Jan 2008<br />
+Rod Elliott (From An Original Design By Siegfried Linkwitz)<br />
+New Circuit By Ray Hernan</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>Thanks to Siegfried Linkwitz, I am able to bring this project to you. Although the diagrams (except Figure 2a) are his originals, I have added the text and some explanations. I was also hoping to update the project, since some of the devices used are quite hard to get, and although this is still very much on the "to do" list, I have been very busy and have not had the time.
+
+<p>On this basis, I decided that it is better in the interim to show you the circuit and tell you about how it works, and worry about updates later. At least this way you can try to get hold of the devices and build one as it stands, or you can wait until I have completed the updated version (and built one of my own).
+
+<hr><b>Description</b>
+<p>Firstly, a description of a cosine burst signal is in order. With a conventional tone burst generator, a considerable number of harmonics are generated. These extend to sub-audible frequencies, and excite resonances that have nothing to do with the actual test frequency. By gradually increasing the amplitude of each cycle of the test waveform, then decreasing it again using a cosine waveform envelope, these unwanted harmonics are minimised. They can never be eliminated, except by
+using a steady tone, in theory for an infinite duration. This is far longer than most people want to wait for test results.
+
+<p><b>Cosine Burst Generator</b>
+<br>Figure 1 shows the cosine burst envelope, along with the additional frequencies generated. The worst of these is 30dB below the fundamental, which is a considerable improvement on the more traditional "rectangular" tone burst, where the signal is simply gated on for a number of cycles at full amplitude.</p>
+
+<center><img SRC="p58-f1a.gif" ALT="Figure 1" BORDER=0 height=251 width=379>
+<br><b><small>Figure 1 - The Cosine Burst Waveform</small></b></center>
+
+<p>To achieve this waveform, 10 half cycles are used, with the amplitude increasing with each successive half cycle to the peak, then reduced back to zero. The repetition rate may be varied to suit the application, and the original Linkwitz burst generator circuit is shown in Figure 2a. The original circuit is <a href="p58-f2.gif" target="_blank">Figure 2</a>, and is retained for completeness.
+
+<center><img SRC="p58-f2a.gif" ALT="Figure 2a" BORDER=1>
+<br><b><small>Figure 2 - Cosine Burst Generator</small></b></center>
+
+<p>The burst generator is not actually complex, but does require a fair bit of fiddling about to obtain the 10 half cycles needed, and apply the appropriate attenuation at each step to ensure that the cosine envelope is maintained.
+
+<p>The programmable attenuator consists of 5 sections of 4066 CMOS analogue switch (these are quad devices, so 3 are unused). The resistor values at the 4066 outputs are selected to provide the cosine envelope, feeding the virtual earth mixer stage that provides the output.
+
+<p>To trigger the attenuator control at each zero crossing of the input waveform, a comparator (LM393) is used to create a square wave, whose zero crossings are at the same time as the signal waveform. The XOR gate (A) is used to produce a 2us positive going pulse corresponding to each zero crossing of the input waveform. All remaining XOR gates are used as inverters.
+
+<p>The remainder of the logic is clocked by the incoming waveform, and the outputs drive the CMOS analogue switch controls. The entire circuit is normally inhibited by the repetition generator circuit, which is a simple timer. When the hold-off time expires, the next incoming signal zero crossing will start the cycle, allowing 10 half cycles to pass before switching off again. This sequence continues as long as the unit has an applied input signal.
+
+<p>Virtually any audio oscillator can be used to drive the burst generator, with the proviso that it must be capable of 1V peak to peak output level. Distortion is not important as long as it is within reasonable limits (less than 1% is to be preferred).
+
+<p>Ray's revised version is slightly more complex than the original, but has the advantage that the parts can actually be obtained.</p>
+
+<hr><b>Microphone Preamplifier</b>
+<br>The microphone preamp is not intended for listening to, but still requires low noise. Figure 3 shows the circuit for the preamp. The signal is first amplified by the 5534 opamp which also has a switched gain, and optional equalisation can be applied. The next stage is a variable gain amp, and allows calibration of the preamp. This is followed by a switchable gain stage and a full wave precision rectifier to convert the AC mic waveform to DC. This is fed into a log amplifier with an output of 50mV / dB as shown. For posterity, the original version is still available <a href="p58-f3.gif" target="_blank">here</a>. Note that in the original, the resistor marked as 10//10 means two 10k resistors in parallel to give 5k.<br>
+
+<center><img SRC="p58-f3a.gif" ALT="Figure 3" BORDER=1>
+<br><b><small>Figure 3 - Microphone Preamp</small></b></center>
+
+<p>For quick tests, the comparator stage can be used, and by observing the LED and adjusting the calibration control it is possible to determine relative frequency response without the use of an oscilloscope. Alternatively, a meter movement (with modified peak programme ballistics) could be used from the output of the log amplifier, using a suitable metering amp circuit. 
+<p>There may be a small benefit in gating the microphone preamp to exclude room reflections, but great care is needed to ensure that the gating circuit can be adjusted to accommodate the measurement distances used, remembering that sound travels at 345m/s, so measurements at 1 metre will require a gate delay of about 2.9ms. This is not really necessary however, since the whole reason for using the cosine envelope is to minimise the generation and reflection of any frequency that is not the actual test frequency. Room reflections will normally be at a considerably reduced amplitude compared to the direct signal, so accurate results should be obtainable in all but the most adverse rooms.
+
+<hr><b>Microphone</b>
+<br>An electret capacitor microphone is a cheap and remarkably accurate little device, but they are not known for tolerance to high SPLs. The FET preamp is usually very crude, and having no source feedback resistance will distort readily at modest sound pressure levels. To this end, Siegfried has gone to work on a standard capsule, and modified it so that it will work at standard test levels.<br>
+
+<center><img SRC="p58-f4a.gif" ALT="Figure 4" BORDER=1>
+<br><b><small>Figure 4 - Microphone Modifications</small></b></center>
+
+<p>This is a redrawn version of <a href="p58-f4.gif" target="_blank">Siegfried's drawing</a>, but again the original is retained. The choice of preferred connection is yours. I tend to like the 3-wire version since it retains "conventional" polarities, but the difference is minimal in practice.
+
+<p>Electret inserts are readily available from many suppliers, but there is good reason to use the Panasonic unit suggested if possible (although it is now superceeded). They have very good frequency response, where some of the alternatives might look identical, but have relatively poor response by comparison. It would be nice if these microphones were available with some sort of calibration information as to frequency response and so on, but unless you are willing to pay through the nose, you will have to accept whatever you can get.</p>
+
+<hr><b>Proposed Modifications</b>
+<p>When I originally contacted Siegfried Linkwitz about re-publishing this project, he mentioned that some of the devices were obsolete, and that an update was needed. I have so far been unable to find commonly available devices that will allow the circuit to operate as intended, without either dropping the operating voltage to a single +5V supply (which I was unwilling to do), or using level shifters - again, not ideal, as complexity is increased. I have not given up, and will continue as time allows to investigate the alternatives. Meanwhile, the version Ray Hernan has supplied looks good, and short of using a microcontroller (which may not be fast enough) is probably as good as it will get.
+
+<p>The ability to add multiple bursts of 4 was also suggested, and I would like to include this as an option, however, this will add more complexity to what many will see as an already complex project. Ray has provided a very workable solution, as shown in Figure 2a (which replaces the original), and it is unlikely that further work will be done on the project.</p>
+
+<hr><b>Notice</b>
+<p>This project is primarily the intellectual property of Siegfried Linkwitz, and is reproduced here with his permission. Commercial use is strictly prohibited without the written permission of Siegfried Linkwitz. The Figure 2a circuit diagram is the intellectual property of Ray Hernan, and is copyright &copy; 2007. The redrawn versions of all schematics shown were drawn by Rod Elliott (ESP) and are copyright &copy; 2008. Note that multiple versions of the same schematic reproduced on the ESP and Linkwitz Lab sites do <b>not</b> imply that the circuit, concept or drawings are freely distributable.  Full copyright is retained by the various authors, based on their contribution(s) to the project.</p>
+ 
+<p><b>Originally published:</b>
+<br>Siegfried Linkwitz, Shaped Tone-Burst Testing, JAES, Vol. 28, No. 4, April 1980
+
+<p><b>Abstract:</b>
+<br>A properly shaped tone burst is used to evaluate the dynamic behaviour of a loudspeaker within narrow frequency bands. The raised-cosine envelope of a five-cycle burst reduces the low frequency content of the test signal and confines the spectrum to a one-third octave width. The transient behavior of the loudspeaker is indicated by a change in the envelope of the burst signal. The frequency response of the loudspeaker is related to the maximum amplitude of the received burst. The relatively short duration of the burst preserves time domain information and gives a slightly smoothed frequency response. Discrimination against echoes is obtained
+from the short duration of the shaped tone burst. The influence of room reflections on the measurement is minimised.
+
+<p>A detailed circuit schematic for building a shaped tone-burst generator and peak detecting receiver is provided.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Siegfried Linkwitz, Ray Hernan and Rod Elliott, and is Copyright (c) 2000-2008. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The editor (Rod Elliott), author (Siegfried Linkwitz) and contributor (Ray Hernan) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Siegfried Linkwitz.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; 23 April 2000./ Updated 17 Jan 2008 - Included Ray Hernan's revised schematic, redrew other schematics.</div>
+</body>
+</html>

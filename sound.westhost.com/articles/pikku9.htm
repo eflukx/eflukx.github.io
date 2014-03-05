@@ -1,0 +1,358 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="speaker, bass, bookshelf, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - Simple Network Lowers f3">
+	<!-- ESP Audio Projects - Simple Network Lowers f3 -->
+	<title>Simple Network Lowers f3</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Simple Network Lowers f<sub>3</sub>&nbsp;</td></tr></table>
+
+<p align="center"><b>Simple Network Lowers f<sub>3</sub></b><br>
+<small>Copyright &copy; 2006 Peter H. Lehmann</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t1" alt="Articles" BORDER="0"></a><b>Articles Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" alt="Main" BORDER="0"></a><b>Main Index</b>
+ 
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#a1">1 &nbsp; Introduction</a></li>
+  <li><a href="#a2">2 &nbsp; Overview</a></li>
+  <li><a href="#a3">3 &nbsp; Theoretical Lowering of f<sub>3</sub> by Series Resistor</a></li>
+  <li><a href="#a4">4 &nbsp; Optimal Q<sub>tc </sub>and Q<sub>ts</sub></a></li>
+  <li><a href="#a5">5 &nbsp; Calculating the value of resistance of the series resistor</a></li>
+  <li><a href="#a6">6 &nbsp; Comparing f <sub>3</sub> of Three Speaker Systems</a></li>
+  <li><a href="#a7">7 &nbsp; Adding an Additional Resistor and Capacitance</a></li>
+  <li><a href="#a8">8 &nbsp; Variation of Voltage Division Factor with Frequency</a></li>
+  <li><a href="#a9">9 &nbsp; Sensitivity of the <i>pikku 9</i> System</a></li>
+  <li><a href="#b10">10 &nbsp; Reactive loading and amplifier distortion</a></li>
+  <li><a href="#b11">11 &nbsp; Additional notes on the <i>pikku 9</i></a></li>
+  <li><a href="#b12">12 &nbsp; Appendix (ESP)</a></li>
+  <li><a href="#ref">13 &nbsp; References</a></li>
+</ul>
+
+<hr><a id="a1"></a><b>1 &nbsp; Introduction (ESP)</b>
+<p>This is a contributed article. The general technique of increasing Q<sub>tc</sub> is described in the ESP articles section (see <a href="../z-effects.htm" target="_blank">Impedance</a> for more information). While the ESP article covers the topic from general principles, Peter has explained the maths involved and has gone into far more detail than I did at the time.</p>
+
+<p>My personal preference would be to use a passive line level equaliser, one of which I have installed on my bedroom system to increase the bass output of the small transmission line speakers I use there. Peter's method has a couple of advantages - the 'damping factor' at higher frequencies is improved because of the parallel capacitance, and the speakers are self contained, requiring no external equalisation box. The disadvantage is that efficiency is reduced significantly, but as Peter points out, this is not necessarily a problem. In addition, the equalisation described provides a benign load to the amplifier, with much reduced phase shift compared to that experienced when directly driving the loudspeaker.</p>
+
+<p>While it is suggested below that the equalisation network should be mounted externally, if the rear of the box is made from 3mm aluminium plate that will act as an excellent heatsink for the power resistors. The resistors should be firmly mounted to the panel using 3mm aluminium brackets or epoxy resin (<i>not</i> 5-minute setting epoxy - it cannot withstand heat). The outside should be painted black and the inside left natural, to limit heat build-up within the enclosure. Small fins (made by attaching aluminium angle to the flat plate) will help if you intend to push the system to maximum power. Bear in mind that to do so will result in considerable loudspeaker distortion, so if you are looking for high SPL then this is not the system for you.</p>
+
+<p>If you wish to use a passive line-level network, please see the appendix to this article. You will need to refer to the ESP articles section to work out how to modify the output impedance of the drive amplifier. Bear in mind that the process of setting a specific output impedance with known gain is most easily done by empirical (derived from observation or experiment) techniques. While it is possible to calculate the impedance and gain, it is rather irksome to do so.</p>
+
+<hr><a id="a2"></a><b>2 &nbsp; Overview</b>
+<p>This article is about a method of building small closed-box speaker systems with better bass. This method involves inserting a response-shaping network of two resistors and some capacitors between the connection of the output stage of the power amplifier driving the speaker system and the input to the speaker system. </p>
+
+<p>Small speaker systems are attractive in that they don't clutter a room and generally are much less expensive than their larger brethren. The drawback to most small closed-box speakers is that they lack the capability for full-bodied reproduction because typically the frequency at which bass roll-off is at half-power or f<sub>3 </sub>of them is too high. Small vented or bass-reflex speaker systems on the other hand can more easily be designed to include an acceptably low value of f<sub>3 </sub>but bass-reflex systems have the inherent tendency of producing indistinct and boomy reproduction in the bass range.</p>
+
+<p>The contemporary solution to poor bass-response of small frontally located stereo speakers is the addition of a subwoofer to the music system. This solution perhaps only minimally increases the apparent clutter of audio reproducing equipment, but it does increase the total system cost and number of interconnections required. Also, if a single subwoofer reproduces the lower bass range of both left and right channels of program material, then there is some degradation of stereo effect. Testing of the human ability to localise the apparent sources of sounds as a function of frequency indicates that this ability is quite good in the bass range.</p>
+
+<p>The response-shaping network of the closed-box two-way system that is the subject of this paper extends bass response in four ways, without requiring a large cabinet. Firstly, resonance magnification of the woofer or Q<sub>ts</sub> is made equal to 0.5 by placing resistance in series with the woofer and interior volume of the system is established to cause system Q or Q<sub>tc</sub> to equal 0.71. Secondly, for frequencies less than 500 Hz and decreasing, attenuation of the voltage of the power amplifier driving the system and applied to the woofer and tweeter of the system in a passive crossover network is also decreasing. Thirdly, for frequency greater than 500Hz, the voltage attenuation factor of the shaping network is constant and equal to one-third. Finally, for frequency less than 500 Hz and decreasing, shunting impedance (the impedance through which back EMF operates) is increasing which means that Q<sub>ts </sub>also increases. With interior volume of the system V<sub>b</sub> fixed, increasing Q<sub>ts </sub>causes Q<sub>tc </sub>or resonance magnification to increase. This causes improved conversion efficiency by the woofer.</p>
+
+<p>As of the date of publication, the woofer and tweeter of the system that I describe here have been discontinued. Therefore, so that the confines in which the design that I've developed can be clearly seen and in case anyone else would wish to construct a speaker system similar to the one described here, given below are the relevant specifications of the drivers I used.</p>
+
+<p>100mm (4") shielded aluminium cone woofer, MCM Electronics Stock Nr. 55-1853 <i>(discontinued) -</i></p>
+
+<ul><li>Rubber surround</li>
+	<li>Power capacity: 20W / 40W RMS / peak</li>
+	<li>Frequency response: 60Hz~17kHz</li>
+	<li>Impedance: 8&Omega;</li>
+	<li>Sensitivity: 86dB, 1W/1M</li>
+	<li>Fs: 60Hz</li>
+	<li>Re: 6.8&Omega;</li>
+	<li>Qms: 2.22</li>
+	<li>Qes: 0.46</li>
+	<li>Qts: 0.38</li>
+	<li>Vas: 5.0 liters</li>
+	<li>Xmax: 2.55mm</li>
+</ul>
+
+<p>19mm (&frac34;") metal dome tweeter, PEI, MCM Electronics Stock Nr. 53-440 <i>(discontinued) -</i></p>
+
+<ul>
+	<li>Magnet weight: 100g (3.6oz)</li>
+	<li>Ferrofluid cooled voice coil: 19mm</li>
+	<li>Impedance: 8&Omega;</li>
+	<li>Power handling: 20W / 40W RMS / peak</li>
+	<li>Sensitivity: 90dB 1W / 1m</li>
+	<li>Frequency Response: 2kHz ~ 20kHz</li>
+<li>Re: 6.9&Omega;</li></ul>
+
+<hr><a id="a3"></a><b>3 &nbsp; Theoretical lowering of f<sub>3</sub> by series resistor</b>
+<p>By the phrase "series resistor" I mean for example resistor R1 of <a href="#f1">Figure 1</a>. In general, comparing the half-power frequency f<sub>3 </sub>of two closed-box speaker systems with identical woofers and resonating efficiency Q<sub>tc</sub>, the second system that includes a resistor connected in series with the voice
+coil of the woofer has a lower value of f<sub>3</sub> than that of the first system lacking a series resistor.</p>
+
+<p>The series resistor of the second system increases the resonance magnification of the woofer in free air (Q<sub>ts</sub>). This occurs because the series resistor decreases the magnitude of back current produced by the woofer functioning reactively. With the woofer of the second system in free air having a higher resonance magnification than that of the first system, interior volume of the box of the second system is made larger than that of the first system as Q<sub>tc</sub> of both systems are to be identical. That is, less stiffness of the enclosed air of the second system is needed to obtain the desired value of Q<sub>tc</sub> than is needed by the first.</p>
+
+<p>The enclosed air of the first system having greater stiffness causes the resonant frequency f<sub>c</sub> of the first system to be higher than that of the second system. This relationship can be understood by considering that stiffness of the enclosed air of a closed-box speaker system is modelled by a capacitor in the electromechanical equivalent circuit of that system. Greater stiffness of the enclosed air corresponds to decreased capacitance of that capacitor. Decreased capacitance causes the resonant frequency of the equivalent circuit to increase. As the values of Q<sub>tc</sub> of both systems are identical it follows that the ratios f<sub>3</sub>/ f<sub>c</sub> of both systems are identical and therefore f<sub>3</sub> of the second system is lower than that of the first system.</p>
+
+<p>A manipulation of the Thiele-Small equations for closed-box speakers that follows below shows the theoretical proof of this effect. Assuming that amplifier source resistance is negligible with respect to voice coil resistance r<sub>e</sub>, then ...</p>
+
+<blockquote><i>Q<sup>*</sup><sub>es</sub> = Q<sub>es</sub> * ( R<sub>x</sub> + r<sub>e</sub> / r<sub>e</sub> )</i> &nbsp; 
+<small>(where <i>Q<sup>*</sup><sub>es</sub></i> = modified electrical Q, and <i>R<sub>x</sub></i> = series resistance)</small></blockquote>
+
+<p>Therefore it follows that ...</p>
+
+<blockquote><i>Q<sup>''</sup><sub>es</sub> &gt; Q<sup>'</sup><sub>es</sub></i> &nbsp; <small>(where <i>Q<sup>'</sup><sub>es</sub></i>
+ and <i>Q<sup>''</sup></i> = electrical Q of the traditional and modified speaker systems respectively)</small></blockquote>
+
+<p>Total Q of the woofer or Q<sub>ts</sub> is related to electrical Q or Q<sub>es</sub> &amp; mechanical Q or Q<sub>ms</sub> by the equation ...</p>
+
+<blockquote><i>Q<sub>ts</sub> = Q<sub>es</sub> * Q<sub>ms</sub> / ( Q<sub>es</sub> + Q<sub>ms</sub> )</i></blockquote>
+
+<p>Therefore it also follows that ...</p>
+
+<blockquote><i>Q<sup>''</sup><sub>ts</sub> &gt; Q<sup>'</sup><sub>ts</sub></i> &nbsp; <small>(where <i>Q<sup>'</sup><sub>ts</sub></i>
+ and <i>Q<sup>''</sup><sub>ts</sub></i> = total Q of the traditional and modified speaker systems respectively)</small></blockquote>
+
+<p>For a closed-box system, the equation relating the resonant frequency or f<sub>c</sub> of the system to Q<sub>ts</sub>, the free air resonance of the woofer or f<sub>s</sub> and Q<sub>tc</sub> of the system is ...</p>
+
+<blockquote><i>f<sub>s</sub> = ( Q<sub>tc</sub> / Q<sub>ts</sub> ) * f<sub>s</sub></i></blockquote>
+
+<p>Both the first and second systems have equal f<sub>s</sub> and Q<sub>tc</sub>. Also, Q<sub>ts</sub> of the second system is greater than that of the first system. Therefore the resonant frequency or f<sub>c</sub> of the second system is lower than that of the first system lacking a series resistor.</p>
+
+<p>Where C is a constant and ...</p>
+
+<blockquote><i>C = ( 1 / Q<sub>tc</sub>&sup2; ) - 2</i></blockquote>
+
+<p>then ...</p>
+
+<blockquote><i>f<sub>3</sub> = (C + &radic;( ( C<sup>2</sup> + 4 ) / 2 ) )<sup>1/2</sup> * f<sub>c</sub></i></blockquote>
+
+<p>As Q<sub>tc</sub> of both systems are equal, the above proportionality constant relating f<sub>3</sub> to f<sub>c</sub> is also an identical factor for both systems. System resonance frequency f<sub>c</sub> of the second system is lower than that of the first. Thus, f<sub>3</sub> of the second system is also lower than that of the first.</p>
+
+<hr><a id="a4"></a><b>4 &nbsp; Optimal Q<sub>tc </sub>and Q<sub>ts</sub></b>
+<p>System resonance frequency f<sub>c</sub> equals [ Q<sub>tc</sub> / Q<sub>ts</sub> ] times f<sub>s</sub>. Thus, where Q<sub>ts</sub>
+is constant, reducing Q<sub>tc</sub> makes f<sub>c</sub> more nearly equal to f<sub>s</sub>. However, where Q<sub>tc</sub> is made less than
+0.71, then the ratio of f<sub>3 </sub>/ f<sub>c</sub> becomes greater than unity and more than counteracts the decreased ratio of f<sub>c </sub>with respect to f<sub>s</sub>. Making Q<sub>tc</sub> equal to 0.71 results in the lowest possible ratio of f<sub>3 </sub>with respect to f<sub>s</sub>.</p>
+
+<p>Given that Q<sub>tc</sub> equal to 0.71 is made a constant, with the goal in mind of obtaining the most extended bass response from a system of small dimensions, then there is little benefit to making Q<sub>ts</sub> greater than 0.5. If Q<sub>ts</sub> is increased to 0.6, then interior volume V<sub>b</sub>, formerly equal to V<sub>as</sub>, must become equal to 2.6 times V<sub>as</sub>. At the same time, f<sub>c</sub> is marginally reduced to 83% of its previous value.</p>
+
+<p>The volume V<sub>as</sub> of a small woofer of about 100mm in diameter, even where the woofer is of the acoustic suspension-type, and V<sub>b</sub> of the closed-box for the woofer made equal to V<sub>as</sub> does not result in an overly large speaker system. The drawback to this configuration is that it allows distortion to occur at a much lower power level of driving the woofer than would occur if the cone of the woofer were acoustically suspended.</p>
+
+<hr><a id="a5"></a><b>5 &nbsp; Calculating the value of resistance of the series resistor</b>
+
+<p><i>Solve for modified Q<sub>ts</sub> (Q<sup>*</sup><sub>ts</sub>)</i>. Transposing the Thiele-Small equation expressing &alpha; or the ratio V<sub>as</sub> /  V<sub>b</sub> as a function of Q<sub>tc </sub>and Q<sub>ts</sub> ...</p>
+
+<blockquote><i>(Q<sup>*</sup><sub>ts</sub>)&sup2; = Q<sub>tc</sub>&sup2; / &alpha; + 1</i></blockquote>
+
+<p>Making &alpha; equal to 1 gives the result that ...</p>
+
+<blockquote><i>Q<sup>*</sup><sub>ts</sub> = 0.71 * Q<sub>tc</sub></i></blockquote>
+
+<p><i>Solve for modified Q<sub>es</sub> or Q<sup>*</sup><sub>es</sub></i>. Transposing the Thiele-Small equation expressing Q<sub>ts</sub> as a function of Q<sub>es</sub> and Q<sub>ms</sub>.
+
+<blockquote><i>Q<sup>*</sup><sub>es</sub> = ( Q<sub>ms</sub> * Q<sup>*</sup><sub>ts</sub> ) / ( Q<sub>ms</sub> - Q<sup>*</sup><sub>ts</sub> )</i></blockquote>
+
+<p><i>Solve for series resistance R<sub>x</sub> assuming negligible amplifier source resistance.</i> Transposing the equation relating Q<sup>*</sup><sub>es</sub> to Q<sub>es</sub>, R<sub>x</sub> and voice coil resistance r<sub>e</sub>.</p>
+
+<blockquote><i>R<sub>x</sub> = ( Q<sup>*</sup><sub>es</sub> - Q<sub>es</sub> ) * r<sub>e</sub> / Q<sub>es</sub></i></blockquote>
+
+<a id="f1"></a><p align="center"><img border="1" alt="Figure 1" src="pikku-f1.gif"><br>
+<b><small>Figure 1 - Closed-box speaker system with series<br>resistance only,
+Q<sub>tc </sub> = 0.7 and &alpha; = 1.</small></b></p>
+
+<hr><a id="a6"></a><b>6 &nbsp; Comparing f <sub>3</sub> of Three Speaker Systems</b>
+<p>The woofer of the speaker system of Figure 2, the drivers of the system of Figure 1 and a control speaker system are all identical. The driver of the control speaker system is directly connected to the speaker terminals of the power amplifier and installed in a closed box of 2 litres (122 cubic inches) internal volume.</p>
+
+<p>The selected value of resistance of series resistor R1 of the system of Figure 1 is based on the calculations of the previous section given that Q<sub>tc</sub> = 0.71 and &alpha; = 1. The effective internal volume or V<sub>b</sub> of the system of Figure 1 is somewhat greater than the actual internal volume or V<sub>int</sub> due to the presence of 'Acousta Stuf' or similar polyester filling material in the box. (Acousta Stuf is a brand of acoustic absorption / dampening fibre.)</p>
+
+<p>Table 1 is a collection of calculated and measured characteristics of the control speaker system and the systems of Figure 1 and Figure 2 The system of Figure 2 has a response-shaping network that includes a 3&Omega; series resistor. The design of the system of Figure 2 is discussed in the next section. Although there is a fair amount of divergence between the measured and calculated values of f<sub>c</sub> and f<sub>3</sub> of the control speaker system and the system of Figure 1, in both cases f<sub>c</sub> and f<sub>3 </sub>of the system including the 3 &Omega; series resistor are lower relative to those of the control system.</p>
+
+<p>Figure 3 is a graph of measured sound intensity output or SPL versus frequency of the three systems. Frequency response of each of the three systems was measured under the same conditions and SPL corresponding to frequency equal to 1 kHz designated the reference level or 0 dB at Figure 3. SPL at frequencies less than 1 kHz of each system is shown at Figure 3 relative to SPL of that system at 1 kHz. As opposed to graphing the absolute readings of SPL, this method of graphing allows one to easily compare variations of frequency response of the three systems. Compared to the control system, overall sensitivity of the systems of Figures 1 and 2 is diminished.</p>
+
+<p>For the frequency range of 40 Hz- 80 Hz, the graph of Figure 3 indicates that relative sound intensity output of the system of Figure 1 including a 3 &Omega; series resistor is about four times that of the control system.</p>
+
+<center><table width=800 border=1 style="border-collapse: collapse">
+<tr><th>Speaker<br>System</th><th colspan="2" valign="top">f<sub>c</sub></th><th colspan="2" valign="top">f<sub>3</sub></th><th>&alpha;<br>Vas / Vb</th><th valign="top">Q<sub>ts</sub></th></tr>
+<tr><td></td><th>Calculated<br>(Hz)</th><th>Measured<br>(Hz)</th><th>Calculated<br>(Hz)</th><th>Measured<br>(Hz)</th><td></tr>
+<tr><td>Control</td><td>112</td><td>90</td><td>112</td><td>105</td><td>2.5</td><td>0.71</td></tr>
+<tr><td>Fig. 1, Series R</td><td>85</td><td>75</td><td>85</td><td>80</td><td>1.0</td><td>0.72</td></tr>
+<tr><td>Fig. 2, <i>pikku 9</i></td><td>85</td><td>80</td><td>-</td><td>55</td><td>1.0</td><td>0.6-0.68</td></tr>
+</table>
+<b><small>Table 1 - Calculated and measured parameters of the control and <i>pikku 9</i> systems</small></b></center>
+
+<p align="center"><img src="pikku-f2.gif" alt="Figure 2" border="1"><br>
+<b><small>Figure 2 - Full-range system (<i>pikku 9</i>) with response-shaping network</small></b></p>
+
+<hr><a id="a7"></a><b>7 &nbsp; Adding an Additional Resistor and Capacitance</b>
+<p>Figure. 4 shows the response-shaping network of the <i>pikku 9</i> speaker system of Figure 2. As a result of trial and error experimentation, the value of resistance of resistor R2 is made equal to one-half that of resistor R1 or 1.5 ohms</p>
+<p>The quantity of capacitance that is to be placed in series with resistor R2 across the terminals of woofer LS1 can be estimated by solving the following two equations. First solve for X<sub>CT</sub> ...</p>
+
+<blockquote><i>X<sub>CT</sub> = 1.15 * &radic;( 0.25 * R<sub>T</sub>&sup2; - R2&sup2; )</i> &nbsp; <small>(where R<sub>T</sub> = R1 + R2)</small></blockquote>
+
+<p>X<sub>CT </sub>of the above equation is the reactance of the total capacitance in series with resistor R2 causing one-half of the input voltage to drop across resistor R1. Secondly solve for the total capacitance C<sub>T</sub> to be connected in series with resistor R2 according the equation, </p>
+
+<blockquote><i>C<sub>T</sub> = 1 / 6.28 * f<sub>c</sub> * X<sub>CT</sub></i></blockquote>
+
+<p>Where, assuming that Q<sub>tc</sub> and Q<sub>ts</sub> are very nearly equal to respectively 0.71 and 0.50, f<sub>c</sub> = 1.42 f<sub>s</sub>.</p>
+
+<p>Frequency response of the speaker system should be measured where total capacitance in series with R2 is varied in the range of perhaps &plusmn;25% of the value of C<sub>T</sub> solved for above.</p>
+
+<p align="center"><img alt="response" border="1" src="pikku-f3.gif"><br>
+<b><small>Figure 3 - Relative Response</small></b></p>
+
+<p>Relative SPL versus frequency referenced to SPL at 1 kHz of the control speaker system with no network, the system of Figure 1 with in-series resistance only and the system of Figure 2 with a shaping network.</p>
+
+<hr><a id="a8"></a><b>8 &nbsp; Variation of voltage division factor with frequency</b>
+<p>See Figure 4. For frequency equal to 500 Hz, reactance of capacitors C1-C4 is fairly negligible relative to the resistance of resistor R2 and an equivalent circuit would omit capacitors C1-C4 and show only resistor R2 connected across the input terminals of woofer LS1. Therefore about one-third of the system input voltage drops across the input terminals of woofer LS1 at 500 Hz. As frequency decreases from 500 Hz, increasing reactance of parallel-connected capacitors C1-C4 causes a greater portion of the system input voltage to drop across the input terminals of woofer LS1. The (sine wave) frequency at which the measured RMS voltage taken across the input terminals of woofer LS1 equaled one-half the RMS voltage of the system input voltage was 85 Hz. </p>
+
+<p>For frequency equal to 40 Hz, 55 Hz or f<sub>3</sub> of the <i>pikku 9</i> of Figure 2, 85 Hz, 200 Hz and 476 Hz, the calculated (theoretical) voltage attenuation factor equals respectively 0.67, 0.57, 0.46, 0.36 and 0.34. Given an equal system input voltage, electrical power supplied to woofer LS1 is 6 dB greater at 40 Hz relative to that which occurs at any frequency greater than 500 Hz.</p>
+
+<p align="center"><img alt="Figure 4" border="1" src="pikku-f4.gif"><br>
+<b><small>Figure 4 - Equivalent Circuit</small></b></p>
+
+<p>Figure 4 shows an electrical equivalent to the schematic of Figure 2, where the frequency of the input signal not greater than about 500 Hz. The resistor Rs is the equivalent of amplifier source resistance.</p>
+
+<!-- <hr><b>Variable Q<sub>tc</sub> of the system of Figure 4</b>-->
+<p>The effectiveness of woofer LS1 functioning as a generator in opposition to the electrical signal applied across its input terminals in inversely proportional to shunting impedance. A first shunting impedance path consists of resistors R1 and R<sub>s</sub> connected in series across the input terminals of woofer LS1. Resistor R2 connected in series with parallel-connected capacitors C1-C4 across the input terminals of LS1 is a second shunting path. Impedance of the second shunting path varies directly with the reactance of capacitors C1-C4.</p>
+
+<p>As was stated earlier, </p>
+
+<blockquote><i>Q<sup>*</sup><sub>es</sub> = modified Q<sub>es</sub> = Q<sub>es</sub> * ( ( R<sub>x</sub> + r<sub>e</sub> ) / r<sub>e</sub> ) </i></blockquote>
+
+<!-- <ul><img src="image062.gif"> = modified Q<sub>es</sub> = Q<sub>es</sub> <img src="image064.gif"></ul> -->
+
+<p>However, here we now define R<sub>X</sub> as the total shunting impedance. Modified Q<sub>es</sub> is directly proportional to R<sub>X</sub> and modified Q<sub>ts</sub> is directly proportional to modified Q<sub>es</sub>. Given that </p>
+
+<blockquote><i>&alpha; = Vas / V<sub>b</sub></i></blockquote>
+
+<p>then</p>
+
+<blockquote><i>Q<sub>tc</sub>&sup2; = ( &alpha; + 1 ) * ( Q<sup>*</sup><sub>ts</sub> )&sup2;</i></blockquote>
+
+<!-- <ul><img src="image068.gif"></ul> -->
+
+<p>and therefore</p>
+
+<blockquote><i>Q<sub>tc</sub></i> is directly proportional to <i>R<sub>X</sub></i></blockquote>
+
+<p>Using phasor algebra, I calculated total shunting impedance of the <i>pikku 9</i> based on the equivalent circuit of Figure 4 for frequency equal to 40 Hz, 80 Hz and 200 Hz. For each frequency I calculated modified Q<sub>es</sub> as a function of the magnitude of total shunting impedance R<sub>X</sub> and then solved for modified Q<sub>ts</sub>.. Finally I solved for Q<sub>tc</sub>. The result of these calculations is shown graphically at Figure 5 and indicates that, for frequency
+decreasing from 200 Hz, increasing Q<sub>tc</sub> or resonance magnification might act to extend bass response. </p>
+
+<p>The above calculations only take into account the magnitude while disregarding phase angle of shunting impedance. The phase of the generated electrical signal is not 180&deg; out of phase with the applied electrical signal where the phase angle of total shunting impedance does not equal 0&deg;. The extent to which the opposing or generated electrical signal varies from 180&deg; out of phase with the applied electrical signal decreases damping which is the same as increasing Q<sub>tc</sub>. It is therefore suspected that the variation of Q<sub>tc</sub> of the speaker system of Figure 2 in the bass range is probably in reality greater than indicated at Table 1 and Figure 5. Where frequency is greater than 500 Hz resulting in X<sub>CT</sub> being negligible with respect to the resistance of resistor R2, then Q<sub>tc</sub> is less than 0.6.</p>
+
+<hr><a id="a9"></a><b>9 &nbsp; Sensitivity of the <i>pikku 9</i> System</b>
+<p>Placing a sound level meter very close to woofer LS1 and applying a 1 kHz sine wave signal at input to the system, I extrapolated to get a sensitivity figure of 76 dB at 1W/ 1M. Note that this value of sensitivity is very nearly equal to the sensitivity of LS1 equal to 86 dB minus 20log<sub>10</sub> of 0.33 or the maximum voltage-attenuating factor of the response-shaping network of Figure 2.</p>
+
+<p>The most common reaction to my design of Figure 2 thus far has been that the sensitivity is too low for it to be considered practical and that therefore response shaping should occur at line level prior to power amplification. Here I want to show that sensitivity of my design is not debilitating. In the next section I suggest that it may be quite beneficial to propose a speaker system that presents a load to power amplifiers that is less complex than that of most other systems. </p>
+
+<p>The following analysis is according to that given by V. Capel [<a href="#ref"> 1</a>] in chapter 6 of his book. A closed-box system is a monopole sound source when reproducing signals of a wavelength surpassing the dimensions of the box. For this type of source, SPL drops by 6 dB for each doubling of distance from it at distances greater than 1 metre. </p>
+
+<p>To increase the level of the system of Figure 2 to 87 dB at 1 meter requires increasing input wattage by 11 dB, which means that input wattage must be increased from 1W to 12.6W. To maintain SPL equal to 87 dB listening 2 meters (or 6.6 feet) distant from it requires increasing input power fourfold or to 50.4W. Listening to a pair of the system of Figure 2 at a distance of 2 meters increases SPL to 90 dB or that of a symphony orchestra playing at the loudest level heard from a good seat in a concert hall with good acoustics. Thus an amplifier rated at 50W to 60W per channel RMS into a 4 ohm load is adequate to drive the system of Figure 2 to loud levels. Amplifiers currently available with this power rating or better are not uncommon nor especially expensive.</p>
+
+<hr><a id="b10"></a><b>10 &nbsp; Reactive loading and amplifier distortion</b>
+<p>Referring to the complex impedance of a loudspeaker, Vance Dickason states [<a href="#ref">2</a>] that, "Phase angles in excess of 40&deg; at low frequencies, and the same at frequencies about 1-2 kHz, can be considered as a somewhat difficult load for an amplifier to drive." Also on p.129 of the same book he says "The extent to which the load is either capacitively or inductively reactive at different frequencies determines how happy or unhappy an amplifier will be driving a particular loudspeaker."</p>
+
+<p>Michael Renardson in his paper [<a href="#ref">3</a>] states that, "Although many loudspeakers are specified as having an impedance of 8&Omega; there is usually large variation throughout the audio frequency range with typical variations in a given loudspeaker from 5 to 40 ohms and significant reactive components. The distortion produced by an amplifier with a loudspeaker load will therefore be different from that with an 8 ohm resistor and the total harmonic distortion figure is typically 10 dB higher over much of the frequency range and in some cases considerably worse."</p>
+
+<p>Impedance of woofer LS1 of Figure 4 equals 10&Omega; at a frequency of 150 Hz, increases to a maximum of 29&Omega; at 80 Hz and equals 21&Omega; at 60 Hz. Thus, without excessive impairment of the accuracy of the analysis, the phase angle and impedance of the load presented to an amplifier driving the speaker system of Figure 4 can be calculated disregarding the impedance of LS1 connected across the series connection of capacitors C1~ C4 and resistor R2. At frequency equal to 40 Hz and 55 Hz, phase angle of the response-shaping network consisting of resistor R1, capacitors C1~ C4 and resistor R2 equals (respectively) 45&deg; and 36&deg;. At frequencies greater than 500 Hz the phase angle is 0&deg;. Impedance of the response shaping network at frequency equal to 40 Hz and 500 Hz is respectively 6.4&Omega; and 4.5&Omega;.</p>
+
+<p>For frequency equal to or greater than the cut-off frequency f<sub>3 </sub>of the system of Figure 2 or 55 Hz, the phase angle of the load of that system is less than 40&deg; and thus according to Dickason should be less of a difficult load for an amplifier to drive than is sometimes encountered. Variation of impedance of the system of Figure 2 is only from about (slightly less than) 4.5&Omega; to 6.4&Omega; which is much less of an impedance swing than normal. The small impedance swing of the system of Figure 2 presumably reduces total harmonic distortion based on the statement of Renardson. </p>
+
+<p align=center><img border="1" src="pikku-f5.gif" alt="Figure 5"><br>
+<b><small>Figure 5 - Estimated Q<sub>tc</sub> of the <i>pikku 9</i> System of<br>
+Figure 2 as a Function of Frequency in the Lower Bass Range</small></b></p>
+
+<hr><a id="b11"></a><b>11 &nbsp; Additional notes on the <i>pikku 9</i> (See Figure 2)</b>
+<p>Nominal impedance of tweeter LS2 is 8&Omega; and reactance of capacitor C6 is 8&Omega; at 4 kHz. Thus the crossover frequency of the first order high-pass filter consisting of capacitor C6 in series with tweeter LS2 is 4 kHz. Tweeter LS2 is reverse-wired (+ speaker terminal to - input). Resistor R3 and capacitor C5 connected in series across the input terminals of woofer LS1 are a Zobel network compensating for rising impedance of LS1. The values of R3 and C5 indicated at Figure 2 are less than recommended by rules of thumb and were arrived at by trial and error.</p>
+
+<p>At a frequency equal to 4 kHz, the reactance of inductor L1 equals 4.3&Omega; and thus is nearly one-half the nominal 8&Omega; impedance of woofer LS1. However the crossover frequency of the low-pass filter consisting of choke L1 in series with woofer LS1 still is equal to about 4 kHz due to the influence of the Zobel network.</p>
+
+<p>Resistors R1 and R3 cannot be installed inside the closed box of the speaker system and must be ventilated as they dissipate considerable heat when the speaker system is driven at high volume.</p>
+
+<p>Shown at Table 1, half-power frequency f<sub>3</sub> of the <i>pikku 9</i> is almost half that of the control speaker system. At Figure 3, sound intensity output of the <i>pikku 9</i> doesn't exceed +1 dB. Thus I consider the type of passive bass-boosting network presented here as a successful solution to the problem of extending the bass response of small closed-box speaker systems where reduced power handling can be tolerated.</p>
+
+<hr><a id="b12"></a><b>12 &nbsp; Appendix (ESP)</b>
+<p>As noted in the introduction, the equalisation can be done at line level, using a network between the preamp and power amp. You will still need to adapt the amplifier (using current feedback derived from the speaker return lead) to present the desired impedance to the loudspeaker. This method allows maximum efficiency from the speaker system, but because of the bass boost circuit, the low end of the signal will cause the amplifier to clip much earlier than normal. The main benefit is that you don't need the high power resistors and large capacitance. The crossover is still needed, naturally enough (you may want to try a series connection for the crossover, but that will require some additional changes).</p>
+
+<p align=center><img border="1" src="pikku-f6.gif" alt="Figure 6"><br>
+<b><small>Figure 6 - Line Level EQ Circuit</small></b></p>
+
+<p>Figure 6 shows a line level implementation of the equalisation network. Response is almost identical, and is easily tailored during the experimentation phase using trimpots. Response is almost unaffected with any power amplifier input impedance of 10k or more, so it is easy to integrate. Source impedance should be as low as possible, but almost all transistor or IC preamps will have no trouble. If you use a valve (tube) preamp, then you will need a buffer stage before the equaliser.</p>
+
+<p align=center><img border="1" src="pikku-f7.gif" alt="Figure 7"><br>
+<b><small>Figure 7 - Power Amp With 3 Ohms Output Impedance</small></b></p>
+
+<p>Note that the amp circuit is shown with the equalisation network at the input. The power amp is simply shown as an opamp in the above, but the process will work with almost any amplifier. Of the ESP projects, you could use P3A, P19, P27A (guitar amp), P72 or P101 with no major problems at all.  The gain as shown is 22dB (~12.4) at 1kHz with a resistive 8 ohm load, but this will change if load impedance is varied. This is normal for any amp with a defined (high) output impedance. The gain at 50Hz is 28.5dB (26.6) because of the filter network.  With C2 at the more typical value of around 220uF, the EQ circuit applies bass boost all the way down to below 10Hz (the speaker level circuit does the same thing). This is likely to cause unwanted and possibly excessive cone movement at frequencies that the driver cannot reproduce, and may cause more intermodulation distortion than might otherwise be the case. Reducing C2 to 10uF creates a high pass filter, limiting the total bass boost to about 6dB, and rolling off below 35Hz.</p>
+
+<p>There are no losses in this implementation, other than the normal losses within the amp itself. It is important to understand that the maximum power rating of the speaker should not be exceeded, or you will get considerable intermodulation distortion because of speaker overdrive. Like Peter's implementation, this version should only be considered as a low level system, although one can expect an average SPL of around 90dB at the listening position quite easily.</p>
+
+<hr><b>References</b>
+<a id="ref"></a><ol>
+  <li>V. Capel, An Introduction to Loudspeakers and Enclosure Design, Chapter 6</li> 
+  <li>Vance Dickason, Loudspeaker Design Cookbook (p.130) - Fifth Edition, Old Colony Sound Lab, Peterborough, NH, USA 1997</li>
+  <li>Michael Renardson, <a href="http://www.angelfire.com/ab3/mjramp/distortiontest.pdf" target="_blank">Distortion Measurement In Audio Amplifiers</a></li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Peter H. Lehmann (and Rod Elliott as editor), and is Copyright &copy; 2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Peter H. Lehmann)  grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Peter H. Lehmann and Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Copyright &copy;  2004- 2006 Peter H. Lehmann, Rockport ME, USA. All rights reserved. Page created and copyright &copy; 11 June 2006</div>
+</body>
+</html>

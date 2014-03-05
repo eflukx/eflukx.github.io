@@ -1,0 +1,142 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="crossover, linkwitz, riley, 4-way, amplifier, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - 4-Way Linkwitz-Riley Crossover (LRX424)">
+	<!-- ESP Audio Projects - 4-Way Linkwitz-Riley Crossover (LRX424) -->
+	<title>Project 125</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 125&nbsp;</td></tr></table>
+
+<p align="center"><b>4-Way Linkwitz-Riley Crossover (LRX424)</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html#p125" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for this project. Click the image for details.
+
+<hr /><p><b>Introduction</b>
+<p>Project 09 has been very popular since it was first introduced, back in 1999. It's still just as valid as it ever was, and is ideal for being incorporated into preamps and power amps. Being 2-way, many people have had to assemble up to 3 boards to get a full 4-way active system operational. Hardly a great chore, but there are very good reasons to have an alternative. The alternative is a 2, 3 or 4-way mono system, designed so that each speaker has its own crossover - just add the amplifiers of your choice. The photo below shows the completed board. Only the muting relays have not been installed, but the board is fully functional, and has been tested. The photo shows the original PCB, but the new version (without errors) is almost identical to look at.</p>
+
+<p class="t-pic"><img src="p125-pic.jpg" alt="Photo" border=1><br />Photo of Completed P125 Board</p>
+
+<p>This project is based on the P09 circuit, and is similarly flexible. The difference is that this is a full 4-way crossover, and has optional level controls for each frequency band. Each band can also be trimmed so that a reference setting is available, and it includes a volume control too. For people who wish to make a panel that's a bit out of the ordinary, the board even has provision for LEDs next to each control to backlight the knobs.
+
+<p>It includes muting relays, so opamps that insist on squeaking as the DC voltage falls will be suitably silenced. With on-board regulators, it's ready to be installed into a 4-way active system. It's easily reconfigured as a 3-way or even a 2-way system, and in both cases can have a subwoofer output or a high pass filter to prevent over-excursion of the bass driver.</p>
+
+<p class="t-pic"><img src="p125-f1.gif" alt="Fig 1" border=1><br />Figure 1 - LRX424 Block Diagram</p>
+
+<p>The block diagram shows the sections of the crossover. Frequencies can be set as desired for the application, and as noted above it can be configured for anything from 2-way to 4-way. For 2 or 3-way operation, the remaining filter section(s) can be used either as a subwoofer output or a high pass filter for the low frequency output. A 2-way system can have a subwoofer output that includes the final high pass filter. This would normally be tuned to around 25Hz, or other frequency to suit the subwoofer being used.
+
+<p>In a case such as that described above (2-way system with sub), the high output feeds the tweeter amp, hi-mid feeds the woofer amp, low-mid feeds the subwoofer section and the low output is not used. I recommend that all components be installed anyway, because it can always be reconfigured to full 4-way at some later date.
+
+<p>It is also possible to simply sum outputs using 10k resistors. For the 3-way (2-way + sub) described above, the sub crossover frequency is determined normally (typically around 60-80Hz). The hi-mid and lo-mid are then summed, so response extends from the sub frequency right through to the tweeter frequency. Listening tests indicate that the phase shift from the crossover <i>might</i> be audible, but in 99% of cases you probably won't hear it.</p>
+
+<hr /><b>Description</b>
+<p>The circuit is straightforward, but there are some parts that require explanation - especially the configurations for 2-way and 3-way. The first stage is a balanced input. This can be wired for unbalanced if you prefer, but if used in a speaker box there are good reasons to use a balanced input. Because the interconnects may be fairly long, using balanced a connection helps guard against noise pickup.
+
+<p>The second stage is a simple non-inverting amplifier, and is configured for the gain you need. The default (as shown below) is 6dB, but this can be increased or reduced to suit your application. The gain stage is located after the volume control, so there should be little risk of overload.</p>
+
+<p class="t-pic"><img src="p125-f2.gif" alt="Fig 2" border=1><br />Figure 2 - Balanced Input, Volume &amp; Gain Stage</p>
+
+<p>The balanced input stage is normally operated with a gain of 6dB. With this design the gain can be changed by changing R5 and R7. Higher values will increase gain and vice versa. Both resistors must be exactly the same value for good common mode rejection. In general, I don't recommend that these resistors be greater than 22k (gain of about 10dB), as there is too great a risk of input overload with high level signals. A balanced input of 2V RMS will give almost 6.3V RMS with R5/7 at 22k.
+
+<p>Linear pots are recommended throughout for greater predictability. U1B is an amplifier stage, with a gain of 2 (6dB). This drives the filters and is altogether unremarkable.</p>
+
+<p>The filter sections are shown below. These are essentially identical to those used in P09. All filters are 24dB/octave Linkwitz-Riley alignment, and frequency is determined by the resistor and capacitor values. The values marked RH and CH are for the high frequency section, RM and CM are for midrange, and RB and CB are the bass section.
+
+<p class="t-pic"><img src="p125-f3.gif" alt="Fig 3" border=1><br />Figure 3 - Filter Sections</p>
+
+<p>The high frequency section is taken off first, because this is the one most likely to be affected by any opamp distortion (which should be negligible however). Of more importance is audible opamp noise. High frequency noise is the most audible, so the fewer opamps adding their contribution the better. The remaining sections are cascaded, and since noise is nowhere as audible at the lower frequencies, this will introduce very little by way of noise or distortion. The opamps all operate as unity gain buffers, so have the maximum possible feedback and distortion that should remain below the threshold of most distortion analysers.</p>
+
+<p class="t-pic"><img src="p125-f4.gif" alt="Fig 4" border=1><br />Figure 4 - Presets, Level Controls, Muting &amp; Buffer</p>
+
+<p>The pots marked PS1 (etc) are level presets for each frequency band. These can be set so that it's always easy to return to the calibrated reference setting, simply by returning the frequency band level pots to the maximum position. All individual filter level and preset controls should be linear.
+
+<p>If the level controls are not needed, they may be omitted. The 'top' of the pot is simply jumpered to the wiper. Likewise, if the volume control isn't required, it is jumpered in the same way. If no volume control is used, make sure that the gain is kept low - this should be a maximum of 6dB - just enough to replace the losses at the presets - assuming that they will be operated somewhere near the middle of their range.</p>
+
+<p class="t-pic"><img src="p125-f5.gif" alt="Fig 5" border=1><br />Figure 5 - Power Supply, Mute Control &amp; Optional LEDs</p>
+
+<p>The power supply is conventional, and just uses a pair of regulator ICs. Don't attempt to use the low-power regulators, as the current drain is too high. Total current depends on the opamps used, but a safe estimation is perhaps 2mA for each opamp (4mA per DIP8 package). On this basis, there are 10 dual opamps, so current will be up to around 40mA (excluding LEDs if used). If the DC supplies to the PCB are around &plusmn;25V (recommended), regulator dissipation will be about 400mW. For reference, the test unit draws 25mA without LEDs.
+
+<p>The mute relay circuit needs some explanation. Q1 is used to detect when there is an appreciable voltage across the negative regulator IC (U12). When the supply voltage is below the regulation threshold, Q1 will be turned off, so the relays are de-energised, muting the output. Once there is ~3V or more across U11, Q1 turns on, activating the relays and removing the short to earth. Normal operation is then enabled. When the power is turned off, Q1 will release the relays as soon as the voltage falls below ~3V. This releases the relays, shorting the signal to earth and preventing any untoward noises from getting through. Not all opamps need the mute, but if you use TL072 opamps, it is generally required because they do make silly noises as DC supplies fall below about &plusmn;6V. I used 4558 opamps for the prototype (similar to the TL072, but with bipolar inputs), and they make no odd noises at all.
+
+<p>The LEDs are optional, and are only needed if you wish to illuminate the panel from behind. Otherwise, they may be omitted. I recommend high brightness LEDs, because they require much less current for the required light level. The more current drawn by the LEDs, the greater the dissipation in U11 and U12 (the regulator ICs). In case you were wondering, the LEDs run from the regulated supplies so that their PCB tracks can't inject any noise into the audio sections.</p>
+
+<p class="t-pic"><img src="p125-f6.gif" alt="Fig 6" border=1><br />Figure 6 - Measured Response of Test Crossover</p>
+
+<p>The graph shown above is the measured response of the unit pictured. No attempt was made to select optimum crossover frequencies, and as shown they are set for 62Hz, 300Hz and 2.8kHz. The 300Hz filters are actually a bit too low - these should be raised to about 600Hz which would give less interaction of the filters. Since this unit was built primarily so intending constructors could see the finished board and so I could verify that all construction information is correct, I wasn't too concerned about selecting optimum frequencies.</p>
+
+<hr /><b>Construction</b>
+<p>Construction without the PCB is not really recommended because of the number of devices needed. The final version of the boards is now available. The earlier boards (with mistakes) that I made available for a reduced price because sold out very quickly, but the new ones are a stock line. There is one section on the board that is not normally required, and the details are not included in the above diagrams. The construction pages do have the complete circuit though, and it can be included if desired. As always, full construction details are available in the secure section.
+
+<p>Because this is a relatively complex circuit, the PCBs are double sided, with plated-through holes. A single-sided board would require many jumper wires, and would be considerably larger. The PCBs available measure 141 x 70mm.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2009. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott, 12 October 2009./ Updated 13 March 2010 - new PCBs available - diagrams amended to suit.</div>
+</body>
+</html>

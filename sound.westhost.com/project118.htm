@@ -1,0 +1,134 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="PWM, class-d, digital, amplifier, amp, subwoofer, chassis, aluminium, aluminum, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="Audio Projects - Simplest ever PC peripheral switching unit">
+	<!-- Audio Projects - Simplest ever PC peripheral switching unit -->
+	<title>Project 118 - PC Peripheral Switch</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 118&nbsp;</td></tr></table>
+
+<p align="center"><b>Simplest Ever PC Peripheral Switch</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>While the load sensing switching unit (<a href="project79.htm">Project 79</a>) has been fairly popular and works well, it can be a pain when used with PCs using ATX type power supplies - which is almost all of them now. Having been driven nuts on occasions by mine (and the one I built for my partner) sometimes failing to switch off, or switching on momentarily due to a "power surge", it was time to do something about it.
+
+<p>This project couldn't be any simpler if it tried. Using the PC's internal 12V supply to operate a relay, it is 100% reliable. If the PC is on, the peripherals are on and vice versa - it can't be otherwise (unless the relay fails).
+
+<p>Other solutions have been suggested in magazines and the like, often using a USB port. The problem is that some PCs don't switch off the 5V supply to USB devices even when the PC is off. The auxiliary supply within the ATX power supply unit maintains a low power 5V supply all the time, and this is sometimes used for the USB ports to charge cordless mouses (meece?) or other devices.</p>
+
+<p>I use my unit to switch off the power to my monitor and PC sound system, and the one I built for SWMBO (she who must be obeyed) shuts down her modem and printer. Any peripheral device can be controlled provided the total current rating for the power board is not exceeded. Naturally enough, additional units can be used if you need to switch off a lot of equipment - the relay loading on the 12V supply is minimal, so several relays can be used if needed.</p>
+
+<hr><table width="100%"><tr><td width="6%"><img src="mains.gif" alt="MAINS!"></td><td><b><font color="red">WARNING: </font>&nbsp;<small> This circuit requires experience with mains wiring.&nbsp; Do not attempt construction unless experienced and capable.&nbsp; Death or serious injury may result from incorrect wiring. In some locations it may be illegal to work on or modify mains powered equipment unless licensed. Ensure you know the regulations that apply where you live, and if modifications like this are not allowed, do not build this project.</small></b></td></tr></table>
+
+<hr><b>Project Description</b>
+<p>The nice part about this little project is that there is almost nothing needed in the PC, and the adapter (shown below) can be installed or removed with no evidence it was ever there. This is useful if your machine is still under warranty.</p>
+
+<p align="center"><img src="p118-f1.jpg" border="1" alt="Figure 1"><br><b><small>Figure 1 - PC Wiring Loom and Connector</small></b></p>
+
+<p>There is nothing special about the PC wiring, but it is a very good idea to make sure that the 3.5mm socket is insulated from the panel. Although the polarity is not important, it is strongly recommended that the black lead (earth / ground) connects to the jack sleeve (the threaded section that goes through the panel). The +12V supply connects to the tip. If you happen to get it wrong somehow, the insulation will prevent a short circuit of the 12V supply. If the supply is shorted, it will probably cause an instant supply shut-down and possible data loss.</p>
+
+<table>
+  <tr><td valign="top"><img src="note.gif"><td valign="top"><b>Please Note</b> &nbsp; Although not shown in the PC wiring loom above, it is essential that you use a 1A in-line fuse in the +12V supply lead. I have been advised by a reader that many PC power supplies have no current limiting for the 12V supplies, and an accidental short-circuit can cause extremely high current to flow. This will cheerfully burn the insulation off the wiring, and may also damage the power supply.<br><br>
+
+As an alternative to a fuse, a fusible resistor may be used. A 10 ohm fusible resistor will limit the maximum current to 1.2A (at almost 15W) which will protect wiring and the power supply. You could also use a 10 ohm 10W resistor. Normally, it will remain completely cold, but will provide protection in case of a fault. Unlike a fuse or fusible resistor, the 10W resistor will not fail but it <i>will</i> get very, very hot if the fault is maintained. I'll leave it to the individual to decide which method to use, but one of the methods described must be used.
+</table>
+
+<p>As you can see, I used masking tape as an insulator. After drilling and de-burring, I wrapped the bracket with 4 turns of ordinary masking tape. You can use anything you like here, but be sure to check that the insulation is intact before connecting the unit to the PC. From the socket, run a couple of wires for +12 and earth (ground) to a male line connector to match a spare disk connector, and that's it for the PC side of the project.</p>
+
+<p align="center"><img src="p118-f2.jpg" border="1" alt="Figure 2"><br><b><small>Figure 2 - Power Board Wiring</small></b></p>
+
+<p>Above, you can see the modifications made to the power board I used. The end socket's connections were cut off, and the lead from the circuit breaker (normally installed in Australian power boards) connects to the relay, and then to the active contact strip. The only change made to the neutral and earth strips was to remove the connections for the last socket. The (now unused) holes for the last socket should be blanked off, and the unit clearly marked as being modified.</p>
+
+<p>The mains switching uses a relay. The relay must have a 12V coil, and contacts rated for at least your mains supply voltage, with a current rating that will accommodate the maximum expected current. The relay can be incorporated into a standard multi-way power distribution board, but you will probably need to remove the wiring to the last outlet to provide room for the relay and input socket. Note that the wiring shown in the grey shaded section must be <i><u>totally</u></i> separated from the mains wiring as shown above. This is the safety barrier, and it is imperative for your safety (and that of others) that no part of this wiring should be anywhere near the mains distribution. I suggest that a minimum clearance of 10mm be used between the mains and control wiring.
+
+<p>No diode is needed for the relay because it connects directly to the power supply, and the power supply's filter capacitor will prevent any back EMF from causing damage. This makes the project simpler, because you don't have to worry about polarity (this would be very important if a diode were used).</p>
+
+<p align="center"><img src="p118-f3.gif" border="1" alt="Figure 3"><br><b><small>Figure 3 - PC and Power Board Schematics</small></b></p>
+
+<p>Most boards are plastic, but if the casing for the distribution board is metal, make sure that it is properly earthed, with a good solid connection that cannot come loose in use. Such boards should already have an earth connection, but this depends on local regulations which vary widely.
+
+<p>Although standard 3.5mm sockets can be used at both ends of the interconnect lead, remember that they usually cause a short as they are inserted or removed, so you may prefer a fixed lead from the distribution board, or use a connector that cannot short the leads. The PC power supply will usually survive a short, but even a momentary short may cause a machine reboot and loss of data.</p>
+
+<hr><b>Construction</b>
+<p>The overall construction of the PC wiring can be gleaned pretty well from the photos and schematic. Most PCs have a spare disk DC connector, and the line plug in the PC is female, so you need a male line socket to connect to the jack on the blank panel. With all ATX power supplies I've seen, the yellow lead is +12V and the black leads are zero volts (ground). If you are unsure - check first.</p>
+
+<p align="center"><img src="p118-f4.jpg" border="1" alt="Figure 4"><br><b><small>Figure 4 - Modified Australian Distribution Board</small></b></p>
+
+<p>With most boards, it will be necessary to remove the plastic connection supports to make space for the relay. This can be done with long-nose pliers and side cutters, or you can use a rotary tool if you choose. Make sure that the relay used has reinforced insulation between the coil and contacts - most do, but if you are uncertain don't use the relay. Get another, and verify that it is suitable from the specification sheet. Mains relays should have at least a 2,000V breakdown rating between coil and contacts. <i>Never</i> use a relay where the contact and coil connections are not separated by <i>at least</i> 5mm, preferably more.
+
+<p>The relay can be attached using double sided tape or hot melt glue (or both). Epoxy is more secure, but you won't be able to salvage the relay (or replace it if it fails) if a permanent adhesive is used. Make sure that the unused socket holes are securely blanked off so no-one can force a plug into the unused socket. This may dislodge the relay and could compromise safety.
+
+<p>Remember that a mistake could cause serious injury or death - this is not something for inexperienced constructors despite its apparent simplicity. Electrical safety is of the utmost importance, so unless you are experienced or a licensed tradesman, do not build this unit. Make sure that any modifications don't violate the law where you live, and never exceed the rated current of any power distribution board - modified or otherwise.
+
+<p>Note that the power boards available where you live may not be suitable for modification, or could be very different from the one shown above. The one I modified is a standard Australian power board. Also note that many such units use security screws to prevent you from dismantling them (mine did). You will need the appropriate security fastener driver to remove and replace the screws if this is the case.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 04 Dec 2006</div>
+</body>
+</html>

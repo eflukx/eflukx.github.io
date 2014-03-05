@@ -1,0 +1,246 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="ESP Clock Information - Alternating polarity clock motors, slave clocks - How to drive them.">
+	<!-- Alternating polarity clock motors, slave clocks - How to drive them -->
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="ROBOTS" content="all">
+	<title>Alternate Impulse Morors</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img src="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table width="100%" bgcolor="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td align="right" class="hdrr">Alternating Polarity Clock Motors&nbsp;</td>
+</tr></table>
+
+<p align="center">Rod Elliott<br />
+<small>Page Created 23 January 2010</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr />There seem to be quite a few slave clocks starting to appear, but the biggest problem is how to drive them. Some (like the Synchronome slaves) use a pulse of current created by the master, but there are many others that require an alternate polarity for each impulse. The most prolific motor of all that uses this technique is the common quartz clock, but the method used to derive the signal is hidden from view, and lurks under a blob of epoxy resin on the printed circuit board. Even if you could see it, the IC is utterly inscrutable and nothing useful can be gleaned from it.
+
+<p>Making matters worse, some of the alternating polarity slave clocks expect a specific current (perhaps around 200mA), while others are designed for a particular voltage. The latter can range from a few volts to 50V or more. In reality, <i>all</i> of these motors expect a current - the voltage is only a requirement to ensure that sufficient current will flow to make the motor turn 180&deg;. In some cases, you might find the coil resistance printed on the outer insulation (or elsewhere), but much of the time there is nothing at all.
+
+<p>This article looks at how you can determine the proper voltage and current needed to make the motor turn, and ways that the alternating polarity signal can be created. While mechanical (or electro-mechanical) systems can work very well, the master clocks that generated alternating current pulses can be extremely difficult to adjust properly. This assumes that someone before you hasn't removed the contacts and actuators completely, and that you have the correct master clock.
+
+<p>Here, it is assumed that you have a single momentary contact closure at the appropriate interval (30 seconds is common), and ideally that the contacts are not part of the electrical wiring scheme. Where the contacts are in series with the master clock reset mechanism <i>and</i> the slave clock as was typical with Synchronome master clocks, and alternative is shown. We simply use a resistor to derive a voltage from the coil current.</p>
+
+<hr /><b>What Voltage?</b>
+<p>The first thing you must do is work out what voltage (or current) you'll need to make your slave motor turn 180&deg;. For this, you need a multimeter and a simple variable power supply. Since most simple power supplies only provide up to 12V or so, there will be many motors that will refuse to budge at that voltage. Some are designed for 24, 36 or even 48V DC operation.
+
+<p>Set the multimeter to the ohms range, and measure the resistance of the coil. It may range from a few ohms up to 3,000 ohms (3k) or more. If you can see the winding wire this may give you a clue - thick wire means low resistance and therefore low voltage, thin wire means high resistance and (relatively) high voltage.</p>
+
+<table><tr><td valign="top"><img src="note.gif"><td><p><i>Never, <u>ever</u></i> connect any clock motor directly to the mains unless you are 110% certain that it was designed for mains operation, that the insulation is sound (so you aren't electrocuted on the spot), and that any unknown clock motor is being run at the correct voltage.
+<p>Any coil that uses thumb-screws or open connections of any kind was never intended to be connected to the mains supply. Even though the standards of yesteryear were pretty lax compared to the standards of today, at least an attempt to maintain safety was normal.</table>
+
+<p>Having taken a resistance reading, there is a reasonable chance that you can figure out an approximate voltage that will make the clock turn. Very few of the larger slave motors will turn with less than about 0.25 Watt of applied power, and few will need more than 1W. Lower resistance windings will generally require higher power. For example, if you have a motor coil that measures 3,000 ohms, you can work out the minimum and maximum voltage using the following ...</p>
+
+<table width="100%">
+<tr><td width=40><td width=250><p>V = &radic; P * R<td><i>Where V is voltage, P is power in Watts and R is coil resistance in ohms</i>
+<tr><td><td><p>I = V / R<td><i>Where I is current, V is Voltage and R is resistance</i>
+<tr><td><td><p>V = &radic; 0.25 * 3,000 = &radic; 750<td><p>27V at 0.25W
+<tr><td><td><p>I = 27 / 3,000<td><p>9mA
+</table>
+
+<p>The above is the minimum voltage I'd normally expect to provide reliable operation (rounded to the closest whole number). This coil is probably intended to be run from 36 or 48V - alternating polarity. To figure out the maximum, we use the same formula ...</p>
+
+<table width="100%">
+<tr><td width=40><td width=250><p>V = &radic; P * R
+<tr><td><td><p>V = &radic; 1 * 3,000 = &radic; 3,000<td><p>55V at 1W
+<tr><td><td><p>I = 55 / 3,000<td><p>18mA
+</table>
+
+<p>The same process may be applied to any coil, and unless the coil is very small indeed (like that in a quartz clock), pulses of up to 1W will not cause a problem if of short duration and there's a long period between pulses. A motor that's designed to operate each second can withstand less power than one that operates once every 30 seconds, so at times you'll need to make an educated guess.
+
+<p>If we look at another (hypothetical) motor, its coil is found to have a resistance of 12 ohms, and is reasonably large.</p>
+
+<table width="100%">
+<tr><td width=40><td width=250><p>V = &radic; 0.25 * 12 = &radic; 3<td><p>1.7V at 0.25W
+<tr><td><td><p>I = 1.7 / 12<td><p>142mA
+<tr><td><td><br />Or if operated at 1W ...<br /><br />
+<tr><td><td><p>V = &radic; 1 * 12 = &radic; 12<td><p>3.5V at 1W
+<tr><td><td><p>I = 3.5 / 12<td><p>291mA
+</table>
+
+<p>A normal operating impulse current or about 250mA would seem about right, from a 3V source. It is highly unlikely that such a motor would refuse to run with this voltage and current, but (assuming it's not seized of course) the only way to be certain is to test it.
+
+<p>As a matter of interest, the same approach may be taken with motors that are just simple solenoids (such as the standard Synchronome slave). It is important to realise that this is simply a guideline though - there were so many different types made that it is impossible to be able to provide definitive data without actually testing each and every variant. This is rather unlikely to put it mildly. In particular, spring-loaded solenoids can require a much higher voltage and current than you may imagine, and this is where a variable DC power supply comes in handy.
+
+<p>As for being able to work out the power that any given coil will take, I'm afraid that this is something that can only be determined from experience. The total power dissipation of any component is based on the duty cycle of the applied voltage. If voltage is present for half the time, then the power dissipation is half the power you'd have if it were there continuously. Likewise, if voltage is only present for 25% of the time, then average power dissipation is one quarter. As a <i>very</i> rough guide, a coil the size of a 1.5V AAA cell should not be expected to dissipate more than about 0.25W (or less if it's in a totally enclosed space). A coil the size of a C cell will probably handle 1W continuous, but it will get quite warm.
+
+<p>Occasionally, you'll get lucky - the photo below shows a Plessey motor assembly (1 second impulse, alternating polarity), and the coil is marked with the design voltage. If only this were more common, it would make life so much easier for those who are unfamiliar with electrical contrivances and their secret and mysterious modus operandi.</p>
+
+<center><img src="alt-f1.jpg" border=1><br /><b><small>Figure 1 - Plessey 1 Second Impulse Motor</small></b></center>
+
+<p>The Plessey motor is driven from the circuit described in the <a href="sync.html" target="_blank">Build A Synchronous Clock</a> article, except that the final drive voltage has been increased to about 22V - which is enough for reliable operation. Although the coil is marked 24V, it actually runs well on considerably less. A separate output drive circuit was needed for this motor, because the CMOS ICs used in the synchronous clock project cannot be used at more than 15V and can supply very little current.</p>
+
+<center><img src="alt-f2.jpg" border=1><br /><b><small>Figure 2 - Gent 30 Second Impulse Motor</small></b></center>
+
+<p>The Gent motor shown above is the one that sparked this article. The slave clock was sent to me by a very nice man in the UK, who charged only the postage cost. The slaves were being stripped from a factory and would have ended up as landfill if they hadn't been rescued. The coil resistance is shown as 3k, and while it's actually a little lower this is of no consequence. While I have tested this motor at 25V, it really does need closer to 36V to be completely reliable. In reality, anything over 30V should be fine.
+
+<p>These motors are not critical - as described above, running them at anything between 0.25W and 1W is perfectly alright. The only thing that <i>is</i> critical, is that the motor is 100% reliable at whatever voltage you end up using. This will generally be somewhere between the two limits of 0.25W and 1W for at least 95% of all motors. Naturally, they should be cleaned, lubricated and checked for any problems that may cause intermittent operation.</p>
+
+<hr /><b>Polarity Reversal</b>
+<p>To understand the principle of electronic (or relay) polarity reversal schemes, it may be beneficial to look at the process when used with simple switches. When all switches in Figure 3 are off, no motor current flows. If SW1 and SW4 are on, no current flows (likewise for SW2-SW3), because both ends of the motor coil are at the same voltage. SW1-SW2 on and/or SW3-SW4 on are "illegal" states, because they will short-circuit the power supply. The normal combinations will be all off, SW1-SW3 or SW2-SW4 on - each combination forces current to flow through the motor coil in the opposite direction to the other.
+
+<p>Most motors only require a momentary impulse. A 1 second motor might need 0.25s on-time, and a 30 second motor may need perhaps 0.5s. The remainder of the time, there is no current flow. This is the same principle as a quartz clock motor, but their on-time is much shorter because the motor is so tiny.</p>
+
+<center><img src="alt-f3.gif" border=1><br /><b><small>Figure 3 - Basic Polarity Reversal Technique</small></b></center>
+
+<p>For those unused to electrical drawings, the switches are all shown in the "off" state. This arrangement can be implemented with relays or specially arranged contacts in the master clock. If you don't have a master clock that includes the alternate polarity switches (or the mechanism has been butchered or removed), the least desirable way to attempt the alternate switching is to use relays. Not only do you have relays clattering away all the time, but the circuitry needed to drive them is fairly complex. While you might be able to source a specialty relay (called a bistable relay - it has two stable states), these are often difficult to obtain and can be very expensive. While they may be rated for a million operations, that doesn't mean much to a clock with a 1 second motor (it's a bit less than 12 days). Even 10 million operations is useless, so a better arrangement is needed.
+
+<p>Naturally, I would suggest that the better arrangement uses transistors for switching. Even if my whole life hadn't been spent working with electronics, I'd still come to the same conclusion. They have a virtually unlimited life, and are perfectly capable of outlasting the equipment in which they are installed (and they regularly do just that). They are also small and cheap, so building an electronic version of Figure 3 is dead easy to achieve. In addition, transistors are available that will handle any voltage or current that any clock motor may demand, and well beyond.</p>
+
+<hr /><b>Circuit Description</b>
+<p>While the switching itself is simple (as it is with relays), there is some additional circuitry needed to make the switches act the way that we need. There's nothing difficult about any of this, and it will form a valuable learning experience for those who build it.</p>
+
+<center><img src="alt-f4.gif" border=1><br /><b><small>Figure 4 - Transistorised Polarity Reversal</small></b></center>
+
+<p>Now, I do concede that it does look complex, but operation is quite straightforward. This arrangement is known as an H-Bridge, and is used in countless applications - power supplies, servo-motor control systems, and even audio amplifiers. There is no secret to its operation. Assume that there is initially no pulse at the "Pulse1" and "Pulse2" inputs ...</p>
+
+<ol>
+  <li>A pulse is applied to "Pulse1", which switches on Q1.
+  <li>The collector of Q1 now falls to almost zero, and a voltage now appears across R5, which passes current to Q3 which also turns on.
+  <li>Current flows from the positive supply, through Q3, to the "3" position of the clock motor, then through Q1 to earth (ground) - the negative supply.
+  <li>The pulse goes away after perhaps 250ms, so all transistors revert to the off state. Any back EMF from the clock motor is dissipated by diodes D1-D4.
+  <li>When a pulse is applied to "Pulse2", Q4 turns on, as does Q2. Current now flows through the motor in the reverse direction.
+  <li>The pulse goes away, waiting for the next pulse to appear at "Pulse1".
+</ol>
+
+<p>Just like the unit built from switches shown in Figure 3, the external circuit must never apply a pulse to "Pulse1" and "Pulse2" at the same time. This will cause all transistors to turn on, placing a near short-circuit across the power supply. Smoke is the inevitable consequence, as the transistors die painful little deaths. The period between alternate pulses is known as "dead-time" - a time where all circuitry is in its idle state. This is very important, because without the dead-time (which can be as low as a millionth of a second or <i>even less</i> in some circuits) bad things happen. In this case, the dead time saves power being needlessly converted into heat in the clock motor coil.</p>
+
+<table align="center" width=700 border=1 style="border-collapse: collapse">
+<colgroup span=4 width="25%">
+<tr><td><b>Voltage</b><td><b>R5 and R7</b><td><b>R1 (Figure 5)</b><td><b>R6 (Figure 5)</b>
+<tr><td>12 V<td>1 k<td>1 k<td>150&Omega; 0.5W
+<tr><td>24 V<td>2.2 k<td>3.9 k<td>390&Omega; 2W
+<tr><td>36 V<td>3.3 k<td>12 k<td>680&Omega; 5W
+</table>
+
+<p>All other component values remain unchanged. While I suggest the BC546 (NPN) and BC556 (PNP), any transistors with similar ratings will be fine. Diodes are all 1N4004 or similar, and the remaining resistors (not specified in the table) are as marked, and 0.25W or 0.5W. None are critical, and 5% tolerance parts are quite acceptable. This also applies to Figure 5, apart from R6.
+
+<p>It's also worth noting that while a relay based version of the above can be created, it will probably be more irksome to wire! You may not have fiddly electronic bits to worry about, but the interwiring of relays to achieve the required result needs two relays with changeover contacts, and these must be driven with alternating pulses in exactly the same way. The difference is that the relays draw far more power, won't last anywhere near as long, and are comparatively noisy. They will also almost certainly cost more, and you still need the diodes or the contacts will be eroded by the back EMF spark. There is a simpler way though, and this is shown further below.
+
+<p>Note that the process for driving a higher voltage motor (like the Plessey shown above) from a mains synchronous frequency divider is virtually identical to that shown in Figure 5 below. If you look at the <a href="sync.html" target="_blank">synchronous clock</a> article, the final drive to the clock motor is simply replaced by the circuit shown below. The final 4013 divider is used in exactly the same way, but drives the pulse generator (everything from Ct1 and Ct2 and to the right of the circuit).</p>
+
+<hr /><b>Alternating Pulse Generator</b>
+<p>While there are several ways this can be done, the most readily available and by far the cheapest is to use a couple of low-cost CMOS logic ICs. This method has the advantage of very low power consumption, absolute silence and (again) indefinite life. A bistable relay can be used, but as noted above, these are quite expensive, and require additional (relay) circuits to ensure that there is a "dead time" - the period between pulses where no current flows in the motor assembly. To add insult to injury, most bistable relays require an alternating polarity to the coil - <i>this is what we are trying to achieve in the first place</i>!
+
+<p>The IC that we use to generate the alternate is called a bistable. It's also called a flip-flop (old terminology), because it flips to one state and flops to the other. Note that you <i>cannot</i> use an Australian sandal (thong, aka flip-flop) to perform this task <img src="grin.gif">.</p>
+
+<center><img src="alt-f5.gif" border=1><br /><b><small>Figure 5 - Alternating Pulse Generator</small></b></center>
+
+<p>A voltage pulse (between 1.5V and 12V) is applied to the "Pulse+" input, and it is conditioned by transistor Q1. The output from Q1 is filtered with C1 to remove any noise, and is applied to the input of U1, a CMOS 4013 dual D-Type flip flop. Each pulse from the input causes the outputs to change state, so an output at 5V changes to 0V and vice versa. Positive going transitions only (from zero to 5V) cause U2A or U2B to force their output low, for a period determined by Rt and Ct. Two parallel sections of U2 are used to drive each pulse output to the circuit of Figure 4.
+
+<p>The transistor types you use and the resistor values needed depend on the applied voltage and the coil current. The following table gives some suggestions. It's assumed that the coil will operate with a voltage of between 12V and 36V. Although an example was calculated above for a low voltage coil, these are uncommon because high current means large voltage losses in the cabling. The standard Synchronome slave is low resistance, but if you have one of those, you don't need this circuit.
+
+<p>To use the above circuit for a 1 second impulse motor, you'll need to reduce the value of Ct1 and Ct2 to 1uF. If the motor twitches but doesn't move, increase the value. It's unlikely that you'll need to use more than 2.2uF though. No other changes should be needed.</p>
+
+<hr /><b>The Hard Way - Electro-Mechanical Switching</b>
+<p>Because many (most) clock enthusiasts are not into electronics, it may be felt that adding electronics to old master clocks is just not the done thing. While I agree, the circuitry described above is external, and can be removed at any time without affecting the look, feel or operation of the clock. Also, without electronics knowledge, it may be felt that dealing with small transistors and ICs is just too much hassle. (Anyone work on watches too?  Now, <i>that's</i> small and too much hassle! <img src="grin.gif"> ).
+
+<p>The first hurdle to overcome is to generate the alternating pulses, with or without any dead-time between contact closures. One possibility is to use mercury switches. As politically incorrect as they may be, there is no other switch that does the same thing quite as well. Mounting and activating will be something you need to experiment with, and it is not essential that the contacts break before make. There may be a period where both switches are making contact simultaneously, because we'll wire the relays differently so if both are closed it won't cause a problem. Activating the switches while removing the absolute minimum amount of power possible from the pendulum is something else that needs to be figured out for your clock.</p>
+
+<center><img src="alt-f6.jpg" border=1><br /><b><small>Figure 6 - Mercury Switches</small></b></center>
+
+<p>For reference, Figure 6 shows a pair of mercury switches. These ones are rather large, but you may be able to get smaller versions. Assuming that you can figure out an arrangement that will work reliably and not stop the clock, the remainder of the circuit can be built. Contact is via relays, and the complete circuit is shown below. While this seems a much simpler arrangement, you won't learn much from it and it may require periodic adjustment (mainly the mercury switches and pendulum activation mechanism). Unlike the electronic version, without dead-time this arrangement cannot switch the power to the coil off during the "resting" phase, so power consumption is higher and the motor coil will get warmer. Energy lost from the pendulum is likely to be considerable.</p>
+
+<center><img src="alt-f7.gif" border=1><br /><b><small>Figure 7 - Wiring Diagram For Electro-Mechanical Alternate Polarity</small></b></center>
+
+<p>TS1 and TS2 are mercury tilt switches. While the above looks simple, there will be a considerable amount of mechanical work needed. The mercury switch tilt mechanism has to be attached to the inside of the case so it will be flipped one way then the other as the pendulum swings (for a 1 second impulse), and all this without removing more than a tiny bit of energy from the pendulum. While a Hipp toggle activated Gent master clock can make up for lost energy, if the impulse period is decreased, timekeeping will suffer.
+
+<p>A Synchronome master impulses the pendulum every 30 seconds, and while it might be possible to arrange a mechanical toggle to flip the mercury switches back and forth each time the clock impulses, I don't much like your chances. Without a bistable relay, a 30 second clock will be difficult to use with 30 second alternate slaves, and even the relay needs to be driven somehow. Remember that the Synchronome loop is normally adjusted to ~350mA, but this current cannot be obtained through any normal relay coil. Even a 5V, 125 ohm coil would require 44V across it to obtain the 350mA loop current. There are other ways of course, and the normal solution would be to use an 18 ohm resistor in parallel with the coil. When this combination is wired in series with the clock's reset coils, the voltage will need to be 5V higher than before.</p>
+
+<center><img src="alt-f8.gif" border=1><br /><b><small>Figure 8 - Another Wiring Diagram For Electro-Mechanical Alternate Polarity</small></b></center>
+
+<p>Figure 8 does exactly the same thing as Figure 7, but the relays are switched by transistors. The oscillating contact is attached to the pendulum, and is itself (possibly, but not necessarily) a pendulum, but very small and light. The contact surfaces do not need to be especially wonderful, because the transistors do the switching and even a high-resistance contact (perhaps 1,000&Omega; or so) will still work perfectly. Because the transistors amplify the tiny current they get from the contacts, they are easily able to operate the relays. If the gain of the transistors is 100, then 1mA into the base will cause 100mA of collector current - more than enough to operate the relays.
+
+<p>As with anything that is attached to the pendulum, this arrangement will cause the period to change and will remove a small amount of power from the pendulum itself. This can be arranged to be extremely small though, but the details are left to the imagination of the constructor. Contact pressure must be a light as possible, but must make a positive contact at each and every swing. One possible material for the pendulum mounted contact is a short length of 400 day clock suspension spring.</p>
+
+<hr /><b>Power Supply</b>
+<p>While this should be simple, it is very often not. This is because a suitable power supply will almost certainly have to be built. If you are lucky enough to have a motor that will run from 12V it's too easy - just buy a 12V DC power supply and you're ready to go. 24V is trickier, and 36V more so. While you won't find too many motors that demand 48V, this is even more irksome. In general, anything above 12V DC means that you'll have to build a power supply.  This will usually mean that you'll need to work with mains voltages, and unless you know exactly what you are doing, this can be very dangerous.</p>
+
+<center><img src="alt-f9.gif" border=1><br /><b><small>Figure 9 - 16V DC and 32V DC Supplies Use 12V AC External Transformer</small></b></center>
+
+<p>The supplies shown in Figure 9 are both completely safe to build though, because they use an external transformer so no mains wiring is needed. The output voltages shown are nominal - they will vary with the load drawn by the circuitry and with variations of mains voltage. The 16V version is capable of a continuous load of at least 250mA, and can easily supply 0.5A peaks. The 32V Version will provide around 125mA continuous, with peaks of 0.25A.
+
+<p>Both supplies require a 12V AC external transformer rated for at least 1A output. The 2,200uF capacitors should all be rated for a minimum of 35V, although C3 (32V supply) would benefit from a 50V cap. Diodes should be 1N4004 or similar. There is nothing critical about these supplies, and the available current will normally be more than you'll ever need for one or more slave dials. Be very careful not to short-circuit the output, as you may damage the circuit or the transformer.
+
+<p>Note that with no load, the capacitors will remain charged for a long time. To discharge the supply prior to wiring it to the circuitry, use a resistor (around 100 ohms 5W will do nicely). Don't hold the resistor in your fingers though, as it may get quite hot as the caps discharge.
+
+<p>AC wall transformers are not usually available in a wide range of voltages, so the available DC voltage is limited by available voltages. 
+
+<p>For a wider range of possibilities, conventional transformers are needed, but at this stage, no specific details will be made available because of the need to work with mains voltages. If there is sufficient demand, I will add a couple of sample mains powered supply designs. The supplies shown above can also use conventional transformers, but I absolutely do not recommend that you attempt it. External transformers were specified because they require no mains wiring.</p>
+
+<hr /><b>Conclusion</b>
+<p>The electronic switching system appears complex, but is low cost and very reliable. Some fiddling will always be needed, because I can't anticipate every possible issue that may be faced. Provided your clock contacts have minimal contact bounce (which causes multiple pulses) it should work faultlessly. Should you see an occasional missed pulse (the hand won't move when it's supposed to), increase the value of C1 in Figure 5. Try 100nF (0.1uF) first - you might need anything up to 1uF for a 30 second motor.
+
+<p>To be able to incorporate an electro-mechanical solution <i>requires</i> that the clock itself is modified. While this may be possible, it will be difficult to make all modifications completely reversible, so the master clock can be restored to original if required. In contrast, the electronic method can use the existing impulse(s) ... some master clocks provide a variety of different impulses. Where a 1 second slave needs to be driven from a 30 second Synchronome, a tiny contact can be attached to the count wheel detent mechanism. With transistors, the contact can be high resistance if it likes, and it won't affect the circuitry. There is no need for silver or gold, any non-tarnishing metal can be used.
+
+<p>Pendulum swings can be sensed using a coil and magnet, or a LED and photo-transistor can be used. These are both non-contact methods, so cannot affect timekeeping. Care is needed with the coil and magnet arrangement though, because the magnet may cause problems. The disadvantage is that single-cell power supplies cannot be used with many of the possible arrangements (especially opto-coupled systems using LED and photo detector) because of the current drain. However, at this stage all details of how to do this are up to the constructor, since there are too many possibilities to try to cover.
+
+<p>The use of transistors for switching in any electro-mechanical clock may not be original, but gives advantages that are not possible by using "traditional" methods. Contacts in particular can be made to last forever, because the current is tiny and the only wear is mechanical. No sparks are generated, so there is no need for spark suppression circuits (although coils <i>must</i> have diodes in parallel or the transistor will be damaged).
+
+<p>Overall, the possibilities are almost endless, and depend on the master clock, the slave type (1s, 30s, etc.) and the operating voltage. Obtaining 30s impulses from a Synchronome or Gent master is usually easy because it is supplied as a matter of course. Obtaining 1s impulses will usually require additional contacts, and then if the slave needs alternating polarity pulses you have to go further again.
+
+<p>In some cases, it might even be better to build the <a href="sync.html" target="_blank">synchronous clock</a> circuit, especially for slave dials that accept a 1 second impulse. The mains is very stable, and you never have to worry about regulating the clock. I know it's cheating, but a nice slave that's working is far more interesting than one that sits there and does nothing.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index.html" onmouseover="document.b1.src='a.gif';" onmouseout="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt=">" border="0" height="24" width="40"></a><b>Clocks</b><br />
+<a href="../index2.html" onmouseover="document.b2.src='a.gif';" onmouseout="document.b2.src='a1.gif';">
+<img src="a1.gif" name="b2" alt=">" border="0" height="24" width="40"></a><b>Main Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2010. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and &copy; 23 January 2010.</div>
+</body>
+</html>

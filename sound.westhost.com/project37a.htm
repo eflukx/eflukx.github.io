@@ -1,0 +1,129 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="description" content="ESP Project Pages - Minimalist Discrete Hi-Fi Preamp. Visit my other pages for even more!">
+   <meta name="GENERATOR" content="Mozilla/4.77 [en] (Win98; U) [Netscape]">
+   <title>Minimalist Discrete Hi-Fi Preamp</title>
+<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 37, Revision A&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Minimalist Discrete Hi-Fi Preamp</b><br />
+(Discrete Opamp)
+<br><small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for the latest revision of this project. Click the image for details.<br>
+
+<hr><b>Introduction</b>
+<p>A preamp designed for the minimalist, and having no frills at all is the design goal for this project. It was originally designed as a preamp for the Death of Zen (DoZ) Class-A power amp (Project 36), and has very low levels of noise and distortion, in a minimum component count, fully discrete circuit. The Revision-A version dispenses with the single 30V supply, and can be used with the P05 power supply, or any other supply with low ripple and noise. Operation is permissable with supply voltages up to &plusmn;20V, allowing additional headroom.
+<p>This gain module can be used as the basis for any preamp - performance is exemplary, with low noise, wide bandwidth, and it sounds extremely good indeed.
+<p>You can add as many inputs as you need, and the only controls are volume and input selection. A power switch is also a good idea, but if you wanted to you could leave the preamp running all the time. This is not necessary, as it will reach a stable operating condition within a few seconds, and will not change its characteristics to any audible degree.</p>
+
+<center><table WIDTH="50%" border>
+<tr><td><table width="100%">
+<tr><td width="50%">Distortion</td><td>&lt; 0.01%</td></tr>
+<tr><td>Output Voltage</td><td>10.0 V RMS</td></tr>
+<tr><td>Output Impedance</td><td>200 Ohms</td></tr>
+<tr><td>Minimum Load</td><td>3k Ohms</td></tr>
+<tr><td>Frequency Response</td><td>10Hz - 100kHz (-0.1dB)</td></tr>
+<tr><td>Voltage Gain</td><td>10dB nominal</td></tr>
+<tr><td>Supply Voltage</td><td>&plusmn;15V</td></tr>
+<tr><td>Supply Current</td><td>&lt;10mA</td></tr>
+</table></td></tr></table></center>
+
+<p>The preamp can also be used with other amplifiers, and can drive an impedance of 3k Ohms with ease. As shown, frequency response is absolutely flat from 10Hz to 100kHz, without any frequency stabilisation required. The table shows the rated performance of the gain module.
+<p>Performance is almost identical to the original P37 published way back in 1999. The primary difference is that the new design can be used without any output capacitors, although I recommend that they be used anyway. Having any DC - even a few millivolts - across the volume pot will cause noise when the pot is rotated, and the caps ensure that this is eliminated. The main output coupling cap should be a bipolar (non-polarised) electrolytic, and the optional film bypass cap can be included if it makes you feel better (it won't affect frequency response though).</p>
+
+<hr><b>Description</b>
+<p>The circuit for the left channel of the preamplifier module is shown in Figure 1, and as can be seen is very simple. The PCB is recommended, as it makes construction very straightforward. This preamp relies on a completely hum free power supply, as it is not an integrated opamp, and cannot reject supply noise as well. This is not to say that the power supply rejection is especially bad, just that it is not as good as an opamp.</p>
+
+<p align="center"><img SRC="p37a-fig1.gif" ALT="Figure 1" BORDER="1">
+<br><b><font size=-1>Figure 1 - Gain Module</font></b></p>
+
+<p>Q2 and Q4 form a current source providing a bias current of about 7mA. This stage is not an amplifier, but an active (and very linear) load, allowing the amplifying transistor Q3 to provide a high gain with excellent linearity. Feedback is applied through R6, with R5 setting the AC feedback ratio and thus the voltage gain of the amp. The transistors Q2 and Q3 operate at about 100mW and will get slightly warm in operation.
+<p>The trimpot VR1 is used to set the voltage at the collectors of Q2 and Q3 to as close to zero volts as possible - this is easily measured at either end of R10. Each amplifier has its own independent adjustment. The bias current for each preamp module is bypassed to ground using C2 to help eliminate noise. If you really don't want to use a multi-turn pot, there is provision on the PCB for a conventional horizontal mounting single-turn trimmer. This will make setting the 0V level more critical, but if the output caps are retained a small DC offset is not a problem. When the pot is adjusted for 0V at the collector of Q3, there will typically be around 4.7V across C2.
+<p>The distortion of the preamp is reasonably consistent with both output level and frequency, and is typically less than 0.01%. I measured about 0.0075% - this is just above the residual of my signal generator (0.006%), so it is presumably much better than this, but I can't measure it. A rough guess would be the difference between the two, giving 0.0015%, but I prefer to err on the side of caution. Noise is also extremely difficult to measure - there simply isn't enough of it to obtain an accurate reading with my equipment.
+<p>Frequency response is flat to within -0.1dB from 10Hz to 100kHz, and even at 100kHz, square wave performance is almost perfect, showing slight rounding and no ringing or instability of any kind. Measured output impedance is 200 Ohms, and the circuit can drive 6 Volts RMS into a 3k Ohm load easily. These are excellent figures, considering the simplicity of the circuit. The gain is nominally 3.2 (10dB) as shown, and is easily changed by varying R5 - increase the value to decrease
+gain and vice versa. The PCB is 75 x 50mm, and has two complete amplifiers on the board.
+<p>As many preamp modules as needed may be used. For example, you may use one module before the volume control, and another after it to provide some additional gain and present a low impedance to the outside world. In many cases, the module will provide the only gain stage, and may be bypassed for high level signals (such as CD players) that have enough signal to drive the power amp directly. This is a great advantage for those who want the minimum number of components in line with the signal. The circuit cannot be direct coupled, however, since it has an inherent DC offset at the input. Polyester (or polypropylene if you must) caps can be used at the inputs, but for low impedance outputs, a bipolar electrolytic capacitors is recommended. These may be bypassed with 100nF polyester caps, but the frequency response is not altered to any significant degree (not measurable at 100kHz), and there is no measurable decrease in distortion with the bypass caps.
+
+<center><p><img SRC="p37a-fig2.gif" ALT="Figure 2" BORDER="1">
+<br><b><font size=-1>Figure 2 - Preamp Wiring Suggestion</font></b></center>
+
+<p>Figure 2 shows one channel of a suggested wiring for the preamp. This is duplicated exactly for the other channel, and the switch and volume control are common to both. The CD input bypasses all electronics and is applied directly to the  volume control, and the low level inputs use the gain of the modules to bring their level up to that of the CD player. This introduces a bit more switching, but many audiophiles will prefer this method. Note that when switched to CD, the input of the preamp is earthed to prevent any noise pick-up.
+<p>The switching requires a 4-pole, 5 position rotary switch for both channels, and a dual-gang pot. I strongly suggest that a linear pot is used, with the resistor as shown. Although this produces a variable impedance to the source, it is a better approximation of a log pot than those you can buy at normal outlets, and has much better tracking between channels. If you can get a conductive plastic logarithmic pot, do not use the resistor, as these are generally much better than the normal carbon film types, and the resistor will ruin the log curve.
+<p>In some cases - due to an amplifier with unusually low input sensitivity for instance - an output gain stage might be needed. This would typically use another gain module using the circuit above, but generally with lower gain. It is expected that a gain of 2 (6dB) will be enough for any amplifier, since this will provide an output of 4V RMS for a CD players typical 2V output. I have found that with typical sources, a preamp gain of about 10dB is sufficient to drive a typical power amplifier, so the additional gain will probably not be needed.</p>
+
+<center><p><img SRC="p37a-pic.jpg" ALT="Photo" BORDER="1">
+<br><b><small>Photo of Completed P37 Rev-A Board</small></b></center>
+
+<p>The photo shows what the new board looks like when fully populated according to the construction details.</p>
+
+<hr><b>Power Supply</b>
+<p>The power supply must be free from hum and noise, and the circuit shown in Project 05 (Rev-B) is highly recommended. A discrete circuit could also be used, but P05 is a far better proposition. The variable regulator ICs have extremely low noise.  A single P05 will easily power about ten P37-A boards ... more than anyone is likely to need.</p>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 1999-2007. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page Created and Copyright &copy; 13 Sep 2007 (Revision-A board details have replaced the original).</div>
+</body>
+</html>

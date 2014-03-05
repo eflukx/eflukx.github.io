@@ -1,0 +1,245 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott">
+	<meta name="description" content="ESP Project Pages - 60 Watt Hi-Fi Power Amp. Although supassed by P3A, this is still a good amplifier, and is still in use in many locations.">
+	<!-- ESP Project Pages - 60 Watt Hi-Fi Power Amp. Although supassed by P3A, this is still a good amplifier, and is still in use in many locations. -->
+	<meta name="keywords" content="audio,project,diy,amp,power,supply,circuit,schematic,diagram">
+	<title>High Quality 60 Watt Power Amplifier</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right" valign="bottom">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 03&nbsp;</td>
+</tr></table>
+
+<center><b>60 Watt Into 8 Ohms Power Amplifier</b><br>
+<small>Rod Elliott - ESP</small><br>
+<a href="#u7dec">Updated 06 Feb 2000</a></center>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" align="left" border=0></a> &nbsp; Please Note:&nbsp; PCBs are available for the updated version of this project (P3A)<br><br>
+
+<hr><b>Introduction</b>
+<p>This amplifier does not claim to be "state of the art", and in fact the base design is now over 20 years old. It is a simple amp to build, uses commonly available parts and is stable and reliable. The design featured is a slight modification of an amp I originally designed many years ago, of which hundreds were built. Most were operated as small PA or instrument amps, but many also found their way into home hi-fi systems. The amp is capable of driving 4 Ohms, but it is starting to push the limits of the transistors, however, even when used at 4 Ohms, very few failures were encountered.</p>
+
+<hr><b>The Circuit</b>
+<p>Note that there is no output short circuit protection, so if speaker leads are shorted while the amp is working (with signal), there is a very real risk of the transistors being destroyed. Since this amp was built commercially, the savings were worth the risk - most of these amps were installed in the speaker box, so shorting was not likely (unless the loudspeaker voice coil shorted as happened a few times). Because of the cost of the devices used (minimal), it is a cheap amp to fix even if you do manage to blow it up.</p>
+
+<center><img SRC="p03_fig1.gif" ALT="60 Watt Amplifier" BORDER=1 height=329 width=628>
+<br><b><small>Figure 1 - 60W Power Amplifier Original Circuit Diagram (Don't Use This Circuit!)</small></b></center>
+
+<p>Basic specs on the amp are as follows ...</p>
+
+<ul>
+	<li>Input sensitivity for 60 W output - just under 1V (1V gives 66W)</li>
+	<li>Gain - 27dB</li>
+	<li>Frequency response (-3dB) - 10Hz to 23kHz @ 1W</li>
+	<li>Harmonic distortion @ 1kHz - 0.05% (maximum typical)</li>
+	<li>Open Loop Gain - 125dB (no load), 80dB (8 Ohm load)</li>
+	<li>Input Impedance - 22k Ohm</li>
+	<li>DC Offset - Less than 100mV (&lt; 20 mV typical **)</li>
+	<li>Noise - &lt; 2mV at output (-80dB ref 50W unweighted)</li>
+</ul>
+
+<p>Changes made from the original design are ...</p>
+
+<ul>
+	<li>Reduced the value of the Class-A base resistor to 560 Ohm **</li>
+	<li>Increased the value of the bootstrap capacitor to 100uF</li>
+	<li>Reduced stabilisation caps to 100pF (they used to be 220pF)</li>
+	<li>Added the output inductor and damping resistor (see <a href="#pwr_update">UPDATES</a>)</li>
+</ul>
+
+<p>** It is conceivable that with some transistors, the value of 560 Ohms may not be correct. If this is found, you might need to "tweak" this resistor to obtain minimum DC offset. If you really wanted to, you could even use a trimpot (2k), and adjust this for minimum DC offset. Best to wait until the temperature has stabilised first, but it won't change very much anyway.
+
+<p>Apart from these changes, the amp is pretty much original, and with a +/-35V (loaded voltage) supply as shown, will provide 70W into 8 Ohms quite happily. In its lifetime, many of the mods mentioned above were made anyway, since I could never find the circuit diagram when I needed it, so often made it up as I went along! It is a fair testament to the amp that all sorts of resistor and capacitor substitutions can be made, and it still works fine.
+
+<p>The noise and distortion figures are somewhat pessimistic - there is so little distortion at 1V (or 20V for that matter)
+that my distortion set has great difficulty in getting a readable measurement. The oscilloscope output indicates that most of what I see is noise - even integrating the output (my 'scope can do that) to eliminate the noise reveals very little at all.
+
+<hr><a id="u7dec"></a><b>07 Dec Update</b>
+<p>I have had a few constructors comment on the quiescent current, which is somewhat higher than they expected.&nbsp; Indeed, my test amp (photo below) runs (ran) with a quiescent of about 350mA.&nbsp; This requires a fairly hefty heatsink to keep it cool, but mine is fine as long as it is not lying on the bench top.&nbsp; With little or no airflow, it gets hot.
+
+<p>I have carried out a few more experiments, and have a few values for you.&nbsp; The amp is intended to use 0.22 Ohm
+emitter resistors in the output stage.&nbsp; With these, Iq (quiescent current) is about 350mA at +/-35V supply.
+
+<p>Increasing the emitter resistance will reduce Iq, and with 0.5 Ohm resistors it drops to about 150mA.&nbsp; Although
+this reduces output power by a very small amount, the reduction is worthwhile from a thermal perspective.&nbsp; Measured distortion and other characteristics are unchanged.&nbsp; A tiny increase in output impedance might occur, but I did not test for this, and it will be far less than that of speaker leads anyway.
+
+<p>I also included a bias servo, using a pot and transistor.&nbsp; This was not mounted on the heatsink, since this would cause an instant negative thermal coefficient - as the amp gets hotter, Iq will fall, potentially so far that crossover distortion will occur.&nbsp; This is not a good thing, and I do not recommend it.&nbsp; The bias servo I used was done for convenience - I had a 20k trimpot to hand (well, a bag full actually), and the transistor is a standard BC549.&nbsp; I know
+its not elegant, and the values are not worked out properly, and ..., and, ... etc, but it works.
+
+<p>I then tested the amp with Iq from zero mA (crossover distortion was very evident) right up to the new maximum of 150mA - I left the 0.5 Ohm resistors in circuit.&nbsp; The circuit for the bias servo (actually the whole amp, with some of the other mods I have mentioned elsewhere) is shown in Figure 1a - notice that I left the diodes in circuit as a fail-safe, since the servo I used will go open circuit if the pot wiper becomes disconnected (I strongly suggest that you do the same).&nbsp; In practice this works extremely well, and I can set bias current to anything I like.
+
+<center><p><img SRC="p03-fig1a.gif" ALT="Figure 1a" BORDER=1 height=329 width=628>
+<br><b><small>Figure 1a - Modified Version Of 60W Power Amp</small></b></center>
+
+<p><b>Changes from Figure 1</b>
+<ul>
+	<li>Zener removed, 2k2 and 4k7 resistors changed to single 12k</li>
+	<li>Removed inductor and bypass resistor from output</li>
+	<li>Added bias servo transistor and pot</li>
+	<li>Increased emitter resistors from 0.22 to 0.5 Ohms</li>
+</ul>
+
+<p>Overall, these changes effect quiescent current and simplify the circuit a little.&nbsp; There are no discernible performance changes from the original.&nbsp; The variations I was able to chronicle are as follows :
+
+<p>I found that the crossover distortion is very low with only a few mA, and all but disappears at about 40mA, leaving a barely visible "glitch" on the oscilloscope channel monitoring the output of the distortion meter.&nbsp; (I always use one channel for the output signal, and the other is pretty much permanently connected to the distortion measuring set.)&nbsp; Further increases in Iq made very little difference, but overall I found that at about 100mA, the amp seems happiest (or maybe that was me - seeming happiest, that is).
+
+<p>Variations in supply voltage will have an effect on Iq as well.&nbsp; I hadn't actually considered this much (I have never had one of these amps self destruct, and normally don't even bother measuring the quiescent current).&nbsp; The variation is caused because the Class-A driver current is not derived from a true current source, but is a simple bootstrapped circuit.&nbsp; Since the current must change with voltage, so must the voltage across the diodes (or bias servo).&nbsp; At about 25 degrees C, I set Iq to 20mA with a supply voltage of +/-35V ....</p>
+
+<center><table BORDER=0 CELLSPACING=0 CELLPADDING=3>
+<tr><td><b>Supply Voltage</b></td>
+<td><b>&nbsp; Quiescent Current</b></td></tr>
+<tr><td>+/-35 V</td><td>&nbsp; 20mA</td></tr>
+<tr><td>+/-40 V</td><td>&nbsp; 53mA</td></tr>
+<tr><td>+/-45 V</td><td>&nbsp; 78mA</td>
+</tr></table></center>
+
+<p>Bias current also changes with temperature, so as the amp heats up, Iq will increase.&nbsp; This is not serious, and
+will only ever cause grief if the heatsink is too small.&nbsp; Such grief will ensue anyway in this case, regardless of whether the bias current is stable or not.</p>
+
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" height=37 width=108></td>
+<td><b>Please Note: </b>One of the things you will read about on various web pages, is that distortion measurements are invalid, since they do not usually take into account the very "spiky" nature of crossover distortion, and simply average it so it looks (on paper) much better than it sounds.&nbsp; This denouncing activity is most common amongst Class-A enthusiasts.&nbsp; I cannot speak for others, but when I measure distortion I look at the residual signal from my meter on an oscilloscope.&nbsp; There are no distortion spikes evident in this design - the distortion is a smooth waveform with no part of the signal able to be misinterpreted by human or instrument.</td>
+</tr></table>
+
+<hr><b>Construction</b>
+<p>I do not propose to provide constructional details for this version of the amp. If you want to build it, see <a href="project3a.htm">P3A</a>, which includes PCBs and further refinements to the circuit. Layout is not especially critical, and in fact if the components are laid out on a board much as they are seen in the diagram, you should have no problems. 3 Amp fuses should be fitted to each supply rail - these will not prevent output transistors from failing with a shorted speaker lead, but they will prevent further damage (wiring melting, transformer burning out, PCB catching on fire, etc).
+
+<p>100uF 50V bypass capacitors should be installed on the board, as close as possible to the driver circuits. These may optionally be bypassed using 100nF polyester caps. As an indication of the stability of this amp, I have used it with 1 metre power supply leads <i>with no on-board bypass caps whatsoever</i>. Power is reduced because of the instantaneous peak currents causing voltage drop on the leads, but the amp remains completely stable. (Don't do this, because although the amp will work fine, too much power is lost in the leads.)
+
+<p>The input capacitor should be a polyester type. If an electrolytic is to be used, the positive end goes to the amplifier (there is about +230mV on the bases of the long tailed pair transistors).
+
+<p>When wiring, ensure that the feedback connection is taken from the speaker output terminal, immediately before the inductor. Any track which is carrying half-wave audio from one or the other power transistor resistors will cause distortion of the feedback signal, degrading sound quality.
+
+<p>The photo shows one of my test amps (built on a PCB I designed over 15 years ago for a bridge / stereo version - these are the ones that hundreds of were made). This is the amp all the tests were conducted on, and it will be noted that there is no output inductor.</p>
+
+<center><img SRC="power_amp.jpg" ALT="power amp" BORDER=1 height=288 width=425>
+<br><b><small>The Complete Amp (My Test Unit)</small></b></center>
+
+<hr><b>Power Supply</b>
+<p>A suitable power supply is presented in the Project Pages. This will also be quite suited to any other power amp of
+similar specifications (such as the "New Improved" version of this one, P3A).
+
+<hr><b>Passive Components</b>
+<ul>
+	<li>The resistor values are not too critical, but if 1/2W metal film resistors are used throughout, this will help to reduce noise.</li>
+	<li>The 0.5 Ohm resistors need to be 5W wirewound types.</li>
+	<li>I suggest that you do not use an inductor in the output.&nbsp; If you choose to do so, wind about 20 turns of 1mm diameter enamelled copper wire on a 20mm diameter former. This should be flat wound - if a layered coil is used, reduce the number of turns to about 12. You may choose to leave the inductor out of the circuit altogether - none were used when these amps were in production. (See <a href="project03.htm#pwr_update">updates</a>)</li>
+	<li>If you install a coil, use a 1 to 4.7 Ohm wirewound resistor for the inductor damping resistor - 5W should be fine.</li>
+</ul>
+
+<hr><b>Transistors</b>
+<ul>
+	<li>Input (long tailed pair) - BC559 or similar (low noise, PNP, 40V collector-emitter voltage rating)</li>
+	<li>Bias Servo - BC549 or equivalent</li>
+	<li>Class-A driver - BD139 or MJE340</li>
+	<li>Drivers - NPN - BD139 or MJE340</li>
+	<li>Drivers - PNP - BD140 or MJE350</li>
+	<li>Power - NPN - MJE3055, TIP3055 or 2N3055 (TO-3)</li>
+	<li>Power - PNP - MJE2955, TIP2955 or MJ2955 (TO-3)</li>
+	<li>Biasing diodes - 1N4001 as shown (<i>do not use signal diodes, their voltage drop is too high, which will increase quiescent current to an unacceptably high value.</i>)</li>
+</ul>
+
+<p>Only the output transistors must be on a heatsink, which should have a thermal rating of no more than 0.5 degree Celsius per
+Watt for "normal" home listening, or half that if the amp is going to be pushed hard (PA or instrument amp, for example). If you really want to, a small "flag" type heatsink can be used for the drivers, but this is not necessary. The Class-A driver dissipates only about 1/4 Watt, while the power drivers vary. I have never used a heatsink on any of them.
+
+<p>The TIP2955/3055 have a lower thermal resistance than the MJE types, and are preferred for this reason.&nbsp; Other power
+transistors may be substituted, but it is up to you to determine their suitability.&nbsp; Aim for devices with a high fT (gain transition frequency), low thermal resistance, and good power ratings.&nbsp; I am using 200W TO-3 case devices in my own biamp system.</p>
+
+<center><img SRC="p03_fig2.gif" BORDER=1 height=210 width=299>
+<br><b><small>Figure 2- Output Transistors in Parallel</small></b></center>
+
+<p>If you wish, additional output transistors may be connected in parallel to provide better gain at high current (reducing
+"gain droop"), and higher output current capacity. This will also provide lower transistor die operating temperatures, because of the effective doubling of case to heatsink contact area. Figure 2 shows the arrangement (one side only, the other is a mirror image).
+
+<p>Note that if transistors are paralleled, the emitter resistors must be used as shown to force current sharing. If these are ignored, one transistor will provide most of the current while the other does little or nothing. You may then be lulled into a false sense of security until the output stage blows up.
+
+<p>NOTE: Although the silicone pads now available are a less messy alternative to mica or Kapton washers and thermal grease,
+I still have my reservations about them. If transistors must be replaced, replace the washers as well, or the thermal resistance is likely to be too high if the old ones are re-used.
+
+<hr><b>Powering Up</b>
+<p>If you do not have a dual output bench power supply - Before power is first applied, temporarily install 22 Ohm 5 W wirewound "safety" resistors in place of the fuses. Do not connect the load at this time! When power is applied, check that the DC voltage at the output is less than 1V, and measure each supply rail. They will be different, because of the zener diode feed resistance, but both should be no less than about 20V. If widely different from the above, check all transistors for heating - if any device is hot, turn off the power immediately, then correct the mistake.
+
+<p>If you do have a suitable bench supply - This is much easier! Slowly advance the voltage until you have about +/- 20V, watching the supply current. If current suddenly starts to climb rapidly, and voltage stops increasing then something is wrong, otherwise, continue with testing. (Note: as the supply voltage is increased, the output voltage will increase - up to about 6V, then quickly drop to near 0V. This is normal.)
+
+<p>Once all appears to be well, connect a speaker load and signal source (still with the safety resistors installed), and check that suitable noises (such as music or tone) issue forth - keep the volume low, or the amp will distort badly with the resistors still there if you try to get too much power out of it.
+
+<p>If the amp has passed these tests, remove the safety resistors and re-install the fuses. Disconnect the speaker load, and turn the amp back on. Verify that the DC voltage at the speaker terminal does not exceed 100mV, and perform another "heat test" on all transistors and resistors. Turn off the power, and re-connect speaker and music source.
+
+<p>This amp is fairly well behaved for turn on, and should issue (at worst) the smallest click as power is applied. When power is removed, after about 5 seconds or so, there will normally be a low level thump - this is not dangerous to speakers, unless used in tri-amp and directly connected to the tweeters - DO NOT DO THIS - not with any amp. Always use a capacitor in series with tweeters (see <a href="bi-amp.htm#tri-amp">Bi-Amplification, Some thoughts on Tri-Amping</a>).
+
+<p>If you got this far, happy listening.
+
+<hr><a NAME="pwr_update"></a><b>UPDATES:</b>
+<ul>
+	<li><b><small>03 Apr 1999</small></b> - the quiescent current of my "bench test" version of this amp is about 300mA, which is quite high - higher than I remembered - so the amp will get fairly warm just sitting there with the full supply voltage. Also, if your supply is +/-40V unloaded, expect to see about 6V dropped across each safety resistor (22 Ohm) when initially powering up.</li>
+	<li>I also checked the distortion more thoroughly (which is hard, because its so low). There is no sign - at any power level - of the traditional "spikes" created by crossover distortion, just a -70dB smooth looking 3rd harmonic content. (When I say -70dB, I'm guessing a bit, because the levels are too low to measure accurately). Interestingly, there is almost no change when the load is connected or disconnected, which surprised me more than just a bit - a lot, actually! I was so suspicious that I shorted out one of the bias diodes - behold, nasty crossover spikes instantly abounded as expected. I have to  conclude that distortion is pretty low then!</li>
+	<li><small><b>05 April 1999</b> - <b>The Bizarre Dept.</b></small> - I also performed some additional tests with the output inductor in place - very interesting! Although the distortion is barely measurable without it, as soon as it is connected, crossover distortion becomes evident - I don't understand this, since it can only be seen at the speaker side of the inductor, and remains quite normal at the amp side. Any suggestions as to why this would happen are more than welcome, because it certainly doesn't make any sense to me! (nor to anyone else who has tried to figure this out)</li>
+	<li><b><small>27 April 1999</small></b> - I had a think about how I normally measure distortion, and realised that I can actually use my oscilloscope instead of the meter - this means that I can use the averaging feature to get rid of the noise component. Although it was difficult to keep stable (my distortion meter has a little drift, normally this does not cause a problem), I managed to measure the distortion down to 0.0025% - and no, that is not a misprint. Most of this is from my oscillator.</li>
+	<li>I have experimented some with the Miller (dominant pole) capacitor, and substituted a 100pF polystyrene for the ceramic that was there before. I have no idea if it makes any real difference, but it sounds like a great idea, especially when you consider its importance in the circuit.</li>
+	<li>Also did some tests to see how well the amp behaves at lower voltages, and it works fine down to +/-12V, although it is a bit useless at this voltage because of the limited power - about 8 Watts. This brings into question why I ever bothered to use the zener diode (the original idea was to prevent supply hum from being injected into the LTP emitter circuit). Even at supply voltages so low that the zener has no effect, there is no supply hum injected into the signal, so feel free to leave it out of the circuit. You must adjust the series resistance of the "tail" to get 3mA, so with a +/- 35V supply, this works out at 12k.</li>
+
+	<li><b><small>07 Dec 1999</small></b> - Fairly major update, and is included in detail <a href="#u7dec">above</a>.</li>
+	<li><b><small>06 Feb 2000</small></b> - Made a few small corrections to the text, and added info on higher powered transistors.</li>
+</ul>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Updates: As above, plus - 18 Nov 1999 - corrected an error (Class-A driver was described in text as incorrect polarity)</div>
+</body>
+</html>

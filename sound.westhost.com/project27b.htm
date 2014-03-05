@@ -1,0 +1,206 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="description" content="ESP Project Pages - 100W Guitar Amplifier. Check out all the other free schematics on the ESP site!">
+   <meta name="keywords" content="guitar, audio, project, diy, amp, preamp, crossover, test, power, supply, circuit, schematic, diagram">
+   <title>100W Guitar Amplifier</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+   	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 27B&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>100W Guitar Amplifier</b><br />
+<small>Rod Elliott (ESP)<br>Updated 04 Jan 2002</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for the latest revision of this project. Click the image for details.<br>
+ 
+<hr><b>Introduction</b>
+<p><b>Note:</b>&nbsp; This project is superseded by a <a href="project27.htm">new version</a>, which has several useful additions.&nbsp; PCBs are available (but only for the new amp).</p>
+<p>Guitar amplifiers are always an interesting challenge. The tone controls, gain and overload characteristics are very individual, and the ideal combination varies from one guitarist to the next, and from one guitar to the next. There is no amp that satisfies everyone's requirements, and this offering is not expected to be an exception.</p>
+<p>One major difference however, is that if you build it yourself, you can modify things to suit your own needs, experimentation is the key to this circuit, which is presented in basic form, with every expectation that builders will modify just about everything.</p>
+<p>The amp is rated at 100W into a 4 Ohms load, as this is typical of a "combo" type amp with two 8 Ohm speakers in parallel. Alternatively, you can run the amp into a "quad" box (4 x 8 Ohm speakers in series parallel - see Figure 5) and will get about 60 Watts. For the really adventurous, 2 quad boxes and the amp head
+will provide 100W, but will be much louder than the twin. This is a common combination for guitarists, but it does make it hard for the sound guy to bring everything else up to the same level.</p>
+
+<table width="100%" border=1 bgcolor="red" style="border-collapse: collapse">
+<tr><td><center><b><font color="white" size="+0">Special Warning to all Guitarists</font></b></center><br>
+<font color="white" size="+0">When replacing guitar strings, <i>never</i> do so anywhere near an amplifier (especially a valve amp), nor close to a mains outlet. Because the strings are thin - the top "E" string in particular - they can easily work their way into mains outlets, ventilation slots and all manner of tiny crevices. The springiness of the strings means that they are not easily controlled until firmly attached at both ends.  This is very real - click for an <a href="guitar-string.html" target="_blank">image</a> of an Australian mains plug that was shorted out by a guitar string.</font></td></tr></table>
+
+<br><br><b>The Pre-Amplifier</b>
+<p>The preamp circuit is shown in Figure 1, and has a few interesting characteristics that separate it from the "normal" - assuming that there is such a thing. This is a very basic design (this is deliberate), and is easy to build on Veroboard or similar. The gain structure is designed to provide a huge amount of gain, which is ideal for those guitarists who like to get that fully distorted "fat" sound.</p>
+<p>However, with a couple of simple changes, the preamp can be tamed to suit just about any style of playing. Likewise, the tone controls can be modified to suit anything from an electrified violin to a bass guitar - you might even find that for anything other than bass, they have a suitable range to cover most possibilities, and even a few bassists will find that they can get the punchy sound they want, without the low-end "waffle" that many bass players dislike.</p>
+
+<center><p><img SRC="p27b-f1.gif" ALT="Figure 1" BORDER=1 height=212 width=663>
+<br><b><font size=-1>Figure 1 - Guitar Pre-Amplifier</font></b></center>
+
+<table WIDTH="100%" >
+<tr><td><img SRC="opamp.gif"></td>
+<td><b><font size=-1>Notes:</font></b>
+<ul><li><font size=-1>IC pinouts are industry standard for dual opamps - pin 4 is -ve supply, and pin 8 is +ve supply.</font></li>
+<li><font size=-1>Opamp supply pins must be bypassed to earth with 100nF caps (preferably ceramic) as close as possible to the opamp itself.</font></li>
+<li><font size=-1>Diodes are 1N4148, 1N914 or similar.</font></li>
+<li><font size=-1>Pots should be linear for tone controls, and log for volume and master.</font></li>
+</ul></td></tr></table>
+
+<p>From Figure 1, you can see that the preamp uses a dual opamp as its only amplification. As shown, with a typical guitar input, it is possible to get a very fat overdrive sound, by winding up the volume, and then setting the master for a suitable level. The overall frequency response is deliberately limited to prevent extreme
+low-end waffle, and to cut the extreme highs to help reduce noise - not that it helps all that much, because with all that gain, noise is always going to be a problem.</p>
+<p><b><font size=-1>Note:</font></b>
+<br>The schematic has been modified slightly to improve the tone control performance (04 Jan 2002). A new schematic is now on line - the differences are relatively minor, but make the component values for the tone controls a bit cheaper (smaller value caps, and higher value pots). The power amp has been heavily revised, and
+the new version is also available.</p>
+<p>If a really quiet amp is desired, you should substitute a 5532 dual opamp. These are more expensive (and harder to get), but will offer a substantial noise reduction. If you don't need all the gain that is available, simply increase the value of the first 4k7 resistor - for even less noise and gain, increase the second 4k7 as
+well.</p>
+<p>If the bright switch is too bright (too much treble), increase the 1k resistor to tame it down again. Reduce the value to get more bite. The tone control  arrangement shown will give zero output if all controls are set to minimum - this is unlikely to be a common requirement in use, but be aware of it when testing.</p>
+<p>The diode network at the output is designed to allow the preamp to generate a "soft" clipping characteristic when the volume is turned up. Because of the diode clipping, the power amp needs to have an input sensitivity of about 750mV for full output, otherwise it will not be possible to get full power even with the Master gain control at the maximum setting.</p>
+<p>Make sure that the input connectors are isolated from the chassis. The earth isolation components in the power supply help to prevent hum (especially when the amp is connected to other mains powered equipment).</p>
+<p><b><font size=-1>UPDATES: </font></b>I have had quite a few enquiries about the input connection setup. This is almost an industry standard, and is quite the opposite of what you might think it means. The same basic idea is used on Fender amps, as well as many others. The Hi input is used for normal (relatively
+low output) guitar pickups, and is "Hi" gain. Lo is 6dB less gain, and is intended for high output pickups so the first amplifier stage does not distort. The switching jack on the Hi input means that when a guitar is connected to the Lo input, it forms a voltage divider because the other input is shorted to earth. I hope this clears up any confusion (it will probably create more!).</p>
+<p>I have also had several enquiries about the tone controls, one being that they don't do anything. If the preamp does not work properly, it is because it has been wired incorrectly - period! I know the circuit works, and it works very well, so please don't send e-mails claiming that it does not do what is claimed. For some reason, this project generates more e-mail than just about any other, and in <b><i>all</i></b> cases where I have had complaints, wiring errors have eventually been found.</p>
+<p>The golden rule here is to check the wiring, then keep on checking it until you find the error, since I can assure you that if it does not work there is at least one mistake, and probably more.</p>
+
+<hr><b>Power Amplifier</b>
+<p>The power amp is based on the 60 Watt amp previously published (Project 03), but it has increased gain to match the preamp. It has also been modified to give a bit of extra punch - not to the standard of a valve amp, but somewhat better than the average transistor amplifier. Other modifications include the short circuit
+protection - the two little groups of components next to the bias diodes.</p>
+<p>Should the output be shorted, much more than the normal 7V peak will appear across the 1 Ohm resistors. This will turn on the appropriate transistor, cutting the base drive to the output stage. The effect is not particularly nice, but will save the output from instant destruction in the event of a short. Given the nature of stage work, a short circuit is something that <i>will</i> happen, it is only a matter of time. The circuit is designed not to operate under any normal conditions, but will limit the output current to about 8.5 Amps.</p>
+
+<center><p><img SRC="p27b-f2.gif" ALT="Figure 2" BORDER=1 height=329 width=628>
+<br><b><font size=-1>Figure 2 - Power Amplifier</font></b></center>
+
+<p>At the input end, there is provision for an an auxiliary output, and an input. The latter is switched by the jack, so you can use the "Out" and "In" connections for an external effects unit. Alternatively, the input jack can be used to connect an external preamp to the power amp, disconnecting the preamp.</p>
+
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE CAREFULLY" height=37 width=108></td>
+<td>There is a lot to be said for using more powerful transistors for the output stage. MJ15003/4 transistors are very high power, and will run cooler because of the TO-3 casing (lower thermal resistance). Beware of counterfeits though! There are many other high power transistors that can be used, and the amp is quite
+tolerant of substitutes (as long as their ratings are at least equal to the devices shown).</td>
+</tr></table>
+
+<p>The speaker and line out connections allow up to two 8 Ohm speaker cabinets (giving 4 Ohms), and a line level output for connection to a direct injection (DI) box. The level is about 1.3V (or +5dBm) at full undistorted output - change the 560 Ohm resistor to modify the level if desired.</p>
+<p>The two 1 Ohm resistors must be rated at 10 Watts (they will still get quite hot, so mount them well away from other components). These can be mounted to the heatsink with small brackets if you want to keep them a bit cooler - remember to ensure that the heatsink can handle the extra heat input, as these two will add about 10 Watts of additional heat energy. The four 0.1 Ohm resistors should be 5W types. The amp is otherwise quite conventional. Use the parallel arrangement
+as shown, anything less will cause the transistors to be operated outside their safe operating area, which will result in the eventual failure of the output stage.</p>
+<p>Make sure that the two bias diodes are mounted well clear of anything that gets hot - including the heatsink. These diodes are the two in series. All diodes should be 1N4001 (or 1N400? - anything in the 1N400x range is fine). A heatsink is not needed for any of the driver transistors.</p>
+<p>The life of a guitar amp is a hard one, and I suggest that you use the largest heatsink you can afford, since it is very common to have elevated temperatures on stage (mainly due to all the lighting), and this reduces the safety margin that normally applies for domestic equipment. The heatsink should be rated at 0.5 degree
+C/Watt to allow for worst case long term operation at up to 40 degrees C (this is not uncommon on stage).</p>
+<p>Make sure that the speaker connectors are isolated from the chassis, to keep the integrity of the earth isolation components in the power supply.</p>
+
+<hr><b>Power Supply</b>
+<p><font color="#FF0000"><b>WARNING</b> - Do not attempt construction of the power supply if you do not know how to wire mains equipment.</font>
+<p>The power supply is again nice and simple, and does not even use traditional regulators for the preamp. A pair of zeners is sufficient to get the voltage we need, because the current is only quite low. The power transformer should be a toroidal for best performance, but a convention tranny will do if you cannot get the toroidal.</p>
+
+<center><p><img SRC="p27b-f3.gif" ALT="Figure 3" BORDER=1 height=329 width=628>
+<br><b><font size=-1>Figure 3 - Power Supply</font></b></center>
+
+<p>The transformer rating should be 150VA minimum - there is no maximum, but the larger sizes start to get seriously expensive. Anything over 250VA is overkill, and will provide no benefit. The slow-blow fuse is needed if a toroidal transformer is used, because these have a much higher "inrush" current at power-on than a conventional transformer. Note that the 5 Amp rating is for operation from 220 to 240 Volt mains - you will need an 8 or 10 Amp fuse here for operation at 115 Volts.</p>
+<p>Use good quality electrolytics, since they will also be subjected to the higher than normal temperatures of stage work. The bridge rectifier should be a 35 Amp chassis mount type (mounted on the chassis with thermal compound). Use 1 Watt zener diodes, and make sure that the zener supply resistors (680 Ohm, also 1
+Watt) are kept away from other components, as they will get quite warm in operation.</p>
+<p>The earth isolation components are designed to prevent hum from interconnected equipment, and provide safety for the guitarist (did I just hear 3,000 drummers saying "Why ??"). The 10 Ohm resistor stops any earth loop problems (the major cause of hum), and the 100nF capacitor bypasses radio frequencies. The bridge rectifier should be rated at at least 5A, and is designed to conduct fault currents. Should a major fault occur (such as the transformer breaking down between
+primary and secondary), the internal diodes will become short circuited (due to the overload). This type of fault is extremely rare, but it is better to be prepared than not.</p>
+<p>Another alternative is to use a pair of high current diodes in parallel (but facing in opposite directions). This will work well, but will probably cost as much (or even more) than the bridge.</p>
+<p>Fuses should be as specified - do not be tempted to use a higher rating (e.g. aluminium foil, a nail, or anything else that is not a fuse). Don't laugh, I have seen all of the above used in desperation. The result is that far more damage is done to the equipment than should have been the case, and there is always the added
+risk of electrocution, fire, or both.</p>
+<p><b>Electrical Safety</b>
+<br>Once mains wiring is completed, use heatshrink tubing to ensure that all connections are insulated. Exposed mains wiring is hazardous to your health, and can reduce life expectancy to a matter of a few seconds <b><i>!</i></b></p>
+<p>Also, make sure that the mains lead is securely fastened, in a manner acceptable to local regulations. Ensure that the earth lead is longer than the active and neutral, and has some slack. This guarantees that it will be the last lead to break should the mains lead become detached from its restraint. The mains earth
+connection should use a separate bolt (do not use a component mounting bolt or screw), and must be very secure. Use washers, a lock washer and two nuts (the second is a locknut) to stop vibration from loosening the connection.</p>
+
+<hr><b>Speaker Boxes</b>
+<p>The two suggested boxes are shown (in basic form only - you will need to work out the woodworking details yourself). The first (Figure 4) is a standard 2 speaker cabinet, and I strongly recommend using the open-back box, as this is the preferred option for most guitarists. Two 8 Ohm speakers are wired in parallel (giving 4 Ohms), and it is expected that with 12" speakers (300mm) this combination will be quite loud enough. Try to get speakers that are rated at at least 100W each - this safety margin is a requirement for guitar, since the amp will be overdriven for much of the time and this produces up to double the rated output of the amp.</p>
+<p>The details of finish, handles (and the actual dimensions) of the boxes I shall leave to the builder, but I will make a few comments:</p>
+
+<ul><li>Tops and bottoms are shown as being inside the side panels. This does not really matter, since all corners should be reinforced with 25mm square (1") timber. All joints should be glued and screwed. Pre-drill the screw holes to prevent the end grain of the MDF from splitting.</li>
+<li>Use a router if available to round off all the edges and corners, and use corner protectors.</li>
+<li>Vinyl is still the most robust covering for stage gear, but carpet can be used if you prefer.</li>
+<li>Use strong handles, as the boxes will be quite heavy when completed. Side "pocket" handles are best for the quad, but a strap handle can be used for the twin.</li>
+<li>The baffle of the twin, and the top section of the quad are angled. This projects the sound towards the guitarist, and is better than propping the front edge on a brick or similar.</li>
+<li>The baffle is shown recessed. This is to allow for a grille frame, which should fit neatly inside the recess and be fastened with Velcro or grille mounting clips.</li>
+<li>Speakers should not be held in place with wood screws - use bolts, washers and nuts, or "T-nuts". Wood screws will eventually loosen, and the speakers will rattle.</li></ul>
+
+<table WIDTH="100%" >
+<tr><td><img SRC="tee-nut.gif" BORDER=0 height=76 width=121></td>
+<td>For those who don't know what a tee nut is, the drawing should give you the general idea. They are readily available from specialist fastener suppliers. If you can't get hold of them, use metal thread screws with nuts and washers, and a thread locking fluid. "Nylock" nuts can also be used - they are the ones with a nylon collar inside the nut.</td></tr></table>
+
+<p>Generally, one thing to avoid is vented boxes - they just don't sound right for guitar. Naturally, if you <i>like</i> the sound of vented boxes, then go for it - guitar amps are probably one of the most personal amps in the world, and there is no right or wrong combination, as long as you get the sound you want.</p>
+
+<center><p><img SRC="p27_fig4.gif" ALT="Figure 4" BORDER=1 height=374 width=539>
+<br><b><font size=-1>Figure 4 - Suggested Twin Speaker Box And Wiring</font></b></center>
+
+<p>The second example (Figure 5) is the classic "quad" box, and uses 4 x 8 Ohm speakers in series/parallel. This gives an impedance of 8 Ohms, so two quad boxes can be used if you really want the amp to be that loud. You might be able to get 4 Ohm speakers, in which case the series/parallel connection will give you a 4 Ohm box, so only one is needed. I suggest that the quad box also be open-backed, but this is not essential. One of the most popular guitar amps around
+uses closed back quads, and they sound pretty good to me.</p>
+
+<center><p><img SRC="p27_fig5.gif" ALT="Figure 5" BORDER=1 height=632 width=532>
+<br><b><font size=-1>Figure 5 - Suggested Quad Speaker Box And Wiring</font></b></center>
+
+<p>For the speaker boxes, I recommend MDF (Medium Density Fibreboard). This is a much better material to work with than chipboard, and is also stronger. Chipboard has been used (and still is) by many manufacturers because of its one redeeming feature - it is cheap. MDF will cost quite a bit more, but the end result
+is worth the expense - a better finish, and a stronger box. Don't be tempted to use anything thinner than 19mm (3/4"), or the cabinet will resonate too much, and will also lack strength.</p>
+<p>Many manufacturers use a thin (typically about 6mm) fibre board at the back of open backed cabinets to provide some protection for the drivers, and a lead storage area. Don't ! Make the rear protection panel(s) from 19mm MDF too, since this will prevent the unwanted resonances from the thin material typically used.</p>
+<p>Speakers should also be fairly efficient if possible (> 90dB W/m), since a 3dB reduction in efficiency will result in the same SPL (Sound Pressure Level) output as an amp with half the power and 3dB more efficient speakers. Check out the local dealers for musical instrument speakers - do not use hi-fi speakers, or you will surely be disappointed - they are not designed for musical instrument applications, and usually sound awful.</p>
+<p>Also avoid loudspeakers with aluminium dome dust caps - they sound utterly disgusting when a guitar amp is overdriven, with a hard top-end that radiates at frequencies that are discordant. Any harmonic above the seventh is discordant (out of tune), and an overdriven guitar amp is one of the few instrument combinations that can create such high harmonics. As a result, most guitar speakers are designed to roll off the top end above about 7kHz or so to avoid this problem. An aluminium dome does the opposite, and radiates wildly at the upper frequencies. This is both unpredictable and unpleasant.</p>
+<p><b>Anecdote:</b>&nbsp; Some years ago, I was asked by a well known Australian guitarist if I could fly to Melbourne (from Sydney - about 1000 km) to solve this awful problem in the studio. It didn't matter how they miked the guitar amp, it still sounded terrible on the recording. It turned out that the aluminium dust cap was radiating so strongly at somewhere between 5kHz and 12kHz that it destroyed the sound, giving a most unappetising metallic edge to the music. The remedy
+was to carefully cut away the dust cap, and glue a piece of thin felt in its place. About an hour later (after the glue had dried), the result was that the recording engineer and guitarist alike were stunned at the difference - the sound was as smooth as silk (well, you know what I mean) and all the nastiness was gone.</p>
+<p>Most of the established guitar amp manufacturers use speakers specially made for them by one of a few specialist loudspeaker builders, and they are normally hard to get. Try music shops (or repair shops) to see if they have speakers that might be suitable. The second-hand market might be another good place to look - you might even be able to get a complete speaker box for a reasonable price, which saves having to do the woodwork <b><i>!</i></b></p>
+
+<hr><b>Effects</b>
+<p>As shown, the amp has no effects at all, but does have an effects send and receive (via the two input jacks). Internal tremolo and reverb can be added, and suitable circuits are available on the project pages. These are designed as "stand alone" effects, but can be integrated easily, using the effects loop already provided.</p>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr></table>
+<div class="t-sml">Updated 22 Feb 2001 - added IC pinout info and changed effects info.</div>
+<br>&nbsp;
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="soft start, inrush, current, protection, audio, project, diy, amp, power, supply, circuit, schematic, diagram">
+	<meta name="description" content="ESP Project Pages - Soft start circuit for power transformers. Prevent high inrush current with large transformers.">
+	<title>Soft-Start Circuit For Power Amps</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 39&nbsp;</td>
+</tr></table>
+
+<center><br /><b>Soft-Start Circuit For Power Amps</b><br />
+<small>Rod Elliott (ESP), Updated 18 April 2006</small></center>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for the latest revision of this project.&nbsp; Click the PCB image for details.<br>
+
+<hr> 
+<table BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%">
+<tr><td><img SRC="mains.gif" BORDER=0 height=26 width=33></td>
+<td><b><font color="#CC0000">WARNING:</font></b> This circuit requires experience with mains wiring. Do not attempt construction unless experienced and capable. Death or serious injury may result from incorrect wiring.</td></tr></table>
+
+<hr><b>Updates ...</b>
+<br>PCBs are available for a somewhat modified version of the soft-start project. Rather than the MOSFET switch, the PCB version uses a cheap opamp, and provides power and soft start switching. Full details are available when you purchase the PCB, but the schematic and a brief description is shown <a href="#pcb">below</a>.
+
+<p>The delay time for all circuits shown has been revised. The optimum is around 100ms - sufficient for around 5 full cycles at 50Hz, or 6 cycles at 60Hz. It is also quite alright to run the transformer to around 200-500% of full load current at start-up, and the formulae have been revised for up to 200%. Without the soft-start, inrush current can be so high as to be limited only by wiring resistance - well in excess of 50A is not at all uncommon for average sized 230V transformers.</p>
+
+<hr><b>Thermistors - Important !</b><br />
+Using thermistors rather than resistors is a common question, and while there are many caveats they will generally work well. Unfortunately, it can be very difficult for the novice (and not-so-novice) to determine the proper value and size, and manufacturers don't help much. The specification format from one maker rarely matches that of another, and making direct comparisons is rarely easy. Some quote a maximum current, others a rating in Joules, and some include almost nothing except the nominal resistance at 25&deg;C and the dimensions - hardly helpful.
+
+<p>Many people like the idea of using NTC (negative temperature coefficient) thermistors for inrush limiting, with a common claim being that no additional circuitry is needed. In a word, <i>DON'T</i>. This is possibly controversial, because they are used by a number of major manufacturers so must be alright - or so it might seem. If used in a switched system as described here, they are safe enough, but I have personally seen (yes, with my very own eyes) NTC thermistors explode mightily if there is a fault. Resistors can also fail, but the failure is (usually) contained - there are exceptions of course. In general, NTC thermistors are designed for very high peak current, but as noted earlier, you will see many different ways to describe the same thing, with almost no commonality between makers.
+
+<p>If the relay fails to operate because you didn't listen to me and used the amp's supply, the thermistor will (in theory) become a low resistance due to the current flow and the fuse will blow. However, if current is too high due to a major fault, the thermistor may explode before the fuse has a chance. I'm unsure why some people insist that the thermistor is somehow "better" than resistors - it isn't, and in some cases may even be a less robust solution. As noted below, a resistor (or thermistor) value of about 50 ohms (230V) or 25 ohms (120V) is a pretty good overall compromise, and works perfectly with transformers up to about 500VA. The resistance should be reduced for higher power transformers.
+
+<p>If a thermistor is used, it needs to be sized appropriately. While some small thermistors may appear quite satisfactory, they will often be incapable of handling the maximum peak current. I suggest that you read the article on <a href="articles/inrush.htm" target="_blank">inrush protection circuits</a> for more information. A suitably rated thermistor can be used in any version of this project (including the PCB based unit shown in Figure 6).
+
+<p>Under no circumstances will I ever suggest a thermistor without a bypass relay for power amplifiers, because their standby or low power current is generally insufficient to get the thermistor hot enough to reduce the resistance to a sensible value. You may therefore get power supply voltage modulation, with the thermistor constantly thermally cycling.
+
+<p>If there <i>is</i> enough continuous current (Class-A amplifier for example), the surface temperature of any fully functioning thermistor is typically well over 100&deg;C, so I consider bypassing mandatory to prevent excess unwanted heat. A bypass circuit also means that the thermistor is ready to protect against inrush current immediately after power is turned off. Without the bypass, you may have to wait 90 seconds or more before it has cooled.</p>
+
+<hr><b>Introduction</b>
+<p>When your monster (or not so monster) power amplifier is switched on, the initial current drawn from the mains is many times that even at full power. There are two main reasons for this, as follows ...
+
+<ul>
+	<li>Transformers will draw a very heavy current at switch on, until the magnetic flux has stabilised. The effect is worst when power is 
+	applied as the AC voltage passes through zero, and is minimised if power is applied at the peak of the AC waveform. This is exactly the 
+	opposite to what you might expect</li>
+	
+	<li>At power on, the filter capacitors are completely discharged, and act as a short circuit for a brief (but possibly destructive) period</li>
+</ul>
+
+<p>These phenomena are well known to manufacturers of very high power amps used in PA and industrial applications, but 'soft start' circuits are not commonly used in consumer equipment. Anyone who has a large power amp - especially one that uses a toroidal transformer - will have noticed a momentary dimming of the lights when the amp is powered up. The current drawn is so high that other equipment is affected.</p>
+<p>This high inrush current (as it is known) is stressful on many components in your amp, especially ...</p>
+
+<ul>
+	<li>Fuses - these must be slow-blow, or nuisance fuse blowing will be common</li>
+	<li>Transformer - the massive current stresses the windings mechanically and electrically. It is not uncommon to hear a diminishing 
+	mechanical buzz as the chassis and transformer react to the magnetic stress</li>
+	<li>Bridge rectifier - this must handle an initial current way beyond the normal, because it is forced to charge empty filter capacitors - 
+	these look like a short circuit until a respectable voltage has been reached</li>
+	<li>Capacitors - the inrush current is many times the ripple current rating of the caps, and stresses the internal electrical connections</li>
+</ul>
+
+<p>It should come as no surprise to learn that a significant number of amplifier failures (especially PSU related faults) occur at power on (unless the operator does something foolish). This is exactly the same problem that causes your lights at home to 'blow' as you turn on the light switch. You rarely see a light bulb fail while you are quietly sitting there reading, it almost always happens at the moment that power is applied. It is exactly the same with power amplifiers.</p>
+
+<p>The circuit presented here is designed to limit inrush current to a safe value, which I have selected as 200% of the full load capacity of the power transformer. Please be aware that there are important safety issues with this design (as with all such circuits) - neglect these at your peril. Up to 500% of full power is quite alright, and the decision as to which value to use is up to you. The transformer manufacturer may have some specific recommendations.</p>
+
+<table BORDER=0 WIDTH="100%"><tr><td VALIGN=TOP><img SRC="note.gif"></td>
+<td><b><small>NOTE: </small></b>Do not attempt this project if you are unwilling to experiment - the relay operation must be 100% reliable, your mains wiring must be to an excellent standard, and some metalwork may be needed. There is nothing trivial about this circuit (or any other circuit designed for the same purpose), despite its apparent simplicity.</td></tr></table>
+
+<hr><b>Description</b>
+<p>Although the soft start circuit can be added to any sized transformer, the winding resistance of 300VA and smaller transformers is generally sufficient to prevent a massive surge current. Use of a soft start circuit is definitely recommended for 500VA and larger transformers.</p>
+
+<p>As an example, a 500VA transformer is fairly typical of many high power domestic systems. Assuming an ideal load (which the rectifier is not, but that is another story), the current drawn from the mains at full power is ...
+
+<blockquote><b>I = VA / V&nbsp; </b>(1)&nbsp; Where VA is the VA rating of the transformer, and V is the mains voltage used</blockquote>
+
+<p>Since I live in a 230V supply country I will use this for my calculations, but they are easy for anyone to do. Using equation 1, we will get the following full power current rating from the mains (neglecting the transformer winding resistance) ...</p>
+
+<blockquote>I = 500 / 230 = 2A &nbsp; (close enough)</blockquote>
+
+<p>At a limit of 200% of full power current, this is 4A AC. The resistance is easily calculated using Ohm's law ...</p>
+
+<blockquote><b>R = V / I &nbsp;&nbsp; </b>(2)</blockquote>
+
+<p>so from this will get ...</p>
+
+<blockquote>R = 230 / 4 = 60 Ohms (close enough)</blockquote>
+
+<p>Not really a standard value, but 3 x 180 Ohm 5W resistors in parallel will do just fine, giving a combined resistance of exactly 60 Ohms. A single 56 Ohm resistor could be used, but the power rating of over 900W (instantaneous) is a little daunting. We don't need anything like that for normal use, but be aware that this will be the dissipation under certain fault conditions.</p>
+
+<p>To determine the power rating for the ballast resistor, which is 200% of the transformer power rating at full power ...
+
+<blockquote><b>P = V&sup2; / R</b> (3)</blockquote>
+
+<p>For this resistance, this would seem to indicate that a 930W resistor is needed (based on the calculated 60 Ohms), a large and expensive component indeed.</p>
+
+<p>In reality, we need no such thing, since the resistor will be in circuit for a brief period - typically around 100ms, and the amp will (hopefully) not be expected to supply significant output power until stabilised. The absolute maximum current will only flow for 1 half-cycle, and diminishes rapidly after that.
+
+<p>The only thing we need to be careful about is to ensure that the ballast resistor is capable of handling the inrush current. During testing, I managed to split a ceramic resistor in half because it could not take the current - this effect is sometimes referred to as "Chenobyling", after the nuclear disaster in the USSR some years ago, and is best avoided.</p>
+
+<p>It is common for large professional power amps to use a 50W resistor, usually the chassis mounted aluminium bodied types, but these are expensive and not easy for most constructors to get. For the above example, 3 x 5W ceramic resistors in parallel (each resistor being between 150 and 180 Ohms) will give us what we want, and is comparatively cheap.</p>
+
+<p>For US (and readers in other 120V countries), the resistance works out to be 12 Ohms, so 3 x 33 Ohm 5W resistors should work fine (this gives 11 Ohms - close enough for this type of circuit).</p>
+
+<p>It has been claimed that the resistance should normally be between 10 and 50 ohms, and that higher values should not be used. I shall leave this to the reader to decide, since there are (IMO) good arguments for both ideas. As always, this is a compromise situation, and different situations call for different approaches.</p>
+
+<p>A 10 ohm resistor is the absolute minimum I would use, and the resistor needs to be selected with care. The surge current is likely to demolish lesser resistors, especially with a 230V supply. While it is true that as resistance is reduced, the resistance wire is thicker and more tolerant of overload, worst case instantaneous current with 10 ohms is 23A at 230V. This is an instantaneous dissipation of 5,290W (ignoring other resistances in the circuit), and it will require an extremely robust resistor to withstand this even for short periods. For 120V operation, the peak current will 'only' be 12A, reducing the peak dissipation to 1,440W.</p>
+
+<p>In reality, the worst case peak current will never be reached, since there is the transformer winding resistance and mains impedance to be taken into account. On this basis, a reasonable compromise limiting resistor (and the values that I use) will be in the order of 50 Ohms for 230V (3 x 150 ohm/  5W), or 11 Ohms (3 x 33 ohm/ 5W) for 120V operation. Resistors are wired in parallel. You may decide to use these values rather than calculate the value from the equations above, and it will be found that this will work very well in nearly all cases, and will still allow the fuse to blow in case of a fault. These values are suitable for transformers up to 500VA.</p>
+
+<p>This is in contrast to the use of higher values, where the fuse will (in all probability) not blow until the relay closes. Although the time period is short, the resistors will get very hot, very quickly. Thermistors may be helpful, because as they get hot their resistance falls, and if suitably rated they will simply fall to a low enough resistance to cause the fuse to blow.</p>
+
+<p>Another good reason to use a lower value is that some amplifiers have a turn-on behaviour that may cause a relatively heavy current to be drawn for a brief period. These amplifiers may not reach a stable operating point with a high value resistance in series, and may therefore cause a heavy speaker current to flow until full voltage is applied. This is a potentially disastrous situation, and must be avoided at all costs. If your amplifier exhibits this behaviour, then the lower value limiting resistors <b><i>must</i></b> be used.</p>
+
+<p>If flaky mains are a 'feature' where you live, then I would suggest that you may need to set up a system where the amplifier is switched off if the mains fails for more than a few cycles at a time. The AC supply to a toroidal transformer only has to 'go missing' for a few cycles to cause a substantial inrush current, so care is needed.
+
+<p>If a thermistor is used, I suggest a robust version, rated for a comparatively high maximum current. 20mm diameter devices are generally rated for much higher currents than you are likely to need, so will suffer minimal thermal cycling. A nice round value is 10 ohms at 25&deg;C - this does mean higher peak currents than I suggest above, but you can always use two in series - especially for 230V operation.</p>
+
+<hr><b>Bypass Circuit</b>
+<p>Many of the large professional amps use a TRIAC (bi-lateral silicon controlled rectifier), but I intend to use a relay for a number of very good reasons ...</p>
+
+<ul>
+	<li>Relays are virtually indestructible</li>
+	<li>They are easy to obtain almost anywhere</li>
+	<li>Useful isolation is provided so control circuitry is not at mains potential</li>
+	<li>No RF noise or harmonics of the mains frequency are generated. These are low level, but can be very troublesome to eliminate from 
+	TRIAC circuits</li>
+	<li>No heatsink is needed, eliminating a potential safety hazard should there be an insulation breakdown between triac and heatsink</li>
+</ul>
+
+<p>They will also cause their share of problems, but these are addressed in this project. The worst is providing a suitable coil voltage, allowing commonly available devices to be used in power amps of all sizes and supply voltages.</p>
+
+<p align="center"><img SRC="p39-fig1.gif" ALT="Figure 1" BORDER="1">
+<br><b><small>Figure 1 - Soft-Start Resistors and Relay Contacts</small></b></p>
+
+<p>Figure 1 shows how the resistors are connected in series with the supply to the transformer, with the relay contacts short circuiting the resistors when the relay is activated. This circuitry is all at the mains voltage, and must be treated with great respect.</p>
+
+<p>A represents the Active (Live or Hot) lead from the mains switch, and SA is the 'soft' Active, and connects to the main power transformer. Do not disconnect or bypass any existing wiring, simply place the resistor pack in series with the existing transformer.</p>
+
+<p>Do not attempt any wiring unless the mains lead is disconnected, and all connections must be made so that accidental contact to finger or chassis is not possible under any circumstance. The resistors may be mounted using an aluminium bracket that shrouds the connections preventing contact. All leads should be kept a safe distance from the chassis and shroud - where this seems impossible, use insulation to prevent any possibility of contact. Construction notes are shown later in this project. The safety aspect of this project cannot be stressed highly enough !</p>
+
+<p>The relay contacts must be rated for the full mains voltage, and at least the full power current of the amplifier. The use of a relay with 10A contact rating is strongly recommended.</p>
+
+<p><b>HINT:</b>&nbsp; You can also add a second relay to mute the input until full power is applied. I shall leave it to you to make the necessary adjustments. You will have to add the current for the two relays together, or use separate supply feeds if utilising the existing internal power supply voltage.</p>
+
+<a id="fast-acting"></a><hr><b>Control Circuits</b>
+<p>If a 12V supply were to be available in all power amps, this would be very simple, but unfortunately this is rarely the case. Most amps will have DC supplies ranging from +/-25V to about +/-70V, and any attempt to obtain relays for these voltages will be met with failure in the majority of cases.
+
+<p>An auxiliary supply can be added, but this means the addition of a second transformer, which will be quite impossible due to space limitations in some cases. It is still a viable option (and is the safest way to go), and a control circuit using this approach is shown in Figure 2. This is the simplest to implement, but the added cost of the second transformer may be hard to justify. It is pretty much mandatory for Class-A amps though (See <a href="#class-a">Class-A Amplifiers</a>).
+
+<p align="center"><img SRC="p39-fig2.gif" ALT="Figure 2" BORDER="1">
+<br><b><small>Figure 2 - Auxiliary Transformer Control Circuit</small></b></p>
+
+<p>This uses simple bridge rectifier, and a small but adequate capacitor. The control circuit uses readily available and low cost components, and can easily be built on Veroboard or similar. All diodes can be 1N4004 or equivalent. Use a transformer with a 9V AC secondary, which will supply close enough to 12 Volts for this circuit. No regulation is needed, and the controller is a simple timer, activating the relay after about 100ms. I have chosen a MOSFET for the switch, since it has a defined turn-on voltage, and requires virtually no gate current. With the component values shown, the relay will activate in about 100 milli-seconds. This can be increased (or decreased) by increasing (decreasing) the value of R1 (27k). The transformer need only be a small one, since current is less than 100mA.</p>
+
+<p>Q1 is used to ensure that power is applied to the relay quickly. When a voltage of 0.65V is sensed across the relay, Q1 turns on, and instantly completes the charging of C2. Without the "snap action", the circuit will be sluggish, and is not suited to some of the other variations below. Feel free to use a 2N7000 or similar low power MOSFET if you can get them easily. These use the TO92 package so are the same size as the small signal transistor.</p>
+
+<p><b><small>NOTE:</small></b>&nbsp; C1 should be rated at a minimum of 50V to ensure that the ripple current rating is sufficient to prevent capacitor heating. Be warned that if the cap gets warm (or hot), then its reliability and longevity will be compromised.</p>
+
+<p>It is possible to make the relay release much faster, but at the expense of circuit complexity. A simple logic system could ensure that the circuit was reset with a single AC cycle dropout, but this would be too fast for normal use, and quite unnecessary. C1 (marked with a *) will have to be selected based on the relay. If the value is too small, the relay will chatter or at least buzz, and will probably overheat as well, due to eddy currents in the solid core used in DC relays. The capacitor should be selected based on the value that makes the relay quiet, but still releases quickly enough to prevent high inrush current if there is a momentary interruption to the mains supply. The value shown (470uF) will generally be suitable for most applications.</p>
+
+<p>You might want to consider using a mains switch with an additional set of contacts, so that the second set will short circuit the 12V supply when power is turned off. Make sure that the switch has appropriate ratings, and be sure to mark and insulate all connections. This is not really necessary though, and for a DIY project I'd have to say that it's not recommended because of the risk.</p>
+
+<hr>Where it is not possible to use the transformer for any reason, then the circuit in Figure 3 can be used. This uses a resistor to drop the supply voltage for the relay, and has a simple zener diode regulator to supply the control circuit. The method of determining the resistor values and power for Rx and Ry is shown below.<br><br>
+
+<p align="center"><img SRC="p39-fig3.gif" ALT="Figure 3" BORDER="1">
+<br><b><small>Figure 3 - Control Circuit Using Existing Supply</small></b></p>
+
+<p><b><small>WARNING: </small></b>In the event of an amplifier fault at power-on, the fuse may not blow immediately with this circuit installed, since there may be no power to operate the relay. The current is limited to 200% of that at normal full power, so the fuse may be safe for long enough for it to destroy the resistor(s)! The ballast resistors will overheat very quickly, and if you are lucky they will fail. If you don't like this idea - <small>USE THE AUXILIARY TRANSFORMER</small>.
+
+<p align="center"><b>I very strongly suggest the auxiliary transformer - it is MUCH safer!</b></p>
+
+<p>The first calculation is based on the supply voltage, and determines the current available to the zener. This should be about 20mA (it is not too critical). Since the zener is 12V, use the following formula to obtain the value for Rx ...</p>
+
+<blockquote><b>R = (Vcc - 12) / I</b>&nbsp;&nbsp; (4) Where Vcc is the voltage of the main positive supply rail, I is current</blockquote>
+
+<p>Example. The Vcc (the +ve supply rail) is 50V, so ...</p>
+
+<blockquote>R = (50 - 12) / 0.02 = 1900 Ohms (1.8k is quite acceptable)</blockquote>
+
+<p>Power may now be determined as follows ...</p>
+
+<blockquote><b>P = (Vcc - 12)&sup2; / R&nbsp;&nbsp; </b>(5)</blockquote>
+
+<p>Again, from the example above ...</p>
+
+<blockquote>P = (50 - 12)&sup2; / 1800 = 38&sup2; / 1800 = 1444 / 1800 = 0.8W</blockquote>
+
+<p>A 2W resistor (or two 3k6 1W resistors in parallel) is indicated to allow a safety margin. Where possible, I always recommend that a resistor be at least double the expected power dissipation, to ensure long life and cooler operation. It may be necessary to select different resistor values to obtain standard values - not all calculations will work out as neatly as this. Remember that the 20mA is only approximate, and anything from 15 to 25mA is quite acceptable.
+
+<p>The relay coil limiting resistor (Ry) is worked out in a similar manner, but first you have to know the resistance of the relay coil. This may be obtained from specifications, or measured with a multimeter. I have details of a suitable relay that has a 12V DC coil, and has a claimed resistance of 285 Ohms. Coil current is therefore ...</p>
+
+<blockquote><b>I = Vc / Rc&nbsp;&nbsp; </b>(6)&nbsp; Where Vc is coil voltage and Rc is coil resistance
+<br>I = 12 / 285 = 0.042A (42mA)</blockquote>
+
+<p>Using the same supply as before, formula 4 is used to determine the 'build-out' resistance ...</p>
+
+<blockquote>R = (50 - 12) / 0.042 = 904 Ohms.&nbsp; 1k Ohms will be fine here (less than 10% variation)</blockquote>
+
+<p>Power is determined using equation 5 as before ...</p>
+
+<blockquote>P = (50 - 12)&sup2; / 1000 = 38&sup2; / 1000 = 1444 / 1000 = 1.4W</blockquote>
+
+<p>If the coil current is calculated with the resistor in place, it is found that it is 39mA - this is a variation of about 7%, and is well within the tolerance of a relay. A 5W resistor is indicated, as this has a more than generous safety margin. These resistors will be very much cheaper than a transformer, and require less space. Wasted power is not great, and is probably less than that lost in a transformer due to internal losses (small transformers are not very efficient).
+
+<p>With relays, it is often beneficial to use a power saver circuit, where an initial high current pulse is used to pull the relay in, and a lower holding current is then used to keep it energised. This is very common in relay circuits, and can provide a saving of about 50%. The basic scheme is shown in Figure 4 with some typical values for the relay as mentioned in the text. I have based my assumptions on the relay I have - I tested this part thoroughly, since it is very difficult to make calculations based on an electro-mechanical device such as a relay - there are too many variables. If you want to use this method, then I suggest that some experimentation is in order. Typically, the relay holding current will be between 20% and 50% of the pull-in current - generally at the lower end of the scale.
+
+<p align="center"><img SRC="p39-fig4.gif" ALT="Figure 4" BORDER="1">
+<br><b><small>Figure 4 - Power Saving Relay Circuit</small></b></p>
+
+<p>The values shown are those estimated for the 12V 285 Ohm relay - yours will be different!&nbsp; Do not mess about with this method if you are unsure of what you are doing. Failure of the relay to operate will cause the ballast resistors to overheat, with possibly catastrophic results (See below). This method can also be used with Class-A amps, as it is possible to make sure that the relay activates even on the lower voltage present while the ballast resistors are in circuit. (Although I strongly suggest the separate power supply circuit for Class-A, see <a href="#class-a">Class-A Amplifiers</a>, below.)
+
+<p>Notice that the power savings are across the board. The relay feed resistor now will dissipate 0.8W instead of 1.4W, and the auxiliary limiting resistor can be a 0.5W type - instantaneous dissipation is only 0.7W, and that is for a very short time. The feed resistor is now 2k2 instead of 1k, but an extra capacitor and resistor are the price you pay. The capacitor can be used in the circuit of Figure 3 too, and will force a large current at turn on. This will not save any power, but will most certainly ensure that the relay pulls in reliably.
+
+<p><b>A Few Test Results</b>
+<br>The relay I used for testing is a 24V type - this in itself is of little consequence, since it can easily be re-calculated or re-measured for a 12V unit. A coil resistance of 750 Ohms means that at nominal supply voltage the relay draws 32mA. I measured the pull-in current at 23.5mA (typically about 65% of the nominal rating), and drop-out current was 7.5mA, or about 25% of rated current.</p>
+
+<p>Using the 12V relay mentioned above, this would translate to (approximately - these are educated guesses)
+
+<ul><li>Nominal current - 42mA</li>
+<li>Pull-in Current - 28mA</li>
+<li>Drop-out Current - 10mA</li></ul>
+
+<p>Most (all?) relays will hold in perfectly well at 1/2 rated current, and I would suggest that this is as low as you should go for reliability. If you don't feel like including it, the resistor in series with the electro can be omitted. Sure this will pulse a 12V relay with 50V, but it won't care. Personally I suggest that a series limiter be used, calculated to provide an instantaneous current of 150% of the relay's nominal rating - this will protect the cap from excessive current. For a 12V unit (as above), this would mean a maximum current of 60mA and a holding current of 20mA.</p>
+
+<p>Because of the vast number of variables, I shall leave this to your experimentation - Please do not ask me to calculate the values for you, because I won't. It is entirely the reader's responsibility to determine the suitability of this (or any other) project to their individual needs. If in any doubt, use the auxiliary transformer method.</p>
+
+<hr><a id="construction"></a><b>Construction Notes</b>
+<p>As described above, electrical safety is paramount with a circuit such as this. Figure 5 shows a suggested method of mounting the input ballast resistors that ensures that the minimum of 5mm creepage and clearance is maintained when the resistors are mounted, and still provides good thermal contact with the case and protection from fingers or other objects coming into contact with the mains.</p>
+
+<p align="center"><img SRC="p39-fig5.gif" ALT="Figure 5" BORDER="1">
+<br><b><small>Figure 5 - Suggested Resistor Mounting</small></b></p>
+
+<p>This arrangement may be a little over the top, but feel free to use it if you want to. The aluminium bracket clamps the resistors firmly in position, and the plate above and below (which needs to be 5mm shorter than the resistor bodies) maintain clearance distances. It is imperative that the resistors cannot move in the bracket, and a good smear of heatsink compound will ensure thermal conductivity.</p>
+
+<p>The alternative is to obtain one of the bolt-down aluminium bodied resistors. This is obviously much simpler than making up a bracket. In case you are wondering why all this trouble for resistors that will be in circuit for 100 milliseconds, the reason is safety. The cover will keep fingers away, and stops the resistors moving about. It also provides a measure of safety if the relay does not operate, since dissipation will be very high. Since the resistors will get extremely hot, simply wrapping them in heatshrink tubing will do no good at all because it will melt. The idea is to prevent excessive external temperatures until the resistors (hopefully) fail and go open circuit. The method used with the P39 PCB is simpler again - 3 x 5W resistors are mounted on an auxiliary circuit board. I have yet to see or hear of a resistor failure.</p>
+
+<p>The relay wiring is not critical, but make sure that there is a minimum of 5mm between the mains contacts and any other part of the circuitry. Mains rated cable must be used for all power wiring, and any exposed connection must be shrouded using heatshrink tubing or similar. Keep as much separation as possible between any mains wiring and low voltage or signal wiring.</p>
+
+<p>The connections to the ballast resistors are especially important. Since these may get very hot if the relay fails to operate, care must be taken that the lead will not become disconnected if the solder melts, and that there is sufficient solder to hold everything together and no more. A solder droop could cause a short to chassis, placing you or other users at great risk of electrocution. An alternative is to use a screw-down connector, which must be capable of withstanding high temperature without the body melting.</p>
+
+<p>Do not use heatshrink tubing as insulation for the incoming power leads to the ballast resistors. Fibreglass or silicone rubber tube is available from electrical suppliers, and is intended for high temperature operation.</p>
+
+<hr><a NAME="class-a"></a><b>Class-A Amplifiers</b>
+<br>&nbsp;
+<table BORDER="0"  WIDTH="100%"><tr><td><img SRC="note.gif"></td><td><b><small>NOTE: </small></b>I strongly suggest that the auxiliary transformer method is used with a Class-A amp, as this will eliminate any possibility of relay malfunction due to supply voltages not being high enough with the ballast resistors in circuit.</td></tr></table>
+
+<p>Because of the fact that a Class-A amp runs at full power all the time, if using the existing supply you must not go below the 200% suggested inrush current limit. In some cases, it will be found that even then there is not enough voltage to operate the relay with the input ballast resistors in circuit.</p>
+
+<p>If this is found to be the case, you cannot use this method, or will have to settle for an inrush of perhaps 3-5 times the normal full power rating. This is still considerably less than that otherwise experienced, and will help prolong the life of the supply components, but is less satisfactory. The calculations are made in the same way as above, but some testing is needed to ensure that the relay operates reliably every time. See note, above.</p>
+
+<hr><a NAME="warning"></a><b>Special Warning</b>
+<p>In case you missed this the first time: In the event of an amplifier fault at power-on, the fuse may not blow (or at least, may not blow quickly enough to prevent damage) with this circuit installed, since there may be no power to operate the relay. If you don't like this idea - <small>USE THE AUXILIARY TRANSFORMER</small>. The fuse might only blow after the relay closes, but at least it will blow. 100ms is not too long to wait. &nbsp; <img src="grin.gif">
+
+<p>This circuit by its very nature is designed to limit the maximum current at power on. If there is no power to operate the relay, the ballast resistors will absorb the full mains voltage, so for my example above will dissipate over 900W! The resistors will fail, but how long will they last? The answer to this is a complete unknown (but "not long" is a good guess). Thermistors may or may not survive.</p>
+
+<p>The reliability of the relay circuit is paramount. If it fails, the ballast resistor dissipation will be very high indeed, and will lead to it overheating and possibly causing damage. The worst thing that can happen is that the solder joints to the resistors will melt, allowing the mains lead to become disconnected and short to the chassis. Alternatively, the solder may droop, and cause a short circuit. If you are lucky, the ballast resistors will fail before a full scale meltdown occurs.</p>
+
+<p>Make sure that the mains connections to the resistors are made as described above (<a href="#construction">Construction Notes</a>) to avoid any of the very dangerous possibilities. You may need to consult the local regulations in your country for wiring safety to ensure that all legalities are accounted for. If you build a circuit that fails and kills someone, guess who is liable?&nbsp; You!</p>
+
+<table BORDER="0" WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" height=37 width=108></td>
+<td>It is possible to use a thermal switch mounted to the resistor cover to disconnect power if the temperature exceeds a set limit. These devices are available as spare parts for various household appliances, or you may be able to get them from your normal supplier. Although this may appear to be a desirable option, it is probable that the resistors will fail before the thermal switch can operate.
+
+<p><b><small>WARNING:</small></b> The small metal bullet shaped non-resetting thermal fuses have a live case (it is connected to one of the input leads). Use this type with great caution !! Also, be aware that you cannot solder these devices. If you do, the heat from soldering will melt the wax inside the thermal fuse and it will be open circuit. Connections should use crimped or screw terminals.</td></tr></table>
+
+<hr><a name="pcb"></a><b>PCB Version</b>
+<p>The circuit diagram for the PCB version of this project is shown below. It uses a small transformer, and mains switching is only required for the small transformer, and the circuit takes care of the rest. The relays have a standard footprint, and should be available (almost) everywhere.</p>
+
+<p align="center"><img src="p39-f6.gif" alt="Figure 6" border="1"><br>
+<small><b>Figure 6 - PCB Version of Soft Start/ Mains Switch</b></small></p>
+
+<p>A 9V transformer is needed, having a rating of around 5VA. The DC output is close to 12V, and will activate the relays reliably. The circuit has a reasonably fast drop-out and stable and very predictable timing (approx 100ms). The PCB has space for 3 x 5W resistors (or a suitable thermistor), and the circuit has been used on 500VA transformers with great success. The other comments above still apply (of course), but this circuit simplified the construction process considerably.
+
+<p>Feel free to use a thermistor instead of the resistors, but <i>only</i> if the thermistor is rated for high enough peak current. If you use a 25 ohm thermistor with 230V mains, assume worst case instantaneous peak current of 13A. With 120V mains, a 10 ohm thermistor will allow a maximum peak of just under 17A. The thermistor (or resistor) used must be able to handle the peak current without failure.</p>
+
+<p>Full details, bill of materials, etc. for the PCB version of P39 are available on the secure server, along with detailed construction guide and mains wiring guidelines.</p>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright (c) 06 Dec 1999./ Updates: 03 Apr - Modified suggested startup current./ 30 Jan 2000 - added warning about non-resetting thermal fuse./ 18 Apr 06 - corrected errors and inconsistencies./ 12 Nov 2010 - added extra info about thermistors.</div>
+</body>
+</html>

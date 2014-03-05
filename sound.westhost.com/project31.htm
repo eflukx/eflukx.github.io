@@ -1,0 +1,239 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP Project Pages - Full Featured Transistor Tester. See the other ESP articles and projects, too">
+	<!-- ESP Project Pages - Full Featured Transistor Tester. See the other ESP articles and projects, too -->
+	<title>Project 31 - Full Featured Transistor Tester</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 31&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Full Featured Transistor Tester</b><br />
+Rod Elliott (ESP)</p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>When building amplifiers, it is often necessary to test transistors, either to verify that they (still) work, or for some esoteric designs it may even be necessary to match certain characteristics.</p>
+
+<p>The design featured here is just what you need, and provides the ability to test:</p>
+
+<ul>
+	<li>Gain (also referred to as h<sub>FE</sub> or Beta)</li>
+	<li>Gain at various collector currents up to 5A</li>
+	<li>Breakdown voltage (with or without Rbe - value is selectable)</li>
+</ul>
+
+<p>As with some of my other projects, this is not particularly cheap to build, but if my own unit is anything to go by will give many years of faithful service. (I have actually had mine for so long that the variable high voltage source was using a valve - it has only recently been replaced with a transistor.) This design is actually better than my existing unit - it has a bigger power supply, and is more flexible in operation.</p>
+
+<p>There are a couple of photos of my unit at the end of this article, so you can get some idea of what it might look like when finished. Bear in mind that this tester is different from mine (it has more features), so don't try to make a direct comparison of the switching. Mine (unfortunately) does not have the separate base current and collector current range switches, and is somewhat less useful as a result. Maybe I'll have to make one of these next.</p>
+
+<p><b>Warning</b>
+<br>One caveat I must make at the outset. Like any such commercial offering, this tester is just as capable of blowing up a transistor as it is of testing it. It is entirely the responsibility of the user to ensure that the settings are correct before pressing the Gain switch. The author takes absolutely no responsibility for any damage, whether direct or consequential that may be done to the device under test or the operator due to the use or inability to use the project described.</p>
+
+<hr><b>Description</b>
+<p>The basic method for testing the gain of a transistor is shown in Figure 1, and although not the ideal, is far simpler to implement than using a fixed collector current. The results are more than acceptable, and because of the design of this unit, it is possible to observe gain droop and other undesirable phenomena up to the maximum current.</p>
+
+<p align="center"><img SRC="p31_fig1.gif" ALT="Figure 1" BORDER=1 height=223 width=269>
+<br><b><small>Figure 1 - Basic Transistor Test Method</small></b></p>
+
+<p>The final unit's range switching and other functional blocks are shown in Figure 2, and it can readily be seen that it is comprised almost entirely of switches and resistors. No printed circuit board is needed, since most of the resistors should be connected directly to the switches, or may be mounted on tag strips as I did in my
+original unit.</p>
+
+<p align="center"><img SRC="p31_fig2.gif" ALT="Figure 2" BORDER=1 height=441 width=689>
+<br><b><small>Figure 2 - The Function Switching For The Tester</small></b></p>
+
+<p>The meter range extends from the maximum meter sensitivity of 100uA in decade steps up to 1A. The highest range was limited to 5A deliberately - even at this current, the transistor will be dissipating up to 20 Watts worst case, so the device under test should be mounted on a heatsink, or the test should be kept to very short duration, otherwise the transistor will overheat and may (will) be destroyed or severely impaired.</p>
+
+<p><b>Power Ratings Of Resistors</b>
+<br>The power ratings for the various meter shunt resistors are important. The 2 Ohm resistor (5A range) is best made using five 10 Ohm 10W resistors in parallel. The dissipation will be a maximum of about 70 Watts, but will only be used for a short time - otherwise the transistor will overheat and fail. Mount the
+resistors on a section of heatsink with an aluminium bracket, making sure that the bracket and heatsink make good thermal contact. Use some thermal compound to make sure that as much heat as possible is removed. Do not use the same heatsink as the power regulator. The added heat from the resistors will raise the temperature too far, and will endanger the life of the semiconductors.</p>
+
+<p>The 10 Ohm resistor (1A range) should also be 10 Watts, but does not need a heatsink (although mounting it with the others will not hurt). You must keep it away from other components, because it will get very hot.</p>
+
+<p>The 100 Ohm (100mA range) can be a 5 Watt unit, and will run quite cool (only 1.6W dissipation at worst), and all other resistors should be 1/2W types. Since absolute accuracy is not overly important, 5% tolerance is fine, but 1% can be used if you want to.</p>
+
+<p><b>Switch Functions</b>
+<br>The various switches are as follows:
+
+<ul>
+	<li><b>Range</b> - Select the collector current measurement range. The resistors act as meter shunts, and are scaled to ensure that the maximum current (even from a shorted transistor) is only slightly greater than the indicated range. The collector voltage is nominally 12V, but as the device current increases this will fall.<br />
+At the maximum meter reading, the transistor will have a collector voltage of about 2V. It is not necessary to maintain a constant voltage, as the gain variation with voltage is normally not great. The design would become needlessly complex if a constant voltage supply is used.</li>
+
+	<li><b>R-be</b> - Sets the emitter to base resistance for breakdown voltage tests. Many transistors have a wide variation of the breakdown voltage between collector and emitter, depending on the resistance between emitter and base. This allows you to select a value and perform comparative tests.</li>
+
+	<li><b>Base Current</b> - Set the base current to be used for gain testing. This ranges from 1uA up to 100mA in decade steps, and allows you to test all transistors from small signal devices up to high current (including Darlington) power transistors.</li>
+
+	<li><b>Gain(Momentary Pushbutton)</b> - This is a push button switch, and disconnects the emitter-base resistance and applies the selected base current. The transistor's gain is then worked out from the meter reading. See Using the Tester, below.</li>
+
+	<li><b>NPN / PNP</b> - This switches all voltages so that both PNP and NPN types of transistor can be tested.</li>
+
+	<li><b>High Voltage</b> - Turn the high voltage supply off when not in use (and make sure you do !)</li>
+
+	<li><b>Voltage Test (Momentary Pushbutton)</b> - Measure the applied breakdown voltage</li>
+
+	<li><b>Voltage Range</b> - Switch from 100V full scale to 500V full scale (requires a bit of mental arithmetic)</li>
+</ul>
+
+<p align="center"><br><img SRC="p31_fig3.gif" ALT="Figure 3" BORDER=1 height=381 width=688>
+<br><b><small>Figure 3 - NPN / PNP Switching</small></b></p>
+
+<p>Figure 3 shows the switching for NPN and PNP (everything has to be reversed in polarity), as well as the meter and its calibration resistors and protection diodes. These will conduct when the voltage across the meter exceeds 0.65V, so if the same meter movement (or one passably similar) is used, a maximum overload current of 170uA is possible. Although this will cause the needle to swing hard against the stops, it will not damage the movement.</p>
+
+<p>I have used an analogue meter movement because they are much simpler to implement, and are also somewhat cheaper than a digital panel meter. The latter needs a floating supply, and they are easily damaged by stray high voltages. The high voltage is used to test the breakdown voltage of the transistor, and will give a nasty bite, so I suggest that you treat it with great respect.</p>
+
+<p>The meter movement is a standard 100uA unit, and I based the resistor values on the specified meter resistance of 3,900 Ohms. If the meter you use is different, then you must make some adjustment to the 82k and 15k resistors. The aim of these is to make the entire circuit have a resistance of 100k. Since 10V is developed across the shunt resistors for full scale, this means that 10V and 100k = 100uA.</p>
+
+<p>If you add up the values, we have 3.9k, 15k and 82k, making a total of 100.9k (better than 1%), which is more than good enough for this application.</p>
+
+<p>The 4M Ohm meter resistor (marked **) can be made using a 3.9M in series with 100k. This needs to be fairly accurate, or the meter reading will not be useful. Note that the meter protection diodes are disconnected in voltage test mode, but remain connected to the rest of the meter switching circuit. This is to ensure that the load current on the HV supply is not changed when the Voltage Test button is pressed. If this was not done, the meter load would vanish, and the voltage reading would be meaningless.</p>
+
+<p>Please note that the range switch is expected to carry up to 5A. This is probably at the very limit of the switch's capacity (depending on the unit used), but since the current is intermittent it will have a long and fruitful life regardless. I normally will never operate anything at (or above) its limits, but the cost of an alternative is too horrible to contemplate.</p>
+
+<hr><b>Power Supply</b>
+<p>The power supply is not complex, but will need some ingenuity to ensure that the voltages are as specified. Using the second transformer as shown is not the most efficient way to create a high voltage / low current supply, but is by far the simplest and most reliable, and that is why I chose to do it this way.</p>
+
+<p>The main supply is quite conventional (well, almost), and uses a 7812 regulator to set the voltage. This is boosted by the diode to 12.6V (approx) to ensure that the base currents are accurate, and uses a bypass transistor to supply the 5A maximum current that I designed for. No current limiting is used, since it is not needed - even with the meter on the 5A range, a direct short can draw a maximum of about 6.3A which is well within the capability of the supply.</p>
+
+<p align="center"><img SRC="p31_fig4.gif" ALT="Figure 4" BORDER=1 height=401 width=685>
+<br><b><small>Figure 4 - Power Supply</small></b></p>
+
+<p>The regulator and power transistor must be mounted on a heatsink. Although it does not need to be massive (tests are normally of short duration), I suggest that a 1&deg; C/Watt unit would be ideal. The regulator should be isolated from the heatsink with a mica washer, but I recommend that the power transistor be mounted directly for the most efficient heat transfer. The heatsink will be operating at about 25V above earth with this arrangement, so internal mounting is suggested. Make sure that there is sufficient airflow for proper cooling.</p>
+
+<p>Although a BF338 can be used for the high voltage transistor, this device (normally) does not have a high enough voltage rating. Use a BUX55 if possible - this is a TO39, 500V, 1.5A device, with a gain of 20-60. There is a reasonable chance that you will be able to get one from your local TV repair shop, since it is a video amplifier transistor.</p>
+
+<p>Remember that this transistor is operating with a maximum voltage of over 300V, so don't try to use any device with a rated voltage of less than 350V (minimum). Make sure that it is designed for low current operation - many high current transistors have very low gain at low currents. I must admit that the BF338 is actually rated at only 225V, but one of the really nice things about having a tester like this is you can select transistors that are often considerably better than their specifications. Don't even think about it as an alternative to the BUX55 if you can't test its breakdown voltage.</p>
+
+<p>The series resistor to the HV2 supply line is a compromise. It needs to be high enough to prevent the transistor (or the user) from being damaged, but also needs to be low enough to ensure that a workable current can be achieved.</p>
+
+<p>The high voltage supply uses a second transformer, and I suggest that a voltage of about 300V DC is sufficient. There is no reason that this cannot be increased (other than locating a suitable transistor), but for audio work it is not generally necessary. Be warned that the high voltage has the capability to kill you, so don't get careless with it while the tester is being built.</p>
+
+<p>All diodes in the circuit should be 1N4007 (1000V), and use a 25A bridge rectifier. Make sure that all mains connections are properly insulated to prevent accidental contact. This includes the HV section, which is still dangerous at all points in the circuit.</p>
+
+<hr><center><div class="t-red"><b>WARNING</b></div></center>
+Even in the completed and assembled unit, the maximum current is approximately 600uA - this amount of current is very dangerous, especially with 300V behind it. <b><small>IT CAN KILL YOU</small></b> <b>!!!</b>
+
+<p>Never operate the tester with the high voltage supply turned on unless you need it for breakdown testing, and always ensure that the voltage is set to minimum immediately after testing. Do not neglect these warnings.</p>
+
+<p>Selecting the transformer for the high voltage supply is slightly tricky, since the transformers you can obtain will depend on where you live (I happened to have an old valve amp power transformer on hand, but you might not be so lucky). The HV rectifier circuit is a voltage doubler, so you will be after a transformer secondary voltage of about 110V AC.</p>
+
+<table border="1" width="100%">
+<tr><td><b>NOTE</b> - If you are in the US or other 110V country, do not be even the tiniest bit tempted to use the mains supply without the transformer.&nbsp; If you do this, you will create an outrageously dangerous supply, that is almost guaranteed to kill you sooner or later (probably the former!). Even with the transformer this supply is inherently dangerous - this cannot be avoided, and it must be used with great care at all times.</td></tr></table>
+
+<p>The main transformer must have a rating of not less than 100VA (preferably 150VA or so), and will need a secondary voltage of 15V. To select the second transformer ...
+
+<ul>
+	<li>If in the US (or you can get hold of 110V transformers), use a 15V secondary. Since the second tranny is operated backwards, this will give you the 110V that you need.</li>
+	<li>In Europe, you will need to use a transformer with a secondary voltage of about 30V. Since it is connected to a 15V AC supply, the secondary voltage will be about 110V AC.</li>
+	<li>In Australia, New Zealand and other 240V countries, you will still need the 30V transformer, but the output voltage will be higher than it should be. Experimentation with a series resistor in the 15V AC line is one method, or you can just put up with the higher voltage.</li>
+</ul>
+
+<p>The second transformer only needs to be about 10VA to be able to get enough current for the HV supply. Some experimentation is likely to be needed, as I cannot predict what you can (or cannot) get your hands on.</p>
+
+<p>Looking at the circuit, you will see that there is no common connection between the low voltage and high voltage supplies. This is deliberate. The common connection is made depending on the NPN / PNP switch setting, so do not join the negatives of the two supplies!</p>
+
+<p>Although not shown in the intended positions, you should use LEDs as power indicators. A standard LED with a parallel diode and a 2k2 series resistor (as shown in the bottom left) should be used for the main power indicator (directly across the 15V winding), and another across the 15V (or 30V) winding of the second transformer as a high voltage indicator.</p>
+
+<hr><b>Using The Tester</b>
+<p>Because it is so comprehensive, this is not the easiest tester in the world to use. On the positive side, it is very flexible, and will allow you to perform complete tests on just about any bipolar transistor. It is not suitable for MOSFETs, since the test processes are completely different, but you might be able to do some rudimentary tests as long as a gate voltage of 12V is OK. I make no claims here - as I have not done any MOSFET testing with my own unit (I can't, because it is slightly different from this design, and uses the high voltage supply for base current - this would instantly destroy the device!).</p>
+
+<p><b>Before You Start</b>
+<br>Always set the Range switch to 100uA when connecting a transistor. If it is connected incorrectly, or is shorted, you will not cause any damage. Only when you are satisfied that you have the correct connections and polarity should you try to go any further. At low currents, most transistors will survive all manner of abuse, at
+high currents they die.</p>
+
+<p><b>Testing Gain</b>
+<br>Depending upon the transistor, select a suitable range for the collector current. For example, if you select 10mA, always start with the base current at the minimum setting of 1uA. If you find that you need to increase the base current to 100uA, a full scale reading on the tester indicates a gain of 100.</p>
+
+<p>With all transistors, always set the collector current range to a value suitable for the device, and start with the lowest base current setting. Increase it until you have a reading on the meter of greater than 10uA on the meter scale. Because all ranges are in decades, the mental calculation is easy to determine the gain of
+the test component.</p>
+
+<p>For example, if the base current is 10uA and the meter reads 35 on the 10mA range (i.e. 3.5mA), the gain is 350. With the Range and Base Current switches at the minimum setting, (100uA and 1uA respectively), full scale on the meter indicates a gain of 100.</p>
+
+<p><b>Testing Breakdown Voltage</b>
+<br>Again, be warned that the voltage is potentially dangerous. Set the Range switch to 100uA, and the R-be switch to Open. Slowly increase the voltage, watching the meter. Normally, you will see a gradual increase in current, that will suddenly increase rapidly. This is BVceo (breakdown voltage, collector to emitter with base open). Press the Voltage Test button to read the voltage (you might need to change the range - the meter is calibrated from 0-100V, and 0-500V as shown, so some mental arithmetic is needed on the x5 range).</p>
+
+<p>As an alternative, a second meter movement could be used to measure voltage, or you can use a multimeter at the Emitter and Collector test points. This is most accurate (but such accuracy is not needed, since a wise designer will not operate a device too close to its measured performance - which in some cases will exceed the specification by 100% or more).</p>
+
+<p>In many cases, a transistor's breakdown voltage may be specified with some value of resistance between emitter and base - this is BVcer (breakdown voltage, with specified resistance from emitter to base). This design allows resistances from 100k to 0 Ohms in decade ranges, and I have found that this is quite sufficient for production type testing. When the emitter is shorted to the base, the breakdown voltage is approximately the same as the specified BVcbo (breakdown voltage, collector to base, emitter open).</p>
+
+<hr><b>My Existing Transistor Tester</b>
+<p>The photos show my own tester, which is different from the one presented here. It is not as comprehensive, and cannot do some of the neat things in the new design.</p>
+
+<table border=0><tr><td><img SRC="p31_fig5.jpg" ALT="Figure 5" HSPACE=5 VSPACE=5 height=415 width=461 align=LEFT><br>
+<img SRC="p31_fig6.jpg" ALT="Figure 6" HSPACE=5 VSPACE=5 height=286 width=503 align=LEFT></td>
+<td>This first picture shows the internals of the tester. The two power transformers are clearly visible, along with the regulator (far right) and main filter cap. The switching is all on the front panel, and consists mainly of rotary switches. The sharp eyed may be able to see a relay hiding at the top left of the panel. This was used because I could not get hold of a suitable push button switch when I built the tester, so the extra switching was obtained with the relay.
+
+<p>This unit is now over 25 years old, and is still going strong. I have had to fix it a couple of times, one of which was to replace the valve HV buffer with a transistor, and the regulator also failed once.</p>
+
+<p>The switching has never caused a problem, but unlike the new design, this one uses trimpots for calibration. These need the occasional tweak to regain accuracy, but as seen in the circuits, this has been completely avoided with the new design (and a good thing too).</p>
+
+<p>The tag strip I used to mount all the resistors on is visible at the top of the photo, but this requires far too much wiring. The new design requires very little - just a few interconnects here and there between the switches.</p>
+
+<p>The second photo shows the front of the unit, which was hand lettered using Letraset "rub-on" lettering, and sprayed with clear lacquer. It has lasted rather well all things considered.</p>
+
+<p>If building the new unit, I suggest that you use a transistor socket (if you can get one) for the small signal transistors, and use binding post/ banana sockets for leads to connect to power devices. Don't use the simple sockets like I did - you will regret it because they are a pain if you want to use double ended clip leads. The binding posts will allow you much greater flexibility when using the tester, and will also let you test transistors while still mounted on the heatsink (they must not remain connected to the rest of the circuit, though - this is NOT an in-circuit tester).</p></td></tr></table>
+
+<p>Happy transistor testing.</p>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Updated 23 Oct 2005</div>
+</body>
+</html>

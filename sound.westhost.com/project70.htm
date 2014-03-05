@@ -1,0 +1,225 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="description" content="ESP Project Pages - Death of Zen Headphone amp - A new use for a Class-A power amp. A superb sounding headphone amplifier, that is simple, reliable and fun to build">
+   <!-- ESP Project Pages - Death of Zen Headphone amp - A new use for a Class-A power amp. A superb sounding headphone amplifier, that is simple, reliable and fun to build -->
+   <meta name="keywords" content="zen, class-a, class a, audio, project, diy, amp, preamp, crossover, test, power, supply, circuit, schematic, diagram, headphone, phone">
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+	<title>Death of Zen Class-A - Use it as a headphone amplifier</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 70&nbsp;</td></tr></table>
+
+<p align="center"><b>DoZ Headphone Amp - <br />A New Use For The Class-A Power Amp</b><br />
+<small>Rod Elliott (ESP)<br>Updated 03 Oct 2005</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for this project. Click the image for details.<br>
+
+<hr>
+<p>In early versions of the DoZ, the quiescent current could be quite unstable with variations in the supply voltage. Normal changes in the AC mains would often cause Iq to shift above and below the preset value. A simple modification is now included on the PCB that virtually eliminates the problem.  It is reduced to the point where it is now immaterial.</p>
+
+<hr><b>Introduction</b>
+<p>You really need to see the original article - Project 36 - to see all the design details for this project. The project presented here is simply a modification of the original design, with much lower power dissipation and adapted specifically as a headphone amplifier. The circuit is identical to the original Death of Zen amp, except for the output transistors.</p>
+
+<p align="center"><img src="p36-reva-pic.jpg" border ="1" alt="DoZ Photo"><br><b><small>Photo of Assembled Rev-A Board</small></b></p>
+
+<p>Class-A is ideal for this application, since headphones are such an intimate way of listening. An amplifier for 'phones should be as clean and free from crossover distortion as possible, and must also be quiet. A background of hiss and hum does nothing to enhance the listening experience.</p>
+
+<p>Headphone amps are somewhat misunderstood, but in reality there are few points that need to be made. Most 'phones are designed to be operated with a source resistance of 120 ohms, and damping factor (as applied to conventional loudspeakers) is largely irrelevant. The actual source impedance should have very little (if any) effect on the frequency response or dynamic behaviour, since there is no cavernous enclosure and no heavy cones to try to control.</p>
+
+<p>The IEC 61938 international standard recommends that headphones should expect a 120 ohm source (5V RMS maximum) - regardless of the headphone's own impedance. If the manufacturer followed this standard, the 120 ohm resistor used in this circuit will not affect sound.</p>
+
+<p>Power requirements are usually in the 10 to 100mW range, and this is quite sufficient to cause permanent hearing damage. With the current set for 330 mA as suggested, this amp will be able to drive a minimum of 2 (but probably 3) sets of headphones at once. With 40 Ohm 'phones, it can give a maximum power of over 150 mW, so caution is needed to prevent hearing (and headphone) damage. Even with 8 ohm 'phones, power will be about 110mW - more than enough to have you asking people to repeat everything they say!</p>
+
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="Please Note" height=37 width=108></td>
+<td><b>Caution! Just in case you missed it, headphones are easily capable of causing permanent irreparable hearing damage. Modern dynamic headphones are very efficient (typically well over 90dB SPL per milliwatt) and will reach full volume with just a few milliwatts of input. A mere 100 mW will therefore provide a peak SPL of around 110dB SPL. The recommended maximum exposure to this sound level is less than 5 minutes in any 24 hour period !</b></td></tr></table>
+
+<p>Based on a maximum voltage of 10V RMS and a feed resistance of 120 ohms, the following table shows what peak power you should expect into various impedance headphones. Reducing the feed resistance will increase the power applied, probably to the detriment of your ears and the headphones themselves.</p>
+
+<center><table width=480 border=1 style="border-collapse: collapse">
+<tr><th>Impedance (ohms)</th><th>Power (mW)</th></tr>
+<tr><td>8</td><td>48.83</td></tr>
+<tr><td>16</td><td>86.51</td></tr>
+<tr><td>32</td><td>138.50</td></tr>
+<tr><td>40</td><td>156.25</td></tr>
+<tr><td>65</td><td>189.92</td></tr>
+<tr><td>100</td><td>206.61</td></tr></table>
+<b><small>Table 1 - Power Vs. Impedance</small></b>
+</center>
+
+<p>You might need to adjust the value of the feed resistor(s) if you have really low sensitivity headphones, but unless it is absolutely necessary - don't !</p>
+
+<hr><b>Description</b>
+<p>The final circuit for the DoZ headphone amp is shown in Figure 1. It is almost identical to the original (well, apart from the output transistors and size of C3, it <i>is</i> identical), and there is no longer the need for massive heatsinks and TO-3 output transistors. As shown, there are outputs for 2 sets of headphones. Needless to say, only one channel is shown - the other is identical.</p>
+
+<p>For final testing you will need a multimeter. As shown in the power supply circuit below, use a 10 Ohm resistor in series with the power supply positive lead. When you measure 1 volt across this resistor, this means that the amplifier is drawing 100 mA. The resistor remains in circuit, providing a useful reduction in supply ripple. You will lose about 3.3 V at operating current, and a 5W resistor is sufficient - it will get slightly warm. The output resistors (120 Ohm) should be rated for at least 2 Watts - a pair of 220 ohm 1W resistors in parallel will do just fine (the absolute value is not critical).</p>
+
+<center><img SRC="p36-a-sch.gif" ALT="Figure 1" BORDER="1">
+<br><b><small>Figure 1 - DoZ Headphone Amplifier</small></b></center>
+
+<p>Although MJL4281 transistors are shown in the circuit diagram, you can use cheaper devices for a headphone amp. If you want the highest possible reliability and best performance, those shown are a very good choice. Alternatives are TIP35 (A, B or C), MJL21194, or TIP/MJE3055. TO3 devices can also be used, but must be mounted off the PCB.</p>
+
+<p>C3 should be 470uF to 1,000uF. The higher value is recommended if you intend to drive multiple sets of headphones. The value of C3 is determined based on the use of 120 ohm feed resistors to the headphones. You will need to use a higher value if you use a lower resistance (not recommended, but some 'phones seem to prefer lower source impedance).
+
+<p>D1, D2 and R11 are optional but highly recommended. Full details for determining the zener voltage and resistance for R11 are given in the construction page. R13 may be omitted if desired. It helps to stabilise the bias current, but a side effect is slightly increased distortion.</p>
+
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="Please Note" height=37 width=108></td>
+<td><b>Q3 and Q5 (the output transistors) must be on a heatsink (see below), and even for headphone use, Q2 and Q4 may require a small heatsink.</b></td>
+</tr></table>
+
+<p>A quick circuit description is in order. VR1 is used to set the DC voltage at the +ve of C3 to 1/2 the supply voltage (20V for a 40V supply), by setting the voltage at the base of Q1. The 100uF cap ensures that no supply ripple gets into the input. Using a larger value will prevent any thump into the headphones as C3 (the output capacitor) charges, but there may be a period where excessive output current is drawn. The voltage rise is slow enough that there is little audible noise heard as the amp is powered on. Q1 is the main amplifying device, and also sets the gain by the ratio of R9 and R4. As shown, gain is 13, or 22dB, providing an input sensitivity of about 1V for full output.</p>
+
+<p>Q4 is the buffer for the output transistor Q5, and modulates the current in Q2 and Q3. VR2 is used to set quiescent current, which I found needs to be about 330 mA for best overall performance. C4 and R6 are part of a bootstrap circuit, which ensures that the voltage across R6 remains constant. If the voltage is constant, then so is the current, and this part of the circuit ensures linearity as the output approaches the +ve supply.</p>
+
+<p>If the DoZ PCB is used, the output components (C3, the two 120 ohm 2W resistors, and the 1k resistor to earth) are mounted "off-board". The output resistors are best mounted directly to the headphone jack, and the remaining parts can be mounted anywhere convenient.</p>
+
+<p>Before applying power, set VR1 to the middle of its travel, and VR2 to maximum resistance (minimum current). Be very careful - if you accidentally set VR2 to minimum resistance the amp will probably self destruct - more or less immediately.</p>
+
+<p>With an ammeter in series with the power supply (or measure the voltage across the 10 Ohm power supply resistor), apply power, and carefully adjust VR2 until you have about 330mA. Set VR1 to get 15V at the +ve of C3, and re-check the current. As the amp warms up, the current may increase, and you need to monitor it
+until the heatsinks have reached a stable temperature. If necessary, re-adjust VR2 and VR1 once the amp has stabilised. If you use a heatsink smaller than about 2&deg;C/W the amp will overheat and will be thermally unstable - <i>this is not desirable </i>(<small><i>note use of extreme understatement </i>:-</small>)</p>
+
+<p>I used a 30V (nominal) supply, and was able to obtain 150mW into typical 40 ohm headphones at the onset of clipping. Like the original, clipping is a lot smoother than most solid state amps, and the amp has no bad habits as it clips.</p>
+
+<center><img SRC="p70-f2.gif" ALT="Figure 2" BORDER=1 height=143 width=345>
+<br><b><small>Figure 2 - Wiring of a Headphone Plug</small></b></center>
+
+<p>Figure 2 above shows how to wire a standard stereo headphone plug. The tip is the left channel, the ring is the right channel, and the sleeve is earth (ground). Use an ohmmeter or continuity tester to determine the channel designations of the solder lugs inside the jack plug body. With a headphone jack, insert a headphone
+plug with known wiring scheme and use an ohmmeter or continuity tester to match the jack connections to the plug. Use this scheme when wiring the socket(s) to ensure that Left and Right channels are not reversed. The proper connections are shown in Figure 3.</p>
+
+<center><img SRC="p70-f3.gif" ALT="Figure 3" BORDER=1 height=143 width=345>
+<br><b><small>Figure 3 - Phone Jack Wiring</small></b></center>
+
+<hr><b>Test Results</b>
+<p>On the basis of the tests, I would rate this amp at 150 mW into 40 Ohm headphones, although I did get a little more. Distortion probably rises with increasing level, but I have no way of knowing, as it is so low - even at 10V RMS output into a 50 ohm load the distortion was about the same as the residual of my oscillator,
+which means that it must be below 0.04%, but I have no idea just how low it gets.</p>
+<p>I simply used components as I found them, and did no matching or any selection. All test results are based on the prototype, which uses ordinary resistors, a couple of old salvaged computer caps for the high values, and standard electrolytics for the others. The input capacitor is an MKT polyester type or you can use a standard electrolytic if you want to (the positive goes to the junction of R1 and R2).</p>
+
+<center><table border=1 width=640 style="border-collapse: collapse">
+<tr><td>Supply Voltage</td><td align="right">30V</td></tr>
+<tr><td>Suggested Quiescent Current</td><td align="right">330 mA</td></tr>
+<tr><td>Maximum power (40 ohm 'phones)</td><td align="right">350 mW</td></tr>
+<tr><td>Output Noise (unweighted, 1k ohm source)</td><td align="right">&lt;1 mV</td></tr>
+<tr><td>Distortion @ 1kHz, 10V RMS at output</td><td align="right">&lt; 0.4%</td></tr>
+<tr><td>Output Impedance</td><td align="right">120 ohms</td></tr>
+<tr><td>Frequency Response (-0.5dB @ 100 mW)</td><td align="right">&lt;20Hz to >50kHz</td></tr>
+</table>
+<b><small>Table 2 - Measured Performance of Figure 1</small></b></center>
+
+<p>I could hear no noise at all, even with a very basic power supply. The output noise level I measured was about 0.5mV, but it is not easy to measure accurately at such low levels. There appeared to be no residual hum that I could see on the oscilloscope, even with averaging turned on.</p>
+
+<p>The amp will also tolerate an indefinite short circuit across the headphone socket(s) with no ill effects, and even (blush) reverse polarity. I accidentally connected the supply up backwards while testing the original, and thought "Oh, no. Now I'll have to rebuild the blessed thing" (if the truth be known I thought something much shorter!). However, I connected the supply the right way 'round, and away it went, as if nothing had ever happened. This is <i>not</i> an experiment I suggest to others.</p>
+
+<p>The design is also unaffected by quite a few component variations. When I first started testing the original DoZ amp, there were no emitter-base resistors in the current source, and when I added them, I simply readjusted the two pots to get everything back where it was. I retested distortion after making the changes, and
+could measure no difference.</p>
+
+<p>I have also designed a simple, high performance preamp circuit (all discrete Class-A), which is very nice indeed (see <a href="http://sound.au.com/project37.htm" target="_blank">Project 37</a>). The distortion is very low, and frequency response is excellent.</p>
+
+<hr><b>Bias Stability</b>
+<p>As the supply voltage changes with normal variations in AC mains voltage, the quiescent current also shifts. This is not desirable, and is easily solved with the addition of a resistor and a zener diode (or a series string for odd voltages). If you are using a regulated supply, this mod is not needed. These parts are provided for on the Revision-A PCB, and the construction notes give the information needed to calculate the Zener voltage and series resistor.</p>
+
+<hr><b>Heatsink</b>
+<p>As I have said before, this amp needs a fairly good heatsink, as do all Class-A amplifiers. Even 'though this amp runs at very low current, a good heatsink is recommended. Thermal resistance should ideally be no greater than about 2&deg;C/W, so with a dissipation of about 10W the heatsink will be 20 degrees above
+ambient temperature. This is still quite hot, and a larger heatsink will not hurt one little bit :-)</p>
+
+<p>If you can't keep your fingers on transistors, then they are hotter than I like to operate them - I know they will take much more, but it shortens their life. A small heatsink is also recommended for the drivers, as they get surprisingly warm without one.</p>
+
+<hr><b>Power Supply</b>
+<p>A suitable supply for a pair of DoZ headphone amps is shown below. I must firstly give this ...</p>
+
+<table BORDER=1 WIDTH="100%" BGCOLOR="#FF0000" style="border-collapse: collapse">
+<tr><td><b>WARNING: Mains wiring must be done using mains rated cable, which should be separated from all DC and >signal wiring. All mains connections must be protected using heatshrink tubing to prevent accidental contact. Mains wiring must be performed by a qualified electrician - Do not attempt the power supply unless suitably qualified. Faulty or incorrect mains wiring may result in death or serious injury.</b></td></tr></table>
+
+<p>A simple supply using a dual 25V secondary transformer will give a voltage of around 35V. Allowing for the voltage drop across the 10 ohm resistor, this will give a typical supply voltage of a little under 30V for each amplifier. The actual voltage is influenced by a great many things, such as the regulation of the transformer, amount of capacitance, etc. For a pair of amps, a 50VA transformer will be (just) sufficient. Feel free to increase the capacitance, but anything above 10,000uF brings the law of diminishing returns down upon you. The performance gain is simply not worth the extra investment.</p>
+
+<p>The amp is quite tolerant of supply ripple, and a simple supply will almost certainly be fine. A suitable power supply is shown in Figure 4, or for the perfectionist, use the capacitance multiplier circuit (<a href="http://sound.au.com/project15.htm">Project 15</a>). There really is no need for anything more than the circuit
+shown below - supply ripple is less than 12mV RMS when loaded, and no hum was heard at all. The added advantage of the circuit shown is that it will self correct (to some degree) variations in quiescent current with supply voltage.</p>
+
+<center><img SRC="p70-f4.gif" ALT="Figure 4" BORDER=1 height=260 width=624>
+<br><b><small>Figure 4 - Suggested Power Supply</small></b></center>
+
+<p>For the standard power supply, as noted above I suggest a 50VA transformer as a minimum - 100VA is preferred. For 115V countries, the fuse can remain as 2A, and a slow blow fuse is required for toroids because of the inrush current of these transformers. If using a conventional laminated transformer, then fast blow fuses should be OK.</p>
+
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="IMPORTANT !" height=37 width=108></td>
+<td><b>Note that the secondary windings are in parallel, and the dots indicate the start of each winding. When windings are paralleled it is imperative that the phasing is correct, or the main fuse will blow. In some cases, the transformer may be damaged by the overload.</b></td></tr></table>
+
+<p>The supply voltage can be expected to be higher than that quoted at no load, and less at full load. This is entirely normal, and is due to the regulation of the transformer. In some cases, it will not be possible to obtain the rated power if the transformer is not adequately rated.</p>
+
+<p>R2 and R3 should be 5W wirewound types, the bridge rectifier can be a 5A type if you want (35A bridges are cheap enough, and the latter are preferred), and filter capacitors should be rated at a minimum of 50V. Wiring needs to be heavy gauge, and the DC must be taken from the capacitors - never from the bridge rectifier.</p>
+
+<p>As shown, a separate feed is used for each channel. I strongly recommend this approach to ensure that there is no low frequency interaction between the amps.</p>
+
+<hr><a NAME="reference"></a><b>References</b>
+<p><a href="http://www.headwize.com" target="_blank">HeadWize</a> - Everything you ever wanted to know about headphones
+<br><a href="project36.htm">Project 36</a> - Death of Zen Class-A Power Amplifier<br /><br />
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; 05 Oct 2000</div>
+</body>
+</html>

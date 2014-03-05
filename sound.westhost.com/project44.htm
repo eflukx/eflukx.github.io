@@ -1,0 +1,175 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="lab,laboratory,variable,audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+	<meta name="description" content="ESP Project Pages - Variable Dual Lab Power Supply.">
+	<title>Variable Dual Lab Power Supply</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="../favicon.ico"> 
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 44&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Variable Dual Lab Power Supply</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><table BORDER="0" CELLSPACING="0" CELLPADDING="0" WIDTH="100%">
+<tr><td><a href="pcb/pp05.htm" target="_blank"><img SRC="pcb.gif"></a></td>
+<td>&nbsp; <b>Please Note:</b>&nbsp; PCBs are available for this project (using P05A). Click the image for details.</td>
+</tr></table>
+
+<hr><b>Introduction</b>
+<p>Having just built your new masterpiece, it is usually with great trepidation that one applies power. There are few things quite so disheartening as seeing your creation "go up in smoke" just because of a simple mistake.</p>
+
+<p>The easiest way to avoid this is to have a power supply that allows you to adjust the voltage, so you can see that everything works as it should before the main supply is connected. The lab supply shown will current limit at around 800mA (this varies a bit because of the regulators), and can supply from +/-1.2V up to about +/-25V.</p>
+
+<p>Using a dual-gang pot allows both supplies to be set simultaneously to the same voltage, and you can add metering for voltage and current if you want to. These will add substantially to the cost, but can be very useful.</p>
+
+<table BORDER="0" CELLSPACING="0" CELLPADDING="3" WIDTH="100%">
+<tr><td><img SRC="mains.gif" ALT="DANGER" height=26 width=33></td>
+<td>This project requires knowledge of mains wiring.&nbsp; If you are unfamiliar with (or justifiably scared of) the household mains supply - <b><i><small>DO NOT ATTEMPT CONSTRUCTION.</small></i></b></td>
+</tr></table>
+
+<hr><b>Description</b>
+<p>The power supply is based on the LM317 and LM337 variable 3-terminal regulators ICs, and while it is no powerhouse, it is quite satisfactory for testing most power amps, as long as there is no speaker connected.</p>
+
+<p>Figure 1 shown the complete circuit diagram, and it is quite simple. There are only a few things that you need to be careful with (apart from the mains wiring), and these are ...
+
+<ul>
+  <li>Make sure that the regulators are properly mounted on (and insulated from) a substantial heatsink. The ICs will shut down if they overheat, but this will shorten their life - and is most inconvenient.
+  <li>Keep all wiring short around the regulators. In particular, the ICs should be no more than 100mm (4") from the filter caps (wiring length).&nbsp; More than this and they will oscillate. 10uF capacitors can be mounted close to the regulator inputs if longer distances cannot be avoided.
+  <li>Make sure that the 10uF capacitors (C3 and C4) are mounted at the regulator terminals. The pots can be any convenient distance away.
+  <li>Make sure that the diode polarities are correct (diodes are all 1N4004 or equivalent). These protect the regulator ICs against reverse polarity and large external capacitors, and must not be omitted.
+  <li>D5 and D6 are recent additions, suggested by a reader (and as used in P05). These help protect against external reverse polarities.
+</ul>
+<br>
+
+<p align="center"><img SRC="p44-fig1.gif" ALT="Figure 1" BORDER="1" />
+<br><b><small>Figure 1 - The Complete Power Supply Circuit</small></b></p>
+
+<p><b><small>NOTE:</small></b> &nbsp; It was pointed out to me that the original pinouts shown on the LM337 were incorrect (Pin 2 as output and Pin 3 as input). Some searching revealed that SGS Thompson ICs <i>may</i> be different from National Semiconductor devices, so caution is advised. The IC will not be damaged if Pins 2 &amp; 3 are reversed (because of the diode), but the regulator won't work. The pinouts above have been changed to suit the data in the National Semiconductor data sheet. If you use the P05A PCB for this project, then you must make sure that your regulators use the standard National Semiconductor pinouts.</p>
+
+<p>The transformer does not need to be especially large - typically a 60VA unit should be sufficient, although a larger one will do no harm. Likewise, the 4,700uF caps will be quite large enough for the intended purpose. The bridge rectifier should be rated at about 5A for continuous operation.</p>
+
+<p>The 2k dual-gang pot (the dot indicates the fully clockwise position) need only be a standard quality unit, but <i><small>MUST</small></i> be linear - do not use a log pot. The ideal is a dual wirewound unit if you can get one, as this will be more robust, and will have better tracking. A standard carbon pot is actually running at slightly above its ratings at maximum voltage, but this is unlikely to cause a problem.</p>
+
+<p>Make sure that all mains connections are shrouded with heatshrink tubing to prevent accidental contact. The entire power supply should be earthed (see <a href="http://sound.au.com/earthing.htm">Earthing Your Hi-Fi</a> for full info on proper earthing technique), and make sure that all mains and earth wiring complies with the regulations where you live.</p>
+
+<p>Output connectors should be combination binding-post / banana socket types, and additional connectors can be used if desired. Make sure that any connectors used cannot short circuit as the plug is inserted - although the ICs have protection, it is better not to have to rely on it.</p>
+<p>In use, always make sure that the voltage is set to minimum before connecting your test circuit. Advance the voltage slowly, and watch for abnormal voltages, and feel for anything that may be overheating.</p>
+
+<p align="center"><img SRC="p44-fig2.gif" ALT="Figure 2" BORDER="1" />
+<br><b><small>Figure 2 - The Complete Power Supply Circuit, Version 2</small></b></p>
+
+<p>Can't find 2k pots? It seems to be that 2k pots can be very difficult to obtain, and likewise 2.5k pots which would be a suitable alternative. They may be obtainable as single gang, but dual gang can pose a real challenge. Figure 2 shows how you can use higher value pots, with the addition of a transistor and resistor. These can be wired directly across the pot terminals, and although BC5x9 types are shown, any small signal NPN and PNP transistors can be used. The pot can be up to 50k with no ill effects using this scheme. One minor disadvantage is that the minimum voltage is slightly higher (by 0.65 - 0.7V), but this is not normally a problem.</p>
+
+<hr><b>Meters</b><br>
+<p>The addition of voltage and current meters is useful, but is fairly expensive at about AU$20.00 each (and it can be a nuisance finding 1A current meters). If you want to add meters, Figure 2 shows how they should be connected. Only a single voltmeter is shown, and it will be necessary to check the internal resistance to determine the value of the calibration resistor. Although this meter is connected between +ve and -ve supplies, it is calibrated to show the average value of one supply voltage only (since this is a tracking supply, they will be very similar in voltage).</p>
+
+<p align="center"><img SRC="p44-fig3.gif" ALT="Figure 3" BORDER="1" />
+<br><b><small>Figure 3 - Addition of Meters</small></b></p>
+
+<p>I suggest that a trimpot be used so you can calibrate the voltmeter (assuming that a 30V meter can be obtained), since it is unlikely that the right resistance will be available. Figure 2 assumes that the meter has a resistance of about 30k - if yours is substantially different you will need to adjust the values.</p>
+
+<p>If you have to use a 1mA meter, then the scale will need to be redrawn, and the series resistor calculated.</p>
+
+<p>For all calculations, I will assume a meter with 1mA full scale deflection (FSD), with a coil resistance of 58 Ohms. This is typical of one found in an Australian electronics supplier catalogue. Figure 3 shows the way to connect a series resistance to make a voltmeter, and parallel resistance to create an ammeter.</p>
+
+<p><b>Voltmeter</b>
+<br>Calculating the value of the series resistance is easy. We want a full scale reading of 30V, but since the meter is across both supplies, the actual voltage will be double this, or 60V.
+
+<blockquote><b>R = (V / I) - R<sub>mtr</sub> &nbsp; </b>where <b>R</b> is the series resistance, <b>I</b> is FSD current for the meter, and <b>R<sub>mtr</sub></b> is the meter's resistance.<br><br>
+<b>R = (60 / 0.001) - 58<br><br>
+R = 60k </b>(The 58 Ohms can be ignored as insignificant</blockquote>
+
+<p>Figure 3a shows the series connection for a voltmeter.</p>
+
+<p><b>Ammeter</b><br>
+If you cannot obtain 1A current meters, you will need to use a 1mA (or some other value) meter, and make a shunt so it will measure higher current. The shunt resistor will normally be a very low resistance, and must be rated for at least 1 Amp. To calculate the value of a shunt resistor, you will need to do the following ...
+
+<ul>
+  <li>Measure (or obtain from the specs) the resistance of the meter movement
+  <li>Note the FSD current for the meter (e.g. 1mA)
+  <li>Calculate the voltage needed across the meter to obtain FSD ...
+    <ul><li><b>V = R * I </b>&nbsp; (<b>R</b> is meter resistance, <b>I</b> is FSD current) ... for example<br>
+    <b>V = 58 * 0.001 = 0.058V</b>
+  </ul>
+  <br>&nbsp;
+  <li>Now, you can work out the resistance needed to achieve the required FSD of 1A ...
+  <ul><li><b>R = V / I </b> &nbsp; so using the same example ...<br>
+  <b>R = 0.0058 / 1 = 0.058 Ohm</b></ul>
+</ul>
+
+<p>There is a small error here because the meter is in parallel with the shunt, but the error is negligible for this current (0.1%).  Figure 3b shows the normal connection for a shunt, and Figure 3c shows the way you can cheat, using a fixed resistor and a trimpot for calibration. As shown, this will result in a voltage drop of 0.1V at 1A, which is unlikely to cause a problem. A 5W wirewound resistor should be used as the shunt resistor.</p>
+
+<p align="center"><img SRC="p44-fig4.gif" ALT="Figure 4 (a,b,c)" BORDER="1" />
+<br><b><small>Figure 4 - Series and Shunt Resistors</small></b></p>
+
+<p>Because the shunt resistance is so low, it will be difficult to make, and even harder to measure. It is usually easier to use a fixed resistor (e.g. 0.1 Ohm) with a trimpot to set the meter. This can be calibrated after the power supply is complete - connect a 10 Ohm 10W resistor between the +ve and -ve supplies, with a multimeter (set to the amps range) in series. Adjust the voltage until the multimeter shows 0.5A, then adjust both trimpots so the two meters read exactly 1/2 scale.</p>
+
+<table BORDER="0" WIDTH="100%"><tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE" /></td>
+<td><small>All DC meters are polarised, so the terminal marked + must go to the positive side of the supply as shown in Figure 3. Although reverse polarity will not damage the meters, the readings will not be as useful as they should be. (I.e. the needle will be hard against the stop, trying to display a negative voltage <img src="grin.gif">)</small></td></tr></table>
+
+<p>Your power supply is now ready for serious use. The maximum current of 800mA to 1.5A (depending on the regulator ICs) will be enough to test any Class-AB amp up to +/-25V (most will work fine at this voltage). Note that it will not be suitable for a Class-A amplifier, since these draw far more current that this supply is designed for. All preamps can be tested, but make sure that you do not exceed the supply voltage recommended - this will be typically +/-15V for opamps.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 1999-2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page Created and Copyright (c) 02 Jan 2000./ Updated 13 May 2001./ 20 Feb 2005 - PCB now available to suit./ 01 Jun 05 - Added Fig 2 version./ 01 Apr 2010 - added D5 and D6 for external reverse polarity protection.</div>
+</body>
+</html>

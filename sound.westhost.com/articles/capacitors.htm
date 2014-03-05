@@ -1,0 +1,448 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Capacitor Characteristics - what do they mean for audio applications? Are 'audiophile' grade caps worth the extra?">
+	<!-- Capacitor  Characteristics - what do they mean for audio applications? Are 'audiophile' grade caps worth the extra? -->
+	<meta name="keywords" content="capacitor, dielectric, loss, characteristic, polyester, mylar, polypropylene, inductance, resistance, audiophile, audio, diy, hi-fi, electronic">
+	<title>Capacitor  Characteristics</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Capacitor  Characteristics&nbsp;</td></tr></table>
+
+<p align="center">Copyright &copy; 2005 - Rod Elliott (ESP)<br />
+<small>Page Created 24 September 2005</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm"  OnMouseOver="document.art1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" alt="Articles" BORDER=0></a><b>Articles Index</b>
+<br><a href="../index2.html"  OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" alt="Index" BORDER=0></a><b>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#1.0">1.0 &nbsp; Introduction</a></li>
+  <li><a href="#2.0">2.0 &nbsp; Dielectric Loss</a><ul>
+    <li><a href="#2.1">2.1 &nbsp; Dielectric Absorption</a></li>
+    <li><a href="#2.2">2.2 &nbsp; Electrolytics</a></li>
+    <li><a href="#2.3">2.3 &nbsp; Distortion Tests</a></li>
+    <li><a href="#2.4">2.4 &nbsp; Capacitors in General</a></li></ul></li>
+  <li><a href="#3.0">3.0 &nbsp; Test Methodology</a></li>
+  <li><a href="#4.0">4.0 &nbsp; Parasitic Inductance in Bypass Applications</a><ul>
+    <li><a href="#4.1">4.1 &nbsp; Electrolytic Series Resonance</a></li></ul></li>
+  <li><a href="#5.0">5.0 &nbsp; ESL and ESR</a></li>
+  <li><a href="#6.0">6.0 &nbsp; Food For Thought</a></li>
+  <li><a href="#7.0">7.0 &nbsp; Conclusion</a></li>
+  <li><a href="#ref">References</a></li></ul>
+
+<hr><a id="s10"></a><b>1.0 - Introduction</b>
+<p>A great deal has been made of the 'sound' of capacitors. Dielectric losses (dissipation factor, dielectric absorption) feature heavily, with some fairly outrageous claims made as to the importance of these losses in amplifiers and other audio equipment. There are sites on the Net showing that different caps have different properties, and this is often used a 'proof' by many people that the differences are audible. There are sites that seem to have impeccable credentials, but have managed to create nothing but FUD (fear, uncertainty &amp; doubt) with wild claims of irreparable damage to the signal by using the 'wrong' kind of cap ... even as a supply bypass (yes, it's true - this claim <i>has</i> been made). In some cases you will read things like "listening tests have indicated ... (blah, blah, blah)". But where is the data? Who conducted the test?  How was it conducted? Was the test ever <i>really</i> conducted at all?  Most claims of this nature indicate that there is a hidden agenda, so beware.</p>
+
+<p>What is often missed completely, is that capacitors used for signal coupling must have a very low impedance for all frequencies that one expects to pass through the system, and in general, the impedance (capacitive reactance) should normally be less than half the circuit impedance - for the <i>lowest frequency of interest</i>. For example, a coupling cap that is used at the input an audio amplifier may have a value of 1uF, with a following resistive load of 22k (this is fairly common in ESP designs).</p>
+
+<p>The capacitor has a reactance of 7.9k at 20Hz, and 22k at 7.2Hz (this is the -3dB frequency). At this frequency, if 1V is applied to the input, 707mV will be 'lost' across the cap, and the amplifier will get an input signal of 707mV. The reason for the voltages not being 50% of the input voltage is due to phase. This is quite normal, and causes no problems. A double blind test of any two capacitors of the same value and reasonable construction will not reveal any audible difference - even if the music has significant very low frequency content, and the loudspeakers can reproduce it. At 40Hz, the capacitor has a reactance of just under 4k, and at 1kHz this has fallen to 159 ohms. These figures apply reasonably accurately at all voltages, impedances and frequencies.</p>
+
+<p>Dielectric losses (dielectric absorption and dissipation factor are lumped together for my analysis) are blamed for 'smeared' high frequencies, thus implying that as the frequency increases, the problem gets worse. However, as the frequency increases, the amount of signal across the cap falls, so at the highest frequencies the capacitor is effectively almost a short circuit. The influence of <i>any</i> coupling capacitor diminishes as frequency increases, and is most significant at the lowest frequency of interest.</p>
+
+<p>These effects are examined by a combination of simulation and actual testing - and to alleviate any concerns, no components were harmed in the production of this article (sorry <img src="grin.gif" alt=":-)"> ). Simulation features heavily here, simply because most of the effects are extremely difficult (some are almost impossible) to measure. The resolution of the simulator is far greater than any known test instrument, but one has to be careful to ensure the models used act in the same way as real components.</p>
+
+<p align="center"><img src="caps-f1a.gif" border="1" alt="Figure 1A"><br><b><small>Figure 1A - Basic Capacitor Construction</small></b></p>
+
+<p>Figure 1A shows the general form of construction for a capacitor. The plates shown may be metal foil, or more commonly for most caps, a metallised film. This is very thin and typically long and narrow, then it is rolled up and encapsulated. In some cases, the cap is made flat, with interleaved plates and dielectric. This allows the maximum capacitance for a given volume.</p> 
+
+<p align="center"><img src="caps-f1b.gif" border="1" alt="Figure 1B"><br><b><small>Figure 1B - Multilayer Capacitor Construction</small></b></p>
+
+<p>Figure 1B shows the general construction of a multilayer cap, and is also representative of the cross-section of a traditional wound capacitor. With some capacitors, one end is marked with a band or is otherwise indicated as the outer foil. This can be useful for sensitive circuits, where the outer foil (or plate) end may be connected to earth (ground/ chassis) to shield the capacitor against interference. This is usually only ever needed in very high impedance circuits, or where there is considerable external noise.</p>
+
+<p>Note the way that the ends of the foil are joined. This prevents the signal from having to traverse the length of the plates. Because one edge is joined in a 'mass termination', only the width of the plates (i.e. between the terminations, plus lead length) is significant for inductance.</p>
+
+<p>The capacitance of a pair of plates is determined by the formula ...</p>
+
+<blockquote>C = 8.85 x 10<sup>-12</sup> kA / t &nbsp; <small>where C = capacitance (Farads), k = dielectric constant, A = area (m&sup2;) and t = dielectric thickness (m)</small></blockquote>
+
+<p>So, for example, a pair of plates of 0.01m&sup2; area, separated by 1um, and having an insulation with a dielectric constant of 3 (e.g. polyester), will have a capacitance of about 260nF. These plates might typically be a metallised layer of 10mm width, and having a length of 1m [<a href="#ref">1</a>]. While this is probably not very useful, it may come in handy one day (or perhaps not). The dielectric thickness is mainly determined by the voltage rating.</p>
+
+<p>Typical values for k (dielectric constant) are as follows ...</p>
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<tr><td><b>Material</b></td><td><b>k</b></td></tr>
+<tr><td>Vacuum (reference)</td><td>1.00000</td></tr>
+<tr><td>Air (Sea Level)</td><td>1.00059</td></tr>
+<tr><td>Aluminium Oxide</td><td>7 - 12</td></tr>
+<tr><td>Ceramic</td><td>5 - 6,000</td></tr>
+<tr><td>Mica</td><td>3 - 6</td></tr>
+<tr><td>Mylar</td><td>3.1</td></tr>
+<tr><td>Polycarbonate</td><td>2.9 - 3.0</td></tr>
+<tr><td>Polyethelyne</td><td>2.25</td></tr>
+<tr><td>Polyester</td><td>2.8 - 4.5</td></tr>
+<tr><td>Polypropylene</td><td>1.5</td></tr>
+<tr><td>Polystyrene</td><td>2.4 - 2.6</td></tr>
+<tr><td>Teflon</td><td>2.0</td></tr>
+<tr><td>Snake Oil</td><td>Unknown <img src="grin.gif" alt=":-)"></td></tr>
+</table><small><b>Table 1 - Dielectric Constants</b></small></center>
+
+<p>This is just a small sample - see <a href="#ref">references</a> for more. Only a few of the vast number of dielectrics available are useful, and only some of these are listed above. Of the many sites that give this information, there is considerable variation for many materials - this is to be expected because of the range of different material formulations, even within the same chemical compound group. Snake oil has been included, but there is no actual data associated with it. Yes, this is in jest, but as you may discover, there is a great deal of snake oil used in the audiophile capacitor industry.</p>
+
+<p align="center"><img src="caps-f2.gif" alt="Fig 2" border="1"><br><b><small>Figure 2 - Capacitor Equivalent Circuit</small></b></p>
+
+<p>The generalised equivalent circuit of a capacitor is shown in Figure 2. The nominal capacitance is the value of C&sup1;, with ESR and ESL (equivalent series resistance and inductance) in series. The parasitic capacitances (C&sup2; - C<sup>n</sup>) and their series resistances represent the dielectric loss (resistance) and dielectric absorption (capacitance). These are infinite, with ever diminishing capacitance and series resistance. Figure 5 shows values used for simulation purposes.</p>
+<p>It is important to understand the equivalent circuit of any component, because this allows you to simulate or measure the effects with the 'flaws' greatly accentuated. In many cases, it is not necessary to do either, since the effects will be quite obvious once seen for what they are.</p>
+
+<hr><b><a id="s20"></a>2.0 - Dielectric Loss</b>
+<p>The first thing to understand about dielectric loss, residual charge, series resistance and inductance, and all the other ills that afflict capacitors, is that they are quite normal, and appear in all real-world components. What is at issue is whether these cause a problem for normal audio signals at normal levels. There is no point testing capacitors by placing a 70V AC signal across them if this will never happen in the circuit being investigated. There is even less point doing this with capacitors that are rated at 50V ... DC!</p>
+
+<p>While coupling capacitors are a primary target of the upgrade brigade, these are the most benign because of the very low voltages across them. Capacitors used in filter circuits are deliberately selected so that they cause the signal to roll off at the selected frequency, and this will be examined later in the article.</p>
+
+<p>First, let's look at the voltage across a 1uF coupling cap connected to a 22k input impedance amplifier. At 40Hz, this is only 180mV for a 1V input, and by the time we get to 10kHz the voltage across the cap is down to less than 700uV. This is shown in Figure 2, and Figure 3 shows the circuit used for the measurement.</p>
+
+<p align="center"><img src="caps-f3.gif" alt="Fig 3" border="1"><br><b><small>Figure 3 - Output Voltage Vs. Capacitor Voltage</small></b></p>
+
+<p>The test circuit is shown below. It is simply a matter of measuring the voltage across the capacitor and the resistor. With a 1V RMS applied signal, each will measure 0.707V when the capacitive reactance is equal to the resistance. This is the low frequency -3dB frequency.</p>
+
+<p align="center"><img src="caps-f4.gif" alt="Fig 4" border="1"><br><b><small>Figure 4 - Test Circuit for Voltage Measurements</small></b></p>
+
+<p>Now, the caps used in a simulator are 'ideal' in that they do not have dielectric loss, series resistance, insulation resistance (leakage) or any other undesirable parameters of a real capacitor. A simulated cap with these real parameters included is shown in Figure 5. The ESR (equivalent series resistance) is much higher than an actual cap, ESL (equivalent series inductance) is about typical, leakage resistance (via the parallel resistor) is much lower than reality at 100Megohms, and the dielectric loss components (the string of smaller caps with series resistance) deliberately exceeds that of most normal capacitors.  This sub-circuit behaves like a capacitor with quite high losses - certainly it would be completely unacceptable as a tuning cap in a circuit operating at very high frequencies. In short, this is a dreadful capacitor. Perhaps these shortcomings might make it 'sound better', but it would need to be very expensive and perhaps unreliable to gain true acceptance. Just do a Web search for 'Black Beauty' capacitors - these are notoriously unreliable (especially early 'NOS'), sometimes unbelievably over-priced and should be avoided for anything more technologically advanced than land-fill (and yes, I do have personal experience with them).</p>
+
+<p align="center"><img src="caps-f5.gif" alt="Fig 5" border="1"><br><b><small>Figure 5 - Capacitor With High Dielectric Loss</small></b></p>
+
+<p>This lossy capacitor (which is worse than any typical real-world component) is next used in the same circuit shown in Figure 4. When we look at the amplifier signal (across the 22k resistor) the frequency shifts up by 11mHz (milliHertz) and there is a loss of 3.3mdB (yes, milli decibel) at 10Hz, with a loss of 4mdB right through the audio band and up to 1MHz. This can be considered utterly insignificant. The vast majority of all loss is caused by the series resistance (which is exaggerated for clarity). Lest anyone think that the dielectric loss or leakage resistance may cause a phase variation, that too is insignificant. The phase angle at 10Hz is just under 36&deg;, with the lossy capacitor being 0.047&deg; different. Again, at higher frequencies there is no significant difference.</p>
+
+<p>Ok, so there is very little change in overall performance when the lossy cap is used for coupling, but the losses should really mess up a filter circuit, right? Wrong, actually. There is virtually no difference at all.  Although the difference can be seen with the simulator, most affordable real instruments don't have sufficient resolution to be able to see it. The difference between a 24dB/octave crossover filter built using ideal and lossy capacitors is so small as to be insignificant. The frequency changes by 1Hz, and the voltage difference at the crossover frequency is 0.044dB (44mdB). Many times this variation will result from normal component tolerances, and even stray capacitance on the PCB itself could easily exceed the variation seen by the simulator. There is little to be gained by showing graphs with perfectly overlaid curves, but should anyone want to do their own simulations there is more than enough information here to allow that.</p>
+
+<p>It is important to understand that the lossy capacitor appears (electrically) as an infinite number of small capacitors, each with its own series resistance. This can be built using real capacitors, with a lumped parasitic capacitance of perhaps one tenth of the value of the actual capacitance. Use a 1 megohm resistor in series with the 'parasitic' cap, using the general scheme shown in Figures 2 and 5. The 'losses' in this capacitor are far greater than any metallised film cap, yet using it in a circuit will not degrade the performance one iota. Dielectric absorption simply does not affect the way a capacitor passes the signal. Dielectric loss becomes a problem when significant (high frequency signal) voltage appears across the capacitor, but is rarely even measurable as a loss at audio frequencies and at levels typical of audio systems.</p>
+
+<hr><b><a id="s21"></a>2.1 - Dielectric Absorption</b>
+<p>So, we can conclude from this that the dielectric losses do <i>not</i> cause massive variations - in fact the variations are infinitesimal. But ... what of the charge storage of the dielectric? This is the phenomenon that allows a cap to recover some of its original charge due to 'dielectric absorption' (also known as 'soakage' [<a href="#ref">6</a>]). This is part of exactly the same phenomenon that creates capacitor 'losses'. The lossy cap shown above has that effect too, and this is shown in Figure 6.</p>
+
+<p align="center"><img src="caps-f6.gif" alt="Fig 6" border="1"><br><b><small>Figure 6 - Dielectric Absorption Voltage Recovery</small></b></p>
+
+<p>The test circuit is shown below. This is a fairly standard test, but unless you are building a very low frequency filter or high accuracy sample and hold circuit, the effect is rather meaningless. It is interesting though.  The simulated capacitor is the same as the lossy version shown in Figure 5. The official military specification test circuit for MIL-C-19978 (the test for dielectric absorption) uses an opamp wired to give almost infinite input impedance, because standard digital multimeters will not allow a useful measurement. The typical input impedance of a digital meter is 10 or 20 Megohms, and normal audio circuit impedances are much less than that - consequently any 'problems' caused by dielectric absorption will also be much lower than specifications indicate.</p>
+
+<p align="center"><img src="caps-f7.gif" alt="Fig 7" border="1"><br><b><small>Figure 7 - Dielectric Absorption Test Circuit</small></b></p>
+
+<p>The capacitor is charged for 500 seconds using SW1, then discharged (for one second) by SW2. After the discharge, the voltage is seen to rise again, even though it was obviously zero for the duration of the short. Real caps do exactly the same thing, and if they were used in circuits having close to infinite impedance, it would be a problem. In long period sample and hold circuits, dielectric absorption <i>is</i> a problem, but in audio circuits it causes an almost immeasurably small loss of signal.  Nothing more.</p>
+
+<p>Once the cap is loaded with normal circuit impedances, the effect goes away almost completely. This assumes that caps will be charged then discharged in an audio system, but as covered above, that does <i>not</i> happen in normal audio circuits. Even in filter circuits, the effect is negligible - dielectric absorption does not magically create reverberation, sub-harmonics, background 'glare', 'whiteness' during silent passages, image smearing, ingrown toenails or cardio-vascular disease. Again, all this particular 'audio nightmare' (as some might have you believe) achieves is a tiny loss of signal.</p>
+
+<p>With a 22k load resistor, the maximum 'recovered' voltage is 4.45mV, at 1.2ms after the short is removed (-81dB). Remember that this was after charging the cap to 50V for 500 seconds, then shorted for one second. This is not a normal audio circuit, and no audio circuit will subject a capacitor to anything even approaching the conditions used here.</p>
+
+<p>Caps in audio circuits are simply not charged and discharged in this manner. To do so would cause signals to be generated that, after amplification, would mean instantaneous speaker disintegration. These tests are silly - they prove nothing, but are regularly hailed by some audiophiles as some kind of 'proof' that they can hear a difference because it can be measured. It is forgotten in the excitement that the signals and tests that form such proof will never occur in a real audio system that is not in the process of blowing up.</p>
+
+<p>I have heard claims that the voltage recovery characteristic causes distortion similar to reverberation. What complete rubbish! If it were that simple to create reverb, one can be sure that no-one would have ever bothered with reverb springs, plates, or digital delays. Utter nonsense - it simply does not happen.</p>
+
+<hr><b><a id="s22"></a>2.2 - Electrolytics</b>
+<p>Electrolytic capacitors are definitely a problem though - there is any amount of proof ... Or is there ... ? Again, often claims are made based on tests that are irrelevant for audio. A popular myth is that electros have considerable inductance because of the way the foil is wound inside the can. This is nonsense - the foils are usually joined at the ends in the much the same way as with film caps. High frequency performance usually extends to several MHz [<a href="#ref">2</a>], even with standard off-the-shelf electros and bipolar (non-polarised electrolytic) caps.</p>
+
+<p>Electrolytics do have ESR (equivalent series resistance) as do all capacitors, but because of the nature of the internal chemistry of electrolytic caps it is non-linear. What is important here is not the non-linearity itself, but just how much signal is developed across the cap in normal (properly designed) circuits. We would be foolish to use electros in filter circuits, because they change their capacitance, ESR and inductance with varying temperature and frequency.</p>
+
+<p>Electrolytics are not usually a problem with audio circuits, provided they are used only for coupling and decoupling applications. Because the AC voltage across the cap is so small (by design), the component's contribution is negligible. If you use electros for coupling, I would recommend that you use a value 10 times greater than needed for the design rolloff frequency. For example, if you were to exchange a 1uF film+foil coupling cap for a bipolar, the bipolar should be 10uF. This keeps the voltage across the cap to the absolute minimum at all frequencies.</p>
+
+<hr><b><a id="s23"></a>2.3 - Distortion Tests</b>
+<p>Imagine an electro, whose characteristics are so poor that it develops almost 10% distortion internally, with an applied voltage of 1V. This is a particularly bad capacitor, but it is sized so that the AC voltage dropped across the cap is 1% (10mV) of the applied voltage. This means that there is only 10mV AC across the cap, and the distortion across the load will be less than 0.1%. In reality, no electro will be that bad, so provided the voltage across it is kept to the minimum, distortion is not a problem.</p>
+
+<p>Upon testing some 1uF 63V electros (polarised), the readings were interesting. My signal generator has a residual distortion of 0.02%, nearly all third harmonic. Connecting the 1uF electro directly across the output reduced the output voltage from 10V to about 5.5V RMS. This is because the generator has an output impedance of 600 ohms, and the cap was acting as a low pass filter. Figure 8 shows an equivalent circuit of the test setup.</p>
+
+<p align="center"><img src="caps-f8.gif" alt="Fig 8" border="1"><br><b><small>Figure 8 - Electrolytic Capacitor Test Circuit</small></b></p>
+
+<p>The electro under test was unbiased, and with 5.5V AC at 400Hz across the cap, the distortion rose from 0.02% to 0.022% - a definite increase, but only small. At lower voltages such as 3V open circuit (about 1.6V RMS across the cap), the distortion <i>fell</i> to just over 0.015%. The reason the distortion appeared to fall is simple - the connection shown forms a low pass filter, which helps to remove the harmonics that make up the distortion component of the signal. A first order low pass filter will reduce the third harmonic sufficiently to make reading the difference quite easy. Based on a very similar test done using the simulator, the distortion should be about &frac12; the generator value, so the cap is still introducing some distortion. As the voltage (across the real capacitor) is reduced, so is distortion, until the noise limit of the distortion meter is reached.</p>
+
+<p>Now, remember that this was using the electro in a way that was never intended. I subjected it to a relatively high applied AC voltage (where as a coupling cap it would have a great deal less - millivolts instead of volts), and it was unbiased as well. Even so, the increase in distortion was small, even with 5.5V AC applied, and it is safe to say that distortion was negligible below around 1.5V, and rapidly fell below the threshold that I am able to measure.</p>
+
+<p>Attempting the same test described above with a polyester cap was a dismal failure - I was not able to measure the cap's distortion, only the attenuated distortion of the signal generator. As predicted by the simulation, measured distortion was about half that of the generator alone, using a 1uF cap at 400Hz, with 5.5V AC across the cap itself. I am satisfied that the polyester capacitor's contribution to measured distortion was well below my measurement threshold.</p>
+
+<p>Various ceramics were a completely different matter though. A 0.22uF (220nF) ceramic was tried, as was a 100nF multilayer bypass cap, along with a few others.  At any reasonable voltage, distortion was measurable - the worst measured distortion being 3% with 9V RMS across the cap.  This was measured across the capacitor, so the actual distortion was worse than indicated because the capacitor was attenuating its own harmonics. I was unable to measure <i>any</i> distortion contributed by a 220pF 50V ceramic, even with 10V RMS at 100kHz across it.</p>
+
+<hr><b><a id="s24"></a>2.4 - Capacitors in General</b>
+<p>Electronics World did an epic series of articles written by Cyril Bateman [<a href="#ref">3</a>], where he went to extreme measures to develop equipment to be able to measure the distortion of common capacitors. Again, this was done with an AC voltage applied across the cap, so the results are generally of far less importance for a coupling cap. The findings are useful for determining the usefulness of various caps in filter circuits (especially passive crossover networks) though, and he quickly disposes of a number of persistent myths, including (but not limited to) the following:</p>
+
+<ul><li>All ceramic capacitors introduce distortion</li>
+<li>Dielectric absorption compresses dynamic range and "smears" audio</li>
+<li>Polyester dielectrics are lossy and inefficient</li>
+<li>Capacitors look inductive at audio frequencies</li>
+<li>A capacitor's ESR is a fixed quantity</li></ul>
+
+<p>For anyone who wants to examine these findings in greater detail, I strongly suggest that you get hold of the original series of articles. In general, it was found that the distortion of capacitors was generally very low - well below that contributed by the majority of active circuits. There are very good and valid reasons not to use certain capacitor types in some applications, and equally good reasons to insist on their use in others.</p>
+
+<p>For bypassing, so-called monolithic ceramics are very good, having a low impedance up to hundreds of MHz, assuring good supply bypassing at the highest frequencies. As frequency increases further, standard ceramics are usually preferred. Using them in an audio active crossover network would be a very bad idea though, because their capacitance tolerance is not good, and the value can also change with applied voltage and temperature. Some ceramics (high k types being the worst) may be microphonic due to the piezoelectric properties of the ceramic substrate. I have encountered this (many years ago) in some guitar amps, where large (19mm diameter) 0.22uF ceramic caps were used in the tone control circuit. While newer (and much smaller, both physically and electrically) caps are less likely to suffer from microphony, it is worth bearing in mind. As with dielectric absorption, microphony is more likely to be a problem in high impedance circuits.  In most audio applications it will rarely be an issue, but ceramics in general are not recommended for filters, or as coupling caps in audio circuits. This is because of wide tolerance and capacitance variations with frequency and temperature.</p>
+
+<p>G0G or NP0 ceramics have very low temperature coefficients, and are generally useful in many areas of audio where small values are needed. In particular, they can be used as RF suppression, or as the Miller cap in power amplifiers. While it is generally thought that polystyrene or silvered mica (for example) would be better, this may be more of an expectation than a reality. This is something I have tested, and have been unable to measure any difference in distortion between a polystyrene and ceramic cap. Frequency response is essentially unchanged, as is slew rate.</p>
+
+<p>Electrolytics are excellent for power supplies, and most places where high values of capacitance are needed. They are unsuitable for filters, because they have wide tolerance, should be biased, and may change capacitance depending on applied frequency. Bipolar electros are excellent where high values are needed, and no polarising voltage is available. Because of wide tolerance, they too are unsuitable for filter circuits. The distortion caused by bipolar electrolytic caps used for signal coupling (including their use in feedback networks to ensure unity DC gain) is low to immeasurably low if they are selected to have minimum AC signal voltage developed across them at all frequencies of interest.</p>
+
+<p>When it comes to high current applications (such as passive loudspeaker crossover networks), there will be significant voltage across the cap and current through it. It pays to use high quality capacitors that can withstand the voltage and current that the caps will be subjected to - this generally means polypropylene, polyester, or perhaps paper-in-oil (if you must). This is an area where dielectric loss may cause the caps to heat up with sustained high power, and the devices used need to be stable with time and temperature. Do not necessarily expect to be able to hear any difference between these (high quality) types in a blind test though, as you may well be disappointed.</p>
+
+<p>One thing that may be very important for passive crossover networks is the material used for the 'plates' of the capacitor. Metallised film caps may not be the best choice because of the resistance of the film itself. The film is usually extremely thin, and it may not have a low enough resistance to allow the full current required. I have not experienced any problems with this, but a film and foil type is more suited to high current operation than a metallised film construction. This topic is mentioned on capacitor manufacturers' websites, and I recommend a search if you want more information about current handling capacity.</p>
+
+<p>Bipolar (non-polarised) caps are (IMO) simply unsuitable for use in passive crossovers, because they are so small for their capacitance that heating is far more likely ... whether because of power lost in ESR or dielectric losses. Wide tolerance also means that the network will probably not be right unless it is tweaked, and it will change with time anyway.</p>
+
+<hr><b><a id="s30"></a>3.0 - Test Methodology</b>
+<p>The standard (subjectivist) test method with capacitors (indeed, with many electronic components) seems to be to exchange a standard unit with one often costing a great deal more, then to proclaim that ... "Yea indeed, behold the huge difference", and "Lo, see how great is the improvement". As I have noted many times, this is flawed reasoning, and any such test is utterly invalid. Nothing can be gained from this except a continuation of the 'pure subjectivist' dogma.</p>
+
+<p>In a properly conducted test, the test methodology will force the listener to determine if there is a difference between two pieces of equipment (or even any two components), and do so without knowing in advance which is which, and, to do so with <i>statistically significant accuracy</i>. This is usually taken to be around 70% - the listener must pick 'Part A' from Part B' correctly <i>at least</i> 70% of the time.</p>
+
+<p>According to the claims one might hear from some people regarding their favourite capacitor (or anything else), any blind test should score 100% accuracy, such is the difference heard. Sadly, it seems that in any blind (or ABX) test, the difference fades to nothing, and test results are nearly always inconclusive - it cannot be said with certainty that a difference was heard or not. I cannot understand how something can be claimed on one hand to be 'chalk and cheese', yet cannot be reliably identified as soon as the visual cues are taken away. This should alert everyone to the fact that experimenter expectancy and/or desirability are the overwhelming factors, and that the components themselves are sonically virtually identical.</p>
+
+<p>The actual testing of components must be done with care. The components must be tested in a manner that reflects the way they will be used in practice, or, if this fails to yield any measurable result, the degree to which the part is pushed beyond its ratings must be explained. The report should then extrapolate (in as far as practicable) the measured results at elevated operating conditions to the expected result at normal levels. That this is rarely (if ever) done is fair warning of the likelihood of erroneous data being propagated.</p>
+
+<p>I have never been able to measure the distortion of a capacitor that is used sensibly in a real circuit. This is partly because the equipment I have does not have the extraordinary resolution needed to be able to measure such low levels of distortion, and partly because the active circuitry and system noise will usually predominate. There is little point trying to measure signals that are -100dB below the 1 Watt level, or even worse, at -100dBm (i.e. referred to 775mV).</p>
+
+<p>For example, let's look at distortion at -100dB referred to full power of an amplifier. Assume that the loudspeakers are 90dB/W/m and the amplifier is 100W. The peak SPL is 110dB (unweighted) at 100W, and you might be blessed with an exceptionally quiet listening room - let's say 30dB SPL.  If you have distortion artefacts at -100dB, then with a peak SPL of 110dB, the distortion will be at 10dB SPL unweighted (110dB - 100dB). Your very quiet listening room is a full 20dB noisier than the distortion components!</p>
+
+<p>Based on my own observations, as well as those from many others (Bateman, Self, et. al.), capacitor distortion in any real circuit will generally be (much) less than 0.001% ... that's a level of -100dB. Testing and obtaining good results at these levels is highly problematical. Circuit noise, residual distortion and even a tiny bit of corrosion on a connector will increase the measured distortion dramatically. Cyril Bateman was forced to build specialised test equipment to measure the distortion, and while anyone can do the same, it is time-consuming and expensive to do so.</p>
+
+<p>Returning to the use of a cap for signal coupling ... let's assume a seriously non-linear capacitor as shown in Figure 9. when used with significant current through the cap (A), the simulated distortion is 1.26% at V1. When used for coupling, distortion is zero - there is simply not enough current through the non-linear circuit to cause a problem. Real tests show the same behaviour - the 1uF polarised cap that so happily gave measurable distortion before shows none that I can measure. The simulator also shows zero distortion at V2 when the non-linear cap is connected as a coupling capacitor (B). It is not until the load resistor (22k) is reduced sufficiently to cause significant voltage across the cap that distortion becomes measurable. For example, when the 22k resistor is reduced to 1.5k, distortion rises to 0.0076%. At 600 Ohms, distortion is 0.85%. The diode shown is 'ideal', so it will conduct at very low voltages.</p>
+
+<p align="center"><img src="caps-f9.gif" alt="Fig 9" border="1"><br><b><small>Figure 9 - Non-Linear Capacitor</small></b></p>
+
+<p>Although this is obviously a simulated experiment to show the general principle, reality (including test results on the same electrolytic cap that produced measurable distortion before) is very close. If a capacitor is going to cause measurable distortion, then the signal voltage across it (and also the signal current flowing through it) must be significant. If neither of these is true (little or no voltage across the cap, and little current through it), then it is quite reasonable to expect that the contribution of the component at that frequency is negligible, and any inherent distortion it produces must also be negligible.</p>
+
+<hr><b><a id="s40"></a>4.0 - Parasitic Inductance in Bypass Applications</b>
+<p>All capacitors have some inductance, but what is often overlooked is that the leads are the primary cause for this. To minimise the inductance, keep the leads as short as possible, and keep them as close together as possible. When two conductors are run in parallel, they form a capacitor. By maximising the (capacitive) coupling, you automatically reduce the inductance. Loudspeaker cables have been produced that have extraordinarily low inductance, despite the fact that they are quite long, and should (in theory) have high inductance as well. Not so. They have high <i>capacitance</i> (sufficient to give many amplifiers severe heartburn), but inductance is low. The closer the conductors are spaced and the greater the physical area, the greater the capacitance and the lower the inductance.</p>
+
+<p>Now, consider a conventional wound film and foil (or metallised foil) capacitor ... even if the plates were not joined at each end to form a (relatively) solid block (see figure 1B, or do a Web search for capacitor construction), the capacitance would be at the required value, and inductance would <i>still</i> be negligible. The mechanism that supposedly causes internal inductance has never been demonstrated for film caps, but a great many measured results have neglected the capacitor lead length, resulting in erroneous figures. The errors can easily exceed an order of magnitude with a poorly set up experiment.</p>
+
+<p align="center"><img src="caps-f10.gif" alt="Fig 10" border="1"><br><b><small>Figure 10 - Capacitor Inductance Test Circuit</small></b></p>
+
+<p>The measurement must be taken from a point as close as possible to the capacitor. If the measurement is taken even a few millimetres away from the capacitor itself, it will include the lead inductance. This is made worse by spreading the legs of the cap to allow convenient connection. The inductance of the leads can be calculated by [<a href="#ref">4</a>] ...</p>
+
+<blockquote>L<sub>dc</sub> = 2 * L [ ln * ( 2 * L / r ) - 0.75 ] nH &nbsp; <small>where L<sub>dc</sub> is the low-frequency or DC inductance in nanohenries, L is the wire length in cm, and r is the wire radius in cm.</small></blockquote>
+
+<p>The inductance is not great ... about 5-6nH per cm (centimetre), but it is still significant at very high frequencies. With a 1uF cap (hardly massive), a mere 10mm of lead length (6nH) creates a series resonant circuit at close to 2MHz. Increase the capacitance to 10,000uF, and it is now 20kHz. This is <u>not</u> capacitor resonance, it is a resonant circuit formed by the capacitor and the <i>external</i> inductance of the capacitor's leads. For bypassing applications, the resonant circuit so formed <i>does not</i> reduce the effectiveness of the bypass capacitor if it is 'too big'. In reality, power supply bypass capacitors will supply the current required by the circuit regardless of the 'self resonant' frequency, so small values of capacitance do <i>not</i> mean better bypassing.</p>
+<p>Figure 11 shows a simulated power supply and switching circuit, with inductive leads to the MOSFET and its load. Given the 'self resonant' frequency of the capacitor and lead inductance (about 35kHz with a 1,000uF cap), one would expect that the pulse performance would be woeful, but it is essentially unchanged as C1 is changed from 1uF up to 10,000uF. If the value is reduced (less than 1uF), then performance does suffer. Lower capacitance <i>does not</i> give better bypass performance.</p>
+
+<p align="center"><img src="caps-f11.gif" alt="Fig 11" border="1"><br><b><small>Figure 11 - Bypass Test Circuit</small></b></p>
+
+<p>In Figure 12, you can see the waveform of the switching pulse with (red) and without (green) the series inductance and resistance - a comparison between a real and a perfect capacitor. Note that there is very little difference. This, despite the fact that in theory the 'combination' capacitor has a series resonance of 35kHz, and the switching speed is many, many times that. Using a much smaller capacitor (such as 100nF) is a disaster, allowing the circuit to ring, and develop excessive back-EMF. Feel free to perform the test using real components - you will get very similar results!
+
+<p>The bypass capacitor equivalent circuit as shown is rather pessimistic. The 20nH inductor is actually a low Q component because of many system losses, and would normally be shown with some parallel resistance. The following plots were done with the high Q inductor as shown, hence the much sharper than normal impedance dip shown in Figure 14. In reality, this is a very broad notch because of the low Q of everything involved. For bypass applications, the low Q is a good thing and works in our favour.</p>
+
+<p align="center"><img src="caps-f12.gif" alt="Fig 12" border="1"><br><b><small>Figure 12 - Bypass Test Waveforms</small></b></p>
+
+<p>An important thing that is often missed is that the resonance formula ( f<sub>o</sub> = 1 / 2 &pi; &radic; L C ) only <i>implies</i> that higher capacitance values cause lower 'self-resonance' and worse high frequency performance. This is largely untrue - the ability of the larger capacitor to supply instantaneous current demands is not impaired, so the idea of using a small cap ("they have a higher self-resonant frequency") in parallel with a big cap is essentially nonsense - more capacitance equals more energy storage. The concept of 'self-resonance' in this context is flawed thinking, and leads to silly designs (100nF caps in parallel with 10,000uF electros for example) that generally achieve nothing useful, other than using more components.</p>
+
+<p align="center"><img src="caps-f13.gif" alt="Fig 13" border="1"><br><b><small>Figure 13 - Bypass Supply Voltage Test Waveforms</small></b></p>
+
+<p>In Figure 13, you can see the difference between using a 1,000uF (red) and 1uF (green) bypass capacitor, measured at the positive supply to the switching circuit. The 1,000uF cap <i>should</i> show a sluggish response because its 'self resonant' frequency is so low. As power is demanded (MOSFET switched on), there is no difference at all, although recovery is a tiny bit slower. Not fully visible is the fact that the low value cap causes a damped oscillation, whereas the higher value does not. So, do low value caps 'work better' as bypass? ... No, in general they do not.</p>
+
+<p align="center"><img src="caps-f14.gif" alt="Fig 14" border="1"><br><b><small>Figure 14 - Bypass Capacitor Impedance</small></b></p>
+
+<p>Figure 14 shows the impedance of a simulated 1,000uF capacitor with 20nH series inductance and 10m&Omega; series resistance. The 'self resonance' frequency is 35kHz, with a minimum impedance equal to the series resistance (ESR). Even at well above the resonant frequency, the cap still provides <i>capacitive</i> energy storage - it is <i>not</i> an inductor, despite appearances. This is commonly claimed, but is false logic. The impedance is increasing, but until such time as the inductive reactance becomes significant (with respect to the circuit impedance) the composite circuit is still a capacitor. Even at 1MHz, the total impedance is only 125 milliohms. Although the 125m&Omega; is almost all inductive reactance, it cannot be considered significant - that is a somewhat vague term that is usually taken as around an order of magnitude compared to the load. In this case, the load is 10 ohms, so 1 ohm is 'significant'.  This occurs at 8MHz. It is very important to understand the difference between a supply bypass application and a tuned circuit or other electronic function. Note that self resonance in electrolytic caps is very broad because both internal (large) capacitance and (small) inductance are low Q.</p>
+
+<blockquote><small>At least one person has declared that the above is garbage, but only after taking the material out of context and deciding that I also include RF transmitters as part of "audio" (no, I don't). The simulations are accurate, and if the silly claims of self-resonance were true, no-one would be able to use 100,000uF filter caps (for example) because the self resonant frequency would be well within the audio range. Strangely, most amps work perfectly well at all frequencies, even where the theoretical self resonant frequency of the power supply is within the audio band because of very large capacitance.</small></blockquote>
+
+<p>In a normal circuit (such as a series tuned circuit for example), when the applied frequency is the same as the resonant frequency of a capacitor and inductor (including  leads, PCB tracks, etc.) the tuned circuit is no longer reactive - it is resistive! The resistance is equal to the sum of all component and lead resistances (including ESR). Below resonance, the circuit is capacitive - above resonance, inductive. Series resonance in a capacitor may result in rather unexpected behaviour in high frequency circuits (including digital), depending on the specific application.</p>
+
+<p>It is obvious that capacitor leads should be kept as short as possible, and it would be an advantage if manufacturers stopped spreading and kinking the leads of monolithic ceramics in particular, as this introduces a (small) additional inductance because of the lead length and reduces the maximum operating frequency. It is quite obvious that lead (and PCB track) inductance must be considered for very high frequency circuits - or for circuits that are capable of very high frequency operation even though they are used at much lower frequencies (audio amplifiers come to mind).</p>
+
+<p>Some interesting observations are made by Ivor Catt [<a href="#ref">5</a>], where it is maintained that the vast majority of capacitor claims are false. His information on bypass caps (in particular) goes against all 'conventional logic', yet the simulation described above validates his theory. A couple of his more notable quotes are ...</p>
+
+<ul><li>If you cut off a capacitor's legs at the knees, you will double its self-resonant frequency</li>
+<li>A well behaved capacitor keeps its legs close together</li></ul>
+
+<p>Ivor is considered eccentric to many in the electrical/electronics fields (some may say that is an excessively generous description), but his data cannot be dismissed out of hand. Particularly when a simulation shows that a capacitor, even with series inductance, <i>can</i> supply the instantaneous demands of a switching circuit. This is despite that fact that the switching occurs at a frequency that is well above the 'self resonant' frequency of the capacitor.</p>
+
+<p>Another of Ivor's contentious claims is that a capacitor is a transmission line. Based on the tests conducted (see <a href="#5.0">ESL &amp; ESR below</a>), there is much to commend this model, even though it has been scoffed at by many who (in my opinion) should have been thinking more clearly. A length (any length) of coaxial cable appears to be capacitive at low frequencies, and at a frequency determined by its length, shows series resonance - it becomes (almost) a short circuit for that frequency. Above the resonant frequency, the cable is inductive. The primary difference is based not on any of the counter-claims that I saw to the suggested model, but because the very construction of a coaxial cable is such that it has vastly lower capacitance than any real capacitor, so the resonance is very high Q. In addition, the cable's capacitance and inductance are optimised for the circuit impedance. Capacitors are optimised for capacitance (what a surprise), so generally use a dielectric that is far thinner and has somewhat greater losses than coax. That does not change the basic model though - it simply means that the characteristic impedance of any given capacitor is dramatically lower than that of any 'normal' transmission line.</p>
+
+<p>It is probable that if a capacitor were to be laid out flat rather than rolled up in the normal way, its inductance will not increase by anywhere near as much as the pundits might imagine. This, despite the fact that when it is rolled up, the entire edge of each plate is joined, so the 'length' of this transmission line is the <i>width</i> of the metallised film (or separate foil). This agrees quite well with the measured or calculated internal inductance of almost all capacitors, and this is easily verified by anyone with access to basic RF test equipment.</p>
+
+<hr><a id="s41"></a><b>4.1 - Electrolytic Series Resonance</b>
+<p>The series resonance of an electrolytic has to be considered in conjunction with the circuit impedance. In real life devices, it is actually quite a broad null, often extending over several decades of frequency. This is readily apparent from looking at manufacturers' data, or by measurement. Measurement is actually quite difficult, since a significant current must be applied to be able to see the results. This requires an amplifier with very wide bandwidth indeed, and although some esoteric audio amps may be capable of providing sufficient current to obtain a worthwhile reading, most cannot.</p>
+
+<p>Something that is somewhat easier is to apply a squarewave at (or near) the approximate series resonant frequency. Although the graphs in Figure 15 are simulated, the simulation is based on actual measurements, using a 15,000uF 35V electrolytic capacitor. This component has a series resonant frequency of around 40kHz, however, this comes with caveats. It is a very broad resonance (as expected), and with 10V RMS applied via a 10 ohm resistor, I was able to obtain a readable trace on the oscilloscope.</p>
+
+<p>The following graphs show two traces ... the first (red) is the waveform across the cap with 50mm of lead between the cap and the measurement point. The second (green) is with the oscilloscope probes placed as close to the capacitor as possible. A mere 50mm of lead equates to approximately 20nH of inductance, but as seen in Figure 16, that is enough to double the amplitude of the spike at the leading edge of the waveform. It is also enough to lower the 'self resonance' quite dramatically - the low frequencies are unchanged, but the high frequency (where the impedance starts to rise) is moved up by nearly 400kHz. The minimum amplitude difference is because of the lead resistance (simulated as 10 milliohms).</p>
+
+<p align="center"><img src="caps-f15.gif" alt="Fig 15" border="1"><br><b><small>Figure 15 - Electrolytic Series Resonance</small></b></p>
+
+<p>These simulations agree quite closely with the measured results, so even though there will be some variance, it will be less than that obtained from different samples of real-world components. As with the pulse response, there was zero measurable difference when a 220nF film cap was added in parallel - either with the extended leads or without. The simulation agrees for the most part (but only if a 'real world' capacitor with losses is used), and I have not included these data.</p>
+
+<p>In a real circuit, there is a possibility that a small film capacitor in parallel with a large electrolytic may cause ringing (damped oscillation) at a frequency determined by the series inductance of the electro and the capacitance of the additional film cap. This is more likely to degrade performance than improve matters. It is possible to simulate this easily, but it is not so easy to measure because the frequency will be very high, and the impedance still very low. Because this possibility is rather remote, if it makes you feel better, by all means add a parallel film cap. Don't expect to hear a difference in a blind test though, because you almost certainly will not.</p>
+
+<p align="center"><img src="caps-f16.gif" alt="Fig 16" border="1"><br><b><small>Figure 16 - Pulse Response of 50mm Leads</small></b></p>
+
+<p>The pulse response is interesting. This is as close as I could get to the actual measured waveform, and contrary to common belief, adding a parallel capacitor (in this case 220nF) <i>did not change the measured pulse waveform one iota</i>. The impedance of the film cap is simply much higher than that of the electro, so it cannot have any significant effect on the end result. There <i>is</i> an effect, but it is immeasurably small. The impedance (capacitive reactance) of an ideal 15,000uF cap at 1MHz is 10m&Omega;, but we must add the ESR to that result. According to the simulation, the total impedance is 134m&Omega; at 1MHz - inductive reactance is responsible for most of that. By comparison, an <i>ideal</i> 220nF capacitor will have a reactance of 723m&Omega; at the same frequency - more than 5 times that of the electro.</p>
+
+<p>Earlier, I made the comment that for resonance to actually work as expected, the circuit impedance must be 'significant' compared to the resonant impedance. It is time to examine exactly what is significant, and what is not. The resonant frequency of a capacitor and inductor is given by the equation</p>
+
+<blockquote>f<sub>o</sub> = 1 / 2 &pi; &radic; LC</blockquote>
+
+<p>This is a general formula, and while it holds true in all cases, the Q (quality factor) of the resonance is dependent on the circuit impedance and component losses. In the case of electrolytic capacitors (especially large ones, where the resonant frequency is comparatively low), the capacitance is massively dominant compared to inductance. For this reason, electros will rarely (if ever) appear as a resonant circuit in any power supply or coupling capacitor application.</p>
+
+<p>The coupling cap is a good one to examine, because this is an area where it is often thought that a parallel capacitor will assist with high frequencies. If we assume a 4,700uF capacitor, having 100m&Omega; ESR and an inductance of 100nH (this is much worse than a real capacitor), its 'resonance' is at 7,341Hz. The test circuit is shown in Figure 11. As a coupling capacitor, it might appear to have inductance above the self resonant frequency, or so it would seem. Not so, as Figure 12 shows. In fact, the frequency response into an 8 ohm load remains substantially flat up to 4.5MHz (0.5dB down), and is -3dB at 12.7MHz.</p>
+
+<p align="center"><img src="caps-f17.gif" alt="Fig 17" border="1"><br><b><small>Figure 17 - Electrolytic Coupling Capacitor Test Circuit</small></b></p>
+
+<p>In Figure 17, the 100nH of inductance in the capacitor is totally insignificant compared to the circuit impedance (4 ohms) and the capacitance. The speaker lead will have a great deal more inductance that the capacitor, so the frequency should be even lower than calculated. It doesn't happen ... well, actually it <i>does</i> happen, but the effect is so infinitesimally small that it can only be measured by simulation. In the example given, the difference between the voltage across the load resistor at 100kHz is reduced by less than 250udB (micro decibel), compared to the 7.3kHz 'self resonance' frequency.</p>
+
+<p align="center"><img src="caps-f18.gif" alt="Fig 18" border="1"><br><b><small>Figure 18 - Electrolytic Coupling Capacitor Response</small></b></p>
+
+<p>For self resonance to be noticeable, the circuit impedance needs to be in the same general range as the capacitor's inductive impedance at resonance. As can be seen from the graph, the inductive reactance only reaches 8 ohms at 12.7MHz (the upper -3dB frequency).  Will a 100nF polypropylene cap (or any other type) in parallel be of any use whatsoever? From the above, we can safely say "no".  Its reactance will be equal to the 8 ohm load at 198kHz, but at that frequency, the electro has a total impedance of about 200m&Omega;, making the influence of the small parallel cap insignificant.</p>
+
+<hr><b><a id="s50"></a>5.0 - ESL and ESR</b>
+<p><u>ESL - Equivalent Series Inductance</u><br>
+Claims have been made that most capacitors <i>must</i> be inductive, because they are made from a wound sandwich of film and foil, or metallised film. Because it is usually wound (in a flat coil), logically, this leads to inductance. The problem with that theory is that it assumes that the termination is made to the foil at the end only, but a quick check of manufacturer data will show that this is generally not the case. The vast majority of capacitors are made so that the foil or metallisation projects from each side (one 'plate' on one side, the other 'plate' on the other side). Each end is then connected so that all sections of the plate are joined together. There is no longer a 'length' associated with the plate, and only its width becomes significant for inductance. When distortion is measured in a film capacitor, it is almost always the method used to connect to the foil that causes the problem, rather than the dielectric or foil material.</p>
+
+<p>Aluminium is the most common metal for both foil and metallisation, and aluminium is notoriously difficult to attach to anything with good and reliable conductivity. That cap makers have made them as good (and as reliable) as they are is testament to the effort that goes into capacitor manufacture.</p>
+
+<p>The ESL (equivalent series inductance) of any given capacitor is related more to its physical size than anything else. A larger capacitor will almost always have a greater inductance than a smaller version of the same capacity. Usually, the lead length is of far greater importance for high frequency operation.</p>
+
+<p>To check the general principle, I decided to test a roll of telephone jumper wire as a capacitor. This is a fairly large roll of twisted pair (Cat-3), with the diameter of the roll being about 130mm, and  51mm high. The wire is twisted (as you would expect for twisted pair), and the roll contains about 80 metres of wire. Insulation is 0.25mm PVC, and wire diameter is 0.5mm. All in all, this should be an appalling capacitor.</p>
+
+<p>Being a coil of wire, one would expect a high inductance and therefore low self resonance. The measured values were ... 
+
+<blockquote><table border="0" width="50%">
+<tr><td>Capacitance</td><td>9.67nF</td></tr>
+<tr><td>Dissipation Factor</td><td>0.059</td></tr>
+<tr><td>Self Resonance</td><td>303kHz</td></tr>
+<tr><td>Inductance</td><td>28.5uH</td></tr>
+</table></blockquote>
+
+<p>The capacitance was measured at 9.67nF with two different meters, and DF (dissipation factor) was 0.059 ... not especially wonderful, but far better than I expected. Remember, this is a <i>coil</i> of twin wire, with the connection made at one end only. Inductance is calculated based on the self-resonant frequency - it is obviously much greater than a normal capacitor, but that is expected due to the physical size of the 'capacitor'. Needless to say, the fact that the connection was made at only one end doesn't help matters, but remember that this is a physically large coil of wire - one would expect that self resonance (and inductance) would be far worse than was the case.</p>
+
+<p>Joining the ends together gave the following ...</p>
+
+<blockquote><table border="0" width="50%"><tr><td>Capacitance</td><td>9.73nF</td></tr>
+<tr><td>Dissipation Factor</td><td>0.059</td></tr>
+<tr><td>Self Resonance</td><td>1.0MHz</td></tr>
+<tr><td>Inductance</td><td>2.6uH</td></tr>
+</table></blockquote>
+
+<p>This is a significant improvement to the inductance (roughly an order of magnitude), and also gives a small increase in capacitance. As you can now well imagine, by joining the entire edge of each capacitor plate, inductance is reduced to almost nothing, and only the physical size of the cap will influence the inductance. This can't be applied to my 'coil capacitor', because I only have access to each end, rather than the edges of the 'plates'. I think it is safe to assume that the wire coil performs far better than might have been expected, especially with the ends joined together. It also has far thicker insulation and smaller plate area than any real capacitor, both of which increase inductance and reduce capacitance.</p>
+
+<p>In case anyone was wondering, the <i>inductance</i> of the coil that was used as a capacitor for the test just described is 15.6mH, with a series resistance of 6.4 ohms.  This was measured with the two wires connected in parallel. Self resonance is at 27MHz. Not useful in the context of this article, but worth including. <img src="grin.gif" alt=":-)"></p>
+
+<p><u>ESR - Equivalent Series Resistance</u><br>
+While inductance is not affected by the dielectric material, ESR is - it is dependent on the dissipation factor (DF) of the insulation material, as well as the resistance of the leads, plate material and plate terminations. Because DF varies with frequency in most common dielectrics, so too does ESR. However, ESR is rarely a problem in most audio circuits. It is important in passive crossovers used in high powered systems, or for other applications where capacitor current is high. ESR (like all resistance) creates heat when current is passed, so for high current circuits the ESR is often a limiting factor.</p>
+
+<p>ESR is very difficult to measure with low value capacitors, because the capacitive reactance is usually a great deal higher than the ESR itself. In general, it is safe to ignore ESR in most electrolytic and film caps used in signal level applications (such as electronic crossovers, coupling capacitors and opamp bypass applications). ESR becomes very important in high current power supplies, switching regulators/supplies and Class-D amplifiers, many digital circuits and any other application that demands high instantaneous currents that are supplied by the capacitor.</p>
+
+<hr><b><a id="s60"></a>6.0 - Food For Thought</b>
+<p>The above is food for thought indeed. I have had several e-mails from readers (within a day of the article being published), and further comments should be made to clarify a couple of important points. Much ado was made above about coupling caps, and these are a favourite of the upgrade brigade. It is not uncommon to see circuit boards where the constructor (or 'upgrader') has used caps for which the PCB was never designed. As an example, look at Figure 19. This is not at all uncommon, but what is not understood is the potential for possibly major problems to be introduced.</p>
+
+<p align="center"><img src="caps-f19.gif" alt="Fig 19" border="1"><br><b><small>Figure 19 - Large Off-Board Coupling Capacitor</small></b></p>
+
+<p>At first glance the diagram looks alright. Everything is connected where it should be, so where's the problem? Notice that the input signal is connected to the PCB via a shielded lead. The PCB may have a ground plane, but even if not, the connection between the shielded input lead is nice and short, and connects to C1 on the board. The space allowed is sufficient for a cap as originally designed.</p>
+
+<p>Now, someone comes along with a massive (physically) cap that was sold as polypropylene (but could easily be polyester). It won't fit on the board, so is installed as shown. Look at the length of unshielded lead between the input terminal and the rest of the circuit on the PCB. Remember that the <i>entire</i> capacitor is part of the unshielded circuit, not just its leads. Even if the cap is marked so you know which is the outer foil, that doesn't help either, as any noise picked up will be coupled through regardless (this is what the cap is <i>for</i>!). This arrangement has the potential to pick up considerable noise, and if part of a power amplifier may even be sufficient to cause oscillation. It goes without saying that noise or oscillation will <i>not</i> improve the sound, even though the owner may think that it has done so.</p>
+
+<p>The likelihood of noise or oscillation depends on many factors of course, and these may not be an issue (or not at a level that is audible). The mechanical reliability is also highly suspect, especially if the oversized cap has not been fastened such that it cannot move relative to the PCB. Had the on-board cap been installed in the position shown, its size is much less, and the board would have been tested with it in position - any problems would be immediately obvious.</p>
+
+<hr width="50%">Another point made is that series resonance can be used to your advantage. In the presence of a strong RF signal, normal bypassing may be insufficient to prevent the RF signal from getting through an audio system. If you know the frequency, then it is not difficult to tailor a ceramic cap and appropriate lead length to create almost a dead short for the interfering signal.
+
+<p>For example, if there is an AM CB transmitter (these operate in the 27MHz band) nearby that insists upon interfering with your audio system, you need to know exactly where it is getting into the audio path. Once this has been determined (not easy, but certainly possible), you can deduce the necessary capacitance and inductance using the standard formula ...</p>
+
+<blockquote>f<sub>o</sub> = 1 / 2 &pi; &radic;LC</blockquote>
+
+<p>If we assume (say) a 1.2nF capacitor, then it works out that a series inductance of 28nH is needed. With roughly 6nH/cm, the cap needs to have leads about 46mm long, and with two leads than means 23mm each. The leads need to be as widely separated as possible, and some adjustment of the frequency is possible by pulling the leads wider apart or pushing them closer together. In its basic configuration, the combination of cap and leads has an impedance of less than 1 ohm between 25MHz and 30MHz, and is resonant (effectively a short circuit) at about 27.5MHz.</p>
+
+<p>Maximum effectiveness is achieved when the circuit is tuned as accurately as possible, but this normally requires specialised RF test equipment. In general, a calculation will get you close enough for the circuit to be effective, and a bit of tweaking should enable you to get almost total rejection of an unwanted signal.</p>
+
+<p>This last point is only made as a generalisation - RF is by its very nature sneaky, and deliberately using capacitor+lead resonance to solve a problem is just one of many techniques that need to be tried to solve an RF interference problem. No one method will work in all cases, and serious problems may need a combination of different suppression tricks. This applies both for preventing RF getting into a circuit, or preventing it from getting out (and therefore causing interference elsewhere).</p>
+
+<hr><b><a id="s70"></a>7.0 - Conclusion</b>
+<p>If wine or pharmaceuticals were tested the same way as audio, we would be in a very sorry state indeed. To be valid, all tests must be conducted blind, where the tester does not know which product they are using, or preferably double-blind, where neither tester nor controller knows which is which. That sighted tests are not only tolerated but encouraged is testament to the level of disconnection from reality that many 'magic component' believers obviously suffer.</p>
+
+<p>Unfortunately, there are many who will search the Net for 'proof' of their current theory, and will use or misuse any data they happen across to further their argument. That the data quoted may be out of context, flawed, or simply a load of codswallop is immaterial. Once these rumours start they take on a life of their own, and it then becomes almost impossible to get the discussion back into the land of reality. This technique has been shown many times with the 'great cable debate(s)',and much the same has happened with capacitors and other generally benign components.</p>
+
+<p>A popular piece of disinformation that really irks me is the claim that ceramic caps should not even be used for bypass applications in audio. This is drivel, and is totally unfounded drivel at that. The purpose of bypass caps is to store energy that ICs need on a short term basis, swamp PCB track inductance to ensure that opamps don't oscillate, and to ensure that digital circuits don't generate supply line glitches that produce erroneous data. There is absolutely no 'sound' associated with DC supply rails. Opamps don't care if the DC comes from a battery, solar cell, or rectified and filtered AC (sine or square wave, any frequency).  DC is DC - it has no sound, and it contributes nothing to sound unless it is noisy or unstable. Supplies may be completely free of noise, or might be relatively noisy (especially where digital circuitry shares the same supply). Provided all noise (including voltage instability) is of low enough level that the opamp's (or power amp's) PSRR (power supply rejection ratio) prevents the noise from intruding on the signal, supply noise is immaterial. As always, a blind test will reveal any genuine difference, and a sighted (non-blind) test will reveal the expected result - real or imagined.</p>
+
+<p>To reject ceramic bypass caps, which have the best high frequency performance of nearly all types, is sheer lunacy.  This is especially true when discussing simple DC power supply lines. PCBs have capacitance too, and the standard fibreglass material used is fairly lossy - it is certainly useless for very high frequency work at several GHz. Maybe that ruins the sound too - I <i>have</i> heard such tales, and they can be discounted out of hand. Still, these fairy stories circulate, are perpetuated by those with a vested interest in separating people from their money, and will continue for as long as anyone is silly enough to believe it.</p>
+
+<p>Just as misleading are claims that all/most electrolytic caps are resonant within the audio band (or at least below 100kHz). Again, while this may be true, it is meaningless without context and simply indicates that the person conducting the test is leaving it up to the designer to determine if that will cause a problem in the circuit being developed. Always remember the importance of the lead inductance - that is usually far more important than a few nH of capacitor inductance.</p>
+
+<p>Large electrolytic caps may well resonate (if a very broad impedance minimum can be considered resonance) within the audio band, but with impedances of well under 0.1 ohm overall, this can hardly be claimed as a problem. Adding a film cap directly in parallel achieves nothing, because its impedance is many times greater than that of the electrolytic for all frequencies of interest. If there is <i>any</i> distance between the large electro and the film cap (for example leads running from the power supply to an amplifier PCB), the caps are no longer in parallel. They are separated by an inductance determined by lead length as well as some resistance, and the extra cap will help to damp out the effect of the inductance. Again, the larger the local bypass cap, the better it will perform.</p>
+
+<p>One thing you can count on ... if anyone wants to sell you 'special' capacitors, designed to replace 'inferior' types (such as polyester, aka PET, Mylar<sup>&reg;</sup>, etc.), then you know that there is a problem. These vendors are cashing in on the audio snake-oil bandwagon. Like cables, many of their offerings are likely to be of good quality, but at many times the genuine value of the part. Others will be perfectly ordinary parts that have been re-badged. For example, there are many capacitors sold as polypropylene that are actually PET or Mylar. It seems that no-one has ever heard the difference, simply believing that it <i>is</i> polypropylene, so therefore sounds 'better'.</p>
+
+<p>There <i>are</i> special caps, designed for specific applications. Photo-flash caps are one type that springs to mind, and these are designed to withstand massive discharge currents over very short periods. There are many others ... power-factor correction requires caps rated at the full mains AC voltage (with zero internal corona discharge or other damaging effects), handling perhaps 20 Amps or more - all day, every day. We can also find caps that are designed specifically for switchmode power supplies, handling very high ripple currents at high frequencies and often also elevated temperatures. There are intrinsically safe caps used for mains interference suppression, extremely high voltage caps, caps designed for low losses at very (or ultra) high frequency operation ... the list goes on and on, and is well beyond the scope of this article.</p>
+
+<p>Suffice to say that there is a great deal of real engineering needed in these cases, but none is appropriate for normal audio applications.  Such engineering (at the extreme levels) simply doesn't affect what we hear. Standard capacitors are perfectly acceptable for audio, and will rarely (if ever) compromise sound quality unless used beyond their ratings, or a completely inappropriate type is selected for the application (such as a high tempco ceramic in a filter circuit).</p>
+
+<p>I have never seen the specifications for snake oil as a dielectric, but I expect it to have rather poor performance overall. With 'magic' components, in the end everyone loses. DIY audio is supposed to be fun, not an endless search for the mystery component that will make everything sound wonderful. Sad news ... that component does not exist.</p>
+
+<p>"The best cap is no cap" is claimed by some. I would much prefer to ensure that no DC flowed where it is unwelcome by using a cap than to allow a fully DC coupled system to try to destroy speakers given the chance. Perform all the blind tests you can with capacitors used in real circuits. Having done this, if you still think there is a difference (and can demonstrate it to others in a blind test), then you will probably be the first to do so.</p>
+
+<p><small><b>If you wish to let me know that I am wrong, feel free to do so ... but <i>only</i> if you have conducted a blind A-B test and can provide some verifiable data to substantiate your claim. I regularly get e-mails from people who claim that they can hear the difference between components, leads or whatever, but in every case thus far, no blind A-B test method was used. I am not the least bit interested in hearing about the results of <i>any</i> sighted (non-blind) test, because such tests are misleading and simply verify existing opinion. In fact, the 'result' of the entire test is only an opinion, as there is never any data to substantiate the claim.<br><br>
+Electronic equipment is designed using facts and mathematics, not opinion and dogma.</b></small></p>
+
+<hr><b><a id="ref"></a>References</b><br>
+<small>1 &nbsp; Capacitor  ESR Ratings, <a href="http://xtronics.com/reference/esr.htm" target="_blank">Transtronics</a><br>
+2 &nbsp; Improved Spice Models of Aluminum Electrolytic Capacitors for Inverter Applications, Sam G. Parler, Jr. <a href="http://www.cornell-dubilier.com/tech/InverterCapacitorImpedance.pdf" target="_blank"> Cornell Dubilier</a><br>
+3 &nbsp; Capacitor Sound - Jul, Sep, Oct, Nov, Dec 2002,  Jan 2003 editions of <a href="http://www.softcopy.co.uk/mag/default.asp?dir=ew" target="_blank">Electronics World</a> (formerly Wireless World), Cyril Bateman<br>
+4 &nbsp; Inductance Of A Straight Wire, <a href="http://www.ee.scu.edu/eefac/healy/indwire.html" target="_blank">Tim Healy, Santa Clara University</a><br>
+5 &nbsp; Self resonant frequency of a capacitor, <a href="http://www.ivorcatt.com/2603.htm" target="_blank">Ivor Catt</a><br>
+6 &nbsp; Understand Capacitor Soakage to Optimize Analog Systems, Bob Pease, <a href="http://www.national.com/rap/Application/0,1570,28,00.html" target="_blank">National Semiconductor</a><br><br>
+
+</small><hr><small><b>Other Useful Links ...</b><br><br>
+Introduction to Capacitors, <a href="http://my.execpc.com/~endlr/index.html" target="_blank">Capsite 2005</a> (Highly Recommended)</br>
+Characteristics of Capacitors, <a href="http://www.murata.com/emc/knowhow/pdfs/te04ea-1/12to16e.pdf" target="_blank">Murata</a><br>
+Straight wire inductance calculator, <a href="http://www.consultrsr.com/resources/eis/induct5.htm" target="_blank">Research Solutions &amp; Resources</a><br>
+Dielectric Constant Reference Guide, <a href="http://www.clippercontrols.com/info/dielectric_constants.html" target="_blank">Clipper Controls</a><br>
+</small>
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 24 Sep 2005./ Updated 03 Jun 10 - Added info to clarify bypass cap performance details.</br>
+(US Spellings are included to assist in searching ... metallization, aluminum, polarized)</div>
+</body>
+</html>

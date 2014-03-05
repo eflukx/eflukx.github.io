@@ -1,0 +1,356 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.01 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="ESP Power and Energy Info - Reactance, capacitive and inductive. Interactions and effects.">
+	<!-- Reactance, capacitive and inductive. Interactions and effects. -->
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="ROBOTS" content="all">
+	<title>Reactance</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img src="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</table>
+
+<table width="100%" bgcolor="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td align="right" class="hdrr">Reactance - Capacitive &amp; Inductive&nbsp;</td></tr></table><br />
+
+<p align="center">Rod Elliott (Elliott Sound Products)<br />
+<small>Page Created and Copyright &copy; 05 February 2012</small></p>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="index.html" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles" BORDER=0 height=24 width=40></a><b>Lamps &amp; Energy Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Index" BORDER=0></a><b>Main Index</b><br />
+
+<hr /><b>Contents</b>
+<ul>
+	<li><a href="#intro">Introduction</a>
+	<li><a href="#cap">Capacitive Reactance</a>
+	<li><a href="#ind">Inductive Reactance</a>
+	<li><a href="#comb">Combined Reactance</a>
+	<li><a href="#par">Parallel Reactances</a>
+	<li><a href="#ser">Series Reactances</a>
+	<li><a href="#uc">Unintended Consequences</a>
+	<li><a href="#pwrl">Power Losses</a>
+	<li><a href="#outro">Conclusions</a>
+	<li><a href="#ref">References</a>
+	<ul>
+		<li><a href="pfc.html" target="_blank">Active Power Factor Correction</a>
+	</ul>
+</ul>
+
+<hr /><a id="intro"></a><b>Introduction</b>
+<p>Further to the article about active power factor correction (see <a href="pfc.html" target="_blank">PFC</a>), it is worthwhile to look at the effects of capacitive and inductive reactance. Much of what you will read here doesn't appear to make any sense whatsoever, but it is all completely real. Combinations of inductance and capacitance can have decidedly unexpected consequences.
+
+<p>There is some brief discussion of harmonic currents in the PFC article for example, but not the how and why of how they can cause so much disruption to the supply grid. This article will attempt to provide some answers, but naturally cannot cover every possibility. It has to be considered that on something as complex and widespread as the electrical supply network (the 'grid'), the likelihood of something unexpected happening is not a matter of 'if', but '<i>when</i>'.
+
+<p>Again, so-called 'power savers' that consist of a capacitor that's permanently connected to the mains, are likely to cause problems. Probably not for the grid itself as it's so large, but there is a real risk to household wiring is one of these silly frauds is installed. To refresh you memory, these fraudulent devices are discussed <a href="power-savers.html" target="_blank">here</a> if you want more info.
+
+<p>It's important to understand that there are no ideal components. Resistors (or power lines) have resistance, capacitance and inductance, capacitors have resistance and inductance as well as the wanted capacitance, and inductors also have resistance, capacitance and inductance. Of these, small resistors are close to ideal, but those encountered in infrastructure of the large scale of the electricity supply network are far from ideal.
+
+<p>Capacitors (as used for power factor correction and filtering applications) are far closer to being an 'ideal' component than inductors or distributed resistance (as opposed to an actual resistor which is very close to ideal at power frequencies), however parasitic capacitance (between adjacent power lines for example) is always a mixture of the three basic 'components', and unless you have a great deal more information than anyone will normally allow you to have, accurate modelling of even a small section of the grid is not possible.
+
+<p>Note that all examples use 50Hz, 230V mains. For those in the US and Canada, you can re-calculate easily for 60Hz, 120V.</p>
+
+<table width="100%"><tr><td valign="top"><img src="note.gif" /><td>Please be aware that the demonstration circuits shown on this page may have 'unexpected consequences' that can cause component failure, extremely high voltages or currents, and can pose the very real risk of electrocution - meaning your earthly activities could be curtailed permanently. This is not a joke!<br /><br />
+Never connect any of these circuits to the mains, other than via a low voltage winding from a transformer (12V or so), and be aware that some combinations (especially series resonance) may still try to kill you, even with a 12V input.<br /><br />
+Also, be aware that if a capacitor is disconnected at the peak of the voltage waveform, it will store the charge and may have a terminal voltage of up to 325V (230V mains) or 170V (120V mains). The stored charge is more than sufficient to give a very nasty electric shock, and is capable of causing death.
+</table>
+
+<hr /><a id="cap"></a><b>Capacitive Reactance</b>
+<p>Capacitive reactance is covered first - not because it's the most common on the supply grid, but because it's better known in electronic circuits. As noted above, other than resistors, capacitors are also closest to being an ideal component. While much of this article assumes that <i>all</i> components are ideal, it must be understood that this is not the case in reality.
+
+<p>When an ideal capacitor is connected in parallel with the mains, a current is drawn from the supply. The reactance of a capacitor (XC - capacitive reactance) is determined by ...</p>
+
+<blockquote>
+	XC = 1 / ( 2 * &pi; * f * C )<br /><br />
+	<small>Where XC is capacitive reactance, f is frequency in Hz, and C is capacitance in Farads</small>
+</blockquote>
+
+<p>Predictably, as capacitance increases, XC falls, and more current is drawn. For the examples here, the capacitance used will be close to 100uF (the actual value is 99.472uF for reasons that will become clear later). Using the above formula, we can determine that ...</p>
+
+<blockquote>
+	XC = 1 / ( 2 * &pi; * 50 * 99.472<sup>E-6</sup> )<br />
+	XC = 32 Ohms
+</blockquote>
+
+<p>This value can be used to determine the current drawn from the mains. If the cap were connected direct to the mains, the current will be 7.1875A, giving 1,653kVA. However (and this is the strange part), the power is <i>zero</i>. Not a Watt. In reality, there will be a very small amount of power used, due to the cap's internal resistance and dielectric losses. The plates of the cap are metal (usually aluminium), and almost always very thin. In some cases, the 'plates' are no more than a few molecules thick, vacuum deposited onto the dielectric material. The dielectric is the insulation between the capacitor's plates, and may be various types of plastic, or less commonly now, paper in oil. I tested a 12uF 330V power factor correction capacitor, and it drew 902mA at 239V AC (as expected), yet dissipated only 30mW - much of which would have been in the connecting cable!
+
+<p>Needless to say, these relationships remain as the capacitance or frequency is changed, and as the frequency is increased, capacitor current rises. This is a linear relationship that covers a very wide frequency range, from fractions of 1Hz up to perhaps 100kHz or so (depending on the capacitor's construction and physical size). At higher frequencies, even the wires leading to the cap become an issue, due to their inductance.</p>
+
+<center><img src="react-f1.gif" border=1><br><b><small>Figure 1 - Capacitive Reactance, Circuit, Voltage &amp; Current</small></b></center>
+
+<p>Here we see the relationship between the voltage and current (ignore the resistance for the time being). The current is 90&deg; out of phase, and actually leads (comes before) the voltage. While this might seem impossible, it is very real, but refers to 'steady state' conditions that require a few cycles of AC to become stable. This is known as a <i>leading</i> power factor.
+
+<p>Now we can apply some people's favourite formula for power factor (even though it really shouldn't be used). Power factor = Cos&phi;, and the cosine of 90 is ... zero. No power, and also a power factor of zero. No work is performed, so <i>all</i> energy fed into the capacitor is fed back into the mains. The <i>correct</i> way to determine power factor is to divide real power (Watts) by 'apparent power' (VA).  Apparent power is sometimes referred to as 'imaginary' power (but strictly speaking <i>only</i> for reactive loads), because it has a negative component - real power can never be negative.
+
+<p>This is capacitive reactance from a theoretical perspective, but the reality is not too different! Because capacitors are fairly close to being an ideal part at low frequencies, the losses will be tiny. Based on tests with smaller mains rated caps, the actual power is likely to be less than a watt, dissipated within the cap and its lead wires as heat. 
+
+<p>For practical reasons (due in part to the simulator's belief in perfect components), there is a 1 ohm resistor in series with the capacitor. This dissipates ~51.7W of real power, and because it's there the phase angle is a little bit less than 90&deg; (88.22&deg;).  The VA rating is simply 230V * 7.1875A (1653VA) and the power factor is 0.031 - not quite zero. Note that <i>any</i> resistance in a reactive circuit always dissipates 'real' power - there is no 'apparent power' component.
+
+<p>In many scientific journals and the like, you will see the impedances in a circuit such as that shown above referred to as 1 + j32. One ohm of real resistance, and 32 ohms of capacitive reactance. The 'j32' means that the 32 ohm part of the circuit is reactive, and these two numbers cannot simply be added (the answer <i>isn't</i> 33 ohms). It's outside the scope of this article to try to explain j-notation and/or complex maths, but the two can be added thus ...</p>
+
+<blockquote>
+	1 + j32 = &radic;1&sup2; + 32&sup2;<br />
+	= 32.016 ohms
+</blockquote>
+
+<p>This explains why the current is not 6.97A as you might have imagined, but is somewhat greater. The power in the resistor is simple ...</p>
+
+<blockquote>
+	P = I&sup2; * R<br />
+	P = 7.1875&sup2; * 1 = 51.66 Watts 
+</blockquote>
+
+<p>So far, the example is fairly straightforward, as is the next section - inductance.</p>
+
+<hr /><a id="ind"></a><b>Inductive Reactance</b>
+<p>The circuit is virtually the same, except the capacitor is replaced by an inductor. The inductor is also sized so its reactance is 32 ohms, which makes the value 101.859mH.</p>
+
+<blockquote>
+	XL = 2 * &pi; * f * L<br /><br />
+	<small>Where XL is inductive reactance, f is frequency in Hz, and L is inductance in Henrys</small>
+</blockquote>
+
+<p>Exactly opposite a capacitor, as inductance <i>decreases</i>, XL falls, and more current is drawn. For this set of examples, the inductance used is close to 100mH. Using the above formula, we can determine that ...</p>
+
+<blockquote>
+	XL = 2 * &pi; * 50 * 101.859<sup>E-3</sup> )<br />
+	XL = 32 Ohms
+</blockquote>
+
+<p>Looking at the current and voltage waveforms, we see much the same as before, except the current is now <i>lagging</i> the voltage. This is known as a lagging power factor. Unlike capacitors, real inductors are never as good as the simulated ideal, because they are wound with copper wire, and have resistance. There are also magnetising and other losses, because practical inductors need a laminated silicon steel core, just like a transformer. They are also prone to saturation if the current through the inductor becomes too high.
+
+<p>In short, inductors are one of the worst electrical (or electronic) components. Stray capacitance means they have a self-resonant frequency that's often at a surprisingly low frequency (a few 10s of kHz perhaps), and the inherent resistance and magnetising losses mean that even modest inductors (such as those used for fluorescent lamp ballasts) can dissipate (waste) a significant amount of energy.</p>
+
+<center><img src="react-f2.gif" border=1><br><b><small>Figure 2 - Inductive Reactance, Circuit, Voltage &amp; Current</small></b></center>
+
+<p>As before, there is a 1 ohm resistor used to keep the simulator happy. Current and voltage are exactly the same as for the capacitive example, but the current is now lagging, rather than leading. Otherwise, it behaves in the same way, has the same (very poor) power factor and the resistor dissipates the same power.
+
+<p>Essentially everything said about the capacitive circuit applies here, except that in a real circuit the inductor will have significant losses, easily equalling the power dissipated in the resistor, and that would be for a rather large and expensive part. For the time being, the 'ideal' (though unattainable) part is the best way to show the effects.  
+
+<p>When the two circuits are combined, that's when things get interesting. We end up with a seemingly impossible situation, as is seen in the next section.</p>
+
+<hr /><a id="comb"></a><b>Combined Reactance</b>
+<p>Now things start to look just plain silly. We have exactly the same two circuits as before, both connected to the same (ideal) power supply, and each independently doing exactly as it did before. When the two are combined, the current from the mains <i>falls</i>, and not by a small amount either.</p>
+
+<center><img src="react-f3.gif" border=1><br><b><small>Figure 3 - Combined Reactance, Circuit, Voltage &amp; Current</small></b></center>
+
+<p>Remember, these are the same two circuits we saw before, with the only difference being that they are on the same circuit. The total mains current is measured at 456.53mA - a fraction of what each reactance demands. The power in each resistor is unchanged, except that there are two resistors.
+
+<p>If we calculate the total resistor power to be twice that of one resistor, we get a total power of 103.32 Watts. If we now calculate the VA from the generator, we get 230 * 456.53mA = 105 Watts. Yes, there is a small error, which is due to the limited number of digits used in these examples. In reality, the power is exactly as we determined by adding the resistor power together - 103.32 Watts.
+
+<p>You can see in the graph that the capacitor current leads the voltage, and the inductor current lags by the same amount (this is the reason for the slightly odd values - to get exactly complementary behaviour). The capacitive and inductive currents are just as they were before ... 7.1875A in each. Because one leads and the other lags, as far as the mains supply is concerned, they cancel out. Adding the capacitor doesn't reduce the current in the inductor though (or vice versa) - this is one of the many false claims of the fraudulent 'power savers' that are advertised everywhere. Since the current in the inductor remains the same, any losses that cause internal heating also stay the same.
+
+<p>The only part of the circuit that benefits is the cable from the source (the mains outlet) to the equipment ... provided the two loads are close together of course. As is common with all power factor correction systems, the correction device (most commonly a capacitor) is mounted in or on the light fitting or motor that is being corrected. This minimises wiring losses in the premises.
+
+<p>When reactances are combined, at their resonant frequency they are always resistive - voltage and current are in phase. For parallel circuits, below resonance the combination appears inductive (lagging PF), and above resonance it is capacitive (leading PF). Reactances in series are also in phase (and therefore resistive), but below resonance the combination appears capacitive, and above resonance it's inductive.
+
+<p>Somewhat predictably, there are more ways the inductance and capacitance can be interconnected, and these are discussed below.</p>
+
+<hr /><a id="par"></a><b>Parallel Reactances</b>
+<p>Combinations of inductors and capacitors are quite common in electronics, and form the basis of many tuned circuits. In radio frequency applications, LC (inductor/ capacitor) networks are everywhere, because they form the filters that define the bandwidth that the application requires. Modern techniques have eliminated many of the tuned circuits you see in older equipment, but there are simple combinations that refuse to go away and will do so for the foreseeable future.
+
+<p>One of these is the parallel resonant circuit, shown below. The inductor and capacitor are wired in parallel, and the combination is in series with the load resistor. This is a combination that some will know instantly.</p>
+
+<center><img src="react-f4.gif" border=1><br><b><small>Figure 4 - Parallel Reactances, Circuit, Voltage &amp; Current</small></b></center>
+ 
+<p>The parallel resonant circuit has (in theory) infinite impedance at its resonant frequency - 50Hz in this case. In reality, the impedance is always decidedly finite, because natural losses degrade the performance of the circuit. Suffice to say that the impedance of any resonant circuit is extremely high at its resonant frequency. In the circuit shown, with its ideal components, the impedance is close to infinite, but the current that circulates around between the coil and the capacitor is still much higher than you ever expected. In fact, it's slightly higher than each of the circuits in isolation. The simulator tells me that the circulating current is 7.18A.
+
+<p>The losses determine the circuit's 'Q' (quality factor), and this is a way of describing the sharpness of the circuit's frequency response. A high Q circuit will only be effective over a very narrow frequency range, where a low Q circuit will have a flatter overall response, and a wider frequency range. The frequency response of the circuit is essential here ... the following shows the voltage across the 1 ohm resistor with varying frequency.
+
+<center><img src="react-f5.gif" border=1><br><b><small>Figure 5 - Parallel Reactances, Frequency Response Across Resistor</small></b></center> 
+
+<p>The voltage across the 1 ohm resistor falls to a minimum at resonance - 50Hz. If you recall, I mentioned at the beginning that caps and inductors had rather odd values, and that's because they are the values needed to obtain resonance at 50Hz. There are other combinations that will work too, but any resonant circuit is at its best when the impedances of the capacitive and inductive sections are equal, however resonance doesn't require equal impedances ... an important thing to remember as we go further.
+
+<p>We can calculate the resonant frequency of any combination of inductance and capacitance with the formula ...</p>
+
+<blockquote>
+	fo = 1 / ( 2 * &pi; * &radic;L * C ), so for our example ...<br />
+	fo = 1 / ( 2 * &pi; * &radic;0.1 * 100<sup>E-6</sup> ) ... close enough<br />
+	fo = 50.329 Hz<br /><br />
+	<small>Note that there is actually a very small difference between the formulae for series and parallel resonant circuits,<br />
+	but this has not been considered here, as there is no difference with ideal components.</small>
+</blockquote>
+
+<p>You can also see again the reason for the slight changes to the values of inductance and capacitance - I wanted a frequency of 50Hz - <i>exactly</i>. The Q of the circuit shown (with its ideal components) is over 800, and the bandwidth (at the +3dB points from minimum voltage) is only 62mHz (0.062Hz). It goes without saying that this will not be achieved in practice.
+
+<p>In the formula shown above, it is obvious that any combination of L and C that gives the same number when multiplied together will give the same resonant frequency. 10H and 1uF will also resonate at 50.329Hz, as will countless other combinations. This is an important point to remember when we look at 'unintended consequences'.</p>
+
+<hr /><a id="ser"></a><b>Series Reactances</b>
+<p>This is a combination that requires enormous care. If you get the tuned circuit just right (or wrong!), the inductor and capacitor cancel each other, leaving you with a short circuit across the mains. Meanwhile, the voltage across each (L and C) will be huge - it's quite easy to get many kV across each component of a series resonant circuit, and the resistor has been increased to 33 ohms. It will still dissipate just over 1.6kW, because for all intents and purposes, it's directly across the mains - the inductor and capacitor effectively disappear at resonance.</p>
+
+<center><img src="react-f6.gif" border=1><br><b><small>Figure 6 - Series Reactances, Circuit, Voltage &amp; Current</small></b></center>
+
+<p>It is only the resistance of a real inductor that will limit the current (and the ultimate voltage across L and C) if there is nothing else in series, and the circuit shown above only has a fairly conservative 222V across each of the reactances. The voltage across L and C are exactly equal and opposite at resonance, so they cancel completely - regardless of the actual voltage, be it millivolts or kilovolts.
+
+<center><img src="react-f7.gif" border=1><br><b><small>Figure 7 - Series Reactances, Frequency Response Across Resistor</small></b></center> 
+
+<p>The Q of the circuit is determined by the amount of series resistance - the response curve shown above is with the 33 ohm resistor in place. If the resistance is reduced, the Q increases, as does the voltage across the L and C components.
+
+<p>As an example, if the resistance is reduced from 33 ohms to 10 ohms, the current rises to 22.98A (ideally it would be 23A), but the voltage across the cap and inductor increases to 735V (RMS). Even though 'real' inductors have all the losses described above, the same thing can happen as described here. The <i>only</i> difference is that the voltages and currents will not be quite so high, but it's still easy to create a circuit that will blow fuses (and/or circuit breakers), destroy capacitors and/or inductors (etc.) due to over-voltage ... or worse, kill you.
+
+<p>Getting 500-600V is dead easy, just connect a capacitor in series with a shaded pole motor. If you get the cap value right, the motor will slow down (this is a common way to implement a cheap speed control), but if it's wrong you can end up with 500V across a 230V motor ... I know this from personal experience! Fortunately, I realised what had happened immediately, but if you are unaware of the effect it's very easy to get caught out. The results could be lethal.</p>
+
+<table width="100%"><tr><td valign="top"><img src="note.gif" /><td>If you <i>do</i> have a burning (no pun intended) desire to experiment, you must do so from a low voltage source ... 12V AC is suggested. Even then, there is the possibility of lethal voltage being created with a high Q resonant circuit. This is a dangerous combination, and requires both skill and respect. ESP can accept no responsibility in the event of injury or death - you perform these experiments entirely at your own risk. 
+</table>
+
+<hr /><a id="uc"></a><b>Unintended Consequences</b>
+<p>Now that we've looked at the effects of resonance, it should be apparent that within the electrical distribution network, there will be a vast number of combinations of inductance and capacitance. Resistance is distributed, and some of the LC combinations will be heavily damped by intervening resistance, while others won't.
+
+<p>What we haven't considered yet is the harmonics of the mains. Harmonics are created by any non-linear load, ranging from switchmode power supplies to lamp dimmers (leading and trailing edge types). It is unusual (and highly undesirable) for the mains to contain even harmonics, as these create an asymmetrical waveform that has a DC component. This is capable of extreme harm, however there are innumerable transient DC events on the mains. Provided there is some resistance between the source of DC events and the equipment that will be affected by them, the risk of damage is small. If they are close by, the results can be extreme. This topic is described elsewhere (see <a href="../articles/inrush.htm" target="_blank">Inrush Current</a> for more on that subject.
+
+<p>Given that harmonics are a fact of life when a waveform is distorted (and it's mainly the current waveform - the <i>voltage</i> waveform is affected, but it's difficult to change the waveform significantly when the source is an extremely low impedance. If the source impedance were zero ohms, no amount of current waveform distortion could affect the voltage waveform, but naturally this is not possible.
+
+<p>The harmonics that are most at risk of causing problems extend up to the 39<sup>th</sup> (sometimes more), and these are often measured as part of equipment compliance testing. Older equipment (and that can easily mean 40 years old or more) is not subject to current compliance testing, and can do almost anything by way of harmonic generation. The effects are simply not known unless someone decides to run tests.
+
+<p>The harmonic frequencies depend on the mains frequency, but are as follows (I'm only covering up to the 19<sup>th</sup> harmonic so the table doesn't get silly).</p>
+
+<center><table width="640" border="1" style="border-collapse:collapse;">
+<colgroup span=10 width="10%">
+<tr><th>Mains<th>3rd<th>5th<th>7th<th>9th<th>11th<th>13th<th>15th<th>17th<th>19th</th>
+<tr><th>50 Hz</th><td>150 Hz<td>250 Hz<td>350 Hz<td>450 Hz<td>550 Hz<td>650 Hz<td>750 Hz<td>850 Hz<td>950 Hz
+<tr><th>60 Hz</th><td>180 Hz<td>300 Hz<td>420 Hz<td>540 Hz<td>660 Hz<td>780 Hz<td>900 Hz<td>1020 Hz<td>1140 Hz
+</table></center>  
+
+<p>When you consider the number of devices that may be connected to the grid at any one time, it's almost guaranteed that one or more harmonic frequencies will react with an inductive load here and a capacitor there. It doesn't matter if the capacitor is already doing its normal job somewhere else - electricity is multi-tasking, and many different things can happen at once.
+
+<p>Commercial premises may have a dedicated power factor correction (PFC) system, using switchable capacitors and series inductors designed to minimise harmonic current within the system. These are usually designed so that the natural resonance of the inductor and capacitor does not coincide with any likely harmonic, but since the power distribution system itself is made with cables, these also have inductance, and that can skew the resonant frequency of a PFC cabinet. Now you can start to appreciate the enormous complexity of the problem, especially when we examine the harmonic content of a common light dimmer set to half power. This is only an example - many loads are actually far worse.</p>  
+
+<center><img src="react-f8.gif" border=1><br><b><small>Figure 8 - Waveform And Harmonic Currents, Dimmer At 50%</small></b></center> 
+
+<p>The above shows the current waveform, with a standard leading edge dimmer operated at 50%, supplied from 230V into a 100 ohm load. A trailing edge dimmer has identical harmonic amplitudes, but they are shifted in phase. The RMS current is 1.61A, and the waveform has 64% THD (total harmonic distortion). As you can see, the harmonics extend to well over 3kHz, but below 1kHz they are all greater than 100mA, and the 3<sup>rd</sup> harmonic is more than half the level of the fundamental (50Hz). They measure 1.62A and 878mA respectively, and even the 5<sup>th</sup> and 7<sup>th</sup>harmonics are almost 300mA each.
+
+<p>A typical twin building wire may have an inductance of around 0.65uH/ metre. Wire runs in a building can easily exceed 100 metres, so such a cable has an inductance of perhaps 65uH. This isn't very much, but what about the 10s of kilometres of wire between the power station and the connected premises? The simple answer is that we don't know, but these distributed inductances and associated capacitances all form low Q resonant circuits at some frequency. There is no way that it would be possible to ensure that resonant frequencies never coincide with a harmonic of the mains frequency, plus there are the countless appliances ... some generating harmonics, many with power factor correction capacitors, and some where we have no idea what kind of load they present.
+
+<p>Then there are power factor correction cabinets in large installations and at substations, and every capacitor presents a low impedance to harmonic current. A cap that has an impedance of (say) 100 ohms at 50Hz has an impedance of only 33 ohms at 150Hz (3<sup>rd</sup> harmonic), and 20 ohms at 250Hz (5<sup>th</sup> harmonic). As the frequency increases, the ability of a capacitor to cause large harmonic currents within the grid also increases. Should the current be high enough, the capacitor will eventually fail because its maximum current rating will be exceeded.
+
+<p>The harmonic currents also affect motors and transformers, and because of the higher frequency of these harmonics, they can (and do) cause additional heating. The extra heating is partly due to eddy current losses in the laminated steel cores used, and is also due to something called the 'proximity effect'. To some extent, this is similar to skin effect, but is applied to conductors immersed in a magnetic field [<a href="#ref">1, 2</a>]). 
+
+<p>The proximity effect causes often chaotic disturbance of the normal flow of electrons in a wire coil, and can significantly reduce the current-carrying capacity of the conductors. In turn, this causes the temperature of the machine (motor, transformer, etc.) to increase, often with localised 'spot' temperature rises that are far greater than expected. This has caused many failures. All this just because of a few harmonics on the mains! Large harmonic currents can also cause transformers and motors to be excessively (and unexpectedly) noisy.
+
+<p>Next, imagine that you find a situation where a power factor correction cap forms a series resonant circuit with cable and transformer leakage inductance. Any harmonic at the resonant frequency can potentially cause very high and possibly destructive current to flow in the circuit, and there is a high probability of something in the circuit failing. This does happen, and every power utility will have suffered failures caused by excessive harmonic currents. PFC capacitor cabinets can suffer nuisance tripping of series circuit breakers designed to protect the cap against excess current. It's common to include low-Q inductors in series as well, to limit the high frequency current.
+
+<p>None of this is particularly intuitive, and is not the kind of thing that any electrician considers when wiring a building. In the past, there were so few loads that created severely non-linear waveforms that it was never an issue. With the proliferation of electronic lighting systems (for example), this has changed. The general idea is shown in Figure 9, using the same dimmer as described above. The ammeter in this case will be an oscilloscope current probe, and the harmonic levels can then be determined by using FFT (fast Fourier transform).</p>
+
+<center><img src="react-f9.gif" border=1><br><b><small>Figure 9 - Harmonic Test Circuit, Dimmer At 50%</small></b></center> 
+
+<p>The test circuit shows the building wiring, and can be considered to be reasonably typical of a real installation. The current is only monitored directly from the generator, and without the capacitor is's much the same as shown above in Figure 8. The harmonics are greatest at low frequencies, and diminish progressively with increasing frequency.</p>
+
+<center><img src="react-f10.gif" border=1><br><b><small>Figure 10 - Harmonic Currents, Dimmer At 50%</small></b></center> 
+
+<p>When the capacitor is added things change rather interestingly. The 'cap' might be (say) three 3.3uF power factor caps installed in fluorescent light fittings for example, and when installed, it's clearly visible on the red trace that instead of harmonic currents declining in a natural progression, there is a peak at 1550Hz (the 31<sup>st</sup> harmonic). The harmonic current <i>from the mains</i> has increased because the capacitor was installed. The current in the capacitor also increases, from 723mA with a clean 230V supply to 922mA when the harmonics are present - more than 20% greater.
+
+<p>As noted earlier, there are likely to be many such interactions within a single installation, and these become innumerable when the distribution grid as a whole is considered. The example shown is deliberately simplistic, but shows clearly that the likelihood of 'unintended consequences' is very high. The only issue is not whether such interactions occur, but whether they are likely to cause greater problems elsewhere within the distribution network when they <i>do</i> occur.
+
+<p>The <i>only</i> real solution is to eliminate (insofar as is possible) non-linear loads and subsequent harmonic generation at the source, and this is one of the reasons that so many electronic products are now required to maximise power factor and keep distortion low. There is evidence that 'distributed generation' from household solar installations and the like also causes problems. While they don't directly affect the overall power factor by themselves, the PF from the grid is lowered because of the reduction of normal (high power factor) load which is supplied by the inverters [<a href="#ref">4</a>]. For residential premises, their load has always been considered to be benign, with a PF close to unity. This is no longer the case, partly due to the proliferation of CFLs, PC power supplies, LCD/ plasma TV sets and many other electronic load appliances. These often have a very poor power factor, and it's non-linear so cannot be corrected by normal means.</p>
+
+<hr /><a id="pwrl"></a><b>Power Losses</b>
+<p>Ultimately, all forms of poor power factor cause additional losses within the supply grid, because current is increased with no increase in 'work' or real power at the destinations. There may be many kilometres of wire between any one destination and the closest major substation, with perhaps a smaller substation in between. Between the major substation and the generating facility can easily be 50km or more (it can be a great deal more in a country like Australia). Included in the distribution system is always at least two and more likely 3 or 4 transformers - all wound with wire and already running close to capacity in many cases.
+
+<p>There have been several very high profile cases where power feeds into major cities have failed, causing widespread blackouts and chaos - Sydney (AU) is one that springs to mind because it was all over the news here. A web search reveals that there have been countless outages all over the world, just in the past year. While some were the direct result of natural disasters of one kind or another, many of these failures were almost certainly the result of overload, probably helped a little by a lack of proper maintenance.</p>
+
+<p>The current increase caused by poor power factor is insidious, and applies to loads with a conventional lagging (or leading) power factor, as well as non-linear loads. If a building's load has a power factor of 0.5 (leading, lagging or non-linear), it demands twice as much current from the grid. Wiring losses are directly proportional to the <i>square</i> of the current (&nbsp;P&nbsp;=&nbsp;I&sup2;&nbsp;*&nbsp;R&nbsp;), so if the current demanded by an installation draws double the current needed because of a poor power factor, then the distribution losses are 4 times greater than would be the case with a PF of unity. 
+
+<p>Even a small reduction of current can reduce losses by a very worthwhile amount. A 10% reduction of current results in more than a 17% reduction of resistive distribution losses. Long-distance high-voltage AC transmission systems also suffer from capacitive and inductive losses, and in some cases it's actually more efficient to convert the AC to DC, then back again at the remote end. This is commonly used for long underwater transmission, where the capacitance between cables would otherwise cause major losses.
+
+<p>All wiring and transformer losses are real power that must be provided by the generating station(s), and real fuel must be burned to provide it. Since grid power losses are commonly much higher than imagined (accurate figures for this seem to be a closely guarded secret), a poor power factor causes the cost of supply to increase, and reduces the capacity of the grid as a whole. Depending on where you look, transmission and distribution losses seem to be between 6% and 10%. That's a huge amount of energy worldwide. For anyone interested in some startling figures, see <a href="http://www04.abb.com/global/seitp/seitp202.nsf/c71c66c1f02e6575c125711f004660e6/64cee3203250d1b7c12572c8003b2b48/$FILE/Energy+efficiency+in+the+power+grid.pdf" target="_blank">Energy Efficiency in the Power Grid</a>, a paper prepared by ABB Inc.</p>
+
+<center><img src="react-f11.gif" border=1><br><b><small>Figure 11 - Typical Non-Linear Load</small></b></center>
+
+<p>A good indicator of the amount of distortion caused to the mains waveform is shown in Figure 12. The load is a conventional rectifier, followed by a filter capacitor, and drawing a non-linear current of just over 2A RMS as shown above. The <i>peak</i> current is 6.7A, and causes the voltage waveform to get flat tops on the positive and negative peaks [<a href="#ref">5</a>].</p>
+
+<p>The circuit draws just under 473VA, but actual power is only 253W, so power factor is 0.53 - almost half the current drawn from the mains is effectively wasted because of the dreadful current waveform. It's not at all intuitive how this comes about, but essentially the maths behind it don't really matter. What does matter is that this is a known problem, and it can be fixed with clever integrated circuits and modern electronic techniques - all of which exist right now.
+
+<p>Back in the 1960s and before, there were very few loads that caused serious harmonic distortion of the current waveform. The majority of non-linear loads at that time would have been things like 3-phase mercury arc rectifiers to supply electric train and tram feeders, but in most cases these could be expected to be isolated from the general mains network. While it's outside the scope of this article to extend into a discussion of 3-phase rectifiers, they are anything <i>but</i> grid-friendly, regardless of the rectifier diodes used. There are techniques that reduce the problem, but it's not eliminated.</p>
+
+<p>The allowance for the grid and building cabling in Figure 11 is very conservative - in most cases they are likely to have somewhat greater losses. Even so (and with the comparatively tiny load), the 0.8 ohm wiring resistance dissipates 3.38W instead of 1.03W with a linear load of the same power - over 3 times the losses! While this might seem insignificant by itself, it's a different story when multiplied by thousands of similarly poor loads. If a power station were supplying 500MVA [<a href="#ref">5</a>] into the grid loaded with similar circuits, only 265MW is available to do useful work. The network losses will reduce that even further, because the heat generated in cables and transformers is part of the work performed. This is why power utilities <i>really</i> don't like bad power factors, regardless of what causes them.</p>    
+
+<center><img src="react-f12.gif" border=1><br><b><small>Figure 12 - Voltage Waveform Distortion With Non-Linear Load</small></b></center>
+
+<p>The voltage waveform shows another problem. In most previous examples, the generator (alternator) is assumed to have a zero ohm output impedance, and produce a pure sinewave. The voltage waveform would therefore have no distortion at all.  
+
+<p>It doesn't take a great deal of resistance in the wiring before the 'flat-topping' becomes very noticeable. The effect is clearly visible above, and is the simple result of Ohm's law (the small inductance has little effect). It's not at all uncommon to measure the mains voltage distortion at 10% or more, depending on the time of day and the loads connected. Transmission resistance in transformers, cables, etc. is a fact of life, so when we have a circuit that draws very high peak currents, even a small utility resistance will allow the voltage waveform to become distorted. Now we are faced with the dual problems of a distorted voltage, as well as distortion of the current waveform.
+
+<p>Just in case you were wondering about the relevance of this example, it's worth noting that you only need about 10 x 25W CFLs (or you and a few neighbours with a total of 25 x 10W CFLs) to cause exactly the scenario shown above. A single PC power supply can do the same thing if it has no PFC circuits. Any examination of the mains waveform will show the effect very clearly.</p>
+
+<hr /><a id="outro"></a><b>Conclusions</b>
+<p>This is one of the most complex areas we have to confront, and it has been exacerbated by the phase-out or ban of incandescent lamps. These have a perfect power factor (unity - at least when no dimmer is used), with no harmonics. They never caused any problems to the electrical supply. The large scale use of CFLs has been a contributor, but more and more modern appliances use electronic power supplies that also create more than their fair share of problems. Lighting is of particular concern, because it is one of the most important uses of electricity, and has been rudely thrust into the limelight because of the initial (seemingly simple) requirement for higher efficiency. This is called an 'unintended consequence'!
+
+<p>One answer is to ensure that all new power supplies have active power factor correction, so the generation of harmonics is minimised. However, this comes with an increased cost to the consumer and means more complex power supplies with more things to go wrong. This is also called an 'unintended consequence'. More and more regulations are being introduced to limit the waveform distortion of new products, with lighting being one of the main targets. Common (cheap) CFLs currently seem to be exempt, even though they are cause exactly the issues demonstrated by the Figure 11 circuit. There is little that can be done about legacy devices and equipment that may have been in use for 20 years or more, but it is important to ensure that the problems aren't made any worse than they already are.
+
+<p>As noted in the introduction, this article should be read in conjunction with <a href="pfc.html" target="_blank">Active Power Factor Correction</a>, because the two are inextricably intertwined.
+
+<p>For those who are interested, there are papers presented by supply authorities from all over the world. These range from being overly simplistic to fully-blown engineering analysis. Those roughly in the middle are the most useful for anyone who just wants to understand the problems faced and the reasons for those problems. As noted in the third and fourth references, even grid-tied inverters (from solar panels or potentially small wind turbines) cause their fair share of problems - even if they produce a very clean waveform to the grid. This is difficult to understand without extensive analysis, but fortunately that's already been done ... many times.</p> 
+ 
+<hr /><a id="ref"></a><b>Credits &amp; References</b>
+<ol>
+	<li><a href="http://www.thayer.dartmouth.edu/inductor/papers/newcalc.pdf" target="_blank">An Improved Calculation of Proximity Effect Loss</a>
+	<li><a href="http://www.dartmouth.edu/~sullivan/litzwire/skin.html" target="_blank">Skin Effect, Proximity Effect, And Litz Wire</a>
+	<li><a href="http://www.emo.org.tr/ekler/0172ea66506f59c_ek.pdf" target="_blank">The Effects Of Harmonics Produced By Grid Connected
+	photovoltaic Systems On Electrical Networks</a>
+	<li><a href="http://www.powerfactorcorrectionllc.com/Distributed%20Generation.pdf">Distributed Generation, Customer Premise Loads
+	&amp; the Utility Network - A Case Study</a>
+	<li><a href="technote3.pdf">Harmonic Distortion In The Electric Supply System</a> - Integral Energy, Power Quality Centre
+	<li>Some material was found on the Net but was not significant in its own right, and thus has not been specifically referenced. Such material
+	was only used to confirm things that I had already figured out.
+	<li>This article also includes information from other ESP pages, from 'accumulated knowledge', and from simulations and data from
+	measurements taken on components as described.
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="index.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles" BORDER=0 height=24 width=40></a><b>Lamps &amp; Energy Index</b>
+<br><a href="../index2.html" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Index" BORDER=0></a><b>Main Index</b><br><br>
+  
+<table border bgcolor="#000000"><tr>
+<td><font color="#ffffff" size="-1"><b>Copyright Notice.</b> This material, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2012. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use in whole or in part is prohibited without express written authorisation from Rod Elliott.</font></td>
+</tr></table>
+<font size="-2">Page created and copyright &copy; 05 Feb 2012.</font>
+</body>
+</html>

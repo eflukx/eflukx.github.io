@@ -1,0 +1,150 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+<meta name="keywords"
+content="thermal,switch,heat,detector,audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+<meta name="description" content="ESP Project Pages - Thermo fan for amp cooling.">
+<meta name="GENERATOR" content="Rod Elliott">
+<title>Thermo-Fan to keep your amplifier cool</title>
+<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 42&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Thermo-Fan To Keep Your Amp Cool</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>In many areas of the world, keeping an amplifier cool is no big deal, because of generally low average temperatures. In Sydney (Australia), we can guarantee at least a few days every year when the temperature will be over 40 degrees C, and we are not alone in this. With Global Warming, we might all have the same problem in a few years.</p>
+<p>The project described is not intended to allow you to skimp on the heatsink, but to ensure that the amp is never allowed to exceed a preset temperature. Class-A amplifiers and very high power amps will benefit the most, but the thermal controller principle described can be applied to almost anything.</p>
+<p>It is extremely sensitive, and can easily be set so that a few degrees change is enough to turn on a fan, and reduce the power (or turn it off again) as the amp cools.</p>
+<p>As of 02 Jan 2000, there is a second version, designed to operate directly from the amp's +ve supply rail, and is specifically for amps that use a supply voltage greater than 30V. The circuit is almost identical, using one additional low cost transistor and an extra resistor.</p>
+
+<hr><b>Description</b>
+<p>The controller uses one or more ordinary silicon diodes as a sensor, and uses a cheap opamp as the amplifier. I designed this circuit to use 12V computer fans, as these are now very easy to get cheaply. These fans typically draw about 200mA when running, so a small power transistor will be fine as the switch. I used a BD140 (1A, 6.5W), but almost anything you have to hand will work just as well.</p>
+
+<p align="center"><img src="p42-fig1.gif" alt="Figure 1" border="1" height="262" width="643">
+<br><b><small>Figure 1 - The Thermo-Fan Controller</small></b></p>
+
+<p>As can be seen, the circuit is very simple, and needs only a 12V single supply. This can be obtained from a small transformer, which need be rated at no more than 5VA or so. The supply does require regulation for the sensor if you want it to be accurate, but a simple zener regulator is sufficient for normal operation.</p>
+<p>All diodes are 1N4004 or similar, and Q1 must be on a small heatsink - or may be mounted to the amplifier chassis. Make sure it is properly insulated, and use thermal grease. Maximum dissipation will be about 2 W, but it will overheat very quickly if there is no heatsink.</p>
+<p>R7 has been added to ensure that Q1 turns off when the opamp's output is high. Most opamps can't reach the supply rail, and the voltage is usually about 1V less than the +ve supply.  Some opamps may have a lower maximum voltage, and R7 will ensure that Q1 can be turned off completely. The same change has been made to the alternative version shown below.</p>
+<p>The temperature is set with VR1. Operate the amp until the normal temperature is reached, then adjust VR1 until the fan starts. Then back off very slowly until the fan stops again. Any increase over the normal temperature will start the fan, and promptly bring the temperature back down again.</p>
+<p>You can test the circuit without the amp, using a diode (or diodes) out in the air. Adjust as above, then hold the diode between your fingers - the fan should start up almost immediately, and stop again when you release the diode. Just the heat from your fingers is enough to operate the circuit. I tested the circuit with 3 standard 1N4004 diodes in parallel, and even without device selection I could hold any one of them and make the fan start.</p>
+<p>I do not recommend that this be used from any preamp supply, as the motor noise will almost certainly cause problems. For this reason, I also suggest that you keep the switching transistor and fan leads will away from signal circuits to prevent noise.</p>
+<p>It will not matter if the voltage is a little higher than 12V, as the fan will work fine as long as voltage is kept below about 14V. If you have more than this, use a larger resistor in place of R6 to limit the voltage. This will also help filter noise. Remember that the maximum recommended voltage for the uA741 opamp is +30V,
+and this must not be exceeded. If the voltage is greater than 12V, R5 will also need to be changed.</p>
+<p>These fans will not run at less than about 6V, so don't even attempt it. You might be able to use 5V fans, but these are usually only very small and do not provide much airflow.</p>
+
+<p><b>Resistor Values For R5 and R8</b>
+<br>You will need to check the current that your fan draws to calculate the resistance. Connect it to a 12V supply, and measure the current. Your supply voltage must be less than 30V (otherwise see below). Calculate the resistance of R8 with ...</p>
+
+<blockquote><b><small>R8 = (+ve -12) / I</small></b> &nbsp; &nbsp; Where +ve is your supply voltage, and I is the measured fan current</blockquote>
+
+Select the closest resistor value larger than calculated. You will also need to work out the power:
+
+<blockquote><b><small>P<sub>R8</sub> = (+ve - 12)&sup2; / R8</small></b></blockquote>
+
+Now you can work out the value for R5 (1/2W will be OK here) - here, use the next smaller value if an odd resistor value is calculated. The zener current is nominally 10mA, so ...
+
+<blockquote><b><small>R5 = (+ve - 10) / 0.01</small></b> &nbsp; Where +ve is your supply voltage.</blockquote>
+
+For example, if you have a 25V supply available, and your fan draws 200mA at 12V ...
+
+<blockquote><b><small>R8 = (25 - 12) / 0.2 &nbsp; &nbsp; = 13 / 0.2 &nbsp; = 65 Ohms</small></b> (use 68 Ohms)<br>
+<b><small>P<sub>R8</sub> = (25 - 12)&sup2; / R8 &nbsp; = 13&sup2; / 56 &nbsp; = 169 / 68&nbsp; = 2.5 Watts</small> </b>(use 5W)<br>
+<b><small>R5 = (25 - 10) / 0.01 &nbsp; = 15 / 0.01 &nbsp; = 1500 Ohms (1k5)</small></b><br>
+<b><small>P<sub>R5</sub> = (25 - 10)&sup2; / 1500 &nbsp; = 225 / 1500 &nbsp; = 0.15W</small></b></blockquote>
+
+Having worked these out, you can adapt the circuit to any voltage, as long as it is less than 30V and 12V or more. For higher voltages, see the alternative version in Figure 2 (below). Note that with the 10 Ohm resistor for R8, the actual fan voltage will be about 10V.
+
+<p>If you just happen to have a regulated 12V supply handy, leave out the 10V zener diode, use a short circuit for R5, and just use the circuit as is. If you want to make a power supply, have a look at Figure 3 in <a href="project38.htm#top">Project 38</a>. Simply leave out the extra mains wiring, since it is not needed.</p>
+
+<hr><b>Alternative Version</b>
+
+<p>The version shown in Figure 2 is designed to work directly from the amplifier's main power supply, regardless of voltage (within limits of course). Only the +ve supply is used, but the slight imbalance will not cause any problems with a properly designed power supply.</p>
+<p>The circuit is almost identical to that above, but uses an additional transistor to convert the 10V rail (which again uses a simple zener regulator) to drive the switching transistor. The switch has a much higher gain than the circuit of Figure 1, so the fan will tend to be either on or off - the variable fan speed will only work over a very limited range. This is not a problem, it is just different.</p>
+
+<p align="center"><img src="p42-fig2.gif" alt="Figure 2" border="1" height="278" width="643">
+<br><b><small>Figure 2 - Amplifier Supply Powered Version</small></b></p>
+
+<p>The values of the resistors are calculated much as before, and the formulae are shown below. Expect to use higher powered resistors, especially with high amplifier voltages. The opamp circuit needs about 20mA to operate properly, so R8 is worked out with ...</p>
+
+<blockquote><b><small>R8 = (+ve - 10) / 0.02</small></b> &nbsp; &nbsp; where +ve is the amplifier supply voltage. For a 40V supply ...<br>
+  <b><small>R8 = (40 - 10) / 0.02</small></b><br>
+  <b><small>R8 = 30 / 0.02 = 1500</small></b> &nbsp; &nbsp; The nearest value is exactly 1500 Ohms (1k5).</blockquote>
+  
+Power rating is ...
+
+<blockquote><b><small>P&nbsp; = V&sup2; / R &nbsp; &nbsp; = 900 / 1500 = 0.6W</small></b> &nbsp; &nbsp;  A 1W resistor will be sufficient</blockquote>
+
+To work out the value and power rating of R9 (the fan series resistor), still with the 40V supply but using 2 fans, and running the fans at 10V to keep them quiet ...
+
+<blockquote><b><small>R9 = (+ve - V<sub>fan</sub>) / 0.2</small></b> &nbsp; &nbsp; Where 0.2 is the measured fan current (same as above for version 1)<br>
+  <b><small>R9 = (40 - 20) / 0.2&nbsp; = 20 / 0.2 = 100 Ohms</small></b>  
+  <br><b><small>P&nbsp; = V<sup>2</sup> / R = 400 / 100 = 4W</small></b> &nbsp; &nbsp; so a 5W resistor will be fine.
+</blockquote>
+
+<p>Any other combination is quite acceptable, including the use of fans in series/parallel (remember that the current will be double) or anything else that you might want to do. This is a very flexible circuit, and its use is only limited by imagination, as there are many other uses for a sensitive thermal controller.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 1999-2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr></table>
+
+<div class="t-sml">Page Created and Copyright (c) 16 Dec 1999./ Updated: 06 Oct 2006 - added resistors from base to emitter of Q1./ 02 Jan 2000 - Added Fig2 and new text for amp supply operation.</div>
+</body>
+</html>

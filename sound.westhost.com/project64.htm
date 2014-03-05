@@ -1,0 +1,170 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="graphic, equalizer, equaliser, guitar, bass, keyboard, audio, project, diy, preamp, circuit, schematic, diagram, free">
+   <meta name="description" content="ESP Project Pages - Musical Instrument Graphic Equaliser. Visit my other pages for more audio projects and articles">
+   <title>Musical Instrument Graphic Equaliser</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <style TYPE="text/css"><!-- td { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 64&nbsp;</td></tr></table>
+
+
+<p align="center"><b>Musical Instrument (Expandable) Graphic Equaliser</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>This equaliser is designed as a preamp suitable for musical instruments - guitar, bass and keyboard in particular. Unlike most conventional graphic equalisers, each slider ranges from fully off to fully on, and not the more conventional +/-12dB or so that is normally available.</p>
+
+<p>As a result, there is no flat setting (other than all off!). This graphic is designed to be used to create a sound, and is not suitable for hi-fi. It may be used as an add-on unit to existing instrument amp preamps, tone controls, etc. The flexibility is extraordinary, allowing a hollow "single frequency" type sound, right through to almost any tonal variant imaginable.</p>
+
+<p>This is the first of several projects based on the multiple-feedback bandpass filter described in <a href="project63.htm">Project 63</a>, it can be made with as many (or as few) filter sections as you want.</p>
+
+<p>Because of the repetetive nature of the filter units, I will be designing a PCB for them at some time in the future (depending on demand). One board will carry two or 4 filters, and the boards will be quite small so they can be packed into a case easily. The remainder of the circuitry can easily be constructed on Veroboard or similar.</p>
+
+<hr><b>Description</b>
+<p>The input circuit is completely conventional, and uses 1/2 of a dual opamp as the initial gain stage. This is followed by the volume control, second gain stage and buffer. The output of the buffer is fed to the inputs of the filter stages, each of which has a slider for its specific frequency. The outputs of the sliders are summed using another opamp, and a distortion effect is included in the final output stage. This can be left out altogether if distortion is not desired.</p>
+
+<p>If used for guitar, the frequencies needed only have to range from 80Hz to about 7kHz, but to make the unit more versatile I suggest that the lowest frequency should be 31Hz, and the highest around 12kHz. This can be extended if you want.</p>
+
+<p><b>Decisions!</b>
+<br>Now you have to decide on the frequency resolution. 1/3 octave would be really nice, but the number of sliders can be a nightmare. At the very least, you will need octave band, and the suggested frequencies are ...
+
+<p align="center">
+<small><b>31 &nbsp; 63 &nbsp; 125 &nbsp; 250 &nbsp; 500 &nbsp; 1k0 &nbsp; 2k0 &nbsp; 4k0 &nbsp; 8k0 &nbsp; 16k</b></small></p>
+
+<p>Should you decide on 1/2 octave band frequencies, 20 sliders will cover the range suggested (plus a bit) - these might be ...
+
+<p align="center"><b><small>
+31 &nbsp; 44 &nbsp; 63 &nbsp; 87 &nbsp; 125 &nbsp; 175 &nbsp; 250 &nbsp; 350 &nbsp; 500 &nbsp; 700 &nbsp; 1k0 &nbsp; 1k4 &nbsp; 2k0 &nbsp; 2k8 &nbsp; 4k0 &nbsp; 5k6 &nbsp; 8k0 &nbsp; 11k &nbsp; 16k &nbsp; 20k</small></b></p>
+
+<p>The 20kHz filter can be (should be?) left off for instrument use, so that means only 19 slide pots will ne needed. Lastly, 1/3 octave band needs 30 sliders to cover the full frequency range, but the 25Hz and 20kHz bands will not be needed. This still requires 28 slide pots, but the flexibility is greater than you will ever get with conventional tone controls ...
+
+<p align="center">
+<small><b>31 40 50 63 80 100 125 160 200 250 315 400 500 630 800 1k0 1k2 1k6 2k0 2k5 3k2 4k0 5k0 6k3 8k0 10k 12k 16k</b></small></p>
+
+<p>There is no reason at all that the unit has to be 1/2 octave or 1/3 octave all the way. The midrange can be 1/3 octave for finest control, but go to 1/2 octave at the extremes. Especially for guitar and bass, I would prefer 1/3 octave up to 1kHz, then 1/2 octave from 1kHz to 8kHz. The final slider would be a 1 octave band filter at 16kHz. The sequence now looks like this ...
+
+<p align="center">
+<small><b>31 40 50 63 80 100 125 160 200 250 315 400 500 630 800 1k0 1k4 2k0 2k8 4k0 5k6 8k0 16k</b></small></p>
+
+<p>This gives 23 filters and slide pots, a reasonable compromise that should give excellent results. To ensure reasonable continuity, the filters at 1kHz and 8kHz will need to be a compromise. 1/3 octave filters need a Q of 4, and 1/2 octave filters use a Q of 3, so the 1kHz filter will actually have a Q of 3, and the 8kHz filter will be best with a Q of 2. This might look daunting, but the <a href="mfb-filter.exe">MFB Filter design program</a> will make short work of determining the component
+values. Unfortunately, this is only available for users of Microsoft Windows. Note that you will also need the Visual Basic 4 (VB4) runtime library, which can be obtained from <a href="http://www.annoyances.org/exec/software/vb4rt" target="_blank">Annoyances.org</a> (easy) or the Microsoft support Website (less easy).</p>
+
+<p>If you want to use the frequencies shown above, the table at the end of this page shows the values for each filter.</p>
+
+<p><b>The Circuit</b>
+<br>Figure 1 shows the schematic of the input section, and is virtually identical to the guitar preamp presented in Project 27. The two input jacks allow rudimentary mixing of two sources, but are mainly designed to provide a high gain and a low gain input to help prevent input stage overload. The "Hi" input connects the signal directly to the opamp input, and the "Lo" introduces a 6dB loss to allow for high output pickups. The buffer stage has an effective load of about 810 ohms - a difficult
+load for an opamp to drive. I suggest that an NE5532 opamp is used for U1, as it is one of the few that can drive such a load without difficulty. Although a TL072 can be used, this should be for testing or as a last resort. Pinouts are the same for both types, but the NE5532 is more critical of supply bypassing, and the addition of 100nF ceramic caps from each supply to ground is strongly recommended (as shown). These should be as close to the IC package as possible.</p>
+
+<p align="center"><img SRC="p64-f1.gif" ALT="Figure 1" BORDER="1">
+<br><b><small>Figure 1 - Instrument Equaliser Input Stage &amp; Buffer</small></b></p>
+
+<p>The filters and slider pots (with their mixing resistors) are shown in Figure 2. To see the actual filter circuit, refer to <a href="project63.htm">Project 63</a>, it is far too cumbersome to draw each of these in full! Even so, only six of the 23 filters are shown. There is one filter module and one slider for each frequency. For guitar especially, you might want to provide more gain for the higher frequencies (typically from about 2kHz to 8kHz). No problem. Since the mixing resistors are nominally
+100k, starting from the 1k4 slider, drop the value to 82k, then use 47k resistors for the remaining bands. This gives a 6dB increase in top-end boost which should be sufficient (you can have more, but this will increase the noise level).</p>
+
+<p align="center"><img SRC="p64-f2.gif" ALT="Figure 2" BORDER="1">
+<br><b><small>Figure 2 - Filter Bank (Part), Slide Pots and Mixing Resistors</small></b></p>
+
+<p>The filters do not need really quiet opamps, and considering the number this would be prohibitively expensive. The opamps do need to be at least to the standard of the TL072 or filter performance will suffer. The suggested frequency ranges will give good performance at all frequencies, since the Q (and hence the demands on the opamps) is reduced as the frequency increases.</p>
+<p>Finally, the mixer and output stage are shown in Figure 3. The mixer is a conventional "virtual earth" type, and minimises interaction between the slide pots. The distortion stage uses the diodes (all 1N4148 types) as a clipping circuit, and in conjunction with VR24 (Master Volume) allows the amount of distortion to be adjusted from zero to 'heavy metal' (aka 'grunge'). It may be necessary to use more diodes than the 4 shown. An additional 4 diodes will raise the maximum output level to about 1,5V RMS before clipping starts. The final opamp is a buffer, and contributes no gain.</p>
+
+<p align="center"><img SRC="p64-f3.gif" ALT="Figure 3" BORDER="1">
+<br><b><small>Figure 3 - Mixer and Distortion Circuits</small></b></p>
+
+<p>A word of warning. Don't expect this preamp to be especially quiet, because it won't be. Use of a low noise opamp for the mixer helps, but as with all guitar amps, some noise is inevitable. This is made worse by all the filter circuits, but each only adds noise in its own band, so the cumulative noise is not as great as it might be. Using the distortion control will increase noise, and this can be dramatic at full distortion. In reality, this is not much different from a conventional guitar preamp that is turned up LOUD to get the same distortion. The more gain you have, the greater the noise (ye cannae change the laws of physics!).</p>
+<p>Using the equaliser is simplicity itself. Just slide sliders up and down to get the sound you want. There is no "correct" way to use this unit - it is designed to enable you to get sounds. As described above, you can get more of any given frequency by reducing the value of the mixing resistor, but there is a limit to how much noise is tolerable.</p>
+<p>The total gain of the unit (with all sliders at maximum) is about 15 times for the input stage, and a further 7.6 for the mixer (using all 100k resistors). This gives a total gain of 113 (or 41dB). Actual gain will be different, depending on the slider setting, and can be increased (or reduced) by changing the value of R33 (lower the value for less gain and vice versa) or R7 (lower value gives more gain). If you change the gain structure, be careful that the input gain is not made too high, or you will get distortion with high output pickups.</p>
+<p>To power the circuit, any power supply capable of +/-15V (+/-12V at a pinch) will do, provided that it is capable of 100mA or so.</p>
+
+<hr><b>Filter Component Values</b>
+<p>The table shows the values I calculated for each filter. Component references are based on the diagram in Project 63, which is reproduced here for convenience (pin connections are shown for a single opamp). For this application, omit C3, R4 and short the non-inverting opamp input to ground.</p>
+
+<p align="center"><img SRC="p64-f4.gif" ALT="Figure 4" BORDER="1">
+<br><b><small>Figure 4 - Multiple Feedback Bandpass Filter</small></b></p>
+
+<table width=800 border=1 style="border-collapse: collapse" align="center">
+<colgroup span=11 width="9%">
+
+<tr><td><b>Freq</b></td><td><b>R1</b></td><td><b>R2</b></td><td><b>R3</b></td><td><b>C1, C2</b></td><td></td>
+<td><b>Freq</b></td><td><b>R1</b></td><td><b>R2</b></td><td><b>R3</b></td><td><b>C1, C2</b></td></tr>
+<tr><td>31</td><td>82k</td><td>2k7</td><td>160k</td><td>220nF</td><td></td><td>500</td><td>27k</td><td>820</td><td>56k</td><td>47nF</td></tr>
+<tr><td><b>40</b></td><td>82k</td><td>2k7</td><td>160k</td><td>180nF</td><td></td><td><b>630</b></td><td>27k</td><td>820</td><td>56k</td><td>39nF</td></tr>
+<tr><td>50</td><td>82k</td><td>2k7</td><td>160k</td><td>150nF</td><td></td><td>800</td><td>27k</td><td>820</td><td>56k</td><td>27nF+2n7</td></tr>
+<tr><td>63</td><td>82k</td><td>2k7</td><td>160k</td><td>120nF</td><td></td><td>1k0</td><td>8k2</td><td>510</td><td>18k</td><td>47nF+4n7</td></tr>
+<tr><td><b>80</b></td><td>82k</td><td>2k7</td><td>160k</td><td>100nF</td><td></td><td><b>1k4</b></td><td>8k2</td><td>510</td><td>18k</td><td>39nF</td></tr>
+<tr><td>100</td><td>82k</td><td>2k7</td><td>160k</td><td>82nF</td><td></td><td>2k0</td><td>8k2</td><td>510</td><td>18k</td><td>27nF</td></tr>
+<tr><td>125</td><td>82k</td><td>2k7</td><td>160k</td><td>56nF+5n6</td><td></td><td><b>2k8</b></td><td>8k2</td><td>510</td><td>18k</td><td>18nF+1n5</td></tr>
+<tr><td><b>160</b></td><td>82k</td><td>2k7</td><td>160k</td><td>47nF</td><td></td><td>4k0</td><td>8k2</td><td>510</td><td>18k</td><td>12nF+1n8</td>
+</tr>
+<tr><td>200</td><td>82k</td><td>2k7</td><td>160k</td><td>39nF</td><td></td><td><b>5k6</b></td><td>8k2</td><td>750</td><td>18k</td><td>8n2</td></tr>
+<tr><td>250</td><td>82k</td><td>2k7</td><td>160k</td><td>27nF+4n7</td><td></td><td>8k0</td><td>8k2</td><td>1k2</td><td>18k</td><td>4n7</td></tr>
+<tr><td><b>315</b></td><td>82k</td><td>2k7</td><td>160k</td><td>22nF+2n7</td><td></td><td>16k</td><td>8k2</td><td>1k2</td><td>18k</td><td>2n2</td></tr>
+<tr><td>400</td><td>82k</td><td>2k7</td><td>160k</td><td>18nF+1n5</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+<p>I have tried to keep the values reasonably sensible. This is not easy with 1/3 octave band equalisers, but all in all the results are quite acceptable (not too many different values). Note that the Q of the filters is changed as the frequency increases - feel free to use the calculator to reverse calculate the values to see the actual gain, Q and frequency error. None of these will be significant in use.
+
+<p>The frequencies in bold are likely to be good candidates for guitar and bass, where a 1/3 Octave equaliser isn't warranted. Naturally, you may change these around to suit yourself, and remember that the component values will need to be changed to reduce the filter Q (they are too sharp for octave band EQ).</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page Created and Copyright (c) Rod Elliott - 03 Aug 2000</div>
+</body>
+</html>

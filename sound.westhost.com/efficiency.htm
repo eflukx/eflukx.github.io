@@ -1,0 +1,264 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="description" content="Elliott Sound Products - The Audio Pages. Amplifier Efficiency.  An explanation of the various audio amplifier types and the relative efficiency of each.">
+   <meta name="keywords" content="bi-amp, biamp, tri-amp, triamp, audio, amplifier, sound, hi-fi, schematic, electronic, xover, crossover, speaker, power supply, projects">
+   <title>Amplifier Efficiency</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Power Amplifier Efficiency Explained&nbsp;</td></tr></table>
+
+<p align="center"><a href="#copyright">Rod Elliott - Copyright &copy; 1999</a><br />
+<small>Page Last Updated 29 Jan 2000</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="index2.html" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Main Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+<img SRC="a1.gif" NAME="t2" ALT="Articles" BORDER=0></a><b>Articles Index</b>
+<br />
+<hr /><a NAME="contents"></a><b>Contents</b>
+
+<ul>
+  <li><a href="#intro">Introduction</a></li>
+  <li><a href="#pwr_loss">Amplifier Power Losses</a></li>
+  <li><a href="#classb">Class-B</a></li>
+  <li><a href="#classa">Class-A</a></li>
+  <li><a href="#supp_loss">Supply Losses</a></li>
+  <li><a href="#conclusion">Further Reading</a></li>
+  <li><a href="#ref">References</a></li>
+</ul>
+
+<hr /><a NAME="intro"></a><b>Introduction</b>
+<p>Amplifier efficiency is a topic that seems to be poorly understood, judging from the comments and questions I have had from readers, so I thought that I would put something together to explain away some of the mystery.  As I progressed, it became obvious that I was going to have a lot more work to do than originally intended, since many of the basic concepts will also require explanation.</p>
+
+<p>Efficiency in itself is not hard - power out versus power in.  No electronic device can ever be 100% efficient, and all lost power in an amplifier is converted to heat.  It makes some sense to try to make an amp as efficient as possible, but if this causes an unacceptable degradation of the sound quality, then it matters not how many efficiency stars it has, no-one will want to listen to it.</p>
+
+<p>At the other end of the scale, there are Class-A amplifiers, some of which are so inefficient that it almost defies belief.  This waste of power does not necessarily translate into better sound, although reading some material would lead you to think that the lower the efficiency, the better it must sound.  This is (of course) not true.</p>
+
+<p>This article describes a single channel amplifier, using Class-A and Class-B.  No allowance has been made for reactive loads (as occur in loudspeakers), which can increase power dissipation dramatically.</p>
+
+<hr /><a NAME="pwr_loss"></a><b>Amplifier Power Losses</b>
+<p>So, where do the power losses come into play?&nbsp; We will need to look at a basic amplifier design first, so that the mechanism can be seen clearly.  I shall start with a Class-B stage, as these are the most common (although very few are truly Class-B, most are actually Class-AB - but more on this later).  For all calculations, a sinewave is the signal source, and for those who might be ready to claim that music is much more complex, music - and indeed any waveform - is derived entirely from sinewaves of differing frequencies and amplitudes.</p>
+ 
+<center>
+  <img SRC="eff_fig1.gif" ALT="Figure 1" BORDER=1>
+  <br /><b><small>Figure 1 - An Ideal Class-B Amplifier</small></b>
+</center>
+
+<p><a NAME="classb"></a><b>Class-B</b>
+<p>We will start with the assumption that the transistors in Figure 1 are 'ideal', in that there is no base current needed (they have infinite gain), and no voltage at all is lost when fully conducting.  The bias voltage is adjusted so that the transistors are exactly on the verge of conduction, but no quiescent current flows. Given that the supply voltage is +/-20V, this allows a peak swing into an ideal 8 Ohm resistive load of 20 Volts, which is an RMS voltage of 14.14V.  The peak current is 20/8, or 2.5 Amps, and this equates to 1.768 Amps RMS.  The power to the load is 25 Watts.</p>
+
+<blockquote>
+  <i>P = V * I</i> &nbsp; &nbsp; or ...<br />
+  <i>P = V&sup2; / R</i> &nbsp; &nbsp; or ...<br />
+  <i>P = I&sup2; * R</i>
+</blockquote>
+
+<p>Where P = power in Watts, V = voltage, I = current, and R = resistance.  Voltage and current are RMS.  Note that the term "RMS Power" is erroneous - power is the result of RMS voltage and RMS current applied to a load, and is measured in Watts.  Although "RMS power" is not real, it has become accepted to mean that RMS voltage and RMS current were used to measure the power.  Any other 'rating' (such as PMPO) is completely worthless for comparison.</p>
+
+<p>The DC current waveform is shown on the diagram, and it can be seen that for each half cycle, one supply or the other supplies the current to the load.  This can safely be ignored, as RMS (with a sinewave signal) implies that&nbsp; the waveform is symmetrical, and therefore the added individual DC currents make a "whole" RMS current.</p>
+
+<p>The RMS input current (see note, below) must therefore equal the RMS output current, and we can now calculate the input power using the first equation above.  The DC applied is 20V, so the input power is 20 * 1.768A, or 35.36W.  The 10.36W difference is dissipated as heat in the output devices (5.18W each), and is removed using a heatsink.  We do not need to take the entire supply voltage (40V) into account, since only half of it is used at any point in time.</p>
+
+<p>Efficiency may now be calculated as</p>
+
+<blockquote><i>Eff = P<sub>out</sub> / P<sub>in</sub> * 100 = 25 / 35.36 * 100 = 70.7%</i></blockquote>
+
+<p>This is the theoretical maximum efficiency of a Class-B push-pull amplifier, assuming no losses.  Since in real life (as opposed to advertising brochures) there are always losses, this figure can only be approached - no amplifier will equal or exceed the maximum theoretical efficiency.  Of course there are many amplifiers that use multiple power supplies, modulated DC, and many other electronic tricks, but at the end, when operating at full power they are all limited to this
+figure.  Class-D (switchmode or pulse-width-modulated) amplifiers can exceed this figure, but they are a completely different animal, and will not be discussed in this article.</p>
+
+<p><b>Note:&nbsp; </b>It is worth pointing out that using RMS current for the input power calculation is convenient, but not strictly correct.  It can be shown that the average value is more accurate, and for a sinewave (the waveform of choice for all power tests) this is equivalent to 0.636 (rather than 0.707) of the peak input current.  The difference is actually not at all great, especially since the amplifier should spend virtually none of its time at maximum output power (since the likelihood of clipping is very great indeed).  It is in the interests of accuracy that I let you know that ...</p>
+
+<p>Average current (using the same example as above) is 2.5A (peak) * 0.636 = 1.59A, so maximum efficiency is</p>
+
+<blockquote><i>Eff = P<sub>out</sub> / P<sub>in</sub> * 100 = 25 / 31.8 * 100 = 78.6%</i></blockquote>
+
+<p>The 'textbook' figure says 78.53%, so the above is close enough for our purposes.  This still assumes that there are no losses in the devices (never the case in practice), and again is only applicable at full power.  In reality, efficiency will be less, and about 70% at full power is normal for typical Class-AB amplifiers when all factors are taken into consideration.</p>
+
+<p>All the above figures are quoted at maximum power, and a Class-B amp will still maintain a passable efficiency at lower powers, since the ratio of input power to output power is maintained - at least to some degree (see below).  The input to output power ratio is actually quite complex.  As power is reduced, efficiency is also reduced, and output device dissipation increases until a critical point is reached, after which it again falls with falling output power. The table below shows the relationship, and this must be considered when designing an amplifier, so that the safe operating power levels of the devices are not exceeded.  This is based on ideal devices, so there will be about a 5% to 10% overall reduction of efficiency in real world amplifiers.  In order to take the overall losses into account, I have used the RMS input current for these calculations - although not strictly accurate, this more closely approximates the actual (as opposed to theoretical minimum) losses incurred in practical designs.</p>
+
+<center>
+<table width=600 border=1 style="border-collapse: collapse">
+<colgroup span=6 width="16%">
+
+<tr><td><b>V</b><sub>out</sub> (Peak)</td><td><b>V<sub>out</sub></b> (RMS)</td>
+  <td><b>I<sub>out</sub></b></td><td><b>P<sub>out</sub></b></td>
+  <td><b>P<sub>in</sub></b></td><td><b>Dissipation</b> (W)</td></tr>
+<tr><td>20</td><td>14.14</td><td>1.77</td><td>25.00</td><td>35.36</td><td>10.36</td></tr>
+<tr><td>18</td><td>12.73</td><td>1.59</td><td>20.25</td><td>31.82</td><td>11.57</td></tr>
+<tr><td>16</td><td>11.31</td><td>1.41</td><td>16.00</td><td>28.28</td><td>12.28</td></tr>
+<tr><td>14</td><td>9.90</td><td>1.24</td><td>12.25</td><td>24.75</td><td>12.50</td></tr>
+<tr><td>12</td><td>8.49</td><td>1.06</td><td>9.00</td><td>21.21</td><td>12.21</td></tr>
+<tr><td>10</td><td>7.07</td><td>0.88</td><td>6.25</td><td>17.68</td><td>11.43</td></tr>
+<tr><td>8</td><td>5.66</td><td>0.71</td><td>4.00<</td><td>14.14</td><td>10.14</td></tr>
+<tr><td>6</td><td>4.24</td><td>0.53</td><td>2.25</td><td>10.61</td><td>8.36</td></tr>
+<tr><td>4</td><td>2.83</td><td>0.35</td><td>1.00</td><td>7.07</td><td>6.07</td></tr>
+<tr><td>2</td><td>1.41</td><td>0.18</td><td>0.25</td><td>3.54</td><td>3.29</td></tr>
+<tr><td>1</td><td>0.71</td><td>0.09</td><td>0.06</td><td>1.77</td><td>1.71</td></tr>
+</table>
+<b><small>Table 1 - Class-B Power Dissipation Versus Output</small></b></center>
+
+<p>At 1/2 power (12.5W in this case), the dissipation is at a maximum, and the dissipated power exactly equals the output power, giving an efficiency of 50%.  It is also apparent that at lower powers efficiency falls even more, but output stage dissipation also falls, so heating would not seem to be such a problem.  However, since we are working with music in the real world, we need to consider the dynamic range (or, to be more precise, the peak to average ratio) of
+a typical signal.  This is between 10dB and 20dB, so average power will be somewhere between 2.5 and 8 Watts.  This implies from the table that the amplifier will be working fairly consistently at an average dissipation of 8 to 12 Watts at maximum power output before clipping.</p>
+
+<p>This is not often taken into consideration, and many amplifiers have insufficient heatsink capacity to operate at anywhere near full power for prolonged periods.  Thankfully, most music is listened to at fairly moderate levels most of the time, so the problem is rarely as bad as it looks.  Sinewave testing is a most arduous test of an amplifier, quite contrary to the beliefs of some, who claim that it is too simple, and cannot give any reliable indication of the amp's performance on complex music.  It is rare music indeed that will stress an amp like this, as there is a constant variation of power, allowing the heatsink time to dissipate the heat generated during loud passages.</p>
+
+<hr /><a NAME="classa"></a><b>Class-A</b>
+<p>Class-A amps come in many 'flavours', but can be loosely separated into two separate groups. The first (and simplest) is as shown in Figure 2, where a transistor (although it can easily be a MOSFET or valve) is simply loaded with a constant current source. Although a resistor can be used instead of the current source, this reduces performance. An inductor or transformer is usually used for valve Class-A amplifiers.</p>
+
+<center>
+  <img SRC="eff_fig2.gif" ALT="Figure 2" BORDER=1>
+  <br /><b><small>Figure 2 - A Basic Class-A Amplifier</small></b>
+</center>
+
+<p>The bias voltage of the amp in Figure 2 must be high enough to ensure that the transistor's quiescent current is about equal to (or slightly greater than) the peak speaker current.  The efficiency of this amp can be easily calculated by the same method as described above. A Class-A amp conducts at all times and the DC is at least equal to the peak output current.  A 20V peak signal will still create a 2.5A peak current in the load, so the DC quiescent current must be equal to (or greater than) this figure. Note that the supply is not bipolar - a single +40V supply is the same as a &plusmn;20V supply for the purposes of calculation. The output to the load will still be 25W, but the DC input power is now 100W (2.5A * 40V). Efficiency now (from equation 4) is ...</p>
+
+<blockquote><i>Eff = 25 / 100 * 100 = 25%</i></blockquote>
+
+<p>This is again the best that can be expected, and there are some Class-A topologies that are considerably worse than this.  Without going into extreme detail, efficiency of this type of Class-A stage can range from about 12.5% up to about 22% (allowing an additional amount of current to ensure that the transistors never reach a point where no current flows).  The 'modulated current source' (as used the original <a href="jll_hood.htm">Linsley Hood amp</a>), can reach efficiencies up to about 30 to 35%.  With a Class-A amp, the efficiency falls with reduced power, until at zero output power, efficiency is 0%.  At an output power of 1W, efficiency is 1%, and so on (with the voltages and currents as described).</p>
+
+<p>Another type of Class-A amplifier uses the same circuit as Figure 1, but the transistors are biased to around &frac12; the peak speaker current. With signal, the transistors can draw up to double the quiescent current at waveform peaks, or zero at the opposite peak (one transistor will be double and the other zero as the waveform alternates). Dynamic analysis of this arrangement is harder than either of the other topologies described, but if we examine the quiescent state and the maximum output, a reasonable estimate is possible.  Using the same values as before, we have 20V across each transistor, at a quiescent current of 1.25A. Each transistor will therefore dissipate 25W with no signal, and maximum power is also 25W.  Efficiency is therefore ...</p>
+
+<blockquote><i>Eff = 25 / 50 * 100 = 50%</i></blockquote>
+
+<p>Again, this is the absolute maximum possible efficiency, and in general it will be lower. How much lower depends on many factors, but one can reasonably expect the actual figure to be perhaps 40% or so at best. The most common application of this technique is with amplifiers that claim to be Class-A over part of their maximum power, reverting to Class-AB for higher powers. This allows the amp to operate in Class-A up to perhaps 10W or more, and the majority of listening will probably be within this range unless the loudspeakers are very inefficient.</p>
+
+<hr /><a NAME="supp_loss"></a><b>Power Supply Losses</b>
+<p>But wait, there's more! The power supply is expected to convert its input sinewave (at 50 or 60Hz) into a nice smooth DC that the amplifier can use.  This also has losses, since the laws of physics are omnipresent.  Since we used +/-20V as the power for the amp, we shall work with the same voltage output from the power supply, and will assume 'typical' components.</p>
+
+<p>A 14.14V RMS sinewave will provide 20V when rectified using 'ideal' diodes.  In real life, there will be a voltage drop of about 1V (or more, depending on current) across each diode, and also losses in the transformer, which can be expected to have an internal resistance of about 1.0 Ohm (typical of a 120VA transformer).  The situation here is complicated by the fact that diode conduction is for only as very short period, so the current waveform is difficult to measure accurately.  We can still use basic theory to work out what happens, and Figure 3 shows a typical supply circuit and waveforms.  We will assume that the capacitance is so great that output ripple (although shown) can be considered negligible (bad news for the diodes though, since the peak current will be very high).</p>
+
+<p>As a matter of interest, the only meter that will give a passably accurate reading of the current is a moving coil (average responding) type.  True RMS meters will get it (sometimes horribly) wrong.  The best is to use an oscilloscope, and calculate the true average from the waveform shape and amplitude.</p>
+
+<center>
+  <img SRC="eff_fig3.gif" ALT="Figure 3" BORDER=1>
+  <br /><b><small>Figure 3 - Typical Power Supply</small></b>
+</center>
+
+<p>With the input of 14.14V AC, we will have a theoretical DC output of 20V (less the diode voltage drops), since the capacitors charge to the peak value of the RMS voltage.  If the peak output current (on each supply rail) is 2.5A as demonstrated above, then the input power must be at least equal to the output power plus any losses.  Even this configuration is open to some degree of interpretation.  Is the circuit of Figure 3 a full-wave centre-tap, or a bridge.  I consider it to be a dual full wave centre tap.</p>
+
+<p>In reality, the AC transformer current can only be accurately determined using complex analysis, but the table below is useful for passably accurate results.  There are several other variations (such as choke input filters), but these are not commonly used due to the excessive cost and weight penalty, and are not shown.</p>
+
+<center>
+  <table width=600 border=1 style="border-collapse: collapse">
+  <tr><td width="25%"><b>Rectifier Type</b></td><td width="25%"><b>Filter Type</b></td><td><b>RMS Transformer Secondary Current</b></td></tr>
+  <tr><td>Full Wave Centre Tap</td><td>Capacitor Input</td><td>1.2 x DC</td></tr>
+  <tr><td>Full Wave Bridge</td><td>Capacitor Input</td><td>1.8 x DC</td></tr>
+  </table>
+  <b><small>Table 2 - AC vs. DC Current [<a href="#ref">1</a>]</small></b>
+</center>
+
+<p>Assuming a Class-B amp first, we have 20V peak output (14.14V RMS) at an AC current of 1.768A.  It is obvious that the DC input current must be equal to the AC load current, so using the above table we can determine the transformer secondary current using a full wave centre tap configuration as shown above</p>
+
+<table>
+  <tr><td width="5%"></td><td><big>Transformer secondary current</big></td><td><big> = <i> DC current * 1.2 = 1.768A * 1.2 = 2.12A</i></big></td></tr>
+  <tr><td></td><td><big>Transformer secondary voltage</big></td><td><big> = <i>28.28 + 2 x 1V diode voltage + 2.12V</i> (transformer loss)</big></td></tr>
+  <tr><td></td><td></td><td><big> = <i>28.28 + 2 + 2.12 = 33V</i> (approx)</big></td></tr>
+</table>
+
+<p>Since we have a transformer secondary voltage of 33V DC (&plusmn;16.5V - somewhat shy of the expected 40V), we can calculate the power rating of the transformer as ...</p>
+
+<blockquote><i>P = V * I = 33 * 2.12 = 70VA</i></blockquote>
+
+<p>This seems like an extraordinary amount of power needed for a simple 25W amp, and in reality it is not needed.  A smaller transformer can be used, and although it will not be capable of providing enough current to fully recharge the capacitors on each cycle (causing the supply to droop), the maximum power will only be needed for relatively short periods. The short-term duration of maximum power available is determined by the capacitance, with higher capacitance giving better performance (at least to a point). We also have to accept that there will be resistive losses in the transformer, and there are additional resistive and junction voltage losses in the rectifier bridge.</p>
+
+<p>The power lost by the transformer winding resistance and diodes is (typically) ...</p>
+
+<blockquote><i>(2V + 2.12V) * 2.12A = 8.73W</i></blockquote>
+
+<p>... which again is dissipated as heat.  These losses will decrease as amplifier power is reduced, but at full power from a little 25W amplifier we have lost about 19W in heat from the amp and its power supply.  Needless to say, this is much worse with a Class-A amplifier, as shown below (using much the same calculations as before, but at the higher current).</p>
+
+<p>Transformers also have 'iron loss'.  This is power that is needed to maintain the magnetic flux in the transformer core, and is always present.  As the load is increased, the magnetising current becomes less significant, and at full power, the resistive losses in the windings are usually far greater than the iron loss.  It is the magnetising current that causes a transformer to get warm even with no connection to the secondary winding.  Typically, small transformers have greater iron and copper losses than large transformers per volt-amp of output (i.e. they are less efficient).</p>
+
+<hr /><p>Class-A amplifiers operate at the full DC load all the time.  This means that for the Figure 2 example, at least 2.5A DC is needed on a continuous basis, requiring a 3A rating for the transformer secondary.  Since some extra voltage might be needed to allow for (say) a capacitance multiplier filter, we will give an extra 3V RMS each side.  This means that the AC voltage needs to be 38V centre tapped, at a continuous rating of 3A.  Using the same formula as above, this gives ...</p>
+
+<blockquote><i>VA = V * A = 38 * 3 = 114 VA</i></blockquote>
+
+<p>This would suggest that a 120VA transformer is needed.  The losses are now much higher, too, and are continuous where before they were transient.  With the 38V centre tapped transformer, we can expect about 25V DC before the filter - assuming one is used.  We still have the diode and transformer losses which will actually stay about the same, since the bigger transformer will have less resistive loss, but the diodes will have more.  To get the 20V supplies, we must drop about 5 Volts in the filter, so</p>
+
+<blockquote><i>P = 5V * 2.5A = 12.5W</i> (each supply, +ve and -ve)</blockquote>
+
+<p>This has just added 25W filter dissipation and 10W rectifier and transformer loss (a total of 35W) to the already low efficiency of a Class-A amplifier.  Total amplifier input power is 135W, to get 25W of audio.  This will be greatly increased if you were to use a regulator, since the input voltage must be high enough to allow for power line droop (typically up to 10%).  I shall leave this as a reader exercise to work this out <img src="grin.gif" alt="<grin>"></p>
+
+<hr /><a NAME="conclusion"></a><b>Further Reading</b>
+<p>From the above, you can now see where the power goes to.  There are losses everywhere, and it is essential that the amplifier builder has a reasonable knowledge of losses and dissipation requirements for an amplifier before starting construction. As many constructors have found, a Class-A amplifier is not a good option on a hot day if you don't have air-conditioning. The combination of a Class-A amp, a very hot day and air-conditioning will certainly get your electricity meter spinning too, and is definitely not an environmentally friendly option.</p>
+
+<p>For further reading, see <a href="amp_design.htm">Amp Design</a> and <a href="heatsinks.htm">Heatsink Design</a>, both of which will assist in the final determination of the supply and heatsinking requirements for your next project.</p>
+
+<hr /><a NAME="ref"></a><b>References</b>
+
+<ol>
+  <li>Voltage Regulator Handbook - National Semiconductor 1982</li>
+  <li>Amplifier Design (ESP web page)</li>
+  <li>Heatsink Design (ESP web page)</li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="articles.htm" ONMOUSEOUT="document.b1.src='a1.gif';" ONMOUSEOVER="document.b1.src='a.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles" BORDER=0></a><b>Articles Index</b>
+<br /><a href="index2.html" ONMOUSEOUT="document.b2.src='a1.gif';" ONMOUSEOVER="document.b2.src='a.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Main Index" BORDER=0></a><b>Main Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams,
+is the intellectual property of Rod Elliott, and is Copyright &copy; 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Update Log: 29 Jan - added missing waveforms to drawings, fixed a few errors and ambiguous statements./ Page created and first published 19 Nov 1999</div>
+</body>
+</html>

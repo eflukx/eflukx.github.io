@@ -1,0 +1,440 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Valves (Tubes) - Valve amplifier design considerations. Deciding on the best topology for a valve power amp isn't easy, but this might help">
+	<!-- Valves (Tubes) - Valve amplifier design considerations. Deciding on the best topology for a valve power amp isn't easy, but this might help. -->
+	<meta name="keywords" content="valve, tube, vacuum, function, work, anode, plate, grid, cathode, filament, heater, guitar, bass, amplifier, audio, diy, hi-fi, electronic">
+	<title>Design Considerations</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico"> 
+	<style TYPE="text/css"> <!-- td { font-size: 10pt } --> </style>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Valve (Vacuum Tube) Amplifier Design Considerations&nbsp;</td></tr>
+</table>
+
+<center><p><small>Copyright &copy; 2009 - Rod Elliott (ESP)<br>
+Page Published 26 Nov 2009</small></center>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="index.html"  OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" name="t1" BORDER=0></a><b>Valves Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" name="t2" BORDER=0></a><b>Main Index</b>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#si">Introduction</a></li>
+  <li><a href="#s2">2 - Topology</a></li>
+  <li><a href="#s3">3 - Alternative Schemes</a></li>
+  <li><a href="#s4">4 - Topologies &amp; Design Process</a></li>
+  <li><a href="#s5">5 - Let's Get Sensible</a></li>
+  <li><a href="#s6">6 - Driver Circuits</a>
+    <ul><li><a href="#s61">6.1 - Grid Resistance</a></li></ul></li>
+  <li><a href="#s7">7 - Pentode Power Amps</a></li>
+  <li><a href="#s8">8 - Ultra-Linear Operation</a></li>
+  <li><a href="#s9">9 - Overload Recovery</a></li>
+  <li><a href="#s10">10 - Transistor Drive Circuit</a></li>
+  <li><a href="#sc">Conclusion</a></li>
+  <li><a href="#sr">References</a></li>
+  <li><a href="design2.html"><b>Design Considerations - Part 2</b></a></li>
+</ul>
+
+<hr><a id="si"></a><b>1 - Introduction</b>
+<p>When designing an audio amp there are many things that must be considered.  The very first of these is the desired output power, as this determines a great deal of everything that follows.  For the examples here, we'll stay with fairly modest outputs of between about 5 and 30W, because this gives us a wide choice of topologies that can be used.
+
+<p>Since triodes are more linear than pentodes or beam tetrodes, they will be the choice for the output valves. Despite the much lower efficiency of triodes, they are a good choice for a low powered amp because they have relatively low distortion, and in general also show a lower plate resistance than pentodes. Because the power demands are modest, we also have a wide choice of suitable valves, because we can operate pentodes with a triode connection (where the screen is connected directly to the plate).
+
+<p>There appear to be no major disadvantages to this arrangement, and it's been used by some of the best amplifiers of the valve era. The valve behaves like a triode in all respects, so can be used in exactly the same way as a true triode.
+
+<p>Audio frequency amplifiers have their roots in the telephone system. Until the arrival of the first amplifying device (Lee De Forest's "Audion") in 1906, there was no way to make up for transmission losses through the very long telephone lines, so the telephone user would often be hard pressed to hear the other party. Valves changed this forever, but early valves had low gain themselves, and were expensive.  This changed after the first world war, when it was discovered (by Dr Irving Langmuir of General Electric) that the valve had higher gain and greater linearity if operated as a true <i>vacuum</i> tube (De Forest believed that some gas was needed for his Audion to work) ... Audion - a contraction of Audio and Ion.
+
+<p>Although limited (and predominantly Morse code) radio transmissions were common from the turn of the century, audio as we know it started in 1920, with the first AM radio station (KDKA in Pittsburgh, Pennsylvania) coming on-line for the tiny few who had "wireless" receivers - presumably in anticipation of this momentous event. As near as I've been able to see, all of the early AM transmitter modulator amplifiers were push-pull, mostly operating at (or close to) Class-B for maximum efficiency. The most powerful of these was used by radio WLW, and was rated at 350kW!
+
+<p>It should also be remembered that in the early days of "wireless", cinema and amplified music, the choice of microphones was also very limited. One of the most common (especially in the very early years) was the carbon microphone, much loved by the telephone system because it has significant gain. "Condenser" (capacitor) mics became available in the late '20s, but were bulky and expensive. The dynamic mic (one of the most popular types today) didn't arrive until 1931 - the same time that ribbon mics became available. Both would have been vastly more expensive than carbon mics.
+
+<p>Another popular type was the "crystal" (piezoelectric) mic, commercialised in around 1930. These were also liked because they had a high output level. Both crystal and carbon mics sound awful by today's standards, yet we are being led to believe that amplifiers from the same era are "magic"?  I don't think so. Perhaps those who insist on using old technology amplifiers should also insist that the SACD recordings they listen to are recorded with carbon granule microphones <img src="grin.gif">.
+
+<p>Worth noting is that the Radiotron Designer's Handbook defines "objectionable distortion" for music at about 2.5% for triodes and 2% for pentodes. These figures are the result of a series of tests conducted in a purpose designed listening room with varying bandwidths, but we are only interested in full bandwidth ... tested at the time to 15,000 c/s (Hz). "Tolerable" distortion was defined as that one would expect from low quality commercial broadcasts, and was determined to be 1.8% for triodes and 1.35% for pentodes. Distortion below 0.5% was determined at that time to be below the level of perception for either triodes or pentodes. These days, it's generally considered that distortion should not be higher than 0.1% (preferably much less) - an easy task for transistor amps but still a challenge for valves.</p>
+
+<p>It's interesting that in 1965, J. A. McCullough wrote that in the future, new valve types would be needed, because none of the existing models were sufficiently linear for the then foreseen uses for valves in ever more complex systems. The primary reference was for communications valves (transmitters etc.), but the same issues plagued audio systems as well. Indeed, this remains the case, since the "new improved" valves never materialised as far as audio applications were concerned. In 1965, transistors were already firmly entrenched, and very few valve amps for hi-fi were being made at all. Linearity remains the biggest single issue to overcome in making a valve amplifier that meets the expected standards of today.</p>
+
+<hr><small>Vacuum tubes use a glass envelope with metal parts inside, and to many this is vastly superior to using transistors. Glass is surprisingly simple. The basis is finely ground silica sand (silicon dioxide), plus some other stuff (sodium carbonate and calcium carbonate) mixed together and melted at over 1,400&deg;C. Given that the main ingredient (silica) is also the basis for silicon as used in transistors, maybe they aren't as far apart as might be thought. Transistors generally also have three leads connecting to their three internal electrodes, so in that sense, the transistor is also a triode. I doubt that this will convince anyone, but I had to include it somewhere.</small>
+
+<hr><a id="s2"></a><b>2 - Topology</b>
+<p>It is traditional that amplifiers are designed from the speaker backwards. Especially true during the valve era, it's just as true today. Once the power requirements have been determined from desired SPL and speaker sensitivity, the selection of the most appropriate output stage is indicated by the required output power. From the output stage, we work back towards the source. Hopefully, at the end of the process we'll have everything right. It's easier now than it used to be, because we know the output level of most sources within reasonable limits, but early systems had no standardisation at all. If the power needed is low, we can look at the most basic of all the designs ... the single-ended triode.
+
+<p>When people think of triode amps these days, the first thing that springs to mind for many is the SET - Single Ended Triode. This has the advantage of (apparent) extreme simplicity, but this is also its downfall in many respects. Historically, the life of the SET amplifier was short. Because of its many shortcomings (very low efficiency, much larger output transformer than push-pull designs, high distortion, etc.) as near as I've been able to determine from available historical documentation, SET amplifiers were <i>never</i> popular except for low-end, low power applications. Push-pull amplifiers were used for most serious applications. The current SET craze - if you can call it that based on the relatively small number of (rather noisy) users - started in the 1970s, and appears to have originated in Japan ... the birthplace of many other very bizarre audiophile fads.
+
+<p>To understand the reasons for the many issues of SET amps, we need to examine the requirements for any single ended amplifier. With the assistance of valve load line charts, it's comparatively easy to work out what the maximum voltage and current requirements will be for a given power. Due to the poor efficiency, the output valve needs to be considerably larger than expected, and for appreciable output power (around 10W in this case) the plate voltage or current needs to be higher than we might like. This can add further complications, partly because suitable filter caps were not available for the voltage required, and even now may be hard to find. Power valve dissipation is at its highest with no signal, so leaving amps on when not is use is obviously a bad idea.
+
+<p>Since electronics is ultimately the art of compromise, we may need to reduce our expectations regarding power output for any SET design. Valves that can produce the required power exist, but are relatively expensive and nowhere near as rugged as their original versions. This can lead to unreliability, or worse, outright failure that may cause additional damage. These amplifiers are also utterly intolerant of being operated (whether by accident or not) without a speaker load connected. While this can be mitigated - at least to some extent - by using negative feedback, there are some who consider feedback to be "bad" and something to be avoided.
+
+<p>The second consideration is the output transformer. There is one thing that <i>all</i> transformers really hate, and that's having DC flowing in the windings. DC displaces the average flux from zero and moves it up the BH curve closer to the saturation limit. Because the steel used in transformers has a very high permeability (the ability to "conduct" magnetic flux), even a small amount of DC can cause the core to be so close to saturation that it's unusable.
+
+<p>The standard fix for this is to introduce an air gap, although it's not actually air - generally layers of plastic or paper.  This is needed to reduce the effective permeability, thus moving the operating point further down the BH curve and away from the saturation limit. The downside of this is that having reduced permeability, the inductance is reduced. To obtain sufficient inductance, it is necessary to use a larger core and more turns. An air gap has another undesirable effect too - it increases the transformer's leakage inductance and limits the high frequency response. Having to use more turns adds resistance (which causes further losses) and also increases leakage inductance even more.
+
+<p>Figure 1 shows the curve of magnetic flux vs. magnetising force (produced by the current in the primary winding) for a typical core. As you can see, the area allowed for single-ended use is very limited. Because the magnetising force cannot go negative, only one half of the BH curve is available, and as the valve turns on to increase the current, the saturation limit can be reached very easily - particularly at low frequencies. The total area that can be used for any SE amplifier is shaded in grey. The other quadrant is simply unavailable (note that the specific quadrant is arbitrary, and depends on the direction of current and windings - the principle is not changed).</p>
+
+<center><img src="design-f1.gif" border=1 alt="Figure 1"><br><small><b>Figure 1 - Typical BH Curve For Magnetic Core Material</b></small></center>
+
+<p>As a direct result, the transformer is larger, heavier, has worse HF response, higher losses and is more expensive than that for the same power using a push-pull amplifier. To add insult to injury, it still cannot perform as well as it might, typically having higher distortion as the waveform peaks bring the core closer to the saturation limit at low frequencies. Relatively low inductance means that the low frequency response is also worse than it might otherwise be. These issues are not trivial - they <i>all</i> contribute to a transformer with sub-optimal characteristics.
+
+<p>I am firmly of the opinion that if anyone really thinks that the SET is the "optimum" amplifier, then the power transformer should be operated with a half-wave rectifier. This ensures that <i>both</i> transformers will have a DC component in the core. If having DC in the core sounds "better" for the audio, then a half wave rectifier should create DC that sounds "better" too. Of course, this is a silly notion, but it's actually no sillier than the whole idea of SET amplifiers. A sub-optimal valve topology driving a loudspeaker through the worst possible transformer design is not my idea of hi-fi.</p>
+
+<center><img src="design-f2.gif" border=1 alt="Figure 2"><br><small><b>Figure 2 - Single-Ended Triode Output Stage (Typical)</b></small></center>
+
+<p>One of the things that people do seem to like is the (apparent) simplicity of SET amps. However, they are actually not at all simple, and have more compromises per square metre than any other design. The diagram above shows what might be a typical design. It does look very simple, especially when one considers that this is the complete power amplifier. However, managing the compromises needed for the output transformer, determining the correct turns, impedance ratio and most importantly, the air gap - then matching these to a suitable output valve are not at all straightforward. It becomes easier if you are happy with whatever power output you manage to get (regardless of how low it might be), but that's an unusual way to decide on a design for any amplifier. Please note that Figure 2 is theoretical only, and it must not be considered as a working circuit - it is for illustrative purposes.
+
+<p>A power supply is also needed, and this adds considerable cost. The transformers and a suitable filter choke for the power supply will add up to a tidy sum of money by themselves. Because a single-ended stage has very poor hum rejection, filtering is critical. Far more capacitance is needed than an equivalent push-pull design, and choke input filters are desirable to remove as much supply ripple as possible. Then there's the challenge of getting hold of valves that won't self destruct in the first few weeks. Naturally, you can just buy a ready built amp - the prices are often stratospheric though, considering what you get for your money.
+
+<p>There is a school of "thought" that only a simple amplifier can accommodate the complexity of music. I won't even try to refute this drivel, other than to say that it is utterly meaningless, pointless and just plain wrong! Einstein is reputed to have said that "Everything should be as simple as possible ... but no simpler." SET amplifiers are far simpler than is required for them to work properly, so they violate this tenet.</p>
+
+<hr><a id="s3"></a><b>3 - Alternative Schemes</b>
+<p>Given the limitations, it comes as no surprise that engineers quickly decided that single ended designs were <i>not</i> the way to build an amplifier expected to deliver more than 1 or 2 watts. Too many compromises, and far greater expense than necessary for the very modest output power that could be obtained.
+
+<p>The first possibility that springs to mind is to add a second winding to the transformer, and pull exactly the same DC current through that, but with the opposite polarity. This cancels the static magnetic field, so the transformer operates with zero flux at no signal. This allows the active winding to modulate the flux above and below the centre line of the BH curve, giving far more voltage and current swing before saturation.  The air gap can now be eliminated, the transformer core can be reduced in size, <i>and</i> more inductance becomes available. As a further bonus, the opposite polarity of the DC ripple waveform in each winding can virtually eliminate audible hum. This can simplify the power supply for the same performance.
+
+<p>This would seem to be an all-win situation, but how to pull current through the auxiliary winding with a high impedance and have it track the main (audio) winding perfectly? The obvious answer is to use a second valve as a current source, which must be of the same type as the main valve. The issue of DC is now solved, so the transformer is optimised in terms of inductance, number of turns and core size.  Unfortunately, we now have a second valve and an auxiliary winding that do nothing for the audio signal, but consume power, further reducing overall efficiency.
+
+<p>The obvious answer is right there ... don't just use the second valve as a current source, but drive it with the opposite polarity from the signal used for the amplifying valve. Now, we have two amplifying valves, operating in push-pull. It was quickly found that this has another benefit too - the second harmonic distortion (which can easily reach 5% or more) is cancelled. Because the two valves are working with opposite polarities, anything that is common to both valves (in this case, DC ripple (hum) and second harmonic distortion) virtually disappears (assuming the valves are close to identical of course).</p>
+
+<center><img src="design-f3.gif" border=1 alt="Figure 3"><br><small><b>Figure 3 - Current Balancing &amp; Push-Pull Comparison</b></small></center>
+
+<p>The current balancing scheme shown in Figure 3 removes the DC component from the transformer, so the air gap can be removed. This gives higher inductance for the same core, reduced leakage inductance (which causes premature high frequency rolloff), and much greater voltage swing before transformer core saturation. It is quite obvious that the change to push-pull is trivial ... instead of connecting the grid of the lower valve to earth (via a capacitor), we simply apply another drive signal with the opposite polarity. While I have shown cathode bias for simplicity, this is also inefficient because of the voltage lost across the cathode resistor(s). Fixed bias (from a separate negative supply) is a much better option, and improves output power significantly. The down side is a slightly more complex power supply.
+
+<p>This simple change not only improves efficiency, but reduces the distortion to levels that could not be achieved with any single ended design - plus it will have better high frequency response. It's fair to say that with this change, no-one would have complained about inferior sound quality - quite the reverse in fact. The reduction of harmonic and intermodulation distortions would have been universally embraced as a huge improvement at the time. Many early push-pull amplifiers used a transformer to drive the output valves, and this was in turn commonly driven by a single-ended stage. The difference was that the load on the transformer was almost nil, so it could operate at a very low current. Where a separate negative bias supply was used for the output valves, it was generally supplied via a centre tap on the drive transformer.
+
+<p>The reduction of transformer size, cost and weight - along with <i>better</i> performance is nothing short of miraculous. This was about as close as anyone has come to getting a free lunch. The push-pull topology allows more power, lower distortion and greater efficiency than any single-ended stage can ever achieve with the same output valves. Even small PA amplifiers in the 1930s commonly used triodes in push-pull, with single ended designs relegated to the (very) low end of the market. After the pentode was invented in 1930 (and the beam tetrode shortly thereafter), these became almost universal for "low end" applications. The result was more power with less drive voltage needed, but distortion (and output impedance) was higher than triode stages. The advantages of pentodes generally outweighed the disadvantages for commercial radio receivers for example, especially if some negative feedback was applied.
+
+<p>There are more benefits to be found with the push-pull topology.  Operating in Class-A was no longer necessary, because one valve could take over from the other at the zero signal point (Class-B). Total current at idle could be reduced significantly, improving efficiency and producing still more power - all with the exact same output valves. This application has always been controversial though, because there can be significant distortion at the region where one valve takes over from the other. This distortion is very audible.
+
+<p>The traditional solution has been to use Class-AB, so the amplifier operates in Class-A at low levels, changing to Class-B at perhaps 25% of the full power output. When set up carefully, this arrangement can provide distortion levels almost as low as Class-A, but with greatly reduced valve dissipation and higher efficiency. There is a possibility that the output impedance of the amp may vary depending output level, because valves change their internal plate resistance depending on voltage and current. Since this is not something I've investigated, I don't know if it causes any problems.
+
+<p>Efficiency was important in the early days, not because of any ideological green issues, but because the only rectifiers available were also valves. Reducing the current through these old valve rectifiers was necessary because they are very inefficient themselves. Higher current simply meant larger and more expensive rectifiers, and the power transformer had to be large enough to provide the idle power continuously, including the significant rectifier losses. At this stage, music and speech were the primary applications for audio amps - the idea of an amp being driven into hard and continuous distortion (as in guitar amps) was simply never considered because it was of no use whatsoever for the applications of the day.
+
+<p>Valve amplifiers were used for home systems (but only for the relatively wealthy until the 1940s), theatres (including cinema), clubs and dance halls, and as modulation amplifiers for AM radio transmitters. The latter were by far the largest ever made, and were commonly rated for several thousand watts (or as noted in the introduction, as much as 350kW). The vast majority of all of these amps were push-pull, right up to the use of transistors. Mantel radios, gramophones, early TV sets and other (comparatively cheap) consumer goods used single ended amps, but these were almost exclusively driven by a pentode output stage. This gave much more gain than triodes could manage, and although distortion was fairly high it was deemed "acceptable". In much the same way today, very few people who love their little portable music players complain about the sound quality of MP3 recordings, yet they are dreadful compared to a CD.
+
+<hr><a id="s4"></a><b>4 - Topologies &amp; Design Process</b>
+<p>If we look at the basic requirements of a SET amp first, it seems sensible to use one of the most "favoured" valves for this application - the 300B. In fact, we can use this for a couple of examples because it will make the explanations simpler. The 300B uses a filament - a directly heated cathode. Let's look at the basic specifications ...</p>
+
+<center><table width=700 border=1 style="border-collapse: collapse">
+<tr><td colspan=2><b>Western Electric 300B (AT&amp;T - 1950 Datasheet)</b>
+<tr><td width=300>Filament Voltage<td>5V (AC or DC)
+<tr><td>Filament Current<td>1.2A
+<tr><td>Mounting Position<td>Preferably Vertical
+<tr><td>Plate Voltage<td>400V
+<tr><td>Plate Current<td>100mA
+<tr><td>Plate Dissipation<td>36W
+<tr><td colspan=3>Minimum Grid Resistance
+<tr><td> &nbsp; Fixed Bias<td>50k
+<tr><td> &nbsp; Self Bias<td>250k
+</table><small><b>Table 1 - 300B General Specifications</b></small></center>
+
+<p>The above shows the recommended and/or maximum permissible operating conditions for the 300B valve. For long life and reliability, these values must not be exceeded. Note that some datasheets show the maximum plate dissipation as 40W, but the difference is marginal in reality.</p>
+
+<center><table width=700 border=1 style="border-collapse: collapse">
+<tr><td colspan=3><b>Typical Operating Conditions - Single Valve</b>
+<tr><td width=300>Plate voltage<td width=200>300V<td>350V
+<tr><td>Grid Voltage<td>-61V<td>-74V
+<tr><td>Peak AF Signal voltage<td>61V<td>74V
+<tr><td>Zero Signal Plate Current<td>62mA<td>60mA
+<tr><td>Maximum signal Plate Current<td>74mA<td>77mA
+<tr><td>Transconductance<td>5.3mA / V<td>5mA / V
+<tr><td>Plate resistance<td>740 ohms<td>790 ohms
+<tr><td>Load Resistance<td>3k<td>4k
+<tr><td>Amplification Factor<td>3.9<td>3.9
+<tr><td>Maximum Output Power<td>6W<td>7W
+<tr><td>Distortion (THD)<td>5%<td>5%
+<tr><td colspan=3></tr>
+<tr><td colspan=3><b>Typical Operating Conditions - Push-Pull, Class A</b>
+<tr><td>Plate Voltage<td>300V<td>350V
+<tr><td>Grid Voltage<td>-61V<td>-67.5V
+<tr><td>Peak AF Grid Voltage<td>61V<td>67.5V
+<tr><td>Zero Signal Plate Current<td>2 x 50mA<td>2 x 85mA
+<tr><td>Maximum Signal Plate Current<td>2 x 75mA<td>2 x 100mA
+<tr><td>Plate-Plate Load Resistance<td>4k &Omega;<td>4k &Omega;
+<tr><td>Maximum Output Power<td>10W<td>20W
+<tr><td>Distortion (THD)<td>4.5%<td>2%
+</table><small><b>Table 2 - 300B Operating Conditions</b></small></center>
+
+<p>As you can see from the above, just about everything you need is laid out for you already. It's quite obvious that the push-pull configuration is superior, and only one mode of operation is really appealing - push-pull, using a 350V supply. Distortion is lower than any of the others, and you get more power as well. Single ended operation will give a maximum of 7W, but with 5% distortion is quite unacceptable unless significant negative feedback is used to reduce it to something tolerable.
+
+<p>A major problem with this valve is immediately apparent. The required voltage swing on the grids is a real concern because it will be difficult to obtain the required peak-to-peak voltage without adding a considerable amount of distortion. The total swing of 135V p-p (47V RMS) for each valve requires a high supply voltage for the driver valves. Attempting to get that much signal from a cathode coupled phase splitter is difficult, especially since the load impedance is low (50k grid resistors are needed for fixed bias). The only configuration that will drive these satisfactorily is a phase splitter followed by an amplification stage for each grid. For the 300B, use of fixed bias is pretty much ruled out if the manufacturer's ratings are followed.
+
+<p>Since the load is 50k and the voltage is 50V RMS (close enough), that means that the driver stage must be able to provide 1mA RMS into the output valve circuit. The plate circuits of the drivers will need to run at a quiescent current of between 5mA and 10mA to ensure that the valve output isn't loaded excessively. The plate voltage needs to be about 150V from a 300V supply, so plate dissipation will up to 1.5W just for the driver valves.  Of course, if you feel game, you can increase the 50k grid resistors to perhaps 100k or more, but you can be certain that Western Electric / AT&amp;T didn't specify such a low value to annoy you - they knew at the time that with anything higher, the valve would suffer from various problems. The worst of these is thermal runaway. (See <a href="analysis.html#s11" target="_blank">Heat &amp; Vibration</a> in the analysis article.)  The only other real alternative for fixed bias is a transformer ... but at what expense? 
+
+<p>Before the SET fanatics start gloating - the voltage and power requirements for the driver for a single ended version is exactly the same! The alternative is to use cathode (self) bias, allowing the grid resistors to be increased to 220k. The required 61V at 62mA effectively removes 61V from the available supply, and the cathode resistor needs to be just under 1k. It will dissipate 3.7W (a 10W resistor would be optimum). Because of the voltage dropped across the resistor, the plate supply will need to be increased to about 410V.  Naturally, the same process can be used with the push-pull version, and will ease the drive requirements considerably.  Power output is usually reduced when cathode bias is used, but this will be a small reduction if the plate voltage is increased to compensate.
+
+<p>The 300B has another hidden issue that we have to deal with as well. Remember that this valve uses a filament - not an indirectly heated cathode. If the filament is supplied with DC, there is a voltage gradient across the filament wire, and that means that there is a small readjustment to the grid voltage needed to compensate. This is a minor consideration though - if cathode bias is used, the filament supply will be at close to +70V with respect to chassis when cathode bias is used. Certainly not insurmountable, but just another nuisance issue to deal with.
+
+<p>Overall, my first reaction is to simply cross the 300B off the list. The biggest single problem is the low mutual transconductance - at around 5.5mA / V it's simply too low to be useful. In all, too many compromises, and better results can be obtained from a pair of KT88 valves in Class-A push-pull. Single ended operation is simply pointless, and will not be discussed any further. For those who think that I'm wrong, I invite you to look elsewhere, because I have absolutely no interest in any amplifier that can produce the same levels of distortion as a carbon granule microphone, and further requires that I purchase the most expensive and most efficient loudspeakers available just to be able to hear the distortion produced. I have no desire to revert to an amplifier that reminds me of a 1950s "Little Nipper" AM mantel radio (and yes, my parents had one when I was a kid).
+
+<hr><a id="s5"></a><b>5 - Let's Get Sensible</b>
+<p>If we decide to use a pair of KT88s wired as triodes, the first things we get are higher gm (12mA / V), greater plate dissipation, and most importantly, a reasonably reliable supply because of the popularity of these valves. Looking at the data, a table similar to the above gives us nearly everything we need to know (single ended operation is not included because it's too silly to waste time on) ...</p>
+
+<center><table width=700 border=1 style="border-collapse: collapse">
+<tr><td colspan=3><b>Typical Operating Conditions - Push-Pull, Class A</b>
+<tr><td>Plate Voltage<td>350V<td>422V
+<tr><td>Grid Voltage<td>-40V<td>-50V
+<tr><td>Peak AF Grid Voltage<td>40V<td>50V
+<tr><td>Zero Signal Plate Current<td>2 x 76mA<td>2 x 94mA
+<tr><td>Maximum Signal Plate Current<td>2 x 80mA<td>2 x 101mA
+<tr><td>Plate-Plate Load Resistance &sup1;<td>4.6k &Omega;<td>3.8k &Omega;
+<tr><td>Maximum Output Power<td>17W<td>30W
+<tr><td>Distortion (THD)<td>1.5%<td>1.5%
+<tr><td>Intermodulation Distortion &sup2;<td>5.6%<td>5.6%
+<tr><td>Cathode Resistance &sup3;<td>2 x 525 ohms<td>2 x 525 ohms
+</table><small><b>Table 3 - KT88 Operating Conditions</b></small></center>
+
+<blockquote><small><b>Notes:</b><br>
+1 - Plate-Plate impedance was calculated, since the data sheet did not include this information.<br>
+2 - IMD is measured using two input signals, 50Hz and 6,000Hz, 4:1 ratio</br>
+3 - Individual cathode resistors are strongly recommended in the MOV data sheet</small></blockquote>
+
+<p>Even with the most inefficient connection, namely cathode biased triode operation, output power is actually approaching something usable. Distortion is lower than can possibly be achieved with 300B valves, and because of the higher mutual conductance the required grid drive voltage is reduced. When operated with cathode bias at less than 35W output, the grid resistors can be as high as 470k, although I's personally be happier with something less. Even if reduced to 220k, the drive valve has a much easier job and can manage the required swing with far less distortion than would otherwise be the case.
+
+<p>To rub some salt into the wounds that 300B supporters may be experiencing, the KT88 also has lower capacitance from G1 to plate (7.9pF) than the 300B (15pF), although this data seems to somewhat variable depending on whose data sheet you look at.</p>
+
+<hr><a id="s6"></a><b>6 - Driver Circuits</b>
+<p>As noted above, obtaining sufficient drive level for the output valves is not trivial, although it's an area that few people look into seriously. Not only do we need a significant voltage swing, but it may need to drive a relatively low impedance, and it needs to do all of this with the highest linearity possible. This is essentially one of the biggest downfalls of valve circuits. While limited voltage levels can be amplified with very low distortion, the inherent nonlinearity of valves becomes a real problem when high level signals are needed. The problem is much worse when the driven impedance is low.
+
+<p>The grid drive topic has always been vexing, and many of the old valve designer's reference books devoted sections to the problems faced when trying to derive a high level linear drive signal capable of driving the load resistance presented by the output valves' grid bias resistors. In many cases, it was also a requirement to be able to provide grid current to the output stage to maximise efficiency, and that imposes an additional load on the driver stage.
+
+<p>There are many different approaches, ranging from brute force to using semi-exotic circuits like the SRPP (Series Regulated Push-Pull ?). The SRPP circuit goes by many different names (Totem Pole, Mu Follower, Mu amplifier, Cascoded Cathode Follower, etc.), but is essentially a normal common cathode amplifier with a second valve as the plate load. This upper valve essentially acts as a current source, and helps to linearise the main amplifying valve, although in reality its operation is a little more complex than that (see <a href="#sr">SRPP Decoded</a>). There are some disadvantages to the use of valves in series. The first is that a higher supply voltage than normal is needed because of the high saturation voltage of valves in general. Being low gain devices, they make rather poor current sources, so the expected linearity improvement may not be forthcoming. Lastly, the upper valve may have a significant voltage between the heater and cathode. Since many valves have a low maximum voltage (as little as 90V for the 12AT7), this limits the maximum voltage on the plate of the amplifying valve - often to an unacceptably low value.</p>
+
+<center><img src="design-f4.gif" border=1 alt="Figure 4"><br><small><b>Figure 4 - Typical SRPP Circuit</b></small></center>
+
+<p>A typical SRPP circuit is shown above. This is not intended for any valve in particular, but is to show the general principle. Note that for the circuit to work as designed, the output <i>must</i> be taken from the cathode of the upper valve (V2), as this modulates the current in V2 as load current is drawn, and creates a totem-pole push-pull circuit. If the output is taken from the plate of V1, V2 simply acts as a (mediocre) current source. Output impedance can be less than 1k, but as with all valve circuits the current is limited. Ideally, the current taken from the output should not exceed 10% of the nominal plate current.
+
+<p>Regardless of the topology of the driver circuit for any valve amplifier, it needs two things - high output level and high linearity. There's no point having the most linear power stage in the world it the driver stage cannot supply the grids with a clean waveform at the required voltage. Of course, it's easy to do with a simple transistor circuit, but that approach is generally considered sacrilege. Personally, I think that it's the ideal way to get the best of both worlds for those who like valve power amps, but I fear that I'm in the minority <img src="sad.gif">.
+
+<p>The next best way to drive the grids of the output valves is using a transformer. Good linearity is easy to obtain, along with a very low impedance for the valve grids, and the voltage is easy to step up so the driver doesn't need to have extreme voltage swing. This is also unpopular, because transformers for this application are not readily available and would be expensive to have made. There's also the problem of potential hum injection from the power transformer, so much as a driver transformer might be the optimum, it is sadly impractical.
+
+<p>This leaves us with the choice of a suitable valve. Because of the voltage swing needed, the plate supply voltage needs to be higher than normal to maintain linearity. There aren't a great many valves that are suitable as drivers - while there are many, many possibilities, most are no longer in production, or are considered to be sufficiently "esoteric" that they are inordinately expensive. One candidate is the 6DJ8 / ECC88 which many enthusiasts like, and it does look as though it will work well. It has higher than average linearity, so is capable of a wide voltage swing without excessive distortion. Unfortunately, being sought after means that counterfeits are likely (and have been reported), so it becomes hard to recommend.
+ 
+<p>Another potential candidate is the rather more pedestrian 12AT7 - commonly used in guitar amps, but seems uncommon for hi-fi. With a gm of 5.5mA / V it seems to be a reasonable candidate, but would need to be checked carefully for linearity. While this can be done using the data sheets and curves, it's usually faster, easier and better to test in an actual circuit. Values can be tweaked to get the highest linearity possible for the required voltage swing. If available, a chart that shows mu (&micro; - amplification factor) is a good start. If the &micro; remains constant over the desired operating range the output will be linear, with minimal distortion. Regrettably, the 12AT7 doesn't look at all promising from the available curves, but only a thorough test will prove the point once and for all. The 12AU7 is another possibility, and was common in many of the Japanese valve amplifiers. If set up properly these can give good performance, but have limited gain.
+
+<p>Many highly regarded power amps used pentodes (typically EF86 or similar) as grid drivers. The benefit is that a higher voltage swing is available, and of course they have lots of gain to allow the use of feedback. It may seem like an odd combination to use a pentode to drive output valves, but they are obviously suitable or would not have been used in the Quad II amplifier (for example). This amp needed considerable grid drive because part of the output transformer winding was in the cathode circuit, which meant that the drive voltage was increased due to the voltage across the cathode transformer winding.
+
+<p>The major difficulty with driver valves is that the two primary parameters of valves, gm (mutual conductance) and r<sub>p</sub> vary with current. In an ideal case, they will balance each other perfectly to maintain constant &micro; (mu, or amplification factor) according to the formula ...</p>
+
+<blockquote>&micro; = gm / r<sub>P</sub></blockquote>
+
+<p>As plate current increases, r<sub>P</sub> falls and gm increases. For the 12AT7 (included as an example), the relevant chart is shown below. Valves are inherently non-linear, and this is very obvious from the graphs.</p>
+
+<center><img src="design-f5.jpg" border=1 alt="Figure 5"><br><small><b>Figure 5 - 12AT7; gm, r<sub>P</sub> and &micro; vs Plate Current</b></small></center>
+
+<p>As you can see, amplification factor changes considerably over the plate current range of 1mA to 15mA and also shows a significant change over a more limited range, so this valve is not probably suitable for high signal levels at low distortion. While it's not immediately obvious, these parameters are also affected by voltage. There may be some other plate voltage that improves matters, but it's likely that the chart shown is as good as it gets. As noted above, a thorough series of tests will allow the most linear operating point to be found, but this can be a very tedious exercise.
+
+<p>Again, it's easy to use a transistor as a current source to boost linearity (which helps, but not as much as we might like unfortunately), and/or as an emitter follower to reduce the output impedance of an otherwise linear circuit that cannot provide enough current to drive the grid resistors for the power valves. This is not an idea favoured by purists, but is a technique that can boost performance of many valve circuits beyond what is possible using valves alone. A cathode follower also works well, but is not as good as a transistor. In addition, it's easy to exceed the maximum heater to cathode voltage rating.
+
+<p>It is actually possible to configure the output stage to perform its own phase inversion. There are various methods that will work, but this is not an approach that can be recommended due to excessive distortion, and the difficulty of making the output valves track properly. I've not seen any amplifiers using this technique, so it is of academic interest only.
+
+<p>Of equally academic interest is to drive the output valves at their cathodes by means of a transformer. This could only be considered for very high output power (1kW or more perhaps), since the transformer driver circuit needs to be able to contribute significant power itself. The same can (and is) done using transistors - see below for a little more detail on this configuration.</p>
+
+<hr><a id="s61"></a><b>6.1 - Grid Resistance</b>
+<p>All driver circuits must be able to drive the grid resistor for the power valves. In some cases, the value recommended by the maker may be inconveniently small - such as 50k for a 300B used with fixed bias. This is an area that is not adequately explained in most of the available information on the Net, but is covered in some detail in publications such as the Radiotron Designer's Handbook. Elsewhere, the topic receives scant attention, so requires some attention here.
+
+<p>Grid resistance is one of the more obscure specifications for power valves. This is the <i>total</i> resistance from the control grid (G1) to either earth (chassis, ground) or the negative bias supply. It must include the value of any grid stopper resistor, the potentiometer that is used to set the bias voltage (if fitted) and the DC resistance of the bias supply itself. The maximum value is always lower for fixed bias (a separate negative supply) than for self bias using a cathode resistor and a grid resistor that connects to earth.
+
+<p>There are two reasons for the specified value of the grid resistor under the two different operating conditions - one that is described in most comprehensive texts about valve amp design, and one that is hidden, and is not generally known.
+
+<p>The traditional answer (which is completely correct) is that reverse grid current is due to control grid emission. The grid is always fairly close to the cathode, so must absorb some of the heat radiated from the cathode or filament, as well as heat radiated from the anode or screen grid if the latter is allowed to get hotter than normal. Some emission is normal, and is easily allowed for, but should the control grid emit too many electrons because it's hotter than normal, this causes a further reduction of the negative bias voltage (it becomes less negative), so the valve draws more current and gets hotter still.
+
+<p>A second reason is that all valves have some residual gas. Even in the best vacuum we can achieve, there will still be many gas molecules within the envelope or trapped within the metal and glass. As the valve gets hotter, more gas will be liberated from the metal structures of the valve itself, as well as from the glass. When a high speed electron strikes a gas molecule, it often dislodges an electron, so the gas molecule is now a positively charged ion. Being positively charged, it will be attracted to a negative electrode - the cathode or the control grid.
+
+<p>Each ion that strikes the control grid requires an electron to be supplied to "de-ionise" the molecule, so if there is a significant number of such collisions, the grid is forced to be slightly less negative because of the current through the grid bias resistor (reverse grid current - current flowing <i>from</i> the control grid in the same way that (conventional) current flows from the cathode). Should this current rise far enough, the control grid is forced towards zero volts, so with less bias voltage, plate current increases and so too do the ionising collisions. If not kept in check, this condition will ultimately cause catastrophic failure of the output valve. To maintain the grid at the design (negative) voltage, the series resistance must be low enough to ensure that grid emission and ionisation current can never be sufficient to cause bias current runaway and valve destruction.
+
+<p>The range of reverse grid current that is considered within the normal range depends on the type of valve, but it is safe to assume that it may be up to 4uA or so for a normal power valve operating within its ratings. This will cause a voltage drop of less than 1V across a 220k grid bias resistor, and during the adjustment process of an amp with fixed bias will almost certainly never be noticed. The negative bias voltage is simply adjusted to compensate for the small reverse grid current. Provided the amplifier is not abused (overheating the output valves), bias creep is unlikely during the normal life of the valves.
+
+<p>Why is there a difference depending on whether the valve uses fixed or cathode bias? That one's easy ... with cathode bias, should the valve attempt to draw excess current, the cathode voltage increases because of the voltage drop across the cathode resistor. This tends to make the grid more negative with respect to the cathode, and a point of equilibrium is reached where the system is completely stable. This is a simple feedback mechanism that stabilises the operating conditions over a fairly wide range. It can't save a valve that has leaked and become gassy, but valves in good condition will be stable.
+
+<p>With fixed bias, there is <i>no</i> feedback mechanism. Any increase of grid (and therefore plate) current is unchecked, so the resistance feeding the grid must be low enough to ensure that grid current will not cause significant changes to the operating conditions. For this reason, <i>all</i> specification sheets for power valves specify a maximum total resistance between the control grid and negative bias supply. It is assumed that the bias supply will be low impedance - typically no more than one tenth of the value of the grid resistors.
+
+<p>The final reason seems to be virtually unknown, but is very real and easily measured. For full details of the tests I did, see <a href="analysis.html#s11" target="_blank">Heat &amp; Vibration</a> in the analysis article. Any valve that uses a Bakelite base has the ability to become conductive if it gets hot enough, because of the characteristics of the Bakelite itself. All valve datasheets either provide maximum temperatures,  or assume that this is "common knowledge". The typical maximum bulb temperature is 250&deg;C at its hottest point, but sensible design will provide enough ventilation to keep the temperature lower than that. Bakelite has a typical maximum continuous operating temperature of 120&deg;C, at which point the resistance between adjacent pins should be between 30-40M&Omega; - generally a fairly safe value as leakage current is minimal.
+
+<p>If proper ventilation is not provided and the temperature increases, things can go badly very quickly. The chart shown in the analysis article shows that for a typical Bakelite base (old stock, but verified against newer valve bases), the resistance can fall below 10M&Omega; at around 150&deg;C. If you have 500V between two adjacent pins, a resistance of 10M allows a current of 50uA to flow - vastly more than the normal reverse grid current of around 4uA. With a grid resistance of 220k (a reasonable and typical value), negative bias voltage is reduced by 11V, so from perhaps -35V to -24V. Catastrophic failure is almost guaranteed.
+
+<p>The importance of proper ventilation cannot be over-emphasised. In many cases, it seems that people believe that because valves normally run hot, a bit more heat can't hurt them. As should be obvious, this is definitely not the case. Wherever possible, valves should be operated vertically, with the base down. Ventilation holes around the socket assist with proper cooling, and there must be an air inlet below the chassis, and an outlet above (where the chassis is installed in a case of some kind).</p>
+
+<blockquote><i>The output valve grid bias resistor(s) should be the lowest practicable value in all cases. The importance of this cannot be over emphasised, and will dictate the operating conditions for the driver valve or phase splitter. This remains one of the most overlooked areas of valve amplifier designs.</i></blockquote>
+
+<hr><a id="s7"></a><b>7 - Pentode Power Amps</b>
+<p>Overall, pentodes have received pretty bad press for the last 30 years or so. While they are not as linear as triodes, they are much easier to drive, so in many cases the distortion reduction in the driver stage may easily be enough to offset the extra distortion of output pentodes. Since this article is aimed at amplifiers with power output of up to 30W, a pair of EL84 pentodes will easily overpower most single ended amps, and will have lower distortion as well. Considering the tiny output transformer that can be used, the ease of driving the output valves and the overall simplicity of the end result, this makes a great introduction to valve amps that won't break the bank.
+
+<center><table width=700 border=1 style="border-collapse: collapse">
+<tr><td colspan=3><b>Typical Operating Conditions - Push-Pull, Class AB</b>
+<tr><td>Plate Voltage<td>250V<td>300V
+<tr><td>Screen Voltage<td>250V<td>300V
+<tr><td>Common Cathode Resistor<td>130 Ohms<td>130 Ohms
+<tr><td>Peak AF Grid Voltage<td>11.3 V<td>14.1V
+<tr><td>Zero Signal Plate Current<td>2 x 31mA<td>2 x 36mA
+<tr><td>Maximum Signal Plate Current<td>2 x 37.5mA<td>2 x 46mA
+<tr><td>Zero Signal Screen Current<td>2 x 3.5mA<td>2 x 4mA
+<tr><td>Maximum Signal Screen Current<td>2 x 7.5mA<td>2 x 11mA
+<tr><td>Plate-Plate Load Resistance<td>8k &Omega;<td>8k &Omega;
+<tr><td>Maximum Output Power<td>11W<td>17W
+<tr><td>Distortion (THD)<td>3%<td>4%
+</table><small><b>Table 4 - EL84 Operating Conditions</b></small></center>
+
+<p>The above table shows the operating conditions for a pair of EL84 valves in Class-AB push-pull. The 300V supply voltage is just fine for our example, and will provide 17W output. Although distortion is higher than desirable, this can be corrected with feedback. Being pentodes, it's unrealistic to expect the same low distortion that we can get from triodes, but there's no reason that the EL84s can't be used as triodes - accepting that power output will be reduced to something less than 10W. Of particular interest is the small voltage needed to drive the grids. 14V peak (10V RMS) is easy enough to get from a split load (concertina) phase splitter with no additional amplification. However, to obtain the best possible linearity I used a different version. The first valve section is the amplifier, followed by a unity gain inverter. The slightly different values for input (330k) and feedback (390k) are needed because valves do not have sufficient gain to be able to use identical values (unlike opamps). A simple circuit is shown below - it is an example only, and is not to be considered a complete design. The values of the two 1k cathode resistors on the 12AT7 will need adjustment to obtain maximum linearity.</p>
+
+<center><img src="design-f6.gif" border=1 alt="Figure 6"><br><small><b>Figure 6 - Example of a Typical EL84 Pentode Power Amp</b></small></center>
+
+<p>The values for R<sub>fb</sub> and C<sub>fb</sub> have not been included, because they depend heavily on the output transformer characteristics. The circuit is fairly conventional, other than the phase splitter (which is one of the more obscure types), but otherwise is fairly typical of the type of amplifier that was common for home use, just before the first transistor amps displaced valves for most applications. In its day, amps similar to that shown were the equivalent of an average quality "receiver" of today, usually incorporating an AM/FM tuner, with phono, auxiliary and tape inputs/ outputs.</p>
+
+<hr><a id="s8"></a><b>8 - Ultra-Linear Operation</b>
+<p>No discussion on output stage topology would be complete without looking at ultralinear operation. By adding taps to the output transformer for the screen grids, it becomes possible to operate a pair of output valves anywhere between full pentode (or tetrode) and triode operation. It was found long ago that screen tappings at 43% of the full winding gave the best results, but for convenience this is often set for 50%. There is a difference, but in reality it's marginal.
+
+<p>There is some controversy about who may or may not have invented the ultralinear circuit, but that's immaterial to the way it works and the benefits of the technique and will not be discussed. There's plenty of info on the Net for those who are interested.
+
+<p>By applying what amounts to a feedback signal to the screen grids of pentodes or tetrodes, there is a marked reduction in distortion, but almost no loss of power. The transformer is harder to wind though - especially if the 43% tapping point is chosen. Because of the odd distribution of windings, it's actually possible to make matter worse in other areas if the 43% tap is used. By comparison, a 50% tap (which provides 25% feedback) is easy to accommodate without disturbing the symmetry of the windings. Further complications have been added over the years, one being to use a separate winding for the screen grids so that can be operated at a lower voltage. While a good idea in theory, this approach requires a larger transformer, or there will be additional resistive losses because thinner wire must be used. Other aspects of the transformer may suffer too, such as leakage inductance, and the greater opportunity to create some degree of asymmetry in the windings.
+
+<p>While an ultralinear output stage usually requires more drive signal than a traditional pentode circuit, it's still far less than needed for triodes so the driver stage is simplified. As noted above, this is not a trivial issue - a low distortion drive signal is essential to get the best performance from any power stage.</p>
+
+<center><img src="design-f7.gif" border=1 alt="Figure 7"><br><small><b>Figure 7 - Tetrode, Ultralinear &amp; Triode Performance Based on Tapping Percentage</b></small></center>
+
+<p>The above graph is adapted from an article in Audio Engineering, November 1951. It shows the internal impedance (actually output impedance based on a nominal 16 ohm output), power output and intermodulation distortion (IMD). It's worth noting that triode operation has low IMD at low levels, but it becomes very high as the level approaches the maximum. This notwithstanding, the figure shown for high level IMD rising to above 40% seems highly suspect - it is possible that the amp was clipping, but there is little information available as to how the tests were performed. All figures shown are open-loop (i.e. without feedback).</p>
+
+<center><img src="design-f8.gif" border=1 alt="Figure 8"><br><small><b>Figure 8 - Ultralinear Power Amplifier (Based on Figure 6 Circuit)</b></small></center>
+
+<p>An ultralinear output stage can be adapted simply from any existing amp, simply by using a different output transformer with the tappings available. In some cases, it's easy to make the comparison between the two (pentode/tetrode vs. ultralinear vs. triode) if you use a transformer that has the taps already. There's not a lot to say about the topology that hasn't been said a thousand times on the Net already, but having worked extensively with the U/L topology, it mostly lives up to the claims made for it.</p>
+
+<hr><a id="s9"></a><b>9 - Overload Recovery</b>
+<p>This is an area that often gets scant attention, but is extremely important. Everyone knows that hi-fi amps should never clip, but (almost) everyone also knows that it is inevitable. Hopefully, it will only occur during brief transients, but it can be sustained in some cases, with a degree of clipping that while audible, does not degrade the signal so badly that it sounds like a guitar amp at full overdrive. During the valve era, power was limited, and if you wanted to listen at a higher level than normal, some clipping was guaranteed.
+
+<p>Cathode biased output stages can have particularly poor overload recovery, because the bypass cap will charge to a higher value when the amp is driven hard, so it will be (possibly seriously) under-biased after the overload goes away. The time delay depends on the value of the bypass capacitor, and while it may be tempting to reduce the value to the minimum, because it's almost always an electrolytic cap, it will introduce its own distortion once its internal impedance (capacitive reactance) rises.
+
+<p>Most fixed bias amps have very good overload recovery, provided they are not driven to the point where the output valves draw grid current. Contrary to what some people seem to believe, driving the grid via a capacitor <i>does not</i> mean that grid current cannot be drawn. Any such claims are fantasy, and simply show that the author doesn't actually understand the fundamentals of electronics.
+
+<p>If such claims were true, deriving a negative bias voltage using a capacitor feeding a diode and filter can't work (it's providing DC). If these pundits (self proclaimed "experts" perhaps) are right, there are many functioning amplifiers that actually don't - utter nonsense of course, this is a technique that's been used for decades, and while it has other issues, failure to provide DC is not one of them.
+
+<p>Preamp stages also need to be checked for overload recovery, and grid current is again the problem. If a high level short-term overload forces a preamp valve to draw grid current, the coupling capacitor charges such that the valve can easily be biased off once the overload has passed. There is more on this topic in the <a href="analysis.html" target="_blank">Analysis</a> page.</p>
+
+<hr><a id="s10"></a><b>10 - Transistor Drive Circuits</b>
+<p>Although not a popular option, a transistor driver for output valves can give performance that simply cannot be achieved with valves. It's easy to generate a 200V peak-to-peak (70V RMS) signal that can drive impedances as low as 47k easily, with distortion that's close to immeasurable. This simply cannot be achieved with any valve driver circuit.</p>
+
+<center><img src="design-f9.gif" border=1 alt="Figure 9"><br><small><b>Figure 9 - High Voltage, Low Distortion Valve Driver</b></small></center>
+
+<p>The circuit shown above is as simple as they come, but can easily drive a grid bias resistor as low as 47k, and can do so with less than 0.02% distortion. Maximum output is almost 70V RMS (just under 200V p-p) - sufficient to drive <i>any</i> valve, including the 300B. It can cheerfully do so with less distortion than any valve circuit can possibly manage, and can drive grid bias resistor loads that will cause any valve driver to curl up and die. Maximum recommended B+ is 250V, and that will allow it to provide even more voltage (not that any more would ever be needed). The 1N4004 diode at the output is to protect the output transistors against valve flash-over between plate and grid, as often happens with catastrophic valve failure.
+
+<p>This is a variation on a circuit that has been used to drive a pair of KT88 valves in an ultralinear amp that delivers a comfortable 100W for each pair of valves. The original used &plusmn;100V supplies so was slightly different. As shown, the circuit has flat response from below 10Hz to over 100kHz, and has an input impedance of 100k. It can be driven from a valve or opamp based phase splitter, and requires a maximum input of 16V peak to peak. The gain can be increased, but as shown it is well within the range for any opamp to drive easily. The 200V supply should be regulated, but it doesn't need anything fancy - just enough to prevent any significant voltage shift as the mains voltage varies. Average current drain is under 8mA.</p>
+
+<center><img src="design-f10.gif" border=1 alt="Figure 10"><br><small><b>Figure 10 - Cathode Drive (Musicman)</b></small></center>
+
+<p>Another method shown in simplified form above is to use the output valves in a grounded grid (at least for AC) arrangement. The valves are driven from the cathodes using small power transistors. This works well, but care is needed to protect the transistors if there is a valve failure. Some Musicman guitar amps use this scheme, but I am unaware of it being used in any other amplifiers. The grids are held at +22V, so the collector voltage of the transistors will normally be at around 56V with no signal. This allows for a negative bias of 34V for each output valve. While the circuit certainly works as shown, it doesn't have particularly low distortion. It's easily modified to be far more linear, but the amp it's used in is a guitar amp, after all.
+
+<p>Needless to say, there are countless other schemes that could be used too. Even switching MOSFETs may be an excellent choice in a properly designed circuit - a quick simulation using an IRF840 with a 300V supply indicated an output level of 63V RMS with less than 0.2% total distortion. With a gain of over 100, and driving a 22k load, that's a good result for a very simple circuit arrangement. I don't know of any valve that can match that performance, and most fall well short. The downfall of this arrangement is that it requires a low impedance drive because of the high gate capacitance of the MOSFET. Using an opamp phase splitter is vastly more accurate and linear than <i>any</i> valve version, and will maintain accurate balance for decades without ever needing adjustment.
+
+<p>The hybrid approach is one that shows great promise for those who love the nostalgia of valves, but can live without the attendant problem of comparatively high distortion. By using silicon in the places where it provides the maximum benefit, the overall amp can often be simplified, yet still maintain the charm of the old technology. No-one needs to know what's underneath the chassis <img src="grin.gif">.</p>
+
+<hr /><b><a id="sc"></a>Conclusion</b>
+<p>The purpose of this article is to show the options available to the valve amplifier builder, and the issues that may be faced in a practical system. While there are many possibilities that have not been covered, many are impractical due to the limited range of transformers that are available today. Every topology has its strengths and weaknesses, and it is up to the designer to work out which is most suitable for the application. Knowing in advance that some valves (or topologies) may require grid drive voltage and current that are difficult to obtain with acceptable linearity helps to rationalise the selection of a suitable output stage.
+
+<p>While cathode bias is the simplest and gives the designer greater freedom in many respects, it also has some major drawbacks - the greatest of these is overload recovery. Fixed bias gives the best overload recovery characteristics, but almost invariably dictates lower values for grid bias resistors that are harder to drive from typical phase splitters or resistance loaded dedicated valve drivers. Transformer drive is very attractive in this respect, but the transformers are hard to get and/or very expensive, and also introduce additional phase shift that reduces the amount of negative feedback that can be used.
+
+<p>Historically, there was a wide range of very different designs, especially at the very end of the valve era. At the time you pretty much did get what you paid for - a good valve amp is very much more expensive to build than one that has mediocre performance, so the difference in sound quality of valve equipment was often very audible. It is notable that during this period, no major (or even niche) manufacturer bothered with SET amplifiers - the push-pull amps available were so superior in all respects that no-one ever saw any reason to go backwards.
+
+<p>In general, the primary difference between these valve units and those available today is sound quality - the modern transistor systems generally outperform the old valve equipment easily, and price is no longer indicative of any audible difference. Some very expensive transistor amplifiers of today are rather ordinary in terms of sound (although the marketing department will tell you the reverse is true). At the other end, some of the cheap amps you can build yourself (such as those based on ICs) are surprisingly good, with performance that bears no relationship to cost whatsoever.
+
+<p>Much of the interest in valve hi-fi amps seems to be based on fashion, and selection is not by virtue of a listening test, but on the rantings of reviewers. The words they speak are generally meaningless, and could mean anything at all - any "understanding" of the language used is largely imagined. That they eschew all measurements and rely solely on their (usually self proclaimed) "golden" ears is reason enough to avoid their words and recommendations. Measurements were developed to quantify the differences between valve amplifiers, because audible differences do exist. Frequency response, harmonic and intermodulation distortion can vary widely between two apparently similar amps, and the measurements can be used to separate the good, the bad and the downright ugly.</p>
+
+<blockquote><i>Interestingly, there is a section in the Radiotron Designer's Handbook that attempts to decode the terms used to describe various sound qualities (at least in 1957). Since then, some of the definitions have remained almost intact, but a great many more have been added. It is highly doubtful that any current day reviewer has read the definitions, and even more doubtful that the new terms added since 1957 are likely to be defined anywhere. The vast majority of all terms are only applicable to valve amps anyway, since there is no evidence that the audio "gods" have ever been able to distinguish between any two similar transistor amps in a double-blind test.</i></blockquote>
+
+<p>Granted, most measurements do not show subtle effects such as overload performance or recovery - not because these things can't be measured, but because there is no agreed standard measurement technique. While most (but by no means all) transistor amps have almost instantaneous overload recovery, the same is not true for valve amps. While there are some sites that mention this parameter, few give useful details, and fewer still produce a shred of evidence that their amp is "better" than the competition. Naturally, some even claim to have patented circuitry to achieve fast overload recovery, but I was unable to actually find any patent information during a search.
+
+<p>This is not the be-all or end-all of valve amplifier discussions, it's just a glimpse into the kind of things one needs to look into before making any decisions at all. While they appear to be simple, valve amps present many unique challenges, many of which are never noticed until it's too late. Of particular importance is the grid drive voltage and impedance, since there's no point having a nice linear output stage that can't be driven properly because the grid drive voltage is too high for any valve to achieve without significant distortion. As with all electronics, there are ways around any problem, but the solution is not always obvious.</p>
+
+<hr><table width="100%"><tr><td valign="top"><img src="note.gif"><td>All circuits shown here are for reference only, and no guarantee is given or implied that the circuits will work as described without modification or corrections as needed. Many component values are simply educated guesses, and are based on manufacturer's data or "that looks about right".<br><br>
+<i>These are not construction projects</i>, so construction of any circuit is solely at the builder's risk, and ESP will not provide assistance to troubleshoot or get any of the circuits to function as described. Information is provided in good faith, and for the purpose of education and information.<br><br>
+Tabulated data is taken directly from valve manufacturer datasheets, and is believed to be error free, however transcription or typographical errors may be present. If in any doubt, consult the data sheet for the valve and operating mode to ensure that the figures make sense.</table>
+
+<hr><b><a href="design2.html">Part 2</a> of this article examines output transformers in more detail, plus power supply design and requirements.</b>
+
+<hr /><b><a id="sr"></a>References</b>
+<p>References are in no particular order, and are not indexed to the section of this article that may refer to a specific reference. Most will be obvious, some are fairly obscure.</p>
+
+<ol>
+    <li><a href="http://jzu.free.fr/rick/amp/3040.html" target="_blank">Early Rickenbacker guitar amplifiers</a>
+    <li><a href="http://uv201.com/Audio_Pages/pa_amplifier.htm" target="_blank">Early public address amplifier</a>
+    <li><a href="http://www.coutant.org/radiogrow/" target="_blank">How Radio Grew Up</a>
+    <li><a href="http://www.oldradio.com/archives/stations/cinc/wlwpix.htm" target="_blank">Photos of the WLW transmitter</a>
+    <li><a href="http://www.j-hawkins.com/radio.html" target="_blank">JIM HAWKINS' RADIO AND BROADCAST TECHNOLOGY PAGE</a>
+    <li>New Push-Pull Tube Amplifiers (By Menno van der Veen), Reprinted from Glass Audio 3/99 (Plitron)
+    <li><a href="http://www.tubecad.com/may2000/" target="_blank">SRPP Decoded</a>
+    <li>Radiotron Designer's Handbook, F. Langford-Smith, Amalgamated Wireless Valve Company Pty. Ltd., Fourth Edition, Fifth Impression (revised), 1957
+    <li>Miniwatt Technical Data &amp; Supplements, 7<sup>th</sup> Edition, 1972
+    <li><a href="http://www.r-type.org/static/maplin.htm" target="_blank">Valve Technology</a> - Graham Dixey C.Eng., MIEE (1993)
+    <li><a href="http://www.thevalvepage.com/valvetek/McCullo/McCullo.htm" target="_blank"> Power Grid Tubes</a> - J. A. McCullough, Chairman of the Board Eitel-McCullough, Inc. (1965)
+    <li>Valve datasheets - various
+    <li><a href="http://www.dc-daylight.ltd.uk/Valve-Audio-Interest/Articles-for-the-Web/Ultra-linear-Hafler&amp;Keroes/UL-H&amp;K-Nov1951.html" target="_blank">Ultra-Linear, H&amp;K 1951</a>
+    <li><a href="http://www.dc-daylight.ltd.uk/Valve-Audio-Interest/Articles-for-the-Web/Amplifiers-and-Superlatives/A&amp;S-WW-1952.html" target="_blank">Objections to the above (1952).</a>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="index.html"  OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+ <img SRC="a1.gif" name="b1" BORDER=0></a><b>Valves Index</b>
+<br><a href="../index2.html" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+ <img SRC="a1.gif" name="b2" BORDER=0></a><b>Main Index</b><br><br>
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2009. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page created and copyright &copy; 26 Nov 2009</div>
+</body>
+</html>

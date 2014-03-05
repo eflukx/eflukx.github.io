@@ -1,0 +1,104 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="electrostatic,loudspeaker,speaker,isobarik,audio,project,diy,circuit,schematic,diagram">
+	<meta name="description" content="ESP Audio Projects - System Design Using ESP1">
+	<!-- ESP Audio Projects - System Design Using ESP1 -->
+	<title>Project 105 - Part III. System Design Using ESP1</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 105 - Part III&nbsp;</td></tr></table>
+
+<p align="center"><b>Transformers and Amplifier Power Requirements</b><br />
+<small>Tony Rendle &amp; Rod Elliott (ESP)</small></p>
+
+<hr><b><a href="project105.htm">Part 1</a> &nbsp; Introduction and Measurements<br>
+<a href="project1052.htm">Part 2</a> &nbsp; System Design Details<br>
+Part 3 &nbsp; Transformers and Amp Power</b><br /><br />
+
+<hr /><b>Please Note</b>
+<p><i>The electrostatic panels described here are not available, and it is not expected that this will change. The set of articles has been retained for interest only, so please do not ask questions or ask about prices or availability - there is no point because the panels are not available.</i></p>
+
+<hr><b>Step-Up Transformers</b>
+<p>As of now, there don't seem to be any transformers on the market which are specifically suited to driving arrays of ESP1 panels. A search of the internet reveals plenty of transformers designed for ESL applications, but these are usually designed to cover a wide frequency range (e.g. 40Hz up) and are very expensive and overkill for driving ESP1 panels.</p>
+
+<p>An alternative approach, which has been used during the ESP1 development and testing programme uses inexpensive transformers designed for 100 V PA systems. These transformers are universally available and have proved satisfactory for driving ESP1 panels, although potential users are warned that the transformers are being used beyond their rated voltage and there is a risk of breakdown. The risk has been reduced by using the series parallel arrangement shown in Fig.1 below. This limits the voltage across each transformer to about 600V RMS, which is still above the rated 100V, but samples used to date seem to be able to cope with this. However, there is room for a more satisfactory solution.</p>
+
+<p align="center"><img src="p1053-f1.gif" border="1" /><br /><small><b>Figure 1 - Series Parallel Transformer Wiring</b></small></p>
+
+<p>These small transformers (T1 to T4) are designed to match 8 ohm speakers to a 100V PA line and are provided with a number of taps to set the power to be delivered to a speaker. The taps are typically rated from 5W to 0.5W. The 0.5W tap should be selected, providing a ratio of 50:1. This then provides the required step-up ratio of the transformer combination of 100:1</p>
+
+<p>The transformers and the 2kV EHT bias supply should be mounted within the loudspeaker box close to the ESP1 panels. From a safety point of view we suggest that the secondary windings of the transformer, the EHT supply and the ESP1 panels are kept floating and not referenced to ground. We also suggest that the transformer laminations are not grounded, to reduce the possibility of breakdown.</p>
+
+<p><b>Transformer Ringing</b><br>
+The 1.5 ohm resistor in series with the (composite) transformer primary eliminates ringing in the transformer. This resistor must be non-inductive (e.g. carbon film). Use of a wire wound resistor would form a tuned circuit with the capacitance of the ESL panels and might cause the amplifier to oscillate and destroy the power transistors.</p>
+
+<p><b>Amplifiers &amp; Maximum Drive Voltage</b><br>
+ESP1 panels are tested to ensure that they will withstand a steady sine wave voltage of 2,800V RMS stator to stator. The recommended maximum drive voltage should therefore be slightly less than this, to avoid sparking.</p>
+<p>The question of the suitability of a particular amplifier to drive electrostatic elements is not easily answered. ESLs provide a notoriously difficult load. A stack of four ESP1 panels, as shown in Fig.1 presents a capacitive load of about 4uF.<br>
+(<small><b>Note:</b> &nbsp; This is an estimated value, and is yet to be confirmed.</small>)</p>
+
+<p>Most of the evaluation and testing of systems using ESP1 panels (up to 4 panels) has been done using P3A amplifiers with MJL21193/4 transistors, with +/- 39V supply voltage (no load). This gives a maximum output of about 25V RMS. This combination has performed without any problems. A supply voltage of +/- 35V (from a 25-0-25V transformer) gives a negligible reduction in output (about 1dB).</p>
+
+<p>This therefore our recommendation: P3A amplifier with MJL21193/4 or 2SC3281 &amp; 2SA1302 transistors, with a 25-0-25V transformer. An alternative is a low power version of P101, with a maximum supply voltage of &plusmn;42V (30-0-30V transformer). The higher supply voltage can be used because of the losses across the MOSFETs, but this will still raise the output by about 1.5dB.</p>
+
+<p><b>If you need more power</b><br>
+A stereo system containing four ESP1 panels per loudspeaker driven by a P3A amplifier using +/-35V supplies will satisfy almost anyone for listening to jazz and orchestral music in a domestic environment, even if you like to listen at realistic levels. If you want more dB, the solution is to increase the number of ESP1 panels.</p>
+
+<p>The simplest way to add more panels is to put two panels together, one behind the other. This increases the output by 6dB compared to a single panel. The two panels should be sealed together: with double-sided tape. If you use this approach, and double the number of panels in a complete system, the system output will increase by 6dB SPL. The downside is that the amplifier will have to cope with a load of twice the capacitance.</p>
+<p>Double panels can also be used to make a more compact system. Two double panels stacked vertically and offset horizontally by 20&deg;, will give the same sound pressure level as a four panel vertical stack, and still provide a good high frequency dispersion, reducing to about +/- 40&deg; at 10kHz.</p>
+
+<p>An alternative approach is to increase the stack of single panels to six per loudspeaker. The offset between panels should be reduced to 15&deg;. This will give even better dispersion, and increase the output by about 3.5dB for the system.</p>
+<p>Please bear in mind that we can't comment at this stage on loads of more than 4 ESP1 panels per amplifier. Testing is continuing, and we will advise how to tackle this issue soon. One possibility is to use a pair of amps, each driving a set of transformers and panels, but this is a rather costly approach.</p>
+
+<p align="right"><a href="project105.htm"><b>Part 1</b></a> &nbsp; <a href="project1052.htm"><b>Part 2</b></a></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Tony Rendle and Rod Elliott, and is Copyright &copy; 2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The authors (Tony Rendle &amp; Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Tony Rendle and Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 30 Jun 2005</div>
+</body>
+</html>
+

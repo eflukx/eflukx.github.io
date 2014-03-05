@@ -1,0 +1,149 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Audio mixing console (Part 3). Power supplies and headphone amplifiers.  Suitable for stage, monitoring or recording.">
+	<meta name="keywords" content="mixer,audio,microphone,balanced,equali,preamp,stereo,recording,stage">
+	<title>Audio Mixing Console - Part 3</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 30c&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>High Quality Audio Mixer - Stage 3</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>Stage 3 shows the power supplies for the mixer.&nbsp; The supply needs to be quite substantial, due to the high current drain of a complete 36-4-2 mixer.&nbsp; I will have to leave it up to individual constructors to determine if they really need this much power, or can survive on a lesser version, but if the full power supply is built, it will allow for expansion later.&nbsp; The phantom supply is designed to provide 150mA at 48V, which should be more than enough for any application.</p>
+
+<p>Also included is the headphone power amp (two needed for stereo), with the mixing and selection coming in the next section.</p>
+
+<hr><b>15 Volt Power Supplies</b>
+<p>The mixer requires +/- 15V at up to 4A for a fully configured system.&nbsp; Since this is well outside the capability of a 3 terminal regulator, I have used booster transistors (a quite common thing to do) to increase the available current.&nbsp; The regulation is completely controlled by the 3-terminal regulator, and the transistor simply boosts the current.&nbsp; Dissipation in the transistor will be quite high, so good heatsinking is essential.</p>
+
+<p>Using a 20V (AC) transformer gives about 28V before regulation, allowing plenty of margin for low supply conditions, but increases the transistor dissipation.&nbsp; At 4 Amps output, worst case transistor power will be over 40W, so the heatsink will need to be rated at less than 1&deg;C /W to ensure that the transistors remain well within their safe operating area.</p>
+
+<center><img SRC="p30c-f1.gif" ALT="Figure 1" BORDER=1 />
+<br><b><font size=-1>Figure 1 - Transformers and Rectifiers</font></b></center>
+
+<p>The transformers, rectifiers and capacitor banks in Figure 1 are also shown in the previous section, and the circuit is included here for completeness. As indicated in the last section, T1 needs to be at least 150VA, and T2 can be a smaller (and cheaper) 20VA. The bridge rectifiers need to be more substantial than you might think, because of the sustained current. I suggest that a 25A bridge is used for the +/- 15V supplies, and a 5A bridge for the 48V supply.</p>
+
+<center><img SRC="p30c-f2.gif" ALT="Figure 2" BORDER=1 />
+<br><b><font size=-1>Figure 2 - 15V Regulators</font></b></center>
+
+<p>Figure 2 shows the regulators for the +/- 15V supplies. DC from the rectifier is supplied to the 3 terminal regulator IC via a 33 Ohm resistor.&nbsp; When the current exceeds about 20mA, the power transistor will turn on, and the IC will ensure that the DC output is kept exactly to the specified voltage.&nbsp; This ensures that the regulator IC is operating at a low power (requiring only a small PCB mount heatsink), and will remain cool.</p>
+
+<p>Typically at an output current of 4A, the transistors will require about 200mA of base current, which must be passed by the regulator.&nbsp; The maximum regulator power is therefore about 2.6W - a 10&deg;C/W heatsink is therefore sufficient (but only just - use a bigger one if possible).&nbsp; Make sure that each regulator is on its own heatsink, and uses no insulating washer for maximum heat transfer.&nbsp; Use heatsink compound between regulator and heatsink.&nbsp; Do not mount the regulators on the main heatsinks - these will operate at a higher temperature than the small individual heatsinks.</p>
+
+<p>The power transistors will be operating at a sustained high power level, and must have substantial heatsinks.&nbsp; Dissipation will be in the order of 25W each at 4A, which means that the temperature must be kept below 100 degrees.&nbsp; Using the arrangement shown with parallel transistors, this is easily achieved, and will require a heatsink with 1.0 degree C/W for each transistor pair.&nbsp; By this means, a smaller heatsink may be able to be used than would otherwise be the case, since the dissipation of each transistor is reduced and the junction to heatsink thermal resistance is also reduced.&nbsp; The heatsink will still run at quite a high temperature, and should be mounted where it cannot be touched, but still has good airflow.&nbsp; I recommend either the biggest heatsink you can accommodate, and/or use a fan to assist cooling. The transistors shown are the minimum specification you can use - preferably, use higher power transistors. The TIP35C and TIP36C devices suggested are very robust, but higher power transistors certainly won't hurt anything. You may want to consider fan cooling if the heatsinks get hot in use.</p>
+
+<p>The diodes (1N4001 or equivalent) around the circuit ensure that disconnection of the DC input will not damage the regulator.&nbsp; Note that the +ve and -ve regulators have different pinouts - do not get them mixed up, or they will be damaged or destroyed when power is applied. Please check the datasheet to make sure that you get the IC connections right!</p>
+
+<p>Note also that there is no easy way to provide short circuit protection to this configuration, and care is needed to make certain that a short cannot occur.&nbsp; For this reason, I suggest that the transformers, rectifiers and capacitors are housed in a separate case (typically floor mounting), and that the DC output be fused as shown in Figure 1.</p>
+
+<p>The regulators can be housed in the main mixer, keeping all input wiring well away from mix buses.&nbsp; The DC input will have ripple at high current, and if allowed near a bus will inject hum into the system.&nbsp; The 100uF capacitors should keep the circuit stable at all operating levels, and can be bypassed with 100nF caps if desired.</p>
+
+<hr><b>48 Volt Phantom Supply</b>
+<p>Although high voltage 3 terminal regulators are available, they are not readily available to most constructors.&nbsp; I have therefore elected to use a discrete design, which although quite simple will give very good results.&nbsp; The regulation does not need to be any better than about 1 to 2% from no-load to full-load, but noise (ripple) must be kept to a minimum.</p>
+
+<center><img SRC="p30c-f3.gif" ALT="Figure 3" BORDER=1 />
+<br><b><font size=-1>Figure 3 - 48V Phantom Supply</font></b></center>
+
+<p>At full load, the power in the series pass transistor (Q2) will be only about 1.8W, so a massive heatsink will not be necessary.&nbsp; A small 10 degree/W sink will ensure that the maximum temperature rise is less than 20 degrees Celcius, which is a generous safety margin.&nbsp; Q1 should also have a heatsink, as its dissipation will be about 400mW at no load.&nbsp; A simple flag heatsink will suffice.</p> 
+
+<p>Using a resistor filter is awful for regulation, but gives good ripple rejection, and is simple and cheap.&nbsp; A 10 Ohm resistor and 2200uF capacitor will have a very profound effect on ripple applied to the regulator, which simplifies its design.&nbsp; This simple addition reduces ripple to about 1/30th of that without the filter, so is well worth the small extra outlay for the resistor and cap.&nbsp; The circuit shown has better than 80dB of ripple rejection, so the output will typically have less than 20uV of hum.&nbsp; As this is applied as common mode to the microphone leads, the overall rejection will be found to be more than adequate.&nbsp; The circuit in Figure 3 has a regulation of better than 2% from no-load to full-load, which is quite acceptable.</p>
+
+<p>When finished, adjust the trimpot (VR1) to give an output of 48.5V with no load.&nbsp; This will fall under full load conditions (140mA) to about 47.8V or so, indicating a regulation of about 1.4%.</p>
+
+<hr><a href="project96.htm" target="_blank"><img src="pcb.gif" border="0" /></a> &nbsp; <small><b>Click on the PCB image to see Project 96 - a (slightly) different version of the phantom feed power supply.  PCBs are available.</b></small><br /><br />
+
+<hr><b>Headphone Amplifiers</b>
+<p>The headphone amps are based on the LM1875 power opamp.&nbsp; This is capable of 25W, but in this application is deliberately restricted to 0.5W into 8 Ohm 'phones.&nbsp; This is more than enough, but at least ensures that the amp will never clip at any listening level that is even remotely sensible.</p>
+
+<p align="center"><img SRC="p30c-f4.gif" ALT="Figure 4" BORDER="1" />
+<br><b><small>Figure 4 - Headphone Power Amp</small></b></p>
+
+<p>The units can be assembled on Veroboard (but see below first - there <i>is</i> a PCB available for this power amp). The 100nF caps in the supply lines need to be as close to the power pins as possible. Some care is needed with the layout to keep input circuits well away from the output, as these devices have wide bandwidth and will oscillate if construction is unsuitable.</p>
+
+<p>The 56 Ohm output resistor should be at least 1W, and limits the power to the headphones. Two circuits will be needed for stereo 'phones, and the ICs must be mounted on a suitable heatsink. Make sure that the power rails for these amps are taken straight back to the regulator outputs, and not connected to the main supply buses for the mixer modules. Relatively high peak currents with unpleasant waveforms may otherwise introduce distortion into the completed unit.</p>
+
+<p>The Pre-Fade Listen and headphone selection and mixing circuitry will be published in the next installment.</p>
+
+<hr><a href="project72.htm" target="_blank"><img src="pcb.gif" border="0" /></a> &nbsp; <small><b>Click on the PCB image to see Project 72 - almost identical to the above, and PCBs are available.</b></small><br /><br />
+
+<hr><b>Still To Come</b>
+<p>Headphone selection and pre-fade listen amps. Also the talkback mic input, phono and auxiliary input modules, metering circuits, and a few miscellaneous other bits.</p> 
+
+<p>There will also be an overall layout diagram, and a picture of what the panel of a complete system might look like.&nbsp; This in itself should be interesting, as I have no idea yet how I am going to make such a large drawing (and keep the file size down to something sensible).</p>
+
+<table bgcolor="#0000ff" width="100%"><tr>
+<td align="center"><a href="project30.htm"><img src="p30-idx.gif" border="0"></a></td>
+<td align="center"><a href="project30a.htm"><img src="p30-s1.gif" border="0"></a></td>
+<td align="center"><a href="project30b.htm"><img src="p30-s2.gif" border="0"></a></td>
+<td align="center"><img src="p30-s3.gif" border="0"></td>
+<td align="center"><a href="project30d.htm"><img src="p30-s4.gif" border="0"></a></td>
+</tr></table>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams,
+is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Update Info: Page created 20 Nov 1999./ Updated 02 Feb 03 - corrected LM7x15 regulator pinouts</div>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Valves (Tubes) - Valve biasing - to get a vacuum tube to do what you need, the bias process is critical. It also helps to be able to determine the gain.">
+	<!-- Valves (Tubes) - Valve biasing - to get a vacuum tube to do what you need, the bias process is critical, It also helps to be able to determine the gain. -->
+	<meta name="keywords" content="valve, tube, vacuum, function, work, plate, grid, cathode, filament, heater, guitar, bass, amplifier, audio, diy, hi-fi, electronic">
+	<title>Biasing and Gain</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico"> 
+	<style TYPE="text/css"> <!-- td { font-size: 10pt } --> </style>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Valves (Vacuum Tubes) - Biasing and Gain&nbsp;</td>
+</tr></table><br />
+
+<center><small>Copyright &copy; 2009 - Rod Elliott (ESP)<br>
+Page Created 24 Oct 2009</small></center>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="index.html"  OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" name="t1" BORDER=0></a><b>Valves Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" name="t2" BORDER=0></a><b>Main Index</b>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#s1">Introduction</a></li>
+  <li><a href="#s2">2 - Triode - Basic Configuration</a></li>
+  <li><a href="#s3">3 - Essentials of Biasing</a></li>
+  <li><a href="#s4">4 - Determining Gain</a></li>
+  <li><a href="#s5">5 - Working With Graphs</a></li>
+  <li><a href="#s6">6 - Modifying The Gain</a></li>
+  <li><a href="#s7">7 - Input and Output Impedance</a></li>
+  <li><a href="#s8">8 - Plate to Grid Capacitance</a></li>
+  <li><a href="#s9">9 - Valve Photos</a></li>
+  <li><a href="#sc">Conclusion</a></li>
+  <li><a href="#sr">References</a></li>
+</ul>
+
+<hr><a id="s1"></a><b>Introduction</b>
+<p>Having decided that you want to use valves in your preamp project, it is necessary to understand the transfer curves and know how to bias the valve to get the desired result. Most applications also require a specific gain, but we need to know how to work that out or we're stuck with the "hit or miss" technique. Not that there's anything wrong with using a test setup to determine the optimum values, but unless you go through the calculations you don't learn anything.
+
+<p>Unlike opamps, valves have a relatively high output impedance. This means that the gain is determined not only by the stage itself, but by any circuitry that follows the stage. As a result, gain is often much lower than expected because this has not been considered. There are also a few tricks that one needs to understand if noise is to be kept to a minimum. All active electronic devices make noise, but valves introduce a noise source not experienced by transistors or opamps. This will be looked at later in this article.
+
+<p>One of the claims you might come across is that valves are inherently linear, while transistors are not. This is false! Valves are actually quite non-linear, and some are much worse than others. I expect that this myth came about in the early days of transistors, and there's a simple explanation. Audio signals haven't changed much in amplitude since the beginning, so the AC signal voltages after amplification are generally within the range of 1-5V RMS. There will be exceptions as always, but in general this is a fair guess.
+
+<p>A valve stage with a supply voltage of perhaps 250V and an output of 5V means that the signal level is only one fiftieth (1/50) of the supply voltage. With such a small relative change, the overall linearity will be quite good. In contrast, early transistor equipment used a supply voltage of around 20V, and 5V is one quarter (1/4) of the supply voltage. The transistor circuit therefore had to swing much closer to the supply and earth (ground) than an equivalent valve circuit, so non-linearity became more of an issue. Despite this, many of the traditional transistor circuits can have distortion that is comparable to that of an equivalent valve design (and in some cases considerably better, especially with feedback amplifiers).</p>
+
+<p>Speaking of feedback, this has been blamed for everything - "bad sound", "smeared" stereo imaging, transient distortion and ingrown toenails (ok, maybe not the latter ... yet). Feedback was invented in the valve era by Harold Black, U.S. Patent 2,102,671 filed in 1932, issued in 1937. It was used extensively in telecommunications equipment to reduce the distortion that plagued early systems. Almost all valve amplifiers gain benefit from the use of feedback, with greatly reduced intermodulation distortion in particular. This is <i>not</i> a bad thing.</p>
+
+<blockquote><b>Note:</b> In numerous places in this article, you will see the symbol &nbsp; || &nbsp; This simply means "in parallel with".</blockquote>
+
+<hr><b><a id="s2"></a>2 - Triode - Basic Configuration</b>
+<p>Before we begin, it's useful to look at the equivalent circuit of a valve. In some texts, you see it shown as a voltage source (VCVS - voltage controlled voltage source) with a series resistance. While this is correct, it is less intuitive than the <i>real</i> equivalent - a voltage-controlled current source (VCCS). Functionally, the two are (almost) identical, but the VCCS is more in line with the real way a valve works. As described below, the VCCS model doesn't work for some configurations, and the VCVS doesn't work for others. Interestingly, only one reference I've seen so far uses the VCCS model, and that is applied to pentodes because the VCVS model doesn't work. All very confusing - and somewhat less intuitive than semiconductor design (but that's another story altogether <img src="grin.gif"> ). The two models are shown below, along with a triode amplifier for reference ...</p>
+
+<center><img src="bias-f1.gif" border=1 alt="Figure 1"><br><b><small>Figure 1 - Equivalent Circuit of a Valve</small></b></center>
+
+<p>The most basic triode based valve voltage amplifier is shown above. Referring to the positive supply as "B+" is historical. In the early days, the "A" battery supplied the filaments, the "B" battery supplied the high tension (usually about 90V), and the "C" battery was used to bias the valves. Of these, B+ has remained, and almost everyone who worked with valve equipment will continue to use the term. A and C batteries fell from favour long ago, but most of the older generation of electronics people will know the terms.
+
+<p>Note that all output voltages are indicated as negative. A single valve amplifying stage inverts the signal, so as the input swings positive, the output swings negative with respect to the quiescent voltage. Single stage transistor or FET voltage amplifiers do the same, since in all cases a more positive input signal causes more current to flow in the amplifying device, so its output voltage must fall.
+
+<p>Those who read the valve primer will recall that in the early days of valves, resistors (as we know them today) were not available. Even up until around 1950, resistors were generally available in 10% and 20% tolerance only (so a 100k resistor could be anything from 80k to 120k - hardly a precision component). While close tolerance resistors existed, they were expensive, and completely unsuited where high stability was also needed. Close tolerance stable resistors were almost always wirewound which brought problems too, as they had considerable inductance in the higher values. By using the C battery, valves could be biased via a resistor, but accuracy wasn't a consideration - anything from 100k (or less) to several Megohms would work fine because (in theory at least) there is no current in the grid circuit to cause a voltage drop across the resistor. In reality there is always some current, but it is generally small enough to be ignored unless the valve is faulty.
+
+<p>While the configuration using a negative grid supply certainly works, it is inconvenient because a separate low voltage negative supply is needed. Nonetheless, the three circuits above are functionally equivalent.</p>
+
+<p>With semiconductor designs (transistors or opamps), the first thing we determine is the gain needed, because it is very easy to get the exact gain you need from these circuits. Valves are another matter - to some extent, the gain is decided by the valve itself, and attempting to obtain a specific gain may result in unexpectedly poor performance in other areas. The first thing we must do with valves is to decide on the operational parameters, and the gain we get is what we get. There are certainly a number of approaches we can take that will reduce the gain if necessary, but they come later.
+
+<p>One figure that can be used for this is the "amplification factor", &micro;. Although it's a theoretical figure we can use it, but doing so can be somewhat tedious. Indeed, getting exactly the gain you need from valve stages is always more tedious than using opamps, because the gain of an opamp is set only by resistors. With valves there is a more complex relationship that includes the plate resistance, amplification factor, external load resistor, power supply voltage and the input impedance presented by the next stage.
+
+<p>Before we worry to much about gain, the first step is to bias the stage. This part is pretty easy - the hard part is determining the optimum plate current for the available voltage - we'll look at that more closely a little later. For the time being, we can simply assume a few (perfectly reasonable) values to test the theory. Let's use a 100k plate load resistor, and a nice simple 1M as the next stage. All of these appear in parallel as far as the internals of the valve are concerned, so we must know the plate resistance of the valve. A 12AX7 has the following (basic) parameters ...</p>
+
+<center><table width="700" border=1 style="border-collapse: collapse">
+<colgroup span=6 width="16%">
+<tr><td valign="top"><b>Plate Volts</b><td valign="top"><b>Plate Current</b><td valign="top"><b>Grid Volts</b>
+<td valign="top"><b>Mutual Conductance</b><td valign="top"><b>Amplification Factor</b><td valign="top"><b>Plate Resistance</b>
+<tr><td>250<td>1.2 mA<td>-2 V<td>1,600 &micro;mhos<td>100<td>62.5 k
+<tr><td>100<td>0.5 mA<td>-1 V<td>1,250 &micro;mhos<td>100<td>80 k
+</table></center>
+
+<p>The above is from Miniwatt Technical Data - basically a short-form listing with working examples, but enough for this first example. If the stage is designed as a first amplifier that may have an maximum input of (say) 100mV, the 100V supply is preferred, as this means it can have extra filtering for lower noise. If we have a 150V DC supply available for the stage, that means we need to drop 50V across the plate load resistor, at a current of 0.5mA. Ohm's law indicates that the plate resistor must be 100k (R = V / I = 50 / 0.5mA = 100k). Since this is in parallel with r<sub>P</sub> and R<sub>G</sub> of the next stage, the total load resistance is 42.5k.
+
+<p>At a plate voltage of 100V, the mutual conductance is 1.25mA/ Volt (remember - 1,250&micro;mhos = 1.25mmohs = 1.25mA/ Volt). The input will vary by 100mV (RMS if you prefer), so the valve current will vary by 1.25 * 0.1 = 0.125mA. This current across the total load resistance (42.5k) causes a voltage change of 5.3V - the gain is therefore 53. With this configuration the gain can't be increased substantially, but it can be reduced simply by reducing the value of the grid resistor of the following stage (or simply adding additional loading), or adding a bias resistor in the cathode circuit, as described next. This is one of the disadvantages of valve stages - often to make useful gain changes a different valve has to be used, which commonly means a change of all resistance values as well.</p>
+
+<hr><b><a id="s3"></a>3 - Essentials of Biasing</b>
+<p>As noted above, the valve must be biased so that it operates within the range you select. It's not difficult, and in many cases a rough (educated) guess will get you pretty close to what you need. Care is needed though. Valves are all rated for a maximum cathode current, and this should not be exceeded. Doing so can cause cathode "stripping" where the emission enhancing materials on the cathode's surface are forcibly removed by the flow of electrons. For the 12AX7, the limit is 10mA, but it would not be sensible to operate the valve at much above 3-5mA. Typical currents are in the range of 0.5-2mA, although operation down to a few microamps is perfectly ok for some applications.
+
+<p>All valves have a maximum plate dissipation too, and again, exceed this at your peril. For the 12AX7, the maximum is 1W.  Plate dissipation is simply the product of plate voltage and current - 100V at 1mA is 100mW.</p>
+
+<center><img src="bias-f2.gif" border=1 alt="Figure 2"><br><b><small>Figure 2 - Complete Equivalent Circuit and Valve Stage</small></b></center>
+
+<p>Based on the same info we used above, a circuit can be drawn for a biased valve stage and the equivalent circuit using a VCCS. The addition of a resistor in the cathode circuit has two effects. Firstly, we want a plate current of 0.5mA, and from the table, we know that requires a grid voltage of -1V. By placing a selected resistor (R = V / I = 1 / 0.5mA = 2k) in the cathode circuit, when a current of 0.5mA flows through the valve, 1V will be developed across R<sub>K</sub>. If the grid is connected to earth (ground) via a resistor, the cathode voltage is 1V greater than the grid voltage, therefore the grid is at -1V with respect to the cathode. All requirements for bias are satisfied.
+
+<p>However, by adding this resistor, some of the input voltage will also appear across it, and this reduces the gain. The amount of signal voltage that appears across R<sub>K</sub> is not so easily worked out, because it is subtracted from the input voltage as far as the valve is concerned - this is local feedback, and the effects are interdependent. To get an <i>accurate</i> gain figure, the formula is reiterative, and it's no real surprise that few sites attempt to provide the maths needed to get (even close to) the right answer. For the time being, we'll simply bypass the resistor with a capacitor. The capacitive reactance must remain small compared to the value of the resistor, and full gain is restored. This will be covered in more detail at a later stage.
+
+<p>The valve is now biased, and using cathode bias is the optimum for all low-level stages. It's self-correcting to some degree, so as the valve ages the bias conditions won't change by much - this is because using a cathode resistor provides a measure of DC negative feedback, so the bias is stabilised against most disturbances - not completely, but enough to prevent any major change in operation.
+
+<p>The small resistance (R<sub>S</sub>) in series with the control grid is commonly referred to as a "stopper" - it is designed to prevent the valve from detecting (mainly) AM radio transmissions, and generally does a fairly good job. The assumption is that the source impedance for stray RF will be fairly low (a few hundred ohms at most), so the relatively low resistance of the stopper will be significant. It has no effect on the wanted signal level appearing at the grid, but if made too large (100k or more perhaps), can lead to premature high frequency rolloff in the valve itself, due to the plate to grid capacitance.
+
+<p>Grid stoppers are also used where parasitic oscillation is a problem, and effectively introduce a simple filter into the circuit. Typical values range from as low as 1k to perhaps 100k in extreme cases (very uncommon though). The input valve is the most susceptible to stray radio interference because of its connection to the outside world. Stoppers must be placed as close as possible to the grid pin to be effective, preferably wired directly to the valve socket with the minimum of excess resistor lead.</p>
+
+<hr><b><a id="s4"></a>4 - Determining Gain</b>
+<p>It was mentioned above that an unbiased cathode resistor reduces the gain, so we can look at that now. The equivalent circuit has to be changed in order to simulate an unbypassed cathode resistor, but that won't be covered at this time. The following process can be used to determine the gain - while it appears complex, it's really quite straightforward ...</p>
+
+<blockquote>Av = &micro; * R<sub>tot</sub> / ( r<sub>P</sub> + R<sub>tot</sub> + ( R<sub>K</sub> * ( &micro; + 1 )))<br>
+Where &micro; is the amplification factor of the valve, r<sub>P</sub> is the internal plate resistance,<br>
+R<sub>K</sub> is the cathode resistor and R<sub>tot</sub> is the parallel combination of R<sub>P</sub> (external plate resistor) and R<sub>load</sub>.
+</blockquote>
+
+<p>For the example given above, we can work out the gain ...</p>
+
+<blockquote>
+	R<sub>tot</sub> = R<sub>P</sub> || R<sub>load</sub> = 100k || 1 Meg = 90k<br>
+	Av = 100 * 90 / ( 80 + 90 + ( 2 * 101 )) &nbsp; &nbsp; <small>Note that the "k" can be ignored, as it appears in all resistance
+	values</small><br>
+	Av = 9000 / 372 = 24
+</blockquote>
+
+<p>If you prefer, there's another method that gives the same answer, but the formula may be easier to remember ...</p>
+
+<blockquote>
+	R<sub>source</sub> = r<sub>P</sub> + ( &micro; * R<sub>K</sub> )<br>
+	R<sub>tot</sub> = R<sub>P</sub> || R<sub>load</sub><br>
+	Av = &micro; / (( R<sub>source</sub> / R<sub>tot</sub> ) + 1 )<br>
+	Av = 100 / ( 280 / 90 + 1 ) = 24
+</blockquote>
+
+<p>Note that the value of the cathode resistor is <i>multiplied</i> by the amplification factor. This extra (multiplied) resistance is then effectively added to r<sub>P</sub>. It's interesting that for this to make sense with an equivalent circuit, we have to use a voltage controlled <i>voltage</i> source instead of the VCCS used previously. Unlike transistors where everything makes reasonable sense and a single equivalent circuit is sufficient to explain everything, the operation of valves is more complex - largely because of their very limited gain.</p>
+
+<hr><b><a id="s5"></a>5 - Working With Graphs</b>
+<p>There are many parameters that are listed for valves, and many datasheets include comprehensive performance graphs from which the designer can determine the best valve to use, the optimum plate current, required grid bias voltage, etc. During the golden years of valves, some makers published so much information that it was sometimes hard <i>not</i> to be confused. Others provided the bare minimum, but in all cases the necessary information was there - one simply had to look for it, and understand how it was interpreted.</p>
+
+<center><img src="bias-f3.jpg" border=1 alt="Figure 3"><br><b><small>Figure 3 - Average Plate Characteristics For ECC83 / 12AX7 (Each Section)</small></b></center>
+
+<p>Now it's time to get serious. As noted above, there are quite a few graphs available for most valve types, so it can take a while to figure out which one to use. Some datasheets have no graphs at all, and while that makes life simpler, there are things that you don't get to know about. The average plate characteristics are always a good start though. From this graph, it's easy to see were the valve is most linear (look for the straightest line that extends over the widest range of plate current.
+
+<p>From the above graph, it's easy to see that the choice made for the examples above was less than ideal if there is any significant variation in plate current, such as for a high level amplifier (more than a couple of volts RMS). The greatest linearity is with a grid voltage of -0.5V, at a plate current of 2.2mA, requiring a plate voltage of 150V. However, there is a conundrum here ... high linearity over a wide range implies that we need a high output voltage, but given that the 12AX7 has limited gain, that also means the input voltage will be high too. If the input voltage exceeds 0.5V at any time, the grid will draw current (because it's positive with respect to the cathode). Grid current is almost always a bad thing, and <i>must</i> be avoided in audio preamp or driver stages.
+
+<p>From the chart, it's easy to see that expecting high voltage drive with good linearity is not possible with a 12AX7 - a different valve must be used. This is why there are so many seemingly similar valves, such as the 12AX7, 12AU7 and 12AT7 (ECC83, ECC82 and ECC81 respectively), plus a great many others. Naturally, some people insist that there are huge differences in the sound of different valves, and to some extent this may well be true - depending on usage and accurate design procedures. One dual triode that does seem to be a cut above the average is the ECC88/ 6DJ8, but from what I've seen counterfeits are rife so it's probably best to steer clear unless you have 100% confidence in your source.
+
+<p>A useful formula that ties the three major parameters together is ...</p>
+
+<blockquote>
+	gm = &micro; / r<sub>P</sub>
+</blockquote>
+
+<p>If two quantities are known, then the third can be worked out easily. This is handy, because not all datasheets provide all three parameters. It's also possible to get both gm and r<sub>P</sub> from the graph as shown above, so &micro; can be calculated. Let's do it ...
+
+<p>We know that gm (mutual conductance) can be in several forms, but we'll use mA/ Volt because it's sensible. We'll use the -1V grid load line, and simply pick a convenient plate current. 2mA looks good to me, and for 2mA, we need a plate voltage of 195V. Now, reduce (and increase) the grid voltage by 0.5V, moving to a curve either side of the -1V curve chosen. For the <i>same</i> plate voltage, the current increases to 3.15mA or decreases to 1.1mA - 2.05mA/ Volt. This is much greater than claimed, but is (more or less) within reason.
+
+<p>Plate resistance (r<sub>P</sub>) is determined by the change of plate current when plate voltage is changed, with the grid voltage held constant. Using the -1V grid voltage curve again, select a suitable plate voltage. 200V seems reasonable, and current is about 2.15mA. Select a higher plate voltage - say 250V. The current increases to 3.15mA, so r<sub>P</sub> is the change of plate voltage (50V) divided by the change in current (1mA), or 50k.
+
+<p>To calculate all the values (including &micro;) we use the following formulae ...</p>
+
+<blockquote>
+	gm = &Delta;I<sub>P</sub> / &Delta;V<sub>G</sub> &nbsp; &nbsp; <small>(Plate voltage maintained constant)</small><br>
+	gm = 2.05mA / 1V = 2.05mA/ Volt<br><br>
+	r<sub>P</sub> = &Delta;V<sub>P</sub> / &Delta;I<sub>P</sub> &nbsp; &nbsp; <small>(Grid voltage maintained constant)</small><br>
+	r<sub>P</sub> = 50V / 1mA = 50k&Omega;<br><br>
+	&micro; = gm * r<sub>P</sub><br>
+	&micro; = 0.002 * 50k = 100<br><br>
+	<small><b>Note:</b> The symbol &Delta; simply means the change between one measured value and another</small>
+</blockquote>
+
+<p>We already determined that gm and r<sub>P</sub> vary depending on operating conditions, but that &micro; is a relatively constant figure. This has just been confirmed.</p>
+
+
+<hr><b><a id="s6"></a>6 - Modifying The Gain</b>
+<p>As alluded to earlier, the gain of a valve can be changed relatively easily. One method is to change the plate resistor, but this modifies the operating conditions so may cause excessive distortion. One can also load the output with additional resistance (after the signal coupling capacitor), but this is a pretty crude approach. The most common method is to <i>partially</i> bypass the cathode resistor, by using a resistor in series with the bypass cap.</p>
+
+<center><img src="bias-f4.gif" border=1 alt="Figure 4"><br><b><small>Figure 4 - Cathode Resistor Bypass Options</small></b></center>
+
+<p>The first circuit shown ("A") is the normal arrangement, where the cathode is fully bypassed. As calculated above, this gives a gain of 53, which may be too high. By introducing a resistor in series with the bypass cap (R<sub>K2</sub>), the gain can be adjusted to anything between the gain with no bypass at all (calculated above at 24) to the maximum of 53. To make a change outside this range, either choose a different valve or modify the operating conditions (a smaller plate resistance for example).
+
+<p>With a 2k resistor as shown in "B", the total resistance for AC is 2k || 2k, which is 1k. Gain can be recalculated using this value, and most importantly, the operating conditions of the valve are unchanged.</p>
+
+<blockquote>
+	R<sub>source</sub> = r<sub>P</sub> + ( &micro; * R<sub>K</sub> )<br>
+	R<sub>tot</sub> = R<sub>P</sub> || R<sub>load</sub><br>
+	Av = &micro; / (( R<sub>source</sub> / R<sub>tot</sub> ) + 1 )<br>
+	Av = 100 / ( 180 / 90 + 1 ) = 33
+</blockquote>
+
+<p>Whenever a cathode bypass cap is used, we need to determine the value needed. The impedance at the cathode is not simply the value of R<sub>K</sub>, but includes the impedance of the cathode itself. When looking inwards <i>towards</i> the cathode (as opposed to its effect internally), the impedance is ...</p>
+ 
+<blockquote>
+	r<sub>K</sub> = ( R<sub>load</sub> + r<sub>P</sub> ) / ( &micro; + 1 ) &nbsp; &nbsp; <small>Where R<sub>load</sub> is the parallel combination of the anode load resistor and the load impedance</small><br>
+</blockquote>
+
+<p>Using the same conditions as before, we get ...</p>
+
+<blockquote>
+	r<sub>K</sub> = ( 90k + 80k ) / ( 101 ) = 1.63k
+</blockquote>
+
+<p>For the "A" circuit, the cathode bypass cap must have a low reactance at the lowest frequency of interest, and sees an impedance of 2k || 1.63k, or about 890 ohms. It is traditional with valve circuits to make the capacitor at least 5 times larger than required, so for a minimum frequency of 20Hz, the minimum capacitance needs to be ...</p>
+
+<blockquote>
+	C = 1 / 2 &pi; F R<br>
+	C = 1 / 2 * &pi; * 20 * 890 = 8.9uF<br>
+	C = C * 5 = 44.7uF (50uF)
+</blockquote>
+
+<p>There are many good reasons to make C<sub>K</sub> even larger, and a value of 220uF is not at all unreasonable, and in fact, that would be preferable. Electrolytic caps are essential because of the large values needed, and these are renowned for having wide tolerance and losing capacitance as they age (especially at the elevated temperatures in a valve amplifier). When a series resistance is used (as shown in "B"), the total cathode impedance is calculated as before, and the value of R<sub>K2</sub> is simply added to that. For our example, the total impedance is 890 + 2k, or 2.89k. The capacitance value needed is reduced accordingly (the minimum is about 15uF).
+
+<p>Be careful if the cathode resistor is left completely unbypassed. This can sometimes lead to a large and unexpected noise increase. The resistor should be of high quality and low noise - metal film is recommended. Also, any heater-cathode leakage can cause the valve to amplify the small leakage current, leading to much higher background hum levels. If unbypassed cathode resistors are used, ideally the heaters should be operated from (smoothed and preferably regulated) DC.</p>
+
+<hr><b><a id="s7"></a>7 - Input and Output Impedance</b>
+<p>All valve stages have an input and output impedance (like all electronic circuits). The input impedance is almost always simply defined by the value of the grid resistor (often referred to as a "grid leak" resistor). The valve itself has an almost infinite input impedance.
+
+<p>Output impedance is not as simple. It is the parallel combination of the valve's internal plate resistance, the external plate resistor <i>and the following load</i>. In many cases, the following load will be an unknown, so traditionally it is not included. For the example we've been using, output impedance is therefore ...</p>
+
+<blockquote>
+	Z<sub>out</sub> = r<sub>P</sub> || R<sub>P</sub><br>
+	Z<sub>out</sub> = 80k || 100k = 44.44k
+</blockquote>
+
+<p>When determining the value of the coupling capacitor, the impedance of interest is the total impedance in series with the cap, which is ...</p>
+
+<blockquote>
+	Z = ( r<sub>P</sub> || R<sub>P</sub> ) + R<sub>load</sub><br>
+	Z = 80k || 100k + 1M = 1.044M
+</blockquote>
+
+<p>The minimum capacitance needed is therefore 7.6nF for a -3dB frequency of 20Hz. For coupling capacitors, it is generally wise to increase the value by between 2 and 5 times, making the optimum value between 15nF and 39nF (or 47nF if you prefer).</p>
+
+<hr><b><a id="s8"></a>8 - Plate to Grid Capacitance</b>
+<p>Finally for this section, we have to look at the internal capacitance between the grid and plate. For the 12AX7, this is specified at 1.7pF. In some of the original datasheets, the term <i>&micro;&micro;</i>F was common. This implies one millionth of one millionth of a Farad, which is one picofarad (pF). Awkward and outmoded, and not mentioned further.
+
+<p>Given that there's a capacitance of 1.7pF between the plate and grid, this provides a feedback path for high frequencies. The situation is made worse, because this capacitance is multiplied by the stage gain, so with a gain of 53 (as determined at the beginning), the small C<sub>P-G</sub> capacitance has grown to 90pF - this is known as the Miller capacitance. If we had an identical stage driving the one we're looking at, this 90pF in conjunction with the output impedance of the preceding stage (plus the value of the grid stopper resistance if significant) will cause a high frequency -3dB frequency of 36kHz ...</p>
+
+<blockquote>
+R = R<sub>out</sub> + R<sub>S</sub><br>
+R = 44.44k + 4.7k = 49.14k<br><br>
+F = 1 / 2 &pi; R C<br>
+F = 1 / 2 * &pi; * 49.14k * 90pF<br>
+F = 36kHz
+</blockquote>
+
+<p>If a better high frequency response is required, the options are to reduce the gain of the stage in question, reduce the source impedance, add some negative feedback around the whole stage (uncommon), or use a different valve with lower plate to grid capacitance. For most applications, the limited HF response is usually not a problem, either because there is no need for extended response (guitar amps for example), or because very high gains are not needed. In some cases, there is no alternative but to use a pentode, where the screen grid isolates the control grid from the plate, reducing capacitance dramatically.
+
+<p>Remember too that the Miller capacitance of the valve itself isn't the only thing that can reduce the HF response. Because valve amplifiers have relatively high impedance and many are hard-wired, stray capacitance can also be a problem - especially if plate and grid components are physically close to each other. Wiring practices are critical in high impedance circuits, both to prevent HF rolloff and minimise hum and noise.</p>
+
+
+<hr><b><a id="s9"></a>9 - Valve Photos</b>
+<p>No article of this nature would be complete without some photos, so here they are.</p>
+
+<center><img src="bias-f5.jpg" border=1 alt="Figure 5"><br><b><small>Figure 5 - A Selection of Typical Valves</small></b></center>
+
+<p>These types represent some of the more popular valves, although the 12AT7 and 6L6GC are notable omissions. Fortunately, there are copious photos of valves on the Net, so no-one should feel deprived. As always, inclusion of a visible branding does not imply any affiliation or recommendation for the brand shown. In some cases, quite the reverse is true, but I have no intention of making any comments one way or another, because the quality of the valves available from any maker or reseller can be highly variable - good today, useless tomorrow.</p>
+
+<hr><b><a id="sc"></a>Conclusion</b>
+<p>There is a significant amount of work needed to design well behaved valve preamp stages. While a working design is easy - just copy what someone else has done or dream up a few likely values - getting it right takes time and effort. Valves are fairly forgiving ... you have a large supply voltage to play with, most valves work (i.e. do something more or less useful) over a very wide range, and getting a stage that refuses to function at all is actually difficult (other than wiring mistakes of course). 
+
+<p>Understanding the interactions and actually designing the circuit is very time consuming, so it's no real surprise that many people just don't bother. There are so many circuits on the net that what appears to be the exact one you need is easily found. However, the interaction between stages, comparatively high output impedance and optimum linearity for an application are difficult to work out, and it's often easier to build it and make modifications as needed. It's also worth noting that many of the "classic" circuits were often rather poorly thought out (especially with guitar amplifiers). That they happened to give a sound that guitarists liked was almost an accident - there are many examples of very, very poor application of valves in some of the most famous guitar amps made, and some major (and very serious) errors persist to this day. In some cases, the poor design just happens to provide the sound that guitarists like, so if very short valve life is the price you pay for "the sound", then so be it. In other cases, there is no excuse for some of the blunders made. It's well known that early Marshall guitar amps were a direct copy of the original Fender Bassman, and this is possibly one of the most blatant direct copies, but almost certainly there are others too. It shows that even manufacturers will copy other circuits (warts and all) as readily as hobbyists.
+
+<p>One of the difficult aspects of valve design is to determine the optimum operating point that gives the required gain with the minimum distortion. Perhaps surprisingly, this can become especially critical for cathode followers. While a cathode load of (say) 47k might seem perfectly reasonable, during some experiments for this article I have seen the distortion fall by almost 20dB simply by changing the load to 10k. However, this involved a major trade-off, in that a circuit that could output over 20V RMS easily (but with relatively high distortion) was unable to reach 10V RMS before distortion rose alarmingly (well above the previously measured level). At lower levels (around 3V), the distortion fell from about 0.8% to slightly less than 0.1% - simply by changing the load impedance. While valves may be forgiving to get a working amplifier stage, they are far less so to get the lowest distortion performance from the stage.
+
+<p>The high quality audio equipment from the likes of Leak, Quad, McIntosh and others was generally very well thought out, and everything was done for a good reason. Some used very complex transformer configurations to get the beat possible performance. Not so the consumer equipment that came from (mainly) Japan towards the end of the valve era. Some of the designs were between being very ordinary and appalling, and to call the wiring rough as guts was actually high praise. Obviously, there were exceptions, but I can't actually think of any at the time of writing. For all of that, they worked pretty well, and did  what was expected of them, but when transistors came along these products died almost immediately. Transistor circuits produced more power, mostly - but not always - lower audible distortion, much less heat, and (probably most importantly) were cheaper to make. Power supply requirements were simpler, and as a result valve equipment all but died until the 1980s when we started to see a resurgence of designs - some using pre-WW II technology which may have considerable magic appeal, but are fundamentally worthless.
+
+<p>If a valve amp were to be designed now, the only sensible output valve choice for an amp providing a useful output power would have to be the KT88/ 6550 or preferably, the KT90. These are less common, and are actually a completely new type having been introduced in or around 1990. These have proven to be far superior to KT88s in a collaborative design done by <a href="http://lenardaudio.com" target="_blank">John Burnett</a> and myself. Attempting to use <i>really</i> old valves (such as the 300B for example) might get a working amp, but performance will not be up to the hi-fi standards that are accepted today. Not that there's anything wrong with the 300B - in its day it was one of the best power triodes available, but that day was a very long time ago. Single ended designs are simply an abomination compared to the alternatives, and serve no useful purpose.
+
+<p>For output stages, it was determined by the best engineers of the valve era that push-pull was the only viable option for a high quality amplifier. With no net DC component flowing in the output transformer primary winding, it was far easier to make the transformer to a high standard, with much lower losses and performance that could not be matched by any other topology. Nothing has changed today, and a push-pull output even allows the use of a toroidal output transformer. With lower leakage inductance than any other type of transformer, use of a toroidal core can improve bandwidth to an extent not considered possible previously.
+
+<p>Towards the end of the valve era, there was even a brief period where transformerless (OTL - output transformer-less) valve output stages were built. Some required loudspeakers with high impedance voicecoils that proved impractical, and required almost impossibly large inductances for any crossover network. Efficiency was dreadful, and special valves were needed. Altogether a bad idea, but part of the evolution of hi-fi as we know it today.</p>
+
+<hr />It is inevitable that errors will creep in during the compilation of information, and these are regretted in advance. If any such errors are found, please let me know.
+
+<hr /><b><a id="sr"></a>References</b>
+
+<ol>
+  <li>Radiotron Designer's Handbook, F. Langford-Smith, Amalgamated Wireless Valve Company Pty. Ltd., Fourth Edition, Fifth Impression (revised), 1957
+  <li>Miniwatt Technical Data &amp; Supplements, 7<sup>th</sup> Edition, 1972
+  <li>Marconi School of Wireless, Stage 2 (Radio 1) - Amalgamated Wireless (Australasia) Limited (publication date unavailable).
+  <li>Valve Amplifiers, Morgan Jones - Edition 3, 2003, ISBN: 9780750656948
+  <li><a href="http://www.angelfire.com/electronic/funwithtubes/Basics_04_Triodes.html" target="_blank">Electrical Fundamentals. Vacuum Triodes.</a> - Max Robinson
+  <li><a href="http://www.r-type.org/static/maplin.htm" target="_blank">Valve Technology</a> - Graham Dixey C.Eng., MIEE (1993)
+  <li>RCA Receiving Tube Manual, RC-30 (1975)
+  <li>Valve datasheets - various
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="index.html"  OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+ <img SRC="a1.gif" name="b1" BORDER=0></a><b>Valves Index</b>
+<br><a href="../index2.html" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+ <img SRC="a1.gif" name="b2" BORDER=0></a><b>Main Index</b><br />
+ 
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2009. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page created and copyright &copy; 20 Oct 2009</div>
+</body>
+</html>

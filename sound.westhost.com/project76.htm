@@ -1,0 +1,171 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="audio, project, diy, amp, preamp, crossover, test, power, supply, circuit, schematic, diagram">
+   <meta name="description" content="ESP Project Pages - Opamp Based Power Amp. Visit my other pages for more audio projects and articles">
+   <title>Opamp Based Power Amp</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 76&nbsp;</td></tr></table>
+
+<center><p><b>Opamp Based Power Amplifier</b>
+<br />Rohit Balkishan</center>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><b>Introduction</b>
+<p>This is a contributed project from Rohit Balkishan, who has built it, and thought that it would make a nice simple project for others.&nbsp; This is a good experimental project, will be cheap to make, and you will learn from it.
+
+<p>This project has recently been updated (09 Aug 2001), it is more reliable and operates the opamps from a regulated supply.</p>
+
+<hr /><b>Description</b>
+<p>The amplifier is based on the commonly used class-AB complementary power amplifier with compound pair output transistors. The system uses a TL074 quad opamp to drive the output transistors. As can be seen from figure 1, A2 is used to set the voltage gain of the amplifier. Assuming the voltage gain of a common collector stage to be unity, the overall voltage gain of the amplifier is equal to (R4 / R3) + 1, i.e. the gain of a non-inverting OP-AMP (16 or 24dB, in this case). Since the output transistors are within the feedback loop of A2, A2 also acts to linearise the input characteristic of the complementary pair Q1/Q2 &amp; Q3/Q4. This allows for greater mismatch between the NPN-PNP transistors.</p>
+
+<center><img SRC="p76-f1.gif" BORDER=1 height=376 width=647>
+<br /><b><small>Figure 1 - Power Amplifier Schematic</small></b></center>
+
+<blockquote>
+<b><small>A supply of up to +/-22V is OK for the power transistors, and allows the same supply to power the regulators.&nbsp; Lower voltages (as shown) will be insufficient to provide the regulators with sufficient reserve input voltage. (ESP)</small></b>
+</blockquote>
+
+<p>The biasing to Q1 &amp; Q3 is provided by R6, R7 &amp; diodes D1 &amp; D2.&nbsp; This arrangement biases the transistors just above cut-off and reduces crossover distortion. <u>R6 must be adjusted to the highest value which eliminates crossover distortion</u>.&nbsp; Ideally D1 &amp; D2 should be mounted so they are in contact with the driver transistors - not the main heatsink.</p>
+
+<p>To adjust R6 without an oscilloscope, start with R6 set to maximum, set the volume control R2 to get the minimum audible output with a suitable input source (such as a CD player which gives 0.65Vrms at line out), and listen for any "crackle" in the sound, especially that which seems to be riding on low frequency sounds. If a "crackle" is heard then reduce the value of R6 in very small steps, until the crackle (crossover distortion) becomes inaudible (it can't be eliminated, I feel).</p>
+
+<p>As the output of opamp A2 is being pulled up by the biasing circuit, <u>capacitor C5 must be connected between the output of A2 and ground</u> to prevent the circuit from breaking into oscillations. The value of C5 is not critical, any value between 22nF to 100nF will do. The opamp A1 is a simple buffer which isolates the input circuit from the power stage. C1 &amp; R1 are used to set the lower 3db frequency to around 15Hz, and to obtain an input impedance of about 100K. The upper 3db frequency is determined by R4 &amp; C7, which in this case is approximately 30KHz. The schematic shows only one channel of the stereo amplifier. The amplifier can be used to drive speakers with impedance ranging from 3 Ohms to 8 Ohms, higher impedance speakers could be used but the power output will be substantially less.</p>
+
+<p>The voltage gain of the amplifier can be increased by increasing R4 or decreasing R3, as long as the output swing is kept less than or equal to 3 Volts below the supply rails. This is due to the fact that the maximum output voltage of an opamp is always 2-3 Volts less than the supply rails, before it clips.</p>
+
+<p>The voltage gain of the amplifier is 16 or 24db (R3 = 10K &amp; R4 = 150K). Also, note that the values of R3 &amp; R4 are not critical as far as their absolute values are concerned, what is critical, however, is their ratio (Av = 1 + R4 / R3). Choose C7 to give an upper 3db frequency of about 30KHz - 50KHz.&nbsp; I haven't measured the actual power output of the prototype that I have built as yet, but I have put it to normal use, nevertheless.</p>
+
+<p>Any transistors which satisfy the following criteria can be used:</p>
+
+<blockquote>
+	Q1/Q3: Vmax >= 40V, Imax >= 1A, Pmax > = 5W, hfe > = 25, Ft > = 50KHz
+	<br />Q2/Q4: Vmax >= 40V, Imax >= 5A, Pmax > = 40W, hfe > = 20, Ft > = 50KHz
+</blockquote>
+
+<p>The transistors shown are somewhat costly due to the fact that they are HF transistors with Ft = 4MHz and also have higher voltage/power ratings than required, that's because originally I had intended to build an amplifier which can drive +/-33Volts into a 4 Ohms load, but due to the non-availability of the LM3580 quad opamp, I went for a lower power version, but the transistors stayed. For this current design however, lower cost AF transistors can well be used.</p>
+
+<p>The entire circuit along with its power supply can be easily assembled on a general purpose Veroboard.&nbsp; Various kinds of opamps, transistors can be used in place of those shown here to obtain a high performance system. For example opamps like OP445 (high speed/high slew rate) LM3580 or LM3581 (high voltage) may be used in the design with increased cost and better performance, or almost any general purpose opamps can be used to get a decent working system at a low cost.</p>
+ 
+<p>The modifications to the original circuit are ...</p>
+
+<ol>
+	<li>The Op-Amps have been changed from LM348 to TL074. This IC is pin compatible with LM348, but has a higher slew rate (13V/&micro;S) as compared to LM348 (0.5V/&micro;S).<br /><br /></li>
+
+	<li>The supplies to the Op-Amps have been separated from those of the power transistors, so that now the Op-Amps are fed from regulated +/-15V supplies and the power transistors are supplied from the usual high current (>= 5 Amperes) +/-15 to +/-18 Volts supplies which may or may not be regulated. This has been done so that the Op-Amps are unaffected by the varying current drain (and the accompanying voltage drops) that occur in the power-stage power supplies, especially when operating at or near full power. Another reason for having a separate supply for the Op-Amps is for use with active crossovers employing similar Op-Amps. In this case, the volume control R2 must be omitted &amp; instead placed before the crossover network (the non-inverting input of A2 is now directly connected to the o/p of A1). <b><small>Preferably via a 100 Ohm resistor (ESP)</small></b>.  Or A1 could also be used similar to A2. All the Op-Amps will now be fed from the regulated supplies.<br /><br /></li>
+
+	<li>The o/p transistors are now in "compound-pair" configuration instead of the original "darlington" configuration. This has been done to reduce crossover distortion to negligible levels &amp; make the biasing extremely simple (in spite of the very elementary biasing arrangement employed, the performance of the amplifier is quite good. The 50K pot R6 did not need any adjustment to remove crossover distortion, after I built it).<br /><br /></li>
+
+	<li>Due to the high slew rate of TL074, the capacitor C5 must have a minimum value of 22nF. If after a few moments of powering up, the amp goes into oscillation or produces a humming sound (with speakers connected) or you find that the power transistor supplies drop (this may happen even without connecting the speakers), accompanied by mild heating up of the o/p transistors then the culprit surely is the Op-Amp (A2). To solve this problem, simply increase the value of C5, and test it again. Make sure that oscillation / hum does not set in even when you connect/disconnect an audio source at the input with the amp turned on or when the volume is turned up to maximum (all these symptoms have one common reason - the Op-Amp (A2) gets "kicked" into high frequency oscillation, the cap at its o/p ensures that this doesn't happen). Choose C5 to be the minimum value which stops this behaviour.<br /><br />
+
+<b><small>Warning: such oscillation <i>will</i> damage tweeters - testing into a "live" speaker system is not recommended!&nbsp; Use of an old (preferably one that will not cause tears if it is destroyed) loudspeaker is suggested. (ESP)</small></b>
+</ol>
+
+<p>The 33pF capacitor (C7) across R4 sets the upper 3db frequency to about 30KHz. Reduce this if you find the amp lacking in highs, or altogether omit it (not recommended). A value greater than 10pF is recommended, since any lower value will cause listener fatigue. A value of 12pF gives the best high frequency response, corresponding to an upper -3db frequency of about 63KHz. Likewise, C1 could be increased to bring down the lower -3db frequency.</p>
+
+<p>The transistors Q2 &amp; Q4 can be changed to BD240/MJ2955 and BD239/2N3055 respectively. BD239/240 to be used only if the load impedance is greater than or equal to 6 Ohms. For lower impedances, either retain the shown transistors or use higher current transistors (2N3055/MJ2955 and the like). The heat sinks need not be very elaborate (except with BD239/240), since the transistors have power ratings well in excess of those required. In spite of this, a large heat sink is always better than a smaller one.</p>
+
+<p>Due to reduction in the supply voltages to the Op-Amps, the max. o/p swing will now be about +/-12 V(p-p) or a power of 18W into a 4 Ohms load, or 9W into 8 Ohms.&nbsp; This value of power is a very modest figure and as such this amp won't be very loud. To get a system that gives appreciable power, it's better to use this amp for bi/tri-amping with active crossovers. Assuming an absolute max. power of 20 W into 4 Ohms, we can obtain 40 W (60 W) by bi-amping (tri-amping). For a stereo system, this equates to 80 W (120 W) of total power output, which is quite sufficient for home use. The amp has a fairly respectable frequency response, and the highs are extremely clear, hence it is recommended that this amp be used in a bi/tri-amplified system instead of stand-alone. For a tri-amped system (or a bi-amped system which uses only a tweeter for mid+high), a 22uF non-polar capacitor must be used in series with the o/p of the amp feeding the tweeter.</p>
+
+<hr /><b>Power Supply</b>
+
+<center><img SRC="p76-f2.gif" BORDER=1 height=395 width=577>
+<br /><b><small>Figure 2 - Power Supply</small></b></center>
+
+<p>The performance of any electronic system depends to a large extent on the power supply that it contains, i.e. on how well the supply is regulated and how well it rejects hum/ripple. Any dual power topology could have been used for this amplifier, but by far the best power supply is the good old bridge rectifier/capacitor filtered system. This type is simple to assemble, straight-forward, low-cost and can be made to have very good regulation &amp; ripple rejection by proper choice of transformers and filter capacitors.</p>
+
+<p>The above schematic contains 2 separate transformer/rectifier/filter chains. This arrangement requires that the upper transformer has output voltages that are very close to each other (of course, some variation is acceptable as long as the final DC voltages are within 0.5V to 1V of each
+other). The upper chain is for the power transistors (high current) and the lower one is for the op-amps (low current). The only stringent requirement here is that the upper transformer must be able to supply a current of at least 5 amperes on each half cycle of the output (this is needed for good regulation, especially when the amplifier is operated at or near maximum power).</p>
+
+<p>The upper transformer rating is shown to be greater than is actually required (even 2 to 3 amps is good enough), so that this supply can be used for bi/tri-amped systems. The upper transformer can be a 12-0-12V unit with the centre tap split to obtain two 0-12V outputs. A 12-0-12V transformer would require that the diodes be rated at least double that of the present rating. Using it as a dual 0-12V unit places a somewhat lesser demand on the diodes. A better idea would be to use a 10 to 35A bridge for the upper transformer.</p>
+
+<p>The capacitors must be rated at 3300uF/50V or higher (a higher value will improve ripple rejection &amp; regulation). Due to the class AB topology of the amplifier, the amplifier is inherently immune (more or less) to bad supply regulation and hence a simple power supply such as this one is more than sufficient for this application. Care must be taken while assembling the power supply, so that the mains hum is not picked up at the input and proper insulation must be used to eliminate any risk of an electric shock. This supply can be used for both channels of a stereo system, even if they are bi/tri-amped.&nbsp; Bypassing the electrolytics with 100nF capacitors is not mandatory but is recommended.
+
+<blockquote>
+	<b><small>Editor's Notes:&nbsp; The 1N4007 diodes suggested do not have a high enough current rating, and I suggest that bigger
+	diodes be used.&nbsp; Diodes for this circuit should ideally be rated at a <i>minimum</i> of 5A continuous.</small></b>
+
+	<p><b><small>See the <a href="power-supplies.htm">Power Supply Design</a> article for more details on the design of power
+	supplies.</small></b>
+</blockquote>
+
+<hr /><b>Transistor, IC Pin Identification &amp; Heatsink Assembly</b>
+
+<br /><br /><center><img SRC="p76-f3.gif" BORDER=0 height=438 width=451></center>
+
+<p>Figures 3 and 4 show the transistor leads and IC pin-out respectively. As with any power system, this amplifier also produces some heat in its output devices and these must be provided with a proper means to dissipate the generated heat. The transistors BD245/246 must be mounted on proper heat sinks such as the one shown in figure 5. The collectors of the transistors must have a proper thermal (NOT electrical) contact with the heat sinks.&nbsp; A mica insulator must be sandwiched between the collector and the heat sink. Also, a plastic "through and through" washer must be inserted in the transistor &amp; mounting holes such that the screw used to secure the transistor to the heat sink is electrically insulated from both the collector as well as the heat sink. Use of some heatsink compound (a kind of paste) on the faces of the mica insulator improves the heat transfer from the collector to the heat sink.</p>
+
+<p>That concludes the description of the entire project. I hope that the reader will find the material presented to be of some help in understanding amplifiers in particular and electronics in general. The following books/materials were used for reference:</p>
+
+<blockquote>
+	1)&nbsp;&nbsp; Integrated Electronics by Millman &amp; Halkias, Tata McGraw-Hill (ISBN 0-07-Y85493-9)<br />
+	2)&nbsp;&nbsp; National Semiconductor Opamp data book.
+</blockquote>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br /><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rohit Balkishan and Rod Elliott, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rohit Balkishan) and editor (Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rohit Balkishan and Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rohit Balkishan/ Rod Elliott 10 Mar 2001</div>
+</body>
+</html>

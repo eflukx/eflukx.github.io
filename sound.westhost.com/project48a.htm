@@ -1,0 +1,189 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="sub, woofer, elf, extended low frequency, audio, project, diy, preamp, crossover, circuit, schematic, diagram">
+	<meta name="description" content="ESP Project Pages - Electronically Assisted Subwoofer (EAS) - If you have tried to get a sub to sound right (and go low enough), you already know that it is not easy.  Well, now it is :-)">
+	<title>P48 Sub-Woofer Controller (Rev-A)</title>
+	<!-- ESP Project Pages - Electronically Assisted Subwoofer (EAS) - If you have tried to get a sub to sound right (and go low enough), you already know that it is not easy.  Well, now it is :-) -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 48, Rev-A&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Active Sub-Woofer and Controller</b><br />
+<small>Rod Elliott (ESP)<br>
+Created 12 Jan 2008</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for this project. Click the image for details.<br>
+
+<hr><b>Introduction</b><br>
+Sub woofers are very popular, with home theatre being one of the driving forces. However, a good sub adds considerably to normal hi-fi program material, and especially so if it is predictable and has good response characteristics. This new version of the P48 subwoofer equaliser is vastly more flexible than its predecessor, so you can get even better control over your sub. The new version of the P48 equaliser allows you to use it with a crossover if desired.
+
+<p>As noted in the <a href="project48.htm" target="_blank">original P48</a> article, the majority of sub woofers use a large speaker driver in a large box, with tuning vents and all the difficulties (and vagaries) that conventional operation entails. By conventional, I mean that the speaker and cabinet are operated as a resonant system, using the Thiele-Small parameters to obtain a box which will (if everything works as it should) provide excellent performance. For the background information, see the <a href="project48.htm" target="_blank">original P48 article</a>. This article only describes the new PCB and its functionality.</p>
+
+<center><img src="p48a-pix.jpg" alt="Photo" border=1><br><small><b>Photo of Completed P48 Rev-A</b></small></center>
+
+<hr><b>Driver Selection and Hardware</b>
+<p>A quick word is warranted (and repeated) here, to allow you to determine if the speaker you have will actually work in a small sealed enclosure. The EAS principle will allow any driver to extend to 20 Hz or even lower. A good quick test is to stick the speaker in a box, and drive it to 100W or so at 20 Hz - you should see a lot of cone movement, a few things will rattle, but you shouldn't actually hear a tone. A "bad" speaker will generate 60 Hz (third harmonic) - if you don't hear anything, the speaker will work in an equalised sub.</p>
+
+<p>If a tone is audible, or the speaker shows any signs of distress (such as the cone breaking up with appropriate awful noises), then the driver cannot be used in this manner. Either find a different driver, or use a vented enclosure. The minimum driver size recommended is 300mm (12"), although dual 250mm (10") drivers should work well. Smaller speakers simply do not have enough cone area, and will be limited by their physical size - cone excursion is <i>not</i> a substitute for radiating area.</p>
+
+<hr><b>The Revision-A EAS Controller</b><br>
+The controller is reasonably simple, and the circuit is shown in Figure 1. An input buffer provides phase switching and ensures that the input impedance of the source does not affect the filter performance, and this is now followed by a 12dB/octave high pass filter. The phase reversal switch is used so that the sub can be properly phased to the rest of the system. If the mid-bass disappears as you advance the level control, then the phase is wrong, so just switch to the opposite position.
+
+<p>The board has only one input, so if you plan to use a normal stereo feed supplying a single P48 board, you'll need to sum the two stereo outputs. This is easily accomplished by using a pair of resistors - the value should be between 2.2k and 4.7k. If this is done, replace R1 with either a 100 ohm resistor or a wire link.</p>
+
+<center><img SRC="p48a-f1.gif" ALT="Figure 1" BORDER=1>
+<br><b><small>Figure 1 - The EAS Filter / Controller</small></b></center>
+
+<p>VR1 is used to change the gain of the second integrator. The level through the controller can be set to make sure that there is no distortion - there can be a huge amount of gain at low frequencies, and if the gain is too high, distortion is assured!
+
+<p>The high-pass filter is designed as a peaking type, and gives a response that is almost perfect down to 20Hz. The lowest frequency can be tailored by changing C1, C2, C3 and C4. As shown, the response peaks at 18Hz, but you can use 68nF to increase this to 27Hz, or 47nF for 39Hz. See Table 1 for the full range of values.
+
+<p>The integrators (U2B and U2A) include shelving resistors (R8 and R11), and the capacitor / resistor networks (C3-R9, C4-R12) allow the HF attenuation to be halted at a specific frequency. This will be discussed in greater detail below. The final output level is set with VR1.</p>
+
+<p>It is OK to substitute different opamps, but there is little reason to do so. Do not be tempted to use a DC coupled power amplifier. If the one you are planning to use is DC coupled, the input should be isolated with a capacitor. Choose a value to give a -3dB frequency of about 10Hz, as this will have little effect on the low frequency response, but will help to attenuate the subsonic frequencies.</p>
+
+<p>The unity gain range (using a 100k pot as shown) is from 25Hz to 68Hz. This should be sufficient for most systems, but if desired, the resistors (R7 and R10) can be increased in value to reduce gain, or reduced if more gain is needed. Make sure that the selected gain is not so high as to cause clipping in the P48 circuitry.</p>
+
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE CAREFULLY" height=37 width=108></td>
+<td>The unity gain frequency is important in only one respect - it will determine the internal gain of the system, and needs to be set based on the input signal level. If the unity gain frequency is set to (say) maximum (68Hz) and you have a 1V RMS input, then a 1V RMS input at 20Hz will severely clip the integrators. The setting for VR1 is determined by the input sensitivity of your power amplifier(s) used on the main system. It is probably easier to experiment a little than try to measure everything.
+</td></tr></table>
+
+<p>To allow lower frequencies, you can increase the 100k shelving resistors (R8 and R11) to 220k, but a much better result will be obtained by increasing the values of C1 to C4. A turnover frequency of less than 10Hz is possible, but expect to use a lot more power, as there will likely be significant sub-sonic energy that will create large cone excursions with no audible benefit.</p>
+
+<p>The input must be a normal full range (or for a biamped system, the complete low frequency signal). Do not use a crossover or other filter before the EAS controller unless you also include suitable values for R8 and R12. These are shown in Table 2. For final adjustment, and to integrate the system into your listening room, I recommend the <a href="project84.htm" target="_blank">Project 84</a> constant-Q equaliser.  The end result using this is extraordinarily good - I have flat in-room response to 20Hz!</p>
+
+<p>For the power supply, use the one in <a href="project05.htm#top">Project 05</a>, or anything else will provide +/-15V at a few milliamps. My supply is not even regulated, and the entire system is as close to noiseless as you will hear (or not hear). Construction is not critical - I built my first version on a piece of Veroboard (perforated prototype board), and managed to fit everything (including the power supply rectifier and filter) on a piece about 100 x 40 millimetres with room to spare.</p>
+
+<p>The EAS system is surprisingly easy to set up with no instrumentation. Of course if you have an SPL meter and oscillator you can also verify the settings with measurements. Remember that the room acoustics will play havoc with the results, so unless you want to drag the whole system outdoors, setting by ear might be the easiest. Even if you did get it exactly right in an anechoic environment, this would change completely once it was in your listening room anyway.</p>
+
+<p>It takes a little experimentation to get right, but is surprisingly easy to do. When properly set, a test track (or bass guitar) should be smooth from the highest bass note to the lowest, with no gross peaks or dips. Some are inevitable because of room resonances and the like, but you will find a setting that just sounds "right" with little difficulty.</p>
+
+<hr><b>Power Amplifier &amp; Drivers</b><br>
+I have had many requests for a high power amplifier, and my recommendation is to use the subwoofer amp (<a href="project68.htm">Project 68</a>). This is designed specifically for subwoofers. Now, if you wanted a really powerful sub, use two 300mm (12") woofers, with one 250W amp per speaker. A system such as this would be excellent, especially since the effective cone area is greater than the 380mm woofer I am using. A typical 300mm speaker has a cone area of about 0.05 m&sup2; versus 0.085 m&sup2; for a 380mm unit, so two 300mm speakers will have a total effective cone area of 0.1 m&sup2;. You could go all the way, with a 300mm driver on each face of a cube, with a 250W amp for each. 1500W of low bass should do the job, especially with a cone area of 0.3 m&sup2;.
+
+<p>This idea is not as silly as it sounds. With six 200mm (8") drivers, you would get a cone area of nearly 0.13 m&sup2; (about the same as a single 450mm (18") driver), and the box would still only be quite small at about 60 litres (my guess). There is a lot of scope for experimentation, with far less chance of a box being completely useless than with conventional ported designs.</p>
+
+<hr><b>Selecting Component Values</b><br>
+Now we get to the tricky bits. Naturally, you can build the circuit exactly as shown, and you'll get exactly the response indicated below. This has been verified using my speaker measurement software, which allows me to measure response down to 3Hz.
+
+<p>By changing component values, almost any desired response is possible, although this circuit is unable to produce a dip or notch. The enclosure therefore must be the optimum volume for the driver(s) selected. Use of smaller enclosures will result an a peak in the response, and also reduce efficiency even further than may otherwise be the case.</p>
+
+<center><img SRC="p48a-f2.gif" ALT="Figure 2" BORDER=1>
+<br><b><small>Figure 2 - Frequency Response of P48 (Component Values as Shown in Figure 1)</small></b></center>
+
+<p>If the circuit is built exactly as shown in Figure 1, you will get the response shown above. The response peaks at 18Hz, and rolls off at 12dB/octave either side of the peak. The unity gain frequency is 68Hz with gain set to maximum. In this configuration, the circuit behaves almost identically to the original P48, but the extreme bottom end is slightly better because of the filter built around U1B.
+
+<p>R9 and R12 are simply replaced with wire links, or suitable low-value resistors (100 ohms for example). To change the peaking frequency, simply alter the values of C1, C2, C3 and C4 as shown in the table below. In all cases, the peak is 16.8dB above the unity gain frequency. Values shown below are with the gain control at maximum (minimum resistance).</p>
+
+<center><table width="50%" border=1 style="border-collapse: collapse">
+<colgroup span=3 width="33%">
+<tr><td><b>C1, C2, C3, C4</b><td><b>Peak Freq.</b><td><b>Unity Gain Freq.</b>
+<tr><td>120 nF<td>15 Hz<td>57 Hz
+<tr><td>100 nF<td>18 Hz<td>68 Hz
+<tr><td>82 nF<td>22 Hz<td>83 Hz
+<tr><td>68 nF<td>27 Hz<td>100 Hz
+<tr><td>56 nF<td>33 Hz<td>122 Hz
+<tr><td>47 nF<td>39 Hz<td>145 Hz
+<tr><td>39 nF<td>47 Hz<td>175 Hz
+<tr><td>33 nF<td>55 Hz<td>205Hz
+</table>
+<b><small>Table 1 - Peak Tuning With Different Values For C1-C4</small></b></center>
+
+<p>To be able to use the P48 with a crossover, then you need to add resistance in series with the integrator capacitors. This produces response as shown below. Since the output is no longer attenuated at 12dB/octave for all frequencies, a tailored bass boost circuit allows the crossover frequency to be set, rather than relying on the speaker box alone. This provides a great deal of flexibility that was not available in the original version.</p>
+
+<center><img SRC="p48a-f3.gif" ALT="Figure 3" BORDER=1>
+<br><b><small>Figure 3 - Frequency Response When Varying R9, R12</small></b></center>
+
+<p>By increasing the values of R9 and R12, the response shown above can be obtained. If your speaker in the box has a -3dB frequency/resonance of (say) 55Hz, you'd use a value of 47k (as shown in the table below). For clarity, only four of the possible frequencies are shown above. As the speaker's -3dB frequency is reduced, so too is the amplitude of the peak. This ensures that the lowest frequencies are boosted by just the right amount to obtain a flat response.</p>
+
+<center><table width="50%" border=1 style="border-collapse: collapse">
+<colgroup span=3 width="33%">
+<tr><td><b>R9, R12</b><td><b>+3dB Freq.</b><td><b>Boost at 18Hz</b>
+<tr><td>10 k<td>246 Hz<td>32 dB
+<tr><td>12 k<td>205 Hz<td>29 dB
+<tr><td>15 k<td>162 Hz<td>26 dB
+<tr><td>18 k<td>134 Hz<td>23 dB
+<tr><td>22 k<td>112 Hz<td>20 dB
+<tr><td>27 k<td>90 Hz<td>16 dB
+<tr><td>33 k<td>74 Hz<td>14 dB
+<tr><td>39 k<td>63 Hz<td>11 dB
+<tr><td>47 k<td>52 Hz<td>9 dB
+<tr><td>56 k<td>44 Hz<td>7 dB
+<tr><td>68 k<td>36 Hz<td>5 dB
+</table>
+<b><small>Table 2 - Response With Different Values For R9 &amp; R12</small></b></center>
+
+<p>You only need to select the value that gives you the closest to your -3dB frequency (this is the same as the resonant frequency of the speaker in the box). Extreme accuracy is not needed, because the response of any subwoofer will vary widely once it's in a typical room. It's worth noting that any loudspeaker + box with a resonant frequency above ~70Hz will almost certainly perform poorly as a subwoofer, so R9 and R12 can be expected to be in the range from 39k to 68k.
+
+<p>As shown, this table assumes that the boost frequency peak is 18Hz, but there is no reason that a different frequency can't be used. One problem is that the interactions are fairly complex, and it is impractical to attempt to show every possibility. If the board is used only for subwoofers (as intended), the normal 18Hz peak frequency is expected to be ideal for most installations.</p>
+
+<hr><b>References</b><br>
+Please see the <a href="project48.htm" target="_blank">original P48</a> article for background information, references and other information.<br><br>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2009. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page Created and Copyright &copy; 12 Jan 2009.</div>
+</body>
+</html>

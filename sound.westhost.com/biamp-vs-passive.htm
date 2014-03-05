@@ -1,0 +1,244 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Active Vs. Passive Crossovers - what are the factors that make active the only choice for serious hi-fi? Driver control is not well understood, but perhaps this article will help.">
+	<!-- Active Vs. Passive Crossovers - what are the factors that make active the only choice for serious hi-fi? Driver control is not well understood, but perhaps this article will help. -->
+	<meta name="keywords" content="active, passive, crossover, xover, biamp, triamp, impedance, damping, factor, audio, diy, hi-fi, electronic">
+	<title>Active Vs. Passive Crossovers</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Active Vs. Passive Crossovers&nbsp;</td></tr></table>
+
+<p align="center">Copyright &copy; 2004 - Rod Elliott (ESP)<br />
+<small>Page Created 11 Jan 2004</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="articles.htm" OnMouseOver="document.t1.src='arrow.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br /><a href="index2.html" OnMouseOver="document.t3.src='a.gif';" OnMouseOut="document.t3.src='a1.gif';">
+<img SRC="a1.gif" NAME="t3" ALT="ESP Home" BORDER=0 height=24 width=40></a><b>Main Index</b><br /><br />
+
+<hr /><b>Contents</b>
+<ul>
+	<li><a href="#s1">1.0 &nbsp;Introduction</a>
+	<li><a href="#s2">2.0 &nbsp;How Many Ohms?</a>
+	<ul>
+		<li><a href="#s21">2.1 &nbsp;The Crossover - a Different View</a>
+		<li><a href="#s22">2.2 &nbsp;The Active Solution</a>
+		<li><a href="#s23">2.3 &nbsp;Other Network Orders</a>
+		<li><a href="#s24">2.3 &nbsp;Zobel (and Other) Networks</a>
+	</ul>
+	<li><a href="#s3">3.0 &nbsp;Conclusion</a>
+</ul>
+
+<hr /><a id="s1"></a><b>1.0 - Introduction</b>
+<p>In the article <a href="bi-amp.htm">Benefits of Biamping</a>, I discussed the many advantages that are to be had by using separate amplifiers for bass and mid+high. There is also a section devoted to tri-amping (for a typical 3-way system). Essentially, the ideal arrangement is to use a separate amplifier for each loudspeaker driver in the system. Although there are still many who consider this to be overkill, the advantages are so compelling that there is no reason not to adopt this approach as a matter of course.</p>
+
+<p>Of course, if the speaker arrangement uses two drivers in parallel (for example the well known MTM or D'Appolito topology), a single amp may drive both mid-woofers - dual amplifiers will usually not give any major benefit in this setup.</p>
+
+<p>One area of the original article was not covered in sufficient detail - driver control. While I firmly believe that the ideal situation is to damp a resonant body at the source, this is not always feasible or even possible. There is also the occasional driver that simply cannot be controlled from "an ohm away" - i.e. it may require that the source (amplifier) is hard-wired to the driver, with an absolute minimum of resistance or impedance between the two. Some compression drivers (for horn speakers) are an example, where even a few hundred milliohms may allow the driver to do "its own thing" rather than faithfully reproduce the applied signal.</p>
+
+<p>Driver control (AKA "damping factor" - somewhat erroneously IMO) is a much touted parameter, and is considered important by the majority of hi-fi enthusiasts/ audiophiles.  Indeed, even where a defined amplifier output impedance is used (such as 4 ohms, as used in my own system), this is done to provide a specific loading to the voice coil motor to control the back-emf that is developed in any electromagnetic loudspeaker driver. The most commonly sought after figure is zero ohms, implying an infinite "damping factor", but the laws of physics conspire to make this unrealistic.</p>
+
+<p>However, a damping factor of (say) 100 or more is easily achieved, even with typical loudspeaker cables and amplifiers ... or is it?</p>
+
+<center><img src="bvp-f1-1.gif" border=1 /><br />
+<small><b>Figure 1.1 - Typical 2<sup>nd</sup> Order Crossover</b></small></center>
+
+<p>There is no attempt on my part to add impedance compensation networks, notch filters, or any of the other typical additions to the circuit, and for convenience I have used purely resistive "speaker drivers". My one concession to a conventional design here is that I included 100m&Omega; resistance in the inductors. Any additional circuitry will affect the impedance seen by the driver - in some cases it will introduce an advantage, in others a disadvantage. I shall leave it to the reader to determine the specific differences (with a little guidance, of course).</p>
+
+<p>One may rest assured though, that the performance changes due to extra circuitry will only modify the performance to a marginal degree - the primary issues remain unchanged.</p>
+
+<hr /><b><a id="s2"></a>2.0 - How Many Ohms?</b>
+<p>For the sake of this discussion, we will assume a perfect amplifier, with an output impedance of zero ohms, and zero ohm speaker cables. I know this is unrealistic, but it shows the real situation very clearly - "real" components will be worse - always!</p>
+
+<p>The exact parameter we will examine is the impedance "seen" by the loudspeaker driver, over a range of frequencies from well below the crossover frequency, to well above. Conventional logic indicates that this should be as low as possible over the entire frequency range. There has been a concerted effort by amp makers to ensure that their products output impedances are as low as possible to satisfy this requirement. Valve (tube) amps are naturally different in this respect, although that is not part of this discussion.</p>
+
+<p>Figure 1.1 shows the crossover connections used, and the circuit is a conventional 2-way, 2<sup>nd</sup> order (12dB/octave) Butterworth type.  Note that <i>all</i> versions of crossover will have similar response characteristics, although there are significant differences that will be looked at a little later in this article.</p>
+
+<hr /><b><a id="s21"></a>2.1 - The Crossover - a Different View</b>
+<p>To see exactly what happens (and why), we need to redraw the crossover network so that it can be examined from the loudspeaker driver's perspective. As shown below, we see each section of the crossover (high and low pass). This is exactly the same crossover as shown in Figure 1.1, but redrawn. Since we are looking only at the damping, the amplifier is irrelevant and has been removed from the picture. It is assumed (along with speaker leads) to have zero impedance.</p>
+
+<p>Remember that for this exercise, we are looking at the impedance seen by the loudspeaker, as this has a direct effect on the ability of the amplifier to damp the back-EMF (Electro-Motive Force) from the motor assembly. The back-EMF is produced whenever the cone is moved by a current, or the current is removed or changes direction. Inertia of the cone and suspension means that it cannot move or stop instantly, so there will be "overshoot" and "undershoot" caused by the cone continuing to move after the applied current has stopped.</p>
+
+<p>A simple demonstration can be done to show that the speaker does indeed "generate" a voltage and current. Take a small speaker (not a tweeter), and connect it to an unused input on your preamp. Advance the gain of the amp <u>slowly</u>, whilst gently tapping on the cone. "Thump, thump" says your hi-fi. You can even speak into the loudspeaker, and it will act as a microphone.</p>
+
+<table width="100%"><tr><td><img src="note.gif" /></td>
+<td>Be careful - if you increase the gain too far, you may get acoustic feedback - potentially at <b>very</b> high volume levels. This will do little for your hearing, and may also damage loudspeakers. Make sure you keep the "microphone" as far from the speakers as possible to minimise the likelihood of feedback.</td></tr></table>
+
+<p>This simple test shows that loudspeakers do indeed generate a signal, and it is this signal that the amplifier is meant to absorb, by means of "damping factor". A back-EMF signal is generated <u>every time</u> your amplifier sends a signal that causes the cone to move - namely, all the time when you are listening to music (or home theatre). It is this signal that we will investigate in this article, and no other parameters. All dynamic (electro-magnetic) loudspeaker drivers do this - bar none. It should be obvious that if you short circuit the speaker that you used as a microphone, then you will hear no sound from it - this is maximum damping factor, and is what is <i>meant</i> to happen with your loudspeakers.</p>
+
+<p>The phenomenon that you have experienced by using a loudspeaker as a microphone also happens with your real speakers! The  woofer <i>will</i> produce a signal that is picked up by the midrange or tweeter, which in turn <i>will</i> generate a signal. This signal <i>should</i> be dissipated entirely by the amplifier to prevent (as far as is possible) the cone moving in sympathy with the soundwaves. As we shall see, this cannot happen as it should with a passive crossover!</p>
+
+<p>Even electrostatic drivers will do the same thing (although by a different mechanism entirely), but their mode of operation is such that the generated signal is of extremely small amplitude (perhaps a few millivolts at the very most). We shall not concern ourselves with this.</p>
+
+<center><img src="bvp-f2-1.gif" border=1 /><br />
+<small><b>Figure 2.1 - 2<sup>nd</sup> Order Crossover Redrawn</b></small></center>
+
+<p>The generators in series with each "driver" in the above diagram are to simulate the back-EMF from real-world drivers, and this is exactly the equivalent circuit that exists in reality. The only difference is that I used 8&Omega; resistors rather than the complex impedance of real drivers. This changes nothing, but makes the following graphs more comprehensible, without the wild fluctuations that would only confuse the issue.</p>
+
+<p>Figure 2.1 shows the crossover network as it is seen by the loudspeaker. The amplifier and speaker leads no longer exist, as they were assumed from the beginning to have zero impedance. The crossover now appears as a simple parallel LC network, with resonance tuned to the crossover frequency. For those who know what this means, the implication is obvious. For the remainder, we have a parallel tuned circuit, and with ideal components (no losses), its impedance is <u>infinite</u> at resonance!  That means that at resonance, there is no damping whatsoever, and the "damping factor" is ... zero!</p>
+
+<p>But wait - there's more! Let's look at the impedance of this network over a couple of octaves below and above the crossover frequency. This gives a more balanced perspective, and we can determine the effective damping over a sensible range. The damping within the stop band (i.e. the band of frequencies the crossover network section rejects) is not so important, as the signal applied to the driver is minimal anyway. There is still the potential for considerable energy within the first octave above the crossover frequency (X<sub>f</sub>) for a low pass section, and an octave below for a high pass section, so this is still of some importance.</p>
+
+<p>Figure 2.2 shows the impedance curve of a 2kHz XO, looking backwards from the loudspeaker into its crossover section. I have shown the low and high pass sections here, but they cannot be separated because they are identical (as one would expect, since the inductance and capacitance are in parallel in both cases). There may be small differences with real components having some tolerance, but they do not affect the picture significantly.</p>
+
+<p>Indeed, even adding a 1&Omega; resistor in series with the short circuit shown (and thereby introducing some real-world losses into the parallel networks), there is only a small change. Naturally, it does not improve the situation.</p>
+
+<center><img src="bvp-f2-2.gif" border=1 /><br />
+<small><b>Figure 2.2 - Crossover Network Impedance Seen by Loudspeaker (2<sup>nd</sup> Order)</b></small></center>
+
+<p>The high pass filter impedance response is shown in red, and the low pass in green, although only one is visible since they are perfectly overlayed.</p>
+
+<p>At one octave, the impedance is nominally the same as the design impedance, so for an 8&Omega; speaker, the network impedance is also 8&Omega; one octave above and below X<sub>f</sub>. This means that the driver sees a damping factor (DF) of one! And this with a perfect amplifier, and superconducting speaker leads. This is not only unexpected, but is potentially quite unsatisfactory, as there is little to damp the loudspeaker back-EMF, so allowing perhaps significant overshoot and undershoot, with inevitable "smearing" in the time domain. Transients will not be right, as the loudspeaker is still able to contribute a significant amount of its own "signature" to the reproduced sound.</p>
+
+<p>What about moving further away from X<sub>f</sub> ? Well, things improve, but not as much as you might expect or desire. At 2 octaves (500Hz and 8kHz), the parallel tuned circuit has an impedance of 3 ohms, so the DF is now ...</p>
+
+<blockquote>DF = Z<sub>speaker</sub> / Z<sub>source</sub> = 8 / 3 = 2.66</blockquote>
+
+<p>This is a far cry from the DF of between perhaps 50 to several hundred presented by the amplifier, and for many drivers may be unsatisfactory. Even at one decade (200Hz or 20kHz (i.e. 3.16 octaves either side of the XO frequency of 2kHz), the impedance is still 1.17 Ohms, giving a DF of only 6.8 - in a 3-way system, it is probable that the low-mid XO will be close by the 200Hz figure, and this will introduce even more problems!
+
+<p>In case you might be wondering, using a separate amplifier to drive each section of the crossover achieves exactly nothing. This arrangement is sometimes called "biamping" by those who know no better, but it is no such thing. I refer to it as "passive biamping" or "active biwiring". Whatever it may be called, it does nothing to fix the issues described, but it does add (needlessly IMO) to the cost and inconvenience of equipping your system.</p>
+
+<hr /><b><a id="s22"></a>2.2 - The Active Solution</b>
+<p>With an active crossover, the amplifier is connected directly to the driver, and the only thing between them is the loudspeaker cable. The amplifier presents the maximum damping factor at all times, regardless of frequency, and is not affected by the crossover network, since that is also active, and located before the power amp.</p>
+
+<p>The loudspeaker driver now has the maximum control that the amplifier can provide, across the entire frequency range - not just the crossover network's pass band. The difference in damping is quite obvious, and although some (very well behaved) drivers will show little improvement, the vast majority will be much better controlled, and this will show in an impulse measurement. Not at all uncommonly, it will also show up on a swept sinewave frequency response measurement as well, with the amplitude of peaks and dips generally reduced (albeit marginally in most cases).</p>
+
+<p>Well apart from the other advantages of an active system, this is perhaps one of the most compelling reasons to use an active system rather than passive. Not only is it possible to achieve the maximum damping, but if it is determined that a particular driver is best suited to some defined impedance, this can be provided by the amplifier, and will be stable across the frequency range.  In some cases, just a series resistor will be sufficient, and even though there will be some power loss, if it makes the driver behave the way it should, then any small power loss is a small price to pay.</p>
+
+<p>In short, there is simply no comparison between the two systems. A passive XO will <i>always</i> add (usually) undesirable impedance to that seen by the driver(s), the impedance is frequency dependent, and ranges from perhaps an ohm or so to almost infinite. The potential for uncontrolled cone movement, intermodulation distortion and loss of performance is so great that it is impossible to determine in advance, but it is all negated in one fell swoop by using a fully active system.</p>
+
+<center><img src="bvp-f2-3.gif" border=1 /><br />
+<small><b>Figure 2.3 - Block Diagram of an Active 2-Way Loudspeaker System</b></small></center>
+
+<p>Figure 2.3 shows the essential parts of an active 2-way system. This may be expanded to 3-way, and used with 3-way speakers, or 2-way speakers and stereo subs. Four-way systems - or more - are easily achieved. In contrast to a passive crossover (whether fully optimised or not), each driver has its own amplifier, and each amp has to reproduce less power, and over a narrower frequency range. This allows each amp to have an easier time with a less complex load, potentially reducing amplifier heating and overload - even at high listening levels. For a complete rundown of the other benefits, see <a href="bi-amp.htm">The Benefits of Biamping (Not Quite Magic, But Close)</a>.</p>
+
+<p>The important point here is that each driver has its own amplifier - there is nothing in between except for the cable, and amplifier control is maximised. The demands on the cable are also minimised (assuming that you believe this to be a critical component), and cheap speaker leads in an active system will provide far better performance than expensive leads with a passive crossover.</p>
+
+<hr /><b><a id="s23"></a>2.3 - Other Network Orders</b>
+<p>First, let's look at a 1<sup>st</sup> order (6dB/octave) network, as this is the network of choice for many audiophiles. Notwithstanding any other problems it may have (due to the shallow rolloff slope), the impedance seen by the drivers is shown below.</p>
+
+<center><img src="bvp-f2-4.gif" border=1 /><br />
+<small><b>Figure 2.4 - Crossover Network Impedance Seen by Loudspeaker (1<sup>st</sup> Order)</b></small></center>
+
+<p>Again, the high pass filter impedance response is shown in red, and the low pass in green. At the crossover frequency, the impedance is equal to the speaker design impedance, or 8&Omega; in this case. This provides a DF of 1 - significantly better than a second order filter, but still somewhat shy of ideal. At 1 octave below X<sub>f</sub>, the low pass section shows 4&Omega; - still better than the second order which gave a DF of 2.66 at the same frequency.  At one decade, impedance is around 800m&Omega;, again, an improvement over the second order filter. Unlike second order filters, a first order filter keeps increasing its impedance in the stop band, and at 1 octave above or below X<sub>f</sub>, stop band impedance is 16&Omega;, rising to 80&Omega; at one decade.</p>
+
+<hr />
+<p>Third order crossovers (18dB/octave) are favoured by many people. They are not as savage as fourth order, and for passive networks are seen as a nice compromise. Reasonably fast rolloff, and no phase reversal as you get with a second order filter. There is also the benefit that you don't need to bother with a Linkwitz-Riley alignment, because 18dB filters should sum flat because of the 90&deg; phase shift between the drivers. However, all is not as rosy as it might appear.
+
+<p>As before, the graph shows the impedance from the speakers, looking back towards the amplifier. The amp and speaker leads are assumed to be ideal - having zero resistance, and therefore the input of the crossover network is simply a short circuit.</p>
+
+<center><img src="bvp-f2-5.gif" border=1><br />
+<small><b>Figure 2.5 - Crossover Network Impedance Seen by Loudspeaker (3<sup>rd</sup> Order)</b></small></center>
+
+<p>Here is where things get <i>really</i> interesting (colours as before). Note that there are two peaks of almost infinite impedance (the maximum is not shown, but will typically be in excess of 200&Omega;). These are at 1.4kHz (theoretically 1.414kHz in fact) for the low pass section, and 2.8kHz (2.828kHz) for the high pass.  This means that there is a point where the loudspeaker driver sees almost infinite impedance to back-EMF, <u>within the normal passband!</u> That this will cause some unexpected results is fairly obvious, but it is unpredictable unless you know the drivers' behaviour at these frequencies ... when driven from source that has frequency dependent damping.</p>
+
+<p>What of the other frequencies - 1 octave and one decade away from the crossover frequency? Because of the behaviour of the third order network, we need to look at X<sub>f</sub> as well.</p>
+
+<p>Impedance at X<sub>f</sub> is 8.45&Omega;, and at 1 octave either side of that frequency, the impedance is about 13&Omega;. This gives a DF of 0.95 at X<sub>f</sub>, and 0.6 at the one octave points (within the passband - impedance is much lower in the stopband, at around 4.7&Omega;). At one decade, passband impedance is 1.58&Omega; and stopband impedance is about 39&Omega;.</p>
+
+<p>Interestingly, the impedance seen by the drivers in the stop-band (again at those "magic" frequencies of 1.414kHz and 2.828kHz) is extremely low, at only a few milli-ohms. This is clearly visible in Figure 2.5 but is probably of little consequence in reality.</p>
+
+<hr /><b><a id="s24"></a>2.4 - Zobel (and Other) Networks</b>
+<p>By adding (for example) a Zobel or series LC network to the tweeter to reduce the effect of the impedance peak at resonance, the impedance seen by the tweeter will be lower than indicated above. The woofer is (of course) unchanged by this, but again, a woofer Zobel used to equalise the rising impedance due to voice-coil inductance <i>will</i> have an effect.</p>
+
+<p>Don't imagine for an instant that it will cure the problem, because it won't. The impedance to back-EMF will still be a great deal higher than you ever imagined, and damping factor will be around unity at best. There is no network that can be placed in parallel with the loudspeaker that will solve the problem, with the possible exception of a 0.1&Omega; resistor!</p>
+
+<p>That would be a very bad idea indeed, <u>unbelievably very bad</u> in fact. Your amplifier would see almost a dead short, and even if the amp had an infinite current capacity, a 10W amp would be expected to produce 800 Watts (<i>all dissipated as heat in the 0.1&Omega; resistor!</i>).  Don't even think about it!</p>
+
+<p>But ... there <b>is</b> something you can do. It is called an active system, and you can at last obtain the genuine damping that any amplifier can produce, which is always going to be better than any passive crossover can provide.</p>
+
+<p>What of bi-wiring or "passive biamping"? Not a sausage worth of difference, I'm afraid. Certainly, there may be some minor improvements in some cases, but they have nothing to do with driver damping. In my opinion, passive biamping (using two amps, but retaining the passive crossovers) is a waste of an amplifier. The same two amps with an active crossover (with the passive XO removed completely from the circuit) will outperform the passive biamp arrangement by such a margin that it's not even worth <i>considering</i> - let alone actually doing it.</p>
+
+<hr /><b><a id="s3"></a>3.0 - Conclusion</b>
+<p>This aspect of active versus passive crossovers has received scant attention elsewhere, but it is very obvious that it is a major contributor to the audible difference between the two systems, even when all else <u>seems</u> equal. As has been shown, there is a major difference between the two types of speaker management, and this is probably the most significant (and important) distinction.</p>
+
+<p>It must be understood that passive networks appear to be of sensibly low impedance from the amplifier's perspective, but behave entirely differently towards the driver's back-EMF. This seemingly contradictory situation is caused by the low output impedance of the amplifier, and this causes the impedance of the crossover filters to be asymmetrical (input-output vs. output-input).</p>
+
+<p>Nothing here is magic, nor is it falsified or "tarted up" for the purposes of this article. Remember that I already stated that we would assume a zero impedance source for all tests. Note that <u>every</u> test shown here can be easily duplicated, using nothing more than a signal generator and a small amplifier wired in series with the loudspeaker (as depicted in Figure 2.1). You will not be able to measure impedance directly, but the voltage obtained at the crossover's output terminal is directly related to the impedance.</p>
+
+<p>It is very apparent that with a passive crossover, things are not as we would like them to be. Each variant has problems, and as with all things, a passive crossover is a compromise. IMO, this is not a compromise I am willing to make, as the performance is too unpredictable - this explains why so many passive designs require a considerable amount of tweaking before they sound their best - and may still disappoint the listener in critical listening sessions.</p>
+
+<p>One of the great claims (which is completely true) for first order crossovers is that they have excellent transient response. This may well be true of the filter, but what of the loudspeaker? The degree of control offered is not good, although surprisingly (or not), it is better than second or third order filters. All passive filters will cause the amplifier to have a rather tenuous grip on the driver behaviour at best, and in extreme cases may allow a speaker to go "AWOL" at some frequencies.</p>
+
+<p>In contrast, an active design minimises these problems. The driver is under the control of the amp to the maximum extent possible, regardless of frequency, passband, stopband, topology, order, etc. The use of high order (e.g. 24dB/octave Linkwitz-Riley) filters is seen by some audiophiles as a retrograde step, since transient performance is much worse than low-order filters. Be that as it may, the additional control that the amp has over the driver's behaviour <i>improves</i> the transient performance, and especially so at (or near) the crossover frequency - the most critical frequency point(s) in the design of any loudspeaker.</p>
+
+<p>In this day and age, amplifiers and active crossovers can be built for (almost) peanuts - ok, not <i>great</i> amplifiers perhaps, but when used in an active system they can <i>still</i> outperform a megabuck top-of-the-line amp driving the same loudspeaker drivers through a passive crossover network.</p>
+
+<p>The next step will be (of course) digital crossovers.  I have one, and the ability to fine tune the network, apply delay to fully time align the respective loudspeakers, and the sheer control that each amplifier has over each connected driver, means that it is possible to make loudspeakers better than ever before. I use my digital xover for loudspeaker testing and development - my listening system uses an analogue 24dB/octave L-R crossover, and "time alignment" is achieved by reversing the phase of the tweeter. Not perfect, but it outperforms just about anything else I've heard. A full digital loudspeaker management system may be the next addition - I already know how good it will sound (i.e. much the same as it does now <img src="grin.gif" /> ).</p>
+
+<p>Despite the emergence of DSP (digital signal processor) boards at ever decreasing prices, analogue filters are still viable and cost effective. Low cost DSPs are available that can provide the crossover and added equalisation, but I've not listened to one at this stage. Despite the claims that DSPs can "do everything", the reality is often quite different. It's usually better to ensure that all DSP stages operate at close to their maximum level at all times. If the input is varied over the full range expected, the number of effective bits is reduced and the sound can become very "grainy" at low volumes. True 24-bit systems are not usually greatly affected, but the filters and equalisers themselves also reduce effective bit depth. I have a 24-bit digital 1/3 octave graphic equaliser, and it becomes unusable at low input levels with even moderate EQ.    
+
+<p>Adding digital bells and whistles makes great sales copy, but it should not be considered a requirement to get good sound. While a DSP can filter out some objectionable noises from some loudspeaker drivers, this is <i>not</i> the way they should be used. A bad driver is still a bad driver, even if it is equalised up the Khyber to make it "flat". For some reason, it is assumed that achieving flat response will cure the inherent problems of some problematical loudspeakers, but this is not the case IMO.</p>
+
+<p>The days of the analogue active crossover are far from numbered, and this is still the best way for most of us to get the very best from available loudspeaker drivers, and with far fewer compromises than would be the case for a passive system. The overall cost will not be greatly higher for the DIY types, and the chances of success are improved beyond compare. If you happen to have an extra amp sitting around, the cost is next to nothing, and even if you decide not to continue many of the parts can be reused in another project. 
+
+<p>Not considered an active system yet? Do yourself a favour - it is extremely unlikely that you'll ever regret it.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2004. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 11 Jan 2004./ Updated 29 Jan 2011 - added more info for 3rd order filter + added to conclusion.</div>
+</body>
+</html>

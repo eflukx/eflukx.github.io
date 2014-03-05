@@ -1,0 +1,562 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Troubleshooting techniques for audio electronics - if your project doesn't work, what should you look for?  This articles explains basic techniques for fault finding and repair techniques.">
+	<!-- Troubleshooting techniques for audio electronics - if your project doesn't work, what should you look for?  This articles explains basic techniques for fault finding and repair techniques. -->
+	<meta name="keywords" content="troubleshooting,trouble,shooting,fault,finding,fix,repair,projects,audio,diy,fi-fi,electronic">
+	<title>Troubleshooting &amp; Repair Guide</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Troubleshooting &amp; Repair Guide&nbsp;</td></tr></table>
+
+<p align="center"><small>Copyright &copy; 2003 - Rod Elliott (ESP)<br />
+Page Created 24 Apr 2003<br />
+Updated May 2011 - Added Figure 1A &amp; Text</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br><a href="index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" ALT="Main Index" BORDER=0></a><b>Main Index</b><br>
+
+<hr /><b>Contents</b>
+
+<ul>
+  <li><a href="#intro">1.0 &nbsp; Introduction</a></li>
+  <li><a href="#comm">2.0 &nbsp; Common Problems</a><ul>
+    <li><a href="#comm1">2.1 &nbsp; Bad Solder Joints</a></li>
+    <li><a href="#comm2">2.2 &nbsp; Incorrect Components</a></li>
+    <li><a href="#comm3">2.3 &nbsp; Oscillation</a></li>
+    <li><a href="#comm3">2.4 &nbsp; Schematic Errors</a></li></ul></li>
+
+  <li><a href="#tools">3.0 &nbsp; Troubleshooting Tools</a><ul>
+    <li><a href="#tools1">3.1 &nbsp; Multimeter(s)</a></li>
+    <li><a href="#tools2">3.2 &nbsp; Signal Source</a></li>
+    <li><a href="#tools3">3.3 &nbsp; Oscilloscope</a></li>
+    <li><a href="#tools4">3.4 &nbsp; Dummy Load</a></li>
+    <li><a href="#tools5">3.5 &nbsp; Power Supply</a></li></ul></li>
+
+  <li><a href="#most">4.0 &nbsp; Most Common Failures</a><ul>
+    <li><a href="#most1">4.1 &nbsp; Shorted Supplies</a></li>
+    <li><a href="#most2">4.2 &nbsp; Output Stuck to Supply</a></li>
+    <li><a href="#most3">4.3 &nbsp; Distortion</a></li>
+    <li><a href="#most4">4.4 &nbsp; Spontaneous Failure</a></li></ul></li>
+
+  <li><a href="#volts">5.0 &nbsp; Voltage Measurements</a><ul>
+    <li><a href="#volts1">5.1 &nbsp; General Principles</a></li>
+    <li><a href="#volts2">5.2 &nbsp; Example</a></li>
+    <li><a href="#volts3">5.3 &nbsp; Summary</a></li></ul></li>
+
+  <li><a href="#tests">6.0 &nbsp; Component Testing</a><ul>
+    <li><a href="#tests1">6.1 &nbsp; Transistor Quick Test</a></li>
+    <li><a href="#tests2">6.2 &nbsp; Other Components</a></li></ul></li>
+
+  <li><a href="#opamp">7.0 &nbsp; Opamp Tests</a></li>
+  <li><a href="#earth">8.0 &nbsp; Earthing (Grounding)</a></li>
+  <li><a href="#remove">9.0 &nbsp; Removing Dead Components</a></li>
+  <li><a href="#test">10.0 &nbsp; Testing</a><ul>
+    <li><a href="#test1">10.1 &nbsp; Power Up</a></li>
+    <li><a href="#test2">10.2 &nbsp; Voltage Checks</a></li>
+    <li><a href="#test3">10.3 &nbsp; First Power Test</a></li>
+    <li><a href="#test4">10.4 &nbsp; Final Test</a></li></ul></li>
+
+  <li><a href="#s11">11.0 &nbsp; Preamplifier Tests</a></li>
+  <li><a href="#s12">12.0 &nbsp; Terminology</a></li>
+  <li><a href="#s13">13.0 &nbsp; Conclusions</a></li>
+  <li><a href="articles/troubleshoot2.htm">Part 2 (Opamp Circuits)</a></li>
+</ul>
+
+<hr /><a id="intro"></a><b>1.0 &nbsp; Introduction</b>
+<p>Having finished your masterpiece, it is with some distress that you find that it doesn't work. Such failures range from instantaneous meltdown upon power-up (remember the safety resistors I always suggest? Now you know why!), through to strange noises, intermittent behaviour, etc., etc.</p>
+
+<p>It is not possible to write an article that covers every possibility, but hopefully the material presented here will get you underway with as little pain as possible.</p>
+
+<p>One of the points I have made in a number of places on my site is that if the project does not work, you have almost certainly made a mistake. While I will usually do what I can to help you to get the project working, there is only so much I can do, and it is your responsibility (<i>not</i> mine) to find out what you did wrong.</p>
+
+<p>Since basic troubleshooting techniques are not widely known - or so it seems, I get a great many requests for help, and have to try to diagnose what went wrong from the description I am given. It almost goes without saying that many of the descriptions leave me wondering what I <i>am</i> being asked.  This is not to blame the person asking, but shows that even terminology can be very misleading. There is a <i>huge</i> difference between "hum" and "buzz", but if you don't realise that, then I have to either figure out the most likely (correct) term from the description, or ask.</p>
+
+<p>This information should be read in conjunction with the <a href="amp_design.htm" target="_blank">Amplifier Design</a>  and <a href="amp-basics.htm" target="_blank">How Amps Work</a> articles, and you <i>will</i> need a copy of the amplifier's circuit diagram (schematic) as reference. I have been very general in this description, since there are a great many amplifier designs both on my site and elsewhere, and if the descriptions were specific to only one design, you may have great difficulty when working on something different.</p>
+
+<p>To be excellent at fault finding, you need to understand how the circuit works - this allows you to make informed decisions, to know what to look for (and where), and to recognise instantly if a voltage reading is right or wrong. I never said that this was simple!</p>
+
+<p>I have made one major assumption in this article - the forward voltage drop of a diode (or a transistor junction) is nominally 650mV (0.65V), but it can vary by a considerable margin. In most descriptions that follow, I will assume 650mV, but expect to see anywhere between 0.55V to 0.75V, depending on type, current, etc.</p>
+
+<hr /><a id="comm"></a><b>2.0 &nbsp; Common Problems</b>
+<p>There are quite a few common issues that you will be faced with from time to time. If one channel of a stereo project works and the other does not, this makes fault finding a lot easier, since you have a reference that you can use. This applies to voltage readings, resistance measurements, etc., and also eliminates some of the more common errors - for example leaving the zero volt return line off when the amp is wired into circuit. (If you do that, neither channel will work.)</p>
+
+<p>Having said that, with any of the PCB projects on The Audio Pages, if it does not work, then you have made a mistake. There are some occasions where new components are faulty or incorrectly marked, but other than fake power transistors these are very rare. You do need to be aware that new components can be faulty, but in general, suspect your own work first.</p>
+
+<p>The following basic guides indicate some of the most common project failures ...</p>
+
+<p><a id="comm1"></a><b>2.1 &nbsp; Bad Solder Joints</b><br>
+When completed, a solder joint should be clean, shiny, and show a perfect adhesion to both the component lead and the PCB. If there is any sign of the solder being "frosty", sitting on the PCB as a "blob", or not flowing up the component lead in a nice smooth arc, then the solder joint is incorrectly made. It may appear to work, but the contact is/may be pressure based, rather than alloy based as it should be (solder forms an "alloy", or molecular metal bond between the solder, component lead and PCB). For an excellent tutorial on basic techniques (and what <i>not</i> to do), see <a href="http://www.epemag.wimborne.co.uk/solderfaq.htm" target="_blank">www.epemag.wimborne.co.uk/solderfaq.htm</a>. There are a great many such sites on the web, and a web search for "soldering techniques" will find you a broad cross section for reference.</p>
+
+<p>The most important thing about making an excellent (as opposed to disgusting or barely ok) solder joint is cleanliness! The component leads, PCB and soldering tip must be completely free from any contamination - burnt flux, melted plastic, oxides, old solder, etc. must be removed. Make sure that the component cannot move as the solder cools, and ensure that your soldering iron (or station) can supply the right amount of heat. To much heat will burn the flux (and even the solder itself!) and may damage the component. Too little heat makes a "cold" joint, where the solder just sits in blobs but does not make a metallic bond.</p>
+
+<p><a id="comm2"></a><b>2.2 &nbsp; Incorrect Components</b><br>
+All components must be inserted in the correct place, as shown on the PCB overlay and/or other instructions. While this may seem obvious, it is the most common form of "component failure" - the component is not faulty per se, but if it is in the wrong place it will affect the operation of the circuit. This is made worse by the fact that many components use "strange" markings, and it is not always easy to figure out what the value is supposed to be.</p>
+
+<p>With resistors, unless you know the colour code very well, it is a good idea to measure all colour coded resistors before insertion. This is especially true with 1% 4-band codes, as they can be very confusing - even for professionals! There is some information about basic components, markings, etc., in the articles section of this site (see <a href="articles.htm" target="_blank">Articles</a>). This is not comprehensive, and cannot be - there are just too many different devices available to cover them all.</p>
+
+<p>Always, <i>always</i>, make sure that you download the manufacturers data sheet for transistors, ICs etc. It is not uncommon that suppliers will substitute brand name parts with "equivalents" - these may (or may not) be as good as the original, but they may also have different pinouts.  The only way to know for sure is to get the data sheet from the company who actually made the device you have - this applies mainly to semiconductors, but also may be of concern for relays, some electrolytic capacitors (especially power supply filter caps), and other components as well. For semiconductors, most will be fine, but expensive power output transistors are regularly counterfeit! See <a href="counterfeit.htm">Counterfeit Transistors</a> for more information on this topic.</p>
+
+<p>Occasionally, you will get a brand new, brand name component that is faulty. Irritating? Of course it is, but also inevitable. This is where you really do need to hone your fault finding skills, since it is clearly not the result of a mistake on your part. These faults can be difficult to find, and require a disciplined approach to troubleshooting to repair.</p>
+
+<p><b><a id="comm3"></a>2.3 &nbsp; Oscillation</b><br>
+The Zobel resistor in most amps is at the output, and is in series with a cap - typically 100nF, but this varies. If the resistor goes up in smoke and/or the amp gets hot <i>fast</i>, either the amp is oscillating, or you are trying to amplify too high a frequency.</p>
+
+<p>Oscillation is caused by using the wrong value compensation cap (typically between 47 and 220pF), or (and more likely) having input wiring too close to speaker wiring. Input cables to power amps should <u>always</u> be shielded, and kept as far away as possible from DC power leads, mains transformers and wiring, speaker leads and connectors, etc. In some cases, it may be necessary to provide shielding between the input circuits and power amp.</p>
+
+<p>During testing, the heatsink may not be earthed to the power supply common. In some cases, this can cause oscillation because the heatsink acts as an antenna - as does the input lead if it is not shielded. Always earth the heatsink - even for just a quick test.</p>
+
+<p>Speaking of heatsinks, <i>never</i> operate any power amplifier without its heatsink. The devices can overheat very quickly, and are easily damaged by the excess temperatures. A small clamp may be used to attach a temporary heatsink if you are in that much of a hurry, but make sure that you monitor temperatures carefully.</p>
+
+<p><b><a id="comm4"></a>2.3 &nbsp; Schematic/ PCB Errors</b><br>
+I am pleased to be able to say that there are few (if any) schematic errors on The Audio Pages. This is not always the case however, and there are many errors to be found in schematics on the Web (some circuits published won't work at all, or will stress all components way beyond their ratings), and even established and normally reliable magazines can (and do) make mistakes. Sometimes these mistakes will prevent a circuit from working at all, so be warned.</p>
+
+<p>While there may be the occasional PCB error in some of the project PCBs, the error is clearly explained in the construction notes, and will usually only be minor - major mistakes require the artwork to be re-done (which is expensive), but no ESP circuit board requires any modification - track errors are fixed, regardless of the cost.</p>
+
+<p>It goes without saying that if you do find a mistake in any of the ESP projects (PCB, schematic or construction details), then please let me know - this is the main reason that there are so few - people <i>do</i> let me know, and I appreciate the feedback. If you find a mistake in someone else's project however, I <i>don't</i> want to know - tell the author - not me.</p>
+
+<hr /><b><a id="tools"></a>3.0 &nbsp; Troubleshooting Tools</b>
+<p><b><a id="tools1"></a>3.1 &nbsp; Multimeter -</b> To be able to do even the most basic fault finding, you will need at the very least a multimeter, and preferably two. Most people prefer digital meters, but if you know how to use an analogue meter you may find things that a digital will miss.</p>
+
+<p>You need to be able to measure ...</p>
+
+<ul>
+	<li>Volts, both AC and DC, from a few millivolts to 100V (or more)</li>
+	<li>Amps, DC only is sufficient, but preferably up to at least 2A</li>
+	<li>Ohms, from less than 1 ohm up to 10 Megohms</li>
+	<li>Other functions (transistor tests, capacitance, frequency) are useful, but not essential</li>
+</ul>
+
+<p><b><a id="tools2"></a>3.2 &nbsp; Signal Source -</b> You also need a signal source. While a walkperson (for example) is useful, it is not a good source of proper test signals, and is therefore limited. There are several PC based audio oscillators available on the Web, and these are fine (if a little inconvenient). Ideally, an audio oscillator should be used, see the Projects Pages for details of test gear you can make quite cheaply.</p>
+
+<p><b><a id="tools3"></a>3.3 &nbsp; Oscilloscope -</b> For some tests, an oscilloscope is almost essential. While few hobbyists can justify the purchase of such an expensive piece of test gear, for many professionals the CRO (Cathode Ray Oscilloscope) or 'scope, is the first thing that is attached to anything that does not work. Again, there are many PC programs that allow you to use your computer as a basic oscilloscope. By nature, most soundcards are limited to 20kHz upper frequency, so such PC based tools will not find all problems.</p>
+
+<blockquote><b>Warning:</b> An oscilloscope cannot be used in the same way as a multimeter (unless a self contained hand-held unit is used), since one probe terminal is connected to the chassis, and thence to mains safety earth. <u>Never, ever</u> disconnect the safety earth from an oscilloscope - this is an invitation to disaster, death and/or destruction of something or someone, at some time. This is an extremely dangerous practice.</blockquote>
+
+<p><b><a id="tools4"></a>3.4 &nbsp; Load -</b> A "dummy load", usually a high powered resistor or bank of resistors, and ideally switchable to 4 or 8 ohms. This enables you to perform full power tests without the noise, and if a fault develops, the load just gets hot, but your speakers do not get fried. If desired, you can have a 47 ohm 10W resistor from each terminal of your load to an external speaker, so you can monitor the output signal.</p>
+
+<p>A load resistor bank can also be immersed in oil (light engine oil is fine) or water if you have a lot of power to dissipate. Water is the best for removing heat, but may cause corrosion if used with DC. Do <i><u>not</u></i> use glycol based coolant (car engine coolant). It is quite conductive, and forms very nasty corrosion - especially with DC. Your dummy load should be able to be used to test power supplies, and the DC will cause the resistor leads to be eaten away by corrosion and electrolysis. I actually didn't expect problems with glycol, but it is useless for dummy loads and must never be used. Light engine oil (clean) is my personal favourite, and that's what I use to cool my load, which has been subjected to up to 1kW at times. I've been using the same load for well over 30 years, and it has never failed.</p>
+
+<p><b><a id="tools5"></a>3.5 &nbsp; Power Supply -</b> A bench power supply is immensely useful, but possibly even more useful is a variable voltage transformer ("Variac&trade;"). This allows you to make any power supply variable, and the amplifier voltage can be slowly increased while monitoring the amplifier's output voltage (and supply current with your second multimeter). Another useful test tool for those who cannot justify the expense (again, Variacs are not cheap) is a "lamp lead" - a standard light bulb (100W is usually about right), carefully wired in series with a mains lead (and properly insulated!). An amp with a short circuit fault will cause the lamp to glow at full brightness, but a normal load will cause the lamp to flash brightly for a moment, then settle down to a steady dull glow.</p>
+
+<p>One of the most essential power supply tools is a pair of 10 Watt resistors, between 10 and 22 ohms (or as suggested in the project article). These must be used in series with the supply leads before applying power, and limit the current to a (hopefully) safe value, especially when used in conjunction with a Variac or lamp lead.</p>
+
+<p>Now that you have the fault finding tools, we can continue on to making some actual measurements.</p>
+
+<hr /><b><a id="most"></a>4.0 &nbsp; Most Common Failures</b>
+<p>This is the part where it all comes together. The first thing to do when you know an amp is faulty, is to determine the exact nature of the fault. Does it short out the supply (safety resistors get hot), or does the output swing to one rail or the other and refuse to leave? Perhaps it seems to be alright, but is badly distorted. Make sure that you identify the fault completely - there is no point chasing a fault that was incorrectly diagnosed!</p>
+
+<p><b><a id="most1"></a>4.1 &nbsp; Shorted Supplies</b><br>
+First, let's look at a "shorted" supply. This is most commonly caused by shorted output or driver transistor(s), but may also be the result of any of the following ...</p>
+
+<ul>
+	<li>Incorrectly installed transistors - PNP instead of NPN (or vice versa), either as drivers or output devices</li>
+	<li>Shorts between transistor case and heatsink, due to a punctured mica washer</li>
+	<li>Open circuit bias servo circuit. The bias servo is the transistor and pot that generates the bias voltage needed to keep the transistors
+	conducting at just the right level to avoid crossover ("notch") distortion. An incorrectly installed transistor, faulty (open circuit, wrong
+	value, or improperly adjusted) pot, dry solder joint or broken track can all cause the output transistors to turn on fully when power is
+	applied.  In some designs, the bias "servo" is simply two or more diodes, and may also have a series resistor.</li>
+	<li>Solder bridges between tracks or component pads.</li>
+</ul>
+
+<p>The first thing to determine is if the short is "hard" or "soft". A hard short will show up as a very low resistance between the supply rails (less than 1 ohm), when measured with a multimeter with no power applied. Hard shorts always indicate either blown transistors, solder bridges or punctured mica washers. If you are lucky, it will be either of the second two, but don't get your hopes up. Hard shorts are unusual in an amp that has just been built and is being tested for the first time (using the safety resistors!).</p>
+
+<p>A soft short is identified by the fact that a resistance measurement between the supply rails to each other, the output and earth (ground) does <i>not</i> show a very low resistance (less than (say) 650 ohms or so). Resistance readings of around 600-700 ohms are possible in one direction (this is actually a voltage, and is developed across diode junctions either on real diodes, or within the junctions of transistors). Resistance may be the same or much higher in the other direction - swap the meter leads for all such tests so you measure with both polarities. You almost certainly have a component (power transistor or driver) installed incorrectly if you get a soft short, but a faulty bias servo will create the same effect.</p>
+
+<p>If you can vary the voltage, determine the voltage where the soft short comes into play. It is very rare for soft shorts to be present at extremely low voltages (less than +/-1 or 2 Volts), but if it is, then something is installed incorrectly.</p>
+<p>See <a href="#tests">Component Tests</a> (below). These techniques will isolate 99% of all soft short problems.</p>
+
+<p><b><a id="most2"></a>4.2 &nbsp; Output Stuck to Supply</b><br>
+When the output voltage "sticks" to one supply or the other, there are (as always) several possibilities. In order of likelihood, these are as follows ...</p>
+
+<ul>
+	<li>Incorrectly installed components</li>
+	<li>Solder bridges between tracks or component pads.</li>
+	<li>Dry (or cold) solder joint(s)</li>
+	<li>No earth return between amplifier and power supply</li>
+	<li>Broken tracks</li>
+	<li>Faulty transistor(s)</li>
+</ul>
+
+<p>If one output or driver transistor is shorted, this does not cause rail sticking, it causes a soft short. Rail sticking can be the result of an open circuit transistor, possibly in conjunction with its opposite being shorted. These faults can be found with a multimeter (as described above). It is important to eliminate blown devices early, or you will spend a lot of time trying to find the problem in the wrong place. A common error is to leave off (or forget) the power supply earth return - this gives a similar effect to supply rail sticking, but it usually happens slowly (several hundred milliseconds to several minutes)</p>
+
+<p>A stuck rail can be caused by any of the following faults closer to the input ...</p>
+
+<ul>
+	<li>Open circuit feedback resistor (or track)</li>
+	<li>Open circuit (or simply non conducting) class-a driver transistor</li>
+	<li>Open circuit (or simply non conducting) current source/sink transistor</li>
+	<li>Open circuit bootstrap resistor chain</li>
+	<li>Solder bridges between tracks or component pads.</li>
+	<li>Incorrectly installed transistors, diodes, LEDs, etc. (As always, and anywhere)</li>
+	<li>Non-functional long tailed pair input circuit/ error amplifier.</li>
+</ul>
+
+<p>Again, the hard part is finding the fault, and this is where the next section will be useful. The most common problem by far is still incorrect components, but when a visual check fails to find the problem, then you need to measure voltages.</p>
+
+<p><b><a id="most3"></a>4.3 &nbsp; Distortion</b><br>
+Distortion comes in many flavours, but may be roughly categorised as "gross" or "subtle". Both are in reality "gross", but from a testing perspective it is essential to separate the two somehow. I would consider gross distortion as being a state where only half of the signal is reproduced. From a listening perspective, this is way beyond mere gross - it is totally unlistenable! "Subtle" distortion is also unlistenable, but some people don't notice it (true).</p>
+
+<p>Should only half the signal be reproduced (or a small amount of one polarity and the full amount of the other), then you almost certainly have an open circuit somewhere in the driver or output stage. It may be an open transistor (rare) but is more likely to be ...</p>
+
+<ul>
+	<li>A bad solder joint, leaving part of the output stage inoperable</li>
+	<li>Incorrectly installed components (as always)</li>
+	<li>A fault in the Class-A driver circuit, such that there is insufficient current to drive one output or the other</li>
+</ul>
+
+<p>This is where an oscilloscope is almost essential - faults of this nature are very hard to diagnose if you can't see the waveform. The above fault list will help you to solve most gross distortion problems relatively easily.</p>
+
+<p>Subtle distortion is more insidious, as there are several possibilities. Again, very difficult to determine without an oscilloscope, but voltage measurements <i>will</i> isolate some of the more likely issues. The things to look for are ...</p>
+
+<ul>
+	<li>Incorrectly set quiescent (idle or bias) current</li>
+	<li>Faulty or shorted bias servo</li>
+	<li>Solder bridges between tracks or component pads.</li>
+	<li>Parasitic oscillation</li>
+</ul>
+
+<p>The first three are easy enough to test, requiring only a multimeter. A few measurements will isolate the problem fairly quickly, and all should be well.</p>
+
+<p>Parasitic oscillation is a lot harder, and usually needs an oscilloscope. I can say with confidence that the designs on the ESP website will be free from parasitic oscillation provided that all normal precautions against continuous oscillation are taken - earthed heatsink, shielded input leads (separated from output or DC wiring), and input connectors a sensible distance from output connectors (or shielded by an earthed metal cover).</p>
+
+<p>Also, make sure that bypass capacitors are fitted as required, and keep DC supply lines as short as possible. Distortion tests will almost <i>always</i> require a load to show up. While a small amount of distortion may be visible with no load, most will reveal themselves either fully or partially with as little loading as 20 ohms or more at the speaker output.</p>
+
+<p><b><a id="most4"></a>4.4 &nbsp; Spontaneous Failure</b><br>
+The amplifier has been working for some time (from minutes to weeks) then fails. You have eliminated nearly all of the potential construction faults, since the amplifier has shown that it does (or did) work. Unfortunately, this does not make your job any easier.</p>
+
+<p>One of the most common problems in the case of spontaneous failure is counterfeit power transistors. See the article <a href="counterfeit.htm" target="_blank">Counterfeit Transistors</a> for more information on this topic. Other things to look for are ...</p>
+
+<ul>
+	<li>Infant Mortality - the term usually used to describe components that fail a short time after a device is first used. Most common failures
+	are semiconductors - specifically transistors or ICs, but other components may be affected as well (electrolytic capacitors - rare but it
+	happens, diodes, zeners, etc.) Infant mortality failures are not as uncommon as you may hope for, but are still comparatively rare. This is
+	completely normal (albeit very irritating).</li>
+	<li>Dry solder joints - seemed Ok when first tested, but failed after use (not uncommon!)</li>
+	<li>Excessive supply voltage, causing component stress</li>
+	<li>Inadequate heatsinking, allowing components to overheat</li>
+	<li>Incorrectly set bias current (too high), causing overheating</li>
+	<li>Incorrectly mounted power transistors, with inadequate thermal contact to the heatsink</li>
+	<li>Short circuited outputs, usually the result of inadequate (or no) insulation, or changing speaker leads around with the amp on and with a
+	signal present - not recommended, even if an amp has short circuit protection
+</ul>
+
+<p>Since most cases of spontaneous failure result in shorted power transistors, these are usually easily found with a multimeter. The amp's fuse(s) may blow, but transistors (aka "3-legged fuses") are much faster than any conventional fuse :-(&nbsp; If a fuse blows, apply proper testing procedures (look for shorts, etc) rather than replace the fuse and hope that all will be well. This rarely happens, but additional damage (and to more components) is common.</p>
+
+<p>For all projects on The Audio Pages, there are quite specific absolute maximum supply voltages, and minimum specified load impedances (which may vary with applied voltage). It is extremely important that this information is adhered to, or individual device ratings may be exceeded, resulting in premature failure. None of the project amps is designed to work with a 2 ohm load, and simply adding parallel output transistors (for example) just makes the driver transistor subject to failure, and having failed, it will nearly always result in output device failure as well.</p>
+
+<table border=0><tr><td valign="top"><img src="note.gif" alt="Note"></td><td>It is worth noting that the principle failure mode for a BJT is short circuit. Open circuit devices will be found, but this occurs when another device shorts, and the internal bonding wires then fuse. The device then measures as open circuit, but the die (the silicon "chip" inside the transistor) has failed short circuit. External fuses are <i>not</i> intended to protect the transistors - they are there to prevent catastrophic failures (including fire) should an output device fail.</td></tr></table>
+
+<p>When one or more output devices fail, it is usually a good idea to replace all output and driver devices, even though they may seem to be alright. It is almost certain that they have been stressed, and may be more prone to failure at some later date. In some cases, an output stage fault can also damage the Class-A driver (and/or the current sink, if used). This rarely affects the input stage, which normally survives even the most destructive failure. Note that in some cases the fault current can be so high as to open-circuit the emitter resistors (usually not all, but one or two can fail). <i>Always</i> check these if an amp fails, preferably after you have removed the power transistors and drivers.</p>
+
+<p>Unless the failure can be positively attributed to counterfeit transistors (which will fail at much lower power levels than the genuine device), try to determine exactly what went wrong <i>before</i> re-commissioning the amplifier. Check speaker leads, supply voltages and speaker impedance - something caused the amp to fail, and it is better fixed than allow it to happen again.</p>
+
+<hr /><b><a id="volts"></a>5.0 &nbsp; Voltage Measurements</b>
+<p>Voltage measurements must be done with the greatest of care. A simple and cheap fault can easily turn into a complex expensive one with just the slip of a probe!</p>
+
+<p>In keeping with the general nature of this article, I will not refer to any specific voltages until a little later, but will rather give an overview of what to look for. At this point, a good understanding of the basics of transistor operation is expected and necessary, otherwise you will not be able to understand what you are seeing on you meter or oscilloscope.</p>
+
+<p align="center"><b>Always measure your supply voltages first !</b></p>
+
+<p>Countless man-hours (person-hours?) have been wasted trying to locate "bizarre" faults, when all that has happened is that the supply voltage(s) are either not present or are incorrect. This is the very first voltage measurement you should make - <u>always</u> !</p>
+
+<p><a id="volts1"></a><b>5.1 &nbsp; General Principles</b><br>
+In the most general of terms, with any bipolar transistor (FETs and MOSFETs are completely different!), there should be about 600-700mV measured between the emitter and base, and in linear circuits (such as conventional amplifiers) there will be some higher voltage of the same polarity between emitter and collector as that between base and emitter. For example, on a PNP transistor, with the red meter lead to the emitter, there will be around -650mV between emitter and base, and anything from (negative) a few volts to several tens of volts between emitter and collector.</p>
+
+<p>An oscilloscope will show perhaps almost no AC voltage at all on the base, but a large AC signal on the collector - this is usually quite normal. The DC voltage readings will tell you if the transistor is correctly biased, and therefore able to do its job. A voltage of 650mV between emitter and base, but full supply voltage on the collector is not necessarily wrong - you must read the voltage with reference to the circuit diagram.</p>
+
+<center><img src="tsff-f1.gif" alt="Fig 1" border=1><br><b><small>Figure 1 - Amplifier Input Stage</small></b></center>
+
+<p><a id="volts2"></a><b>5.2 &nbsp; Example</b><br>
+Let's assume for a moment that you have a conventional NPN long-tailed pair for the input circuit (Q1 and 2, Fig 1). The emitters are tied together, with perhaps small resistance values in series with each emitter in some designs. The voltage at the bases will probably be a few millivolts negative, and the emitter to base voltage should be around 650mV. The collectors will be at almost the full supply voltage in most circuits (there are exceptions though).  If you were to see that the output was stuck to one of the supply rails, then that will upset the long-tailed pair, and all voltages will be wrong. This could mean that one of the long-tailed pair transistors is faulty, but maybe not!</p>
+
+<p>This is where you need to play detective, to ascertain <i>why</i> the output is stuck to the supply rail (having eliminated all the previous fault types - incorrect components, bad solder joints, etc.). The next device to test is the class-a driver (Q5). Check the emitter-base voltage, and make sure that it is around 650mV. If that is correct, then the collector should be at close to zero volts, but it won't be. Instead, you may find that it is sitting at (or near) one supply rail voltage. Look at the circuit - the class-a driver is PNP (using the previous example) and the collector is at full positive supply, that means that the transistor is fully turned on ... why? Or is it?</p>
+
+<p>The next step is to look at the current sources (Q3 and Q4). Between the emitter and base of each there should be 650mV or thereabouts, and the current through each is easily determined. Measure the voltage across each emitter resistor - it should be about ... 650mV (can you see why this would be so?).  The current is equal to V/R so if the emitter resistor is (say) 100 ohms, then the current should be 0.65/100 = 6.5mA (close enough).</p>
+
+<p>The collector of Q3 should be at around -700mV, and that of Q4 at around zero volts. If this is the case then the amp should be working. Assume that the collector of Q5 is almost the full supply voltage, and likewise that of Q4 - there are either of two possibilities - Q5 is shorted (or turned on fully), or it has no collector current. The job of Q5 is to pull the output high as it turns on, and let it swing low when it turns off, but if Q4 were supplying no current, then the output will swing high. The input stage will try to turn Q5 off, but will become unbalanced by the voltage at the feedback input. This will make the circuit inoperable until the fault is located - this is your mission, should you choose to accept it, of course ;-)</p>
+
+<p>So, Q5 has full positive supply at its collector, give or take a volt or so (not important at this stage). The collector voltage at Q4 should be about the same, and the current should be about 6.5mA, but wait! If everything were working as it should, the amp would be functional, so there is something amiss - but we knew that already. What is the voltage at Q4's collector? Is the voltage across Q4's emitter resistor 0.65V as it should be?</p>
+
+<p>If the collector voltage is near the negative supply rail, or the emitter voltage is a lot lower than 0.65V, then Q4 is open circuit at the collector - this is not a common failure mode for a bipolar transistor, so it is likely that there is a bad solder joint at the collector of Q4 (or perhaps a hairline crack on the PCB). If the collector voltage were at close to positive supply, then the emitter resistor could be open - probably a bad solder joint, as resistors rarely go open without a lot of smoke and fuss. Check the value carefully - was a 100k resistor inserted by mistake?</p>
+
+<center><img src="tsff-f1a.gif" alt="Fig 1A" border=1><br><b><small>Figure 1A - Amplifier Example (P101)</small></b></center>
+
+<p>Figure 1A shows an example, in this case based on P101. The only difference between this and any other amp is the MOSFETs, but the basic principles are identical. You need a multimeter and Ohm's law, and very little else to monitor and verify the voltages and currents that should exist in virtually any amplifier design, regardless of topology.
+
+<p>Let's look at the schematic above. Voltages are shown for each major point on the circuit, and from those voltages we can work out the current through resistors and many of the transistors. As an example, R5 is 47k and R6 is 560 ohms. There is 0.65V across R6, therefore ...</p>
+
+<ul>
+	<li>R6 current = V / R = 0.65 / 560 = 1.16mA
+	<li>Q1 current = R6 current / 2 (the transistors are supposed to draw 1/2 the current each) = 0.58mA
+	<li>R5 current = V / R5 = 56 / 47k = 1.2mA
+</ul>
+
+<p>Why didn't I subtract the 1.3V from the power supply voltage? There is an obvious error, but it's important to realise that the <i>exact</i> value is unimportant. What matters is that the voltages, currents and resistances make sense. This applies to every part of the circuit, and there is one thing of which you can be certain ...</p>
+
+<center><b><small><i>If the output voltage is not close to zero, <u>all</u> other voltages are likely to be wrong!<br />
+If the output voltage <u>is</u> close to zero, then the amp should be working, but only if it has power.</i></small></b></center>
+
+<p>For this reason, I generally never bother to show voltages at various parts of any circuit, because the voltages will only be correct when the circuit is working properly. It would be silly for me to try to give voltage readings for every possible fault scenario, and the information would be completely useless to you anyway.
+
+<p>Most of the time, you can analyse the circuit and calculate the likely voltages that should appear at various points. They do not need to be accurate, but they must make sense. It doesn't make sense if the base-emitter voltage of a transistor measures 15V - that immediately indicates that the transistor is either the wrong type, is inserted incorrectly, or is faulty. Double check the datasheet, then replace it with a new one of the correct type! If you suspect that a transistor has been inserted the wrong way around, once power has been applied to the circuit you've probably damaged the device. Do not reuse damaged devices - there's a place for them - the rubbish bin.
+
+<p>Circuit analysis for servicing is not a simple task, but if you apply logic and basic principles you have a good chance that you'll find the problem. Sending me an email saying "It doesn't work." is pointless - I don't know why it doesn't work, and a single symptom can have a multitude of possible causes. Most of the time, voltage readings are of no help either, because they are often taken the wrong way. Look at how the voltages are shown above.
+
+<p>The voltage across R6 is 0.65V, <i>not</i> 55.35V. The latter reading is pointless, because the supply voltage will vary as you take a reading, and the reading will probably be so far in error that it's unusable. Many other readings are taken the same way. Needless to say, you must take great care when readings are referred to the supply rail(s), because a slip of a probe can easily cause much greater problems than you started with.</p>
+
+<p><a id="volts3"></a><b>5.3 &nbsp; Summary</b><br>
+The purpose of this exercise was to demonstrate the general processes of elimination that should be used to locate the type and nature of a fault, and then it can be easily corrected. It is not possible to cover every possibility here, even with the simple circuits shown, but by carefully measuring the voltages you will be able to track down the most likely cause, without having to rebuild the whole circuit!</p>
+
+<p>The answer to the little riddle for Figure 1 above ... There must be about 650mV across the emitter resistor of the current sink because there are two diodes in series. D1 balances out (or "cancels") the emitter-base voltages of both Q3 and Q4 - also 650mV. Whatever voltage exists across D2 (and we know it must be 650mV), must also appear across the emitter resistors. It really is that simple, but it may take a bit more experience before you see it clearly.</p>
+
+<p>A useful thing to remember about transistors - if it gets hot, it is working (or trying to). Looking at Figure 1 again, if Q4 gets hot and Q5 is dead cold, then Q5 is the faulty device - not Q4 as you may think at first.
+
+<p>These guidelines are as far as I can take you in a basic article. The ability to think logically and methodically and to work your way through the circuit is essential. Blindly measuring voltages without understanding what they mean in context will not reveal an answer, but if you can go about the task as outlined here you'll learn a great deal more than you might have expected.</p>
+
+<hr /><b><a id="tests"></a>6.0 &nbsp; Component Testing</b>
+<p>Transistors can be tested for basic functionality with a multimeter. If you use an analogue meter, be aware that when on the ohms range, the red probe is <u>negative</u>. Digital meters retain the "correct" polarity. A BJT (Bipolar Junction Transistor) can be thought of in terms of two diodes, as shown in Fig. 2. As with any diode, they should conduct in one direction, but not in the other. All BJTs may be tested this way, revealing open circuit, leaky or shorted junctions. The test tells you nothing about gain, voltage breakdown, or anything else, only that the device is <i>likely</i> to be functional.</p>
+
+<center><img src="tsff-f2.gif" alt="Fig 2" border=1><br><b><small>Figure 2 - Basic Transistor Test Model</small></b></center>
+
+<p><b><a id="tests1"></a>6.1 &nbsp; Transistor Quick Check</b><br>
+Check in both directions with your multimeter between the base and emitter/collector of each power and driver transistor. An NPN transistor will show a "resistance" of 600-700mV (shown as ohms, but is actually voltage with 99% of digital meters) with the positive (red) lead of a digital meter connected to the base, and the black lead on emitter and collector. Reverse red and black and measure again - in some cases, one connection may still show 600-700mV because of a connected power or driver transistor - this is normal.</p>
+
+<p>By using this method, the proper conduction of each diode can be checked - as with any diode, the forward voltage drop is around 650mV (which as explained above shows on most digital multimeters as 0.65k ohms), and the reverse bias condition should show infinity(keep your fingers away though). In-circuit tests can also be done like this, but the results may be misleading because of other devices in the circuit.</p>
+
+<p>In case you were wondering (and you are by no means the first to do so), you cannot use two ordinary diodes wired as shown as a transistor. Transistor operation relies on the junction between the "diodes" (hence bipolar <i>junction</i> transistor).</p>
+
+<p><b><a id="tests2"></a>6.2 &nbsp; Other Components</b><br>
+Resistors should read their correct value, but again, in-circuit tests can be misleading. All diodes should show proper conduction and blocking as the probes are switched from one end to another.  This is not a useful test for LEDs or zener diodes, but at least you will know if it is open or short circuit.</p>
+
+<p>Capacitors really need a capacitance meter (as well as an ESR [Equivalent Series Resistance] meter) to test properly, but you can still get a fair idea with a multimeter. Shorts are uncommon in film caps, but can occur, although in most projects this is highly unlikely. Electrolytics should show a low resistance at first, which will rise as the cap charges. Reverse the leads and make sure that the cap discharges (expect to see silly resistance values at first), and charges up again. Low voltage reverse polarity will not harm electros.</p>
+
+<p>Most other components (transformers, connectors, wiring) need only to be checked for continuity, and that all wiring is connected to the proper place. Verify that voltage actually goes somewhere - an open circuit or dry solder joint will show up as voltage present at one point, but not at another that is meant to be directly connected. This can be especially true of a printed circuit board that has been damaged. A broken track may be invisible, but it will still be an open circuit for the voltages that are normally present.</p>
+
+<hr /><b><a id="opamp"></a>7.0 &nbsp; Opamp Circuits</b>
+<p>There is not much that can go wrong with an opamp circuit. Most linear circuits (as used in preamps) have one thing in common - the two inputs should be at almost exactly the same voltage, and so should the output. The most common problem is oscillation - especially with very fast opamps. The ESP boards are designed so that bypass capacitors are as close as possible to the opamps, and there is also additional filtering using small electrolytics.</p>
+
+<p>It is still possible to make an opamp circuit oscillate though, so sensible precautions should be taken - keep inputs and outputs shielded and apart, and always use a 100 ohm resistor in series with the output of any opamp that connects to a cable - regardless of length.</p>
+
+<p>Other problems can occur, but normally they will be the result of bad solder joints (as always), damaged PCB or incorrectly installed components. All ESP boards will function first time, every time if assembled according to the instructions, but if yours doesn't, then there is a mistake in the component placement, or the opamp is faulty. Yes, opamps can be faulty from new - it doesn't happen very often, but it <u>does</u> happen.</p>
+
+<p>As with power amps, leaving off (accidentally or otherwise) the power supply earth (zero volt) line is quite a common "fault". A +/- supply means that the earth (or ground) lead is required - it is <i>not</i> optional!</p>
+
+<hr /><b><a id="earth"></a>8.0 &nbsp; Earthing (Grounding)</b>
+<p>This is the area where it all goes to pieces. Hum or buzz is the usual symptom, but unfortunately, there are no fixed rules that can be applied in all cases to cure the problem.</p>
+
+<p>The distinction between a "hum" and a "buzz" is extremely important! If you describe a noise as a hum, then the expectation of anyone knowledgeable in the field will think "low frequency, no (or few) harmonics". This describes the noise made by an earth loop - a situation where two or more pieces of circuitry are joined by the mains safety earth lead and the shield of an interconnect (for example), forming a loop. This can inject a very low voltage (but sometimes surprisingly high current) into the loop, and the signal is picked up by the inputs. You hear hum - a single low frequency tone.</p>
+
+<p>"Buzz" has a sharp edge to it - there is usually a low frequency component, but it has a hard sound that may even be audible in tweeters at times. Buzz is caused by any number of things - input leads close to mains wiring, power transformer or bridge rectifier (and associated wiring), bad or no earth connection, loops (they can cause buzz as well as hum), the list is almost endless.</p>
+
+<p>Sporadic oscillation in an amp can also create a buzz or hum in some cases - follow the guidelines above to ensure that the amp is stable under all conditions - low level oscillation can usually only be detected with an oscilloscope, but you may be able to detect it using an RF "detector" probe - see the projects page for a suitable example.</p>
+
+<p>With any of these problems, it is almost impossible to give a standard "fix". The solution is different in nearly every case, and sometimes the best result is obtained with an arrangement that should not work at all. My normal approach is to keep lots of separation of input cables from anything else, and for locating the optimum earth location, I use the following methods ...</p>
+
+<ul>
+	<li>Make a "soft" earth connection with a 10 ohm resistor, usually from the amp's input to a convenient place on the chassis</li>
+	<li>Get an alligator clip lead, connected to the amp's input earth point, and probe likely places for low noise - the star earth point for 
+	the filter caps, right next to the input connectors, etc., until the quietest place is found. Just hope that it doesn't end up being to some
+	part of your anatomy or the cat :-)</li>
+	<li>Make the "sweet spot" a solid connection, and do tests to determine if there is any possible way to improve matters.</li>
+</ul>
+
+<p>This method <i>usually</i> works well, and if you really do find the optimum location, you will need another amplifier to be able to hear any noise. It should be possible to earth the end of the input lead to any of your other equipment without adding noise, but there is a point where it is fruitless to try to make it better.</p>
+
+<p>If you have to put your ear right next to a speaker to hear anything, then from the listening position it is effectively completely silent. Further improvements will not yield any audible benefit.</p>
+
+<table border=0><tr><td valign="top"><img src="note.gif" alt="Note"></td><td>A common mistake (and an excellent source of undesirable noises) is to take the DC from the rectifier. DC <u>must always</u> be taken from the filter caps, and never from the rectifier. Those short leads will develop serious noises when the amp draws current, and may create a background "haze" that is audible as a background noise from the amp - but only when it is playing! This is very insidious, since the amp seems dead quiet with no signal. An oscilloscope and/or distortion meter is essential for locating problems of this type.</td></tr></table>
+
+<hr /><b><a id="remove"></a>9.0 &nbsp; Removing Dead Components</b>
+<p>Once you have determined that a component is dead (or is probably dead), you need to remove it from the PCB. <i>Never</i> attempt to just heat the leads and prise them from the board, and resist the temptation to use a solder sucker (or solder wick) to remove the solder prior to prising the component out. This will nearly always result in damaged PCB pads and tracks. It is far better to use a very slim cutter, and cut off the legs first. Cut as close to the PCB surface as you can (for both component-side and copper side mounted parts - be careful that the cutter does not damage the pad or track!), and then use a sucker or wick to extract remaining solder and the remnant of component lead.</p>
+
+<p>While desoldering, a clean soldering tip is just as important as when soldering. A clean (and properly "tinned") tip requires less heat and time than a dirty one, and therefore lessens the chance of damage. In some cases, it may be necessary to apply a small amount of new solder to an existing joint to facilitate desoldering - it is important to keep temperatures as low as possible and make the desoldering activity as short as possible to prevent PCB damage.</p>
+
+<p>None of this will guarantee that you will not damage the board, but such damage is a lot less likely. Should a pad be lifted while desoldering, do not rely on that pad when the replacement component is resoldered. Instead, fold the component lead down flat against the PCB, directly along the connected track (5mm or so is recommended). Carefully solder the lead and track to make a solid connection - the pad is now almost irrelevant, but the component is properly connected.</p>
+
+<p>In the case where more than one track runs from a pad, make sure that the remaining section of track is intact - use a multimeter!</p>
+
+<p><b>Hairline cracks</b><br>
+Cracked copper traces (hairline cracks) caused by PCB damage are quite common, and are very hard (sometimes almost impossible) to see. It is far easier to make a quick measurement whilst doing the repair than to try to find the fault later.</p>
+
+<p>The most common reason for PCB failures (lifted pads and tracks, hairline cracks, etc.) is excessive heat and/or force. The copper is held onto the PCB laminate by an adhesive, and there are very few adhesives that can withstand soldering temperatures for any length of time. A damaged PCB can always be repaired using tinned copper wire soldered along the faulty section of track and to the component lead(s), but future repairs will be more difficult, and the result may be very untidy.</p>
+
+<hr /><b><a id="test"></a>10.0 &nbsp; Testing</b>
+<p>Once repairs are done, or at least thought to be done, the next step is to test the amp (or preamp, etc) to make sure that everything is now working properly. There is a natural tendency to want to hear it working immediately, but it is important that you resist the temptation, lest you be showered with fire, brimstone, and capacitor guts.</p>
+
+<p>Make sure that you have everything needed to hand - multimeters, signal source, dummy load (for power amps), etc. In all cases, the first power-up should be done with a low voltage, current limited supply (if available), or use safety resistors in series with the supply leads. The idea is that since you have most likely replaced possibly expensive components, it is preferable that they don't blow up because there is a secondary fault that you did not find the first time.</p>
+
+<p>Such secondary faults are very common, and their destructive capabilities should never be underestimated. By using limiting resistors and a Variac (or a 100W light globe wired in series with the mains cable) the energy available is greatly reduced, and the chances of (further) component damage are minimised.</p>
+
+<p>For the remainder of this section, I have assumed a power amplifier, since they cause far more grief than anything else. Before testing, make sure that all power transistor hold-down screws are very firm - do not overtighten, but screws must exert sufficient pressure to ensure that a small amount of heatsink compound is forced out around all transistors.</p>
+
+<p><b><a id="test1"></a>10.1 &nbsp; Power Up</b><br>
+Initially, do <u>not</u> connect your dummy load. Use alligator clip leads from your multimeter, and connect to the supply rails (positive and negative). Any quiescent current setting pot should be set for minimum current (see the original project article). If you use a Variac, advance the voltage slowly and observe the voltage. Check the safety resistors for heat - they should remain cool! Any heat (from anything) as the voltage is advanced is an indication that something is amiss. Should you find heat do <u>not</u> advance the voltage further. Measure the voltages before and after the safety resistors to determine the nature of the fault.</p>
+
+<p>If you use the series light globe method, then initially, turn the power on for a brief period - the lamp should flash brightly, then settle to a dull glow. When turned off again, the voltage should decay relatively slowly (typically a few seconds) - if the lamp remains at full brightness and the voltage collapses quickly, then there is a fault. The safety resistors will probably be warm to hot.</p>
+
+<p>If everything is ok, leave the amp on for a few minutes, and check <i>everything</i> for heat. Some components are expected to get warm, but <i>anything</i> that causes you to exclaim "RudeWord!" is an indicator that something is amiss. Refer back to the fault finding sections of this page, and locate the fault. Any remaining fault calls an immediate halt to the test process.</p>
+
+<p><b><a id="test2"></a>10.2 &nbsp; Voltage Checks</b><br>
+Having successfully reached this part, you should now verify that all voltages are normal. The voltage across each safety resistor should be only a few millivolts to up to a volt or so, depending on the amp design. The output voltage should be close to zero - as a rule of thumb, any offset in excess of 100mV or so is excessive, but be aware that some amplifiers may not be able to better this while the safety resistors are still installed (uncommon but possible).</p>
+
+<p>If the output voltage is at zero volts, and the supply rails are close to normal voltage, there is a good chance that the amp will work. I don't suggest that you start shouting "Hurrah!" just yet though (sorry ;-)</p>
+
+<p><b><a id="test3"></a>10.3 &nbsp; First Power Check</b><br>
+Making sure that your dummy load is set to 8 ohms (or more), connect it to the output (do not disconnect the safety resistors!). Connect your signal source (output set to zero!), and then slowly advance the level while monitoring the voltage at the amplifier side. Advance the level until there is about 5V across each safety resistor. The voltages should be the same across each resistor. Voltage across one but not the other indicates an open circuit power stage. You may also use a speaker, with a series resistor of around 22 to 47 ohms. If the sound is heavily distorted, then there is something wrong. Advance the level a little more to determine if you are hearing crossover or "rectification" distortion. If distortion lessens as the signal level increases, then it is crossover distortion, and you have nothing to worry about (the quiescent current is set to minimum, remember).</p>
+
+<p><b><a id="test4"></a>10.4 &nbsp; Final tests</b><br>
+Having verified basic functionality, at least to the best of your ability, just do a quick re-cap of the tests ...</p>
+
+<ul>
+	<li>Supply voltage at amp terminals (with safety resistors) is within 1V of the voltage across the filter caps</li>
+	<li>Nothing gets hot - including safety resistors (slightly warm only)</li>
+	<li>Output voltage is within 100mV or so of zero volts (preferably less than 50mV)</li>
+	<li>A basic power test shows that both sides of the amp draw current, and a reasonable signal is heard on a speaker.</li>
+</ul>
+
+<p>You are now ready to test the amp at full power (but still use the Variac or light bulb lead for safety). Disconnect the safety resistors, and replace any fuses you removed with the correct value. You may leave the speaker connected with the series resistor - just in case. Turn on the power (or wind up the Variac) - all voltages should come up to normal, but they may be a little low if you use the "lamp lead". Check carefully for anything that may be hot (or getting hot).</p>
+
+<p>If all is well, adjust the quiescent current to about 1/2 the recommended value, inject a signal, and verify that the amp sounds clean. Do not try to get full power if you still have the lamp lead. Leave everything for at least 10 minutes, checking that bias (quiescent) current remains stable, and that no components are too hot. Note that some devices do run quite warm in many amps, but you should be able to hold all small/ medium transistors without being burnt.</p>
+
+<p>When you are satisfied that everything is working properly, switch off, remove the Variac or lamp lead, and switch on. Double check the supply and output voltages, and apply a signal - if you still have the series resistor in series with your speaker, you can advance the input level until the sound becomes distorted (clipping).</p>
+
+<p>Check all temperatures (again! I know this is tedious, but it is worth the effort). Set quiescent current to the recommended value, using the method suggested in the project article (this can vary considerably). Leave the amp to stabilise, monitoring temperatures - transistors, resistors, heatsink. After the temperature has settled (typically about 15 minutes), verify the quiescent current, and adjust as needed.</p>
+
+<p><b>Note:</b> If the heatsink temperature continues to increase (and so does quiescent current), <u>you have a problem</u>! Switch off immediately, and reduce the current setting. Do not apply power until the heatsink cools (a fan will make this a lot faster). The amplifier may have a thermal stability problem - verify that the bias transistor (if used) is mounted according to instructions. Thermal runaway (as this problem is known) is usually the result of insufficient thermal feedback. Consult the project designer for information on how to solve the problem.</p>
+
+<p>Never use an amplifier while this problem persists - it will overheat and fail.</p>
+
+<hr /><b><a id="s11"></a>11.0 &nbsp; Preamplifier Tests</b>
+<p>This is a very short section, since the range of tests on preamps is minimal - especially for opamp designs. As always, an oscilloscope is very useful, but not everyone has the luxury of ownership. As a result, other methods need to be found to enable you to track the signal through the preamp, until the point where it disappears is found. This narrows down the "search area", and makes it a lot easier to find the problem.
+
+<p>First, check that the opamp outputs are at (or near) zero volts, and that you have +/-15V (or whatever your supply voltage is supposed to be) at the supply pins. This is fairly obvious, but when you are desperate, it is often overlooked. Also, make sure that the 0V (GND) connection from the power supply is connected - this is a common error.
+
+<p>Then, apply a signal from a PC sound card, tuner or CD player, and use an old active PC speaker as an audio probe (it <i>must</i> be an active speaker, with its own internal amplifier).  That way, you can check the signal level at the input, output of 1st opamp, etc. You need to find where the signal stops, and you can do that easily by just following the signal path, and monitoring the signal. Check for level, distortion, or anything else that may be amiss.
+
+<p>Remember that the PC-speaker input lead's shield must be connected to the ground (common) of the preamp, and the centre wire is used to probe the circuit under test. These speakers are low power, but I recommend that the level be adjusted so that you have a clean signal in the speaker. Never connect the PC-speaker input to the supply voltage(s), as you may damage the internal amplifier. A 1k resistor in series with the signal lead is a good idea.
+
+<p>In nearly all cases, there is a mistake somewhere, as all PCBs have been fully verified and definitely work if wired properly. Faulty opamps are possible, but very rare. Because of the ground-plane in some designs, there are a lot of very closely spaced tracks, and solder bridges are easy to make.
+
+<p>This method can be used on almost any opamp based circuit, be it preamp, equaliser, or whatever - however it is limited to audio frequency circuits for obvious reasons. </p>
+
+<hr /><b><a id="s12"></a>12.0 &nbsp; Terminology</b>
+<p>There are all sorts of strange noises that electronics can make through loudspeakers, and only a few are intentional. Clicks, pops, farts, hum, buzz, hiss, thumps - all have meaning, but the meanings are sometimes confused (such as "hum" and "buzz"). I can't (and won't) attempt to cover them all, but will go over some of the more important (and common) ones.</p>
+
+<p><b>Hiss: </b>The sound of an FM tuner that is not on a station, or the sound of air between your teeth. The "sss" sound in the letter ess. Those are all hiss - anything that does not sound like one of those is <u>not</u> hiss. Some hiss is inevitable - all components make noise - even cables, and the use of low noise components (especially opamps and resistors) will reduce, but never eliminate, hiss.</p>
+
+<p><b>Hum:</b> As described above - a smooth, 50/60Hz low frequency, with no harshness or high frequency energy at all.</p>
+
+<p><b>Buzz:</b> Any frequency, but usually 100 or 120Hz depending on your mains frequency. Buzz has a harsh tonality, and is typical of rectifier noise, TV frame synchronisation noise (run a signal lead behind the telly to hear that one), and general mains noise. Probably the hardest to fix.</p>
+
+<p><b>Crackle:</b> Sometimes crackles can be caused by a faulty component (transistor, opamp, etc.), and dry solder joints are also a good source of crackles, pops, farts, and other noises of similar ilk. Occasionally (especially in valve equipment), crackles may be caused by the valve itself, or a faulty capacitor. Usually easy enough to find, except crackles and pops (etc.) almost never occur when test equipment is nearby - can be very sneaky. Try lightly tapping the board and components with an insulated probe of some kind (a plastic screwdriver handle works well), as many such noises are vibration sensitive.</p>
+
+<p><b>Distortion:</b> Extremely variable. A couple of the more common types are ...</p>
+
+<ul>
+	<li>Crossover (or "notch") distortion sounds similar to tearing paper, and is only present when there is a signal. It gets worse as the level 
+	is <i>reduced</i>. Severe crossover distortion will allow an amplifier to stop reproducing anything other than signal peaks at low volumes.</li>
+	<li>There are many other forms of distortion as well - "rectification" distortion can occur if only half the signal is reproduced, and is
+	typical of open circuit power transistors, faulty drivers or current sources. It is sometimes difficult to hear some forms of distortion (such
+	as that caused by an amplifier oscillating).</li>
+</ul>
+
+<p>An oscilloscope is essential for detecting oscillation induced distortion - there is no other way to see exactly what is happening to the signal.</p>
+
+<p><b>Thump:</b> A low frequency noise, often as power amps (in particular) are turned on or off. This is usually a design issue, and most thumps are not of concern - unless you use an amp that thumps to drive tweeters in a biamp or triamp setup! You will almost always need a speaker delay relay to get rid of thumps, since the only real alternative is to redesign the amp. Some opamp circuits also thump (or Crack!) as power is applied or removed. High speed opamps in the P09 electronic crossover is a prime example. Again, relays and a delay circuit are the best solution.</p>
+
+<p><b>Chirps:</b> Some power amps (notably some otherwise excellent power opamps) emit a "chirp" or bird-like noise as power is removed. Like thumps and cracks, this is a design issue that is very difficult to prevent. If it really annoys you, then a loudspeaker mute relay is the only real solution.</p>
+
+<hr /><b><a id="s13"></a>13.0 &nbsp; Conclusions</b>
+<p>As stated right at the beginning, there are just too many possibilities to try to cover them all. Nonetheless, I hope that this article helps you to debug your project, and allows you to concentrate on listening to music. I doubt that there are many things more disheartening than a shelved project that you just could not get to work properly.</p>
+
+<p>As I find out more of the problems that people face, I will add to this article, and will try to ensure that it is up to date with the latest and greatest faults. It is probable that the vast majority have been covered here, but there is always a new one, or one I didn't think of at the time of writing.</p>
+
+<p>Should you go through the steps outlined for your particular problem, and still not find the solution, then let me know - I will help you solve it if I possibly can.</p>
+
+<p>Note that this <u><i>only</i></u> applies to ESP projects - if you found a circuit or project elsewhere, then you must discuss it with the designer or publisher - <b>not</b> with me. I not only do not have the time to discuss other people's designs, but have a distinct lack of inclination to do so.</p>
+
+<p>Of all the issues I have discussed here, the most common problem of all is failure to follow the instructions, and/or failure to place all components where they are supposed to be. I would estimate that well over 90% of all faults are caused by incorrect component placement - "I have checked and double checked" is a phrase I have seen in e-mails countless times, but the problem still turns out to be wrongly installed parts. This <i>must</i> tell you something ;-)</p>
+
+<p>This is not to be taken as an insult to your intelligence by any means - everyone does it. When one of my prototypes fails to work as expected, there are two possibilities ...</p>
+
+<ul>
+	<li>I made a mistake in the board layout</li>
+	<li>I installed something incorrectly</li>
+</ul>
+
+<p>So far, incorrect components have accounted for maybe 60% or more of original failures - in some cases because I goofed in the design phase, but mostly I just did what everyone else does - put something in the wrong place.</p>
+
+<p>If it helps at all, just remember ... "<i>The person who makes no mistakes, makes <u>nothing at all</u> !</i>"</p>
+
+<p align="right"><a href="articles/troubleshoot2.htm">Troubleshooting - Part 2 (Opamp Circuits)</a></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="articles.htm" ONMOUSEOUT="document.b1.src='a1.gif';" ONMOUSEOVER="document.b1.src='a.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles" BORDER=0></a><b>Articles Index</b>
+<br /><a href="index2.html" ONMOUSEOUT="document.b2.src='a1.gif';" ONMOUSEOVER="document.b2.src='a.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Main Index" BORDER=0></a><b>Main Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2003. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright (c) 24 Apr 2003./ Updated May 2011 - added Figure 1A and extra text.</div>
+</body>
+</html>

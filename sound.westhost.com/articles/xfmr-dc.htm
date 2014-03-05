@@ -1,0 +1,248 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP - The Audio Pages. Even a small amount of DC offset on the mains is enough to cause problems. Find out how it happens and how to fix the problem.">
+	<meta name="keywords" content="transformer, toroid, mains, ac, dc, buzz, growl, audio, amplifier, sound, hifi, power, supply">
+	<title>Mains DC and Transformers</title>
+	<!-- ESP - The Audio Pages.  Even a small amount of DC offset on the mains is enough to cause problems. Find out how it happens and how to fix the problem. -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Blocking Mains DC Offset&nbsp;</td></tr></table>
+
+<p align="center">By Rod Elliott (ESP)<br />
+<small>Page Created 06 March 2008</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.html" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles" BORDER="0"></a><b>Articles<br>
+  <a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Index" BORDER="0"></a>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#intro">Introduction</a>
+  <li><a href="#warn">Warning</a>
+  <li><a href="#dc1">How DC Appears on the Mains</a>
+  <li><a href="#dc2">Use a Capacitor</a>
+  <ul>
+    <li><a href="#dc21">Ripple Current</a>
+    <li><a href="#dc22">Voltage Drop</a>
+    <li><a href="#dc23">Series Resonance</a>
+    <li><a href="#dc24">Longevity</a>
+    <li><a href="#dc25">Ripple Current Revisited</a>
+  </ul>  
+  <li><a href="#dc3">How Tests Were Performed</a>
+  <li><a href="#outro">Conclusion</a>
+  <li><a href="#safe">Safety</a>
+</ul>
+  
+<hr><a id="intro"></a><b>Introduction</b>
+<p>A varying DC offset on the AC mains is no longer uncommon. There are many ways that a DC offset can be created, with most being totally outside the control of those who have to try to eliminate it, or put up with the mechanical noise created in toroidal transformers.
+
+<table width="100%" cellpadding=10>
+<tr><td valign="top"><img src="note.gif" alt="NOTE"></td>
+<td>Please note that the descriptions and calculations presented here are for (nominal) 240V 50Hz mains. For Europe, the mains is 230V 50Hz, and the US uses 120V 60Hz. This is not a problem - all formulae can be recalculated using 60Hz where necessary, and the final circuit (see <a href="#outro">Figure 8</a>) is easily adapted - the changes needed are described in the conclusion text.</td></tr></table>
+
+<p>There are a few older household appliances that can create a DC offset, although most are (probably) no longer permitted due to increasing problems caused by the DC component. This is more than compensated by various industrial processes, which for one reason or another manage to unbalance the mains supply sufficiently to cause problems.
+<p>Most of the time, the DC offset is transient - it appears for a short while, then goes away again. When it is there, toroidal transformers may complain loudly, by making growling or buzzing noises. It is important to understand just how this happens, and what can be done about it if it causes problems.
+<p>While the common solution found on the Net appears simple, there's a lot more to it than may seem to be the case. The operation is not intuitive, so while you may think that you know how it works, you could easily be mistaken.
+<p>It's also worth noting that DC is usually not a problem with toroidal transformers of 300VA or less. Their primary resistance is usually high enough that any DC will have little effect. With larger transformers (500VA and above), the DC resistance is usually so low that even a very small offset will cause mechanical noise due to saturation.</p>
+
+<a id="warn"></a><table border width="100%" style="border-collapse: collapse;" cellpadding=10 bgcolor="red">
+<tr><td valign="top" align="center"><img src="mains2.gif" alt="MAINS!" height=34 width=34></td>
+<td><font color="#FFFFFF"><b>WARNING: &nbsp; This article describes circuitry that is directly connected to the AC mains, and contact with any part of the circuit may result in death or serious injury. By reading past this point, you explicitly accept all responsibility for any such death or injury, and hold Elliott Sound Products harmless against litigation or prosecution even if errors or omissions in this warning or the article itself contribute in any way to death or injury. All mains wiring should be performed by suitably qualified persons, and it may be an offence in your country to perform such wiring unless so qualified. Severe penalties may apply.</b></font></td></tr></table>
+
+
+<br><a id="dc1"></a><b>How DC Appears on the Mains</b>
+<p>There are any number of different machines that can create a mains supply DC offset. Most will be totally outside your control, many DC "events" will be transient in nature, but one common theme applies - they will all load the mains supply asymmetrically for a period of time that ranges from a couple of cycles to minutes at a time. Figure 1 shows a typical (small) example that you may even have in your house - the transformer (shown within the dotted line) is your toroidal transformer. Many older hairdryers (and some heat guns as well) had a switch for "half power" that simply switched a diode in series with the mains. For a 240W element at 240V, that equates to a resistance of 240 Ohms (example only - actual power will vary widely).
+<p>If a diode is switched in series with the heating element, this reduces the voltage and hence the power (actual power will be almost exactly half). However, by half-wave rectifying the mains in this manner, there is an inevitable interaction with the mains impedance.</p>
+
+<center><img src="xfmr-dc-f1.gif" border=1><br><b><small>Figure 1 - Half-Wave Rectified Appliance, Transformer &amp; Mains Wiring</small></b></center>
+
+<p>The arrangement shown above assumes that the mains has zero impedance. Actual impedance is shown as R1, which varies from one house to the next. The value of 800 milliohms was chosen because this is what I measured at my workbench. Your mains may be better or worse than this.
+<p>After the asymmetrical load has done its job, a simulation shows the positive peaks of the 240V AC waveform reach 338.35V, but the (unloaded) negative peaks reach the proper value of 339.28V. This is a tiny bit less than the theoretical value of 339.41V because of the transformer load resistance and simulator resolution. The difference between the peak voltages is 0.93V, but the mean (average) DC voltage is -275mV. It is the mean value that appears as "DC" on the mains. It can also be measured, but to do so requires that one works on live components. This is not recommended as it is inherently dangerous. However, if you must (and <i>PLEASE</i> take extreme care), you need a 100k resistor and a 10uF non-polarised capacitor, wired in series. Connect this circuit across the mains (power off!), and connect a DC voltmeter across the capacitor. This attenuates the AC enough to prevent the front-end of the meter from being overloaded, and the DC voltage is easy to measure. Expect to see the DC vary around the zero voltage, with a normal variation of +/-25mV or so (typical - residential areas). The alternative method is to measure the DC across the diode/capacitor network in the circuit of Figure 3. Do not connect or disconnect the meter with the circuit live, and use alligator clip leads to make the connections.
+<p>With a half wave rectified load, the mean DC level is 275mV as described above - polarity is not important, because either polarity will be as bad as the other. If a transformer has a primary DC resistance of 2 ohms, there will be an effective DC current of 137.5mA in the primary. This is many times the current needed to cause the core to saturate during the negative half cycle of the AC waveform. Remember that with a toroidal core, saturation is a "hard limit". Because there is no air gap (intentional or otherwise), when the saturation limit is reached, inductance falls and current rises rapidly.
+<p>Tests were done using a 500VA toroidal transformer with very close to the example values given above. With 240V AC mains, 50Hz, 264mV DC offset created by DC injection (see Figure 6), and at no load, the current was seen to rise from 16mA to 218mA. The test was done at no load because this is the worst possible case. As load increases, the effective primary voltage falls - the voltage dropped across the winding's resistance is "lost" to the transformer. 264mV DC offset causes a current of 132mA DC in the transformer primary. This is probably the maximum offset that you will encounter in real life, although some areas may be worse. I have no data on this.
+<p>The full set of measurements is shown in Table 1.</p>
+
+<center>
+  <table width=640 border=1 style="border-collapse: collapse">
+  <tr><td><b>Parameter</b></td><td width="28%"><b>No DC</b></td><td width="28%"><b>With 132mA DC</b></td></tr>
+  <tr><td>Primary Resistance</td><td colspan=2 align="center">2 Ohms</td></tr>
+  <tr><td>Magnetising Current RMS</td><td>15.7 mA</td><td>218 mA</td></tr>
+  <tr><td>Magnetising Current P-P</td><td>50 mA</td><td>1 A</td></tr>
+  <tr><td>Secondary Voltage</td><td>31.8 V RMS</td><td>31 V RMS</td></tr>
+  <tr><td>No-Load VA</td><td>3.77 VA</td><td>52.32 VA</td></tr>
+  <tr><td>Primary Impedance</td><td>15.3 k</td><td>1.1 k</td></tr>
+  <tr><td>Effective Inductance</td><td>48.7 H</td><td>3.5 H</td></tr>
+  </table>
+  <small><b>Table 1 - Measured Performance of 500VA Toroidal Transformer</b></small>
+</center>
+
+<p>The current waveforms are shown below.  These were taken from the mains input to the transformer, using an in-line current monitor. The waveforms were captured using a PC based oscilloscope, and RMS currents in Table 1 were measured using a Tektronix digital oscilloscope.
+
+<center><img src="xfmr-dc-f2.gif" border=1><br><b><small>Figure 2 - Transformer Idle Current</small></b></center>
+
+<p>The normal idle current is shown on the left, and the current with 132mA DC offset is on the right. The asymmetrical waveform with DC present is very obvious - the current is drawn predominantly during the negative half-cycles. If the DC polarity were to be reversed, the positive half-cycles will create saturation. Note that the right current scale is 10 times that on the left.
+<p>As you can see, the normal idle current is not a sinewave. The small peaks at the right side of the half-cycles become larger as the transformer is pushed further towards saturation, indicating that the transformer is just on the verge of saturation in normal operation. This is deliberate. If a transformer is built using enough primary turns to ensure that no saturation effects are visible, it will have very poor regulation because the primary resistance will be too high.
+<p>Like so many things in electronics, transformer winding is a balancing act. There are many compromises - more turns lowers the core flux, but increases winding resistance, reducing regulation. Fewer turns gives better regulation, but the transformer will run hot at no-load and even a small over-voltage (or DC offset) will cause even higher no-load current.</p>
+
+<hr><a id="dc2"></a><b>Use a Capacitor</b>
+<p>Logically, using a series capacitor will block any DC. Capacitors cannot pass DC, so the waveform will re-centre itself to ensure that there is no offset. This happens regardless of how the DC offset was created, and is insensitive to waveform distortion. It's only when we do a few calculations that the <i>real</i> problem shows itself. Naturally, we want the lowest possible voltage to appear across the capacitor. We also want to ensure that a series resonant effect is not created where the capacitance and transformer primary inductance create a tuned circuit at (or near) the mains frequency. Such a circuit will appear as an extremely low impedance across the mains, and can generate voltages sufficient to destroy any capacitor (explosively!) and perhaps even the transformer winding insulation. Then the fuse or circuit breaker will blow, but the damage is done.
+<p>So, we need a capacitor (or a circuit) that will ...</p>
+
+<ul>
+  <li>Handle the maximum current the transformer will draw (high ripple current)
+  <li>Drop the smallest possible voltage (large value of capacitance)
+  <li>Not cause series resonant effects
+  <li>Last for the expected life of the equipment
+</ul>
+
+<p>That's a tall order! Taking each point in turn, we can look at the likely requirements ...</p>
+
+<p><a id="dc21"></a><b>Ripple Current - </b>It may seem that we need to know the amplifier power rating, and also that of the transformer. We already know that the transformer will be subjected to considerable inrush current, both to set up the magnetising current and initially charge the filter caps. At this point, use of a soft start circuit (see Project 39) is highly recommended.
+<p>For the sake of the exercise, we'll use the 500VA transformer as shown in Table 1. Maximum long-term input current is ...</p>
+
+<blockquote>I = VA / V = 500 / 240 = 2.08A</blockquote>
+
+<p>From the DC perspective, the most critical region is at no-load. The saturation effects are greatly reduced when we are drawing significant current, so we will hopefully be able to simplify the circuit.</p>
+
+<p><a id="dc22"></a><b>Voltage Drop - </b>Now that we have the current, we can work out the required capacitance. Keeping the RMS voltage across the capacitor below 1V would seem like a reasonable figure, and I'd suggest that the maximum current of interest is around &frac14; of the full load current - about 500mA. This means that capacitive reactance must be 2 Ohms or less. Remember that we can use Ohm's law to make these calculations - at least up to this point. Calculating the capacitance needed means that we use the capacitive reactance formula, suitably rearranged ...</p>
+
+<blockquote>C = 1 / ( 2 * &pi; * f * Xc ) &nbsp; &nbsp; <small>where f is frequency and Xc is capacitive reactance</small><br>
+C = 1 / ( 2 * &pi; * 50 * 2 ) = 1,590uF</blockquote>
+
+<p>That's a fairly large capacitance, and can only be economically realised using an electrolytic capacitor. This raises a new quandary - electrolytic caps can operate for many years without a polarising voltage, but only at very low voltages. This means that the maximum voltage across the cap(s) must be limited, or they will fail. To be sensible, it will be necessary to use a pair of electrolytic capacitors, wired in "anti-parallel". A normal series connection with the two negative (or positive) terminals joined will also work, but reduces the available capacitance and maximises ripple current through both caps. Nonetheless, this may be preferable (see conclusion). The traditional way to limit the voltage is to use a number of high current diodes in parallel with the caps.</p>
+
+<p><a id="dc23"></a><b>Series Resonance - </b>The primary inductance can be calculated (close enough) by knowing the no-load current. All the primary current at no-load is the result of magnetising loss, and this is nothing more than that current which is drawn by an inductor when connected to the mains supply. The approximate effective inductance can be calculated, and it will generally be in the order of 40H or more. To save anyone the trouble, we have already determined that we need about 1,500uF, so series resonance can be discounted. The amount of capacitance is simply far too large to be able to resonate at 50Hz (or 60Hz) unless the transformer's inductance is impossibly small. However, it's still worth checking!</p>
+
+<blockquote>f = 1 / ( 2 * &pi; * &radic; L * C ) &nbsp; &nbsp; <small>where f is frequency, L is inductance and C is capacitance</small><br>
+f = 1 / ( 2 * &pi; * &radic; 40 * 1,500u ) = 0.649 Hz</blockquote>
+
+<p>The resonant frequency of the network is well away from the mains frequency, so series resonance is not a problem.</p>
+
+<p><a id="dc24"></a><b>Longevity - </b>Inrush current can be very much higher than the nominal full power current, so the capacitor(s) require protection against over-current. The simplest has already been mentioned - the diodes that limit the maximum voltage across the caps will also limit the capacitor current. As current increases, so too does the voltage across the capacitors. The diodes will conduct if the voltage exceeds the forward voltage of either pair of the two series diodes. These diodes <i>must</i> be capable of withstanding the maximum peak current expected. This may exceed 50A for a brief period, and again, use a soft-start circuit!</p>
+
+<center><img src="xfmr-dc-f3.gif" border=1><br><b><small>Figure 3 - Basic DC Stopper Circuit</small></b></center>
+
+<p>The circuit shown above satisfies all criteria. There is more than enough capacitance, and the diodes specified have a continuous current rating of 3A and a peak current rating of 200A (non-repetitive). After this circuit is included, the no-load current falls back to 16mA, and the visible signs of asymmetrical saturation are gone. As transformer load increases, the diodes will take over from the caps, preventing the peak voltage across either capacitor from exceeding 1.3V - even during the inrush current period.
+<p>Note that if no soft-start circuit is used, larger diodes are highly recommended. Regardless of whether soft-start is used, a 25A or 35A bridge rectifier assembly is a simple and relatively inexpensive way to obtain very high current diodes, already neatly packaged and insulated. When using a bridge, remember that + and - must be shorted together to obtain 4 diodes in anti-parallel (as shown in Figure 3).</p>
+
+<center><img src="xfmr-dc-f4.gif" border=1><br><b><small>Figure 4 - Transformer No-Load Current With Stopper Installed</small></b></center>
+
+<p>After installing the DC Stopper in circuit with the same transformer as used above, the above shows the current without DC (left) and with DC (right). The plots are almost identical. What is not seen is a very low frequency oscillation after the DC is switched in or out.  This is caused by the series resonant circuit mentioned above. While it looks a little disconcerting, it's nothing to worry about and can be ignored. Frequency is as calculated - approximately 0.6Hz (more on this topic below).</p>
+
+<p><a id="dc25"></a><b>Ripple Current Revisited - </b>The situation becomes somewhat less clear when we look at the typical current waveform as seen at the primary of a transformer feeding a capacitor input filter (99.99% of all transistor amplifiers use a capacitor input filter). We are not in any position to try to remove DC offset at all power levels - the capacitance needed simply becomes too large. Therefore, at some value of current, the voltage across the capacitor will be such that the diodes conduct. Even without exceeding the transformer's continuous rating, the peak current drawn by a 500VA transformer can exceed 5.5 Amps. This is shown in Figure 5. A large number of amplifiers (including very expensive commercial brands) will cause the transformer to be overloaded if both channels are driven to full power simultaneously. This is perfectly alright - transformers can withstand huge short-term overloads provided the <i>average</i> VA rating is not exceeded long term.</p>
+
+<center><img src="xfmr-dc-f5.gif" border=1><br><b><small>Figure 5 - Current Waveform at Full Power</small></b></center>
+
+<p>If the 500VA transformer is driven to full power (RMS current for the waveform shown is 2.06A), the ripple current through the capacitors will be the same as the transformer's current draw, but we determined the capacitance based on light loading. With 5.5A peaks, even high current diodes can be expected to have a forward voltage of at least 1V, and considerably more during the power-on inrush period.
+<p>The capacitors need to be able to handle the maximum worst case current. For the sake of the exercise, it is worthwhile to size the caps so that they are capable of handling the full load current - 2A. On this basis, it is better to select a much higher voltage than needed to ensure that the ripple current rating is high enough. Although 16V caps would seem perfectly alright, 63V caps will have a ripple current rating that's double that of the low voltage type. The extra size helps to keep the cap cool, improving life expectancy.
+<p>Allowable capacitor ripple current is dependent on one primary criterion - the physical size of the component (all other things being equal). A physically small cap has a small surface area, so is unable to dissipate heat. Heat is generated by the combination of the capacitor's ESR (equivalent series resistance) and current ( P = I&sup2; * R ), and small caps also have comparatively high ESR. With a small surface area, it's not difficult to cause overheating and subsequent failure.</p>
+
+<hr><a id="dc3"></a><b>How Tests Were Performed</b>
+<p>The method shown above (a half wave rectified load), while quite realistic, has the disadvantage of being somewhat uncontrolled. In addition, I don't have any hot air blowers that use a diode for half power, so the test used was somewhat different from the description. Instead of the half-wave load, I used a small power supply, and actually injected DC in series with the incoming mains. The test setup is shown in Figure 6, and it allowed me to have complete control over the parameters during the tests.</p>
+
+<center><img src="xfmr-dc-f6.gif" border=1><br><b><small>Figure 6 - Test Circuit Used</small></b></center>
+
+<p>The arrangement above was used to produce the waveforms shown in Figures 2 and 4. It was also used to check if any variations of the DC stopper circuit would work.  The benefit of doing the test as shown is that the amount of DC is easily varied, and no external high power load was needed while the test was running.
+<p>While the method used does not cause waveform asymmetry, neither the mains nor the DC stopper circuit actually care if the waveform is asymmetrical or not. Either direct DC injection or an asymmetrical waveform cause an effective DC voltage to exist, and that's all that needs to be tested. With the stopper in circuit, the normal magnetising current cycling behaviour seen went away. These cycles occur naturally, and cause (usually) slight saturation effects to become visible on the positive half cycle, then the negative, then back again. Even a doubling of the peak to peak magnetising current (from 50mA to 100mA) will cause many toroidal transformers to growl quietly. As seen from the above, as little as 137mA of DC will cause the quiescent VA to rise from 3.7VA to over 50VA, and that's with zero secondary load.</p>
+
+<center><img src="xfmr-dc-f7.gif" border=1><br><b><small>Figure 7 - Series Resonance Effects</small></b></center>
+
+<p>It's worth showing the effect of series resonance between the capacitor and transformer's primary inductance. The above graph shows the behaviour after the application of DC. The period between peaks is 2.12 seconds, which makes the frequency 0.47Hz. Calculation, using 2,000uF and an estimated 40H gives 0.56Hz, and the figures are close enough to see that the effect is real.</p>
+
+<hr><a id="outro"></a><b>Conclusion</b>
+<p>Figure 8 shows the final (and recommended) design. While electrolytic caps can withstand a small reverse voltage (around 1V is typical), in the interests of longevity it is probably better to use the caps in series. Being in series, the capacitance of each must be doubled, and as shown the total effective capacitance is 2,350uF. Larger electrolytics can be used if desired, and a medium voltage rating will be required to ensure they can withstand the ripple current (this <i>must</i> be verified! ).  Make sure the caps are well clear of anything that gets hot in operation.</p>
+
+<center><img src="xfmr-dc-f8.gif" border=1><br><b><small>Figure 8 - Recommended Design</small></b></center>
+
+<p>While it is probable that using the caps in parallel as shown earlier will work reliably for many years, this is not something I can guarantee, because I've not performed any form of accelerated ageing process to the circuit. Not having used the circuit in any of my own equipment, I have no data either way.
+<p>The circuit and design processes described here will work for any size transformer. In most cases, the circuit shown in Figure 3 will be fine for any transformer from 500 to 750VA. DC stoppers are usually not needed in smaller toroidal trannies because their primary DC resistance is high enough to limit the (usually small) DC component so the DC has very little effect.
+
+<p>There is something to be said for the use of only two diodes in reverse-parallel, combined with larger capacitance (double the amount shown here). Voltages are lower, but the larger capacitors will be physically smaller because lower voltage parts can be used as ripple current is reduced. The critical component is the capacitor - that is the key to blocking DC.
+
+<p>It has been suggested elsewhere* that diodes have a forward voltage, and that is sufficient to block the DC component of the mains waveform. This is perfectly true for a low DC voltage by itself, but <i>not</i> with AC present at the same time. I tested the circuit using diodes alone and it does ... exactly nothing. The diodes are used to protect the capacitor bank, but it is the capacitor that blocks the DC - not the diodes. While the circuit may work with a small capacitance, it still has to be large enough to ensure that the normal idle current of the transformer cannot create a voltage drop such that the diodes conduct. The smallest capacitance that could be used with the circuit shown above is probably about 440uF (2 x 220uF caps), but this will be marginal. The caps may be unable to withstand the ripple current by the time the diodes conduct, and overall effectiveness is seriously diminished.</p>
+
+<blockquote><b>* Note - </b>There is a thread covering this on the DIY Audio site, and a reference to that in the ESP forum. It was these that got me thinking that the technique is apparently not well understood, and that few (if any) DIY enthusiasts have performed serious tests on the various combinations referred to. This article is due to the forum posts and the obvious misunderstandings therein, that will result in a circuit that may be unreliable, or may not actually achieve anything useful.</blockquote>
+
+<p>Additional tests I performed used only diodes (no effect whatsoever), and a 22uF and 1uF capacitor, and both of these were completely useless. Actually, they were worse than useless, by actually creating a DC offset! Without a very detailed examination, it appears that the small capacitance is only capable of averaging the slightly different forward voltages of the diodes, resulting in a few millivolts of offset. Because the cap is not big enough to maintain the AC component to a value well below diode conduction voltage, this small DC voltage then <i>becomes</i> an offset. With 1uF, transformer idle current rose to about 25mA without any external DC, and was 170mA when DC was added (same setup as used for all other tests). Idle current was a little less than this with the 22uF cap, but not by very much.
+
+<p>It's worth noting that the mains "DC" observed (measured across the diode/capacitor network) varied by about &plusmn;25mV worst case - at least while I was watching!. However, this was measured in a residential area, and there is no doubt that much higher voltages occur from time to time. I expect that a circuit that has been tested to work with over 250mV as shown here will be more than sufficient for most installations.
+
+<p>The circuit as shown will also work perfectly with 120V 60Hz, but it would be wise to increase the capacitance (double the value shown here). Although the caps will work better with the higher frequency, the transformer idle current will be almost double that of a 220-240V transformer.</p>
+
+<hr><a id="safe"></a><b>Safety</b>
+<p>Electrical safety is of utmost importance with a circuit such as that described here. <i>Never</i> rely on the electrolytic capacitor outer plastic sleeve for insulation. All parts must be meticulously mounted, with special consideration to personal protection from live components and separation of all low voltage conductors from anything at mains potential.
+<p>Ideally, the entire circuit will be afforded an earthed metal cover plate. This protects against accidental contact, and ensures that should a capacitor choose to explode, it's intestines will be confined to a small area, rather than scattered throughout the amplifier chassis.
+<p>Regardless of whether the circuit is installed in the active (live) or neutral conductor, the insulation requirements <i>do not change</i>. There is no guarantee that the neutral will <i>always</i> be at earth potential. A mis-wired mains lead, power board, extension lead or power outlet will all make the active become the neutral and vice versa. Because of this, you must allow for the worst case and insulate accordingly.
+<p>While testing your new DC Blocker, you <i>must</i> use insulated alligator clip leads for your multimeter. All connections must be made with power off. The clip leads allow you to make connections that don't rely on you holding probes in position.  A slip can cause a lot of damage!.
+<p>If at all possible, use a Variac to power the circuit for the first time. This allows you to monitor everything and power can be removed before any damage is done if you made a mistake. If a Variac is not available, use a 100W lamp in series with the mains lead. Ideally, the secondary windings of the transformer should be disconnected while you are testing.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott (Elliott Sound Products), and is Copyright &copy; 2008 - all rights reserved. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and Copyright &copy; 06 March 2008 Rod Elliott.</div>
+</body>
+</html>

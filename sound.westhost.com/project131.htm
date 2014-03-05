@@ -1,0 +1,186 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="switch, light, activate, resistance, temperature, mains, security, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - A light (or temperature) activated switch, perfect for security lighting">
+	<!-- ESP Audio Projects - A light (or resistance) activated switch, perfect for security lighting -->
+	<title>Project 131</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 131&nbsp;</td></tr></table>
+
+<p align="center"><b>Light Activated Switch</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>This has very little to do with audio, but I suppose that you could use it to switch on your hi-fi (instead if a light) when it gets dark. The sensor is a light dependent resistor (LDR, aka cadmium sulphide photo-resistor). Most LDRs have a resistance of well over 1 Megohm in total darkness, and some can get down to only a few hundred ohms in bright light. 
+
+<p>It's worth pointing out that a great many of the circuits on the Net that are supposedly light (or dark) activated switches have serious design flaws, and should not be used for controlling anything of any consequence. I have seen "comparators" that are wired as amplifiers and have no hysteresis at all (see below for a full explanation), and there are a few kits being sold that just use a couple of transistors - they may work, but switching point stability is often woeful.
+
+<p>There are two main requirements for any general purpose light activated switching system such as this ...</p>
+
+<ul>
+	<li>A stable reference ensures that the switching point does not change with time, temperature or whim.
+	<li>A true Schmitt trigger comparator to provide reliable switching without relay chatter.
+</ul>
+
+<p>The design shown here has both, so you won't be destroying any relays or connected equipment, and the switching reference voltage is as stable as the regulated supply voltage. For critical applications, a thermally stabilised zener reference could be used, but that's overkill for most systems.</p>
+
+
+<p><i>As a temperature controller ...</i> &nbsp;  You can also substitute a thermistor for the LDR, so you can turn on central heating, air conditioning or anything else that can be activated by a contact closure. The main difference between this project and <a href="project42.htm" target="_blank">Project 42</a> is the deliberate simplicity of this design, and the use of a thermistor instead of diodes. It has been reduced to the bare minimum, but still functions very well and will do most tasks expected of it with ease. It can be used instead of the P42 design, and the relay can control mains powered fans if you want to use them. While it is superficially simple, there are several things that must be done to ensure reliable operation over a long period. It is <i>not</i> designed for rapid switching - it is designed for applications where the switched circuit is activated at intervals of not less than a few second (perhaps 10 seconds or so).
+
+<p>This circuit would also be an ideal addition to a rack cabinet to switch on the fans if the temperature rises beyond a preset value. In this instance, you'd probably want to set the temperature to no more than perhaps 35&deg;C or even less. It is also useful as an incubation temperature controller and can even be used for the same purpose I built mine ... to switch on (LED based) path lighting at dusk and off again at dawn.</p>
+
+<hr><blockquote class="t-red">Note that this project involves mains wiring and a knowledge of proper techniques when working with the mains. Errors or omissions may occur in this document, and ESP offers no warranty of any kind. The project's safety and functionality are solely at the risk and based on the skill of the constructor, and ESP shall not be liable for any damages whatsoever for any reason, even if ESP has been made aware of a fault or risk. No-one should attempt this project unless suitably qualified.</blockquote>
+
+<hr><b>Description</b>
+<p>The project itself is as simple as it's possible to make it. The opamp can be anything you have to hand - even a dual opamp can be used if you wish ... just ignore the other half. As shown, I used a &mu;A741, but almost anything will work. If you use something different, make sure that you check the data sheet to make sure that it is wired correctly.
+
+<p>Although shown with an LDR (light dependent resistor) a thermistor is also a perfectly acceptable sensor. Indeed, anything that changes its resistance can be used as as sensor - including a pot. I can't see a particularly useful application using a pot, but I can think of a few frivolous approaches that could be adapted (albeit with little or no point  <img src="grin.gif" alt=":-)"> ).
+
+<p>The first version is triggered when the light level falls below the threshold (or if temperature falls below threshold if a thermistor is used instead of the LDR). This is the most likely way that such a controller will be used, because it will be used to switch on outside lighting or perhaps a heater. When light level or temperature returns to normal, the controlled device switches off again.</p>
+
+<center><img src="p131-f1.gif" border="1" alt="Figure 1"><br><b><small>Figure 1 - Low Light/Temperature Activated Controller</small></b></center>
+
+<p>In its basic form, this is a very simple circuit. The only scope for complexity is based on how much hysteresis you need. I strongly recommend that any such circuit has at least some hysteresis. There are quite a few schematics on the Net that appear quite similar to this, but hysteresis has been omitted - this is a very bad idea, especially if you are driving a relay. It's shown with two LEDs - one to indicate power is on, and the other to show that the relay is activated. This is especially useful while setting up and testing, as it's much easier than hooking up stuff to the relay contacts. The LED series resistors can be adjusted to get the brightness you need, but I suggest that you don't go lower than 1k. If high brightness LEDs are used, you'll probably find that 10k is about right.
+
+<p>The relay needs to be suitable for the application, and a 10A relay will be suitable for most things you need to do. As shown, the circuit is capable of driving fairly sensitive relays, having coils of not less than around 200 ohms (60mA at 12V). If you need to power anything that draws significant current, it's usually easier to use the small relay to drive the coil of a larger contactor which will usually have a mains voltage AC coil.
+
+<p>Hysteresis is controlled by R4, and is essential to prevent relay chatter when the light or temperature is right at the reference level. The amount needed depends on your application, so adjust R4 )or select a likely candidate from the table below) until there is no relay chatter even if the input voltage is right at the trigger level. The value shown (1 Meg) is the bare minimum - most applications will use a lower value. For probably 99% of all uses, R4 will be between 100k and 1Meg.
+
+<p>For those applications where you need to switch something <i>on</i> when the light level exceeds the threshold, use the following version. As you can see, it is virtually identical. The same thing can be achieved by using the normally closed relay contacts in the Figure 1 version, but this has a small disadvantage of higher power consumption because the relay is on most of the time. Most relays draw around 0.5 - 0.75W for typical 10A types. This may or may not be a disadvantage, depending on your needs.</p>
+
+<center><img src="p131-f2.gif" border="1" alt="Figure 2"><br><b><small>Figure 2 - High Light/Temperature Activated Controller</small></b></center>
+
+<p>It is also possible to use a switch to reverse the way the circuit works if this is something you might need to do regularly - I can't imagine why, but people often need very strange things. 
+
+<p>The power supply is intended to be a 12V DC supply, and ideally it will be one of the newer switchmode types so has the advantages of being regulated, and also very low standby power dissipation. This assists with simplifying the design, because there is no need for additional regulation of the reference voltage. These supplies have another benefit too - their mains power usage is very low - I measured mine at less than 400mW from the mains when all wired up and operational, but with the relay de-energised.
+
+<p>If you use an unregulated DC supply, you will have to add a regulator (7812 or similar) or the threshold (trigger point) will change with the mains voltage. Under these conditions, the DC input voltage to the regulator will have to be at least 15V at the lowest typical mains voltage that you get where you live. A regulated switchmode supply is much easier, and they are now quite cheap too.
+
+<p><b>Hysteresis</b><br>
+For those who either don't know the term at all, or who are puzzled by its meaning, hysteresis is one of those concepts that can be difficult to grasp. It occurs naturally, but the most common (and obvious) applications are man-made. The standard light or power switch as used throughout the world has a <i>snap</i> action that ensures that the contacts open and close quickly. This is a perfect example of hysteresis - and it ensures that there is no position of the switch where the contacts are just opening or closing, unless the switch is worn. Try it ... as you move the switch ever so slowly, suddenly there's a snap action and the contacts either open or close.
+
+<p>That's hysteresis. When applied to an electronic circuit, it does much the same thing. The voltage rises towards the trigger voltage, and actually gets slightly above the point where the output should change state. Once it does trigger, the effect is instant, and the voltage now has to be reduced to some value <i>below</i> the trigger voltage before the output will change state again.
+
+<p>Look at Figure 1 or 2 ... the feedback resistor (R4) connects to the <i>positive</i> input of the opamp. This means that the feedback is positive, not negative, so the opamp does not operate in linear mode. This circuit configuration is known as a Schmitt trigger.
+
+<center><table width=480 border=1 style="border-collapse: collapse">
+<tr><td width="33%"><b>&nbsp;R4 Value</b><td width="33%"><b>&nbsp;Hysteresis</b><td width="33%"><b>Total</b>
+<tr><td>&nbsp;1 Meg<td>&nbsp;&plusmn;&nbsp;25 mV<td>&nbsp;50 mV
+<tr><td>&nbsp;820 k<td>&nbsp;&plusmn;&nbsp;30 mV<td>&nbsp;60 mV
+<tr><td>&nbsp;680 k<td>&nbsp;&plusmn;&nbsp;36 mV<td>&nbsp;72 mV
+<tr><td>&nbsp;560 k<td>&nbsp;&plusmn;&nbsp;44 mV<td>&nbsp;88 mV
+<tr><td>&nbsp;470 k<td>&nbsp;&plusmn;&nbsp;53 mV<td>&nbsp;106 mV
+<tr><td>&nbsp;390 k<td>&nbsp;&plusmn;&nbsp;63 mV<td>&nbsp;126 mV
+<tr><td>&nbsp;330 k<td>&nbsp;&plusmn;&nbsp;75 mV<td>&nbsp;150 mV
+<tr><td>&nbsp;270 k<td>&nbsp;&plusmn;&nbsp;91 mV<td>&nbsp;182 mV
+<tr><td>&nbsp;220 k<td>&nbsp;&plusmn;&nbsp;111 mV<td>&nbsp;222 mV
+<tr><td>&nbsp;180 k<td>&nbsp;&plusmn;&nbsp;135 mV<td>&nbsp;270 mV
+<tr><td>&nbsp;150 k<td>&nbsp;&plusmn;&nbsp;161 mV<td>&nbsp;322 mV
+<tr><td>&nbsp;120 k<td>&nbsp;&plusmn;&nbsp;200 mV<td>&nbsp;400 mV
+<tr><td>&nbsp;100 k<td>&nbsp;&plusmn;&nbsp;238 mV<td>&nbsp;476 mV
+</table>
+<small><b>Hysteresis Voltage Vs. R4 Value</b></small></center>
+
+<p>The above is based on a couple of assumptions. With light loading, most opamps can usually get to within about 1V of the supplies, so the table is based on a total opamp output swing of 10V. The amount of hysteresis is reduced if the opamp's output swing is less than the 10V assumed here - it varies with opamps, so a definitive figure isn't possible. The above is intended as a guide only. The amount of hysteresis you actually need is determined by the likelihood of small fluctuations at or around the threshold voltage. No switching system should ever be used <i>without</i> hysteresis, because there will be a point where the relay chatters. This is a condition where the contacts are making and breaking rapidly - usually at 50 or 60Hz due to mains noise pickup. Set the value of R4 so that you do not experience any relay chatter under normal operating conditions. The relay should operate with a single click, both opening and closing.
+
+<p>Noise pickup is usually electrical noise (including spikes and other noises) picked up by the cable, and includes power supply noise, etc. Noise can also include minor variations from the sensor itself as it passes through the critical region. In general, lower hysteresis means more accurate switching but greater susceptibility to noise of all kinds. It is possible to make the hysteresis asymmetrical by using two resistors instead of R4, and connecting each via a diode (with the two diodes facing in opposite directions). Feel free to experiment, but this will not be covered here. The reference is nominally 6V (voltage divider R2 and R3), but it is pulled either slightly higher or lower by R4. The above table gives you an idea of just how much the reference voltage will change.</p> 
+
+<p>VR1 is adjusted so the input voltage is about 6V at the desired trigger level of light or temperature (or whatever). With the values shown, it's expected that the sensor will have a resistance of about 60k at the transition point. This is adjustable over a wide range though, and the system is easily scaled to suit different sensors. C2 is used to filter noise from the input signal.
+
+<p>For example, a 10k NTC (negative temperature coefficient) thermistor can be used as a sensor, but you'll need to reduce the values of both R1 and VR1 to suit. I would suggest that R1 be reduced to 2.2k and VR1 changed to 22k. This is suited to a wide temperature range, although some experimentation is often needed in practice.</p>
+
+<hr><b>Output Wiring</b>
+<p>The relay contacts can be used for a wide variety of applications, ranging from turning on security lights at dusk to incubating bird's eggs. Extreme care is needed if the contacts are connected to the mains, and I must provide this ...</p>
+
+<center><table width="80%" border=1 style="border-collapse: collapse" bgcolor="red">
+<tr><td><center><b><font color="white"><big>WARNING</big></font></b></center>
+<big>This circuit requires experience with mains wiring. Do not attempt construction unless experienced and capable. Death or serious injury may result from incorrect wiring. It may be illegal in some jurisdictions to perform mains wiring unless suitably qualified.</big></table></center>
+
+<p>You have the choice of both normally open and normally closed contacts, and either set can be used depending on your needs. The most common tasks will use the common and normally open contacts to switch the mains on when the desired trigger point is reached. This is shown in Figure 3.</p>
+
+<center><img src="p131-f3.gif" border="1" alt="Figure 3"><br><b><small>Figure 3 - Mains Wiring Example</small></b></center>
+
+<p>The above is intended as a guide only. If you are suitably experienced you'll have no problems with the mains wiring, and if you don't understand the connections you should not be even considering building this project. Any joins or other connections on mains wiring must be made using approved insulated connectors. Please do not be tempted to use this (or any other home-built equipment) without the mains safety earth.</p>
+
+<hr><b>Construction</b>
+<p>Apart from the mains wiring, there is nothing critical about the circuit, other than ensuring that all components are installed correctly, no reverse polarity, etc. The circuit is easily built on Veroboard or similar. Be very careful with the relay contacts if they will be switching mains voltages. Veroboard does not have the necessary level of insulation for mains voltages, so you must either remove complete sections of track or mount the relay off the board. I suggest the latter, as it's a lot safer.
+
+<p>When I built my unit (which is used to switch on path lighting at dusk and off at dawn), I built the switchmode supply into the case. This saved having an extra lead for the DC, but did require secure mounting for the little supply board. All internal wiring must be made to the standards that apply where you live, including the use of wiring with insulation designed for the mains voltage.
+
+<p>Note that the sensor lead should be shielded, with the shield connected either to the +12V supply (Figure 1) or ground (Figure 2). This is very important, because an unshielded lead will pick up all sorts of noises, so you may need to have much more hysteresis than is desirable.</p>
+
+<hr><b>Testing</b>
+<p>Connect the controller to your switchmode DC power supply. When powering up for the first time, use a 100 ohm "safety" resistor in series with the supply to limit the current if you have made a mistake in the wiring. When the circuit activates, it will probably misbehave because of the safety resistor. Once you are satisfied that everything is connected properly, remove the safety resistor and adjust the pot (VR1) until the relay activates and deactivates at the desired threshold.
+
+<p>If the relay chatters as it activates or deactivates (it will sound like a buzzer), you will need to reduce the value of R4 to get more hysteresis.  Make sure that your workshop lights aren't causing the problem first - fluorescent lights and fast LDRs can cause chattering where it will be perfectly alright if activated by sunlight (or the lack thereof).</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2010. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 13 June 2010</div>
+</body>
+</html>

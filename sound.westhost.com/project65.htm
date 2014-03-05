@@ -1,0 +1,183 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="strobe, xenon, flash, audio, project, diy, amp, test, power, supply, circuit, schematic, diagram">
+   <meta name="description" content="ESP Project Pages - Xenon Strobe. Visit my other pages for more audio projects and articles">
+   <meta name="GENERATOR" content="Mozilla/4.77 [en] (Win98; U) [Netscape]">
+   <title>Xenon Strobe</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" vlink="#551A8B" alink="#00FF00">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 65&nbsp;</td></tr></table>
+
+<p align="center"><b>Xenon Strobe Light</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><b>Introduction</b>
+<p>As a companion to the Lighting Controller presented in <a href="project62.htm">Project 62</a>, this strobe can be used for the strobe head unit. Although the circuit presented is somewhat incomplete (in terms of all component values, suggested xenon flash tubes, etc), the basic principles will allow you to create a unit that will work well and reliably. One of the problems is that I can't predict what xenon flash tubes you will be able to obtain, so some guidelines are given for tube selection, and determination of the amount of capacitance needed.</p>
+
+<p>Note that the description given here is meant only as a guideline. Xenon tubes can have widely differing characteristics, depending on their intended usage, and some may not work properly in this application. You must accept all responsibility for your actions if you decide to build this strobe flash. ESP has taken all reasonable precautions against publishing errors in this article, but it is still only a guideline.</p>
+
+<table BORDER WIDTH="100%" align="center">
+<tr BGCOLOR="#FF0000"><td><center><font color="#FFFFFF">*** <i><u><b>EXTREME HAZARD WARNING</b></u></i> ***</font></center><br />
+This system connects directly to, and operates at, mains voltages or above. It is <b>potentially lethal</b>. Always be aware that the entire strobe circuit is LIVE and take all the necessary precautions during construction to ensure safe operation.&nbsp; <b>Never</b> work on the circuit while it is plugged into the mains outlet, and remember that capacitors can hold a charge for a long time.&nbsp; Make sure that all caps are fully discharged before attempting to work on the circuit.</td>
+</tr></table>
+
+<p>Since the circuit operates at greater than mains potential and is not isolated by a transformer, it is extremely dangerous. The DC operating potential is about 340V, and there is more than enough stored charge to kill you many times over (although in my experience, once is usually sufficient). This is not meant to be funny - this is truly serious stuff. In addition, the circuitry usually is directly mains (line) powered, with no isolation. Discharge all capacitors before working on any flash system.</p>
+
+<center><p><b><small>STROBE LIGHTS CAN CAUSE EPILEPTIC FITS AND DISORIENTATION</small></b></center>
+
+<p><i>This can happen even with people who are not epileptic as such. Many countries have laws governing the use of strobe lights in public places, and effects such as nausea, vomiting and epilepsy have been directly linked to the excessive use of strobes at the right (wrong?) flash rate. Use of this or any such circuit is entirely at your own risk.</i></p>
+
+<p>More information on strobes, flashes and related topics is available at <a href="http://www.misty.com/~don/donflash.html" target="_blank">Sam's Strobe FAQ</a> This is suggested reading for anyone wanting to know more about the subject.</p>
+
+<p>The largest strobe I ever made used a 1000J tube, and I flashed it at about 80J / flash. This was a very powerful strobe, and had to be limited at higher frequencies (above 12Hz) to prevent the tube from going into meltdown. The following is NOT a description of that unit.</p>
+
+<hr /><b>Description</b>
+<p>A xenon flash tube is a triggered gas discharge device. A voltage may be impressed across the tube and it will not conduct until the xenon gas is ionised by an external high voltage (typically 3 to 5kV). Once triggered, the gas becomes a very low impedance, and discharges the storage capacitors in about 1ms (this varies considerably, but this figure is fine for basic calculations).</p>
+
+<p>During discharge, the xenon gas emits broad spectrum white light, which is at nearly the same colour temperature of daylight. For this reason, xenon flash tubes are now the universal choice for photographic flashes, since there is very little colour change when using normal daylight film. None of this has anything to do with a strobe - I just thought I'd include it for interest's sake.</p>
+
+<p>Figure 1 shows the basic flash (strobe) circuit. The mains is rectified directly (using a voltage doubler circuit for 120V supplies) via a current limiting resistor, and the capacitor bank is connected directly across the flash tube. The trigger circuit charges a small capacitance via another limiting resistor. When the SCR is triggered, the capacitor discharges through the primary of the trigger transformer, and a high voltage pulse is developed which is applied to the trigger electrode of the flash tube.</p>
+
+<p>The xenon gas becomes conductive, and the capacitor bank is discharged until the voltage is insufficient to maintain conduction in the tube, which then extinguishes. The capacitors charge up again ready for the next flash.</p>
+
+<center><img SRC="p65-f1.gif" ALT="Figure 1" BORDER=1 height=322 width=678>
+<br><b><small>Figure 1 - Basic Flash Unit</small></b></center>
+
+<p>Keep the wires from the storage capacitor (C3) to the tube short (less than 100mm total if possible). The trigger transformer must be as close to the tube as you can get it - HV insulated cable could be used, but the results are unpredictable.</p>
+
+<p><b>How it Works</b>
+<br>The mains (switched by SW1) is supplied to the rectifier via current limiting resistor R1 (for flash tubes above 100 Joules, I suggest that this resistor be at least 10W). Diodes D1-D4 should be rated at 1000V, and at least 2.5A (i.e. do not use 1N4007 or similar). At a pinch, 3 x 1N4007 in parallel for each diode should work out ok. The terminals marked SWA and SWN are 'Switched Active' and 'Switched Neutral' respectively, and are for connection to the transformer supply for the trigger circuit. The fuse (F1) is shown as 1A, which will be fine for 240V units up to about 200W - a slow blow fuse is suggested. Do not use a fuse rated at more than a couple of amps over the maximum power rating.&nbsp; Calculate the minimum fuse value thus ...</p>
+
+<blockquote>I = P / V &nbsp; <small>where I is current, V is supply voltage and P is maximum power (see below)</small></blockquote>
+
+<p>The SCR can be almost any medium current device your local electronics supplier has handy, as long as it is rated at a minimum of 400V. A C122E, SC141D or BT137-500 would all do nicely - says he boldly, after looking in a local supplier's cattle dog (for the non-Australians out there, this is common slang for a catalogue <img src="grin.gif">).</p>
+
+<p>The link shown between the junction of D2 and D4 must be inserted for operation at 120V, and omitted for 240V operation. This link converts the bridge into a full-wave voltage doubler, and this is needed at the lower mains voltage to obtain the 340V DC needed by the flash tube.</p>
+
+<p align="center"><b>Do not install the link for 240V operation!</b></p>
+
+<p>All capacitors should be rated at a minimum of 350V (preferably 450V). The storage capacitor can be a standard electrolytic, but its life will be limited due to the high discharge current. You might be able to get hold of a few disposable cameras and nab the capacitors from these (they probably won't last very long either, but they're cheap <img src="grin.gif">).</p>
+
+<p>To obtain flash tubes, try your local electronics suppliers, or for larger (i.e. more powerful) tubes you might be better off dealing with a photographic supplier. Remember to get the correct trigger transformer to suit the tube, and make sure that the tube you select is designed for operation at about 300V - some require a very much higher voltage and will not work properly (if at all) at lower voltages.</p>
+
+<p><b>Trigger Circuit</b>
+<br>The triggering circuit uses R4 to charge C4 with a time constant of about 10ms. When the SCR is fired (via opto isolator CR2), C4 is discharged with the primary of TR1 in the discharge path. This generates a high voltage at the secondary, triggering X1, the xenon flash tube. No appreciable voltage is generated as the capacitor charges due to the relatively slow charge rate of the capacitor.</p>
+
+<p><b>Flash Intensity and Capacitance</b>
+<br>It is very important that you select the storage capacitor (C3) and its associated limiting resistor to suit the flash tube. The following section shows how the capacitance and resistance may be calculated.</p>
+
+<p>The flash intensity is measured in Joules (Watt / Seconds). The energy storage (in Joules) of a capacitor is determined with the formula
+...</p>
+
+<blockquote><b>Energy (Joules) = 1/2(CV&sup2;)</b> &nbsp; <small>where C is capacitance in Farads and V is voltage</small></blockquote>
+
+<p>A typical strobe might use a 200uF capacitor charged to 340V, which gives about 11 Joules per flash, thus ...</p>
+
+<blockquote>Energy = 1/2 (200 E<sup>-6</sup> * 340&sup2;) = 1/2 (23.12) = 11.5 J</blockquote>
+
+<p>It is actually less than this, since the entire stored charge in the capacitor is not used, but this errs on the side of caution. This is important, since we don't want to melt the tube or subject it to any more mechanical shock than it was designed for. Assume a maximum flash rate of 15 f/s, each with a duration of 1ms (meaning effective power is actually nearly 11,000W per flash!). A passable guideline is ...</p>
+
+<blockquote>Total Energy (Joules) = 0.5J per 10uF (at 340V)</blockquote>
+
+<p>We can now calculate the average dissipation of the tube ...</p>
+
+<blockquote>Dissipation (Watts) = f/s * E &nbsp; <small>where f/s is flashes per second, E is energy in Joules</small></blockquote>
+
+<p>For our example, the tube will have a continuous dissipation of 172W ...</p>
+
+<blockquote>Dissipation (Watts) = 15 * 11.5 = 172.5W</blockquote>
+
+<p>This means that the tube should have an average power rating of 200W (or 200 Joules), or its maximum rating will be exceeded. To be able to flash at the maximum power at higher flash rates is not generally necessary, so we can limit the power simply by increasing the value of the input limiting resistor. This will increase the life of the tube, and ensure that its safe working temperature is not exceeded. Where you really do need to operate at maximum intensity at the higher rates, consider using forced air cooling for the tube (and the limiting resistor - this will get <small>HOT</small>!)</p>
+
+<p><b>Resistance</b>
+<br>R3 limits the current into C3, the storage capacitor. The value of the storage capacitor must be selected to suit the flash tube (see above). The value of R3 is dependent on the maximum flash rate and the value of C3. At a typical value of 100 ohms it will need to be rated at about 100W for normal use. With a 220uF cap this has a charge time constant of 22ms, allowing up to a 20Hz flash rate with only a slightly reduced voltage, but at this frequency the resistor will be dissipating close to 275W!! That was not a misprint - even at a 10Hz flash rate dissipation is over 100W.</p>
+
+<p>Calculate the resistor using the following guidelines ....</p>
+
+<blockquote>R = 0.02 / C &nbsp; <small>where R is the resistance and C is the capacitance (0.02 is 20ms)</small><br />
+P = (1200 * f/s) / R &nbsp; <small>where f/s is the maximum flash rate per second</small></blockquote>
+
+<p>The above equations are approximate only, but will provide a passably accurate result. Needless to say I take no responsibility if your flash tube melts and the resistors explode.</p>
+
+<table width="100%"><tr><td valign="top"><img src="note.gif" alt="NOTE"></td><td><b>Warning</b> - The current limiting resistor (R3) may need to be increased from the calculated value to ensure that the xenon tube extinguishes after it is flashed. All tubes have a 'holding' current, and if the resistor can supply more than this minimum current, the arc will not quench. If the arc is maintained, R3 will get very hot indeed, as will the tube. Sustained operation with a continuous arc will destroy one or both components.</td></tr></table>
+
+<p><b>An Example</b>
+<br>You can get a 100 Joule tube, and want to flash at 15Hz maximum. At the tube rating, this will allow a maximum of 100/15 = 6.6 Joules per flash (say 6.5). This requires a capacitance of 130uF based on the guideline above. The resistance should be 150 Ohms at 120W, although you will almost certainly get away with a 100W rating.</p>
+ 
+<hr><b>Trigger Circuit</b>
+<p>The strobe circuit is not much use by itself. A fully isolated trigger is also required, and the safety aspect cannot be over-emphasised. Using an opto-isolated triac trigger is the safest possible method, but great care is needed to ensure that the intrinsic isolation afforded by the opto is not compromised - do not run any tracks between the pins, and ensure that a minimum clearance / creepage distance of 6mm is maintained between the mains connected wiring and the "safe" terminals.</p>
+
+<p>To allow the strobe to function as a standalone unit, an internal oscillator can be used. A 555 timer is ideal for this, and can be disabled to allow remote (10V DC) trigger control. Figure 2 shows a suitable oscillator and the connection for the MOC3020 opto-isolator for the remote trigger. The oscillator is very similar to that used in the Lighting Controller, and has a frequency range from 1.25 f/s up to 19 f/s, with a positive going pulse duration of about 1.8ms. This circuit will need a small transformer power supply (as shown) for simplicity and safety.</p> 
+
+<p>This also allows you to work on the oscillator circuit (after the mains is disconnected!). The circuit also shows the remote connection (EXT), which can be used to connect the strobe to the lighting panel. Any suitable connector may be used for this (e.g. a phone jack, Canon XLR, DIN, etc). Use of a dual 7.5 V winding is suggested, and no regulator is required. This will give about 10V DC to power the oscillator. Capacitors in this circuit need only be rated at between 15V and 25V (i.e. whatever you can get cheaply.</p>
+
+<center><img SRC="p65-f2.gif" ALT="Figure 2" BORDER=1 height=322 width=678>
+<br><b><small>Figure 2 - Remote and Internal Isolated Trigger Circuit</small></b></center>
+
+<p>Note that the arrangement shown for the oscillator is critical in one respect. The output pulse (which triggers the opto coupler and hence the SCR) must be of very short duration.  With the values shown, it is about 20us, and this should normally be quite alright. You can reduce the on time by reducing the value of R9 (1k as shown). The minimum suggested value is 100 ohms, giving a pulse duration of 2us. The pulse must be gone by the time the trigger transformer current falls to zero, otherwise the MOC3020 and SCR may/will not be able to turn off.</p>
+
+<p>It is critically important that the entire oscillator circuit (including the pot used to control the internal oscillator) is properly insulated to prevent accidental contact with the mains. The pot, remote input connector, the bodies of all or any switch and all exposed metalwork (including the strobe reflector) must be connected to safety earth via a 3-core mains cable.</p>
+
+<p><font color="#aa0000">This latter point cannot be stressed enough! The strobe circuit is dangerous, and the internal wiring can kill you on contact. Given the opportunity it WILL kill you on contact! Every safety precaution must be taken to ensure that you do not cause injury or death to yourself or anyone else.</font></p>
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy;2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 05 Aug 2000./ Updated 28 Apr 2006 - added info about continuous arc</div>
+</body>
+</html>

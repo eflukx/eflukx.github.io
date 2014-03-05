@@ -1,0 +1,420 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="ESP - Sinewave generation principles. While this should be a simple enough exercise, it isn't, and this article explains why.">
+	<!-- ESP - Sinewave generation principles. While this should be a simple enough exercise, it isn't, and this article explains why. -->
+	<meta name="keywords" content="oscillator, sine, wave, sinewave, cosine, wien, wein, bridge, distortion, led, ldr, thermistor, fet, audio, amplifier, sound, hi-fi, schematic, electronic, projects, circuit, diy">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="ROBOTS" content="all">
+	<title>ESP - Sinewaves</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Sinewave Oscillators&nbsp;</td></tr></table>
+
+<p align="center"><b>Sinewave Oscillators - Characteristics, Topologies and Examples</b><br />
+<small>Copyright &copy; 2010 - Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.21.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles Index" BORDER="0" height="24" width="40"></a><b>Articles Index</b>
+<br /><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Main Index" BORDER="0"></a><b>Main Index</b>
+
+<hr /><b>Contents</b>
+<ul>
+	<li><a href="#intro">Introduction</a>
+	<li><a href="#s1">1 - Amplitude Stabilisation</a>
+	<li><a href="#s2">2 - Digital Synthesis</a>
+	<li><a href="#s3">3 - The Venerable (And Unobtainable) R53</a>
+	<li><a href="#s4">4 - Essentials Of An Oscillator</a>
+	<li><a href="#s5">5 - The Wien Bridge Oscillator</a>
+	<ul>
+		<li><a href="#s51">5.1 - Lamp Stabilisation Details</a>
+	</ul>
+	<li><a href="#s6">6 - Wien Bridge Alternatives</a>
+	<ul>
+		<li><a href="#s61">6.1 - State Variable Filter</a>
+		<li><a href="#s62">6.2 - Quadrature Oscillator</a>
+		<li><a href="#s63">6.3 - Oscillating Filter</a>
+		<li><a href="#s64">6.4 - Low-Pass Filter + Integrator</a>
+		<li><a href="#s65">6.5 - Phase-Shift + Distortion Cancellation</a>
+		<li><a href="#s66">6.6 - Phase Shift Oscillator</a>
+		<li><a href="#s67">6.7 - BFO - Beat Frequency Oscillator</a>		
+	</ul>
+	<li><a href="#s7">7 - Electronic Stabilisation</a>
+	<li><a href="#s8">8 - Waveform Shaping</a>
+	<li><a href="#s9">9 - Digital Generation</a>	
+	<li><a href="#s10">10 - Tuning Element Selection</a>	
+	<li><a href="#outro">Conclusion</a>
+	<li><a href="#ref">References</a>
+</ul>
+
+<hr /><a id="intro"></a><b>Introduction</b>
+<p>An intriguing conundrum on the Net is the constant belly-aching from many audiophools and vested interests that "sinewaves are simple", and are therefore a poor test of an amplifier's distortion performance. If this were true, then a low distortion sinewave oscillator would not pose any problems to build, indeed, it too would be "simple". This being the case, I challenge the 'phools and vested interests to build a simple variable frequency sinewave generator with minimal (or no) distortion. It's simple, isn't it?
+
+<p>Alas, this is not the case, and there are many different schemes published that desperately attempt to obtain a low distortion sinewave, without having to revert to complex high-bitrate digital synthesis, and without using the venerable (and now unobtainable) RA53 or similar <acronym title="Negative Temperature Coefficient">NTC</acronym> thermistor.  While it <i>is</i> comparatively easy to make a sinewave generator that has vanishingly low distortion at one or two spot frequencies, a variable generator is another matter altogether.
+
+<p>In this article, I will concentrate on variable oscillators, because while spot frequencies can be useful if you only need to check distortion at a couple of frequencies, most people like to be able to test filters, amplifiers, loudspeakers, and other devices that are generally expected to be able to reproduce more than one (or two) frequencies.
+
+<p>The distortion ideally needs to be as low as possible, but anything below 0.1% starts to become rather difficult with the methods available now. It's certainly possible to improve on this, but very careful adjustment of all the parameters (time constants, allowable stabilisation range, etc.) is needed to get good results. Some comparatively simple arrangements can give very good results, but only over a limited range (using common and readily available opamps). Indeed, opamps impose many additional limitations. Distortion is usually well within acceptable limits, but few opamps will allow operation of any oscillator topology to much beyond 20kHz. This is very limiting, as it is common for general purpose audio oscillators to have a range up to at least 100kHz, preferably more.
+
+<p>Note that this article is very specific - it deals only with "linear" oscillators - those that are designed to generate a sinewave. Even more specifically, the range is limited to audio frequencies, plus at least a couple of octaves either side. Most audio oscillators are expected to be able to cover the range from about 5Hz up to at least 100kHz.
+
+<p>You won't find any multivibrators or other square/rectangle generators here, nor will you find RF oscillators, other than by a glancing reference.</p>
+
+<p><i>Note that the schematics presented here are for the purpose of illustration and education, and should not be considered to be fully functional as shown. In many cases the circuits will work as described, but this is not guaranteed and cannot be assumed. Some circuits incorporating feedback stabilisation loops using other than lamps or thermistors may require some effort to ensure stability under actual operating conditions. This is an article that describes the principles - it is <u>not</u> a collection of projects that have been built and fully debugged.</i></p> 
+
+<hr /><a id="s1"></a><b>1 - Amplitude Stabilisation</b>
+<p>The heart of any sinewave oscillator is the amplitude stabilising system. Without it, the level will continue to increase until the waveform is clipped and severely distorted, or oscillation will die out over a period of time - assuming it starts at all. The range where the amplitude is stable and has low distortion is limited, and it is simply not possible to make an amplifier with the exact gain needed and expect it to work properly. In all cases with analogue sinewave generators, some means of stabilising the amplitude is needed. This can use diodes, zener diodes, or more sophisticated AGC (automatic gain control) systems. However, the most common (and most effective) amplitude stabilisation systems have used non-linear resistances as described below.  
+
+<p>The demise of the specialised <acronym title="Negative Temperature Coefficient (of resistance)">NTC</acronym> thermistor that used to be the mainstay of audio oscillators is a serious blow, because the only available alternative is a small, low current lamp. These have a <i>positive</i> tempco, so the feedback network needs to be rearranged. Because their current demands are comparatively high (typically up to 20mA or more), this stresses most opamps. Lamps also have a fairly fast time constant, so distortion at low frequencies is much higher than desirable because the resistance changes during the sinewave cycle.
+
+<p>RA series thermistors used to be made by a number of vendors, such as ITT, GE and various others, but it seems that absolutely no-one manufactures these components any more. The Chinese make a range of audio oscillators, and one I have seen uses a small lamp use for amplitude stabilisation. There are several techniques that can be used, and each has its place. One of the biggest problems is that there is no reference material that I could find that discusses the options, and the strengths and weaknesses of each.
+
+<p>In short, these are the primary options ...
+<ul>
+  <li>NTC Thermistor - no longer available in the style needed (miniature bead in evacuated glass envelope)
+  <li>Lamp - relatively high current demand, and fairly fast time constant
+  <li><acronym title="Field Effect Transistor">FET</acronym> - can be tailored for a perfect time constant, but distortion is high
+  <li><acronym title="Light Emitting Diode/ Light Dependent Resistor">LED/LDR</acronym> Optocoupler - can give excellent performance, but 
+  distortion may be higher than expected
+  <li><acronym title="Voltage Controlled Amplifier/Attenuator">VCA</acronym> - Good ones are expensive, many require a microprocessor to 
+  operate. Cheap ones have high distortion
+  <li>Waveform Shaping - this is the method used in most function generator ICs, and while the process works, distortion is typically around 
+  2%. Better results can be obtained, but require more complex circuitry (and results are still mediocre - 0.3% or thereabouts)
+</ul>
+
+<p>There is one other option too, and that's to <i>deliberately</i> clip the signal, and rely on a tuned filter to remove the distortion produced. Filter complexity can be quite high for a low distortion output, and the circuit may end up needing to use multi-gang (3 or more) potentiometers for tuning. Apart from being extremely hard to get, these often have poor tracking. This will also affect the distortion, and makes the amplitude stabiliser work much harder every time the frequency is changed. Amplitude stabilisation is an essential part of all oscillators, because we expect the level to remain constant as the frequency is varied.
+
+<p>Even a tiny change of gain of an amplifier used in an oscillator circuit will cause the signal amplitude to increase until it distorts, or die away to nothing. The only way we can prevent either of these from happening is to provide an amplifier with more gain than is needed, and use automatic gain control or controlled clipping to maintain the effective gain at exactly the right amount to keep the sinewave amplitude stable.</p>
+
+<hr /><a id="s2"></a><b>2 - Digital Synthesis</b>
+<p>Many of the latest and greatest oscillators use digital synthesis, but such units are expensive. Even a 12-bit output is barely acceptable, as this will cause the minimum distortion to be around 0.04% - not bad, but certainly not very impressive.  Lower resolution means higher distortion - 8 bit resolution gives a theoretical 0.5% THD with basic sample-rate filtering, and anything less than 8 bits is obviously pointless.  While this can be improved with more advanced filtering, this increases complexity. For a usable system, I would not be happy with anything less than 14 bits, and preferably 20 bits or more. Needless to say, the digital clock frequency needs to be far greater than the highest output frequency. Distortion of a digitally generated sinewave with only sample-rate filtering falls by 6dB for each additional bit (the distortion is halved), so if we start from 7 bits (1%), 8 bits is 0.5%, 10 bits is 0.125%, etc.
+
+<p>Unlike a digital audio format, very fast filters cannot be used with test equipment. This isn't because the filters are audible as such, but because the performance of test equipment should generally be at least 5-10 times better than the device under test (DUT). If this is not the case, you can't measure the response of an amplifier accurately if its response approaches that of the measurement system (both input and output devices).
+
+<p>Needless to say, measuring an amplifier's distortion using a source that has perhaps 5 to 10 times <i>more</i> distortion than the amplifier is a completely pointless exercise. Even if the distortion is the same for the source and the DUT, the reading you obtain is obviously inaccurate and cannot be used meaningfully. This is a constant problem with most workshop systems - even those that are comparatively advanced.</p>
+
+<hr /><a id="s3"></a><b>3 - The Venerable (And Unobtainable) R53</b>
+<p>The photo below shows an R35 made by ITT. There is no real consensus on whether these are R53 or RA53, but the writing on the glass says R53, so I suppose that is fair indication that this device is an R53. I've also used the RA53, and as far as I can recall, there's no apparent difference. Most people have never even seen one, so I have remedied this by including the photo. I actually had to enhance the bead itself a little, because it's so small that it didn't show in the photo. The glass envelope is evacuated, and there is a getter at the end (note the silvered tip). The bead itself is tiny - apparently it's about 0.2mm in diameter, and it's suspended on very fine (platinum?) wires. The idea is that it is self-heating, and is relatively immune from ambient air temperature.</p>
+
+<center><img src="sine-f1.jpg" border=1><br /><b><small>Figure 1 - Photo Of R53 Thermistor</small></b></center>
+
+<p>Provided the tiny bead runs hot enough (perhaps 60&deg;C or so), variations in ambient temperature will have little effect on the resistance of the bead. The whole idea is that its temperature is determined by the voltage across it. With a thermal time constant of about 1 second or so, the resistance doesn't change much with the applied AC waveform itself, only the RMS current through the bead is important.
+
+<p>Despite this, the R53 and similar thermistors (and lamps) will show increased distortion at low frequencies. Fortunately, this is rarely a problem, and few people bother to measure amplifier distortion below 100Hz or so. A low frequency, low distortion source can be useful to measure the distortion from electrolytic caps as their reactance becomes significant compared to circuit impedance, but the audibility of distortion is very low at low frequencies anyway, provided it's no more than a couple of percent (and low-order).
+
+<p>While there are many small bead type thermistors, this particular style in the vacuum tube is no longer made by anyone. People are constantly asking for assistance to find one (as a search will reveal), but no-one actually sells them any more. I accept that the market must be pretty small so they would be fairly expensive, but I am baffled that absolutely no-one seems to make a thermistor designed to stabilise audio oscillators. There is still a significant market for basic test equipment, and the audio oscillator is one of the most important. An entire enterprise (Hewlett Packard) started with a couple of blokes building audio oscillators in a garage - perhaps it's time to try that again. Chinese made audio oscillators are readily available from many sources, but I don't know what they use for stabilisation.</p>
+
+<hr /><a id="s4"></a><b>4 - Essentials Of An Oscillator</b>
+<p>When we speak of audio oscillators, the primary waveform is a sinewave. Having access to a squarewave is useful, but the sinewave is favoured for the vast majority of tests. If we wish to measure distortion, then the sinewave needs to be exceptionally pure, with a <acronym title="Total Harmonic Distortion + Noise">THD</acronym> that is substantially lower than that of the device under test. While less than 0.01% THD is desirable, it is extremely difficult to achieve with any variable frequency oscillator. Obtaining very low distortion is comparatively easy for a single frequency tone generator, but these are not common because few people can afford the space or cost of a dedicated oscillator that can't also be used for general purpose tests.
+
+<p>Most oscillators are simply an amplifier, with a tuned circuit (frequency selective filter) of some kind to set the frequency. In order to oscillate, it requires positive feedback. The amount of positive feedback needed is determined by many factors, including the losses through the selective filter. It is the filter that determines the frequency, and it can be either an all-pass (phase shift) or band-pass type. Band-pass filter based oscillators have a theoretical advantage, in that any distortion created by the amplitude stabilisation network is subjected to the action of the filter, so in theory distortion should be lower. In reality, this is not necessarily the case.
+
+<p>In the tests I did for this article, I found that the filter doesn't make as much difference as one might expect. Even though the Wien bridge (the most commonly used audio oscillator topology of all) has only very basic filtering, it still has amongst the lowest distortion of any of the different types. The Wien bridge is common for a number of reasons, not least being that it has good frequency stability, is a simple circuit, and is easily tuned over a one decade (10:1) range. The general schematic of a more or less typical Wien bridge oscillator (one of the most common types) is shown below. We will then dissect the various parts so that operation is easily understood.
+
+<p>As will be shown later, there are many different schemes for oscillators. Some are good, and others less so. For acceptable distortion, very few diode or zener stabilised oscillators are suitable, however there is one exception that will also be discussed. Almost any clipping stabilisation scheme can be replaced with a thermistor (best), an LED/LDR opto coupler (good) or a junction FET (varies from useless to good). Unfortunately, as we have already seen, thermistors that are usable for this application are virtually impossible to obtain. Occasionally R53/RA53 thermistors appear on on-line auction sites, but these are a rather unreliable source at the best of times.
+
+<p>Any waveform can be converted into a sinewave if you apply enough filtering, but unless the filter is part of the oscillator it is difficult to impossible to make the filter and oscillator track perfectly. High Q filters that will remove the harmonics effectively require an amplifier with a very wide bandwidth. As always, some of the designs shown below are simply interesting - they may not be used by anyone reading this, but every circuit you see has something to contribute to the world of analogue electronics.
+
+<p>Many oscillators are non-linear (function generators for example), and use waveform shaping to approximate a sinewave. While this is useful because there is no variation in level as the frequency is changed, distortion is usually too high to be useful. Anything above 0.5% is getting to the point where it's not useful for anything <i>but</i> frequency sweeps. Digital generators are not actually oscillators at all. The selected waveform is generated as a digital signal, and is converted to analogue using a digital-to-analogue converter (DAC). While many of the latest digital units are very impressive, they are also fairly expensive ($500 or more) and are difficult to justify for routine audio work.</p>
+
+<hr /><a id="s5"></a><b>5 - The Wien Bridge Oscillator</b>
+<p>While most of the other oscillator types will be lumped together, the Wien bridge has a special place in history, and is one of the most common audio oscillator configurations known. Since Bill Hewlett and Dave Packard started making them commercially in the late 1930s, total Wien bridge audio oscillator production would be in the hundreds of millions. There are very good reasons for this too. The amplifier only needs a modest amount of gain (3, or about 10dB), and the bandwidth only needs to extend to a little more than the maximum frequency expected.
+
+<center><img src="sine-f2.gif" border=1><br /><b><small>Figure 2 - The "Classic" Wien Bridge Oscillator</small></b></center>
+
+<p>R2 (marked *) needs to be changed to suit the lamp's resistance. The lamp must be a low current type, and even so will cause some pain for most opamps. Opamps are not designed to provide more than a few milliamps during normal operation, but the lamp may require 20mA or more before its resistance rises enough to be useful. See below for a detailed explanation of how the stabilisation process actually works.
+
+<p>The Wien bridge itself is a phase shift network and very basic (low Q) filter. At the critical frequency, there is a 0&deg; phase shift, so there is positive feedback to the non-inverting input of the amplifier (in this case, an opamp). Figure 3 shows the general scheme of the Wien bridge, including the amplitude and phase response. You can see the basic filter response too. The upper capacitor causes the low frequency rolloff, and the lower cap causes the high frequency rolloff. The resistors (one in series, one in parallel) set the frequency - in this case 1.59kHz. This is calculated from the values of R and C (which must be identical for R1, R2 and C1, C2). Frequency is determined from ...</p>
+
+<blockquote>f = 1 / ( 2 * &pi; * R * C )<br />
+f = 1 / ( 2 * &pi; * 10k * 10nF ) = 1.59kHz</blockquote>
+
+<p>Many early Wien bridge oscillators used a variable capacitor rather than a pot. While this idea has great merit (variable capacitors will last several human lifetimes), it also means that all tuning circuit impedances are extremely high. Variable caps are very limited, and may have a maximum of perhaps 500pF. If you need to get to 20Hz, this means that the resistors need to be 15.9M for the lowest frequency range. Even a small amount of stray capacitance causes errors, and very complex shielding is needed to prevent hum and noise being picked up by the high impedance circuitry.</p>
+
+<center><img src="sine-f3.gif" border=1><br /><b><small>Figure 3 - The Wien Bridge And Response Curves</small></b></center>
+
+<p>Figure 3 shows the Wien bridge itself, along with the frequency and phase response curves. As you can see, the amplitude is about 10dB down at the peak (exactly one third of the input voltage), so the amplifier must have a gain of 3 to ensure oscillation. In reality, the gain must be greater, or the oscillator will refuse to start or will stop. Unfortunately, the gain requirement changes very slightly due to small resistor (or pot) differences, but if it's only a tiny bit higher than needed, the amplitude will keep increasing until the output stage clips. Distortion is unacceptable at this point. This is why some form of amplitude stabilisation is essential.
+
+<p>With 1V input, the output of the Wien bridge is ideally 333.33mV - exactly one third. Even a very small variation between resistors and capacitors will change this though - a variation of &plusmn;1 ohm for the 10k resistors (0.01%) will change the gain requirements of the amplifier. The change is small, but it's enough to cause the oscillator to either stop, or increase level until it distorts the output. It may come as a surprise that a small incandescent lamp could possibly be accurate enough to allow the circuit to function in a useful manner.
+
+<p>The lamp is positioned in the negative feedback path around the opamp, and when cold will have a low resistance (all metal filament lamps have a positive temperature coefficient of resistance). This means that the amplifier will have very little negative feedback, so will oscillate immediately. As the output level of the opamp increases, more voltage appears across the lamp, its current increases, and so does its resistance. As the resistance of the lamp goes up, the opamp gain is <i>reduced</i> at the same time. A lamp is a <acronym title="Positive Temperature Coefficient">PTC</acronym> thermistor.
+
+<p>Within a relatively short period, the whole system reaches a state of equilibrium. Any attempt by the circuit to increase the output will result in greater lamp current, more negative feedback, so the level is prevented from increasing. In reality, it will increase, but hopefully only by a small amount. Likewise, should the level fall for any reason, current through the lamp filament falls, it cools a little, resistance falls, so gain is increased. Nearly all lamp or thermistor stabilised Wien bridge oscillators will show a variation of output level as the frequency is changed, so the stabilisation is definitely not perfect.</p>
+
+<center><img src="sine-f4.gif" border=1><br /><b><small>Figure 4 - Wien Bridge Oscillator Using Thermistor</small></b></center>
+
+<p>A thermistor stabilised oscillator is shown above. Note that the thermistor and R2 have swapped places, because the thermistor has a <i>negative</i> temperature coefficient of resistance (<acronym title="Negative Temperature Coefficient">NTC</acronym>). As the level increases, more current flows through the thermistor, its resistance falls and this applies more feedback. Additional negative feedback reduces the gain and therefore brings the output level back to the desired voltage.
+
+<p>Most people who have used audio oscillators will have found that the level bounces after the frequency is changed. A level change is caused by imperfect tracking of the frequency pot, and the bounce is caused by the lamp (or thermistor or other stabilisation technique) time constant. It always takes a while until the level settles to the normal value, because it is extremely difficult to obtain critical damping. In extreme cases, the bouncing amplitude can continue for some time - especially at very low frequencies. There is an inevitable trade-off that must be faced with all amplitude stabilisation circuits ... use a fast acting system that settles quickly but has high distortion at low frequencies, or a slow acting system that bounces for some time, but gives good performance at low frequencies.
+
+<p>In some (up-market) oscillators, different time constants are used depending on the frequency. This is hard to achieve if the time constant is dictated by a thermistor though - it is what it is, and it can't be changed. Electronic stabiliser circuits become even more problematical because of the increasing complexity of the overall solution. If the time constant is wrong, the oscillator may just operate in short bursts followed by silence. While this type of waveform can be useful, a poorly chosen time constant for the feedback stabilisation is not the way to achieve the desired result.</p>
+
+<hr />
+
+<p>An alternative to the traditional Wien bridge shown above splits the amplification into two parts. The parallel section is used in an integrator circuit rather than as a passive network. Feedback is applied via the series network as shown below.</p>  
+
+<center><img src="sine-f5.gif" border=1><br /><b><small>Figure 5 - Wien Bridge Oscillator With Two Amplifiers</small></b></center>
+
+<p>This modification to the conventional Wien bridge network is claimed (by J.L. Linsley-Hood) to improve performance and reduce distortion caused by "common mode defects"  in the active device(s). A traditional Wien bridge as shown in Figure 4 has a significant common mode voltage (i.e. the signal voltage applied to both of the opamp's inputs), but in reality this is hardly a problem with modern devices. The stabilisation network (lamp, thermistor, etc.) will invariably cause far more distortion than any modern opamp.
+
+<p>Distortion is reduced if the output is taken from the output of the integrator (U1A) because it acts as a low pass filter, so removes some of the harmonics. Because the feedback network and integrator stage operate with a gain of 0.5 the second stage gain required for stable operation is two. 
+
+<hr /><a id="s51"></a><b>5.1 - Lamp Stabilisation Details</b><br />
+For the time being, we'll assume a lamp for stabilisation, especially since no-one can get RA53 thermistors any more. The lamp's resistance at 25&deg;C needs to be known, and a reasonable approximation of the current needed can be determined. The current will be enough to raise the lamp filament resistance so that it is well above ambient temperature, but not hot enough to glow visibly. Based on a number of fairly typical circuits available in application notes and elsewhere, a lamp filament current of around 7-12mA seems fairly common, which makes the lamp's warm resistance somewhere between 90 and 300 ohms. Look at Figure 2, and note that the feedback resistor is 470 ohms. For a gain of 3 as required, the lamp's filament resistance must be 235 ohms, and the opamp must be able to provide sufficient voltage swing and current to supply the feedback circuit's total resistance (705 ohms). If you can't see where I got the numbers from, I suggest that you read the beginners' guides for opamps and opamp circuits. Most of this is nothing more than Ohm's law.
+
+<p><img src="sine-f327.jpg" align="left">I tested a likely looking miniature lamp (no, not the one pictured). For some reason, the US based IC manufacturers who publish the application notes all seem to think that <i>everyone</i> not only knows what a #327 lamp is, but can get one easily. Application notes refer to this mysterious 327 lamp as if it were some kind of (minor) holy grail.
+
+<p>Yes, it seems to be readily available in the US, but elsewhere? It transpires that the #327 is a 28V lamp, rated at 40mA or thereabouts (1.12W on that basis). At full temperature, the filament will have a resistance of 700 ohms. A photo of a #327 lamp is shown to the left, so for those of us not in the US, at least we know what it looks like. (Ok, I do admit that these lamps can be obtained outside the US, but they are not <i>readily</i> available.) The application notes generally fail to state that many different types of lamps can be used, and they provide no details to make it easier for the constructor to choose something suitable.
+
+<p>Miniature 12-24V lamps with a rating of 1W or less should be alright for most applications. Cold resistance should be as high as possible - aim for no less than about 25 ohms if possible. Some testing will be necessary, because it's irksome to try to calculate the lamp's resistance at all possible operating conditions. Lamps with a rated voltage below 12V probably will not work, because they require more current than most opamps can supply.
+
+<p>The miniature wedge bulb I used has a cold resistance of 28 ohms, but even the ohm-meter supplied enough current to raise the resistance to 32 ohms. I used a 200 ohm feedback resistor, and the opamp output voltage was 2.85V. I measured 945mV across the lamp, and total feedback current is 9.525mA - this means that the lamp's resistance must be 99.2 ohms. Allowing for resistor tolerance (I didn't bother measuring the exact resistance) this all looks about right. It is also possible to use the resistance change to calculate temperature, but tungsten makes this task somewhat more difficult than more sensible metals, because the tempco changes above ~100&deg;C. However, as an approximation, tungsten increases its resistance by 0.0045% per &deg;C. If we know that the resistance went from 28 ohms to 99 ohms, then this would indicate that the temperature of the tungsten has risen by 565&deg;C, from 25&deg;C to 590&deg;C. This is so far above ambient temperature that normal variations cannot cause significant level changes.</p>
+
+<table>
+  <tr><td width=50><td><big>R = R<sub>0</sub> ( 1 + &alpha; &Delta;T )</big><td>Where R is final resistance, R<sub>0</sub> is res. at ambient, &alpha; is the tempco of res. and &Delta;T is the temp change in &deg;C, or ...
+  <tr><td><td><big>T = T<sub>0</sub> + &Delta;R / ( &alpha; * R<sub>0</sub> )</big> &nbsp; <td>Where T<sub>0</sub> is ambient, T is final temp (&deg;C), &Delta;R is resistance change and R<sub>0</sub> is initial resistance at ambient.
+</table>
+
+<p>Measured distortion with the lamp I had was 0.04% at 400Hz and with an output voltage of 2.85V RMS. Not a wonderful result, but more than acceptable for most general purpose applications. Somewhat surprisingly, the measured distortion with the lamp was slightly <i>lower</i> than with an RA53 thermistor. The latter showed just under 0.05%, and both were measured at 150Hz. The distortion residual (just the harmonics after the fundamental has been removed by the distortion meter) was fairly smooth in both cases, although there was some noise. The circuits were tested on my opamp test board, and there was no shielding of any kind. I used 4558 opamps, which are roughly equivalent to the TL072, but have <acronym title="Bipolar Junction Transistor">BJT</acronym> inputs rather than FETs.</p>
+
+<hr /><a id="s6"></a><b>6 - Wien Bridge Alternatives</b>
+<p>There are actually relatively few sinewave oscillator topologies around. Given the long-term popularity of sinewaves, one would expect a plethora of different designs, but this is not the case. Certainly, there are more options for fixed frequency oscillators (such as phase-shift oscillators for example), variable frequency is expected by most users so the options become much more limited. Those shown here are representative only, and I have chosen to use a junction FET as the stabilising element for several examples. In each case, this is driven by a full-wave rectifier.
+
+<p>Stabilisation is the bane of all sinewave oscillators, because it either works quickly but with high distortion, or works slowly so has low distortion, but causes amplitude bounce when frequency is changed. Junction FETs are convenient but have relatively high distortion unless the level is kept very low (preferably under 100mV). LED/LDR opto-couplers would seem to be a perfect choice, and if used appropriately can give low distortion. Thermistors and lamps have better linearity than FETs or LDRs, so will win every time.
+
+<p>When a FET is used, it is a well known phenomenon that distortion is minimised if the gate has exactly half the AC signal level at the drain. Second harmonic distortion is virtually eliminated, leaving predominantly third harmonics at a greatly reduced level. Interestingly, most of the application notes that use electronic stabilisation only show half-wave rectification. A full-wave rectifier is preferable, as it reduces the ripple voltage in the stabilisation loop which helps reduce distortion.</p>
+
+<hr /><a id="s61"></a><b>6.1 - State Variable Filter</b><br />
+The first of the alternatives is based on a state-variable filter, and although fairly complex, it performs well. The biggest advantage is that the sweep range can be made fairly wide - up to 100:1 is possible, although this can only be achieved realistically if a close tolerance dual pot is used for tuning. Distortion performance is acceptable, but is limited by the FET. Although I haven't tested this design with a thermistor in place of R6, I'd expect performance to be quite good. This design also has a cosine wave available from the output of U1B. A cosine wave is a sinewave, but displaced by 90&deg;. The usefulness of this is dubious at best, although there are a few very specialised applications where a cosine waveform is needed. Few (if any) audio hobbyists will ever require a cosine output. It doesn't matter which output is used if you only require a sinewave, but the second integrator gives a lower distortion.<br /><br />
+
+<center><img src="sine-f6.gif" border=1><br /><b><small>Figure 6 - Sine-Cosine Generator Using State Variable Filter</small></b></center>
+
+<p>This is an interesting circuit, partly because I could find no definitive origin. Parts of it are shown in an Intersil application note, and there are several sites that either show exactly the same circuit as indicated in the references, or have a link to the page. Distortion performance depends almost entirely on the FET used. I've shown a 2N5484, and while these are common, it's possibly one of the worst FETs around for this application. The original showed a 2SK30A, but it is a discontinued device and therefore will be difficult to obtain. The resistor in parallel with the FET (R7) needs to be selected for reliable starting and lowest distortion (it's therefore a compromise).
+
+<p>R8 and R9 combine to ensure that the gate has exactly half of the signal present at the drain, and this reduces distortion (simulated) from 0.2% to 0.009%. The extra time constant created by R8, R9 and C3 causes some signal bounce, but it's well within normal expectations. Without the extra network, settling time is almost instant, but as noted above, distortion is increased. I have found it wise to use simulator distortion figures as a guide only, so expect the figures above to be somewhat higher than the simulator claims.
+
+<p>Frequency is determined using exactly the same formula as the Wien bridge. In the example shown it has the same frequency range as the Wien bridge above.</p>
+
+<center><img src="sine-f7.gif" border=1><br /><b><small>Figure 7 - State Variable Filter Oscillator With Diode Stabilisation</small></b></center>
+
+<p>Another variant of the state variable filter oscillator is shown above. This uses diode stabilisation and distortion cancellation (R9 and R10). This is an especially interesting circuit, since it is easily capable of respectably low distortion, while still using simple and cheap diodes for amplitude control. The distortion cancellation shown can be applied for the Figure 6 circuit as well, although the resistor values may need trimming to get optimum performance.
+
+<p>Distortion cancellation relies on the primary distortion component being third harmonic, and this will always be the case when diodes, thermistors or lamps are used for amplitude control. Distortion components cannot be accurately predicted if LED/LDR optocouplers or FETs are used.</p> 
+
+<hr /><a id="s62"></a><b>6.2 - Quadrature Oscillator</b><br />
+The state variable filter based oscillator shown above is also known as a quadrature oscillator, because it produces two sinewaves in quadrature - they are exactly 90&deg; apart. One sinewave is available from U2A as shown, and another can be taken from U1B.
+
+<p>Another version of the same basic arrangement is shown in Figure 8, and this too is a quadrature oscillator. It's not a particularly user-friendly oscillator though, because there are three time constants that must be changed for tuning. All three must be identical, and the oscillation frequency is given by the normal formula.</p>
+
+<center><img src="sine-f8.gif" border=1><br /><b><small>Figure 8 - Quadrature Oscillator Using Three Integrators</small></b></center>
+
+<p>The lowest distortion is obtained from the non-inverting input of U1B, but this is high impedance so would need to be buffered with a FET input opamp. The amplitude stability depends on the saturation voltage of the opamps, and residual distortion is generally hard to remove. It is also very difficult to predict because it will often be dependent on the opamps used. In general, THD below 1% is probably optimistic.</p>
+
+<hr /><a id="s63"></a><b>6.3 - Oscillating Filter</b><br />
+There are a number of variations on this theme, but this particular version is interesting in that it only requires one resistor value to be changed to change frequency. A single-gang pot eliminates any issues with tracking, and this problem is actually worse than expected. Few (affordable) pots offer good tracking between sections, and this circuit solves the problem by not needing a dual-gang pot.
+
+<p>Apart from anything else, the filter section itself is mildly interesting. If you look at the various active bandpass filters, you will see that this is really a multiple feedback bandpass filter, No-one seems to bother mentioning this, yet it surfaces in several application notes and on a number of websites. National Semiconductor refer to it as an "easily tuned" oscillator, which is certainly true enough. Stabilisation is achieved using clipping diodes, but a thermistor, FET or LED/LDR can also be used with appropriate circuit changes. Distortion can be very low if a linear stabilisation technique is used, but even with diodes can be under 1%.</p>
+
+<center><img src="sine-f9.gif" border=1><br /><b><small>Figure 9 - Oscillating Bandpass Filter Oscillator</small></b></center>
+
+<p>There are two major disadvantages of this circuit that are not mentioned in any of the application notes I've come across. High frequency performance is very limited, because the filter stage (around U1B) operates with considerable gain. As the frequency is increased, the tuning resistance (R2 + VR1) is reduced to the minimum, and this attenuates the signal from the diode clipper. With the values shown and at maximum frequency, the opamp needs a gain of at least 30, and preferably a lot more. Very fast opamps could be used, but they are expensive and in my opinion are wasted on this circuit. One common example on the Net shows VR1 as 1k and R2 as 51 ohms. The opamp is operated at high gain to get a high Q (which minimises distortion), and this limits the maximum usable frequency.
+
+<p>The other problem is that the tuning range is comparatively small. To maintain acceptably low distortion, the tuning ratio is only about 4:1 - rather inconvenient and much lower than that from other topologies. Distortion is inversely proportional to frequency, so at the minimum frequency the THD will be roughly 4 times that of the maximum frequency. These two issues confine the circuit to the "interesting but not very useful" basket. This is contradictory to some of the claims you may see for this circuit, but I've built and tested one so I know its limitations. With the pot at minimum, the operating frequency is approximately equal to ...</p>
+
+<blockquote>
+	f = 1 / ( 2 * &pi; * C * &radic;R1 * ( R2 + VR1 ) )<br />
+	f = 1 / ( 2 * &pi; * 10nF * &radic;560 * 470k ) = 981Hz
+</blockquote>
+
+<p>The most (potentially) useful part of this design is the filter. While it's simply an adaptation of a MFB bandpass filter, using it as a variable tuned filter is unusual. The Q varies with the pot setting (high resistance gives a low Q), but in many cases this is not a major limitation.</p>
+
+<hr /><a id="s64"></a><b>6.4 - Low-Pass Filter + Integrator</b><br />
+This is a very uncommon circuit, and is one that I happened to find in a commercial product. Although it is single frequency, it's a potentially interesting circuit because it is capable of fairly low distortion, despite the use of zener diodes for amplitude control. It typically has a higher output than many of the other circuits, and as shown below produces about 5V RMS output level with a distortion of as little as 0.04% (with considerable tweaking!).<br /><br /> 
+
+<center><img src="sine-f10.gif" border=1><br /><b><small>Figure 10 - Low-Pass Filter + Integrator</small></b></center>
+
+<p>Although the circuit is not complex, amplitude stability with changes in both supply voltage and temperature are quite good, but tuning is difficult. With the values shown it oscillates at about 1kHz, but no resistor value can be changed that affects only the tuning and not amplitude. This makes it suitable for fixed frequencies only. The value of R3 is quite critical - it needs to be low enough to ensure reliable oscillation, but not so low that the output distorts. The circuit gain around the integrator is almost exactly 2 (6dB). The voltage losses in the filter and zener clipping circuit need to be exactly replaced by the integrator gain to maintain oscillation.
+
+<p>As mentioned - interesting, but only marginally useful. Determining the frequency is rather irksome, and can only be approximated. In theory, the frequency for the circuit as shown is 1026Hz - roughly based on the standard formula ...</p>
+
+<blockquote>
+	f = 1 / ( 2 * &pi; * C1 * R1 )
+</blockquote>
+
+<p>This is also influenced by the integrator (U1B) time constant determined by R3 and C3, and this makes it considerably less predictable. When simulated, the circuit oscillates at 1016Hz, but a test circuit oscillates at about 970Hz. This is outside the expected variation based on typical component tolerances. Although the circuit is (surprisingly) quite stable in operation, virtually every component changes the amplitude and frequency. The only exception is the zener diodes which may be changed with only minor effect, but even R4 changes both amplitude and frequency!</p>
+
+<hr /><a id="s65"></a><b>6.5 - Phase-Shift + Distortion Cancellation</b><br />
+Of the alternatives, this is by far the best I've found. For most applications will easily beat almost anything else. It is described in <a href="../project86.htm" target="_blank">Project 86</a>, and has very good performance. The only down-side is that the dual-gang pot needs to track fairly accurately to prevent drop-outs (bounce is virtually non-existent), but it's much better than a Wien bridge oscillator in that respect. In addition, PCBs are available from ESP - see the <a href="../pcb/pricelist.html" target="_blank">pricelist</a>.
+
+<p>Because of the "feedforward" distortion cancellation signals, the output can achieve a distortion as low as 0.1% with diode clipping. A thermistor can be used instead of diodes to reduce the distortion even further, but the problem of obtaining thermistors remains of course. There is no reason that an LED/LDR solution wouldn't work equally well, although this has not been tried. Unlike most of the alternatives, this oscillator can have a much wider frequency range than expected - up to 25:1. This means that the entire audio band is more than adequately covered by only 3 ranges ...</p>
+
+<blockquote>10 - 140 Hz<br />
+140 - 1,960 Hz<br />
+1,960 Hz - 27.44 kHz *</blockquote>
+
+<p>To be able to get beyond 20kHz requires fast opamps, and is usually not needed for the majority of tests. A more realistic upper limit is around 15kHz, and a reduced frequency range (such as 14:1 as shown above) allows more accurate frequency adjustment. The minimum frequency is limited only by the amount of capacitance you can use for CT (timing capacitors) and RT (timing resistor + pot). There is no theoretical lower limit for frequency, and if the diode limiter is used (rather than a thermistor or electronic stabilisation scheme) distortion will remain low at well below 1Hz. Frequency calculation uses the same formula as the Wien bridge.
+
+<p>Please note that the term "feedforward" is not strictly correct in the context used here, but it does convey the principle fairly well. Also, much like the state-variable filter based oscillator, I found little information on the Net about this circuit, except for the project published on my site (contributed). It apparently is based on one described in Wireless World (now Electronics World), but I have no further details.</p>
+
+<center><img src="sine-f11.gif" border=1><br /><b><small>Figure 11 - Phase Shift + Distortion Cancellation Oscillator</small></b></center>
+
+<p>The secret of how this design achieves such low distortion from a diode limiter and no filtering lies in the final opamp. In much the same way as the diode shaper shown below sums the various outputs to approximate a sinewave, the final stage sums signals with a defined phase displacement. The result is almost complete cancellation of third harmonic distortion, along with a worthwhile reduction of fifth and seventh harmonics as well.
+
+<p>Overall, this is probably the most useful of all the different types shown, however it does use more opamps than most, and will use even more if electronic stabilisation is added. Because of the multiple summing points that give this circuit its low distortion, a lamp cannot be used, so amplitude limiting will be via the diodes as shown, or an RA53 thermistor if you can get one.</p>
+
+<hr /><a id="s66"></a><b>6.6 - Phase Shift Oscillator</b><br />
+Ok, I admit that I said at the beginning that I wouldn't include single frequency oscillators, but this is a very simple oscillator to build, requires no stabilisation, and is a very common circuit. Used in valve guitar amps as the tremolo/vibrato oscillator, there are probably many millions of them around. The frequency formula is not especially accurate, and although frequency can be changed by around 5:1, the amplitude changes too. Output level is proportional to frequency as the resistance is changed.  Any resistor can be changed to change the frequency, and for a limited range (~4:1), R3 can be changed with only small amplitude changes.<br /><br />
+
+<center><img src="sine-f12.gif" border=1><br /><b><small>Figure 12 - Phase Shift Oscillator</small></b></center>
+
+<p>With the values shown, the frequency is 1.68kHz, with 2.4% distortion (only odd harmonics). Output voltage is 560mV with &plusmn;15V supplies.</p>
+
+<blockquote>f<sub>o</sub> = &radic; 6 / (2 * &pi; * R * C) &nbsp; &nbsp; <small>This is approximate, and only works when all values of R and C are equal</small></blockquote>
+
+<p>If R3 is increased to 33k, the output level only falls by 7mV, and frequency becomes about 1.1kHz. Distortion is slightly higher, which is interesting but irrelevant in real terms. This is a potentially useful circuit, but has limited application. For wider frequency range adjustment, all three resistors can be changed and this will keep the amplitude the same. Triple-gang pots are as common as R53 thermistors, so this is not really a viable option. A dual-gang pot could be used in series with R2 and R3, which will increase the frequency range. Output level will vary with frequency though.
+
+<p>More advanced versions of the same principle also exist, and may even be given exotic (or stupid) names (such as "Bubba" oscillator). It doesn't matter what you call it, it's still a phase shift oscillator. Although traditionally phase shift oscillators have used 3 sections, more can be added. Extra sections give the opportunity for lower distortion (at the expense of lower output level) but may also require a gain stage with wider bandwidth because a higher gain is needed before the circuit will oscillate. Buffer stages reduce voltage losses, but add complexity and cost to an oscillator that is really only marginally useful as a test signal source.</p>
+
+<hr /><a id="s67"></a><b>6.7 - BFO - Beat Frequency Oscillator</b><br />
+A technique that was popular some time ago was the BFO. Two high frequency oscillators were used, generally operating at several hundred kHz or more. The two signals were fed into an RF mixer, and the audio output was the difference frequency. For example, if one RF oscillator operates at 1,000,000Hz and the other at 1,000,100Hz, the difference frequency is 100Hz.
+
+<p>You may well ask why, and today no-one would bother. BFOs were used to generate sweep signals, and can easily cover from 20Hz to 20kHz in a single sweep. The change required for an RF oscillator is comparatively small in percentage terms (20kHz is only 2% of 1MHz), and was easily accommodated with the valve circuitry that was available at the time. Sweep signals are common today, and are primarily digitally derived as part of a testing suite for amplifiers, speakers, etc. There is relatively little need for a stand-alone sweep generator now, and BFOs are a thing of the past.</p>
+
+<hr /><a id="s7"></a><b>7 - Electronic Stabilisation</b>
+<p>Since the ideal thermistor is effectively unobtainable and lamps require more current than we might have available, we need to look at alternative methods. I have already shown a FET used as a variable resistance, and these are convenient, cheap, and work well enough so long as the (AC) voltage across the FET is kept to a minimum. Providing an AC signal at the gate which is exactly half the voltage on the drain helps dramatically, and even harmonics are effectively cancelled. This comes at a price though, because there are now two time constants - one based around each capacitor (C1 and C2) seen in diagram "A" below.</p>
+
+<center><img src="sine-f13.gif" border=1><br /><b><small>Figure 13 - Electronic Stabilisation Examples</small></b></center>
+
+<p>Adding this extra time constant can cause serious bounce, and in extreme cases, what's known as squegging. This refers to the behaviour of an (analogue) electronic circuit that appears to function normally for a period (typically a few milliseconds), then shuts down for a period (from milliseconds to seconds) before repeating the whole process. The design of control-loop time constants is almost a complete science in itself, and it is very easy to make a seemingly insignificant change that either causes or cures the problems. Needless to say, control-loop theory is outside the scope of this article, but during both physical testing and simulation of the circuits shown, I encountered squegging on several occasions. Multiple time constants that are reasonably close together <u>will</u> cause problems, so it is generally necessary to ensure that time constants are widely different if more than one is involved.
+
+<p>For this reason, the filter cap for the LED/LDR opto coupler feedback circuit is much smaller than it really should be. LEDs are extremely fast, but LDRs are relatively slow, with the VTL5C4 taking several seconds to return to maximum resistance after illumination. The experiments I performed showed that adding a filter cap of a useful value after the diodes caused squegging, and while I'm sure that there is a combination that would work, I simply left it out to prevent problems. However, this limits the low frequency range because distortion becomes very high at frequencies below ~50Hz or so (this depends on the specific opto coupler, as there are many different types with different response times).
+
+<p>There is one major difference between the way these two circuits work. The FET has minimum impedance with no signal, and increasing the signal level increases the FET's impedance. In this respect, it is the equivalent of using a <i>lamp</i>, so must be in the same electrical location that would otherwise use a lamp. For the Wien bridge, this means that the FET connects from the feedback node to ground.
+
+<p>The LED/LDR opto coupler is the equivalent of a thermistor, so it has maximum resistance with no signal, and the resistance falls as the level increases. While the operation can be electrically reversed, doing so simply adds more parts for no real benefit. In both cases, it is important to minimise the voltage across the FET or LDR. Smaller voltages and/or currents mean lower distortion, so the variable resistance element should use series or parallel resistance (or a combination of both) to achieve the highest linearity.
+
+<p>Naturally, you must ensure that there is always enough available gain to ensure that oscillation starts reliably, and this influences the distortion null setting. While you may be able to get low distortion from the Distortion Null control, you may then find that the circuit refuses to oscillate at high frequencies or when the oscillator is first turned on. This means that some distortion performance must be sacrificed to ensure reliable oscillation under all conditions.</p>
+
+<hr /><a id="s8"></a><b>8 - Waveform Shaping</b>
+<p>Diode waveform shaping is very common with low cost analogue function generators (it's inside the IC itself in most cases), but the lowest distortion that is typically available is around 1%, although as low as 0.25% is claimed in some literature. The input signal is a triangle waveform, and the diodes progressively clip the peaks to give a reasonably smooth sinewave. Although the distortion is usually audible, it is still usable for simple signal sweeps, for example to find the resonant frequency of a speaker. There are countless different diode clipping schemes on the Net, and the one shown below is purely an example.
+
+<p>Triangle waveforms are very easy to generate with simple opamp circuits, and that makes it attractive for low-cost function generators.</p>
+
+<center><img src="sine-f14.gif" border=1><br /><b><small>Figure 14 - Waveform Shaping Example</small></b></center>
+
+<p>In the example shown, a &plusmn;6.6V triangle wave input gives the lowest distortion. Because of the different impedances in each of the 4 clipping circuits, the output amplifier sums a variety of clipped waveforms, with the end result looking rather like a sinewave. It is very important that the triangle waveform is perfectly symmetrical, or distortion rises rapidly.
+
+<p>Another option is to use a logarithmic amplifier. While this is theoretically better than diode clipping, in reality there's usually very little difference between them. Unless proper temperature controlled log ICs are used there will usually be a small change in amplitude and distortion as the ambient temperature changes - this applies to diode shaping as well, although the effects are likely to be less severe with the simpler diode clipping circuits.</p>
+
+<hr /><a id="s9"></a><b>9 - Digital Generation</b>
+<p>Digitally generated sinewaves are becoming much more common than they once were, but most have a limited bit depth which limits the usefulness of such techniques. I would suggest that anything less than 8 bits is completely useless, because distortion will be too high. Eight bit resolution gives a theoretical distortion of 0.5%, and this is halved for each additional bit used. Two techniques that reduce distortion are the addition of a filter (preferably tracking) to remove the harmonics, and adding dither - essentially random (white) noise - at a very low level. For serious work, nothing less than 14 bits is really much use, as distortion is still too high unless post-filtering and dithering is used. A 14 bit system should be able to provide distortion below 0.01%.</p>
+
+<center><img src="sine-f15.gif" border=1><br /><b><small>Figure 15 - Digital Sinewave Generation</small></b></center>
+
+<p>The above is an example of a digitally generated sinewave. In this, it's limited to 5 bits, so theoretical distortion is 4%. This can only be achieved if the signal is filtered, and heavier filtering will reduce the distortion. With a 220nF cap in parallel with R5, distortion is reduced to a little over 2%. This type of generator can only be used with a tracking filter as described in a Silicon Chip magazine article that had a design for a complete system. However, in the SC article, the values of R2 and R3 were wrong - they were specified as 16k, but this makes the distortion a great deal worse than it should be. </p>
+
+<hr /><a id="s10"></a><b>10 - Tuning Element Selection</b>
+<p>Throughout this article, I have used variable resistance (potentiometers) as the frequency control device, but these have known issues that limit their usefulness. While there are some very good quality wirewound pots that would be suitable for long-term reliable use, these are not commonly available with high values or in dual-gang configurations.
+
+<p>Commonly available (cheap) pots have poor tracking, and that increases amplitude bounce as the frequency is changed. As the pot wears, there will also be small "dead spots" caused by minute gaps in the contact area as it gradually wears away. Dust can also cause dead spots. Anything that disturbs the tracking causes the amplitude stabilisation network to work that much harder, and amplitude bounce is extremely annoying when carrying out many common tests.
+
+<p>One common fix for this is to use radio type tuning gangs - variable capacitors. Because the plates mesh together without ever touching, there is no wear, although bearings can fail if the instrument is heavily used. I have a number of pieces of test gear that use variable capacitors, and have never had a failure of any kind. Meanwhile, I have replaced pots several times in other equipment.
+
+<p>There is no doubt that the variable capacitor is by far a better control system, but it too has its problems. Most importantly, the capacitance is low, usually around 100-500pF. This means that circuit impedances are high - for 20Hz at 500pF, you need resistors of 15.9M ohms. Small amounts of stray capacitance cause major problems, and the likelihood of hum pickup is greatly increased.
+
+<p>In addition, all amplifiers used (whether discrete or opamp) must have FET inputs because of the very high impedances involved. However, nearly all of the circuits shown above can use a variable capacitor for tuning, and for different ranges the fixed tuning resistors are switched. Some more recent oscillators (Chinese origin) use variable caps that have higher than normal capacitance. This is achieved by using a plastic dielectric film between the plates, thus increasing the capacitance but at the expense of thermal stability.</p>  
+
+<hr /><a id="outro"></a><b>Conclusion</b>
+<p>Based on the information in this article, you should now be able to build yourself an audio sinewave generator. They are not simple, and obtaining vanishingly low distortion is a serious challenge for all techniques, both analogue and digital. The one component that made a low distortion oscillator a comparatively simple project - the RA53 thermistor - is now gone. Apart from a few old buggers like me who've managed to squirrel a couple away over the years, they are virtually unobtainable. Small lamps do work surprisingly well though, and this remains a viable option.
+
+<p>Although I have shown that the lamp will work,  they are less predictable than the thermistor unless you have a reliable source. More complex techniques using FETs or LED/LDR optocouplers may often be needed, but most are unable to get distortion figures that even approach the thermistor or lamp. Eventually, all audio oscillators will probably be digital, because the analogue techniques are getting too hard. Even finding a good quality dual-gang pot with accurate tracking between the sections is difficult - once, high value wirewound pots were made that were perfect, but these too have all but vanished.
+
+<p>To be able to take distortion measurements, the easiest approach will almost always be to use a general purpose audio generator followed by a low-pass filter. This can be made switchable, so you can have a few spot frequencies for distortion measurements, but still have the ability to sweep the signal over a wide range. The filter will reduce the level of harmonics, and would normally be built so that the -3dB frequency of the filter corresponds to the measurement frequency or slightly above. For most applications, a 12dB/octave (second order) filter will be sufficient, and will reduce distortion by a significant amount. Naturally a higher order filter will reduce the distortion further. In a test that I ran, initial distortion was fairly high - almost 0.7%. A 12dB/octave filter reduced this to 0.2% and a 24dB filter reduced it further to 0.06%. Naturally, if you start with a distortion at an already sensible value (around 0.02% or so), a 24dB filter will get you to perhaps 0.002%.
+
+<p>Ultimately, you will quickly run out of distortion signal and be left only with noise. Even here, the filter helps a lot, because all noise above the test frequency is filtered out. With a much narrower bandwidth, noise is diminished significantly.
+
+<p>As I hope is now very clear, sinewaves are not simple. They are without doubt the hardest signal to generate accurately (i.e. with minimum possible distortion), and I hope the information presented gives you a few new ideas. Despite all the advances in electronics over the years since Hewlett-Packard started building Wien bridge audio oscillators in a converted garage, this still remains the best overall topology. To be able to get the wide range of frequencies needed for response measurements, we still need to use discrete circuits. Few (affordable) opamps have good enough high frequency response at full level - we need at least 100kHz, preferably more.</p>
+
+<hr /><a id="ref"></a><b>References</b>
+<blockquote>
+	1 - Thermistors, lamps, LED/LDR Stabilisation Techniques, Linear Technologies Application Note, AN43<br />
+	2 - "Easily Tuned" oscillator -   National Semi Linear Brief, LB-16, 1995<br />
+	3 - <a href="http://www.massmind.org/images/www/hobby_elec/e_ckt20.htm" target="_blank">Sine-Cosine Oscillator</a><br />
+	4 - Intersil Application Note AN1087, March 20, 1998<br />
+	5 - Sinewave Generation Techniques, National Semiconductor Application Note, AN-263, 1999<br />
+	6 - Design of Opamp Sinewave Oscillators, Ron Mancini, Texas Instruments Application Note<br />
+	7 - Wien Bridge - Classic circuit, multiple sources (including several above).<br />
+	8 - Wien-Bridge Oscillator With Low Harmonic Distortion, J.L. Linsley-Hood, Wireless World, May 1981
+</blockquote>
+
+<p><b>Recommended Reading</b>
+<br />Designing With Opamps - <a href="../dwopa.htm" target="_blank">Part 1</a> and <a href="../dwopa2.htm" target="_blank">Part 2</a> - ESP</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2010. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; Rod Elliott, 05 April 2010./ Updated 18 Aug 10 - added quadrature oscillator./ 10 Oct 10 - added section 6.4./ 11 Jan 2011 - Added Figure 7 and associated text, added section 10, renumbered all diagrams.</div>
+</body>
+</html>

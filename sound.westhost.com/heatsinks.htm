@@ -1,0 +1,626 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="ESP - How to calculate, design and size heatsinks for amplifiers, power supplies and other electronic equipment. Includes device mounting, thermal resistance, measurement techniques, etc.">
+	<!-- How to calculate, design and size heatsinks for amplifiers, power supplies and other electronic equipment. Includes device mounting, thermal resistance, measurement techniques, etc. -->
+	<meta name="keywords" content="heatsink,heat,sink,transistor,mica,kapton,thermal,resistance,thermal compound,thermal grease,ic,integrated,circuit,power,amplifier,sound,hi-fi,electronics,class-a,class-ab,class-b,power supply,power supplies,projects">
+	<meta name="Author" content="Rod Elliott">
+	<title>ESP - Heatsink design and transistor mounting</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">The Design of Heatsinks&nbsp;</td></tr></table>
+
+<p align="center">Rod Elliott, ESP<br /><small>Page Last Updated 15 April 2012</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><b>Contents</b>
+<blockquote>
+	<a href="#s1">1 - Introduction</a>
+	<br /><a href="#s2">2 - Types of Heatsinks</a>
+	<br /><a href="#s3">3 - Sample Calculations</a>
+	<br /><a href="#s4">4 - Measuring Heatsink Thermal Resistance</a>
+	<br /><a href="#s5">5 - Transistor Case Styles</a>
+	<br /><a href="#s6">6 - Junction to Case Thermal Resistance</a>
+	<br /><a href="#s7">7 - Case to Heatsink Thermal Resistance</a>
+	<br /><a href="#s8">8 - Mica</a>
+	<br /><a href="#s9">9 - Thermal Compounds</a>
+	<br /><a href="#s10">10 - Thermal Inertia</a>
+	<br /><a href="#s11">11 - Minimising Thermal Resistance</a>
+	<blockquote>
+		<a href="#s11.1">11.1 - Mounting The Transistors</a>
+		<br /><a href="#s11.2">11.2 - Further Reductions of Thermal Resistance</a>
+		<br /><a href="#s11.3">11.3 - Some Additional Thoughts</a>
+	</blockquote>
+	<a href="#s12">12 - Introduced Thermal Resistance</a>
+	<br /><a href="#s13">13- Flat-Pack Transistors</a>
+	<br /><a href="#s14">14 - Where to Mount Transistors</a>
+	<br /><a href="#s15">15 - Heatsink Surface Area</a>
+	<br /><a href="#s16">16 - Altitude</a>
+	<br /><a href="#s17">17 - Fin Density</a>
+	<br /><a href="#s18">18 - Water Cooling</a>
+	<br /><a href="#s19">19 - Heat Pipes</a>
+	<br /><a href="#s20">20 - The Bottom Line</a>
+	<br /><a href="#s21">21 - Other Heatsink Information</a>
+	<br /><a href="#s22">22 - References</a>
+</blockquote>
+
+<hr /><a href="index2.html" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+<img SRC="a1.gif" NAME="t2" ALT="Articles" BORDER=0></a><b>Articles Index</b>
+
+<hr /><a id="s1"></a><b>1 - Introduction</b>
+<p>This article is essential reading for anyone who uses heatsinks in audio, and the same principles apply for power control, RF and CPU cooling, as well as many other applications in electronics. There are many misunderstandings and misconceptions about transistor mounting. What are the essential requirements? Which things make the biggest difference? These questions may not have occurred to many readers, but they are very important to ensure the long term reliability of your projects.</p>
+
+<table WIDTH="100%"><tr>
+<td VALIGN=TOP><img SRC="note.gif" ALT="Note Carefully" height=37 width=108></td>
+<td><big><b>Please</b> ... read all of this article - not just the bit you think you need. You would be surprised how much I learned while researching and writing this material, and I have had a lot of additional information supplied by readers (you know who you are, and thank you for your input). The material here is the result of a lot of hard work, research, personal experience and (what should be) common knowledge.</big></td></tr></table>
+
+<p>The design of heatsinks, or to be more exact for most builders, the selection of a suitable heatsink, is not difficult once the basics have been mastered. Terms such as 'thermal resistance' and 'degrees C / Watt' are a little daunting for the uninitiated, and the purpose of this article is to explain how thermal transfer works, from the transistor die until it is finally dispersed into the atmosphere. 
+
+<p>This sort of information seems to be unusually difficult to obtain, either on the web or elsewhere, and I have had great difficulty in getting thermal resistance data from anywhere - although as you shall see as you read on, I have managed it. Not that this article is the "last word" on heatsinks - far from it, but it is a collection of some of the most useful information I have been able to gather thus far.
+
+<p>Note that in this article, the 'transistor' can be a bipolar transistor, MOSFET, TRIAC, CPU, light emitting diode (including laser diodes) or any other semiconductor device (including rectifier diodes and ICs of all kinds) that is mounted in a plastic and metal case which in turn must be mounted on a heatsink of some description.
+
+<p>A whole new field is opening up now, and that's providing cooling for LEDs of ever increasing power. Because these form parts of lighting systems that are visible to all, heatsinks for LED lighting applications commonly break all the rules you'll read about in this article. This is so they will look "nice", and so people will buy them. Unfortunately, by breaking the rules, the heatsinks and LEDs often run far hotter than we might prefer, which shortens the life of the LEDs. Some designs have even included tiny little fans inside the lamp - the reliability of a 20mm diameter fan exposed to ceiling-space dust is rather suspect at best.</p>
+
+<hr /><b>The reliability and longevity of any semiconductor device is inversely proportional to the junction temperature. The hotter the junction, the shorter the expected life. Reducing the junction temperature by 5&deg;C* will result in approximately double the expected life of the component. The converse is also true! A worthwhile increase in reliability and component life can be achieved by a relatively small reduction in operating temperature.</b>
+
+<blockquote>* <small>Depending on the source, this will sometimes be quoted as 10&deg;C. Either way, it is better to keep the junction as cool as possible under normal operating conditions.</small></blockquote>
+
+<hr />The whole process of removing heat from a transistor's active area (the die or 'junction') involves many separate thermal transfers, and we shall examine each in turn. In order to see a meaningful result, we need a heat input value and an ambient air temperature. From these two basic elements, the entire heat flow can be established.
+
+<p>Towards this end, an electrical analogue may be drawn, showing the thermal generator as a current source, thermal resistance as a resistor and the thermal inertia (or transient capacity) of the various materials as a capacitor. The transient capacity is the ability of any material to absorb a quantity of heat for a short time, after which its temperature will rise in the same way as the voltage rises in a capacitor if the supply current is maintained.</p>
+
+<center><img SRC="hs_fig1.gif" ALT="Figure 1" BORDER=1><br /><b><small>Figure 1 - Heat Flow From Generator To Ambient</small></b></center>
+
+<p>From Figure 1, we can see the thermal resistance (Rth) from junction to case, the thermal inertia of the junction (this is very small), the thermal inertia of the case itself (again, not large), the thermal resistance from the case to the heatsink, thermal inertia of the heatsink (this might be very large) and finally the thermal resistance from the heatsink to ambient.
+<p>The small thermal inertia values should be ignored, as they will heat up very rapidly, and the heatsink itself will only absorb so much heat. A state of equilibrium is required where the heat input equals the heat output, but without the junction temperature reaching a dangerous level - even momentarily.</p>
+
+<hr /><a id="s2"></a><b>2 - Types of Heatsinks</b>
+<p>Heat sinks can be classified in terms of manufacturing methods and their final form shapes. The most common types of air-cooled heat sinks include:</p>
+
+<ul>
+<li><b>Stampings&nbsp;</b> Copper or aluminium sheet metals are stamped into desired shapes. They are used in traditional air cooling of electronic components and offer a low cost solution to low density thermal problems. They are suitable for high volume production, because advanced tooling with high speed stamping lowers costs. Additional labour-saving options such as clips and dry interface materials can be factory applied to help to reduce the board assembly costs.<br /><br /></li>
+
+<li><b>Extrusions</b>&nbsp; These are by far the most common for power amplifiers, and allow the formation of elaborate two-dimensional shapes capable of dissipating large heat loads. They may be cut, machined, and options added. Cross-cutting will produce omni-directional, rectangular pin fin heat sinks, and incorporating serrated fins improves the performance by approximately 10 to 20%. Extrusion limits, such as the fin height-to-gap ratio and fin thickness, usually dictate the flexibility in design options. Typical fin height-to-gap aspect ratio of up to 6:1 and a minimum fin thickness of about 1.3mm are attainable with standard extrusion processes.<br /><br /></li>
+
+<li><b>Bonded / Fabricated Fins&nbsp;</b> Most air cooled heat sinks are convection limited, and the overall thermal performance of an air cooled heat sink can often be improved significantly if more surface area can be exposed to the air stream. Such high performance heat sinks utilise thermally conductive aluminium-filled epoxy to bond planar fins onto a grooved extrusion base plate. This process allows for a much greater fin height-to-gap aspect ratio of 20 to 40, greatly increasing the cooling capacity without increasing volume requirements.<br /><br /></li>
+
+<li><b>Castings&nbsp;</b> Sand, lost core and die casting processes are available with or without vacuum assistance, in aluminium or (less frequently for audio applications) copper/bronze. This technology is used in high density pin fin heat sinks which provide maximum performance when using forced air cooling.<br /><br /></li>
+
+<li><b>Folded Fins&nbsp;</b> Corrugated sheet metal - either aluminium or copper, increases surface area and, hence the volumetric performance. The heat sink is then attached to either a base plate or directly to the heating surface via epoxying or brazing. It is not suitable for high profile heat sinks, but it allows high performance heat sinks to be fabricated for specific applications.</li>
+</ul>
+
+<hr /><a id="s3"></a><b>3 - Sample Calculations</b>
+<p>Let us assume that the heat generated in the transistor die is 50W, such as might be the case with a Class-A power amplifier operating from a +/-25V supply, and drawing 2A quiescent current. Only half the total supply voltage of 50V is across the transistor in the quiescent or no signal state when the output is at zero volts, so each of the transistors in the output stage will have a voltage of 25V at 2A, or 50W dissipation.
+
+<p>An ambient temperature of 25&deg;C is a good starting point, and provides a safety margin for most domestic systems, although as we shall see later on, it is important to design for worst case if reliability is to be maintained.
+
+<p>The primary aim of the heatsink designer is to ensure that the total thermal resistance is kept to the minimum possible value, and the entire design process looks at thermal resistance as the primary item to be calculated. Only after this has been determined can the actual temperature of the transistor junction be predicted. 
+
+<p>To some extent, this article was prompted by a reader of my pages, who complained that transistors in an amp he built ran very hot (mounted on a bracket), while others seemed to run fairly cool. So I got to thinking, didn't I?
+
+<p>How to actually mount transistors does not seem to have achieved much coverage on the web, but I have seen some absolute drivel spouted by PC types talking about heatsinking Pentium processors - the same principles apply, but the amount of heat and thermal dynamics are a little different.
+
+<p>Throughout this article I will often refer to "aluminium", which in this context means aluminium alloy. Pure aluminium is rarely used, since it is too soft and easily distorted. It is also quite difficult to drill and tap for mounting screws, because it tends to clog the flutes on the drill bit, and will even snap the drill if great care is not taken.
+
+<p>When drilling aluminium (or any of its alloys), the use of methylated spirit (denatured alcohol) or WD40 (or other similar 'water displacement' spray) as a lubricant is recommended. This trick is not well known, but is very effective.</p>
+
+<table width="100%"><tr><td valign="top"><img src="note.gif" alt="Warning"></td>
+<td>Be warned that 'metho' (as it is commonly known in Australia) is highly flammable, and burns with an almost invisible - but very hot - flame. Extreme care is required, and use only enough to keep the drill bit wet - the last thing we need is one of my readers burning down the house while drilling a heatsink. Needless to say, I can accept no responsibility for any accident caused by the use of this technique.<br /><br />
+On the positive side, metho evaporates quickly and leaves no residue. This also means that spontaneous combustion is far less likely than with any oily lubricant. You should <i>never</i> just drop oily rags in the dustbin, as it is quite possible for them to burst into flame for no apparent reason.</td></tr></table>
+
+<hr /><a id="s4"></a><b>4 - Measuring Heatsink Thermal Resistance</b>
+<p>The most accurate way to determine the thermal resistance of an unknown heatsink is to measure it. The exercise is not trivial though, since you will require a large metal clad resistor having a good flat bottom surface (or you can use transistors), a contact thermometer (a conventional alcohol in glass thermometer cannot be used), and a suitable low voltage, high current power supply. If you have a large number of heatsinks to test it may be worthwhile to build a dedicated test unit, however this is unlikely for most home constructors.
+
+<p>It is important that the heatsink under test is set up as closely as possible to the way it will be used. There is no point testing a sink just lying on the workbench (for example), as the results will be way off. If a heavy chassis is planned, then attach the heatsink to the chassis or a reasonable facsimile thereof. Ensure that the heating system is in the best possible thermal contact with the heatsink. Thermal compound is essential, and do not use any insulators.
+
+<p>The test is based on knowing the voltage and current you apply to the heatsink heating system (resistor(s) or transistors), and being able to accurately measure the ambient and heatsink temperatures. First, apply a relatively low power to the heater system of your choice, and wait for the heatsink temperature to stabilise - this could take an hour or more. If the heatsink is too hot or too cold the results will be inaccurate, so slowly (in steps) increase power until the heatsink is at approximately the maximum temperature you feel is reasonable (typically around 50-60&deg;C).
+
+<p>Measure the ambient temperature and the heatsink temperature, preferably using the same thermometer. A contact thermometer is essential for the heatsink (again, use thermal compound). Determine the temperature difference (temperature rise) between ambient and heatsink.
+
+<p>Next, determine the power applied to your heating system. Thermal resistance may now be established with some very simple maths ...
+
+<blockquote>You will use the following terms -
+<blockquote><small><b>Tr</b> - Temperature rise<br />
+<b>Ta</b> - Ambient temperature (example 22&deg;C)<br />
+<b>Th</b> - Heatsink temperature (example 54&deg;C)<br />
+<b>Vh</b> - Voltage to heater (example 12V)<br />
+<b>Ih</b> - Current to heater (example 3.5A)<br />
+<b>Ph</b> - Power applied to heatsink<br />
+<b>Rth</b> - Thermal resistance (in &deg;C/W)</small> &nbsp; so ...</blockquote>
+
+<b>Tr = Th - Ta</b> = 54 - 22 = 32&deg;C<br />
+<b>Ph = Vh * Ih</b> = 12 * 3.5 = 42W<br />
+<b>Rth = Tr / Ph</b> = 32 / 42 = 0.76&deg;C/W
+</blockquote>
+
+
+<p>This is as accurate as you need, and as good as you'll get in real life. To get accurate results is time-consuming, and is usually not necessary once you get a reasonable feel for heatsinks. Once you do this a couple of times you will be able to 'guesstimate' the approximate power handling capacity of a heatsink just by looking at it and checking the manufacturer's data. Bear in mind that few heatsink manufacturers supply the all important temperature rise information, so their figures can be off by 25% in either direction.</p>
+
+<hr /><a id="s5"></a><b>5 - Transistor Case Styles</b>
+<p>There is a vast number of different case styles available. I shall only deal with the most common (as shown below), but the information is equally valid for other case styles. In many cases, an educated guess will be needed to determine case to heatsink thermal resistance if the case used by your device is wildly different from those quoted. Generally, this is based on surface area and the evenness (or otherwise) of pressure distribution directly beneath the internal silicon die. This is a wildly variable quantity, and has been known to cause may a constructor grief, not realising the importance of evenly distributed pressure.</p>
+
+<center><img SRC="hs_fig2.jpg" ALT="Figure 2" BORDER=1><br /><b><small>Figure 2 - Common Case Styles</small></b></center>
+
+<p>This is only a sample of those currently available (including ICs of various types), but is representative of the most common for transistors, MOSFETs and the like. In most cases, the die can be assumed to be roughly in the middle of the plastic moulding for all plastic encapsulated devices. In the TO-3 package, it is located in the geometric centre of the package (more or less).
+
+<hr /><a id="s6"></a><b>6 - Junction to Case Thermal Resistance</b>
+<p>Although this is always an important consideration, there is nothing the amplifier designer can do to reduce this for any given transistor. Manufacturer's data will sometimes quote this figure, but it is more common to refer to the device case temperature - this is easier to deal with, since the data sheets have already taken die to case thermal resistance into consideration when the temperature derating graph was produced.
+
+<p>Derating is commonly applied to semiconductor devices, and typically the maximum power dissipation claimed for most devices will be at or below 25 degrees C. At any temperature above this, less power is available from the transistor with increasing temperature, until at some figure (typically around 150&deg;) the permissible power dissipation is zero.</p>
+
+<center><img SRC="hs_fig3.gif" ALT="Figure 3" BORDER=1><br /><b><small>Figure 3 - Case Temperature Derating For MJE3055</small></b></center>
+
+<p>Figure 3 shows the case temperature derating curve for an MJE3055 (TO-220) power transistor as an example. As can be seen, at 25&deg; and below, the device is rated at 75W dissipation, but at 100&deg;, 30W is the maximum permissible. At 150&deg;, no power may be dissipated at all.
+
+<p>This device has a 1.67&deg;C thermal resistance from junction (die) to case (Motorola specification sheet for the MJE2955/3055), so the actual junction temperature will be somewhat higher than the case temperature until 150 degrees, at which no power may be dissipated, so case and junction will be at the same temperature. 
+
+<p>Our first calculation shall be to see what the junction temperature will be at 75W device dissipation, with the case at 25&deg;C:</p>
+
+<blockquote>Thermal resistance = 1.67
+<br />Power = 75W
+<br />Therefore junction temperature rise = 1.67 x 75&nbsp; = 125&deg;C
+</blockquote>
+
+<p>If the junction is 125&deg; above ambient (25&deg;) then the total is 125 + 25 = 150&deg;. This is a seriously high temperature, and if you were to do the same calculation for all the temperatures on the scale above you will quickly see that the junction temperature is 150&deg; at maximum dissipation for any given case temperature. The thermal derating curve simply limits the allowed power dissipation to ensure that the junction never operates at above 150&deg;.
+
+<p>The information above is obtainable from all device manufacturers, and is essential reading to ensure that transistors are not damaged by excess temperature. The maximum quoted temperature should never be exceeded, as the device will have a considerably lower life expectancy if overheated. Instantaneous failure is not uncommon if a device at an already elevated temperature is called upon to suddenly do some work.
+
+<p>Using our theoretical amplifier above, we know that the dissipation will be 50W per transistor (or a total of 100W), and from the derating curve we see that for this power, the maximum case temperature is 65&deg; C. The goal of this exercise is to determine the size of heatsink needed to ensure that the transistors ratings are not exceeded. We can also see if it is possible to operate them at a lower temperature, thus prolonging their operating life.
+
+<p>The junction to case thermal resistance varies widely, but will rarely be less than about 0.5&deg;C/W, depending (of course) on the manufacturer, the case style, and the type of device. A few examples:</p>
+
+<ul>
+  <li>IRF540 MOSFET - 1.0&deg;C/W</li>
+  <li>MJL21193/4 BJT - 0.7&deg;C/W</li>
+  <li>MJE3055/2955 BJT - 1.67&deg;C/W (our demonstration model)</li>
+</ul>
+
+<p>Also remember that in use, the base-emitter voltage of transistors falls at 2mV / &deg;C, and leakage current increases exponentially (leakage current doubles for every 8 to 10 &deg;C increase in temperature). These are two very good reasons to try to keep the operating temperature as low as possible.</p>
+
+<hr /><a id="s7"></a><b>7 - Case to Heatsink Thermal Resistance</b>
+<p>This is where the whole process often falls down, since semiconductor devices are nearly always electrically insulated from the heatsink. This means that some material must be used between the case of the device and the heatsink surface. This is typically mica or Kapton - the latter is usually hard to get now for some reason, although it is available from ESP along with PCB purchases (it is <i>not</i> available separately). This will invariably increase the thermal resistance - there is no known material which is a perfect electrical insulator and thermal conductor. Sad but true. Heatsink compound ("grease") <i>must</i> be used on both sides of mica or Kapton to ensure minimum thermal resistance.
+
+<p>There are actually a number of alternatives for electrically insulating the transistor from the heatsink while still allowing heat transfer. Two were mentioned above, but there are others too. The basic list:
+
+<br />&nbsp;
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<tr><td><b>Material</b></td><td><b>Thermal</b></td><td><b>Electrical</b></td><td><b>Thermal Resistance</b></td><td><b>Other Properties</b></td></tr>
+<tr><td>mica</td><td>Good</td><td>Excellent</td><td>~ 0.75 - 1.0</td><td>Fragile</td></tr>
+<tr><td>Kapton</td><td>Good</td><td>Excellent</td><td>~ 0.9 - 1.5</td><td>Very robust</td></tr>
+<tr><td>aluminium oxide</td><td>Excellent</td><td>Very Good</td><td>~ 0.4</td><td>Fragile - easily damaged</td></tr>
+<tr><td>beryllia (beryllium oxide)</td><td>Excellent</td><td>Excellent</td><td>~ 0.25</td><td>Toxic</td></tr>
+<tr><td>Sil-Pads</td><td>Fair +</td><td>Excellent</td><td>~ 1.0 - 1.5</td><td>Convenient</td></tr>
+</table>
+<b><small>Table 1 - Thermal Resistance of Various Mounting Methods (TO-220 Case)</small></b></center>
+
+<p>The above table shows the approximate thermal resistance for various materials, and (except for the Sil-Pads) assumes that a good quality thermal compound has been used. Despite the claims made by some manufacturers, most <i>good quality</i> thermal compounds are much of a muchness, since their primary purpose is to exclude air from the mating surfaces, and provide reasonable heat transfer themselves. Air is a most excellent thermal insulator, and even the tiny air gaps that exist between the transistor case, insulating washer and the heatsink will increase thermal resistance dramatically. Heatsink compound (aka thermal grease) is a purpose-made product - never use ordinary silicone grease or anything that is not specifically designated as thermal compound. Make sure that the compound you get is electrically non-conductive!
+
+<p>Mica is probably the most commonly used insulator, but it has limitations. The worst of these is quality control, which results in mica washers being whatever thickness they happen to be (i.e. unpredictable). With infinite care and patience it is possible to shave mica down to a thickness of perhaps 0.05mm (0.002"), but few of have the time to fiddle about at this level. A micrometer is essential if you really want to do this. See the section on mica (below) for more information on this topic.
+
+<p>Kapton is an excellent material in this respect. Predictable thickness and very tough (try ripping one), but generally not quite as good as mica thermally. For reasons which remain entirely obscure, Kapton transistor washers do not seem to be as readily available as they once were, which I find a real shame since they have always been a favourite of mine. However, Kapton tape (as noted above, available from ESP) can be made into very acceptable washers with a pair of scissors and a hole punch. Absolute cleanliness is essential, since the tape is typically only 25um (0.001") thick, and the smallest piece of swarf will puncture it.
+
+<p>Aluminium oxide, in the form of hard anodised aluminium, is an excellent electrical insulator, and provides very good heat transfer, but is fragile and easily damaged. Even a small scratch will generally allow an electrical short circuit, and obtaining a consistently thick (relatively speaking) layer of oxide is difficult in the extreme in mass produced heatsink extrusions. Hard anodised aluminium washers are available from some electronics suppliers, but are generally expensive and you will probably find that they are not available for all transistor case styles. An alternative is aluminium oxide ceramic - essentially just what it sounds like. Al<sub>2</sub>O<sub>3</sub> (aka alumina) ceramic looks very much like beryllium oxide ceramic, and although not as good thermally, is still far better than mica, Kapton, etc. Alumina washers are available in a variety of shapes to suit most transistor case styles from many of the larger parts suppliers.
+
+<p>Beryllium oxide was quite popular a few years ago, until someone discovered that it is toxic. Consequently, such mounting washers have all but vanished (at least as far as the DIY fraternity is concerned). A pity, since most people I know have never eaten a transistor washer in their lives, but governments do so like to protect us from ourselves. In fact, it is inhalation of the beryllium oxide dust that causes problems (respiratory disease) rather than ingestion, and it turns out that they are still available, as are many other parts made from this unique and versatile ceramic. Because it <i>is</i> toxic, special precautions are needed during manufacture, and this makes it rather expensive.</p>
+
+<p>Silicone insulators (Sil-Pads&trade; or similar) are only comparatively recent additions to the mounting hardware options, and are very convenient to use. The down side is that they are nowhere near as good (thermally) as thin mica or Kapton, but they require no silicone grease or other thermal compound. Re-usability of Sil-Pads is unwise, because the deformations caused by prolonged heat and pressure will cause even greater thermal resistance if they are re-used.
+
+<p>I have tested and verified this, and it makes perfect sense, since the thickness of the pad will not be even after it has been used, due to uneven pressure and mating surfaces (at a microscopic level). Even if the new device is located in exactly the same place on the pad, thermal resistance will be impaired. I suggest that Sil-Pads be used where maximum thermal conductivity is relatively unimportant, as their thermal resistance is generally not as low as claimed. The figure shown in Table 2 for the TO-3 and TOP-3 case styles is (IMO) highly optimistic, and is unlikely to be achieved in practice.  In general, I suggest that silicone rubber pads are used only where devices operate at low power, regardless of manufacturer and claims. I have <i>never</i> used silicone pads of any type at high power and been happy with the result. In every case where I thought I might get away with it, I've had to remove the silicone and revert to Kapton and heatsink compound.</p>
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<colgroup span=5 width="20%">
+<tr><td><b>Package</b><td><b>Direct (Dry)</b><td><b>Direct+ Grease</b><td><b>Mica+ Grease</b><td><b>Sil-Pad&trade;</b>
+<tr><td>TO-3</td><td>0.5 - 0.7</td><td>0.3 - 0.5</td><td>0.4 - 0.6</td><td>0.4</td></tr>
+<tr><td>TOP-3 (est)</td><td>0.8 - 1.1</td><td>0.5 - 0.7</td><td>0.6 - 0.9</td><td>0.65</td></tr>
+<tr><td>TO-126</td><td>1.5 - 2.0</td><td>0.9 - 1.2</td><td>1.2 - 1.7</td><td>NA</td></tr>
+<tr><td>TO-220</td><td>1.1 - 1.3</td><td>0.9 - 1.1</td><td>1.0 - 1.6</td><td>1.5</td></tr>
+</table>
+<b><small>Table 2 - Comparison of Case Types</small></b>
+</center>
+
+<p>The information in Table 2 shows the variations expected with various transistor cases and mounting techniques ("Grease" refers to heatsink compound). It should come as no surprise that these figures are different from those in Table 1, since this info is from a different source. I prefer to err on the side of caution when it comes to thermal resistance, because it is always better to have the devices run a little bit too cool than a lot too hot. I would suggest that Table 1 is more realistic (if not all that accurate).
+
+<p>The TOP-3 (TO-3 Plastic) package will have a case to heatsink thermal resistance (estimated) at about 1/2 way between TO-3 and TO-220 packages. I could find no information on this package for the above table, and the estimate is mine.</p>
+
+<p><img SRC="heatsink2.gif" alt="Air Gap" HSPACE=10 VSPACE=10 BORDER=1 height=151 width=352 align=LEFT>
+
+<p>The importance of a thermal compound cannot be overstated. The drawing shows the surface of the transistor and heatsink (or mica washer) at a microscopic level. OK, so I just drew it, but this is exactly what you would see under a powerful microscope. The blue area represents air, and the surfaces only touch in a few places. This is why the thermal resistance is so much higher without the use of any thermal compound. 
+
+<p>In some cases the situation is worse - I wonder how many readers have come across (especially) TO-220 transistors that look as if they had been machined with a chainsaw. A flat file, or fine wet/dry abrasive paper and water (no, it won't hurt the transistor) should be used to make sure that the surface is as flat and smooth as you can make it.
+
+<p><i><u>Never hold the transistor in a vice and file it!</u></i>&nbsp; Hold the file still, and gently slide the transistor on the file (or wet/dry paper on a sheet of glass) until it is smooth. There is no point having it nice and smooth if it is rounded - this <i>will</i> happen if you rigidly mount the transistor and hand-hold the file.
+
+<p>When you are finished, you should be able to lay the transistor on the heatsink and see no light between the two surfaces. This little bit of extra effort may mean the difference between the success or failure of your project - at least in the long term.</p>
+
+<hr /><a id="s8"></a><b>8 - Mica</b>
+<p>What is Mica?&nbsp;&nbsp; Mica is transparent, and can be split into a very thin film along its cleavage. Electrically, it has the unique combination of high dielectric strength, endurance, uniform dielectric constant, low dielectric loss (or high Q), and extremely good insulating properties. Mica is moisture-proof and has <u>low heat conductivity</u>. It is infusible and may be exposed to high temperatures (in excess of 700&deg;C) without any noticeable effect. If you want more info - try a web search :-)
+
+<p>So much for the descriptions, but why would mica get a section all of its own?&nbsp; Simply because the quality control is virtually non-existent (from what I have seen lately). The overall shape is fine, but the thickness is generally too great - commonly by a huge margin. I have used mica washers that were so thick that I was able to separate them with a (very) sharp knife, and obtained four washers for the price of one (plus some scrap from the splitting operation).
+
+<p>Splitting a mica washer is not hard, but requires a steady hand, a good magnifier, and the sharpest knife you can find (or a new razor blade). The thickness should ideally be in the order of 0.025 to 0.05 mm for normal use, but you will probably find that up to 0.1 mm is quite acceptable. It is possible to make it much thinner than this, which decreases thermal resistance but makes the washer fragile and easily damaged.
+
+<p>The electrical characteristics of mica are such that even the thinnest possible washer will be more than adequate for typical amplifier voltages. The dielectric strength allows mica to withstand 1,000 - 1,500 volts per mil (1/1000 inch), or about 0.025 mm (25 micrometres) of thickness without puncturing or arcing.
+
+<p>This being the case, I am unsure why commercially available transistor washers are anything up to 0.25mm thick (and no, I am not kidding - I have even found some thicker than that!). This is capable of withstanding over 10kV in theory, let alone a measly 200V or so, and will introduce considerable thermal resistance. If one had a steady enough hand, just one of these would yield 10 washers of acceptable thickness (thinness?), with each still capable of at least 1kV insulation breakdown.
+
+<p>I am even tempted to make a mica splitter, that can be adjusted to a suitable thickness. One of these days ...</p>
+
+<hr /><a id="s9"></a><b>9 - Thermal Compounds</b>
+<p>One of the most common mistakes made by hobby electronics enthusiasts (and quite a few professionals too), is to assume that if a little thermal compound is good, a lot must be better. Absolutely not so! The amount of thermal compound should be exactly that amount which ensures that an air-free join is made between the mating surfaces. If too much is applied it will cause an increase in thermal resistance, since it is not really that good at conducting heat. Generally speaking, any electrical insulator is also a thermal insulator, so the thinner the final composite insulation - including thermal "grease" - the better.
+
+<p>Having said that, one must ensure that the electrical insulation is sufficient for the applied voltage or disaster will surely follow - usually in a spectacular fashion - especially if high voltages or currents are available.
+
+<p>Although several manufacturers over the years have thought they could get away with using silicone grease with no fillers, don't! It doesn't work, and eventually flows out from under the transistor leaving the thermal connection dry and causing device overheating and failure. Always use a good quality thermal compound, and make absolutely certain that it is non-conductive if the transistors are to be insulated from the heatsink. Some of the specialised compounds for CPU cooling in PCs are electrically conductive, and cannot be used where electrical insulation is needed.
+
+<p>Because you use so little thermal compound, I suggest that you invest in good quality. Some are marginal - they're cheap, but you may find out why after a few years when output devices fail. Both the filler (usually an oxide of some kind) and carrier 'grease' (almost always silicone) must be appropriate for the purpose. You need plenty of filler, and a carrier that is sufficiently viscous to keep the filler in suspension, but is soft enough to allow you to get a thin, even coating.
+
+<p>A quick note on the application of thermal compounds is in order. This is the method I generally use, and it works very well once you have a copious supply of workshop rags or paper towels to clean the mess from your fingers.
+
+<p>Apply a small quantity of the thermal compound to one finger, then gently rub with your thumb to create an approximately even coating on finger and thumb. Now rub the thermal compound onto a washer, held between thumb and finger, ensuring that the coating is just thick enough to be opaque, but thin (and even) enough to ensure that the contact will be absolute on both surfaces (transistor and heatsink). Test your skill until with moderate pressure, you can leave a perfectly formed outline of the transistor, with no blobs or gaps, on the heatsink surface.</p>
+
+<hr /><p>In some cases, you may find that there isn't a great deal of heat to remove, but doing so is somewhere between difficult and impossible. In reality, probably not. There are several thermally conductive potting compounds available, and one that has been recommended to me comes from <a href="http://www.insulcast.com/index.html" target="_blank">ITW</a> in the US. There are others from many suppliers, but some are harder to work with than others. The data sheets will usually provide information that can help you make a selection.
+
+<p>Where such a compound is appropriate, you will normally need something that has a very low viscosity, so it will flow easily into narrow gaps between the semiconductors and the heatsink. The heatsink (or case) itself will need to be heavily anodised or otherwise insulated so that semiconductor cases cannot short circuit to the case while the unit is being assembled.
+
+<p>If such a compound is needed, be prepared for at least some frustration finding a suitable material and a local supplier.</p>
+
+<hr /><a id="s10"></a><b>10 - Thermal Inertia</b>
+<p>Since any heatsink has some mass, it will also posses thermal inertia, which is to say that it takes time for the body of heatsink material to heat up. Naturally, the larger the heatsink (and the more aluminium it has in it), the longer it will take to heat. This can easily lead one to believe that the heatsink is large enough for the job, but only by running an amp for an extended period will the truth reveal itself.
+
+<p>Thermal inertia is a good thing, because it allows the heatsink to absorb transient power "surges", and will dissipate the heat again during low power operation. Because of the dynamics of music, this tends to work well, but for professional use (where heavy compression is often used), the average power into the heatsink can be very high for prolonged periods, so either massive bulk material must be used, or a combination of reasonable bulk and lots of surface area. Fan cooling is almost mandatory for professional use at high continuous power levels.
+
+<p>Even if one were to obtain an infinitely large block of aluminium, if a bracket or other mounting arrangement directly underneath the heat source (the transistors) is not thick enough, it will have significant thermal resistance, and the transistors may just overheat anyway, so we do need to look at all the resistances in the thermal circuit, not just the heatsink itself.
+
+<p>It is not uncommon to have transistors operating at well in excess of their ratings, but a casual "finger" test of temperature on the surface of the heatsink will appear to indicate that all is well.</p>
+
+<hr /><a id="s11"></a><b>11 - Minimising Thermal Resistance</b>
+<p>The key to obtaining maximum power from any transistor is minimising the thermal resistance from junction to free air, and as can be seen from the above information, one of the worst offenders is the transistor itself.</p>
+
+<hr /><a id="s11.1"></a><b>11.1 - Mounting The Transistors</b>
+<p>The most common way to mount the transistors is to use metal thread screws, either with nuts on the back of the heatsink, or with a thread tapped into the heatsink itself. In production environments, spring clips are often used, and even rivets are sometimes used for mounting. The latter is a <i>very</i> bad idea, as the following tale describes ...</p>
+
+<blockquote><small>Transistors, especially the TO-220 are sensitive to mechanical shocks.  The T0-220 for example should never be attached to its heatsink by means of a rivet, either conventional or pop rivet.  I was building replacement voltage regulators for a large automotive manufacturer, where the original device was riveted to a metal base with a mica insulator in between. Our version of this worked okay for a while until one day the manufacturing setup guy over adjusted the rivet force and the was some deformation of the tab. The parts kept passing the 100% electrical test and the manufacturing group kept making them over my objections. This too worked okay for awhile until we started getting field failures.  When we investigated, we found that the power Darlingtons inside were suffering "earthquake" damage due primarily to the shock of the rivet machine.  Often it was the outer edges of the device that would crack, leaving the device functioning but affecting V<sub>ce</sub> Sat.  With the higher saturation voltages (not measured on our tester of the time) the devices overheated and failed.<br /><br />
+It took 7 tractor trailer loads to haul all of the inventory back from our warehouse.  We had to rework over 100K voltage regulators.<br /><br />
+Having seen the problem once, you would be amazed at how often I have seen it since.  One guy was using a pop rivet gun.  There was no damage to the tab but the shock from the pop of the rivet sent its message through the tab to the silicon.  I saw another guy who was cutting the tab off the device in order to package it in the available space.  I saw a piece of home brew equipment where the tab was being held by a nut and bolt that had been over tightened distorting the tab.  Your comment about not holding the device in a vice and not filing on it with a hand file basically speak to the same issue: Silicon is thin and brittle. Do not alter the package or subject it to shock</small></blockquote>
+
+<p>My thanks to Mike for that story. I have seen transistors riveted to heatsinks as well, but that was many years ago, and I don't know if it caused any problems. The main issue is that riveting is at best unpredictable, and also creates considerable shock when the mandrel breaks (for pop rivets at least).</p>
+
+<p>The key to mounting is pressure - it must be just right. Too much, and you distort the device case and possibly damage the thread or cause protrusions in the soft aluminium heatsink. Too little, and the thermal resistance will be too high. High reliability applications (Mil-Spec) will demand that a torque driver is used, to ensure that every device is tightened to exactly the right pressure. I don't suggest for an instant that this is needed in your project (torque drivers tend to be rather expensive), but it is essential that you develop a feel for tightening the screws to get consistent and reliable results.</p>
+
+<p>Once the transistor mounting technique is perfected, we can generally assume that the thermal resistance will be about 1&deg; C/W. This may be bettered, but again, a safety margin is always useful. At a continuous dissipation of 50W, this means a temperature rise of 50&deg; C due to mounting and insulation requirements. Since we already worked out from the derating graph that the absolute maximum case temperature is 65&deg; for 50W dissipation, we are faced with a problem - the maximum <u>heatsink</u> temperature&nbsp; is only 15&deg; C. If this were to be the (somewhat chilly) ambient temperature, a 0&deg; C/W heatsink is needed!</p>
+
+<p>Perhaps I have been looking in the wrong places, but I have not been able to find a heatsink which can manage 0&deg; C/W, and if the ambient temperature were to rise to (say) 20&deg; , the heatsink now needs a negative thermal resistance - this is called a heat pump, and the most common example is an air conditioner or refrigerator. This approach, although quite feasible, can become somewhat expensive. Peltier devices (hot/cold junction semiconductors) can be used, but tend to be expensive, and require a fairly heavy current. In order for the cold junction to work at a suitably low temperature, the maximum temperature of the hot junction must be kept as low as possible - this requires (only one guess!) ... a heatsink.</p>
+
+<p>For the above example, because there must always be a thermal gradient (temperature difference) to allow heat to flow from one device to another, this means that ambient temperature must be -10&deg; C to be able to use a 0.5&deg; C/W heatsink!&nbsp; We have just designed an impossible output stage, which cannot be made to work in real life without considerable additional cost.</p>
+
+<hr /><a id="s11.2"></a><b>11.2 - Further Reductions of Thermal Resistance</b>
+<p>It is generally far cheaper to reduce the thermal resistance of the devices and their mountings than it is to use the largest heatsink you can possibly find, or go to all the bother of water cooling (which works extremely well, but is difficult to implement in the listening room), or using fans which are noisy and spoil the signal to noise ratio of your equipment. There is no point ensuring that the S/N ratio is 100dB or more, only to have a background noise of perhaps 55dB SPL created by cooling fans. Remember that even if the heatsink stays at ambient temperature (an infinite amount of air will be needed :-), from the above example, the absolute maximum ambient temperature is 15&deg; C.
+
+<p>One technique used to reduce thermal resistance is simple - use two (or more) transistors in parallel in place of a single device. Although the thermal resistances for each of the transistors remain the same, the resultant thermal resistances for a "parallel pair" are effectively halved. This is due to the fact that each transistor is only dissipating half the total power. 
+
+<p>Heatsink calculations for the parallel pair are best carried out by considering each transistor individually. In this example, each transistor of a parallel pair has a power dissipation of 25W. 
+
+<p>From Figure 3, the maximum case temperature must not exceed 105&deg; C. With a case to heatsink thermal resistance of 1.0&deg; C/W, there will be a 25&deg; C temperature difference between the two. The maximum heatsink temperature is therefore 80&deg; C (at this temperature, protection would need to be provided to prevent accidental contact, but this <i>must not</i> affect airflow across the heatsink). If we assume an ambient temperature of 30&deg; C, each transistor requires a heatsink with thermal rating of 2&deg; C/W. The parallel pair will require a heatsink of twice this size, i.e. 1.0&deg; C/W. The calculation in the preceding paragraph does not allow for any safety margin (other than that built-in to the case to heatsink thermal resistance assumptions) and it would be better to design using a higher ambient temperature. For an ambient temperature of 40&deg; C, the heatsink for the parallel pair would need to have a rating of&nbsp; 0.8&deg; C/W and for an ambient of 50&deg; C, 0.6&deg; C/W. If we are going to mount all the transistors for a single amp on the one heatsink (which is the most common approach), then the heatsink must have a rating of 0.5&deg; C/W (assuming a conventional output stage) for an ambient temperature of 30&deg; C and no safety margin. The ratings at 40&deg; C and 50&deg; C would be 0.4&deg; C/W and 0.3&deg; C/W respectively. Similar calculations can be carried out for any number of paralleled transistors.</p>
+
+<center><img SRC="hs_fig4.gif" ALT="Figure 4" BORDER=1><br /><b><small>Figure 4 - Connecting Transistors in Parallel</small></b></center>
+
+<p>The 0.1 Ohm resistors shown in Figure 4 ensure that each transistor carries the same (or at least roughly equal) current. Without them, the transistor with the higher gain (or the lower emitter-base voltage V<sub>be</sub>) will take the majority of the current. This will cause it to get hotter than the 'lesser' transistor, which in turn increases its gain further and lowers V<sub>be</sub> even further, which means it will get hotter, and so on. Note that the use of 0.1 ohm resistors is restricted to transistors with fairly closely matched V<sub>be</sub>. Higher values are recommended where matching is impractical. This is all standard stuff in amplifier design. The 0.22 ohm resistor is used to stabilise bias current and introduce local feedback. These must not be omitted.</p>
+
+<p>There are other ways in which thermal resistance can be reduced. For example, we are assuming that the transistors will all be on the same heatsink, which will probably be earthed to the chassis. If the NPN and PNP transistors were to be mounted on separate heatsinks, and were not earthed, but connected to the power supply (or output - depending on the topology of the output stage), we can reduce the case to heatsink thermal resistance even more.
+
+<p>This approach is generally considered too much of a nuisance though, because of the risk with high supply voltages, and the difficulty of mounting the heatsinks using insulating bushes, nylon screws etc. Also, it will be necessary to provide some form of shield, such as perforated steel mesh, to protect the heatsinks from becoming shorted to each other or the chassis should some object be dropped. Even the end of a lead swinging about could destroy the amplifier - not a happy thought.</p>
+
+<hr /><a id="s11.3"></a><b>11.3 - Additional Thoughts On Reducing Thermal Resistance</b>
+<p>Some other methods also exist for reducing the thermal resistance, with one of the simplest being to use a higher power transistor, or even a simple change of case type. Use a TO-3 case or large footprint plastic package instead of a standard TOP-3 for example. Here a few real examples ...
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<tr><td><b>TO3 package</b></td><td><b>Watts</b></td><td><b>Max Temp.</b></td><td></td></tr>
+<tr><td>2N3055</td><td>115W</td><td>200&deg; C</td><td>1.5&deg; C/W</td></tr>
+<tr><td>MJ802</td><td>200W</td><td>200&deg; C</td><td>0.875&deg; C/W</td></tr>
+<tr><td>&nbsp;</td><td></td><td></td><td></td></tr>
+<tr><td><b>TO3P package</b></td><td><b>Watts</b></td><td><b>Max Temp.</b></td><td></td></tr>
+<tr><td>TIP3055</td><td>90W</td><td>150&deg; C</td><td>1.39&deg; C/W (standard footprint 16x20)</td></tr>
+<tr><td>2SA5358</td><td>150W</td><td>150&deg; C</td><td>0.83&deg; C/W (standard footprint 16x20)</td></tr>
+<tr><td>MJL21193</td><td>200W</td><td>150&deg; C</td><td>0.7&deg; C/W (large footprint 20.5x26) (Actually TO-264 case)</td></tr>
+</table></center>
+
+<p>The figures quoted above are typical, and will vary (sometimes significantly) depending on the manufacturer and the fabrication method used.
+
+<p>As you can see, simply selecting a higher power device in the same case style, the thermal resistance is lowered, since the manufacturer must make allowance for the junction to case thermal resistance to allow the higher power. In many instances, this will probably be "automatic", since the silicon die must be larger to allow more power, and thus has greater surface area and better heat transfer. 
+
+
+<hr /><a id="s12"></a><b>12 - Introduced Thermal Resistances</b>
+<p>It is not uncommon for amplifier designs to use a bracket of some sort to connect the transistors to the heatsink. Where this is done, it is imperative that the minimum additional thermal resistance possible is created. I have seen designs where a simple aluminium bracket is simply bolted onto the heatsink, and everyone hopes that this will be enough. Generally, it is not. Transistors must be mounted as close as possible to the heatsink side of the bracket, since the aluminium is not a perfect conductor, and the smaller the distance the heat has to travel the better.
+
+<p>Any bracket used must be of the thickest material possible, and be mated to the heatsink with the greatest care. Otherwise, one is simply adding an unknown (possibly quite large) thermal resistance between the transistor's junction and the ambient air. I have heard, and seen in magazine readers' letters, complaints from amplifier builders that the transistors keep blowing for "no reason". Other more experienced (or careful) constructors have no such problems with the same design, and it is quite rare that the designers of magazine construction projects will suggest that the bracket to heatsink mounting could well be the problem.
+
+<p>If brackets must be used, ensure that the mating surface with the heatsink is completely flat, and free of burrs or other anomalies which will prevent the "perfect" contact. There should be no less than 1 screw (or aluminium rivet) for each square 25mm of surface area, and screws should be tightened from the centre outwards, much as one tightens the cylinder head bolts on a car engine. A thin film of thermal compound is a must, and the mating should be tested with firm pressure
+then inspection to ensure that the contact surface is even. If it is not, then fine valve grinding paste (available from automotive parts stores) can be used to ensure that the surfaces are matched to each other. 
+
+<p>Simply place a small quantity on the bracket, and distribute it with your finger. Rub the two components together (bracket and heatsink) in small circular patterns, until inspection shows that the two surfaces are evenly polished. It will not hurt one little bit to use a metal polish to shine the surfaces when you are satisfied that they mate properly - the smoother the surfaces, the better the thermal contact, since surface irregularities are minimised. Thermal compound should be used sparingly - once the surfaces are mated, the smallest amount only should provide coverage of the entire surface.</p>
+
+<center><img SRC="heatsink1.gif" ALT="Countersinking" BORDER="1"><br /><b><small>Figure 4a - Raised Edges Due to Aluminium "Stretching"</small></b></center>
+
+<p>A short word about the mounting holes and screws is also called for. When a screw is tightened into a soft metal such as aluminium, it will tend to distort (or stretch) where the screw exerts pressure. On the heatsink, this will cause the metal to distort outwards, preventing the proper mating of the surfaces. After all your hard work ensuring that the surfaces were as good as you could get them, this will instantly negate your efforts. <i>Small</i> recesses in the underside of the bracket's screw holes will allow the distortion to occur, but will not lift the bracket off the heatsink. Likewise, a <i>very slight</i> recess in the surface of the heatsink will prevent the distortion from projecting above the surface - I tend to use both methods at once just to be sure. It is vitally important that any recess or countersinking is only large enough to prevent metal "stretch" - overly large recesses will do more harm than good, either by reducing the available surface area, and/ or allowing the transistor flange to be distorted.</p>
+
+<p>Do <b>not</b> be tempted to tighten the screws as much as you can. They need to be tight enough so that there is good
+contact, but over tightening will distort the metal and will generally make the thermal resistance higher. The use of at least two washers is recommended, as this will help to distribute the pressure more evenly, and a spring washer is essential to stop the screws from loosening. If you can obtain them, 'cup' or compression washers are highly recommended, as they will maintain a consistent pressure, despite any movement ('flow') of the heatsink material. This is especially important with extruded aluminium heatsinks (i.e. most of those available) for long term thermal stability. Cast heatsinks are a completely different alloy, and distortion does not seem to be an issue.</p>
+
+<p>If you use a mounting bracket, and can feel any difference in temperature between the main heatsink and the bracket, there is thermal resistance present, and more work might be needed to ensure that it is reduced to the minimum.
+
+<p>Remember too, that aluminium is a soft metal, and will tend to 'flow' when a consistent pressure is exerted. Over time, this may lead to the thermal resistance increasing, possibly to the point where the transistors overheat and are destroyed. For this reason, excessive tightening is never recommended, and the better the contact between bracket and heatsink, the less pressure is needed to ensure thermal resistance is kept to the minimum. Aluminium pop rivets can also be used, since they have the same rate of expansion as the heatsink and bracket (which are also aluminium), and will exert a consistent pressure which is not excessive. Care must be taken to ensure that the rivets are long enough to penetrate the heatsink, or the holding power is reduced to slightly less than useless.</p>
+
+<table width="100%"><tr><td><img src="note.gif" alt="NOTE"></td><td>Note that if you are using rivets, the bracket must be attached to the heatsink <i>before</i> the transistors are mounted. The shock from the riveter may cause damage to the transistor die.</td></tr></table>
+
+<hr /><a id="s13"></a><b>13 - Flat-Pack Transistors</b>
+<p>The TO-220, TOP-3 and other flat plastic packages have some real problems with thermal resistance, and their mounting arrangement does nothing to alleviate this - in fact the reverse is true. The problem is that the transistor junction is physically located more or less in the middle of the plastic encapsulated section, and the mounting is by a single tab, separated from the die by perhaps 10mm or so. This does not sound like very much, but the thickness of the tab is such that a significant heat difference can be measured between the two points.</p>
+
+<center><img SRC="heatsink3.gif" ALT="Excessive pressure" BORDER="1"><br /><b><small>Figure 4b - One Result of Excessive Pressure</small></b></center>
+
+<p>When the device is mounted, the pressure of the mounting screw is concentrated in one spot, and may even cause the remainder of the transistor case to lift up from the heatsink slightly. When maximum heat transfer is required (which is most of the time), a very worthwhile improvement can be obtained by clamping the transistor to the heatsink with a section of flat aluminium bar (or even better, a channel or u-section). This should be thick enough to not bend when the screws are tightened, and also alleviates the requirement for insulating bushes and the like, since the normal mounting screws are not needed (the insulating washer is naturally still needed). Because of the pressure exerted directly above the transistor junction, thermal resistance is reduced by a worthwhile margin, but care must be taken to ensure that the screws holding the pressure bar are tightened evenly to ensure that all devices are firmly clamped. This method has the additional advantage that any deformation of the heatsink surface due to the pressure of the screw thread will be away from the device itself, enhancing long-term reliability.</p>
+
+<p>A smear of thermal compound on the top of each transistor allows the pressure bar to become a part of the heatsink - not to the degree that a smaller sink can be used, but any reduction in thermal resistance is worthwhile, however slight.
+
+<p>Excessive pressure is a definite no-no, as you might be strong enough to crack the transistor case if you are not careful. This is one for those with some skill with machines and the like, since we are attempting to provide the absolute maximum allowable pressure on the cases, without the risk of damage - mechanical engineering stuff, basically.
+
+<p>The other advantage of this technique is that it allows the use of larger screws than would normally be possible, since they no longer have to be able to fit through the little hole in the insulating bush. This means more pressure and less thermal resistance, but only if the screws are tightened to a uniform torque so all devices have the same pressure exerted upon their cases.</p>
+
+<center><img SRC="hs_fig5.gif" ALT="Figure 5" BORDER=1><br /><b><small>Figure 5 - Suggested Method For Mounting Flat-Packs</small></b></center>
+
+<p>Figure 5 shows the general idea, with four transistors mounted on the heatsink. On the left is a side view, with an 'end-on' view of the transistors on the right. This method requires that there is some free area on the PCB, since the transistor leads will normally be mounted directly into the board. The aluminium channel section can then perform another very useful function - supporting the circuit board, so excessive vibration or flexing does not fracture the transistor leads. 
+
+<p>In addition, some amps need a heatsink for the driver transistors, and - there it is! I am surprised that this method is not more widely used in production amps (but then again, I only thought of it a couple of years ago, so maybe they just haven't thought of it yet). If this is the case, just remember where you saw it first <img src="grin.gif" alt=":-)">. 
+
+<p>If you are a little wary, thinking that the mica washers might slip during assembly, use nylon screws to hold the transistors down loosely during assembly (don't tighten them too much, or they just snap off). These will hold everything in place while you go about the business of carefully tightening down the channel section screws. Remember that they should be all fairly even, and it is best to start from the centre, then work out towards each end to prevent any possibility of the channel section developing a buckle (however slight). If available, a torque wrench is very useful for tightening the screws (no, not the one you use for the car's cylinder head <img src="grin.gif" alt=":-)">.</p>
+
+<hr /><a id="s14"></a><b>14 - Where To Mount Transistors</b>
+<p>Since heat rises by convection, one might think that mounting the transistors on the bottom of the heatsink might improve thermal performance. This is incorrect, and will actually cause the devices to run hotter. Aluminium is an excellent conductor of heat, and the idea is to ensure that the transistors are mounted in such a way that each has sufficient clearance from the others, and they are close to the geometric centre of the sink.
+
+<p>This method ensures that the heat from each transistor has a similar mass of aluminium to disperse its heat into, ensuring that all devices have a similar and equal chance of dispersing the heat generated.
+
+<p>Convection (as we normally think of it) does not apply in a solid, since it requires molecular movement on a grand scale. In a solid, the molecules merely jiggle about more, but stay in the same place.</p>
+
+<hr /><a id="s15"></a><b>15 - Heatsink Surface Area</b>
+<p>There is only one thing on a heatsink that actually gets rid of heat to the surrounding air - surface area. The higher the surface area, the more heat will be disposed of. However, this is only the start, since fluid dynamics (in this case the fluid is air) also plays an important part. Make sure that you read the sections below on fin density and altitude effect - these are very important considerations in the overall design.
+
+<p>Heat is lost to the air by two mechanisms, and both should be maximised for best performance:</p>
+
+<ul>
+  <li>Conduction / Convection</li>
+  <li>Radiation</li>
+</ul>
+
+<p>Conduction (and / or convection) requires that there is a continuous stream of air flowing past the fins of the heatsink, which means that the fins should be vertical if at all possible. Horizontally oriented fins will lose a vast amount of thermal transfer, since the air cannot flow through to the body of the heatsink. A fan solves this problem immediately, since air being blown onto the face of the heatsink has considerable turbulence, ensuring that there is always plenty of cool air at the surface of the heatsink.
+
+<p>Simple convection is not as effective (even for the same rate of flow of air), because of the "laminar" flow of air (where the air at the surface of the heatsink moves slower than that further away). This effect can be easily seen on a windy day. If you stay close to a wall or other large area (lying on the ground works too), it will be noticed that it is less windy than out in the open. Exactly the same thing happens with heatsinks (but on a somewhat reduced scale). Creating turbulence is an excellent way to defeat this process, but this requires fans, and fans are noisy.
+
+<p>Radiation requires that the surface has the maximum emissivity of heat, and this means that its colour is important. Shiny gold anodised heatsinks might look great (if you like that sort of thing), but are hopeless at radiating heat. It's no accident that the radiator in a car, or the condenser on the back of a refrigerator is matte black - not chrome plated and shiny. Matte black heatsinks are the best for radiation, and will have a significantly better thermal resistance than any other. Use of paint is to be avoided however, unless kept thin and even, as a thick layer of paint acts as an insulator, reducing the ability of all those unwanted therms to get out into the air.
+
+<p>This is one of the reasons that aluminium is so popular as a heatsink material - it can be anodised, and black dye is then introduced into the porous layer of aluminium oxide. This is far thinner than any coat of paint, and is very effective. Copper is actually a far better conductor of heat, but cannot be anodised, and its colour is such that it is a naturally terrible radiator. Such is life. Oxidised copper (kinda, sorta like anodising) is passably effective, but rarely used due to its cost. Table 3 shows the "emissivity" of various surfaces. This is a measure of their ability to emit infra-red radiation (heat), and a figure of 1 is as good as it gets for a passive heatsink (i.e. no heat pumps or the like). This list is not exhaustive, but is a fair indicator for the most common surface treatments.</p>
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<tr><td><b>Surface</b></td><td><b>Emissivity</b></td></tr>
+<tr><td>Polished aluminium</td><td>0.05</td></tr>
+<tr><td>Polished copper</td><td>0.07</td></tr>
+<tr><td>Rolled sheet steel</td><td>0.66</td></tr>
+<tr><td>Oxidised copper</td><td>0.70</td></tr>
+<tr><td>Black anodised aluminium</td><td>0.70 - 0.90</td></tr>
+<tr><td>Black air-drying enamel</td><td>0.85 - 0.91</td></tr>
+<tr><td>Dark varnish</td><td>0.89 - 0.93</td></tr>
+<tr><td>Black oil paint</td><td>0.92 - 0.96</td></tr>
+</table>
+<b><small>Table 3 - Emissivity of Various Surface Treatments</small></b>
+</center>
+
+<br />&nbsp;
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE" height=37 width=108></td>
+<td><big>Emissivity refers to radiation, which is only a relatively minor (typically 25% or less) but still important means of dissipating the heat. Most heat is conducted to the air at the surface boundary, and although black oil paint has excellent emissivity, it will also insulate the fins from the air. Overall, as discussed above, about the best treatment is black anodising, but matte black automotive type lacquer is also very good (IMO) - provided it is applied as <i>thinly as possible</i>.</big></td>
+</tr></table>
+
+<p>Most high performance heatsinks have the surface of the fins ribbed, which further increases the surface area, so even a relatively small heatsink will have a radiating surface far greater that its moderate size would indicate, after all the individual fins, and the ribbing on the fins, is taken into account. Heavy application of black paint (for example) could fill the ribs, and reduce performance dramatically!</p>
+
+<center><img SRC="hs_fig6.gif" ALT="Figure 6" BORDER=1><br /><b><small>Figure 6 - A Typical Heatsink Section</small></b></center>
+
+<p>The simple heatsink in Figure 6, (100 x 100 x 50mm high), has a base surface area of 200 square cm, and when the fins are added, this increases to 1000 square cm. Note the way the base tapers away from the centre - this saves metal, but also provides maximum thermal inertia where the transistors mount, and matches the heat carrying capacity at the extremities to the expected heat flow. In reality, such a heatsink would have more fins, and if they were ribbed, the resultant final unit could have a total surface area of perhaps 1500 square cm. This is the equivalent of a single plate over 270mm square, but will have far better performance because the thermal resistances are kept to a minimum by reduced distances. (Remember that both sides of the metal are in contact with the air, so the total surface area is double that expected.)
+
+<p>Note that when dealing with heatsink temperature, it is almost always referred to as temperature rise - the number of degrees above ambient that the heatsink will reach. If ambient temperature is lower than the "standard" 25&deg;C, so too will be the heatsink temperature (and vice versa, of course). Temperature rise is a constant in the equations - this is where we must be careful when the ambient temperature is high. A car in the sun can have an internal temperature of 50&deg;C quite easily, so a temperature rise of 25&deg; will see the heatsink at 75&deg;C.
+
+<p>The thermal resistance of a heatsink is determined by ...</p>
+
+<ul>
+<li>Its size</li>
+<li>The number of fins</li>
+<li>The total surface area - a ribbed fin design will be smaller than one using flat fins for the same thermal resistance</li>
+<li>Thermal resistance within the aluminium itself - the actual alloy used, its thickness, etc</li>
+<li>The colour - matte black is best, and other colours are all worse</li>
+<li>The orientation of the fins - vertical is best, any horizontal position is worse</li>
+<li>Availability of unrestricted air flow</li>
+<li>Its temperature!</li></ul>
+
+<p>According to the 'quick and dirty' formula on Harry's Homebrew Homepage (the heatsink section seems to have gone), the thermal resistance is approximately equal to ...</p>
+
+<blockquote>Thermal Resistance = 50 / &radic;A &nbsp; Where A is the total surface area in cm&sup2;</blockquote>
+
+<p>Using this formula on the above heatsink (without ribbed fins), gives a thermal resistance of about 1.58&deg; C/W or 1.29&deg; C/W with the ribbed fins.
+
+<p>The same heatsink used in my heatsink calculator (see <a href="http://esp-au.com/download.htm">Downloads</a> page) gave a thermal resistance of 1.12&deg; C/W, assuming flat fins. I used a fin height of 50mm, depth of 100mm, and told it the heatsink has 8 fins. This assumed an ambient temperature of 25&deg; C, and a maximum heatsink temperature of 40&deg; C. This seems more or less realistic compared to manufacturer's data for similar heatsinks.
+
+<p>Manufacturers' ratings are not usually very specific, but we can safely assume that a given thermal resistance is the best obtainable, and probably assumes that the heatsink is in free air (no nearby casings, optimal fin orientation, etc) and in a "standard" ambient temperature. In most cases, a heatsink has to be used in a real-life situation, which means that you might need to add anything from 10% to 50% to the quoted figure, so a 1&deg; C/W unit could end up as anything from 1.1&deg; to 2&deg; C/W, depending upon its mounting, surrounding air temperature and any impediments to airflow.
+
+<p>Where possible, make sure that the heatsink is firmly attached to the case, which can make a reasonably thick aluminium chassis (for example) a significant part of the heatsink. This can improve performance markedly if good thermal bonding is used between case and sink. I do not recommend that you include the case in any calculations unless it is large compared to the heatsink, but if you do, do <i>not</i> count the inside of the case as part of the surface area. This is sealed (or semi-sealed), and the air will not have the free movement needed to remove the heat from the inner surfaces.
+
+<p>The last point in the above list is likely to cause some confusion - after all, thermal resistance is a constant based on the other factors, right? Wrong.
+
+<p>Let's imagine a heatsink with a heat load of 10W. After careful measurement, we determine that the temperature rise is 10&deg; C (i.e. 10&deg; above ambient), so the heatsink has a thermal resistance of 1&deg; C/W. We will almost certainly decide that a 10&deg; rise is probably a bit restrained, and in fact we can allow a temperature rise of 20&deg; C, and we may decide to allow for a maximum 25&deg; ambient (not much use in outback Australia during summer, but it will do for this exercise).
+
+<p>Allowing an additional 10&deg; brings the thermal resistance down to 0.89&deg; C/W, and if we decided that even a 35&deg; rise were acceptable (80&deg; C heatsink temperature referred to a 25&deg; ambient), the thermal resistance drops further, to 0.73&deg; C/W.
+
+<p>This apparently anomalous behaviour is actually all completely normal, and the heatsink is actually obeying the Second Law of Thermodynamics perfectly (feel free to look that up if you don't know it already).
+
+<p>In fact, the term 'thermal runaway' - where a transistor gets hotter so conducts more current, so gets hotter, so ... - is a misnomer in terms of physics. At some point, the system will stabilise, as it must. Unfortunately, this will probably involve temperatures in excess of anything the transistor junction can tolerate, so it (or they) will be destroyed.
+
+<p>The heatsink discussed above has a thermal resistance of only about 0.45&deg; C/W if a temperature rise of 200&deg;C were acceptable (which it absolutely is <i>not</i>).</p>
+
+<p>This is no different from any other situation where there is a difference in potential, pressure, or anything else. The greater the difference, the greater the flow rate. Now you know that the thermal resistance is <i>not</i> a constant - it is inversely proportional to the temperature difference between heatsink and ambient (this is a simplification, but it describes the behaviour fairly well). If heatsink and ambient temperatures are the same with a heat source applied, the heatsink has a thermal resistance of zero!</p>
+
+<hr /><a id="s16"></a><b>16 - Altitude</b>
+<p>Since the density of air varies with altitude, so does the efficiency of a heatsink. I wonder how many consumer equipment makers take this into consideration?&nbsp; As can be seen from the table below, the effects are not insignificant.</p>
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<tr><td><b>Altitude (Metres)</b></td><td><b>Altitude (Feet)</b></td><td><b>Derating Factor</b></td></tr>
+<tr><td>0 (sea level)</td><td>0</td><td>1.00</td></tr><tr><td>1,000</td><td>3,000</td><td>0.95</td></tr>
+<tr><td>1,500</td><td>5,000</td><td>0.90</td></tr><tr><td>2,000</td><td>7,000</td><td>0.86</td></tr>
+<tr><td>3,000</td><td>10,000</td><td>0.80</td></tr><tr><td>3,500</td><td>12,000</td><td>0.75</td></tr>
+</table>
+<small><b>Altitude Derating Factors</b></small></center>
+
+<p>The altitude effect should be considered in all cases, as is evident. While the air temperature of an indoor environment is normally controlled and is not affected by the altitude change, the indoor air pressure does change with the altitude. Since many electronic systems are installed at an elevated altitude, it is necessary to derate the heat sink performance mainly due to the lower air density caused by the lower air pressure at higher altitude. The table shows the performance derating factors for typical heat sinks at high altitudes. For example, in order to determine the actual thermal performance of a heat sink at altitudes other than sea level, the thermal resistance values read off from the performance graphs should be divided by the derating factor before the values are compared with the required thermal resistance. 
+
+<p>Example:&nbsp; A 1&deg; C/W heatsink would become 1.16&deg; C/W at an altitude of 2,000 metres, or 1.25&deg; C/W at 3,000 metres.
+
+<hr /><a id="s17"></a><b>17 - Fin Density</b>
+<p>Although it would seem reasonable to assume that the more fins per unit area the better, this is not always the case. Closely spaced fins will not be able to dispose of the heat well in a standard convection (i.e. not fan forced) heatsink. This is partly because of the airflow that will actually be able to establish itself within a confined space, and partly because the fins will tend to radiate much of the heat to adjoining fins, which helps to stabilise the temperature, but does little to dispose of the heat.
+
+<p>The maximum distance between fins is dependent on the depth or height of the fins - deep finned heatsinks will need more space between adjacent fins than a shallow design unless fan cooling is used. As shown in the following table, the minimum spacing is determined by fin depth and airflow.</p>
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<tr><td width="40%"><b>Fin length (millimetres)</b></td><td width="15%"><b>75</b></td><td width="15%"><b>150</b></td>
+<td width="15%"><b>225</b></td><td width="15%"><b>300</b></td></tr>
+<tr><td><b>Airflow </b>(metres / sec)</td><td COLSPAN="4"><b>Fin Spacing (mm)</b></td></tr>
+<tr><td>Natural convection</td><td>6.5</td><td>7.5</td><td>10</td><td>13</td></tr>
+<tr><td>1.0</td><td>4.0</td><td>5.0</td><td>6.0</td><td>7.0</td></tr>
+<tr><td>2.5</td><td>2.5</td><td>3.3</td><td>4.0</td><td>5.0</td></tr>
+<tr><td>5.0</td><td>2.0</td><td>2.5</td><td>3.0</td><td>3.5</td></tr>
+</table><b><small>Fin spacing (in mm) versus flow and fin length</small></b></center>
+
+<p>The average performance of a typical heat sink is linearly proportional to the width of a heat sink in the direction perpendicular to the airflow, and approximately proportional to the square root of the fin length in the direction parallel to the flow. For example, an increase in the width of a heat sink by a factor of two would increase the heat dissipation capability by a factor of two, whereas doubling the depth or height will only increase the heat dissipation capability by a factor of 1.4. Therefore, if the choice is available, it is beneficial to increase the width of a heat sink rather than the length of the heat sink fins. Also, the effect of radiation heat transfer is very important in natural convection, as it can be responsible of up to 25% of the total heat dissipation. Unless the heatsink is facing a hotter surface nearby, it is imperative to have the heat sink surfaces painted or anodised to enhance radiation.
+
+<p>The reason for the difference is simply that as the height is increased, the air at the top of the heatsink is hotter than that entering at the bottom. If the fin depth is increased, there is more mutual radiation between fins, and as the spacing is reduced, mutual radiation increases again. Airflow is also restricted because of the smaller physical area for air to pass, since more of the available space is occupied by the heatsink itself.</p>
+
+<hr /><a id="s18"></a><b>18 - Water Cooling</b>
+<p>I was going to stay away from this completely, but it is worth a small paragraph at least. Water just happens to be the best heat removal medium known, with a specific heat of 1, it requires more energy to raise a gram of water by one degree C than any other material. 
+
+<p>If extremely high power is the goal (and a bit of plumbing is Ok), a water cooled heatsink is the ideal. Provided the thermal resistance from junction to heatsink is minimised, a minuscule heatsink with only a moderate water flow will remove prodigious amounts of heat. Although uncommon for audio amplifiers, water cooling has been used for many years for cooling high power radio transmitters and the like.
+
+<p>However, it must be admitted that few audiophiles will go to the trouble of installing special plumbing to cool their amplifiers - it would be cheaper to put them in another room and use fan cooling, and a lot more convenient.
+
+<p>Having said that, the use of water cooling is gaining in popularity, and quite a few commercial H<sub>2</sub>0 cooling systems are available for microprocessors. As component density increases in the ICs, it becomes harder to get the heat out efficiently, so expect to see that side of the market expand in the next few years. While it must be admitted that water cooled heatsinks are the best possible choice for amplifiers, this is not an area that can be expected to grow, since it is just too expensive and unwieldy to implement.  Finding a silent running pump is another hurdle, and although the plumbing is not at all difficult (low pressure systems are all that's needed), it still has considerable nuisance value - the cables in a typical system are bad enough, let alone having a plumbing system that must be 100% watertight. Of course, then there is the radiator, pump and fan to be considered - they have to live somewhere, and can be expected to have a SAF (Spouse Acceptance Factor) of perhaps -20dB ("I don't know what you're planning to do with <i>that</i> horrible looking thing, but if it comes in here, I'm moving out!" - a fairly typical response, I would suggest).
+
+<p>Still, I may do a water cooled heatsink project at some time, just for the fun of it <img src="grin.gif" alt=";-">.</p>
+
+<hr /><a id="s19"></a><b>19 - Heat Pipes</b>
+<p>Heat pipes are not common, and will not be discussed at any length in this article. They are expensive, and are most commonly used where a hot component must be cooled in a confined space. The heat pipe is actually two heatsinks, joined by a pipe containing a refrigerant. Natural convection is used to move the refrigerant from the hot area (the component to be cooled) and the main heatsink, which may be mounted some distance away. 
+
+<p>For those who are interested in this technology, there are quite a few articles on the web that discuss heat pipes, and
+I suggest a web search to locate them.
+
+<p>There are some newer versions of the same basic principle now available.  These make use of "micro-channels" to dramatically increase the surface area at the hot end, and allow the use of more environmentally friendly coolants. However, it is to be expected that these will be expensive, and outside the budget of most home constructors.</p>
+
+<hr /><a id="s20"></a><b>20 - The Bottom Line</b>
+<p>As can be seen from the above, for a given heatsink, the most critical part of the whole thermal resistance equation is actually the transistor itself. If the thermal resistance of the active devices can be reduced, the heatsink requirements are lessened, resulting in a pleasing increase in reliability, and an equally pleasing reduction in the cost of the necessary heatsink.
+
+<p>The thermal resistance from transistor case to heatsink is also very important, and proper mounting technique can result in a significant improvement over the "just slop some grease on and bolt it down" approach.
+
+<p>If these two thermal resistances can be reduced enough, the heatsink itself can be quite a bit smaller than would otherwise be the case for the same (or even lower) transistor operating temperatures.
+
+<p>Always remember that manufacturers' data on heatsinks is under ideal conditions, and is usually measured at a temperature of up to 50 to 75&deg;C above ambient - although this is rarely stated.</p>
+
+<hr /><a id="s21"></a><b>21 - Other Heatsink Information</b>
+<p>I have included a heatsink calculator spreadsheet, which appears to work quite well. Go to the <a href="http://sound.westhost.com/download.htm">Downloads</a> page to get a copy, or you can just <a href="heatsink.zip">click here</a> for a download.
+
+<p>A very useful link for those who are put off by the cost of large heatsinks: 
+
+<p><a href="articles/diy-heatsink.htm" target="_blank">HeatSinks</a>&nbsp; Very good drawings, showing the complete process for building a heatsink. The page is now hosted by ESP, as it had disappeared from its original host.
+
+<p>A most excellent document has found its way into my clutches!&nbsp; It is an application note from International Rectifier (<a href="http://www.irf.com">irf.com</a>) and I have linked it <a href="http://www.irf.com/technical-info/appnotes/an-1000.pdf">here</a> for your convenience. Although it refers to a specific case style, the information is generic enough to ensure that you have a better all-round understanding of the subject.
+
+<p>Another excellent document that describes mounting methods and techniques can be found at the  <a href="https://www.onsemi.com/pub/Collateral/AN1040-D.PDF" target="_blank">On Semiconductor</a> website. This describes the subject in considerable detail. I was made aware of this document after the article was written, and it was not used as a reference.</p>
+
+<p><small><b>Please Note:</b></small> With all articles of this nature, there will be some information that appears to be in conflict with other data you will see, either in this article,  or other application notes or publications. This is perfectly normal, as no two engineers  will ever be in complete agreement, but the basic data correlates very well, with only a few minor points of difference.</p>
+
+<hr /><a id="s22"></a><b>22 - References:</b>
+<ol>
+  <li>General Electric Transistor Manual
+  <li>National Semiconductor Voltage Regulator Handbook
+  <li>Jaycar Electronics Engineering Catalogue
+  <li>Farnell Components Catalogue
+  <li>International Rectifier Application Note AN-1000
+  <li>Aavid Thermal Technologies, Inc. Laconia, New Hampshire
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999 - 2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Revision History:&nbsp; 01 Sep 07 - page re-format./ 23 May 02 - corrected link to Harry's Homebrew page./ 18 Feb - fin density and altitude effect, plus other small additions./ 12 Feb 2001- added info on mica "splitting"./ 07 Aug 2000 - Added an-1000.pdf./ 08 Apr-Added info on heatsink calc spreadsheet./ 05 Feb-added "additional thoughts" (Geoff Moss contribution)./ 28 Jan 2000-Corrected several errors, added links for additional info and more info on emissivity etc. 16 Aug 1999-Added new Figure 1 and explanation of electrical analogue./ 16 Jun 1999-Initial publication</div>
+</body>
+</html>

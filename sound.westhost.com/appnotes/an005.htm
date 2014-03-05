@@ -1,0 +1,170 @@
+<!DOCTYPE doctype PUBLIC "html 4.01 transitional">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="zero, crossing, detector, ac, alternating, current, comparator, speed, phase, distortion, displacement, analog, analogue, instrument,measure, instrumentation, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Application Notes - Zero Crossing Detectors">
+	<!-- ESP  Application Notes - Zero Crossing Detectors -->
+	<title>Zero Crossing Detectors</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215 />
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">AN-005&nbsp;</td></tr></table>
+
+<p align="center"><b>Zero Crossing Detectors and Comparators</b><br />
+<small>(The Unsung Heroes of Modern Electronics Design)<br />Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><b>Introduction</b><br />
+<p>Zero crossing detectors as a group are not a well-understood application, although they are essential elements in a wide range of products. It has probably escaped the notice of readers who have looked at the lighting controller and the Linkwitz Cosine Burst Generator, but both of these rely on a zero crossing detector for their operation.
+
+<p>A zero crossing detector literally detects the transition of a signal waveform from positive and negative, ideally providing a narrow pulse that coincides exactly with the zero voltage condition. At first glance, this would appear to be an easy enough task, but in fact it is quite complex, especially where high frequencies are involved. In this instance, even 1kHz starts to present a real challenge if extreme accuracy is needed.</p>
+
+<p>The not so humble comparator plays a vital role - without it, most precision zero crossing detectors would not work, and we'd be without digital audio, PWM and a multitude of other applications taken for granted.</p>
+
+<hr /><b>Basic Low Frequency Circuit</b><br />
+<p>Figure 1 shows the zero crossing detector as used for the dimmer ramp generator in Project 62. This circuit has been around (almost) forever, and it does work reasonably well. Although it has almost zero phase inaccuracy, that is largely because the pulse is so broad that any inaccuracy is completely swamped. The comparator function is handled by transistor Q1 - very basic, but adequate for the job.
+
+<p>The circuit is also sensitive to level, and for acceptable performance the AC waveform needs to be of reasonably high amplitude. 12-15V AC is typical. If the voltage is too low, the pulse width will increase. The arrangement shown actually gives better performance than the version shown in Project 62 and elsewhere on the Net. In case you were wondering, R1 is there to ensure that the voltage falls to zero - stray capacitance is sufficient to stop the circuit from working without it.</p>
+
+<p align="center"><img src="an005-f1.gif" alt="Figure 1" border="1" /><br />
+<b><small>Figure 1 - Basic 50/60Hz Zero Crossing Detector</small></b></p>
+
+<p>The pulse width of this circuit (at 50Hz) is typically around 600us (0.6ms) which sounds fast enough. The problem is that at 50Hz each half cycle takes only 10ms (8.33ms at 60Hz), so the pulse width is over 5% of the total period. This is why most dimmers can only claim a range of 10%-90% - the zero crossing pulse lasts too long to allow more range.</p>
+
+<p>While this is not a problem with the average dimmer, it is not acceptable for precision applications. For a tone burst generator (either the cosine burst or a 'conventional' tone burst generator), any inaccuracy will cause the switched waveform to contain glitches. The seriousness of this depends on the application.</p>
+
+<p>Precision zero crossing detectors come in a fairly wide range of topologies, some interesting, others not. One of the most common is shown in Project 58, and is commonly used for this application. The exclusive OR (or XOR) gate makes an excellent edge detector, as shown in Figure 2.</p>
+
+<p align="center"><img src="an005-f2.gif" alt="Figure 2" border="1"><br />
+<b><small>Figure 2 - Exclusive OR Gate Edge Detector</small></b></p>
+
+<p>There is no doubt that the circuit shown above is more than capable of excellent results up to quite respectable frequencies. The upper frequency is limited only by the speed of the device used, and with a 74HC86 it has a propagation delay of only 11ns [<a href="#ref">1</a>], so operation at 100kHz or above is achievable.</p>
+
+<p>The XOR gate is a special case in logic. It will output a 1 only when the inputs are different (i.e. one input must be at logic high (1) and the other at logic low (0v). The resistor and cap form a delay so that when an edge is presented (either rising or falling), the delayed input holds its previous value for a short time. In the example shown, the pulse width is 50ns. The signal is delayed by the propagation time of the device itself (around 11ns), so a small phase error has been introduced. The rise and fall time of the squarewave signal applied was 50ns, and this adds some more phase shift.</p>
+
+<p>There is a pattern emerging in this article - the biggest limitation is speed, even for relatively slow signals. While digital logic can operate at very high speeds, we have well reached the point where the signals can no longer be referred to as '1' and '0' - digital signals are back into the analogue domain, specifically RF technology.</p>
+
+<p>The next challenge we face is converting the input waveform (we will assume a sinewave) into sharply defined edges so the XOR can work its magic. Another terribly under-rated building block is the comparator. While opamps can be used for low speed operation (and depending on the application), extreme speed is needed for accurate digitisation of an analogue signal. It may not appear so at first glance, but a zero crossing detector is a special purpose analogue to digital converter (ADC).</p>
+
+<hr /><b>Comparators</b><br />
+<p>The comparator used for a high speed zero crossing detector, a PWM converter or conventional ADC is critical. Low propagation delay and extremely fast operation are not only desirable, they are essential.</p>
+
+<blockquote>Comparators may be the most underrated and under utilised monolithic linear component. This is unfortunate because comparators are one of the most flexible and universally applicable components available. In large measure the lack of recognition is due to the IC opamp, whose versatility allows it to dominate the analog design world. Comparators are frequently perceived as devices that crudely express analog signals in digital form - a 1-bit A/D converter. Strictly speaking, this viewpoint is correct. It is also wastefully constrictive in its outlook. Comparators don't "just compare" in the same way that opamps don't "just amplify". [<a href="#ref">2</a>]</blockquote>
+
+<p>The above quote was so perfect that I just had to include it. Comparators are indeed underrated as a building block, and they have two chief requirements ... low input offset and speed. For the application at hand (a zero crossing detector), both of these factors will determine the final accuracy of the circuit. The XOR has been demonstrated to give a precise and repeatable pulse, but its accuracy depends upon the exact time it 'sees' the transition of the AC waveform across zero. This task belongs to the comparator.</p>
+
+<p align="center"><img src="an005-f3.gif" alt="Figure 3" border="1" /><br />
+<b><small>Figure 3 - Comparator Zero Crossing Detector</small></b></p>
+
+<p>In Figure 3 we see a typical comparator used for this application. The output is a square wave, which is then sent to a circuit such as that in Figure 2. This will create a single pulse for each squarewave transition, and this equates to the zero crossings of the input signal. It is assumed for this application that the input waveform is referenced to zero volts, so swings equally above and below zero.</p>
+
+<p align="center"><img src="an005-f4.gif" alt="Figure 4" border="1" /><br />
+<b><small>Figure 4 - Comparator Timing Error</small></b></p>
+
+<p>Figure 4 shows how the comparator can mess with our signal, causing the transition to be displaced in time, thereby causing an error. The significance of the error depends entirely on our expectations - there is no point trying to get an error of less than 10ns for a dimmer, for example.</p>
+
+<p>The LM339 comparator that was used for the simulation is a very basic type indeed, and with a quoted response time of 300ns it is much too slow to be usable in this application. This is made a great deal worse by the propagation delay, which (as simulated) is 1.5us. In general, the lower the power dissipation of a comparator, the slower it will be, although modern IC techniques have overcome this to some extent.</p>
+
+<p>You can see that the zero crossing of the sinewave (shown in green) occurs well before the output (red) transition - the cursor positions are set for the exact zero crossing of each signal. The output transition starts as the input passes through zero, but because of device delays, the output transition is almost 5us later. Most of this delay is caused by the rather leisurely pace at which the output changes - in this case, about 5us for the total 7V peak to peak swing. That gives us a slew rate of 1.4V/us which is useless for anything above 100Hz or so.</p>
+
+<p>One of the critical factors with the comparator is its supply voltage. Ideally, this should be as low as possible, typically with no more than &plusmn;5V. The higher the supply voltage, the further the output voltage has to swing to get from maximum negative to maximum positive and vice versa. While a slew rate of 100V/us may seem high, that is much too slow for an accurate ADC, pulse width modulator or zero crossing detector.</p>
+
+<p>At 100V/us and a total supply voltage of 10V (&plusmn;5V), it will take 0.1us (100ns) for the output to swing from one extreme to the other. To get that into the realm of what we need, the slew rate would need to be 1kV/us, giving a 10ns transition time. Working from Figure 3, you can see that even then there is an additional timing error of 5ns - not large, and in reality probably as good as we can expect.</p>
+
+<p>The problem is that the output doesn't even <i>start</i> to change until the input voltage passes through the reference point (usually ground). If there is any delay caused by slew rate limiting, by the time the output voltage passes through zero volts, it is already many nanoseconds late. Extremely high slew rates are possible, and Reference 2 has details of a comparator that is faster than a TTL inverter! Very careful board layout and attention to bypassing is essential at such speeds, or the performance will be worse than woeful.</p>
+
+<hr /><b>Using A Differential Line Receiver</b><br />
+<p>This version is contributed by John Rowland [<a href="#ref">3</a>] and is a very clever use of an existing IC for a completely new purpose. The DS3486 is a quad RS-422/ RS-423 differential line receiver. Although it only operates from a single 5V supply, the IC can accept an input signal of up to &plusmn;25V without damage. It is also fairly fast, with a typical quoted propagation time of 19ns and internal hysteresis of 140mV.</p>
+ 
+<p align="center"><img src="an005-f5.gif" alt="Figure 5" border="1" /><br />
+<b><small>Figure 5 - Basic Zero Crossing Detector Using DS3486</small></b></p>
+
+<p>The general scheme is shown in Figure 5. Two of the comparators in the IC are used - one detects when the input voltage is positive and the other detects negative (with respect to earth/ ground). The NOR gate can only produce an output during the brief period when both comparator outputs are low (i.e. close to earth potential).
+
+However, tests show that the two differential receiver channels do not switch at exactly 0.00V. With a typical DS3486 device, the positive detector switches at about 0.015V and the negative detector switches at approximately -0.010V. This results in an asymmetrical dead band of 25mV around 0V. Adding resistors as shown in Figure 6 allows the dead band to be made smaller, and (perhaps more importantly for some applications), it can be made to be symmetrical.</p>  
+
+<p align="center"><img src="an005-f6.gif" alt="Figure 6" border="1" /><br />
+<b><small>Figure 6 - Modified Zero Crossing Detector To Obtain True 0V Detection</small></b></p>
+
+<p>Although fixed resistors are shown, it will generally be necessary to use pots. This allows for the variations between individual comparators - even within the same package. This is necessary because the DS3486 is only specified to switch with voltages no greater than &plusmn;200mV. The typical voltage is specified to be 70mV (exactly half the hysteresis voltage), but this is <i>not</i> a guaranteed parameter.
+
+<p>Indeed, John Rowland (the original designer of the circuit) told me that only the National Semiconductor devices actually worked in the circuit -  supposedly identical ICs from other manufacturers refused to function. I quote ...
+
+<blockquote>
+We did some testing with "equivalent" parts made by other manufacturers, and found very different behavior in the near-zero region. Some parts have lots of hysteresis, some have none, detection thresholds vary from device to device, and in fact even in a quad part like the DS3486 they are different from channel to channel within the same package. Eventually we settled on the National DS3486 with some added resistors on its input pins as shown in Figure 6. The most recent version of the circuit uses trimpots, 100 ohm on the positive detector and 200 ohm on the negative detector.  These values allow us to trim almost every DS3486 to balance the noise threshold in the +/-5mV to +/-15mV range. Occasionally we do get a DS3486 which will not detect in this range.  Sometimes, we find that both the positive and negative detectors are tripping on the same side (polarity) of zero, if so we pull that chip and replace it.
+</blockquote>    
+
+<p>The additional resistors allow the detection thresholds to be adjusted to balance the detection region around 0V. The resistor from pin 1 to earth makes the positive detector threshold more positive. The resistor from the input to pin 7 forces the negative detector threshold to become more negative. Typical values are shown for &plusmn;25mV detection using National's DS3486 parts. In reality, trimpots are essential to provide in-circuit adjustment.</p>
+
+<a name="ref"></a><hr /><b>References</b>
+<blockquote>
+	1 - Quad 2-input EXCLUSIVE-OR gate 74HC/HCT86, Philips Semiconductors Data Sheet<br />
+	2 - A Seven-Nanosecond Comparator for Single Supply Operation, Linear Technology, Application Note 72, May 98<br />
+	3 - <a href="http://electronicdesign.com/article/analog-and-mixed-signal/differential-line-receivers-function-as-analog-zer.aspx" target="_blank">Differential Line Receivers Function As Analog Zero-Crossing Detectors</a>, John Rowland (reproduced with the author's permission)
+</blockquote>
+	
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index.html" onmouseover="document.b1.src='a.gif';" onmouseout="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="App. Note Index" border="0" height="24" width="40"></a><b>App. Notes Index</b><br />
+<a href="../index2.html" onmouseover="document.b3.src='a.gif';" onmouseout="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border="0"></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2004 &amp; 2011. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 20 Jun 2005./ 08 Jan 2011 - added DS3486 detector.</div>
+</body>
+</html>

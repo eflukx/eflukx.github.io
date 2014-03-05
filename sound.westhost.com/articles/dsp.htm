@@ -1,0 +1,280 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="ESP - DSP (Digital Signal Processing) and what it means for the future">
+	<!-- ESP - DSP (Digital Signal Processing) and what it means for the future -->
+	<meta name="keywords" content="musical, notation, octave, decade, db, DB SPL, Alexander Graham Bell, cycle, wavelength, period, spectral, energy, acoustic masking">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="revisit-after" content="5 days">
+	<meta name="ROBOTS" content="all">
+	<title>Digital Signal Processing and Audio</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">DSPs and Audio&nbsp;</td></tr></table>
+
+<p align="center"><b>Digital Signal Processing</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm"  OnMouseOver="document.t1.src='a.gif';"  OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t1" alt="Articles" BORDER=0></a><b>Articles Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" alt="Index" BORDER=0></a><b>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#in">Introduction</a></li>
+  <li><a href="#s10">1.0 - What Is DSP?</a></li>
+  <li><a href="#s20">2.0 - Digital Crossovers &amp; EQ</a></li>
+  <li><a href="#s30">3.0 - Room Equalisation</a></li>
+  <li><a href="#s40">4.0 - Speaker Equalisation</a></li>
+  <li><a href="#out">Conclusion</a></li>
+</ul>
+
+<hr><a id="in"></a><p><b>Introduction</b>
+<p>The DSP has become part of so much equipment in the last few years that it is hard to imagine many products without at least one digital signal processor involved. One area where DSPs have not yet gained full acceptance is audio. While there are many audio products that <i>use</i> digital signal processing, few are considered high end applications.
+
+<p>Studios are usually more than happy to use a DSP based effects unit to provide echo, reverb, phasing, flanging, pitch shift and many other functions. The end result may easily find its way into a high end audiophile's collection, and the presence of the DSP may or may not go un-noticed. One of the products that certainly use current DSP chips to their utmost is made by DEQX [<a href="#ref">1</a>], and the capabilities of the system are very impressive indeed.
+
+<p>Other products that make extensive use of DSP chips include digital crossovers, equalisers and other equipment that is (in general) more likely to be found in studios and sound reinforcement than in home systems. This is changing though, and we are starting to see more home equipment utilising DSPs to decode multiple DVD formats, including the likes of DivX. That the world of the DSP is encroaching on traditional analogue territory is undeniable, but it important to understand that a DSP is not a panacea, and cannot perform miracles.
+
+<p>Figure 1 shows the internal (simplified) block diagram of a DSP chip, based on that in the SHARC&reg; data sheet. This article is not intended to explain exactly how a DSP works (and I don't know enough about the programming of them to be much use in that area), but rather to give the reader a brief overview of the DSP before explaining what they <i>can't</i> do. 
+
+<hr><a id="s10"></a><b>1.0 - What Is DSP?</b>
+<p>A digital signal processor is a very sophisticated processor chip, whose architecture has been specifically optimised for the task of high speed "real-time" data processing. Speed is of the essence, because although audio may not seem that fast, real-time manipulation requires that the processor be fast enough to deal with every sample as it is received. It is not possible to slow the processing down, as might happen with a PC performing DSP functions on a file or block of data in memory. Nor is it possible to ignore samples if the DSP can't keep up. As sample rates increase, so too does the requirement for DSPs to be able to keep pace.
+
+<p>One of the things that slow down the whole process of executing DSP algorithms is transferring information to and from memory. This includes data, such as samples from the input signal and the filter coefficients, as well as program instructions, the binary codes that are loaded into the program sequencer. For example, suppose we need to multiply two numbers that reside somewhere in memory. To do this, we must fetch three binary values from memory, the numbers to be multiplied, plus the program instruction describing what to do. In a traditional microprocessor, this requires three clock cycles just to fetch the data.
+
+<p>The Analog Devices SHARC processor (one of the more popular DSPs for audio work), uses what AD call "<b>S</b>uper <b>H</b>arvard <b>Arc</b>hitecture", and this is the origin of the name. By using separate memories and buses for program instructions and data, a piece of data and a program instruction can be fetched simultaneously. There is a lot to it, as Figure 1 shows - and this is a <i>simplified</i> block diagram.</p>
+
+<center><img src="dsp-f1.gif" alt="Fig 1" border="1"><br>
+<small><b>Figure 1 - Simplified Block Diagram of DSP Integrated Circuit</b></small></center>
+
+<p>High speed I/O is a key characteristic of DSPs. The ultimate goal is to move the data in, perform the maths, then move the data out again before the next sample is available. If a DSP can't do that, then it's of no use to anyone.
+
+<p>Much of what a DSP has to do for end-user audio applications is based on filters (crossover networks and equalisation). There are two filter types that are commonly used, and while neither would seem very challenging on the surface, when the time constraint is included it becomes critical.  The two main filter types are known as FIR (Finite Impulse Response) and IIR (Infinite Impulse Response).
+
+<p>An FIR filter has no feedback, but uses a finite number of previous samples for calculation. Its response to a given sample ends when the sample reaches the end of a circular buffer. In contrast, an IIR filter uses recursion - computer terminology for a function that calls itself (so is sometimes called "re-entrant"). The output of an IIR filter is a weighted sum of input and output samples.
+
+<p>To give you an idea of the process steps for an FIR filter, have a look at the following ...</p>
+
+<ol>
+  <li>Generate a sample from the input source (for example an ADC), and set an interrupt in the DSP</li>
+  <li>Detect and handle the interrupt</li>
+  <li>Move the sample into the input circular buffer (a special buffer that holds all current working samples, a similar buffer holds coefficients)</li>
+  <li>Update the pointer that identifies the current sample in the circular buffer</li>
+  <li>Zero the accumulator (one of the processor's working memory locations)</li>
+  <li> &nbsp; Control the processor's loop through each of the coefficients (these determine what the final output will be, based on the input)</li>
+  <li> &nbsp; Fetch the coefficient from the coefficient circular buffer</li>
+  <li> &nbsp; Update the pointer for the coefficient circular buffer</li>
+  <li> &nbsp; Fetch the sample from the input sample circular buffer</li>
+  <li> &nbsp; Update the pointer for the input sample circular buffer</li>
+  <li> &nbsp; Multiply the sample by the coefficient</li>
+  <li> &nbsp; Add the product to the accumulator</li>
+  <li>Move the output sample from the accumulator to a holding buffer</li>
+  <li>Move the output sample from the holding buffer to the DSP output (e.g. DAC)</li>
+</ol>
+
+<p>A traditional microprocessor would usually require one clock cycle to perform each instruction from 1 to 14. A DSP may be able to execute the entire block from 6 to 12 in a single clock cycle, resulting in a significant speed increase. These tasks may be performed many times for each input sample, to handle multiple coefficients and work with previous samples as needed for the required filter response. This is how the DSP is capable of working in real time, without the significant expense of using an extremely high clock speed.
+
+<p>The total delay between the input and output is typically no more than a few milliseconds. This is a major difference between analogue and digital processing - analogue filters have a total time delay of a few microseconds at most, but a DSP needs time to accumulate enough samples to work with. A single sample is useless for a filter, because it only has information about the instantaneous level. To obtain frequency data, a number of samples are needed, with the total number tending to increase as frequency is reduced. While 1ms is enough to capture 10 cycles at 10kHz or one complete cycle at 1kHz, it is less useful at 20Hz, because 1ms only describes 1/50 of a cycle. A 20Hz waveform has a period (time for a complete cycle) of 50ms, but the DSP does not appear to need a complete cycle to enable a filter to function as it should.
+
+<p><b>MP3</b> - the application of DSP doesn't always need a dedicated IC. There are many PC/Mac/Linux programs that allow you to convert CD files to MP3, and they use the PC to perform the processing. There is a great deal of processing needed to make the conversion, as the processor has to determine which parts of the audio stream are "inaudible" so they can be removed. The compression algorithms used are very complex, and some encoders do a much better job than others by careful refinement of the maths functions to get the best result. It's still MP3 at the end, but there are significant differences.
+
+<p><b>ProTools</b> - DSP functionality is also found in applications such as ProTools, a very popular sound editing and manipulation suite of professional recording/editing software. ProTools allows the user to modify sounds, change the pitch of vocals, remove unwanted background noise, replace dialogue, alter the tempo of audio files, and much more. It is even possible to make an extremely average (or even bad) singer sound like a diva - which is cheating the public IMO, but there's probably not much we can do to stop that.</p>
+ 
+<hr><a id="s20"></a><b>2.0 - Digital Crossovers &amp; EQ</b>
+<p>There are now many digital crossovers available, and I have one that I use to evaluate speakers and determine the optimum crossover frequencies for different drivers. It includes parametric equalisation, time delay to account for driver offset and many other features that were almost unthinkable only a few years ago. Many such systems are available, primarily aimed at professional sound reinforcement - although some people do use these systems for domestic systems as well.  Dedicated boards are available to OEMs (original equipment manufacturers) from a number of vendors, and we are seeing them start to form an integral part of new designs.
+
+<p>Systems such as the DEQX (Digital EQ and Xover - pronounced dex) are very powerful, and can determine the optimum crossover frequency, filter slopes (which can be asymmetrical) and EQ for a given set of drivers. All this from a few measurements taken with a microphone plugged straight into the unit itself. It not only performs the crossover functions, but is a complete digital analysis package as well. By no means is the DEQX alone, although it was one of the first to offer such a complete package with such a high degree of functionality.
+
+<p>The equalisation functionality is extraordinary, so much so that it may seem that we at last have a foolproof means of turning the proverbial sow's ear into a silk purse - despite the old adage claiming that it is not possible to do so. (See <a href="#f-n">footnote</a>.) With the capacity to handle equalisation tasks that are simply impossible with analogue equipment, nirvana seems so close we can almost touch it.
+
+<p>Bang and Olufsen use DSP in the BeoLab 5 speaker system to provide their Adaptive Bass Control, which "will listen and analyse the sound of the room" at the press of a button. DEQX can also provide room equalisation, as can many other systems. Dolby systems are used extensively in cinema installations, providing a wide range of equalisation functions - all in the digital domain.</p>
+
+<hr><a id="s30"></a><b>3.0 - Room Equalisation</b>
+<p>The term "room EQ" is very misleading, especially if you assume that all the anomalies within the room can be dealt with, without having to resort to room treatment. In the old days (pre DSP), if a room had a problem, you had to make or do physical "things" to correct it. Absorbers, resonators, diffraction gratings, heavy curtains, thick carpet and speaker placement being just a few.
+
+<p>Now, all we have to do is set up a measurement microphone and let the system loose. All the problem areas will be cleaned up and we will have "perfect sound forever". Right?
+
+<p><u><i>Wrong!</i></u> This is one of the major misconceptions that people have of digital EQ systems. A simple statement of absolute fact is warranted ...
+
+<blockquote><b><i>You cannot correct time with amplitude</i></b></blockquote>
+
+<p>An equalisation system cannot compensate for acoustic effects that are time related. No-one would attempt to create a "time-aligned" speaker system by applying equalisation - it wouldn't work, and the creator of such a travesty would be the butt of a great many jokes - and rightfully so! Reflections within a room are an effect of time, and no amount of messing around with the amplitude (level) of a signal can fix a problem that is a direct result of a time delay - even if done at specific frequencies. In fact, there is absolutely nothing you can do at the source that will have an effect. If an acoustic signal reflects off a glass door, the only thing that will stop it is to turn the signal off. Naturally, any other acoustic signal from <i>any</i> source will also reflect off the glass door. Can EQ fix this? Of course not. One would be quite mad to imagine that it could.
+
+<p>I have seen claims that a DSP can "fix" room modes and other anomalies at a fixed position, but the claimants fail to point out that such a fixed position may only encompass a few cubic centimetres. Also missed was the fact that our hearing removes many of the peaks and dips that can be detected by a microphone, and if one <i>were</i> to equalise based on the mic response, the result would sound worse than one could possibly imagine.  However, there is one exception ... see below.
+
+<p>A time delay will cause problems over a wide range of frequencies, but is likely to be most troublesome where the time is in direct relationship to the wavelength of the affected frequencies. It is because specific frequencies are affected that it may be assumed that a filter circuit might help, but this approach has neglected to consider the <i>real</i> problem.
+
+<p><i>Just imagine how we would all laugh at a motorist refilling the petrol tank because his car had stopped, having completely failed to notice that it stopped because it crashed into a tree.</i>
+
+<p>For some unknown reason, people take the application of EQ (which changes the amplitude of specific frequencies) to correct time issues quite seriously, in much the same manner as the motorist just described. Hmmmm!
+
+<p>The velocity of sound in air (at 22&deg;C and sea level) is 345m/s, so the wavelength (&lambda;) of a 345Hz signal is 1 metre. If a bidirectional sound source is positioned 500mm from a wall (as shown in Figure 2), any signal at 345Hz will be reinforced by the reflection of the rear radiation from the wall, because the reflection has travelled an additional metre and is in phase with the forward radiated signal. The reflected signal adds to the direct radiated signal. At 172.5Hz, the reflection has still travelled an extra metre, but the reflected wave will partially cancel the original signal because it is now 180&deg; out of phase. The same effects occur at all frequencies whose wavelengths are multiples or submultiples of 1 metre (2m, 500mm, 333mm, 250mm, etc.). How can this be equalised? Quite obviously, it can't be. As the frequency increases, the number of peaks and dips also increases.</p>
+ 
+ <center><img src="dsp-f2.gif" alt="Fig 2" border="1"><br>
+ <small><b>Figure 2 - Bi-Directional Loudspeaker, 1 Metre from Wall</b></small></center>
+ 
+<p>If we analyse the end result of such a reflection, we see a comb filter effect. Distance between comb notches is determined by the time delay, and the relative amplitude of each notch depends on the losses the reflected signal encounters. If the rear wall just absorbs the sound then no reflection is created -  the problem does not occur (this is one correct way to deal with such issues).
+
+<p>Note that for the sake of discussion, the speaker is assumed to be acoustically transparent. The idea is to show the basics rather than to become bogged down with the complexity of any room reflection. Even with this simple analogy, the number of anomalies created by a <i>single</i> reflection is already at the limit or beyond the capabilities of any equaliser, whether analogue or DSP based. In reality, there will not be one but a multiplicity of reflections from ceiling, side walls, floor, rear wall, etc., etc. ... and all with different frequency response characteristics. The end result becomes so complex that it is impossible to equalise such a large number of problem frequencies - even assuming for a moment that it would be sensible to do so.
+
+<p>Some readers may recall a time when "direct - reflected" was not only an advertising slogan for one manufacturer, but the speakers were set up more or less as shown in Figure 2. Let the reader make of this what s/he will <img src="grin.gif" alt=":-)">
+
+<p>To make matters worse when room reflections are involved, every location in the room will be affected differently. It is quite obvious that application of multiple different EQ settings simultaneously to a single driver is not possible. In Figure 3 (based on the example in Figure 2), the single reflection has been rolled off at 6dB/octave above 1kHz to account for the fact that high frequencies are easily absorbed. This may be over-optimistic for some reflective surfaces, but is sufficiently realistic for the purpose of demonstration. Without the rolloff, the deep notches continue up to the highest frequencies, and get closer together as frequency increases.</p>
+
+ <center><img src="dsp-f3.gif" alt="Fig 3" border="1"><br>
+ <small><b>Figure 3 - Comb Filter Created by Loudspeaker &amp; Wall</b></small></center>
+
+<p>Note in particular the depth of the notches at 172Hz and 500Hz. Believe it or not, these are achievable using a microphone. When a system showing such deep notches is auditioned, we hear nothing of the sort. We <i>will</i> hear notches that are created by an incorrectly set up crossover network or out-of-phase drivers (often referred to as a "suck-out"), but we do not hear deep notches caused by room reflections.
+
+<p>Fortunately for us, it is our hearing that comes to the rescue with reflected sounds - at least to some extent. While a microphone will pick up the effect shown above, we will hear only a colouration to the sound, which can still be quite disturbing. Equalisation does little to help, because the colouration is caused by time delays, not amplitude variations within the driver itself.  We will not hear the full (dramatic) effects of the comb filter because our hearing has evolved to reject early reflections. We don't start to hear a reflection as an echo until it is delayed by 30ms or more. If a system were (somehow) equalised based on the measurement microphone's data, the end result would sound nothing like we may have imagined it should - it <u>will</u> be a disaster.
+
+<p>Herein lies the problem, and while still uncommon in home systems, it has been repeated in countless cinemas worldwide (another topic, another article) - this is definitely not something to aspire to. Microphones and ears respond very differently to sound, so to equate what a microphone "hears" with what we hear is simply wrong. Any recording engineer will tell you how critical microphone placement can be to get the sound you want from an instrument. The very idea that a room can be "equalised" with a microphone, a few test signals and DSP based system is flawed in the extreme.
+
+<p>Even very basic loudspeaker measurements need to be conducted with great care. Ideally, a loudspeaker should be measured under completely anechoic (no echoes) conditions to ensure that reflections do not "create" problems that don't exist. The topic of loudspeaker measurement has been covered in any number of books, such is the difficulty of the task. The designer also needs to know what measured effects should be ignored because they are not relevant to reality (microphone artefacts as opposed to what is audible). A microphone is pretty stupid the truth be known, and automated measurement systems use many compromises to eliminate (as far as possible) room reflections. These compromises have varying degrees of success, but none can compete with our hearing for rejection of extraneous reflections.
+<p>While many people will still claim that (full range) room EQ is possible, it must be understood that ...</p>
+
+<ul>
+  <li>They are basically wrong, but even if they <i>were</i> right ...</li>
+  <li>"possible" and "practical" are very different things</li>
+</ul>
+
+<p>It is not practical to have to sit in one rigidly fixed position to listen to music, nor is it practical to re-equalise the room because you moved the coffee mug on the table. Even a small re-arrangement of furniture or other items in a room will create new peaks and dips that can be measured if the system has sufficient resolution. I've never heard anyone complain that someone moved their coffee mug and ruined the sound. A microphone hears the difference, we don't. At any frequency above 100Hz or thereabouts (a wavelength of 3.45 metres), any attempt at room EQ will create an overall frequency characteristic that is optimised for a microphone, not our hearing. The two will usually be very much at odds with each other.
+
+<p>Interestingly, it <i>is</i> possible to perform <i>some</i> degree of EQ for sub-bass, at least within a typical home listening room. Why? Because the wavelengths are large compared to distance within a room. The room's standing wave patterns can cause extreme "one note" bass, but this can often be tamed enough by EQ to obtain a very satisfactory end result - at the listening position. Other locations in the room will have a "hole" at the frequency that has been equalised out, but this is usually not a major issue. The listening position is usually sufficiently large for a number of people to experience an acceptable balance with most material. It is invariably better to experiment with alternate locations for a subwoofer before applying any EQ at all. The location that requires the least equalisation is the ideal, but by Murphy's law that means the sub will be in the middle of a doorway or some other equally non-sensible location. You will always have to compromise somewhere, but to assume that a DSP will fix everything is naive and misguided.
+
+<p>By applying EQ to reduce the level at a troublesome frequency (or perhaps two frequencies), we can often obtain a system that may not be perfect, but will give good performance down to around 20Hz. There may also be dips in the response, but any attempt to apply EQ to boost those frequencies is ill advised. In general, applying boost does not help sound quality, but can require an astonishing amount of power (see note). If 10dB of boost is applied at one frequency, this will demand 10 times as much power as the unequalised system at that frequency. Few subwoofer amplifiers have enough power to accommodate this. A modest amount of boost can be used to extend the bottom end of sealed enclosures, but boost must never be applied below the tuning frequency of a vented (or passive radiator) box.
+
+<p>There is also a point where room propagation changes from a travelling wave to "pressure mode" (also known as "room gain"). The room itself becomes pressurised in sympathy with the bass frequencies, and this effect is very prominent with high power car systems. As a first approximation, a room will enter pressure mode when the longest dimension of any boundary wall is about 1/2 wavelength [<a href="#ref">3</a>]. For a room with a largest dimension of perhaps 5 metres, pressure mode can be expected below about 35Hz. Once a room is in pressure mode, it can be equalised with no problems. Although a side issue, it is important when discussing room EQ.
+
+<blockquote><small><b>Note:</b> In reality, the system may not require a vast amount of power, but a great deal of voltage swing from the amplifier. To correct an anomaly close to a subwoofer's resonant frequency uses almost no power at all, but still requires the voltage swing that would produce that power into the nominal load impedance. This is actually a surprisingly difficult area to explain to those who don't see it from the basic description here. Unfortunately, it is outside the scope of this article, so for the sake of simplicity we can simply assume that 10dB of boost needs 10 times the power.</small></blockquote>
+
+<p>Of course, one must be prepared to experiment with an idea, no matter how bizarre it may seem. Quite some time ago, I equalised my system to get a nice flat response at my listening position. This was done very carefully, and the end result looked pretty damn good. The sound <i>seemed</i> "better" (i.e. different) for a while, but the EQ remained in the system for only one day. It was wrong!  It sounded wrong, and rapidly became irritating. It did help the sub-bass (and that is equalised to this day), but everything else just didn't make the grade.
+
+<p>During the EQ process, I identified an anomaly with the right speaker. This was caused by a reflection from a coffee table, and although completely inaudible, the microphone picked up the reflection and the analyser thought there was a peak at that frequency. There wasn't then, there isn't now, and there never was a peak. A far greater change in general tonality is easily obtained by clasping one's hands behind one's head while listening, but no-one complains about that. Should we add an EQ setting for that just in case we want to clasp hands behind our heads while the hi-fi is on?  No, I didn't think so either <img src="grin.gif" alt=":-)">.
+
+<hr><a id="s40"></a><b>4.0 - Speaker Equalisation</b>
+<p>A small amount of equalisation can often be used with great success to compensate for a minor deficiency in a loudspeaker driver. However, any driver that needs radical EQ to perform satisfactorily simply should not be used. Likewise, no amount of EQ will compensate for severe driver deficiencies such as cone break-up or high levels of intermodulation distortion. These are physical effects, and cannot be influenced by equalisation.
+
+<p>Ultimately, the performance of a loudspeaker is determined by the laws of physics. No amount of EQ can make a 100mm (4") driver perform like a 380mm (15") unit or vice versa. Cone surface area determines the lowest frequency where a driver can move enough air to create a sound wave, based on the size of the outer enclosure - the room itself.
+
+<p>As an example, a 380mm driver with 10mm of cone travel can move about 1.13 litres of air - not very much (I have assumed the entire diameter for radiating surface for the sake of explanation). A 100mm driver with the same 10mm of cone travel can only move 76 ml (millilitres or cc). To be able to move the same amount of air as the 380mm unit, the 100mm driver would need a cone travel of 150mm! Even if this were possible (which it isn't), the cone area is so tiny compared to wavelength that the radiation efficiency is extremely low. While there are no definitive tables relating to cone area vs. lowest frequency for direct radiating loudspeakers, I have verified that a 200mm driver cannot reproduce useful bass in a half space environment below about 40Hz - regardless of added bass boost.
+
+<p>A small diaphragm can reproduce very deep bass if the outer enclosure is small. Headphones are a good example, where the outer enclosure is only the small air-space between the diaphragm and your ears. The larger the area to be filled at a given low frequency (and sound level), the greater radiating surface is needed. Reproducing 25Hz in a large venue demands that a huge amount of air is moved, and this can only be achieved with horn loading, large diameter drivers, or high velocity air using a bandpass enclosure (for example). If the latter makes noise (not uncommon), no DSP can prevent or even reduce that noise - it can only be dealt with by physical intervention.
+
+<p>At the other end of the scale, a 100mm driver cannot reproduce 20kHz with any degree of usefulness. The cone diameter is many wavelengths at this frequency, so even if the cone were infinitely stiff and light, its diameter is such that it will cause severe lobing, with the on and off-axis levels being radically different. A conventional loudspeaker simply doesn't work well if the diameter exceeds one wavelength. Some drivers use an auxiliary tweeter ("whizzer") cone to obtain improved high frequency dispersion.
+
+<p>In any of the cases described above, application of equalisation to make a driver work outside its physical limits simply cannot work, and attempting it is pointless at best. Of the other effects, no DSP system is capable of the instantaneous correction needed to make a poorly designed driver perform well. For example, the amount of computation needed to correct intermodulation distortion is astonishing. The DSP system would need to know the exact position of the cone at any given time, and would need to be programmed with every characteristic of the driver at every cone position. Magnetic path saturation, voicecoil instantaneous temperature, cone breakup modes, applied signal level and frequency all influence the way a loudspeaker performs. Papers have been written on this topic, and it is claimed that some success has been achieved. While certainly possible, it is no doubt far cheaper to use a better driver in the first place. If I sound less than convinced, there is probably a good reason for it <img src="grin.gif" alt=":-)">.
+
+<p>To return to the car mentioned earlier, adding DSP functionality in the form of anti-lock brakes, traction control and active suspension cannot compensate for a set of raggedy old tyres. The automatic systems will do their best to maintain stability, but ultimately the raggedy tyres will lose grip and the car ends up wrapped around a tree (again). If there is anything wrong with the tyres, cheap and nasty suspension components are used, or if the suspension/steering geometry is wrong, all the DSP in the world won't help. Again, the laws of physics come into play. Any system can only be as good as its worst component, and this is especially true with loudspeakers (and cars).
+
+<p>If the loudspeaker itself is not up to the task or the enclosure design is wrong, throwing DSP systems at it won't help. While it may <i>appear</i> to improve the system, a careful listen will reveal that all the problems that existed before still exist. Some may be masked to a degree, but in general you simply create new problems that are worse (but more subtle) than the originals. When distortion is analysed, the DSP will make it worse if boost is added at low frequencies. The extra cone travel needed to reproduce the boosted low frequencies simply increases intermodulation distortion.
+
+<p>While it becomes possible to produce a loudspeaker that appears to be completely flat from DC to daylight (as measured), the DSP cannot compensate for the defects that we would have heard on the raw driver(s). I mention all of this because there seems to be a school of thought that the DSP truly is a panacea, and that silk purses can now be freely fabricated from sow's ears. (See footnote.) I have equalised drivers during any number of experiments, and it is almost universally true that any driver that needs drastic intervention to achieve acceptable response sounds like crap. Using EQ may make it <i>look</i> alright, but it still doesn't sound any better.
+
+<p>In the end, it is completely pointless to expect a (relatively expensive) DSP system to compensate for poor driver selection or inadequate enclosure design in a loudspeaker. Increasing the amount of digital processing to attempt to compensate for bad drivers or poor design is false economy. Good performance is an end in itself, and if you have good drivers in well designed cabinets you should get very good performance from the system regardless of how it's driven. The DSP then can be used to perform time alignment, optimise the crossover and perhaps add a small amount of EQ to make the system as close to perfect as it can be.
+
+<p>It should be fairly obvious that using a DSP with cheap and/or poorly designed drivers, an incorrectly aligned enclosure, or other fundamental design issues cannot achieve the results obtained if everything is right beforehand. Simply failing to use the right amount of acoustic damping material in a speaker box will create issues that the DSP cannot "fix". Like wall reflections, internal box reflections are a function of time, and cannot be corrected with EQ. How can a DSP be expected to compensate for cone breakup effects, for example. These effects vary (in some cases unpredictably) with level and frequency, and are a physical manifestation of an inherent problem in the driver. DSP cannot correct this, as the complexity of breakup artefacts are more than can be handled by any current DSP.
+<p>According to the opinions of some, using DSP allows one to disassociate the physical loudspeaker, and simply use the DSP to get whatever result you desire. This is a fool's paradise - it completely ignores the laws of physics, and relegates reality to a secondary position. An untenable position at best.</p>
+
+<a id="f-n"></a><table width="100%"><tr><td valign="top"><img src="note.gif" alt="NOTE!"></td>
+<td>Explanation from The New Dictionary of Cultural Literacy, Third Edition.  2002 ...<br /><br />
+<b><i>You can't make a silk purse from a sow's ear</i></b><br /><br />
+It is impossible to make something excellent from poor material.</td></tr>
+</table>
+
+<hr><a id="out"></a><b>Conclusion</b>
+<p>There is no doubt at all that DSPs can achieve wonderful things for us in the world of audio. However, we must always remember that there are limitations. There are some things that the DSP cannot do - regardless of claims to the contrary. Always keep in mind that external time related issues can never be corrected by the DSP - they are outside the influence of the DSP, and nothing can change that (other than DSP controlled active wall surfaces - could be a tad expensive).
+
+<p>Starting with excellent components and an accurate initial design will give very good results indeed - usually far better than can be achieved using passive crossovers. A DSP based system may also beat an analogue-based fully active system using the same drivers, although the difference will usually be fairly subtle if the analogue design is done correctly. Any intended loudspeaker that will implement a DSP should be engineered to be as good as it can be using conventional design practices. If the results are unsatisfactory, they will <i>remain</i> unsatisfactory after the DSP is added. Sure, it might sound impressive during an initial audition, but the faults will reveal themselves longer term. The most common complaint about systems that aren't right is that they cause listener fatigue.
+
+<p>The DSP cannot, ever, make cheap undersized drivers sound as good as an equivalently priced system using high quality components in a well designed enclosure. A 100mm driver can <i>never</i> be made to perform like a 380mm driver, nor can a 380mm driver be made to work as a tweeter - while both examples are extreme, I wouldn't be at all surprised if such claims are eventually made to boast the superiority of DSP systems.
+
+<p>Along similar lines, you must not accept that a 200mm mid-bass driver with a tweeter can be made to sound like a fully active 4-way system. As with the other examples, the laws of physics dictate what is achievable, not the DSP, not the loudspeaker manufacturer's marketing department and not the magazine reviewer's self proclaimed "expert" opinion. This is not to say that (using good drivers and enclosure design) a 200mm driver with tweeter can't sound very good, but it remains a 200mm driver with tweeter (along with all the limitations of this arrangement), and cannot be made to sound like a larger system.
+
+<p>Having used a number of DSP based products, I can attest to how well they work, and the wonderful things you can do with them. The DEQX in particular is a spectacularly good product. It can actually make ordinary drivers almost sound good, but the key word there is "almost". Any deficiencies in the driver will remain, and any DSP can only ever do so much. The deficiencies may reveal themselves with increased distortion (especially intermodulation), beaming, cone breakup or poor transient response ... or a combination of any two or more of all the possible loudspeaker problems.
+
+<p>The DSP is a useful tool, and one that will become the standard in a few years. As performance improves, more things will be possible. However, modification of signals in the time domain by manipulation of the frequency domain will <i>not</i> become possible. Not even a DSP can break the laws of physics - despite the claims of hi-fi websites, salesmen, reviewers or other enthusiasts who may not fully understand what they are doing, or why.
+
+<p>Current trends in interior design and architecture don't help. While stark rooms with tiled or polished timber floors, masses of glass, brick walls, concrete ceilings and almost zero furnishings may look appealing to many, such a room is totally and absolutely incapable of being used for high quality audio reproduction. No amount of EQ will make any worthwhile difference, and even attempting it is futile. A room intended for quality audio reproduction needs to have a minimum of reflections, which means carpet, heavy curtains or drapes, soft furnishings, and absorbers/diffusers. Bookcases (full of books, not ornaments) make excellent diffusers. Some rooms - especially where walls, floors and/or ceilings are concrete, brick or other non-absorbent material - will probably need absorbers - either as panels, wall hangings or resonators. Tuned resonators are sometimes used to reduce especially troublesome peaks. Speaker placement is also important, but no speaker can sound good in a bare room. Our hearing can only do so much, and the colouration added by excessive reverberation remains audible and severely reduces intelligibility.
+
+<p>Most of the things that make a good listening room go against modern trends - you should have heard the comments when I had the polished floorboards in my lounge room carpeted. These same things also have a generally poor SAF (spousal acceptance factor), unless one's spouse also shares a passion for music and appreciates good sound. Given that the loudspeakers, amplifiers (or equipment racks), subwoofers and collections of vinyl, CDs, DVDs etc. (not to mention cables, remotes and other paraphernalia) are less than handsome in the first place, the end result may oppose everything that an interior designer might want to do. (While I have heard crocodiles mentioned as a method of taming recalcitrant interior designers, such practices are not generally acceptable in society, so an alternative is suggested <img src="grin.gif" alt=":-)"> ).
+
+<p>There are many sites on the Net that give a great deal of information on room treatment. This is a difficult subject at best, and requires a very good understanding of acoustic principles. While many people have no doubt had some success at DIY room treatment, this is not a topic I intend to cover.</p>
+
+<hr><a id="ref"></a><b>References</b>
+<br>Referenced sites open in a new window (or tab).
+<ol>
+  <li><a href="http://www.deqx.com/" target="_blank">DEQX Calibrated&trade;</a>
+  <li><a href="http://www.analog.com/UploadedFiles/Data_Sheets/AD14060_14060L.pdf" target="_blank">Analog Devices</a> AD14060L Data Sheet</li>
+  <li><a href="http://www.monstercable.com/mpc/stable/tech/A2555_Bass_Principles.pdf" target="_blank">Bass Principles</a> - Richard Clark</li>
+  <li><a href="http://www.dspguide.com" target="blank">The Scientist and Engineer's Guide to Digital Signal Processing</a> - Steven W. Smith, PhD</li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page published and copyright &copy; 09 Dec 2006</div>
+</body>
+</html>

@@ -1,0 +1,909 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="description" content="ESP. Transformers - Part 2 of an in-depth article on the operation of transformers for audio or power use.">
+   <!-- ESP. Transformers - Part 2 of an in-depth article on the operation of transformers for audio or power use. -->
+   <meta name="keywords" content="transformer, beginner, power, diy, fi-fi, electronic, winding, core, hysteresis, magnetism">
+   <meta name="GENERATOR" content="Mozilla/4.77 [en] (Win98; U) [Netscape]">
+   <title>Transformers Part 2 - Beginners' Guide to Electronics</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <style TYPE="text/css"><!-- td { font-size: 10pt } --> </style>
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Beginners' Guide to Transformers&nbsp;</td></tr></table>
+
+<p align="center"><b>Transformers - The Basics (Section 2)</b><br />
+<small>Copyright &copy; 2001 - Rod Elliott (ESP)<br />
+Page Updated 18 October 2012</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.21.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles Index" BORDER="0" height="24" width="40"></a><b>Articles Index</b>
+<br /><a href="index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Main Index" BORDER="0"></a><b>Main Index</b><br /><br />
+ 
+<hr /><a NAME="contents"></a><b>Contents - Section 2</b>
+<ul>
+	<li><a href="xfmr.htm">Section 1</a>
+	<li><a href="#intro">Introduction</a>
+	<li><a href="#s8">8. &nbsp; Windings in Series and Parallel</a>
+    	<ul>
+		<li><a href="#s81">8.1 &nbsp; Series Connections</a>
+		<li><a href="#s82">8.2 &nbsp; Parallel Connections</a>
+		</ul>
+	<li><a href="#s9">9. &nbsp; Valve Output Transformer Example</a>
+	<li><a href="#s10">10. &nbsp; Compromises</a>
+	<li><a href="#s11">11. &nbsp; Losses</a>
+    	<ul>
+	    <li><a href="#s111">11.1 &nbsp; Iron Losses</a>
+    	<li><a href="#s112">11.2 &nbsp; Copper Losses</a>
+			<ul>
+			<li><a href="#s1121">11.2.1 &nbsp; Current Density</a>
+			<li><a href="#s1122">11.2.2 &nbsp; Skin &amp; Proximity Effect</a>
+			</ul>
+	    <li><a href="#s113">11.3 &nbsp; Regulation</a>
+    	<li><a href="#s114">11.4 &nbsp; Other Losses</a>
+    	<li><a href="#s115">11.5 &nbsp; Temperature Classes</a>
+		<li><a href="#s116">11.6 &nbsp; Voltage &amp; Frequency</a>
+    	</ul>
+	<li><a href="#s12">12. &nbsp; Sample Measurements</a>
+	    <ul>
+		<li><a href="#s121">12.1 &nbsp; Magnetising Current Waveforms</a>
+    	<li><a href="#s122">12.2 &nbsp; Inrush Current</a>
+		</ul>
+	<li><a href="#s13">13. &nbsp; Core Styles</a>
+    	<ul>
+	    <li><a href="#s131">13.1 &nbsp; Air Gaps</a>
+		</ul>
+	<li><a href="#s14">14 &nbsp; Core Materials</a>
+	<li><a href="#s15">15 &nbsp; Distortion</a>
+	<li><a href="#s16">16 &nbsp; Reusing Transformers</a>
+	<li><a href="#s17">17 &nbsp; Current Transformers</a>
+	<li><a href="#ref">References</a>
+  <li><a href="#units">Units</a>
+  <li><a href="#magneticterms">Magnetic Terminology</a>
+</ul>
+
+<hr /><a id="intro"></a><b>Introduction</b>
+<p>For those brave souls who have ploughed their way through the first section - I commend you! As you have discovered, transformers are not simple after all, but they are probably far more versatile than you ever imagined. They are, however, real world devices, and as such are prey to the failings of all real components - they are imperfect.
+
+<p>This section will concentrate a little more on the losses and calculations involved in transformer design, as well as explain in more detail where different core styles are to be preferred over others. Again, it is impossible to cover all the possibilities, but the information here will get you well on your way to a full understanding of the subject.
+
+<p>The first topic may seem obvious, but based on the e-mails I get, this is not the case. Transformers can have multiple windings, and these can be on the primary or secondary. Windings can be interconnected to do exciting and different things, but from a safety perspective it is <b><i>imperative</i></b> that primary and secondary windings are kept segregated.
+
+<p>There are several references to "shorted turns" within this article. If any two turns of a winding short to each other, the current flow is limited only by the DC resistance of the shorted section of the winding. The current flow is enormous, and with even one shorted turn, the transformer is no longer serviceable and must be discarded or rewound. No shield or other conductive material may be wrapped around a core and joined, as this creates a shorted turn capable of possibly hundreds of amperes. The exception to this is the magnetic shield sometimes used with E-I laminated transformers, but this is wrapped around the entire transformer, and is not considered as a "turn" as it is not in the winding window with the primary and secondary.
+
+<p>It is also worth noting that a transformer behaves quite differently depending upon whether it is driven from a voltage source (i.e. very low impedance, such as a transistor amp or the mains) or a current source or intermediate impedance. This will be covered in a little more detail further on in this article.
+
+<p>Three things that you need to keep in mind - always ...</p>
+
+<ol>
+  <li>Core flux is at maximum when a transformer has no load. [See Note]
+  <li>A transformer wound for 50Hz operation can safely be used at 60Hz (with the correct or even slightly higher voltage).
+  <li>A 60Hz transformer will draw excessive magnetising current at 50Hz, and may fail due to overheating.
+</ol>
+
+<blockquote>
+	<small>Note: This is the <i>practical</i> case, assuming normal usage of the transformer. A theoretical 'ideal' transformer having 
+	zero winding resistance will have constant flux, regardless of load - provided the input voltage is constant. Since the real world has
+	real-world transformers, the flux <i>decreases</i> slightly with load due to the voltage lost across the transformer's primary winding. 
+	This is explained in more detail <a href="#s111">below</a>.</small>
+</blockquote>
+
+<p>Before reusing any transformer - especially if designed for a different purpose, voltage or frequency - you need to check that it will not draw excessive magnetising current. Worst case is with no load, and the current should be measured and the temperature monitored for long enough to be certain that the transformer does not get so hot that it's uncomfortable to hold. If the idle temperature rise is more than about 25&deg;C the transformer should not be used. Bear in mind that some small transformers run rather hot all the time, so on occasion you may have to make a value judgement based on experience.</p>
+
+<hr /><a id="s8"></a><b>8. &nbsp; Windings in Series and Parallel</b>
+<p>Many transformers are supplied with two (or more) secondaries. In many cases, the data sheet will indicate that the windings may be connected in parallel or series. For example, a toroidal transformer may be rated at 2 x 25V at 5A (250VA). With the windings in parallel, the available current is 10A, but only for a single voltage of 25V AC. Connect the windings in series, and you get 50V at 5A, or by referencing the centre tap to earth, the familiar 25-0-25 designation.</p>
+
+<p class="t-pic"><img SRC="xfmr8-1.gif" BORDER=1><br />Figure 8.1 - Windings in Series and Parallel</p>
+
+<p>There are some rules that apply to winding interconnections - if you break them, you may break your transformer as well. Note the dots on the windings - this is the traditional way to identify the start of a winding, so that the phase may be determined.
+
+<p>Antiphase wiring will not harm a transformer when wired in series (although the zero volts output for equal windings is somewhat limited in usefulness). Parallel antiphase connection will destroy the transformer unless the fuse blows - which it will do mightily. Always use a fuse when testing, as a simple mistake can be rather costly without some form of protection for the transformer and house wiring!</p>
+
+<hr /><a id="s81"></a><b>8.1 &nbsp; Series Connections</b>
+<p>Windings may be connected in series regardless of voltage. The maximum current available is the rating specified for the <b><i>lowest</i></b> current winding. Windings may be connected so as to increase or decrease the final voltage. For example, dual 25V windings may be connected so as to produce 50V or zero volts - although the latter is not generally useful :-)
+
+<p>When windings are connected in phase the voltages add together, and if connected out of phase, they subtract. A 50V, 1 amp winding and a 10V 5 amp winding may therefore be connected to provide any of the following ...</p>
+
+<ul>
+  <li>10V @ 5A - The 10V winding by itself</li>
+  <li>50V @ 1A - The 50V winding by itself</li>
+  <li>60V @ 1A - Both 50V and 10V windings, connected in series and in phase</li>
+  <li>40V @ 1A - Both 50V and 10V windings, connected in series and out of phase</li>
+</ul>
+
+<p>The above example was used purely for the sake of example (such a transformer would not be useful for most of us), but the principle applies for all voltages and currents. Series connections are sometimes used in the primaries as well, mainly for equipment destined for the world market. There are several common mains supply voltages, and primary windings are connected in various combinations of series and parallel to accommodate all the variants.</p>
+
+<hr /><a id="s82"></a><b>8.2 &nbsp; Parallel Connections</b>
+<p>Parallel connection of transformer windings is permitted in one case only - the windings must have exactly the same voltage output, and must be connected in phase. Different current capacities are not a problem, but it is rare to find a transformer with two windings of the same voltage but different current ratings.
+
+<p>Even a 1V difference between winding voltages will cause <b><i>big</i></b> problems. A typical winding resistance for a 5A winding might be 0.25 ohm. Should two such windings be connected in parallel, having a voltage difference of 1V, there will be a circulating current limited only by the resistances of the windings. For our example, the total winding resistance is 0.5 ohm, so a circulating current of 2A will flow between the windings, and this is completely wasted power. The  transformer will get unexpectedly hot, and the maximum current available is reduced by the value of the circulating current.
+
+<p>Should the windings be connected out of phase, the circulating current will be possibly 100A or more, until the transformer melts or the fuse blows. The latter is generally to be preferred.
+
+<p>The transformer manufacturer's specifications will indicate if parallel operation is permitted. If you are unsure, measure the voltages carefully, and avoid parallel connection if the voltages differ by more than a couple of hundred millivolts. There will always be a difference, and only the manufacturer's winding tolerances can predict what it will be. With toroidal transformers, the windings are often bifilar, meaning that the two windings are wound onto the transformer core simultaneously. The tolerance of such windings is normally very good, and should cause no problems.</p>
+
+<hr /><a id="s9"></a><b>9. &nbsp; Valve Output Transformer Example Calculation</b>
+<p>In Section 1, I described a very basic push-pull valve output stage. Now it is time to examine this a little more closely. We shall use the same voltages as were obtained in the basic description of Section 1 - an RMS voltage of 707V. It must be said that the following is not intended to be an accurate representation of valves, as the losses in real life are somewhat higher than indicated here. This is for example only. We shall also take the (typical) losses as 10%, and adjust the secondary impedance accordingly.
+
+<p>A valve (tube) amplifier is required to drive an 8 ohm loudspeaker. The primary impedance (called the Plate-Plate impedance for a push-pull amplifier) is 6,000 Ohms, and the supply voltage is 600V. Allowing for losses of 100V across each valve, the maximum voltage swing on the plates (anodes) of the valves is 1kV p-p (or effectively 2kV peak to peak on the transformer primary). What is the output power?
+
+<p>Secondary impedance will be 7.2 ohms, based on the 10% loss ...</p>
+
+<blockquote>
+	<b>Zs = 8 / 1.1 = 7.2 ohms</b>
+</blockquote>
+
+The impedance ratio is calculated first ...
+
+<blockquote>
+	<b>Z = 6,000 / 7.2 = 833</b>
+</blockquote>
+
+The turns ratio may now be determined
+
+<blockquote>
+	<b>N = &radic;833 = 28.8 (29:1)</b>
+</blockquote>
+
+The voltage ratio is the same as the turns ratio, so the peak to peak voltage to the speaker is
+
+<blockquote>
+	<b>Vs (p-p) = Vp / N = 2,000 / 29 = 69V</b>
+</blockquote>
+
+To convert this to RMS ...
+
+<blockquote>
+	<b>Vp = 1/2 Vp-p = 34.5V<br />
+	RMS = peak * 0.707 = 24V<br />
+	Power is therefore 24&sup2; / 8 = 72W</b>
+</blockquote>
+
+<p>Notice that at each calculation, the figures were rounded to the closest (or next lowest) whole number. This was for convenience, but the way I did it also gives a conservative rating that is more likely to be met in practice.
+
+<p><b>Ouch!</b>&nbsp; Sorry, that <i>was</i> a bit nasty for this time of day <img src="bgrin.gif">.
+
+<p>A bit nasty or not, it is a reasonable representation of the reality of an output transformer design, but naturally real (as opposed to my "invented" figures) will be substituted. Typically the losses across the output valves will often be far greater than indicated here. but that depends on the valves used (and the topology - triodes behave very differently from pentodes or tetrodes).
+
+<p>Just to complete this section and to put the above into perspective, I have included a few figures (taken from the 1972 Miniwatt Technical Data manual) for the EL34/ 6CA7 power pentode - quite possibly the world's all-time favourite output valve.</p>
+
+<table width="100%" border=1 style="border-collapse: collapse">
+<tr><td VALIGN=TOP><b>Class</b></td><td VALIGN=TOP><b>Mode *</b></td><td><b>Plate<br />Volts</b></td>
+<td><b>Plate<br />Current</b></td><td><b>Screen<br />Volts</b></td><td><b>Screen<br />Current</b></td>
+<td><b>Grid<br />Bias</b></td><td><b>Load<br />Impedance</b></td><td><b>Power<br />Output</b></td>
+<td VALIGN=TOP><b>Comments</b></td></tr>
+<tr><td>Class-A</td><td>S-E</td><td>250</td><td>100</td><td>265</td><td>15</td><td>-13V</td><td>2,000</td>
+<td>11W</td><td>Plate supply = 265V, THD** 10%</td></tr>
+<tr><td VALIGN=TOP>Class-AB</td><td VALIGN=TOP>P-P</td><td VALIGN=TOP>375</td><td>2 x 75 ##<br />2 x 95</td>
+<td VALIGN=TOP>365</td><td>2 x 11.5<br />2 x 22.5</td><td VALIGN=TOP>-19V</td><td VALIGN=TOP>3,400 (p-p) #</td>
+<td VALIGN=TOP>35W</td><td>Cathode bias resistor 130 ohms, common screen resistor, 470 ohms, THD 5%</td></tr>
+<tr><td VALIGN=TOP>Class-B</td><td VALIGN=TOP>P-P</td><td VALIGN=TOP>775</td><td>2 x 25<br />2 x 91</td>
+<td VALIGN=TOP>400</td><td>2 x 3.0<br />2 x 19</td><td VALIGN=TOP>-39V</td><td VALIGN=TOP>11,000 (p-p)</td>
+<td VALIGN=TOP>100W</td><td VALIGN=TOP>Plate supply, 800V, THD 5%</td></tr>
+<tr><td>Class-A<br />(Triode)</td><td VALIGN=TOP>S-E</td><td VALIGN=TOP>375</td><td VALIGN=TOP>70</td>
+<td VALIGN=TOP>-</td><td VALIGN=TOP>-</td><td VALIGN=TOP>-25V</td><td VALIGN=TOP>3,000</td>
+<td VALIGN=TOP>6W</td><td VALIGN=TOP>Cathode bias resistor 370 ohms, Screen tied to plate, 400V plate supply, THD 8%</td></tr>
+<tr><td>Class-AB<br />(Triode)</td><td VALIGN=TOP>P-P</td><td VALIGN=TOP>400</td><td>2 x 65<br />2 x 71</td>
+<td VALIGN=TOP>-</td><td VALIGN=TOP>-</td><td VALIGN=TOP>-28V</td><td VALIGN=TOP>5,000 (p-p)</td>
+<td VALIGN=TOP>16W</td><td VALIGN=TOP>Screen tied to plate, Cathode bias resistor 220 ohms, THD 3%</td></tr>
+<caption ALIGN=BOTTOM><b><small>Table 9.1 - Abbreviated Data For EL34 Power Pentode</small></b></caption>
+</table>
+
+<table><tr><td>*<img SRC="filler.gif" height=8 width=32></td><td>S-E: Single Ended, P-P: Push-Pull</td></tr>
+<tr><td>**</td><td>THD - Total Harmonic Distortion (this is for the valves only, and does not include transformer distortion)</td></tr>
+<tr><td>#</td><td>p-p: Plate to Plate impedance</td></tr>
+<tr><td>##</td><td>First figure is no load, second figure is full power</td>
+</tr></table>
+
+<p>As can be seen quite readily, the distortion of the S-E configurations is much worse than the push-pull versions. Not only that, but (to maintain relevance :-) the transformers are larger and harder to design, and even then will be worse than their push-pull counterparts. In the maximum efficiency configuration, power output is 100W, and distortion is still lower than for either of the single ended configurations. The losses across the output valve in this mode are about 58V, but are considerably higher for any of the cathode biased versions - as one might expect. 
+
+<p>This will be revisited in another article on the design of valve amplifiers.</p>
+
+<hr /><a id="s10"></a><b>10. &nbsp; Compromises</b>
+<p>It is very important that the core does not saturate (see below), since  there will be no continuous sinusoidal variation of <a href="#MagneticFlux">flux</a>, greatly reduced back EMF, and excessive current will be drawn - especially at no load. The final design of any transformer is a huge compromise, and there is a fine line between a transformer that will give acceptable regulation and one that gets too hot to touch at no load.
+
+<p>Somewhat surprisingly, the flux density in the core actually decreases with increased load current drawn from the secondary. Even though the primary is drawing more current, this is transferred to the secondary and thence the load - it does not cause the flux density to increase. The flux density decreases largely due to primary resistance, which causes the effective primary voltage to decrease. Any voltage lost to resistance (remember Ohm's law?) is voltage that is "lost" to the transformer, and serves no function in the transformation process. It does cause the transformer to get hot (or hotter) than at no load. See the next section for more details on this.
+
+<p>Also, the normal variation of mains voltage must be allowed for. A transformer running at the very limit of saturation at nominal supply voltage will overheat if the mains is at the upper (normal) limit. A transformer that is designed to run at the limit will have superior regulation compared to a more conservative design, but this is of little consequence if it fails in normal use due to overheating.
+
+<p>For audio transformers, there are even more compromises.</p>
+
+<hr /><a id="s11"></a><b>11. &nbsp; Losses</b>
+<p>As discussed earlier, a transformer is a real component, and therefore has losses. These are divided into two primary types, but there are other "hidden" losses as well. All losses reduce efficiency, and affect frequency response. The low frequency limit is determined by the primary inductance, and this is proportional to the area (and consequent mass) of the transformer core. High frequency losses are caused by eddy currents in the core (see below), and by leakage inductance and winding capacitances.
+
+<p>None of these can be eliminated, but by careful selection of core material, winding style and operational limits, they can be reduced to the point where the transformer is capable of doing the job required of it.</p>
+
+<hr /><a id="s111"></a><b>11.1 &nbsp; Iron (Core) Losses</b>
+<p>Core losses are partly the result of the magnetising current, which must keep forcing the magnetic field in the core to reverse in sympathy with the applied signal. Because the direction of flux is constantly changing, the transformer core is subject to a phenomenon called hysteresis, shown in Figure 11.1</p>
+
+<p class="t-pic"><img SRC="xfmr11-1.gif" BORDER=1><br />Figure 11.1 - The Hysteresis Loop</p>
+
+<p>When the magnetomotive force is reversed in a magnetic material, the residual magnetism (<a href="#Remanence">remanence</a> - also known as remnance in some cases) in the core tries to remain in its previous state until the applied flux is too great (<a href="#coercivity">coercivity</a>). It will then reverse, and the same situation will occur twice for each cycle of applied AC. The power required to force the flux to change direction is the hysteresis loss, which although usually small, is still significant. I am not about to go into great detail on this, but a Web search will no doubt reveal more information than you will ever need.</p>
+
+<p class="t-pic"><img SRC="xfmr11-2.gif" BORDER=1><br />Figure 11.2 - B-H Curve</p>
+
+<p>As can be seen from the two magnetic field drawings, the <a href="#FluxDensity">flux density</a> (B) is dependent upon the applied <a href="#MagneticFieldStrength">magnetic field strength</a> (H). For the example shown, the "knee" of the curve coincides with the point where <a href="#Permeability">permeability</a> starts to fall. Above this, a progressively larger change in the magnetic field is required to increase the flux density. This is saturation, and most transformers will be designed to operate at or below the knee. Above the knee is dangerous, as a small increase in applied voltage will not produce the required increase in back EMF, and the primary current will increase disproportionately to the rise in voltage. In other words, the transformer will be too sensitive to applied voltage, and will possibly self destruct if the mains voltage were even slightly higher than normal. If such a transformer is wound for 60Hz but used at 50Hz, failure is inevitable.
+
+<p class="t-pic"><img SRC="xfmr11-3.gif" BORDER=1><br />Figure 11.3 - Cutaway View of a Transformer</p>
+
+<p>The transformer shown is a "split bobbin" type, having separate sections on the former for the primary and secondary windings. This reduces the capacitance between windings, and also provides a safety barrier between the primary and secondary. For some applications, this is the only winding method that meets safety standards. It is also very simple to add an electrostatic shield between the windings - a flat plate of thin metal is cut so that it can be slipped over the bobbin, and the ends are insulated so that it does not create a shorted turn. This is connected to earth, and prevents noise from being capacitively coupled between windings. The shield would logically be placed on the secondary side of the bobbin divider for safety.
+
+<p>In addition, there are so-called "eddy current" losses. These are small circulating currents within the magnetic core, as shown (exaggerated) in Figure 11.4, and these cause the core material itself to get hot. Each of these eddy current loops acts as a tiny shorted turn to the transformer, and to reduce the effect, the core is laminated - i.e. made from thin sheets of steel, insulated from each other. The thinner the laminations, the smaller are the eddy current losses, but they will never be eliminated. Eddy current losses increase with frequency, requiring different techniques for high frequency operation, and are the major contributor to the iron losses in any transformer.</p>
+
+<p class="t-pic"><img SRC="xfmr11-4.gif" BORDER=1><br />Figure 11.4 - Eddy Currents in Laminations</p>
+
+<p>The eddy currents are shown for three lamination thicknesses. Although not shown (for the sake of clarity), the current loops are constantly overlapping, and are effectively infinite in number. The thick laminations allow the loops to be larger, and therefore the lamination section is cut by more magnetic "lines" of force, so the currents (and losses) are larger. For high frequencies (above 10kHz), it is generally not possible to make laminations thin enough to prevent the losses from becoming excessive, and ferrite materials are preferred. These effectively have a huge number of incredibly small magnetic particles, all insulated from each other, and eddy current loops are very small indeed. Even so, ferrite materials are normally specified up to a few hundred kilo-Hertz for power applications before the losses become too great again.
+
+<p>Iron losses of both types are the primary source of losses in any transformer that is operating at no load or only light loading. At no load, the core flux density is at its maximum value for any given applied voltage / frequency combination. Power transformers are usually designed to operate below the knee of the saturation curve (this is essential with toroidal types), with sufficient safety margin to ensure that the core can never saturate.</p>
+
+<p>Saturation involves a dramatic loss of permeability (and therefore inductance), and causes the primary current to rise disproportionately to an increase of voltage. Where one would hope for a nice sinusoidal current waveform with low distortion, significant current waveform distortion occurs once the core starts to saturate.</p>
+
+<p>As a load is drawn from the secondary, the primary must supply more current, and this means that the resistance of the primary winding becomes significant. Any voltage 'lost' to winding resistance is effectively no longer part of the applied voltage, so core flux is reduced.
+
+<p>For example, if the primary resistance is 5 ohms and the loaded primary current is 2A at 230V, 10V is lost across the winding resistance, so the <i>effective</i> primary voltage is reduced to 220V. This reduces the magnetising current, but the effect is not linear. It depends a lot on how close to saturation the core operates with no load, and the difference may be anything from minimal to significant, depending on the design.</p>
+
+<hr /><a id="s112"></a><b>11.2 &nbsp; Copper Losses</b>
+<p>Following on from the previous point, the voltage lost to winding resistance is copper loss, and all such losses must be dissipated as heat. Consider the same transformer as above at idle, with 230V on the primary. The primary resistance may be in the order of 5 ohms (a transformer of around 300VA), and the idle current perhaps 20mA. The loss is determined by the normal power formula, and in this case is ...
+
+<blockquote>
+	<b>P = I&sup2; * R</b> &nbsp; = 0.02&sup2; * 5 = 2mW<br />
+	<b>V = R * I</b> &nbsp; = 5 * 0.02 = 100mV
+</blockquote>
+
+<p>For all intents and purposes, the full 230V is applied to the primary. When the transformer is loaded, this changes. Let's assume 2A primary current and look at the figures again ...</p>
+
+<blockquote>
+	<b>P = I&sup2; * R</b> &nbsp; = 2.00&sup2; * 5 = 20W<br />
+	<b>V = R * I</b> &nbsp; = 5 * 1.00 = 10V
+</blockquote>
+
+<p>Now, the effective primary voltage is only 220V, because 10V is 'lost' due to winding resistance. Naturally, if the voltage is lower, the flux density must also be lower. The power lost in the primary must be dissipated as heat, so the transformer will start to get hot. Remember that there will be additional losses in the secondary that add to the heat that must be dissipated.</p>
+
+<p>Minimising copper loss in both primary and secondary is essential, but there are limits to what can be achieved. These are imposed by the available space for the winding, and just how much copper the manufacturer can get into that space. Allowance must still be made for insulation and manufacturing tolerances.</p>
+
+<p>You may see that in Figure 11.3 the windings are shown stacked directly on top of each other. Surely a more efficient winding can be made by making use of the "valleys", minimising the winding height and allowing heavier windings. Ah, if only life were that simple! The windings are traditionally made from left to right, then right to left, so the turns in each layer are at a slight angle relative to the layer below or above. It is therefore not possible to utilise the inter-turn winding valleys properly, and if you were to wind a transformer based on the erroneous assumption that this would work, the finished winding would not fit into the window.
+
+<p>For the normal layered construction (i.e. primary closest to the core, and secondary over the top), we also have to allow for insulation between primary and secondary, and in some cases additional insulation is used between layers of larger transformers because of the large voltage difference between the outer limits of each winding. These are another set of compromises that must be made, all of which mean that the windings must be thinner than we might like, and thus the losses are increased.
+
+<p>Because any length of wire has resistance, there will always be winding resistance. The greater the resistance for a given current, the more power is dissipated as heat - this is a complete loss. At no load (provided saturation is avoided), there is virtually no loss, since the currents are low, but as secondary current increases, so too do the copper losses.</p>
+
+<p><a id="s1121"></a><b>11.2.1 &nbsp; Current Density</b><br />
+The current density allowable for the copper windings is a somewhat variable figure. Current density refers to the current in Amps per unit of wire area, for example 2.565A/mm&sup2; (a reference standard used in Australia and presumably elsewhere as well). Increasing the current density has a major effect - it causes the wire to get hotter for a given current. Side forces caused by the magnetic fields generated between each turn need to be considered in large power distribution transformers, especially under short-circuit conditions where the forces can be destructive. There is no such thing as a "typical" current density, because different manufacturers use different design criteria. In general, it's better to keep current density below 3.0A/mm&sup2; and 2.5A/mm&sup2; is even better. Naturally, a lower current density means that the transformer is larger and heavier than one operated at a high density, and ultimately it's all a trade-off against temperature rise and cost.
+
+<p>For many transformers used in audio, the current density can often be expected to be somewhat higher than one might prefer. This is because exceptionally high efficiency is not needed, and the demand from normal music programme material has a rather low average value. As a result, transformers for power amplifiers (for example) are rarely operated at continuous full load - they are more likely to be run with short term overloads, but at perhaps 50% full load on a long-term average basis when operated at the onset of clipping with "typical" programme material.
+
+<p>I took a few measurements on transformers I have to hand, and found that with toroidals in particular, there is a common trend. The current density of the primary is comparatively low, averaging around 2.1A/ mm&sup2;, while the secondaries all used a much higher current density - around 4.8A/ mm&sup2;. This makes sense, because the secondary is on the outside and has the advantage of better cooling than the primary. The primary winding can only get rid of heat <i>through</i> the secondary winding, which stands between the winding and cooling air. This may be less of a problem with E-I cores, because the core itself acts as a heatsink (although not a very efficient one).
+
+<p>Small transformers are likely to be operated at higher current densities than larger ones, and this is reflected in that fact that they get hotter and (almost always) have worse regulation. A current density of up to 3.5A/ mm&sup2; is typical of some smaller transformers. One reason for this is that it becomes extremely difficult to fit the number of turns needed into the space allowed. The main reason is that the insulation requirements don't change, so insulation takes a larger percentage of the winding space with small transformers than with larger examples.
+
+<p>Guitar amplifiers (and any other that is regularly operated into heavy distortion) should have a transformer rated for <i>at least</i> double the nominal 10% THD output power. Thus a nominal 100W amp needs a 200VA transformer as the bare minimum. This is especially important for valve amplifiers, because they are already operating in a hotter than normal ambient due to the heat from the valves themselves. Regrettably, this is regularly ignored, with the result that some amps have a reputation for burning out mains transformers.
+
+<p>Note that skin effect can be ignored for mains frequency transformers (50/ 60Hz), but is a significant problem with high frequency switching transformers. These are not covered here - the information in this article is based almost exclusively on transformers used at low frequencies where skin effect has little or no impact.
+
+<p>Copper loss is the primary source of loss at any appreciable power from a transformer. Conventional rectifiers as used in semiconductor amplifier power supplies cause the resistance to be more significant than would otherwise be the case. See <a href="power-supplies.htm">Linear Power Supply Design</a> for more details on these losses, which cause regulation to be much worse than expected.</p>
+
+<p>Ultimately, copper losses limit the power available from a transformer. Since all copper loss results in heat, this becomes a limiting factor, so once you reach the point where the temperature rise cannot be limited to a safe value, the size of the core must be increased. This allows the manufacturer to use fewer turns per Volt, and the larger core has more space for the windings. The wire size can therefore be increased, so copper losses are brought back to the point where overheating is no longer a problem. This process continues from the smallest transformers to the largest - each size is determined by the VA rating and allowable temperature rise.
+
+<p>Keeping a transformer as cool as possible is always a good idea. At elevated temperatures the life of the insulation is reduced, and the resistance also increases further because copper has a positive temperature coefficient of resistance. As the transformer gets hot, its resistance increases, increasing losses. This (naturally) leads to greater losses that cause the transformer to get hotter. There is a real risk of drastically reduced operational life (or even localised "hot-spot" thermal runaway) if any transformer is pushed too far - especially if there is inadequate (or blocked) cooling.
+
+<p>It is generally accepted that any transformer will have one part of the winding that (for a variety of reasons) is hotter than the rest. It's also a rule of thumb that the life expectancy of insulation (amongst other things) is halved for every 10&deg;C (some claim as low as 7&deg;C) temperature increase. When these two factors are combined, it is apparent that any transformer operated at a consistently high temperature will eventually fail due to insulation breakdown. The likelihood of this happening with a home system is small, but it's a constant risk for power distribution transformers. Despite all this, mains frequency iron cored transformers typically outlast the product they are powering, and even recycled transformers can easily outlast their second or third incarnation. Once a transformer is over 50 years old I suggest that the chassis be earthed, as the insulation can no longer be trusted at that age.
+
+<p>Fan cooling can increase the effective VA rating of a transformer significantly, but does not improve regulation. Large power distribution transformers are almost always oil cooled, and they are now starting to use vegetable oils because they are less inclined to catch on fire, and pose minimal environmental impact should there be a coolant leak or other major fault.</p>
+
+<p><a id="s1123"></a><b>11.2.2 &nbsp; Skin &amp; Proximity Effect</b>
+<p>The skin effect is well known (and exploited by snake-oil cable makers), but has little or no relevance for audio frequencies. With switchmode power supply transformers it is a real problem, and the most common way to minimise the influence is to use multiple small (insulated) wires in parallel - typically bundled and twisted into a single rope-like strand. This is commonly referred to as Litz wire, and its use reduces skin effect losses because the wire bundle has a comparatively large surface (or 'skin') area.
+
+<p>You don't normally hear much (if anything) of the so-called proximity effect, but it refers to the (often chaotic) disturbance of the current flow in a conductor when that conductor is immersed in an intense magnetic field. For small transformers (below perhaps 2kVA), there is little evidence that it causes any problems, but in larger transformers it can cause localised heating because the current is forced to use far less of the wire's cross section than expected. Use of Litz wire again reduces the proximity effect, and may be crucial to prevent failure. Proximity effect may reduce current carrying ability far more dramatically than does skin effect, and at much lower frequencies.
+
+<p>The proximity effect therefore has the potential to cause localised "hot spot" thermal problems, that degrade the insulation and cause eventual failure. It is especially problematical when the transformer current is highly distorted, and this is invariably the case when a transformer is used with a bridge rectifier and filter capacitors.
+
+<p>Despite the above, it's almost certain that there will be identifiable minor localised heating, but as noted it is unlikely to cause reduced life of any transformer used for audio or other applications that are of interest to hobbyists or typical commercial products. Given the legendary reliability of transformers - most of which will outlast the product - the proximity effect never seems to have caused premature failure. Most transformer failures are the result of much more mundane abuse, such as consistent long-term overload.
+
+<p>However, the proximity effect <i>does</i> cause failures in large distribution transformers, and is also said to lead to motor failures. These failures are almost always attributable to a highly distorted mains current waveform, and may be localised to a single industrial installation. I suggest that the reader not stress about it - you didn't even know about it until now. <img src="grin.gif" /></p>  
+
+<hr /><a id="s113"></a><b>11.3 &nbsp; Regulation</b>
+<p>Copper loss is responsible for a transformer's regulation - the ratio of voltage at no load versus full load. Regulation is almost always specified into a resistive load, which considering the way nearly everyone uses transformers, is virtually useless. It is rare that any transformer is operated into a purely resistive load - the vast majority will be used with a rectifier and filter capacitors, and the manufacturer's figure is worthless. Actually, it is worse than worthless, as it misleads the uninitiated to expect more voltage than they will obtain under load, and causes people grief as they try to work out why their amplifier (for example) gives less power than expected.
+
+<p>Naturally, there are some to whom any measurement is sacrilege, so none of this applies to them &nbsp;<img SRC="bgrin.gif">
+
+<p>The output voltage is (nearly) always specified at full load into a resistance. So a 50V, 5A transformer will give an output of 50V at a sinewave output current of 5A. If the regulation of this transformer were 4%, what is the no-load voltage?
+
+<p>The answer is 52V. Regulation is determined quite simply from the formula ...</p>
+
+<blockquote>
+	<b>Reg% = ( V<sub>N</sub> - V<sub>L</sub>) / V<sub>L</sub> * 100 / 1</b>
+</blockquote>
+
+<p>Where <b>V<sub>N</sub></b> is no-load volts, and <b>V<sub>L</sub></b> is loaded volts.</p>
+
+<p>As determined earlier, this assumes a sinusoidal output current, and this just does not happen with a rectifier / filter load. It may be found that this same transformer has an apparent regulation of 8 to 10% when supplying such a load. See <a href="power-supplies.htm">Linear Power Supply Design</a> for more information on this topic (there is little point in doing the article twice :-)
+
+<p>The regulation with rectifier loads is a complex topic, but you will need to know the ramifications before you start construction of your latest masterpiece, rather than find out later that all your work has resulted in much lower output power than you expected. Not that you can change it for any given transformer, but at least you will know what to expect.
+
+<p>To gain a full understanding of regulation requires a lot more information than I can provide in a simple web page, but a crucial factor is getting the balance of winding resistances right. If you are making your own transformer you'll do this as a matter of course, but will a manufacturer (in the "far-East") go to the trouble? I'm not about to debate that point. If we determine from the specification that regulation is (say) 6% for a reasonable sized transformer (around 500VA), we can work out everything we need to know.
+
+<p>Knowing the regulation and voltage, we can calculate the effective winding resistance. A 50V transformer with 6% regulation will give us 53V at no load, and 500VA at 50V means 10A - all very straightforward. We lose 3V at full current, so the total effective winding resistance must be ...</p>
+
+<blockquote>
+	<b>R<sub>w</sub> = V / I</b> =  3 / 10 = 0.3 Ohms
+</blockquote>
+
+<p>Half of this resistance is in the secondary, and the other half is reflected from the primary, based on the impedance ratio. As you will recall, this is the square of the voltage ratio. If we assume a primary voltage of 230V, output voltage of 50V at 10A, we already know that the <i>unloaded</i> output voltage is 53V. The turns and impedance ratios (TR and ZR respectively) are therefore ...</p>
+
+<blockquote>
+	<b>TR = V<sub>IN</sub> / V<sub>OUT</sub></b> =  230 / 53 = 4.34:1<br />
+	<b>ZR = TR&sup2;</b> =  4.34&sup2; = 18.83:1
+</blockquote>
+
+<p>Knowing this, we can determine the optimum winding resistance for each winding. Since half of the resistance is that reflected from the primary (R<sub>p</sub>), the secondary resistance (R<sub>s</sub>) is 0.15 ohms, being half of the total. Primary resistance must be ...</p>
+
+<blockquote>
+	<b>R<sub>p</sub> = R<sub>s</sub> * ZR</b> =  0.15 * 18.83 = 2.82 Ohms
+</blockquote>
+
+<p>Based on all that, it is now possible for the designer to determine the appropriate wire gauge for the number of turns needed for the core size. The ideal case is that the resistive (copper) losses should be as close as possible to identical for both windings, and this is why we worked out the resistance. At full load, dissipation (copper loss) is 15W for each winding (almost exactly) at full load. Total dissipation is therefore 30W, and the transformer efficiency is 94.3% ...</p>
+
+<blockquote>
+	<b>Eff (%) = P<sub>Out</sub> / P<sub>tot</sub> * 100 / 1</b> =  500 / 530 * 100 / 1 = 94.34%
+</blockquote>
+
+<p>It may not be immediately obvious, but there is a very good reason for keeping the primary and secondary copper losses equal. Any core only has a limited space for the windings, and this space must be used as efficiently as possible. It follows that if one winding is thicker than necessary, the other has to be thinner so it will fit in the space allowed. This invariably leads to total losses that are greater than would be the case if the resistance is optimised as described. In the case of toroidal transformers, there is good reason to keep primary losses <i>lower</i> than secondary losses, because the primary winding is trapped inside the secondary winding and heat can only escape through the outer layers. The toroidal core doesn't act as a heatsink either, because it's inside <i>all</i> the windings.</p>
+
+<center><table width=640 border=1 style="border-collapse: collapse">
+<colgroup span=7 width="14.2%">
+<tr><td><b>VA</b><td><b>Reg %</b><td><b>R<sub>p</sub>&Omega; - 230V</b><td><b>R<sub>p</sub>&Omega; - 120V</b><td><b>Diameter</b><td><b>Height</b><td><b>Mass (kg)</b>
+<tr><td>15<td>18<td>195 - 228<td>53 - 62<td>60<td>31<td>0.30
+<tr><td>30<td>16<td>89 - 105<td>24 - 28<td>70<td>32<td>0.46
+<tr><td>50<td>14<td>48 - 57<td>13 - 15<td>80<td>33<td>0.65
+<tr><td>80<td>13<td>29 - 34<td>7.8 - 9.2<td>93<td>38<td>0.90
+<tr><td>120<td>10<td>15 - 18<td>4.3 - 5.0<td>98<td>46<td>1.20
+<tr><td>160<td>9<td>10 - 13<td>2.9 - 3.4<td>105<td>42<td>1.50
+<tr><td>225<td>8<td>6.9 - 8.1<td>1.9 - 2.2<td>112<td>47<td>1.90
+<tr><td>300<td>7<td>4.6 - 5.4<td>1.3 - 1.5<td>115<td>58<td>2.25
+<tr><td>500<td>6<td>2.4 - 2.8<td>0.65 - 0.77<td>136<td>60<td>3.50
+<tr><td>625<td>5<td>1.6 - 1.9<td>0.44 - 0.52<td>142<td>68<td>4.30
+<tr><td>800<td>5<td>1.3 - 1.5<td>0.35 - 0.41<td>162<td>60<td>5.10
+<tr><td>1000<td>5<td>1.0 - 1.2<td>0.28 - 0.33<td>165<td>70<td>6.50
+</table><b><small>Typical Toroidal Transformer Specifications</small></b></center>
+
+<p>The primary resistance for all of the examples in the above table was calculated using the method shown - this figure is rarely given by manufacturers. Resistance is shown for both 230V and 120V primary windings. Knowing the basics at this level is often very handy - you can determine the approximate VA rating of a transformer just by knowing its weight and primary resistance. The secondary resistance can be calculated from the primary resistance and the turns ratio. The result obtained by using nominal turns ratio (based on the stated primary and secondary voltages) is accurate enough for most purposes. As shown by the range provided, the primary winding resistance could be  up to 15% lower than calculated to reduce the current density in the primary. (See <a href="#s16">Reusing Transformers</a> for another table covering a wider range of VA ratings.)
+
+<p>Taking the 500VA example again, and assuming a 230V primary and a dual 50V secondary winding (100V total), the total secondary resistance is ...</p>
+
+<blockquote>
+	<b>TR = V<sub>p</sub> / V<sub>s</sub></b> = 230 / 100 = 2.3<br />
+	<b>ZR = TR&sup2;</b> = 5.29
+</blockquote>
+
+<p>If the primary resistance is 2.8 ohms (from the table), then the secondary resistance must be approximately ...</p> 
+
+<blockquote>
+	<b>R<sub>s</sub> = R<sub>p</sub> / ZR</b> = 2.8 / 5.29 = 0.53 Ohm
+</blockquote>
+
+<p>The resistance of each half of the secondary winding is naturally half of the total.
+
+<p><b>Note:</b> &nbsp; Because of the common practice of using different current densities for the inner (primary) and outer (secondary) wire, this will skew the figures shown here slightly. The figures determined above are based on a theoretical "ideal" case, but this will rarely translate into reality due to the inevitable "fudge factors" that are applied to real world parts. Basic tests I've run indicate that the above figures are more than satisfactory for a quick check of the expected resistances. As a very basic rule, expect the primary resistance to be a little less than calculated, and the secondary resistance will be a little higher.</p>
+
+<hr /><a id="s114"></a><b>11.4 &nbsp; Other Losses</b>
+<p>Since the transformer is not an ideal device, it has unwanted properties apart from the losses described so far. The other losses are relatively insignificant for a power transformer, but become difficult to manage for transformers intended for wide bandwidth, such as microphone transformers and valve output transformers.
+
+<p>The standard equivalent circuit does <i>not</i> include frequency dependent disruptions such as skin or proximity effect. Nor does it include any means to simulate the non-linear magnetising current in a power transformer. As such, it is limited to general simulations of small signal transformers, valve amplifier output transformers (but only at low levels and/or higher frequencies) and similar. While it can still be used with a power transformer, the results are generally not at all useful. Power transformers generally require measurements to confirm the overall performance, and we are only interested in low frequencies - 50Hz and 60Hz.</p>
+
+<p class="t-pic"><img SRC="xfmr11-5.gif" BORDER=1><br />Figure 11.5 - Transformer Simplified Equivalent Circuit</p>
+
+<p>The equivalent circuit shown in Figure 11.5 is greatly simplified, but serves to illustrate the points. Since the windings are usually layered, there must be capacitance (C1 and C2) between each layer and indeed, each turn. This causes phase shifts at high frequencies, and at some frequency, the transformer will be "self resonant". This is not a problem with power transformers, but does cause grief when a wide bandwidth audio transformer is needed.
+
+<p>In addition, there is some amount of the magnetic field that fails to remain in the core itself. This creates a "leakage" inductance (L<sub>L</sub>) that is effectively in series with the transformer. Although small, it tends to affect the high frequencies in particular, and is especially troublesome for audio output transformers. This is typically measured with an inductance meter, with the output winding short circuited. Any inductance that appears is the direct result of leakage flux.
+
+<p>Lp is the primary inductance, and as you can see, there is a resistor in parallel (Rp). This represents the actual impedance (at no load) presented to the input voltage source, and simulates the iron losses. The series resistance (Rw) is simply the winding resistance, and is representative of the copper losses as described above.
+
+<p>C<sub>p-s</sub> is the inter-winding capacitance, and for power transformers can be a major contributor to noise at the output. This is especially irksome when the transformer is supplying a hi-fi system, and mains borne noise gets through and makes horrid clicks, electronic "farts", electric motor whine, and various other undesirable noises in the music. Toroidal transformers are very much worse than conventional (E-I) transformers in this respect, because of the large area of each winding. An electrostatic shield will all but eliminate such noises, but these are expensive and uncommon with toroids (pity).
+
+<p>This problem always exists when the capacitance between primary and secondary is high - electrical noise on the primary is capacitively coupled from the primary to the secondary. As noted above, this can lead to mains noise getting through the entire power supply and into the amplifier in extreme cases. The electrostatic shield is very effective, and this is connected to earth. Note that the shield cannot be joined in a complete circle around the winding, as this would create a shorted turn that would draw a tremendous current and burn out the transformer.
+
+<p>There is a technique that is used for valve output transformers, shown in Figure 11.6 - you will not find this method used in power transformers, as it is completely unnecessary and increases the primary-secondary capacitance dramatically.</p>
+
+<p class="t-pic"><img SRC="xfmr11-6.gif" BORDER=1><br />Figure 11.6 - Interleaved Winding for Extended HF Response</p>
+
+<p>The trick to winding transformers to minimise the winding leakage inductance and self capacitance is called "interleaving", but this results in much greater inter-winding capacitance. The most common way an interleaved winding is done is to use a multi-segmented winding, as shown in the sectional drawing of Figure 11.6. This type of winding is (or was) quite common for high quality valve output transformers, and the extension of frequency on the top end of the audio spectrum is very noticeable.
+
+<p>The capacitance between the primary and secondary can become troublesome with this technique, and although possible, an electrostatic shield (actually, a number of electrostatic shields may be needed) adds considerably to the cost, but creates a minimal overall benefit. This winding method is not used (or needed) with low frequency power transformers, and would lead to greatly reduced electrical safety because of the difficulty of insulating each section from the next. The same problem also exists with an output transformer, but is easier to control because one side of the secondary is earthed and the internal DC is already isolated from the mains.</p>
+
+<hr /><a id="s115"></a><b>11.5 &nbsp; Temperature Classes</b>
+<p>All the losses add together to increase the temperature of a transformer. Insulation materials (wire enamel, inter-layer insulation, formers and/or bobbins, tape overwinds, etc.) all have limits to the maximum safe temperature. It should come as no surprise that the high temperature materials are considerably more expensive than lower temperature grades, and as always there is a trade-off (compromise) between minimising losses for cool running or reducing the size and weight at the expense of greater losses and higher temperature operation.
+
+<p>There are several internationally recognised temperature grades, as well as one that is recognised by the authorities, but the class designation is not universally accepted. Temperature is specified as either an absolute maximum figure, temperature rise, or both. The standard classes are ...</p>
+
+<center><table width=640 border=1 style="border-collapse: collapse">
+<colgroup span=3 width="33%">
+<tr><td><b>Class</b><td><b>Max. Temp.</b><td><b>Temp Rise</b>
+<tr><td>&nbsp;A<td>&nbsp;105 &deg;C<td>&nbsp;60 &deg;C
+<tr><td>&nbsp;E<td>&nbsp;120 &deg;C<td>&nbsp;75 &deg;C
+<tr><td>&nbsp;B<td>&nbsp;130 &deg;C<td>&nbsp;80 &deg;C
+<tr><td>&nbsp;F<td>&nbsp;155 &deg;C<td>&nbsp;100 &deg;C
+<tr><td>&nbsp;H<td>&nbsp;180 - 200 &deg;C<td>&nbsp;125 &deg;C
+<tr><td>&nbsp;C (not global *)<td>&nbsp;220 &deg;C<td>&nbsp;160 &deg;C</tr>
+<caption ALIGN=BOTTOM><b><small>Table 11.1 - Insulation Temperature Classes</small></b></caption>
+</table></center>
+
+<p>* Class-C is not a globally recognised class, but 220&deg;C is accepted under several different world standards.
+
+<p>It's inevitable that transformers in use will get hot, and it is up to the equipment designer to ensure that the insulation class is adequate for reliable operation over the life of the equipment. Unless stated otherwise, you can expect that nearly all commercial off-the-shelf transformers intended for DIY applications will be Class-A (105&deg;C maximum temperature). Higher temperatures are not recommended anyway, for the simple reason that having a transformer at (say) 100&deg;C will transfer its heat to transistors, electrolytic capacitors and all other components in the chassis. For this reason alone, specifying a larger than necessary transformer not only reduces temperatures, but improves regulation as well.</p>
+
+<hr /><a id="s116"></a><b>11.6 &nbsp; Voltage &amp; Frequency</b>
+<p>All power transformers are rated for either a specific input voltage and frequency, or for a limited range. Often, dual primaries are used that allow the user to connect the windings in series or parallel as shown in Figure 8.1, but on the primary instead of the secondary. The most common configuration is to have two windings, each rated for 120V. For 120V mains, these are wired in parallel, and wired in series for 230/240V.  
+
+<p>Sometimes, the primary windings will be rated for 115V each. This has long been a problem in the US, with no-one quite certain for many years whether the voltage is 110, 115, 117 or 120. According to US standards, the nominal mains voltage in the US and Canada is 120V, but like everywhere else it varies from one place to another and with time of day. All power transformers must be wound to take this inevitable variation into account. (Note that the US also uses a 'two-phase' system, providing 240V at 60Hz - this is <i>not</i> the same as using two phases of a 3-phase connection, where the voltage is 208V at 60Hz.)
+
+<p>While just two windings are common now, it used to be the case that transformers had multiple taps on the primary winding, or used several windings that could be connected in often mysterious ways using a complex switching system. These still exist, but mainly as salvage items. The range of voltages offered was intended to cover anywhere in the world, but also could lead to a wrong assumption and blown fuses (or a burnt out transformer).
+
+<p>Ultimately though, the claimed voltage of a transformer is the easiest to verify - the nameplate rating is always correct. I have never seen a transformer that claimed to be 230V (or some other voltage) that didn't work properly at that voltage. Of more concern is the frequency rating. While usually stated, it is sometimes confusing to the uninitiated.
+
+<p>A transformer rated for 50Hz can be used anywhere in the world - it will work perfectly at 60Hz. However, <i>the converse is not true</i>. A transformer designed specifically for 60Hz will overheat at 50Hz, even if the voltage is correct! This is not well understood, and leads to an enormous amount of traffic on Usenet and in forum pages everywhere. The answer is quite simple - 60Hz is 20% greater than 50Hz, so the core and turns per volt can both be reduced by up to 20% compared to a 50Hz transformer of the same rating.
+
+<p>Therefore, a transformer that was designed for 60Hz at 220/230V (The Philippines, South Korea and a few others use this combination [<a href="#ref">Ref</a>]) has a smaller core and fewer turns than an otherwise identically rated 50Hz transformer. As a result, it will most likely fail with 220V at 50Hz. Operating a 60Hz power transformer at 50Hz is <i>exactly</i> the same as operating the transformer at its rated frequency, but with a 20% voltage increase. If you absolutely must run a 60Hz transformer at 50Hz, you must reduce the mains voltage from the rated value (say 230V) by 20% (184V). This is a large drop, and exceeds the normal mains variation allowances that are provided for in properly designed circuits. 
+
+<p>Failure to reduce the voltage will cause the transformer to be heavily into saturation, and it may easily consume half its rated VA (or more) at idle, due to excessive magnetising current caused by core saturation. Needless to say, the secondary voltage will also be reduced by the same percentage. For evidence of the current increase due to core saturation, see the next section (specifically Figure 12.1.1). 
+
+<p>Operating a 60Hz transformer at 50Hz is effectively the same as a 20% increase in mains voltage, but note that this does <i>not</i> mean that the secondary voltage is increased. For a 230V transformer that's the same as running at 60Hz, but at a supply voltage of 276V. The core will be seriously saturated, and the magnetising current will be increased dramatically. 
+
+<p>Should the power transformer be for a valve amplifier, care is needed, because the valve heaters will be operating from a lower than normal voltage (6.3V will only be 5V) and may not reach the proper operating temperature. Output power is also reduced, and a 20% reduction of voltage will reduce the maximum power to fall from (say) 100W to 64W, a drop of just under 2dB. It also means that all unregulated preamp supplies will be 20% lower. With regulated supplies, the drop might be enough to cause the regulator ICs to allow rectified mains buzz through to the signal circuits.
+
+<p>For information about how you can reduce the supply voltage (in this case by 46V), see the article <a href="articles/buck-xfmr.htm" target="_blank">Bucking Transformers</a>. While the methods described certainly do work, the other compromises you have to make will almost certainly mean that the transformer will have to be replaced to maintain original performance.
+
+<p>Should you have a transformer rated for 240V at 50Hz and wish to use it at a lower voltage and/or 60Hz, then there is no problem. If used at 120V 60Hz, the transformer will operate with an exceptionally low magnetising current, but the secondary voltages will obviously be halved. While the maximum current rating remains the same, regulation will be worse than a transformer wound for 120V mains because the winding resistance is higher.</p> 
+
+<p>In short, you can operate a ...</p>
+
+<ul>
+	<li>50Hz transformer at 60Hz with no loss of performance, provided voltage is correct
+	<li>50Hz transformer at 60Hz at a supply voltage up to 20% higher than the nameplate rating 
+	<li>transformer at any voltage below the nameplate rating. There is no limit other than that imposed by common sense
+	<li>60Hz transformer at 50Hz, <i>provided</i> the supply voltage is 20% lower than the rated voltage
+</ul>
+
+<p>Likewise, you <i>cannot</i> operate a ...</p>
+
+<ul>
+	<li>60Hz transformer at 50Hz at full rated voltage
+	<li>transformer at any voltage above the nameplate rating, unless rigorous testing shows that it will be safe (unlikely)
+</ul>
+
+<p>Note that I have simply assumed 20% in both directions (50Hz to 60Hz and 60Hz to 50Hz), although it is clear that a reduction from 60Hz to 50Hz is actually 17%. Feel free to think of the extra 3% as a safety margin.</p> 
+
+<hr /><a id="s12"></a><b>12. &nbsp; Some Measurements</b>
+<p>I measured the characteristics of a small selection of transformers to give some comparative data. I excluded regulation from this, as it is difficult to make a suitable variable load, and loads tend to get rather hot even with short usage. Most manufacturers will provide this information in their specifications, but be warned that this refers to a resistive load, and regulation will be <i>much</i> worse when supplying a conventional rectifier and filter capacitor (see above, and the Power Supply Design article for more details). It is also worth noting that an inductance meter is often of little use with large iron cored transformers, unless it operates with a sinusoidal waveform at (or near) the design frequency of the transformer. The inductances shown are calculated, since the measured values with my meter were a long way off.
+
+<p>Bear in mind that the inductance value shown is nominal, based on the magnetising current (which is actually distorted for most transformers), and is much lower than the real value. It is included only as a guide - the actual value will be much higher, but only with a lower primary voltage that ensures that the core is nowhere near saturation. Manufacturers don't provide this figure, because it's meaningless in the real world.</p>
+
+<center><table width=800 border=1 style="border-collapse: collapse">
+<colgroup span=9 width="11%">
+<tr><td><b>Type</b><td><b>Rating</b><td><b>Inductance</b><td><b>Resistance</b><td><b>Turns/Volt</b>
+<td><b>Magnetising</b><td><b>Core Loss</b><td><b>Reactance</b><td><b>Mass (kg)</b>
+<tr><td>Toroidal<td>500VA<td>34.7 H<td>2R4<td>2<td>22mA<td>5.28W<td>10.91k ohms<td>5.0
+<tr><td>Toroidal<td>300VA<td>63 H<td>5R1<td>3<td>12mA<td>2.88W<td>20k ohms<td>2.7
+<tr><td>E-I<td>200VA<td>4.36 H<td>6R6<td>2<td>175mA<td>42W<td>1.37k ohms<td>3.2</tr>
+<caption ALIGN=BOTTOM><b><small>Table 12.1 - Measured Characteristics of Some Transformers</small></b></caption>
+</table></center>
+
+<p>The toroidals are clear winners in terms of core loss in particular, but it must be said that the E-I transformer tested is not really representative of the majority. This is one of a few left that I had specially made to my design, and they were deliberately designed to push the saturation limits of the core. These transformers run quite hot at no load, but give much better regulation than a more conservative design - the vast majority of such transformers. They were actually designed to run just above the "knee" of the B-H curve for the laminations used, and although somewhat risky, none has failed (to my knowledge) since they were made about 20 years ago. I use a pair of them in my hi-fi system, which has been in daily use for 10 years now. I originally got the idea of designing transformers like this long ago, when I used to make my own transformers for guitar and bass amps. I ran some tests at the time, and found that by pushing the core a little harder, I could make a transformer that had far better regulation than anything I could buy from any of the existing manufacturers. I never had a transformer failure.
+
+<p>It is also worth noting that the mass is lower than for a more "traditional" transformer design - a conventional design of the same power rating would be expected to weigh in at about 5kg.</p>
+
+<p class="t-pic"><img SRC="xfmr12-1.gif" BORDER=1><br />Figure 12.1 - Current vs. Voltage for the E-I Transformer</p>
+
+<p>To take my measurements to the logical limit, I measured the magnetising current of my sample E-I transformer. Look closely at the graph in Figure 12.1, and you will see a typical BH curve (as shown in Figure 11.2 but with the axes reversed). As you can see, at 240V input, the transformer is operating at the knee of the curve, and is well on the way to saturation. There was no point doing this for the toroidals, as they are operated well below saturation level and I would be unable to (conveniently) measure them.
+
+<p>Toroids usually have a more pronounced knee, and a correspondingly steeper rise in current once the saturation limit has been reached. This is primarily because of the fully enclosed magnetic path, which has no air gaps at all. E-I laminated transformers have a small but significant gap where the 'E' and 'I' laminations meet. This is unavoidable in any practical transformer, but has little effect on performance in real life.</p>
+
+<hr /><a id="s121"></a><b>12.1 &nbsp; Magnetising Current Waveforms</b>
+<p>For these measurements, I used a 300VA toroidal transformer, but not the same one as was used for the data in Table 12.1. There seems to be very little on the Net that discusses or shows <i>actual</i> (as opposed to theoretical or imagined) magnetising current. The true value of this varies more or less linearly up to the point where the core approaches saturation, but it is very common that power transformers are designed so that they are already into the non-linear part of the BH curve for normal operation.
+
+<p>While this region is usually well below true saturation, the current waveform is already quite distorted, because the mains voltage peaks cause the flux to rise to its maximum value, so additional current is drawn at the peak of the AC waveform, displaced by 90&deg;. This is shown below, for a 240V, 300VA toroidal transformer, operated at four different voltages ... the first (A) is well below saturation at 120V, the second (B) at nominal input voltage (240V), the third (C) at a voltage that is somewhat greater (280V) and the last (4) at an excessive mains voltage (290V). The transformer was designed for nominal 240V operation.</p>
+
+<p class="t-pic"><img SRC="xfmr12-11.gif" BORDER=1><br />Figure 12.1.1 - Magnetising Current Vs. Input Voltage</p>
+
+<p>The magnetising current is a nice friendly 7.3mA at 120V input, and at 240V is showing signs of saturation, but the current is still only 42mA. When the voltage is increased further, saturation is clearly well advanced - at 280V the transformer draws 443mA, but just a small further increase to 290V causes the current to soar to 1.6A - exceeding the transformer's continuous VA rating with no load. If you look carefully at Figure 12.1.1.A, you will notice that the waveform is slightly asymmetrical. This indicates that there is probably some remanent flux in the core from that last time the transformer was used.
+
+<p>The volt-amps dissipated in the transformer primary winding is determined by VA&nbsp;=&nbsp;V&nbsp;*&nbsp;I, so at 240V the transformer draws only 10VA, climbing to 124VA at 280V and a rather spectacular 464VA at 290V. Assuming the typical primary resistance of 4.7 ohms for a 300VA transformer, the power loss in the primary at each voltage (in turn) is 250uW, 8.2mW, 0.9W and 12W at 290V.
+
+<p>As you can see from the graphs (B, C &amp; D), the current is highly non-linear, so cannot be corrected for power factor. While this is a common error made all over the Internet, there is no way that a non-linear waveform can be corrected for power factor by adding a capacitor. At best, you <i>might</i> be able to add a capacitor that creates a filter which reduces the peak current and improves the PF very marginally, but it will only be effective at one location and/or voltage. Any such filter will rely on the mains impedance, and is guaranteed overall to make matters worse, never better.
+
+<p>Adding a power factor correction capacitor will only work if the cap is sized to draw a leading current of around 14mA (for this transformer). This is the only linear part of the magnetising current, being double the 'nice sinewave' current drawn at 120V. True magnetising current is a <i>linear</i> function of voltage, based on the reactance of the winding. This would imply a capacitor of around about 180nF - unlikely to be useful (ok, it's completely pointless <img src="grin.gif" />).
+
+<p>The actual magnetising current drawn (including that caused by core saturation) is a non-linear function, and is extremely difficult to simulate unless one has access to a simulator that handles iron cores properly. While such a thing may exist for transformer designers, I've not seen any simulation that comes even close to reality as shown above. Note that these are actual captured waveforms from a real transformer connected to a high power Variac. As you can see, the saturation current waveform remains much the same once the core is thoroughly saturated, but the magnitude increases exponentially with voltage increase.
+
+<p>With 290V applied, the peak current is about 5A (2A per division on the screen). You will see that the vertical resolution has been changed for each capture, and the current monitor also has variable gain to maximise resolution. That is why the measured current may seem to be different from the oscilloscope display, but the reading in volts has been converted into mA.
+
+<p>When the transformer is loaded with a resistance, the voltage and current waveforms are <i>in phase</i>. Contrary to popular belief, a linearly loaded transformer (i.e. resistive load) does <i>not</i> produce a lagging power factor, except for the small magnetising current's contribution. As we can see from the above, this is negligible. I tested the same transformer with a 16 ohm load across one of the nominal 20V secondaries, and the input voltage and current waveform were perfectly in phase at any input - from less than 5V RMS up to the full rated primary voltage.</p>
+
+<hr /><a id="s122"></a><b>12.2 &nbsp; Inrush Current</b>
+<p>When powered on, many transformers draw a very high initial current. This phenomenon may not be noticeable with smaller transformers, but as the component gets larger (above ~300VA) it tends to occur most of the time. You may see lights dim momentarily when a large transformer is switched on, and now you know why. The core saturates when power is applied, so very high current is drawn until normal operation is established (after around 20 complete mains cycles). The magnitude of the inrush current is a combination of several factors ...</p>
+
+<ul>
+  <li>What was the polarity and magnitude of the mains at switch off</li>
+  <li>What is the polarity and magnitude of the mains at switch on</li>
+  <li>To what extent has the core de-magnetised itself between events</li>
+  <li>Transformer type (toroidals have greater inrush than E-I cores)</li>
+  <li>The resistance of the transformer primary and the mains - right back to the sub-station</li>
+</ul>
+
+<p>The longer a transformer is left unpowered, the lower the remanent flux, and the less likelihood there is of an excessively high inrush current. This is a nice theory, but in reality it makes no practical difference. Of far more importance is the point on the mains waveform where the power is actually applied. If the mains is applied when at its peak value, inrush current is at its lowest. Conversely, if the mains is applied at the zero crossing point, inrush current will be maximum - this is exactly the reverse of what you might expect, and is shown below. The inrush current lasts for several cycles, and is made much worse with a rectifier and filter capacitor on the output. The capacitor is a short circuit when discharged, and large capacitors will take longer to charge. The inrush current due to capacitors charging is <i>not</i> asymmetrical - that privilege is reserved for core saturation at power-on.</p>
+
+<p class="t-pic"><img SRC="xfmr12-2.gif" BORDER=1><br />Figure 12.2 - Transformer Inrush Current</p>
+
+<p>The above is an oscilloscope capture of the current in a 200 VA E-Core transformer, when power is applied at the zero crossing of the mains waveform.  This is the worst case, and can result in an initial current spike that is limited only by the winding and mains wiring resistance. For a large toroidal, peak currents can easily exceed 150A. If the mains is applied at the peak of the AC waveform (325V in 230V AC countries, 170V in the US), the peak inrush current for the same transformer is typically reduced to less than 1/4 of the worst case value ... 4.4A (both can be measured with good repeatability for the transformer tested).
+
+<p>As you can see, the inrush current is one polarity (it could be positive or negative), so superimposes a transient 'DC' event onto the mains. Other transformers that are already powered may also saturate (and often growl) during the inrush period. This is often known as 'sympathetic interaction'. To minimise the effects of inrush current and flow-on effects with other equipment, any toroidal transformer over 300VA should use a soft-start circuit such as that described in <a href="project39.htm" target="_blank">Project 39</a>.</p>
+
+
+<hr /><a id="s13"></a><b>13. &nbsp; Core Styles</b>
+<p>There is a huge array of different core shapes, and each has its own advantages and disadvantages. The two most common for commercial and DIY audio equipment are the E-I "shell" core and the toroidal core, but there are many others.</p>
+
+<p>Ferrites in particular are moulded, and therefore have many specialised shapes to suit various applications, as well as the more traditional shapes shown below.
+
+<p>Toroidal cores are made from a continuous strip grain oriented silicon steel, and are bonded to prevent vibration and maximise the "packing density". It is important that there are no gaps between the individual layers, which will lower the performance of the core. The sharp corners are rounded off, and they are usually coated with a suitable insulating material to prevent the primary (which is always wound on first) from contacting the core itself.</p>
+
+<p>I don't propose to even attempt them all, but one iron core that warrants special mention is the "C" core. These were once very popular, but have lost favour since suitable winding machines became available for toroids. They are still a very good core design, and are especially suited where an intrinsically safe transformer is required (i.e. where the primary and secondary windings are physically separated), and this technique also ensures that the inter-winding capacitance is minimal. C-cores are made by rolling a continuous strip into the desired shape, and after bonding, it is cut in half. To ensure the best possible magnetic coupling (i.e. no air gap), the cut ends are machined and polished as a pair - it is very important to ensure that the two are properly mated or unacceptable losses will occur. The core halves are commonly held together with steel banding, similar to that used for large transport boxes.</p>
+
+<p class="t-pic"><img SRC="xfmr13-1.gif" BORDER=1><br />Figure 13.1 - C-Core Transformer</p>
+
+<p>The main disadvantage of the single c-core arrangement shown above is that its leakage inductance is rather high. Although both windings could be placed onto a single bobbin with a pair of cores, it is more common to use four 'C' sections as shown below. This provides more iron (twice as much) and allows fewer turns for a given voltage. Naturally, the double c-core as shown below is not intrinsically safe, because both windings are wound together in the same way as for an equivalent E-I transformer.</p>
+
+<p>C-cores are not as efficient as toroidal cores, but are easier to wind with conventional coil winding machines. The overall efficiency lies between the E-I core and the toroidal.</p>
+
+<p class="t-pic"><img SRC="xfmr13-1a.gif" BORDER=1><br />Figure 13.1A - Double C-Core Transformer</p>
+
+<p>A sample of ferrite cores is shown in Figure 13.2 - this is but a small indication of the selections available, and most styles are also available in many different grades to suit specific applications.</p>
+
+<p class="t-pic"><img SRC="xfmr13-2.gif" BORDER=1><br />Figure 13.2 - Some Ferrite Core Styles</p>
+
+<p>The diagram in Figure 13.3 shows the correct way to stack an E-I transformer. Sometimes manufacturers will use 2 or 3 laminations in the same direction, then the same in the other. This cuts costs, but the transformer performance will never be as good. Alternate laminations minimise the air gap created between the E and I sections due to imperfect mating of the two. It is essential that the laminations are packed as tightly as possible so that the effects of the air gaps are minimal.
+
+<p>For maximum transformer efficiency, the stack should be square if possible. A square stack is one where the height of the lamination stack is the same as the width of the centre leg (the tongue), so the centre looks like a square from end-on. This gives the best possible wire resistance for the core size. Thicker and thinner stacks are commonly used, but this is for expedience (or to minimise inventory) rather than to improve performance.</p>
+
+<p class="t-pic"><img SRC="xfmr13-3.gif" BORDER=1><br />Figure 13.3 - E-I Lamination Stacking</p>
+
+<p>When a transformer using E-I laminations is bolted together, it is important that the bolts are insulated from the core. If not, this would allow large eddy currents to circulate through the end laminations and the bolts, reducing performance dramatically. For safety, the core should always be bonded to mains earth unless the transformer is rated as "double insulated".
+
+<p>"Yes, but what good is that? The laminations are insulated from each other anyway." The inter-lamination insulation is sufficient to prevent eddy currents, but cannot withstand the mains voltage, so in case of electrical breakdown, the core may become "live" if not earthed. 
+
+<p>In order to reduce the radiated flux from an E-I transformer core, you will sometimes see a copper or brass band* wrapped around the winding and the <i>outside</i> of the core, as shown in Figure 13.4. This acts as a shorted turn <i>to the leakage flux only</i>, and greatly reduces magnetic interference to adjacent equipment. The band must be soldered where it overlaps to ensure a very low resistance. Such measures are usually not needed with toroidal transformers, as leakage flux is very much lower, and the core is completely enclosed by the windings. 
+
+<p>However, in critical applications a flux band can still be used. For a toroidal, the band is simply wrapped around the outside of the winding and soldered to give a low resistance connection. The band must not be allowed to touch other metal parts that are connected to the mounting bolt in such a way as to form a shorted turn. This will cause a huge circulating current - the fuse will blow if properly sized, or the transformer will burn out if not. It is alright to earth the flux band though, and this will minimise radiation of any HF noise (rectifier noise for example).</p> 
+
+<blockquote>
+	(* While I am sure that many people would love to see their local brass band wrapped around a transformer, this is not what I had in mind. 
+	It does create an interesting mental picture though <img src="grin.gif"> .)
+</blockquote>
+
+<p class="t-pic"><img SRC="xfmr13-4.gif" BORDER=1><br />Figure 13.4 - Flux Banded Transformer</p>
+
+<p>Just in case you were wondering, the dimensions of E-I laminations are worked out so that the laminations can be created with no material waste (other than the holes). The relative dimensions are shown below, and are just a ratio of the real dimensions, which will naturally be in millimetres or inches.</p>
+
+<p class="t-pic"><img SRC="xfmr13-5.gif" BORDER=1><br />Figure 13.5 - Assembled Laminations and Punching Dimensions</p>
+
+<p>The magnetic path length is the average for the dual path shown in the assembled lamination drawing, and is generally assumed to be 12 (units). This may be thought a little pessimistic, but is the commonly accepted figure. The winding window size is restricted by the punching dimensions, and it is critical that the maximum usage is made of the limited area available. Should the winding wire be too thin, there will be plenty of room, but copper losses will be excessive. Make the winding wire too thick, and the completed winding will not fit into the available space. Additional space must be allowed for the winding bobbin, and for inter-winding insulation and the final insulation layer.</p>
+
+<hr /><a id="s131"></a><b>13.1 &nbsp; Air Gaps</b>
+<p>DC flows in the windings for any transformer that is used for "flyback" switching supplies or SET power amplifiers, to name but two. The effect is that the DC creates a magnetomotive force that is unidirectional, and this reduces the maximum AC signal that can be carried before saturation in one direction. Indeed, the DC component may cause saturation by itself, so the transformer would be rendered useless as a means of passing the AC signal without <i>severe</i> degradation. Even the use of a half wave rectifier will introduce an effective DC component into the windings, and these should be avoided at any significant power level (i.e. more than a few milliamps).
+
+<p>To combat this, transformers that are subject to DC in the windings use an air gap in the core, so it is no longer a complete magnetic circuit, but is broken by the gap. This lowers the inductance, and means that a larger core must be used because of the reduced permeability of the core material due to the gap. An air gap also increases leakage inductance because of the flux "fringing" around the gap, and resistive (copper) losses are increased as well, because more turns will be needed.
+
+<p>It is beyond the scope of this article to cover this in great detail, but it does impose some severe restrictions on the design of transformers where DC is present. This is (IMO) one of the biggest disadvantages of the SET amplifier so popular with audiophiles, as it almost invariably leads to unacceptable compromises and equally unacceptable distortion (both harmonic and frequency).
+
+<p>In some designs, it is possible to eliminate the DC component by using a tertiary winding that carries ... DC. If the additional winding can be made to induce a flux that is equal and opposite that of the bias current, then the quiescent flux in the transformer can be reduced to zero (where it belongs). The disadvantage with this is that it requires an extra winding, and <b><i>that</i></b> takes up valuable winding space on the core. It is also a difficult technique to get right, and is not often seen these days. It was a popular technique in telecommunications equipment at one time, and meant that smaller transformers could be used for the same performance.
+
+<p>E-I transformers all have a minuscule "air gap" because of the way the laminations are assembled. With care, this can be almost be considered negligible, but it cannot be eliminated. C-cores will have their cut ends machined to minimise the effect, but again, it cannot be eliminated entirely. The toroidal core has no air gap at all, and is therefore more efficient (magnetically speaking) - they are utterly intolerant of DC in the windings. With large toroidal transformers the primary resistance is very low, and even tiny DC voltages on the mains will cause partial saturation.
+
+<p>This is commonly heard as a growling noise from the transformer, and if bad enough you'll hear it just before the fuse or circuit breaker opens. It's easy to get several times the normal full load current to flow in the primary with asymmetrical mains waveforms that have an effective DC component.  See <a href="articles/xfmr-dc.htm" target="_blank">Blocking Mains DC Offset</a> for more information on the problem and how to fix it.</p>
+
+<hr /><a id="s14"></a><b>14. &nbsp; Materials</b>
+<p>There is an enormous range of core materials, even within the same basic class, so I will mention only a few of the most common. All materials have some basic requirements if they are to be used with AC (for transformers, rather than solenoids or relays, which can operate with DC). The core cannot be solid and electrically conductive, or excessive eddy current will flow, heating the core and causing very high losses. Therefore, all cores use either thin metal laminations, each electrically insulated from the next, or powdered magnetic material in an insulating filler. The list below is far from exhaustive - there are a great many variations of alloys, and I have mentioned only a few of those that are in common use.
+
+<p><b>GOSS</b>
+<br />Commonly thought to be an acronym for 'Grain Oriented Silicon Steel', it's actually the name of the man who invented it - Norman P. Goss (US Patent 1965559). See <a href="http://en.wikipedia.org/wiki/Norman_P._Goss" target="_blank">Wikipedia</a> for a bit more.
+
+<p><b>Silicon Steel (General Information)</b>
+<br />Typically, soft (i.e. low remanence) magnetic steel will contain about 4% to 4.5% silicon, which lowers the remanence of the steel and reduces hysteresis losses. Normal mild steel, carbon steel or pure iron has quite a high remanence, and this is easily demonstrated by stroking a nail (or screwdriver) with a magnet. The nail will become magnetised, and will retain enough magnetism to enable it to pick up other nails. The addition of silicon reduces this effect, and it is very difficult to magnetise a transformer lamination strongly enough so it can pick things up.
+
+<p>This is not to say that the remanence is zero - far from it. When a transformer is turned off, there will often be residual magnetism in the core, and when next powered on, it is common for the transformer to make noise - both toroids and E-I transformers can sometimes make a noise (sometimes rather loud) when power is applied. This is due to core saturation and inrush current - see <a href="#s121">Section 12.1</a> above for a more complete description.</p>
+
+<p>Silicon steel and other metal (as opposed to ferrite) materials are normally annealed by heating and then cooling slowly after stamping and forming. This removes most of the internal mechanical stresses caused by the stamping or rolling operation(s) - these stresses reduce the magnetic properties of the material, sometimes very dramatically.
+
+<p><b>CRGO - Cold Rolled Grain Oriented Silicon Steel</b>
+<br />Like many steels, this version is cold-rolled to obtain the required thickness and flatness needed for a transformer core. The magnetic "grain" of the steel is aligned in one direction, allowing a higher permeability than would otherwise be possible. This material is ideal for toroids and C-cores, since the grain can be aligned in the direction of magnetic flux (i.e. in a circular pattern around the core). It is less suited to E-I laminations, because the flux must travel <i>across</i> the "grain" at the ends of the lamination, reducing permeability.
+
+<p><b>CRNGO - Cold Rolled Non Grain Oriented Silicon Steel</b>
+<br />Generally more suited to E-I laminations, this is essentially the same process as the CRGO, but the magnetic grain is left random, with no alignment of the magnetic domains. Although this reduces overall permeability, the effective permeability may be better with stamped laminations (as opposed to rolled, as with toroids and C-cores).
+
+<p><b>Powdered Iron</b>
+<br />A soft ferrite ceramic material, used where there is significant DC in the winding. Powdered iron cores have relatively low permeability (about 90, maximum), and are designed for high frequency operation. These cores are most commonly used with no air-gap, and will not saturate easily. Typically used as filter chokes in switching power supplies, and as EMI (Electro-Magnetic Interference) filters - the toroid is the most common shape.
+
+<p><b>Ferrite</b>
+<br />Soft ferrites are the mainstay of switching power supplies, and low level high speed transformers (such as might be used for network interface cards and small switching transformers. Ferrites are available with outstanding permeability, which allows small cores with very high power capability. Flyback (a type of switchmode operation) transformers in particular are usually gapped because of the DC component in the primary current.
+
+<p>High permeability ferrites are also very common in telecommunications and for other small audio frequency transformers where very high inductance and small size is required. 
+
+<p><b>MuMetal</b>
+<br />Named after the symbol for permeability, as one might expect, this material has an extraordinarily high permeability - typically in the order of 30,000. It is commonly used as magnetic shielding for cathode ray tubes in high quality oscilloscopes, screening cans for microphone transformers, and as laminations for low level transformers. The maximum flux density is quite low compared to other metallic materials. Apart from being relatively soft, if dropped, the magnetic properties may be adversely affected (MuMetal requires careful annealing to ensure that its magnetic properties are optimised).</p>
+
+<hr /><a id="s15"></a><b>15. &nbsp; Transformer Distortion</b>
+<p>An ideal transformer has zero distortion, but there are zero ideal transformers. Therefore, it can be deduced that transformers do have distortion, but how much?
+
+<p>The answer depends entirely on how the transformer is used. When supplied from a voltage source of zero ohms impedance, the real life transformer has no distortion, but again, there is no such thing as zero ohms (actually, it <i>can</i> be done, but yields little real benefit). 
+
+<p>Any transformer operating at low flux density, and with a low impedance source, will contribute very little distortion to the signal. As frequency decreases, and/ or operating level increases, the limits of saturation will eventually be reached in any transformer, and distortion will become a problem. This is not really an issue with mains power transformers, but is very important for valve output and line level coupling/ isolation transformers, particularly at low frequencies.
+
+<p>The distortion characteristics of transformers used as valve output devices is a complex subject, and will not be covered here. Suffice to say that the normal methods of determining the turns per volt, based on the bare minimum lowest frequency response will give unacceptably high distortion levels at low frequencies.
+
+<p>There is a discussion of valve audio output transformers in the valves section. See the <a href="../valves/index.html" target="_blank">Valves Index</a> for a listing of the articles available. The 'Design Considerations' articles in particular look at transformer behaviour and requirements.</p>
+
+<hr /><a id="s16"></a><b>16. &nbsp; Reusing Transformers</b>
+<p>Transformers can often be reused, with the new usage completely different from what was intended. Great care needs to be taken though, as there are a few traps with some transformers used in consumer equipment. In general, a transformer taken from an old amplifier will be fine to use in a new amplifier, but not all transformers found in consumer goods are usable for anything unless you know exactly what you are doing.</p>
+
+<p>A question that was raised on the ESP forum some time ago related to the use of old microwave oven transformers (MOT for brevity). While the secondary voltage is much too high (typically around 1.1 to 1.5kV RMS), it was suggested that the high tension winding could simply be removed and a new secondary wound to give the voltage needed. While this will work, beware of current (cost cutting) manufacturing trends!</p>
+
+<p>It is very common that an MOT taken from an oven that is less than 15 years old will be wound such that the transformer is well into saturation at no load. In one unit I tested, the unloaded current was 1.2A (yes, 1.2A - not a misprint). The core started to saturate at only 150V, and by 240V was very heavily saturated. In its intended use, this will not cause a problem - remember that core flux decreases when the transformer is loaded, and a microwave oven also has a fan, and normally never runs for very long. The transformer is <i>never</i> operated unloaded unless the magnetron supply circuit is faulty or the magnetron itself is dead.</p>
+
+<p>An amplifier normally applies very light loading most of the time. Operating a transformer such as the one I tested in an amp would result in the transformer overheating (288VA of no-load heat), as well as unacceptable overall efficiency for the amp itself. In addition, a MOT is not designed for low leakage flux, so will dramatically increase hum levels because of induced currents in the wiring and chassis. To add insult to injury, the transformer was also quite noisy (mechanical noise due to magnetostriction), and that alone would make it unsuitable for use in a hi-fi system (assuming that it was electrically suitable).</p>
+
+<p>As you can see from the above, the transformer is completely unsuitable for continuous duty at light loading - in fact, it is not designed for continuous duty at all. While it is possible to add more turns to the primary, a great many additional turns would be needed to reduce the flux to below saturation. In addition, adding primary turns means that the insulation must be <i>perfect</i> to prevent potentially fatal mishaps.</p>
+
+<p>All transformers that you intend for reuse should be examined on their merits, and tested in a controlled environment to ensure that they will survive in their new role. Just because a transformer was used in one piece of equipment does <i>not</i> mean that it can be used in any other equipment, as the design criteria are often very different indeed.</p>
+
+<p>If you are satisfied that a transformer is suitable for the new task you are about to set it towards, then turns can be removed from or added to the secondary to get the voltage you need. Do <u>not</u> tamper with the primary unless you understand the insulation requirements, and can ensure that the final transformer is at least as safe as it was when you found it. This article will not even try to cover the task of rewiring the secondary - if you don't know how, and can't work it out, then you shouldn't be messing with transformers in the first place.</p>
+
+<center><table width="640" border=1 style="border-collapse: collapse">
+<colgroup span=6 width="16%">
+<tr bgcolor="gray"><td><b>VA</b><td><b>Resistance (&Omega;)</b><td><b>Regulation</b><td><b>VA</b><td><b>Resistance</b><td><b>Regulation</b>
+<tr><td>4<td>1100<td>30%<td>225VA<td>8<td>8%
+<tr><td>6<td>700<td>25%<td>300<td>4.7<td>6%
+<tr><td>10<td>400<td>20%<td>500<td>2.3<td>4%
+<tr><td>15<td>250<td>18%<td>625<td>1.6<td>4%
+<tr><td>20<td>180<td>15%<td>800<td>1.4<td>4%
+<tr><td>30<td>140<td>15%<td>1000<td>1.1<td>4%
+<tr><td>50<td>60<td>13%<td>1500<td>0.8<td>4%
+<tr><td>80<td>34<td>12%<td>2000<td>0.6<td>4%
+<tr><td>120<td>22<td>10%<td>3000<td>0.4<td>4%
+<tr><td>160<td>12<td>8%<td><td><td>
+</table>
+<b><small>Table 16.1 - Approximate Primary Resistance Vs. VA Rating (230V Primary Winding)</small></b>
+</center>
+
+<p>Expanding on the table shown earlier, this covers a wider range but has only the info you really need to judge the approximate VA rating for a transformer, assuming you have one with no indication of its ratings. The above table is only a rough guide - it is not intended to be treated as gospel, because there are many conflicting requirements that can influence the winding resistance in either direction.  As noted, the figures are for nominal 230V transformers - if you are in a 120V country, the resistance values shown should be divided by 4 (close enough).
+
+<p>Regulation is often misunderstood, and the values shown are (again) approximate. Transformer manufacturers almost always quote regulation based on a resistive load, which is the best case. In real applications, regulation will be (often considerably) worse than the value quoted or shown above. See <a href="#s113">11.3</a> for a detailed explanation.
+
+<p align="right"><small>My thanks to Phil Allison for the data in the above table.</small></p>
+
+
+<hr /><a id="s17"></a><b>17. &nbsp; Current Transformers</b>
+<p>Of all transformers, one of the least understood (or most misunderstood) is the current transformer (<acronym title="current transformer">CT</acronym>). While these seem initially to defy the general rules of transformers, they actually do no such thing. Should you search the Net, you can find a great deal of information, but much of it is extremely technical (excessively so for a general understanding) or in some cases, very misleading. Some of it is just plain wrong. The information below is verified by testing and/or simulation. Note that I have not attempted to look at phase angles or vector/phasor diagrams. These may be interesting, but are irrelevant to this explanation because they only become significant when more complex measurements are needed and/or absolute phase becomes important. 
+
+<p>Where an ideal voltage transformer has a very low output impedance and behaves as a voltage source, an ideal current transformer has a very <i>high</i> output impedance, so acts as a current source. Within reason, the secondary current is unaffected by the load resistance (a low to very low resistance is preferred). The load connected across the secondary is known as the <i>burden</i>. This may be a resistor, an ammeter, or other equipment that is designed to apply the correct load to the CT's secondary circuit. The term "burden" is used to differentiate it from the "load" which is assumed to be the load (e.g. motor) on the (usually) single-turn primary of the current transformer. 
+
+<p>Current transformers are used to measure the current in a conductor, and most commonly use only a single cable or busbar passing through the centre of a toroid. The secondary winding is conventional (wound around the core in the usual manner), and is specified by the turns ratio, rather than as a specific voltage as seen with conventional voltage transformer specifications. Indeed, voltage is <i>not</i> the preferred output from a CT - because it's a current transformer, we expect to monitor output <i>current</i>.
+
+<p>Traditional current transformers (as used in switchboards and power stations/substations for example) use laminated transformer steel cores, have limited bandwidth, and are generally designed to provide an output of 5A to drive a moving-iron meter movement. These may be thought to be "true" current transformers, in that there is rarely any requirement to measure a voltage across a defined resistance. However, any load (meter or other indicating device) will <i>always</i> have some resistance, so there will <i>always</i> be a voltage developed across the burden - intentional or otherwise.
+
+<p>The ratio for these 5A secondary transformers is usually given as 1000:5 for example - 1,000A input drives a 5A meter to full scale. They are still surprisingly common, because most modern indicators and protective devices (including fully electronic types) are still designed for a 5A input (this is an industry standard). The typical burden for a 5A output is 0.2 ohm, so 1V will be developed across the burden at full current. Note that wiring resistance between the CT and the instrument increases the effective value of the burden, and this may cause inaccuracies if the cable is not sized appropriately.
+ 
+<p>For workshop use, we use electronics for most measurements (digital readouts for example), and these require a voltage input. This is obtained by monitoring the voltage across a defined resistance value, and operating secondary current is generally very low - certainly no more than 1A, but more typically less than 100mA. A current transformer with a ratio of 1000:1 will give an output current of 1mA/A of input current. If high currents need to be measured, the ratio may be higher or the burden lower - if 1,000A needs to be measured with output current appropriate for modern electronics, the burden could be reduced to 1 ohm, so 1,000A will give an output of 1A - 1V across 1 ohm. However, it is important that the transformer is actually rated for 1,000A - you can't expect a 10A CT to remain linear if both the primary and secondary current is 100 times greater than it's supposed to be. Not only will the core saturate, but the secondary winding may burn out because of excessive dissipation.
+
+<p>Naturally, one can still use an industry standard 5A current transformer, even to feed a modern true RMS meter. As noted above, the typical burden is 0.2 ohm,1V will be developed across it at full current, and the burden (if purely resistive) will dissipate 5W. These figures are all within the boundaries of normal low-power electronic equipment. However, few of us need to be able to measure 1,000A in our workshops unless we happen to be building a welder. Most loads are less demanding, and call for a current transformer designed for lower output current. 
+
+<p>We know that to measure current we can simply apply Ohm's law - include a series resistor and measure the voltage across it. However that means that there will be a voltage dropped across the resistor, and it will dissipate power. This becomes irksome in an industrial application, where the current we wish to monitor may be thousands of amps! There is also a small matter of safety - a current transformer provides an important safety barrier, in that the secondary is completely isolated from the single turn primary. As with all transformers, current transformers are only usable with AC.
+
+<p class="t-pic"><img SRC="xfmr17-1.jpg" border="1" /><br />Figure 17.1 - A Selection Of Typical Current Transformers</p>
+
+<p>The CTs shown in Figure 17.1 are but a tiny sample - there are hundreds of different styles available, with current ratings from a few amps to thousands of amps, output currents of a few milliamps up to 5A, and designed for 50/60Hz up to hundreds of kHz (sometimes used in large switchmode power supplies). It is far more important to understand the general concepts - appearance and the finer points of the design are unimportant as long as it works as intended. Current transformers are based on ampere-turns as are all transformers, but it's not considered an especially important factor for a conventional voltage tranny. With a CT, ampere-turns is the defining factor, and the main consideration for both primary and secondary is <i>current</i>, not voltage. It follows that the secondary should be loaded so that it provides an output current rather than a voltage.
+
+<p>A typical low current (less than 200A) instrumentation current transformer may have a turns ratio of 1000:1 - this means there are 1000 turns on the secondary, and it's assumed that the primary will be a single turn. The turns ratio is determined by the primary current and the required secondary current, and varies widely with real CTs. The ratio can be anything between 100:5 (5A output at 100A load current), up to around 2500:1 for specialised applications. Full scale secondary current ranges from a perhaps 100mA up to 1A or 5A (the latter is still very common). Note that the ratio for 5A output CTs is almost always stated as nnn:5 (e.g. 250:5) to differentiate it from low output current devices. 
+
+<p>Primary inductance is minimal, usually only a few microhenries at most, and that's for 50/60Hz operation. 1A primary current results in 1mA secondary current (1000:1). You may well ask how on earth a transformer with such a low primary inductance can possibly even function with such a low inductance, but in doing so you'd miss the point.
+
+<p>Primary inductance is necessary for a transformer that is connected <i>across</i> the mains, because the inductive reactance limits the magnetising (no-load) primary current. With a current transformer, there's no requirement to limit the current, as that is done by the load itself. The current drawn is only <i>monitored</i> by the current transformer. Its very purpose is to introduce the minimum possible additional impedance into the circuit. The extremely low primary inductance is the reason the CT acts as a current source - output (secondary) current is directly proportional to primary current, provided core saturation is avoided - an absolute necessity.
+
+<p>I measured the primary inductance of the 5A, 1000:1 CT that I used for other tests. My inductance meter insisted on using 1kHz for the test, but that's alright as the readings can only be considered as representative at best. Tests were done with 1 and 10 turn primaries, and with the secondary O/C (open circuit) and with a 100 ohm burden. The measured values are ...</p>
+
+<blockquote>
+<table>
+	<tr><td width="150" style="font-size:medium;">Primary Turns<td colspan="2" style="font-size:medium;">Primary Inductance
+	<tr><td><td width="120" style="font-size:medium;">Sec O/C<td width="120" style="font-size:medium;">Sec 100&Omega;
+	<tr><td style="font-size:medium;">1<td style="font-size:medium;">1.5 &micro;H<td style="font-size:medium;">0.2 &micro;H
+	<tr><td style="font-size:medium;">10<td style="font-size:medium;">144 &micro;H<td style="font-size:medium;">1.2 &micro;H
+</table>
+</blockquote>
+
+<p>The very low inductances measured are unlikely to be especially accurate, simply because they are at the limits of my meter's measurement capability. The figures are still interesting though. The primary inductance value with an open circuit secondary is not useful, but is included so that the effect of the burden is made apparent. As noted below, a current transformer should <u>never</u> be operated with an open circuit secondary winding. The rather dramatic inductance increase when the burden is disconnected is an immediate indication that bad things are likely to happen.
+	
+<p>I ran several tests on this current transformer. The recommended burden is 100 ohms, so at full current (5A) you will measure 500mV across the burden resistor. With 10 turns on the primary full scale current is 0.5A ... exactly as expected. At 50Hz and full current, the voltage across the burden resistor was 500mV. I wanted to see the saturation characteristics, and even at double the rated current (10A) there was no <i>visible</i> saturation until the frequency was reduced to 10Hz. This is a good indicator of the large safety margin employed. The CT itself falls into a category that is sometimes referred to as a "wide band" type. The ferrite core has lower high frequency losses than a laminated steel core, and therefore operates to much higher frequencies.
+
+<p>Although the primary is considered a single turn, in almost all cases it simply passes through the centre of the current transformer core (see Figure 17.2). There is no requirement to make a complete turn in the traditional sense. When current transformers are mounted on heavy-duty bus-bars rather than flexible cables, it's not even possible to make a complete turn, and fortunately there is no need to do so.
+
+<p>The burden resistance is placed in parallel with the secondary winding. The voltage across the burden may be monitored (rather than the current through it) because it is often easier to have an output voltage to work with than an output current. However, in some cases a small (AC) ammeter may be connected directly across the output terminals so that the primary current may be monitored directly. A simple opamp circuit can also be used to convert current to voltage. Note that it is perfectly alright to short-circuit the secondary winding, because only the designed current will flow (10mA for the example shown below, with a load current of 10A). The CT is used for my tests will work perfectly with a 10 ohm burden, or even a short circuit (although the latter is not useful). Naturally, as the burden is reduced, so too is the voltage developed across it.
+
+<p class="t-pic"><img SRC="xfmr17-2.gif" border="1" /><br />Figure 17.2 - Current Transformer Wiring Diagram</p>
+
+<p>It's very important that the burden is not disconnected during normal operation, as the secondary voltage can rise to a possibly hazardous level. Not usually a problem with small CTs, but if the tranny is monitoring a thousand amps or more it can become a serious risk. It's entirely possible that the unterminated output voltage can exceed several thousand volts. The available current is usually low for small CTs, but with one intended for 5A output it will be extremely dangerous. With CTs used in large industrial applications, it's not uncommon to find that there is a shorting strap that <i>must</i> be connected before the remote ammeter or other equipment is disconnected for service or calibration (for example).
+
+<p>Most CT specifications will state the optimum (or maximum) burden resistance. For the 1000:1 current transformer that I have, there is a table of output voltage vs. burden resistance, with 100 ohms being the preferred value. Other (higher) values can be used, but at the expense of reduced bandwidth and/or linearity. Lower values may also be used. 
+
+<p>At the 5A rated input current, the secondary current is 5mA (1000:1 ratio). With a 100 ohm burden, the voltage across the resistor is 500mV at full rated primary current. This is simply based on Ohm's law ...</p>
+
+<blockquote>
+	V = I * R<br />
+	V = 5mA * 100 ohms = 0.5V
+</blockquote>
+
+<p>Interestingly, if no secondary current is drawn (no burden resistor or too high in value) core saturation will occur at a relatively low primary current (well below the rated current), and the output voltage will be both much higher than expected and very distorted. Unlike traditional voltage power transformers, current transformer cores must be operated well below the point where even the slightest saturation effects are noticeable, or reading errors become apparent. These transformers are used as a way to measure or monitor the current, so saturation distortion has to be as low as possible to ensure measurement accuracy. Most CTs have a large safety margin to ensure accuracy.
+
+<p class="t-pic"><img SRC="xfmr17-3.png" border="1" /><br />Figure 17.3 - Current Transformer Saturation</p>
+
+<p>This is what happens with 10A primary current but with no burden. Although the test transformer is rated for 5A, it performs perfectly at double the rated current. Without the burden things are very different! As you can see, the waveform is highly distorted due to heavy saturation. Re-connecting the 100 ohm burden instantly restored the normal voltage and waveform, in this case a sinewave at 1V RMS.
+
+<p>Without the burden, the core is pushed into hard saturation and the secondary voltage rises significantly (and alarmingly). At 50Hz and 10A, the output voltage is very distorted, and reached 80V peak and 22V RMS. With 10A (but at an increased frequency to avoid saturation) I was able to measure 200V RMS at the secondary. This also reverted to the expected 1V RMS as soon as the burden was re-connected. Imagine what might happen to you if the transformer had a 5A secondary and was monitoring 10,000A instead of only 10A, and the burden was disconnected. Yes, the impedance is high and the current (usually but not always!) low, but it's still extremely dangerous and the very high voltage can also damage the insulation on the secondary winding. 
+
+<p>There are some pretty bizarre "explanations" on the Net as to why the voltage rises when the load (burden) is removed. The simple (and easiest to understand) is that as noted, it is a <i>current</i> transformer, so the secondary's output is defined as a current, not a voltage. A current source (and that's what a CT really is) will always try to force the correct current to flow in its load (the burden), regardless of impedance. Naturally, this can only occur within the limitations of the device itself, but it is this very property that causes the voltage to rise. If the burden is removed entirely, an ideal current source would have an infinite voltage, since it is attempting to force current into an open circuit. In reality, normal losses (core loss, core saturation, leakage inductance, finite insulation resistance etc.) will limit the actual voltage, but in some cases not before the insulation fails and the transformer is ruined.
+
+<p>Compare this with a <i>voltage</i> transformer, which will try to maintain the designed output voltage regardless of how much current is drawn. Again, losses mean that a short circuit (the voltage transformer's equivalent of a current transformer's open circuit) will not cause infinite current to flow. The end result will be the same for both though - a broken transformer. It's easy to protect both - a fuse for the voltage transformer and something to limit the output voltage to a safe value for the current transformer (discussed below).
+
+<p>As has been shown in the measured data, when the burden is removed there is a dramatic increase of the primary inductance, which means that the voltage across the (most commonly) single turn primary will increase proportionally. More voltage across the primary means more voltage across the secondary - this relationship is immediately obvious. A simulation proved this quite convincingly, and matched my measured results very closely. Now you know the <i>real</i> reason the voltage increases - perfectly simple and makes complete sense ... but it's still a current source. 
+
+<p>To prevent CT failure, just add a safety voltage clamp such as a MOV (metal-oxide varistor) or a couple of zener diodes (wired in series, back-to-back) in parallel with the secondary winding. This is cheap and effective safety measure for small CTs with low output current. At the low voltage normally expected from the CT, the safety clamp will be inactive and will not influence the reading. For a large CT operating with a 5A output current (for example) a somewhat more robust solution is called for, but the principle is not hard and is a lot cheaper than replacing a failed transformer.
+
+<p>Something that you rarely see mentioned is both interesting and useful, and is touched upon above. If a current transformer is rated at 5A (like the one I used for my tests), you can get improved accuracy at low currents by winding more turns through the core. If you were to make the primary winding 10 turns instead of the normal single turn, you'll get the full 5mA rated secondary current with only 500mA in the primary. We expect that when turns are added, the voltage is reduced - in this respect a current transformer appears to defy the normal rules that apply to transformers. I hasten to reassure the reader that no rules are broken, and the laws of physics as we know them are still firmly in place. (Manufacturers know about this and may provide extensive help for the user, but most articles on the Net don't mention it.)
+
+<p>Remember ampere-turns mentioned earlier? There's the clue to what happens - multiply the current in Amps by the number of turns. If 1A flows through 1 turn, that's 1 ampere-turn. If we have 10 turns and 100mA, that's also 1 ampere-turn. On the secondary side (1000:1 tranny) we have 1,000 turns at 1mA - still 1 ampere-turn. The same concept applies regardless of the turns ratio or primary/ secondary current.
+
+<p>One thing must be made perfectly clear - the current used in the measuring circuit attached to the secondary is not free energy <img src="grin.gif" />. If we have a primary voltage of 230V, a load current of 10A and a secondary current of 10mA into a total resistance of 100 ohms (1V), the voltage to the load is actually 229.999V (1mV difference, ignoring losses). The load power is reduced by 10mW. This is easily determined ...</p>
+
+<blockquote>
+	P = V * I<br />
+	P = 1mV * 10A = 10mW (primary side - transferred to the secondary)<br />
+	P = 1V * 10mA = 10mW (secondary - this power is dissipated in the burden and winding resistance)  
+</blockquote>
+
+<p>The loss is verging on insignificant, but it is important to understand that there <i>are</i> losses, and like all losses they accumulate. Adding a current transformer to a circuit is unlikely to cause a measurable loss in reality, because normal cable resistance in the power circuits will causes losses that will be orders of magnitude greater. Predictably, you won't find many 1A CTs with a 5A output - the output current is expected to be a small fraction of the load current.
+ 
+<p>During my tests, I found that the high frequency limit was much greater than that of the amplifier I used to test the tranny - there was no evidence of HF rolloff, even at 20kHz. When the correct burden resistor is used, most <i>modern</i> current transformer's bandwidth will usually far greater than necessary for most normal current measurements. 
+
+<p>However, be aware that CTs using a laminated steel core will have much narrower bandwidth, which may only extend to a few hundred Hertz. Iron losses increase dramatically with increasing frequency and cause considerable HF loss. Some current transformers use a small bobbin around part of a split laminated steel core (commonly found in clamp meters), and these have very poor HF performance. It's also worth noting that there are now isolated current sensing ICs (using Hall effect sensors) that replace many traditional CT applications on PCBs. However, the CT has been with us for over 100 years, and it's unlikely that anything will replace completely it for a very long time.
+
+<p>This has been a short introduction to the wonderful world of the current transformer, and hopefully it will clear up some of the misconceptions that seem to abound. There is nothing difficult, just a different way of looking at a familiar component. Most people will never use a current transformer, and many won't even have known that such a device existed until they read this chapter. 
+
+<p>For anyone who needs to monitor current during servicing or design work, have a look at <a href="project139.htm" target="_blank">Project 139</a>. This uses a Hall effect sensor rather than a current transformer. These transducers have a wider range, better high frequency response, and are more flexible than current transformers. They also work with DC which can be an advantage. For those who don't need the enhanced bandwidth or gain, see <a href="project139a.htm" target="_blank">Project 139a</a> - a simplified version of the current monitor that uses a miniature 1000:1 current transformer.</p>
+
+<hr /><a id="reference"></a><b>References</b>
+<p>Countless different books and Web pages were researched during the compilation of this article, and although some were interesting, the majority were of minimal use. Of those who I actually remember (a daunting task in itself, considering the sheer amount of searching I had to do), I must "thank" the following Web pages (in alphabetical order) ...
+
+<ul>
+  <li>Amidon</li>
+  <li>ATDL School (US Army)</li>
+  <li>Jensen Transformers</li>
+  <li>Mitchell Electronics Corporation</li>
+  <li>Tomi Engdahl - (ePanorama.net)</li>
+</ul>
+
+<p>In addition, I have used various other references, but notably (in descending order of usefulness) ...</p>
+
+<ul>
+  <li>Radiotron Designer's Handbook - F Langford-Smith (4th Edition)</li>
+  <li>Basic Electronics - Grob, Third Edition (McGraw-Hill)</li>
+  <li>Miniwatt Technical Data - Philips Elcoma, 7th Edition, 1972 (Philips)</li>
+  <li>Motorola Rectifier Applications Handbook (3rd Edition)</li>
+  <li><a href="http://en.wikipedia.org/wiki/Mains_electricity_by_country" target="_blank">Mains Electricity By Country</a>
+</ul>
+
+<p>Download Silvio Klaic's neat little <a href="http://www.sklaic.info/download.php?id=trcal01">transformer calculator</a> from his <a href="http://www.sklaic.info/" target="_blank">website</a></p>
+
+<p>Note that only a couple of references are cited for current transformers, because most I found either provided nothing I didn't know already, were excessively technical but still provided nothing new, or contained inaccuracies/ incorrect information. In general though, you can trust the manufacturers data, as they do know what they are doing.</p>
+
+<ul>
+	<li><a href="http://www.gedigitalenergy.com/products/brochures/ITItechInfo.pdf" target="_blank">Instrument Transformer Basic Technical Information and Application, GE</a>
+	<li><a href="ac-1005.pdf" target="_blank">Nuvotem/Talema AC1005 Current Transformer Datasheet</a>
+</ul>
+   
+<hr /><a NAME="units"></a>The following (edited) definitions are from <a href="http://www.unc.edu/~rowlett/units/index.html" target="_blank">Units of Measurement</a>
+
+<p align="center"><small>Units of Measurement site copyright by Russ Rowlett and University of North Carolina at Chapel Hill.
+<br />Definitions used with author's permission.</small></p>
+
+<p><small><b>Tesla (T)</b> - flux density (or field intensity) for magnetic fields (also called the magnetic induction). The intensity of a magnetic field can be measured by placing a current-carrying conductor in the field. The magnetic field exerts a force on the conductor which depends on the amount of the current and the length of the conductor. One Tesla is defined as the field intensity generating one Newton of force per ampere of current per meter of conductor. Equivalently, one Tesla represents a magnetic flux density of one Weber per square meter of area. A field of one Tesla is quite strong: the strongest fields available in laboratories are about 20 Teslas, and the Earth's magnetic flux density at its surface, is about 50 microteslas (&micro;T). One Tesla equals 10,000 gauss. The Tesla, defined in 1958, is named after Nikola Tesla (1856-1943), whose work in electromagnetic induction led to the first practical generators and motors using alternating current (much to the annoyance of Edison, who claimed DC was "safer").
+
+<br /><br /><b>Weber (Wb)</b> - magnetic flux. "Flux" is the rate (per unit of time) in which something crosses a surface perpendicular to the flow. In the case of a magnetic field, then the magnetic flux across a perpendicular surface is the product of the magnetic flux density, in Teslas, and the surface area, in square metres. If a varying magnetic field passes perpendicularly through a circular loop of conducting material (one turn), the variation in the field induces a electric potential in the loop. If the flux is changing at a uniform rate of one Weber per second, the induced potential is one volt. This means that numerically the flux in webers is equal to the potential, in volts, that would be created by collapsing the field uniformly to zero in one second. One Weber is the flux induced in this way by a current varying at the uniform rate of one ampere per second. The unit honours the German physicist Wilhelm Eduard Weber (1804-1891), one of the early researchers of magnetism.</small></p>
+
+<hr /><a id="magneticterms"></a><small><b>Magnetic Terminology</b>
+
+<br /><br />This list is far from complete, but will be sufficient to either get you started or scare you away. I have included the symbols and units of only three of the entries below, since most are of no real interest.
+
+<br /><br /><a id="coercivity"></a><b>Coercivity - </b>is the field strength which must be applied to reduce (or <i>coerce</i>) the remanent flux to zero. Materials with high coercivity (e.g. those used for permanent magnets) are called <i>hard</i>. Materials with low coercivity (those used for transformers) are called <i>soft</i>. Coercivity is the "reverse" of remanence.
+
+<br /><br /><a id="EffectiveArea"></a><b>Effective Area</b> - of a core is the cross sectional area of the centre limb for E-I laminations, or the total area for a toroid. Usually this corresponds to the physical dimensions of the core but because flux may not be distributed evenly the manufacturer may specify a value which reflects this.
+
+<br /><br /><a id="EffectiveLength"></a><b>Effective Length</b> - of a core is the distance which the magnetic flux travels in making a complete circuit. Usually this corresponds closely to the average of the physical dimensions of the core, but because flux has a tendency to concentrate on the inside corners of the path the manufacturer may specify a value for the effective length.
+
+<br /><br /><a id="FluxDensity"></a><b>Flux Density</b> - (symbol; B, unit; Teslas (T)) is simply the total flux divided by the effective area of the magnetic circuit through which it flows.
+
+<br /><br /><a id="FluxLinkage"></a><b>Flux Linkage</b> - in an ideal inductor the flux generated by one turn would be contained within all the other turns. Real coils come close to this ideal when the other dimensions of the coil are small compared with its diameter, or if a suitable core guides the flux through the windings.
+
+<br /><br /><a id="MagnetomotiveForce"></a><b>Magnetomotive Force</b> - MMF can be thought of as the magnetic equivalent of electromotive force. It is the product of the current flowing in a coil and the number of turns that make up the coil.
+
+<br /><br /><a id="MagneticFieldStrength"></a><b>Magnetic Field Strength</b> - (symbol: H, unit; ampere metres (A m<sup>-1</sup>)) when current flows in a conductor, it is always accompanied by a magnetic field. The strength, or intensity, of this field is proportional to the amount of current and inversely proportional to the distance from the conductor (hence the -1 superscript).
+
+<br /><br /><a id="MagneticFlux"></a><b>Magnetic Flux</b> - (symbol: <img SRC="phi.gif" height=12 width=9>; unit: Webers (Wb)) we refer to magnetism in terms of lines of force or flux, which is a measure of the total amount of magnetism.
+
+<br /><br /><a id="Permeability"></a><b>Permeability</b> - (symbol; &micro;, units: Henrys per metre (Hm<sup>-1</sup>) is defined as the ratio of flux density to field strength, and is determined by the type of material within the magnetic field - i.e. the core material itself. Most references to permeability are actually to "relative permeability", as the permeability of nearly all materials changes depending upon field strength (and in most cases - especially in ferrites - with temperature as well).
+
+<br /><br /><a id="Remanence"></a><b>Remanence</b> - (or remnance) is the flux density which remains in a magnetic material when the externally applied field is removed. Transformers require the lowest possible remanence, while permanent magnets need a high value of remanence. Remanence is the "reverse" of coercivity .
+</small><br /><br />
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-1947877433449191";
+/* 728x90 */
+google_ad_slot = "9701674198";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright (c) 17 March 2001./ Updated 28 May 2010 - added extra detail in regulation section./ 05 Nov 11 - included Fig 12.2 and inrush section./ 18 Oct 2012 - added current transformers.</div>
+</body>
+</html>

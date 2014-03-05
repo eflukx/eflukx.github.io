@@ -1,0 +1,165 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="hybrid, telephone, 2-wire, 4-wire, converter, pabx, pbx, exchange, co, certral office, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Application Notes - AN009 - Versatile DC Motor PWM Speed Controller">
+	<!-- ESP  Application Notes - AN010 - 2-4 wire conferter/ hybrid -->
+	<title>AN010 - 2-4 wire converters/ hybrids</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">AN-010&nbsp;</td></tr></table>
+
+<p align="center"><b>2-4 Wire Converters / Hybrids</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Hybrids</b><br>
+Hybrids are the heart of the telephone system. They allow two people to speak and listen simultaneously over a single pair of wires, with little or no interaction. This Application Note is not about producing a telephone system or even a part thereof, but is intended to introduce the concept of a hybrid, and explain how it works. In one form or another, hybrids have been used since the early telegraph days, and they are an essential part of the telecommunications system.
+
+<p>You can also build a pair - not because it's inherently useful for anything, but to experiment and learn. There's nothing especially critical about the principle, but it does become a lot harder (and there is inevitable degradation) when transformers are included. While these are not used in your home telephone, the vast majority of exchanges (aka central offices) use transformers to ensure complete isolation from the outside world and all the dangers it represents.
+
+<p>Using the techniques shown here, you could build a nice intercom or similar, but they are so cheap that no-one would bother. Much better to build it for the pure sake of doing so, and to learn about techniques used in signal processing systems. You don't need to physically build anything if you have a circuit simulator - this lets you do lots of "what if" experiments without wasting any parts.
+
+<p>One very common application of hybrids is in the radio broadcast system, where callers are broadcast during conversations or (generally one-sided) debates with the on-air "personality". There is a considerable amount of additional circuitry necessary to interface with an analogue telephone circuit, and this is <i>not</i> covered here. Because it is an offence in many countries to connect non-approved equipment to the phone network, the information here is not intended to allow you to make any connection to your phone line. The material here is for your information only.
+
+<p>The phone system has had a great deal of influence over the audio standards that have developed over the years. A huge number of things we use daily in audio are the result of inventions and standards developed by telephone research laboratories. Bell Labs, which has been part of many different phone companies over the years, is preeminent amongst these. Negative feedback, the decibel system, transistors, and many other developments we take for granted all came from Bell Labs.
+
+<p>The idea of 600 ohm balanced lines also came directly from the phone system - these are the mainstay of all interconnects used in recording and PA systems. For many years, radio stations have relied on phone lines for their live broadcasts, and even for connection between the studio and transmitter, as well as callers going to-air as described above.
+
+<p>If any 2-wire full duplex (meaning that traffic can pass in both directions simultaneously) analogue line requires amplification, this can only be done after separating the send and transmit pairs. This is shown in Figure 1. If a single amplifier were used, one direction would be blocked. With two amplifiers but no hybrid, the amplifiers would simply oscillate, wiping out all communications.</p>
+
+<p align="center"><img src="an010-f1.gif" alt="Figure 1" border="1"><br><b><small>Figure 1 - Amplifying A Bidirectional (Duplex) Pair Signal</small></b></p>
+
+<p>The scheme shown above is very common. Care is needed to ensure that the amplifier gain is not too high, otherwise the system will still oscillate. Gain must be at least 6dB lower than the worst-case transhybrid loss (see below for an explanation of this). Most digital signals are transmitted as 4-wire (separate send and receive pairs). Amplification is not necessary, but the digital signal is "reconstituted" to produce clean transitions between the two digital levels. These may be a voltage signal, or light if a fibre-optic cable is used.</p>
+
+<hr><b>2-Wire &amp; 4-Wire Systems</b><br>
+The terms used should not be taken literally. A 2-wire system may only use 1 physical wire, with earth being used for the return. Likewise, 4-wire systems may only have 3 physical wires ... earth (ground or common), transmit and receive. The primary point of difference is that a 2-wire system is duplex - traffic (voice or data) can travel in both directions without interaction.
+
+<p>4-wire systems are simplex - data travels in one direction only, and each direction (in or out) has its own separate circuit. While the 4-wire circuit is much better, having zero interaction regardless of termination impedances or other issues, it uses twice as much cable. This was not an option when telephones first became available, so the 2-wire system was used to minimise cable usage but still provide an acceptable service. Many early telegraph and telephone systems used a single wire, with the return path provided by the earth (as in the planet).</p>
+
+<hr><b>2-Wire / 4-Wire Conversion</b><br>
+The analogue telephone systems worldwide rely on a single pair of wires for both transmit and receive of speech or modem data. DC (48V nominal) is also sent along the same pair, allowing the exchange to provide power to the telephone. This is important in case of blackouts (and even more so before even electric lighting was readily available), since the phone can still be used. The standard wired analogue telephone system is probably one of the most reliable pieces of engineering on the planet, and although other methods for communication are becoming more popular, none can approach the reliability of the wired phone.
+
+<p>The systems have been gradually changing for a long time, but the basic requirements have never changed. It is still possible to use a 70 year old rotary-dial telephone on the latest exchange equipment, and it will work just fine. This level of long-term compatibility has not been achieved with many products - I can't actually think of a single one that offers the same level of compliance as the humble telephone.</p>
+
+<p align="center"><img src="an010-f2.gif" alt="Figure 2" border="1"><br><b><small>Figure 2 - Demonstration Hybrid Pair</small></b></p>
+
+<p>It might look complex, but it isn't really. The section on the right is one "station", and that on the left is another. Each can transmit information to the other, with the level at the <i>Out</i> terminal of the sending station being suppressed by at least 40dB. This is adjustable with VR1 on each section. The signal transmitted (via the <i>In</i> terminal) arrives at the <i>Out</i> terminal of the other station, attenuated by 6dB - half the level.  Needless to say, this isn't an issue, since the transmit level simply needs to be increased (or the receive gain increased) to compensate. The two stations are connected by a line, which may be ordinary twisted pair, and somewhere between a couple of metres to a kilometre or more in length.
+
+<p>If you look at the circuit closely, and ignore the send buffer (U1x-B), you'll see a modified version of the standard balanced input opamp stage. Signal is applied to both opamp inputs when sending a signal to the line. Both inputs will be at the same voltage (by adjusting VR1), so there will be no signal from the output. When a signal is received <i>from</i> the line, only the negative input has that signal present, and it is amplified (by -1) and appears on the output terminal.
+
+<p>Once the system is installed, simply inject a tone into one of the hybrids, and adjust VR1 to get the minimum level from the <i>Out</i> terminal. Do the same for the second hybrid. If you vary the frequency, you will find that the maximum rejection changes, but with a short line the variation will not be great.</p>
+
+<hr><b>Transhybrid &amp; Return Loss</b><br>
+It is customary to refer to impedance balance and unwanted signal rejection in terms that cannot be considered intuitive unless you've worked within the industry. The telephone line is a complex impedance, and consists of resistance, inductance and capacitance. The US and a few other countries simply designate the impedance as 600 ohms, but in most others the "official" impedance is an attempt to consolidate the cable and end-equipment parameters. In Australia, the impedance is 220 ohms, in series with the parallel combination of 820 ohms and 120nF. The UK and Europe also use complex impedance networks, but all are different. While this is extremely puzzling (after all, cables used for telephones are not all that different), it's simply a fact of life. In reality, it doesn't make much difference - all perform roughly equally, including 600 ohms resistive (although this is commonly modified with extra resistance and the addition of some capacitance).
+
+<p>Because the sending impedance is determined to be a particular value to match the cable, the receiving equipment (along with the connecting cable) must have the same impedance. If this is done well, there is a minimum of echo returned to the phone line and exchange, and the minimum disruption to long distance calls. This is actually an extremely complex topic, and it will not be discussed in any further detail. Suffice to say that the CPE (customer premises equipment) needs to be able to satisfy a minimum impedance standard before it's allowed to be connected to the phone system. This applies almost everywhere, world-wide.
+
+<p>Rather than attempt to state the impedance in terms of reactance, resistance or measured impedance, it is measured by a meter called a return loss bridge. This gives a reading of the impedance imbalance in dB. A perfectly matched impedance has a return loss of infinity, but even as little as 20dB can be surprisingly difficult to achieve in the real world. Figure 3 shows the Australian phone impedance as part of a return loss bridge, along with a graph showing the return loss when connected to a mismatched load. Remember that the ideal case is a return loss of infinity, but even the relatively small mismatch shown (the artificial line)  is sufficient to reduce the return loss dramatically. A good design is expected to be able to meet the requirements with various line lengths - including zero. The return loss bridge is shown here with the Australian standard telephone impedance, but any other impedance (including a 600 ohm resistor) can be substituted.</p>
+
+<p align="center"><img src="an010-f3.gif" alt="Figure 3" border="1"><br><b><small>Figure 3 - Return Loss Bridge &amp; Graph</small></b></p>
+
+<p>Measurements are shown from 200Hz to 4kHz. The telephone bandwidth is deemed to be from 300Hz to 3600Hz, and this has been the standard for a very long time. The upper limit is now strictly enforced because so much of the network is digital. The sampling rate is only 8kHz, so 3.6kHz gives an acceptable safety margin before digital aliasing becomes a problem. It is extremely difficult to get a good return loss below 300Hz, because so much equipment uses transformers. With limited inductance imposed by small size, phase shift makes a good impedance balance almost impossible at low frequencies. Some countries impose return loss limits at frequencies below 300Hz, but they are usually fairly generous (perhaps 10dB or so).
+
+<p>The next figure of merit is known by many names, but the most descriptive is simply "transhybrid loss". This is a measurement of the amount of signal picked up at the receive port, while it is transmitting signals within the allowed frequency range. An ideal hybrid will have an infinite transhybrid loss, but this is influenced by the line impedance. A good hybrid will achieve around 25-30dB, but for telephones it is common to use a lower value. This gives the person speaking some of their own voice in the earpiece, so they can hear themselves at a low level. This is called "side tone" in telephony, and provides a level of confidence that the phone is working. Humans expect to hear themselves when speaking, and the phone system is designed to make sure this happens.</p>
+
+<p align="center"><img src="an010-f4.gif" alt="Figure 4" border="1"><br><b><small>Figure 4 - Transhybrid Loss &amp; Graph</small></b></p>
+
+<p>Figure 4 shows the same hybrid and artificial line as used in Figure 3 (terminated with the Australian standard impedance), but this time measuring the transhybrid loss. Although the transhybrid loss was measured at over 50dB with a perfectly matched line impedance, this is degraded significantly by a comparatively small mismatch.
+
+<p>Unfortunately, but by necessity, the transhybrid loss is affected by the degree of line matching (return loss). If there is a poor match, both return and transhybrid loss will be compromised. Excellent results have been achieved by telephone systems the world over, despite the huge variations met in practice. Phone lines can range from less than 100 metres to several kilometres, so will have dramatically different resistance, capacitance and inductance between the phone and the exchange. The impedance refuses to conform to legislation or standards bodies, and rather perversely chooses to obey the laws of physics instead. </p>
+
+<hr><b>Transformer Hybrids</b><br>
+Before we had any form of electronics, we had a phone system. Early systems had to rely solely on their own ability to generate a high level signal from a microphone. Carbon mics were the choice, because no other microphone is capable of producing such a high level, low impedance signal. Carbon mics actually have gain - enough to cause feedback if the mic is placed next to an earpiece. Because of this, a basic hybrid was essential to prevent the phone from squealing. Earlier systems used a separate mouthpiece and earpiece, but to enable a single handset with both required a system that provided electrical signal isolation.
+
+<p>The earliest hybrids consisted of a coil with multiple windings - it may be considered as a transformer or an inductor, but in many cases it's really an autotransformer, with all windings joined at some point. Figure 5 shows one of the arrangements that were used - the hookswitch and ringer circuits have been omitted for clarity. Note that in all cases, the resistance of the transformer windings must be considered when determining impedance matching.</p>
+
+<p align="center"><img src="an010-f5.gif" alt="Figure 5" border="1"><br><b><small>Figure 5 - Single Transformer Hybrid</small></b></p>
+
+<p>The dots indicate the winding start, needed because the direction is important. While it may not look very impressive, the single transformer hybrid is capable of extremely good performance. In exactly the same way as an active hybrid (using opamps or digital signal processing), the performance in both directions is degraded if the line impedance does not match the design value. The impedance matching network must be located in the position shown. Theoretical transhybrid loss (with a perfectly matched impedance) is infinite, but this can never be achieved in practice. Maximum return loss is achieved with the load impedance (at the receive port) as high as possible.
+
+<p>This arrangement was used in huge numbers, as it was the heart of almost all non-electronic telephones. See Figure 7, and you can see the exact same arrangement, although the matching impedance is different. No part of the circuit may be earthed, with the exception of the receive winding. While not a problem for a telephone, this makes it unsuitable for fixed equipment where an earth is required for electrical safety.</p>
+
+<p align="center"><img src="an010-f6.gif" alt="Figure 6" border="1"><br><b><small>Figure 6 - Dual Transformer Hybrid</small></b></p>
+
+<p>The dual transformer version has the benefit that all ports (line, transmit and receive) are isolated from each other. This is of no consequence in a telephone, but may be important for some exchange equipment. While this version is still used (transformers are still available), it is uncommon in general phone circuits. Performance can be extremely good, but compared to IC replacements that are now very common, the space and expense make it unattractive.
+
+<p>Termination impedance is rather interesting. The terminating impedance shown affects <i>only</i> the transhybrid loss, and has no influence at all on the impedance presented to the 2-wire port. The proper impedance is set by using a modified network in series with the transmit port, and in parallel with the receive port. In this respect, this hybrid is unique, in that return loss and transhybrid loss are effectively independent of each other. However - both are affected by the <i>actual</i> external impedance, so an artificial line will mess up both. This is in deference to the "no free lunch" principle <img src="grin.gif"></p>
+
+<p align="center"><img src="an010-f7.jpg" alt="Figure 7" border="1"><br><b><small>Figure 7 - Schematic of Old Rotary Dial Telephone</small></b></p>
+
+<p>The above is a scan of the little piece of paper that was inside the phone, and is the actual schematic (with options) of this series of telephones. The phone itself is one of the old black Bakelite types - very retro, and still functional despite the fact that it's at least 50 years old. Remember to add the winding resistance to any external resistances when determining impedances.</p>
+
+<hr><b>References</b><br>
+<ol>
+	<li>Dual transformer hybrid - <a href="http://www.lundahl.se/pdfs/datash/6702.pdf" target="_blank">Lundahl</a>
+	<li>Telephone circuit interfaces - <a href="http://www.epanorama.net/circuits/teleinterface.html" target="_blank">epanorama.net</a>
+	<li>Modulators and Hybrids - <a href="http://mysite.du.edu/~etuttle/electron/elect61.htm" target="_blank">J. B. Calvert</a>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="index.html" onmouseover="document.b1.src='a.gif';" onmouseout="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="App. Note Index" border="0" height="24" width="40"></a><b>App. Notes Index</b><br>
+<a href="../index2.html" onmouseover="document.b3.src='a.gif';" onmouseout="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border="0"></a><b>Main Index</b><br><br>
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2009. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 03 Feb 2009</div>
+</body>
+</html>

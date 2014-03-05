@@ -1,0 +1,137 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott">
+   <meta name="description" content="ESP Project Pages - Linkwitz-Riley Crossover: A reader's experience. Visit my other pages for even more!">
+   <meta name="keywords" content="audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+   <meta name="GENERATOR" content="Mozilla/4.77 [en] (Win98; U) [Netscape]">
+   <title>Linkwitz-Riley Electronic Crossover - A reader's experience</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right" valign="bottom">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 09a&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Linkwitz Riley Crossover Results</b><br>
+<small>By Tony Fetherston<br />
+(Based on the design by Rod Elliott - ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr>Needless to say, I strongly recommend that readers use the available PCBs for new constructions. When this was written, I was not producing PCBs for any of the projects, but this is obviously no longer the case.
+ 
+<hr><b>Introduction</b>
+<p>I had been building loudspeaker enclosures for a few years now and had been attracted to the idea of bi-amping for a while. This was because of the hardest part to get right in speaker systems is the crossover, especially in three way systems. I like three ways mainly because of the detail possible in the midrange.
+
+<p>In my latest design I used 12db/octave LR passive crossovers and although happy with the sound I was not completely satisfied. I really wanted a steeper cutoff but was deterred by the component count needed for this - all those extra coils and capacitors increase the cost and can produce unpredictable effects in three ways. So I began to explore active crossovers in earnest.
+
+<p>I had been tinkering with electronics for a long time with out any great theoretical background but I knew that if I found a good circuit I could probably build it. The local library provided good theoretical background and search of the net revealed a few interesting leads. Eventually I found Rod's site. I was impressed with his LR 2/3 way and it seemed to be all that I would need. Right slope, flat in the passband and phase coherent. I read some more about the theory of filters and opamps and all seemed well with his design so I began to build.</p>
+
+<hr /><b>The New Design</b>
+<p>I decided on a 2-way crossing over at about 400Hz. I reasoned that if all turned out well I could add modules to turn it into a three way. This would also allow time to build the extra amplifier required - I already have one to support a two way.
+
+<p>I selected 400Hz as the crossover, a little higher than usual, as the bass unit could go that high without problems and because the mid range was not all that happy below this point. I also wanted to be able to change the crossover point so I built the crossover in two parts to allow this with the opamps on one piece and resistors and capacitors on the other.</p>
+
+<p align="center"><img SRC="p09a_1.jpg" ALT="Figure 1" height=284 width=378 border="1">
+<br><b><small>Figure 1 - The Opamp Board<br />
+(Also Showing the RCA Connectors Attached to the Board)</small></b></p>
+
+<p>Using Rod's formula the capacitor values came to 22 nF and resistors to 13K giving a crossover at about 410Hz. I chose the capacitor value first and selected an available value. I used generic circuit boards from Dick Smith (<font size=-1>An Australian Electronics Supplier - ed</font>) which were screen printed on both sides making laying out reasonable straight forward. I also used circuit board pins to allow connection of rainbow cable.
+
+<p>The particular board used was great - it allowed all the connections needed without too many links (see below). High pass is one side of the middle and low pass on the other. Blue link on LHS connects inputs.
+
+<p>Similarly I used a purpose built board capable of holding two opamps from the same supplier for the other half of the module. Connections to the pre amp and amplifiers was through RCA sockets held on to the board through circuit board pins (above). I used a dual opamp (TL072) as the input buffer and a quad (TL074) for the filter. I also used an IC socket for the quad as I had vague plans of someday replacing it with a higher quality IC from Burr-Brown. This won't happen, as the existing chips are more than satisfactory. Note the green power supply decoupling capacitors (0.1uf). Missing are electrolytic decouplers and 100 ohm resistors in output in case coax to the amps causes oscillation.
+
+<p align="center"><img SRC="p09a_2.jpg" ALT="Figure 2" height=284 width=378 border="1">
+<br><b><small>Figure 2 - The Filter Board</small></b></p>
+
+<p>I had ideas of using the spare opamp on the dual input chip to provide some low pass boost but after consultation with Rod decided against this as it would alter the crossover point.
+
+<p>All together it looks like this ...</p>
+
+<p align="center"><img SRC="p09a_3.jpg" ALT="Figure 3" height=398 width=346 border="1">
+<br><b><small>Figure 3 - The Complete Assembly</small></b></p>
+
+<p>The rainbow connecting cable makes it possible to use a connecting socket to enable modules to be interchanged, at a later stage.
+
+<p>I was fortunate to have access to a CRO (<font size=-1>Cathode Ray Oscilloscope - ed</font>.) for testing purposes. It worked exceptionally well. Outputs summed flat through to 20K and phase coherent all the way and no anomalies in the pass band.</p>
+
+<hr><b>Testing</b>
+<p>Testing is essential. The first time I connected it up the CRO showed a slow rising response above the crossover point. This was due to a not very good solder join causing the low pass filter to act as a 12db/octave. It was such a slow rise I was tempted to dismiss it as capacitor tolerance but the filter was dead flat after fixing.
+
+<p>Speaking of tolerances, I used 1% metal film resistors and MKT capacitors selected at random as I had no mean of testing them.</p>
+
+<hr><b>The End Result</b>
+<p>How does it sound? I can't believe the difference it makes. Distortion in the mid range has disappeared - I think this was originally due to too much low frequency being passed from the 12db/octave passive crossover. It is now clear as a bell. Similarly bass is much more clearly defined, there is a lot more of it, and the system is now wonderful to listen to. Piano notes are always a good test and they sound incredibly life like. I should have constructed an active cross over years ago and will now go ahead and make a three way version. Why? Because I want the same quality from the tweeter as I am getting form the other two speakers. At the moment I am using a passive crosssover which has a coil of about 1.4 ohms DC resistance causing some attentuation.
+
+<p>At the moment I have 125W RMS amp driving the low pass, and 90W driving the midrange. When I build the three way I'll construct a 50W to drive the highs, using a kit incorporating the national 50W chip. I need to put in a case eventually.
+
+<p>My wife is a good judge of sonic quality. Usually after building a system the comment is "That sounds good but I can't tell the difference from the last one". Comment this time: "That sounds really great, what did you do?'. This indicates to me much lower levels of distortion all round.
+
+<p>Now if I could only get a chance to listen to something ...</p>
+
+<hr><b>Editor's Comments</b>
+<p>Firstly, I must thank Tony for all the trouble he has gone to. He supplied the photos and the text, and he has done a fine job. The text is pretty much verbatim, with only a small amount of re-formatting.
+
+<p>If you are thinking of building an electronic crossover, Tony's article should tip the balance - don't think about it, <b><i>just do it</i></b> (isn't that a slogan for a brand of sneakers or something).</p>
+
+<blockquote>Rod Elliott</blockquote>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Tony Fetherston (the author), and is Copyright &copy; 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The editor (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Tony Fetherston and Rod Elliott.</td></tr>
+</table>
+
+</body>
+</html>

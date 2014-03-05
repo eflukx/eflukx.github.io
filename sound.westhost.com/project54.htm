@@ -1,0 +1,138 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="fm,transmitter,radio,audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram">
+	<meta name="description" content="ESP Project Pages - Low Power FM Transmitter. Visit my other pages for more audio projects and articles">
+	<meta name="GENERATOR" content="Rod Elliott">
+	<title>Low Power FM Transmitter</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 54&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Low Power FM Transmitter</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>This article should satisfy those who might want to build a low power FM transmitter. It is designed to use an input from another sound source (such as a guitar or microphone), and transmits on the commercial FM band - it is actually quite powerful, so make sure that you don't use it to transmit anything sensitive - it could easily be picked up from several hundred metres away.
+
+<p>The FM band is 88 to 108MHz, and although it is getting fairly crowded nearly everywhere, you should still be able to find a blank spot on the dial.
+
+<p><b><small>NOTE:</small></b> A few people have had trouble with this circuit. The biggest problem is not knowing if it is even oscillating, since the frequency is outside the range of most simple oscilloscopes. See Project 74 for a simple RF probe that will (or should) tell you that you have a useful signal at the antenna. If so, then you know it oscillates, and just have to find out at what frequency. This may require the use of an RF frequency counter if you just cannot locate the
+FM band.</p>
+
+<hr><b>Description</b>
+<p>The circuit of the transmitter is shown in Figure 1, and as you can see it is quite simple. The first stage is the oscillator, and is tuned with the variable capacitor. Select an unused frequency, and carefully adjust C3 until the background noise stops (you have to disable the FM receiver's mute circuit to hear this).</p>
+
+<center><img SRC="p54-f1.gif" ALT="Fig 1" BORDER=1 height=306 width=642>
+<br><b><small>Figure 1 - Low Power FM Transmitter</small></b></center>
+
+<p>Because the trimmer cap is very sensitive, make the final frequency adjustment on the receiver. When assembling the circuit, make sure the rotor of C3 is connected to the +9V supply. This ensures that there will be minimal frequency disturbance when the screwdriver touches the adjustment shaft. You can use a small piece of non copper-clad circuit board to make a screwdriver - this will not alter the frequency.
+
+<p>The frequency stability is improved considerably by adding a capacitor from the base of Q1 to ground. This ensures that the transistor operates in true common base at RF. A value of 1nF (ceramic) as shown is suitable, and will also limit the HF response to 15 kHz - this is a benefit for a simple circuit like this, and even commercial FM is usually limited to a 15kHz bandwidth.</p>
+
+<p><b>Capacitors</b>
+<br>All capacitors must be ceramic (with the exception of C1, see below), with C2 and C6 preferably being N750 (Negative temperature coefficient, 750 parts per million per degree Celsius). The others should be NPO types, since temperature correction is not needed (nor is it desirable). If you cannot get N750 caps, don't worry too much, the frequency stability of the circuit is not that good anyway (as with all simple transmitters).
+
+<p><b>How It Works</b>
+<br>Q1 is the oscillator, and is a conventional Colpitts design. L1 and C3 (in parallel with C2) tunes the circuit to the desired frequency, and the output (from the emitter of Q1) is fed to the buffer and amplifier Q2. This isolates the antenna from the oscillator giving much better frequency stability, as well as providing considerable extra gain. L2 and C6 form a tuned collector load, and C7 helps to further isolate the circuit from the antenna, as well as preventing any possibility of short circuits should the antenna contact the grounded metal case that would normally be used for the complete transmitter.
+
+<p>The audio signal applied to the base of Q1 causes the frequency to change, as the transistor's collector current is modulated by the audio. This provides the frequency modulation (FM) that can be received on any standard FM band receiver. The audio input must be kept to a maximum of about 100mV, although this will vary somewhat from one unit to the next. Higher levels will cause the deviation (the maximum frequency shift) to exceed the limits in the receiver - usually &plusmn;75kHz.
+
+<p>With the value shown for C1, this limits the lower frequency response to about 50Hz (based only on R1, which is somewhat pessimistic) - if you need to go lower than this, then use a 1uF cap instead, which will allow a response down to at least 15Hz. C1 may be polyester or mylar, or a 1uF electrolytic may be used, either bipolar or polarised. If polarised, the positive terminal must connect to the 10k resistor.
+
+<p><b>Inductors</b>
+<br>The inductors are nominally 10 turns (actually 9.5) of 1mm diameter enamelled copper wire. They are close wound on a 3mm diameter former, which is removed after the coils are wound. Carefully scrape away the enamel where the coil ends will go through the board - all the enamel must be removed to ensure good contact. Figure 2 shows a detail drawing of a coil. The coils should be mounted about 2mm above the board.
+
+<p>For those still stuck in the dark ages with imperial measurements (grin), 1mm is about 0.04" (0.0394") or 5/127 inch (chuckle) - you will have to work out what gauge that is, depending on which wire gauge system you use (there are several). You can see the benefits of metric already, can't you? To work out the other measurements, 1" = 25.4mm
+
+<center><b><small>NOTE: The inductors are critical, and must be wound exactly as described, or the frequency will be wrong.</small></b>
+
+<br><br><img SRC="p54-f2.gif" ALT="Figure 2" BORDER=1 height=306 width=470>
+<br><b><small>Figure 2 - Detail Of L1 And L2</small></b></center>
+
+<p>The nominal (and very approximate) inductance for the coils is about 130nH.This is calculated
+according to the formula ...
+
+<blockquote><b>L = N&sup2; * r&sup2; / (228r + 254l)</b></blockquote>
+
+<p>... where L = inductance in microhenries (uH), N = number of turns, r = average coil radius (2.0mm for the coil as shown), and l = coil length. All dimensions are in millimetres.
+
+<hr><b>Pre-Emphasis</b>
+<p>It is normal with FM transmission that "pre-emphasis" is used, and there is a corresponding amount of de-emphasis at the receiver. There are two standards (of course) - most of the world uses a 50us time constant, and the US uses 75us. These time constants represent a frequency of 3183Hz and 2122Hz respectively. This is the 3dB point of a simple filter that boosts the high frequencies on transmission and cuts the same highs again on reception, restoring the frequency response to normal, and reducing noise.
+
+<p>The simple transmitter above does not have this built in, so it can be added to the microphone preamp or line stage buffer circuit. These are both shown in Figure 3, and are of much higher quality than the standard offerings in most other designs.
+
+<center><img SRC="p54-f3.gif" ALT="Fig 3" BORDER=1 height=290 width=661>
+<br><b><small>Figure 3 - Mic And Line Preamps</small></b></center>
+
+<p>Rather than a simple single transistor amp, using a TL061 opamp gives much better distortion figures, and a more predictable output impedance to the transmitter. If you want to use a dynamic microphone, leave out R1 (5.6k) since this is only needed to power an electret mic insert. The gain control (for either circuit) can be an internal preset, or a normal pot to allow adjustment to the maximum level without distortion with different signal sources. The 100nF bypass capacitors must be ceramic types, because of the frequency. Note that although a TL072 might work, they are not designed to operate at the low supply voltage used. The TL061 is specifically designed for low power operation.
+
+<p>The mic preamp has a maximum gain of 22, giving a microphone sensitivity of around 5mV. The line preamp has a gain of unity, so maximum input sensitivity is 100mV.
+
+<p>Select the appropriate capacitor value for pre-emphasis as shown in Figure 3 depending on where you live. The pre-emphasis is not especially accurate, but will be quite good enough for the sorts of uses that a low power FM transmitter will be put to. Needless to say, this does not include "bugging" of rooms, as this is illegal almost everywhere.
+
+<p>I would advise that the preamp be in its own small sub-enclosure to prevent RF from entering the opamp input. This does not need to be anything fancy, and you could even just wrap some insulation around the preamp then just wrap the entire preamp unit in aluminium foil. Remember to make a good earth connection to the foil, or the shielding will serve no purpose.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright (c) 06 March 2000</div>
+</body>
+</html>

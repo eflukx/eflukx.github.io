@@ -1,0 +1,233 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="automotive,car,13.8V,high,current,audio,project,diy,test,power,supply,circuit,schematic,diagram">
+	<meta name="description" content="ESP Project Pages - High power supply for testing car amplifiers. Visit the other ESP pages for audio projects and articles">
+	<title>High Current 13.8V Power Supply</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 77&nbsp;</td></tr></table>
+
+<p align="center"><b>High Current 13.8V Power Supply</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>As is commonly the case, this supply was born of necessity. There is absolutely nothing special about the circuit, except that as shown, it is quite capable of up to 20 Amps intermittently or 10A continuous. Simply use a bigger transformer, bridge rectifier and more capacitors and output transistors to get more current. The basic circuit should be good for up to 100A or so, using a 5A TO3 regulator IC, but it can obviously be increased further (if you really <b><i>do</i></b> need a 500A supply!). There is no reason that the supply cannot be made smaller as well (did I hear someone say "Perish the thought." ?). Using fewer transistors and a smaller transformer it will work from 1A upwards.
+
+<p>This is <b><i>not</i></b> a project intended for beginners or powering opamps (or other similar frivolous purposes <img src="grin.gif" /> ) it is intended solely for powering (nominally) 12V car audio accessories. 
+
+<p>Regulation is not especially wonderful. It could have been made much better, but at the risk of instability and increased complexity, particularly as the current capability is increased. As it happens, the relatively poor regulation is actually a benefit - the supply is intended for testing car power amplifiers and the like, and even with the heaviest wire, there will always be some voltage drop, and this is mimicked very well by the supply.
+
+<p>As a result, the tests that are carried out using this supply will be much closer to reality than if a supply with perfect regulation were used. It can also be used as a battery charger (with care!), as the no-load voltage is very stable.</p>
+
+<table WIDTH="100%">
+<tr><td><img SRC="mains.gif" ALT="DANGER" height=26 width=33></td>
+<td>This project requires knowledge of mains wiring. If you are unfamiliar with (or justifiably scared of) the household mains supply - <b><i><font size=-1>DO NOT ATTEMPT CONSTRUCTION.</font></i></b></td>
+</tr></table>
+<br /><br />
+<table BORDER=1 WIDTH="100%" bgcolor="#ff0000">
+<tr><td><font color="#ffffff"><b>WARNING - </b>Never use lead-acid batteries indoors unless extremely good ventilation is provided. Do not smoke or allow a naked flame within 10 metres of a charging battery, as highly explosive gases are generated during charging. These batteries contain sulphuric acid, which is highly corrosive and will cause severe burns. Exercise safe working and handling practices at all times.</font></td></tr></table>
+
+<hr><b>Description</b>
+<p>The power supply circuit is shown in Figures 1 and 2. A 7812 positive 3-terminal regulator is used for the main regulation, and this is followed by as many power emitter followers as needed for the current you require. The transistors are not critical. I used 2N3771 devices (50V, 20A, 200W) simply because I had a whole bunch of them in my junk-box. These are pretty much ideal, but I suggest that you use whatever you can get cheaply. If you use 2N3055s (as indicated in the schematic), expect to use four transistors for the first 10A, and one transistor for each additional 5A peak (or 4A continuous) output capability to ensure an adequate safety margin. The voltage rating is unimportant, as the main supply will only be about 22V with an 18V transformer. 
+
+<center><img SRC="p77-f1.gif" alt="Fig 1" BORDER=1 height=336 width=698>
+<br><b><font size=-1>Figure 1 - Basic 10A Power Supply - Power Section</font></b></center>
+
+<p>The LEDs are optional, but recommended. 2.2k series resistors (as shown) will give a LED current of about 10mA, which is pretty much ideal. Alternatively, use super-bright LEDs, and increase the resistor values. This will reduce the discharge current if the mains supply fails. 
+
+<p>R5 (marked S.O.T.) is selected to provide around 12V to the relay, and the value depends on the type of relay. The relay contacts (RL1) only need to be capable of carrying a couple of amps. The contacts supply only the regulator and output device base current, and do not need to carry the full current. This means that a small and cheap relay can be used. The entire relay circuit is optional. If you don't need mains failure protection, omit BR3, C2, R5, and RL1. Connect the lower contact of the DC switch to the junction of R1 and R4. 
+
+<p>BR3 (the bridge rectifier for the relay) only needs to be rated for 1A. In case anyone was wondering why the relay needs its own supply from the AC side, that's because diodes in the regulator will keep the main filter cap charged, and a relay would never release when the mains failed. 
+
+<p>The supply is designed to provide very high current, and I used a 300VA toroidal transformer and two bridge rectifiers, one for each winding. The 40,000uF electrolytic is one I had to hand, and provides excellent performance. You can get away with quite a bit less capacitance for the 10A version, but (as always), hum may become a problem if there is insufficient capacitance. The circuit shown will have a ripple voltage of about 4V at 20A load, and this is quite acceptable as the regulator IC will remove the vast majority of this ripple voltage. I was unable to measure any output ripple on my unit at continuous currents up to 10A, although there must be some - it was just too far below the noise voltage to measure.
+
+<p>Calculate the capacitance you need from the following formula ...</p>
+
+<blockquote>
+	C = ( I <sub>L</sub> / &Delta; V ) * k * 1000uF<br /><br />
+	<small> &nbsp; &nbsp; where I <sub>L</sub> is load current, &Delta;V is ripple voltage<br>
+	&nbsp; &nbsp; k = 7 for 100Hz or 6 for 120Hz ripple frequency</small>
+</blockquote>
+
+<p>A full load ripple voltage of up to 5V is acceptable for this application, but feel free to have less. As ripple voltage is reduced, the dissipation of the output transistors will increase. This apparently strange behaviour is because the average voltage across the transistors is greater with lower ripple.
+
+<p>Because the highest rated bridge rectifiers commonly available are 35A, use multiple transformers (and/or windings) and bridges for more current. This will be a lot cheaper than trying to get 100A (or more) devices, and overall performance will probably be better as well. Likewise, use multiple filter capacitors rather than a single large unit - again, these are cheaper, and will outperform a single very large capacitor. Figure 1 shows the recommended method of connecting the multiple windings for higher current, which may be duplicated as many times as needed.</p>
+
+<center><img SRC="p77-f2.gif" alt="Fig2" BORDER=1 height=336 width=698>
+<br><b><font size=-1>Figure 2 - Basic 10A Power Supply - Regulator Section</font></b></center>
+
+<p>As you can see, the regulator is made adjustable over a small range, and will typically give from 11V to 13.8V at full load. With the no-load voltage set to 13.8V (nominal 12V battery voltage), the output will fall to 13.5V at about 1.5A, and 12.8V at around 13A. This is fairly typical of the voltage drops that can be expected in a car installation. Needless to say, if the supply is designed for more current, then the regulation will remain about the same, but at the higher design currents.
+
+<p>The components marked with a * are optional, and are for the meter circuit. If you don't need the meter these parts can be omitted. Personally, I recommend that the meter be used so you know just how much current is drawn. Also, note the resistors marked as 5W wirewound.
+
+<p>The output transistors are wired in parallel, with 0.1 ohm 5W wirewound resistors in the emitter of each. The more transistors you use, the better the regulation and peak current capability. The resistors used to drive the optional (but highly recommended) ammeter need only be 1/4W types. These average the individual emitter resistor voltages, and the result will be much more accurate than driving the meter from only one emitter resistor.
+
+<p>The diode (D1) from output back to input and D2 (regulator out to +VE) must be high current types - I suggest a minimum of 2A diodes (or two 1A diodes in parallel as I used in my unit). This is used to ensure that the IC is not damaged if the supply is connected to a battery without mains power. R1 and R2, the 4.7 ohm 5W resistors feeding the regulator, provide the only electronic protection available - when the IC current exceeds 1A, the IC input voltage will be reduced and the output voltage will fall. If you use a high current (TO3 style) regulator, then the value of the resistors must be reduced, but the diode will need to have a higher rating to compensate for the increased current back into the main filter cap.
+
+<p>D2 is used to prevent the output transistors from being reverse biased to a degree that they might be damaged. It's probably only needed if the mains failure relay is included, but does no harm. The mains failure relay is only needed if the supply is used (and permanently connected to) a car battery or similar. If the mains fails and it's not included, the only thing that will happen is that the battery will be discharged by the quiescent current of the regulator. Although the current is small, if left long enough the battery will be damaged if allowed to discharge to a low enough voltage.</p>
+
+<table WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE CAREFULLY" height=37 width=108></td>
+<td><b>Be warned!</b>&nbsp; There is no diode to protect the unit from reverse polarity if connected to a battery. A series diode would reduce regulation and be <i>very</i> expensive, and a parallel diode would short the battery (a typical 12V car battery can supply several hundred amps with ease!). This is very bad for the battery, and not too good for the diode, either (it will probably explode - and yes, I'm serious). An output fuse can be used if desired, but it will not protect against reverse polarity.
+
+<p>In addition, the supply is perfectly capable of melting flimsy test leads, or the ground lead on an oscilloscope (for example). Like all high current power supplies, take great care when building and using this supply, to avoid the risk of severe burns or damaged equipment.</td>
+</tr></table>
+
+<p>Protection is with a fuse only, as the supply is sufficiently rugged to withstand almost any abuse for a short period. The minimal protection provided by R1 and R2 is sufficient to allow the fuse to blow before any damage is done to the transistors. I briefly considered an "electronic circuit breaker", but decided against it very quickly since I needed the supply in a hurry!
+
+<p>The unit I made used a case I had lying around, and although the heatsinking is not substantial, it is adequate for my needs. Most units will need less heatsink than you might imagine, since even high power car amps will not draw full power all the time. If you do decide to make a 100A version (or more), I suggest that you will need quite a large amount of heatsink - this will not be a real problem (other than financially), since there will be plenty of room - the power transformer(s) will need to be a minimum of 1,500VA so the case will have to be quite big. This will leave you with lots of space to play with :-)</p>
+
+<hr /><b>Heatsinking</b>
+<p>It is important to point out that the heatsinks shown on my unit are suitable for very brief bursts of high current, but are woefully inadequate for continuous duty. For a power supply delivering (say) 20A, the total transistor dissipation will be in the vicinity of 240W or so, depending on the regulation of the power transformer.
+
+<p>To get rid of that much heat requires a substantial heatsink - overall, you will be looking at something in the vicinity of 0.1&deg;C/ Watt, assuming a 25&deg;C temperature rise for the transistor cases - the junction temperature will be higher! Since this represents an almost impossibly large heatsink, you will need a fan - perhaps two or three fans. It is <i>critically</i> important that the fans blow air straight onto the heatsinks.
+
+<p>Many people assume that fans that suck work just as well, but they don't - in fact, they suck. To get maximum heat transfer, you need high turbulence at the surface of the heatsink, and that can only be achieved by blowing air directly onto the fins. Not across the fins - directly onto them.
+
+<p>For those who want to know more about heatsinks, minimising thermal resistance, and ensuring that the output devices stay at a safe operating temperature, see <a href="heatsinks.htm" target="_blank">Heatsinks</a>. 
+
+<hr><b>Construction</b>
+<p>Construction is not critical in the normal sense. The regulator IC must be on a heatsink, and needs the capacitors (as shown in Figure 1) mounted as close as possible to the IC to prevent oscillation. No PCB is available for this project, and it is not necessary, since the wiring all needs to be capable of very high currents that would just melt the tracks off a circuit board. The small signal section (regulator, transistor and bypass caps, etc.) can be mounted on a tiny piece of Veroboard or similar.
+
+<p>Use the heaviest wire you can for all main power connections, especially for the output. Any additional resistance you introduce with your wiring will reduce the regulation. I suggest that you keep the leads to the 0.1 ohm emitter resistors short, and most of the power wiring will be pretty much self supporting because of the wire thickness.
+
+<p>Wire the current meter with the return point located as closely to the mid point of the emitter resistors as possible. The accuracy will never be great, but it will be reduced further if there is a lot of copper in the circuit, because the temperature coefficient of resistance for copper is quite high. The 100 ohm output (current monitoring) resistors will not introduce any error. I calibrated my meter to 10A full scale, but calibration to 20A is quite OK, to allow for the peak current capability of the supply.
+
+<p>VR2 (any value from 500 ohms to 2k can be used) is used to calibrate the meter. Use an ammeter and a suitable load, and adjust the pot to obtain the same reading as the external meter. Make sure that the external meter is capable of handling the current you intend to calibrate to. The meter scale can be re-marked as 0-10A or 0-20A, and calibrated accordingly.
+
+<p>If you do not have access to an ammeter capable of at least 10A, then calibration of the meter will require a known accurate low value resistance, and an accurate voltmeter. You can calculate the current by knowing the resistor value and the voltage, and adjust the trimpot until you get the same reading as you calculate. The meter movement is not critical either - use any meter of 100uA to 1mA with the circuit as shown. You will need to adjust the feed resistor values for other movements.</p>
+
+<blockquote>
+	<small><b>I = V / R &nbsp; </b>Where I is current, V is measured voltage and R is the test resistor value (in ohms)</small>
+</blockquote>
+
+<p>Typically, you will need a resistor of about 1 or 2 ohms to calibrate the unit. Power will be extremely high - a 1.25 ohm resistor with 12.5V and 10A will dissipate 125W. Eight 10W 10 ohm resistors in a bucket of water will work very well, and will allow you to "soak test" the unit at full power to make sure that everything manages to stay together. Note that when in water with DC, you will cause the resistor leads to corrode unless you use distilled water.
+
+<p>The voltage control may be calibrated, or just place a marker on the panel for 13.8V. If desired, a voltmeter can also be included in the circuit - if used, this should be wired to the output terminals.
+
+<hr><b>Appendix</b>
+<p>The author's unit is shown in Figures 3 and 4. It was designed as a 10A supply. As I mentioned, the case is one I had lying around, and although I can't use mine at its peak of 20A for extended periods as there is nowhere near enough heatsinking. However, it serves the purpose that I needed it for, which was to test some car amplifiers I had (also lying around). I have found it to be extremely satisfactory, and since it can be completed in an afternoon, this makes it a simple project that should give many years of service.</p>
+
+<center><img SRC="p77-f3.jpg" alt="Fig3" height=353 width=600>
+<br><b><font size=-1>Figure 3 - Prototype Supply (Front Panel Inside View) - 10A Version</font></b></center>
+
+<p>The meter was already in the case I used, the toroidal transformer is clearly visible, as well as the filter capacitor. The bridge rectifiers are on the vertical aluminium bracket between transformer and filter cap. The control electronics (regulator, transistor and small caps) are on the piece of Veroboard just to the right of the meter. The cap on the extreme right is the output capacitor. The regulator is thermally connected to the front panel to provide heatsinking (don't forget the insulation washer and bushes!).</p>
+
+<center><img SRC="p77-f4.jpg" alt="Fig 4" height=401 width=600>
+<br><b><font size=-1>Figure 4 - Prototype Supply (Rear Panel Inside View) - 10A Version</font></b></center>
+
+<p>In the above view, the power transistor mounting, emitter resistor and mains input can be seen. The small round thing in the top-centre of the photo is the meter setting trimpot. Note the shroud over the IEC mains inlet to prevent contact with the 240V, although if you look carefully, you will see that the fuse has no shroud (naughty, naughty.&nbsp; Verrry naughty!) - Please do as I say, <b><i>not</i></b> as I do!&nbsp; All mains connections should be protected against contact (I will get around to it one day - I promise).
+
+<p>From this angle you can see that the filter cap is an old computer grade unit (salvaged from my trusty junk box), and you can also see that I only used three power transistors. As I mentioned before, I used 2N3771 devices, and these are much more powerful than the 2N3055s I suggested, but are probably very hard to get (and almost certainly expensive).&nbsp; The little heatsinks I used are just visible at the back. The mating surfaces were carefully filed so they were completely flat, and are thermally bonded to the aluminium backplate with heatsink compound and lots of pressure from the transistor mounting.</p>
+
+<hr><b>Protecting Your Equipment</b>
+<p>There is no doubt that a unit such as this may be used for powering car amplifiers and possibly other gear as well, and most have limited or no protection against reverse polarity. If the supply is likely to be disconnected and re-connected with any degree of regularity, there is a real chance that at some stage, it will be connected with reverse polarity.</p>
+
+<center><img SRC="p77-f5.gif" alt="Fig 5" border=1 height=336 width=698>
+<br><b><font size=-1>Figure 5 - Reverse Polarity &amp; Over-Voltage Protection</font></b></center>
+
+<p>The polarity detector uses a relay (rated for at least the <i>maximum</i> equipment current. Should the supply be connected the wrong way, the relay cannot close, because D1 prevents it from getting any power. The 'Reverse" LED will come on, and the equipment is saved from the embarrassment of allowing its magic smoke to escape. A proper connection will cause the "Correct" LED to light, the relay will close, and power is made available to the circuitry. The relay coil should be rated for the equipment voltage (typically 12V for this application).
+
+<p>Because no equipment can ever be 100% failure-proof, expensive equipment may also benefit from over-voltage protection. Should the output of the supply exceed about 16V (with the values as shown), the SCR will conduct, short-circuiting the supply - commonly referred to as a crowbar circuit. This will cause the fuse to blow before the equipment is damaged (a fault in any power supply can cause the voltage to rise to the full unregulated value). The SCR needs to be able to conduct a non-repetitive peak current that is at least 5 times the fuse rating ... preferably higher. The C122 is rated for 8A continuous, but will handle over 80A for 10ms.  The "F" refers to the voltage rating (F means 50V), but any voltage is fine.  The preferred device is the BT152-400R, which can handle 200A for 10ms. It may be possible to obtain an even bigger device, but the options shown are a good starting point.
+
+<p>The circuitry shown in Figure 5 belongs in the equipment being powered ... <u>not</u> the power supply.  The same circuit should be added to each piece of gear you expect to connect to the supply.  Note that car equipment (amplifiers, CD players, etc.) are designed to be able to cope with high transient voltages, which can be up to 40V for a nominal 12V system.  Do not include the over-voltage protection in any such equipment that is likely to be connected to a car's supply, as the circuit is guaranteed to trigger at some point. The crowbar circuit may be wired into the power supply output circuit if you prefer. Make <i>absolutely certain</i> that the supply variable control cannot allow the output to exceed the crowbar trigger voltage!
+
+<p>More complex crowbar circuits can be used that include a time delay to reject transient pulses, but these are outside the scope of this article.</p>
+
+<hr><b>Making More Powerful Units</b>
+<p>Since many readers may want higher power than the unit shown, here are some guidelines for bigger units.</p>
+
+<ul>
+	<li>Don't expect to build a 100A version (or more) in one afternoon.</li>
+	<li>Use one 2N3055 for each 5A of peak output current (4A continuous) - Each transistor will dissipate about 40W. There is no reason that you
+	can't use more though, and this will improve heat transfer from junction to heatsink.</li>
+	<li>Assuming a current gain of 20 for the 2N3055s (fairly typical), one 5A TO-3 regulator will drive up to 100A (use 25 transistors)</li>
+	<li>For more current, use a boost circuit around the regulator IC (up to 500A output, with 100 transistors!). I shall leave details of
+	the boost circuit to you (it is very commonly used, and many examples exist on the Net).</li>
+	<li>Consider using higher power transistors to reduce component count. The cost will probably be higher though, and heatsink performance
+	will not be as good due to higher thermal resistance between junction and heatsink.</li>
+	<li>Use multiple transformers and bridge rectifiers, rather than a single really big one of each</li>
+	<li>The transformer(s) need to be rated at 300VA for each 10A continuous. 100A requires 3kVA</li>
+	<li>Transformers can be overloaded by up to 200% for short periods (50% of the time on load, and 50% off). Other overload ratios 
+	can be calculated (but excess or continuous overload is <b><i>not</i></b> recommended!)</li>
+	<li>See the article on <a href="power-supplies.htm">Power Supply Design</a> to learn about capacitor ripple current (this will be extreme!)</li>
+	<li>See the article on <a href="heatsinks.htm">Heatsinks</a> to learn more about the best way to mount the transistors.</li>
+	<li>If you need a lot of current, consider using a switchmode supply instead (see below)</li>
+</ul>
+
+<p>The above is not extensive, but you get the idea. for most applications, the unit shown will be sufficient. I doubt that too many constructors will want to build 500A supplies, but if you do have a need for such a monster, then this circuit should do the job quite well. Hmmm ... 500A at 13.8V is 6.9kW - I'm almost tempted to build one for the hell of it (just kidding <img src="grin.gif" alt=":-)">).
+
+<p>Even a 1kA (1,000 amps) unit is not impossible with a few minor modifications (including the regulator boost circuit), but for anything over the basic 10A unit shown, some extra heavy duty connectors and fuses will be a good idea. I am doubtful that this will be needed for most normal applications <img SRC="grin.gif" alt=":-)">
+
+<p>For what it's worth, if you do need much beyond the basic 10A supply, use the supply as shown connected to a car battery. It can safely be left connected permanently if the supply is set to 13.8V (check the temperature though - lead acid batteries have a temperature dependent "float charge" voltage). The unit is then a battery charger, but will not introduce any hum onto the battery output voltage (unlike conventional chargers, which are not smoothed).
+
+<p>Alternatively, you can get 12V switchmode supplies quite cheaply, and as long as they have a voltage calibration they can be paralleled by using 0.1 ohm resistors from the output of each supply to a common output rail. Each supply should be adjusted so that the output voltages are within 0.1V or better. This ensures that they will share the current equally. Some are designed to allow parallel connections without needing external resistors. A 200W 12V supply is good for over 16A, so it's easy to get a very powerful supply by using 2 or 3 of them.</p>   
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 22 Apr 2001./ 05 May - added photos and explanatory text./ 16 Sept 2003 - Corrected error in description of high current version./ 14 Jul 07 - added polarity and over-voltage protection circuit and description./ 07 Jan 2011 - added mains fail disconnect./ 08 Feb 12 - included heatsink info, and suggestion to use SMPS.</div>
+</body>
+</html>

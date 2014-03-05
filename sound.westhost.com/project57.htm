@@ -1,0 +1,126 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="sound,impairment,monitor,sim,audio,project,diy,amp,test,power,circuit,schematic,diagram">
+   <meta name="description" content="ESP Project Pages - SIM (Sound Impairment Monitor). Visit my other pages for more audio projects and articles">
+   <title>ESP SIM (Sound Impairment Monitor)</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 57&nbsp;</td></tr></table>
+
+<p align="center"><b>The ESP SIM (Sound Impairment Monitor)</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>The ESP Sound Impairment Monitor is a method of determining just how much your amplifier modifies the original signal.&nbsp; The first version
+is designed to be built into an amplifier circuit, and although quite simple in concept will indicate if any modification is made to the signal by the amp, for any reason at all.
+
+<p>For example, many amplifiers have overload protection, and this may activate without you even realising it.&nbsp; The SIM will react immediately, since the input and output of the amp no longer match.&nbsp; The meerest hint of clipping - however brief - will turn on the LED, which is designed to stay on for long enough for you to see it.
+
+<p>The internal SIM is the simpler of the two variations, and is actually more accurate than the more complex external version, however it is not
+as versatile - it is built into the amp after all, so can't be used for anything else.</p>
+
+<hr><b>Description</b>
+<p>Nearly all modern amplifiers use a differential input stage, based on the so-called "long-tailed pair".&nbsp; This type of amp will have the
+input signal applied to one input (the non-inverting input is almost universally used as input), and the feedback to the other.&nbsp; This configuration is identical to that used in an opamp, and just like an opamp, the power amp will attempt to make both inputs have the same voltage at any point in time.
+
+<p>When the amplifier protection circuits operate, or the amp starts to clip, the inputs will have very different voltages on them.&nbsp; Slew rate limiting will also cause the inputs to develop very different voltages, and indeed, any amplifier abberation will change the voltage differential between the inverting and non-inverting inputs of the amplifier. <p>The internal SIM uses an opamp to measure the signal at each of the
+amp inputs.&nbsp; This will normally be fairly low - perhaps in the order of about 2 to 5mV under normal operation at just under full power.&nbsp; The SIM has enough gain to allow an indication at voltage differentials down to 1mV between inputs, which means that the finest of amplifiers is easily monitored for any impairment.
+
+<p>Figure 1 shows the differential amp used by the SIM, and it is a completely conventional circuit.&nbsp; This is adjustable by using VR1 to null out any normal variations that the amp might show when there is no distortion or other nastiness in evidence.&nbsp; The second stage is a high gain amplifier, and will amplify the residual signal to a level suitable for the rectifier and indicator circuits.</p>
+
+<center><img SRC="p57-f1.gif" ALT="Figure 1" BORDER=1 height=300 width=581>
+<br><b><font size=-1>Figure 1 - The SIM Input Stage</font></b></center>
+
+<p>The opamp shown is adequate for most applications, but the use of a premium device from Analog Devices or Burr-Brown will improve performance,
+especially at high frequencies.&nbsp; This is not strictly necessary, because the operation of any amplifier protection or clipping (or any other undesirable effect) will affect all frequencies, not just those that caused the original problem.&nbsp; This is why TIM (transient intermodulation distortion) is so objectionable if it occurs.&nbsp; The SIM will reliably detect any such problem, probably before you are even remotely aware that it is happening.</p>
+
+<center><img SRC="p57-f2.gif" ALT="Figure 2" BORDER=1 height=322 width=460>
+<br><b><font size=-1>Figure 2 - SIM Detector and LED Switch</font></b></center>
+
+<p>Figure 2 shows the detector, which is a simple full wave rectifier.&nbsp; The 1458 opamp specified is quite adequate for this, as the two sections function only as buffers, and accuracy is not important.&nbsp; When the error signal exceeds the detection threshold (about 1.2 Volts), the LED will light, and remain on for long enough to see, even with very short duration signals.&nbsp; The use of a full wave rectifier ensures that an error signal of either polarity will activate the LED.</p>
+
+<hr><b>Connection To An Amplifier</b>
+<p>The circuit is designed to use 10k resistors at the amp inputs (as well as those on the SIM circuit itself).&nbsp; Figure 3 shows a typical amplifier (the 60W amp of Project 03) with the SIM connections added.&nbsp; This can be applied to almost any amplifier, with the only effect being that the input impedance will be a little lower than before because of the 42k SIM+ connection input impedance.&nbsp; If desired, the input impedance of the SIM can be increased, and the resistors R3, R4 and VR1 will need to be increased as well to maintain the same ratio.</p>
+
+<center><img SRC="p57-f3.gif" ALT="Figure 3" BORDER=1 height=329 width=628>
+<br><b><font size=-1>Figure 3 - Connecting The Internal SIM To An Amp</font></b></center>
+
+<p>Make sure that all wiring is as short as possible, and the wires should be tightly twisted and preferably shielded as well.&nbsp; This will prevent noise from being picked up by the SIM or the amp.&nbsp; The 10k resistors at the amplifier are to ensure that the stability of the amplifier is not compromised by the capacitance of the cable, and to provide a buffer against noise pickup.&nbsp; These must not be omitted.</p>
+
+<hr><b>Setup And Operation</b>
+<p>When the SIM is connected to a power amp, the unit must be calibrated.&nbsp; This will not be as easy for those without an oscilloscope, but a steady signal source is essential.&nbsp; This can be an audio oscillator or a test CD, and the idea is to adjust the circuit so that at all normal settings below clipping, the LED remains off.
+
+<p>First, advance the input level to the amp to a normal to quiet listening level.&nbsp; Disconnect the speaker.&nbsp; With VR2 advanced so that the LED is flickering or barely on, carefully adjust VR1 until the LED is extinguished.&nbsp; Advance VR2 again, and readjust VR1, and repeat this until no further improvement is posible.
+
+<p>If an oscilloscope is available, apply sufficient signal so that the amp is just below clipping.&nbsp; No clipping whatsoever is allowed, so give yourself enough margin to ensure that this is so.&nbsp; Adjust VR2 until the LED is barely visible, then reduce the setting very slightly so the LED is off.&nbsp; If you turn up the signal until the amp is almost clipping, the SIM will almost certainly show the vestiges of clipping well
+before it is visible on the oscilloscope.
+
+<p>If a 'scope is not available, then a certain amount of guesswork is needed.&nbsp; This will possibly reduce the sensitivity a little, but any audible distortion will still cause the LED to light.&nbsp; You will have to estimate the maximum level that you think is below clipping.&nbsp; If VR2 has to be reduced to near minimum resistance, there is almost certainly too much signal, so reduce it until VR2 can be advanced to close to the centre of rotation.&nbsp; The actual setting can be found by trial and error - at the point when the amp starts to clip, the SIM's LED will go from off to full brilliance (and vice versa) with the tinest change of input signal.&nbsp; Find this point, and reduce the level slightly.&nbsp; Adjust VR2 until the LED is just off.
+
+<p>The SIM is now set up properly, so the speakers may be reconnected and some music played through the system.&nbsp; It is possible that VR2 may have to be wound back a tiny bit if the LED operates at low listening levels, but if the amp is as good as the makers claim, there should be no indication until one of the "defined events" listed occurs - clipping, overload protection or slew rate limiting.
+
+<p>The SIM will indicate if any musical piece causes amplifier distress of any kind.&nbsp; As long as that LED remains off, all is well with your
+amp.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; 22 Apr 2000</div>
+</body>
+</html>

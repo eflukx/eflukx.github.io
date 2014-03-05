@@ -1,0 +1,175 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="balanced,driver,receiver,audio,project,diy,circuit,schematic,diagram">
+	<meta name="description" content="ESP Audio Projects - The second balanced driver and receiver in the lineup.More complicated than Project 51, but has higher performance">
+	<title>Balanced Transmitter and Receiver II</title>
+<!-- ESP Audio Projects - The second balanced driver and receiver in the lineup.More complicated than Project 51, but has higher performance -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 87&nbsp;</td></tr></table>
+
+<p align="center"><b>Balanced Transmitter and Receiver II</b><br />
+<small>Rod Elliott (ESP) / <a href="#uwe">Uwe Beis *</a><br />
+<a href="#update1">Updated 01 April 2002</a></small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for this project. Click the image for details.<br>
+
+<hr><b>Introduction</b>
+<p>This is essentially an update to the original article on the subject, and includes some ideas to stimulate further thought on the subject.  This is especially true of the last section (<a href="#cheat">Hey! That's Cheating</a>)
+- everyone wants balanced outputs free, well you can have them free (well, near enough anyway).</p>
+
+<p>The balanced transmitter and receiver described in <a href="project51.htm">Project 51</a> work very well, but both are less than optimum under difficult conditions.  Uwe has written an article (published on The Audio Pages) describing an active balanced transmitter that has performance almost equivalent to a transformer.  There are ICs available that (almost) manage the same thing, and the principle uses feedback to equalise the levels from each transmitter opamp.</p>
+
+<p>While Uwe has gone to a great deal of trouble to get his circuit to match a transformer as well as possible, this is not an easy circuit to get working well, and it requires 0.1% tolerance resistors and wide bandwidth opamps.</p>
+
+<p>Enter ESP and the "simplification methodology" that I tend to use wherever I can.  The result is a transmitter (in particular) that is extremely good, and matches the performance of a transformer to a quite acceptable degree. 
+It's not perfect, but it is very stable, and requires no adjustments or close tolerance parts (1% resistors will provide a maximum error of 1/100, or 40dB common mode rejection and balance).</p>
+
+<p>Use of closer tolerance resistors - and good or premium opamps - will give a circuit with excellent performance, and it will come very close to that of a transformer balanced circuit with none of the associated cost.  Response is flat to at least 50kHz, with a low frequency limit of DC (as shown).  Capacitors can be used to limit the low frequency limit if desired.</p>
+
+<hr><b>Mk II Receiver</b>
+<p>The receiver is shown in Figure 1, and as shown does not have any RF protection.  This configuration is somewhat better behaved than that shown in the original article, and presents exactly the same impedance to each of the balanced lines in the cable.  This is also the case with the original version shown, but <i>only</i> if the source is balanced. </p>
+
+<center><p><img src="p87-f1.gif" alt="Figure 1" border="1"><br>
+<b><font size="-1">Figure 1 - Active Balanced Receiver</font></b></p></center>
+
+<p>The resistor marked * (R7) may be left out, and the circuit will have a gain of 2.  Installing this resistor will increase gain, but will have no effect on the input impedances or balance performance.  The minimum gain for this circuit is 1.5 (if R6 and R7 are omitted), and this increases to 2 with R6 installed.  The gain setting resistor R7 still works if R6 is omitted, with a value of 10k providing a gain of 3.5, and 1k giving a gain of 21 (26dB).</p>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%"><tbody>
+<tr><td><img src="opamp.gif"></td>
+<td>The standard pinouts for a dual opamp are shown (top view of device).  It is suggested that a bypass capacitor (typically a 100nF ceramic or polyester) be connected between pins 4 and 8, as close to each opamp package as possible.  Even with "slow" opamps, it is always a good idea to use a bypass cap to prevent possible instability at high frequencies.</td></tr></tbody></table>
+
+<p>The exact same scheme as shown in the original project could be used for the inputs on this version.  One possible connection is shown in Figure 2.  This is virtually identical to the configuration shown in Project 51, and will provide a very high noise rejection.</p>
+
+<center><p><img src="p87-f2.gif" alt="Figure 2" border="1"><br>
+<b><font size="-1">Figure 2 - Input Circuit for Receiver</font></b></p></center>
+
+<p>The 10k resistors (R1 and R2) to ground are still needed, and this arrangement will reduce the gain by a little over 7db.  Use lower value resistors for less attenuation, but remember that as the attenuation is reduced, so is noise immunity. 1k resistors would be the lowest value I'd recommend, and will cause minimum attenuation (about 1.6dB). C1 may be increased if desired, but if too high may cause rolloff of the signal source.</p>
+
+<hr><b>Mk II Transmitter</b>
+<p>This transmitter is quite a bit more complex than the Project 51 version, but this is the price one pays for higher performance.  The input is unbalanced, and has an input impedance of 11k.  This must be driven from a low impedance source (such as an opamp's output) or performance will be degraded.</p>
+
+<p>With the values shown, the circuit has a gain of 6dB when measured from the input, and between +Out and -Out.  R13 and R14 are not absolutely essential in this version, but are recommended.  They enforce a balance on the circuit, and prevent the possibility of "latch-up" where the outputs get stuck to a supply rail.  This is extremely unlikely with the values shown, but the precaution is worth the very minor effort.</p>
+
+<center><p><img src="p87-f3.gif" border="1"><br>
+<b><font size="-1">Figure 3 - Active Balanced Transmitter</font></b></p></center>
+
+<p>If either output is shorted to ground by connection to an unbalanced input, the output voltage is only 0.4dB less than when operating in fully balanced mode.  When one output is shorted, the feedback path to the other opamp is removed, so it provides (almost) the full swing that would normally be available between both opamps.  This is the way a transformer (without centre tap) works, so the behaviour of this design is much closer to that of a transformer than the "standard" balanced output circuit.</p>
+
+<p><a name="update1"></a><b><font size="-1">1 Apr 2002</font></b> - I tested the circuit shown using 1458 dual opamps and 5% resistors.  If the circuit is reliable and shows no bad habits with very basic opamps (basically dual 741s) and ordinary carbon resistors then I know that it will work when you use better components (however, see note below).  Indeed, my test version is both stable and surprisingly accurate, despite the lowly parts used to test the circuit's operation.  Because the crossed feedback paths are reduced from the optimum (by virtue of making R5 and R9 1.2 times the "correct" value), the overall stability and frequency response is much less dependent on the component values and opamp quality.  I was able to verify that even using 741 type opamps, frequency response is less than 1dB down at 75kHz.</p>
+
+<p>Somewhat surprisingly, output impedance is 100 ohms, and not the 200 ohms one would expect - there are 100 ohm resistors in series with each output after all.  The crossed feedback paths make the difference here, and both simulation and measurement confirm that this is the case.</p>
+
+<table width="100%">
+<tr><td valign="top"><img src="note.gif"><td>Although the above circuit does work exactly as described, in general it cannot be recommended for normal use. With high speed opamps, the circuit can (and likely will) oscillate, especially if there is a capacitive load (such as a cable) connected to the outputs. While it has been used commercially, the results have often been less than successful, and few commercial products use the scheme.<br /><br />
+While it is a very interesting arrangement, it actually fails to emulate a transformer anywhere near as well as might be imagined. The PCB version of the balanced transmitter does <i>not</i> use this scheme, for the simple reason that stability cannot be assured. In addition, the impedance balance is sensitive to component tolerance, and impedance balance is far more important than signal balance.</table>
+
+<p><b>PCB Version</b><br />
+The circuit diagram for the PCB version is shown below. There is no attempt to simulate a transformer, because the circuit shown in Figure 3 is simply not stable enough and is too complex for general purpose use.</p>
+
+<center><p><img src="p87-f3a.gif" border="1"><br>
+<b><font size="-1">Figure 3A - PCB Version of Active Balanced Transmitter</font></b></p></center>
+
+<p>As you can see, this is much more straightforward than the "real" version shown in Figure 3. Only one channel is shown, and the other uses the second half of each dual opamp.</p>
+
+<hr width="100%"><b>Construction Hints</b>
+<p>Both the transmitter and receiver circuits require at least 1% tolerance resistors, or common mode rejection will be unacceptable.  Even with 1% tolerance, the worst case rejection is only 40dB, and if you can use your multimeter to match the resistors to closer tolerance this will improve the performance.</p>
+
+<p>Although the transmitter and receiver are shown with (mainly) 33k and 10k resistors respectively, these may be changed if desired.  Any value between 10k and 100k could be used, but remember that higher value resistors create more thermal noise.  R5 and R9 in the Figure 3 transmitter are approximately 1.2 times the other resistors - the next E12 value up.  For example, if you elected to use 22k resistors throughout, then R5 and R9 would be 27k.  Also remember that for the transmitter's input, the impedance is 1/3 of the resistor value used - 10k resistors would therefore give an input impedance of about 3k.
+
+<p>The Figure 3A transmitter has an input impedance of 10k as shown (R102), but this can be increased as required.</p>
+
+<p>Both circuits require a balanced +/-12V or +/-15V supply (<a href="project05.htm">Project 05</a> or similar power supply), and it must be free of noise.  Make sure that 100nF ceramic caps are placed between the supplies as close as possible to the supply pins of the opamps.  This is especially important if you use high speed opamps.
+
+<p>Naturally I recommend that you use the PCBs that I have available (see the ESP <a href="pcb/pricelist.html" target="_blank">price list</a>). These are fully tested, have been built successfully by many constructors and are known to perform exactly as described.</p>
+
+<hr width="100%"><a name="cheat"></a><b>Hey! That's Cheating</b>
+<p>Finally, for those who want a balanced output that is really simple, try the circuit shown in Figure 4.  Now look at it again - it's not balanced at all ... or is it? </p>
+
+<center><p><img src="p87-f4.gif" alt="Figure 4" border="1">
+<br><b><font size="-1">Figure 4 - Simplest Possible Balanced Output</font></b></p></center>
+
+<p>Now, before you get all horrified, let's have a proper look at what is happening.  The main trick with a balanced circuit is that the receiver should "see" the same <i>impedance</i> on each input.  It doesn't actually care that much if there is signal on either or both wires (indeed, that is merely an <i>expectation</i> on our part), but even if the wanted signal is only on one wire, any induced noise will still be common mode, and will still be in phase across both wires.  The noise gets cancelled either way, and the signal gets amplified, which is just what we want.</p>
+
+<p>Yes, it's cheating - but it works.  Apparently, this trick is used on some of the popular stage mixers, as well as some very well regarded phantom feed microphones (although as far as I know they don't use the Zobel network - this is optional BTW).  There is less signal than one would expect (most balanced transmitter circuits have an effective gain of 6dB), but this is generally not an issue.  In the case of a microphone, the signal is the same as it would normally be anyway, and with a line output, 6dB of additional gain is usually not a problem to achieve.  The amplifier as shown in Figure 4 only needs 2 x 10k resistors in the feedback path to achieve this (10k from output to -ve input (i.e. -in, <i>not</i> -ve supply pin), and 10k from -ve input to ground).</p>
+
+<p>In most cases, this will work <i>just as well</i> as a true balanced output circuit, for the simple reason that it <i>is</i> a true balanced circuit. From the perspective of the balanced input circuit (the receiver), this arrangement provides exactly the same signal quality as if the circuit were fully (signal) balanced, but the signal is -6dB compared to a circuit with a balanced signal. This is rarely a limitation. Although 150 ohm resistors are shown for the balancing network, these can be changed if desired (I suggest a minimum of ~100 ohms though).  Normally, I would expect that the values shown will be fine for almost all applications (effective output impedance is 300 ohms).</p>
+
+<p>Somewhat predictably, the signal is only on one lead, so the cables had better be wired correctly if it is feeding an unbalanced input (but this is something that should be regarded as essential for all stage and studio work anyway). The resistors must be of sufficiently high value to ensure that the opamp output impedance is swamped. This ensures that the impedances on each leg are as closely matched as possible.</p>
+
+<p><b>Caveats</b> - the output impedance of the opamp should be flat to a suitable high frequency, and this will not often be the case.  Although I have shown a TL072 (or half thereof), I suggest that a better opamp should be used.  A very high speed opamp (Such as the Texas Instruments THS6012 - See <a href="highspeed.htm">The Need For Speed</a>) will help enormously here, but at considerable cost and inconvenience - unfortunately.  In general, the output opamp should be as good as you can afford.  A cheap opamp will give a cheap result.  The optional Zobel network will help ensure that the line appears properly balanced at all frequencies including RF, but cannot guarantee perfect results with any opamp.  The venerable NE5534 (or the dual NE5532) is a very good choice. These opamps are still popular for a very good reason - they have excellent performance. Resistor tolerances are just as important here as with any of the more complex versions - 1% is the minimum acceptable tolerance.</p>
+
+<p>With all balanced interfaces, the impedance balance is the thing that counts. There is not (and never was) any <i>requirement</i> for the signal to be balanced. In contrast, an impedance mismatch of only a few ohms is enough to reduce the common mode rejection quite dramatically.</p>
+
+<hr width="100%"><a name="uwe"></a><b>Inspiration</b>
+<p>This new project article was inspired by Uwe Beis, and his article on the (almost) perfect <a href="balance.htm">balanced transmitter</a> is published on these pages.  Although the material here is somewhat "off topic" from his approach, the inspiration to experiment and try the various techniques came from his submission.  I recommend that you read the full article, as it explains the operation of the balanced transmitter shown in Figure 3 very well, and will give you an idea of the dedication of some people (Uwe in this case) to the advancement of their understanding of analogue electronics.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2002. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 28 Mar 2002./ Updated 1 Apr 2002 - tested new circuit as described in update.</div>
+</body>
+</html>

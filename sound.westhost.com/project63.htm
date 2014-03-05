@@ -1,0 +1,196 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="filter, feedback, multiple, bandpass, band, pass, audio, project, diy, amp, preamp, crossover, test, power, supply, circuit, schematic, diagram">
+   <meta name="description" content="ESP Project Pages - Multiple Feedback Bandpass Filter. Visit my other pages for more audio projects and articles">
+   <title>Multiple Feedback Bandpass Filter</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td align="right" class="hdrr">Project 63&nbsp;</table>
+
+<p align="center"><b>Multiple Feedback Bandpass Filter</b><br />
+<small>Rod Elliott - Elliott Sound Products</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><b>Introduction</b>
+<p>The multiple feedback bandpass filter is a simple looking design, but it is difficult to calculate the values for a given set of parameters. These filters are useful for equalisation, analysis and other tasks such as the Sound to Light converter (Project 62) or even a fully functional Vocoder. For those who have not heard of the vocoder, it is a device that takes a music source as one input and vocals as the other, allowing a guitar, keyboard or complete ensemble to be made to speak or sing. The "speech" from a good vocoder is quite intelligible, and is "ear candy" of the very best kind for experimental musicians.</p>
+
+<p>This is the basis of several projects that use this filter type, and I have included a small calculator programme to make it easier to determine the component values for different filter parameters.</p>
+
+<hr /><b>Description</b>
+<p>A schematic for the filter is shown in Figure 1. The source impedance must be low with respect to the input resistance, and normally these filters are driven from an opamp buffer. If a high impedance is used, it adds to the total input resistance, causing unpredictable centre frequency and response.</p>
+
+<p align="center"><img SRC="p63-f1.gif" ALT="Figure 1" BORDER="1" />
+<br /><b><small>Figure 1 - Multiple Feedback Bandpass Filter</small></b></p>
+
+<p>The resistor and capacitor values not shown are calculated from the formulae below, or by using the calculator program (see below for details). The two caps (C1 and C2) are always the same value. The opamp shown in the schematic is a single device, but most commonly dual or quad opamps will be used for this kind of application.
+
+<p>A resistance (Rx) from the +ve input of the opamp is optional to minimise the DC offset voltage. In general, this is completely unnecessary because the filters are not DC coupled anyway. Maintaining DC accuracy serves no purpose and is actually impossible. However, if used, the resistor from +in to earth (ground) should be the same value as R3 to obtain minimum DC offset from the opamp output. A 100nF capacitor (Cx) in parallel is highly recommended to bypass the non inverting input to earth for AC - this helps to reduce noise. If offset is not a problem for you, simply connect the non inverting input to the earth (GND) rail as shown. C4 is a supply bypass capacitor, and should be used at each IC package. Ceramic capacitors are recommended for the most effective high frequency bypass. The opamp can be any common device for low frequencies, but at high frequencies (above about 2kHz) a high speed device is required for best performance.
+
+<p>Somewhat surprisingly, the TL072 is somewhat faster than many people realise and is sufficient for most audio applications.</p>
+
+<hr />
+<table WIDTH="100%">
+<tr><td><img SRC="opamp.gif"></td>
+<td>The pinout for a typical dual opamp is shown for reference. This is pretty much an industry standard, and nearly all dual opamps use this pin configuration. As always, I suggest that you download the data sheet for the device you intend to use to double check.</td></tr></table>
+
+<hr /><b>Octaves and Filter Q</b>
+<p>With any bandpass design (or indeed any filter), one of the important parameters is Q, or 'Quality Factor'. The Q of a filter determines its bandwidth, and this is especially true of bandpass filters. Perhaps unexpectedly, bigger is not better. Most audio applications will require a maximum Q of about 4, which is suited to a 1/3 octave filter set. Few applications require closer filters than this, and to have 1/3 octave band filters covering the audio band requires 30 separate filters. Naturally, for even greater resolution this would increase dramatically.</p>
+
+<p>At this point, a discussion about Q, bandwidth and even division of octaves is needed.</p>
+
+<p>A filter with a Q of 10 (which is too high to be useful in most audio applications), has a bandwidth that is 1/10th of the centre frequency. Thus, a 1,000Hz filter with a Q of 10 has a bandwidth of 100Hz, measured at the -3dB frequencies on either side of the resonant peak. This is shown in Figure 2 for a filter having a centre (resonant) frequency of 159Hz.</p>
+
+<p align="center"><img SRC="p63-f2.gif" ALT="Figure 2" BORDER="1" />
+<br><b><small>Figure 2 - Typical measurement of Q</small></b></p>
+
+<p>With -3dB frequencies of 140 and 179Hz, bandwidth is 39Hz, so Q is 159 / 39 = 4.08</p>
+
+<p>Note that beyond about 2.5 octaves either side of the resonant peak, the rolloff slope is 6dB / octave (this varies with Q). This limits the usable range of the circuit in some respects, as the ultimate slope of 6dB / octave (20dB / decade) is only a first order filter response. Increasing the Q does nothing to solve this, the peak will be narrower and will extend more than the typical 8 to 10dB, but the ultimate slope is unaffected.
+
+<p>Where very high Q is needed (non-audio applications), it's common practice to cascade filters, with two, three or even more filters in series. Sometimes, they are "stagger tuned" (each has a small frequency offset from the next) to get a wide (and flat) passband while retaining a high rolloff slope.
+
+<p>When filters are cascaded (connected in series), the ultimate rolloff slope is also affected, so two filters gives 12dB rolloff, four gives 24dB rolloff, etc. For example, two filters with a Q of 4 connected in series gives a composite filter with a Q of 7 and an ultimate rolloff of 12dB/Octave. Four filters in series have a combined Q of about 9.4 and 24dB/Octave ultimate rolloff.</p>
+
+<hr />Division of an octave is simple, once you see how it is done. An octave is the doubling (or halving) of a frequency, so for A440 (Concert Pitch), an octave above is 880Hz, and an octave below is 220Hz. All notes are "A", but in different octaves. If we want to divide an octave into 12 parts (the equally tempered scale, as used in most musical instruments) we will get 12 semitones. Using A220 as a starting point. we must divide the 220Hz bandwidth into 12 musically related frequencies. The trick here is that you can't divide 220Hz by 12 to find the interval, because our ears have a logarithmic frequency response.
+
+<p>Instead, we must find the 12th root of 2 (1.05946...). If you multiply 220 by 1.05946 twelve times, you will get 440 (well, near enough anyway). To divide an octave in half, we use the square root of 2 (tooth root of 2?) which is 1.414. So (for the sake of simplicity), a half octave division from 100Hz gives the halfway point at 141Hz, and the next octave at 200Hz.</p>
+
+<p>To locate the 1/3 octave intervals, we use the 3rd root of 2 (1.26), so the frequencies will be 100Hz, 126Hz, 158.7Hz and 200Hz. By this means, an octave can be divided into as many frequencies as desired.</p>
+
+<hr /><b>Calculating Frequencies</b>
+<p>By far the easiest way is to use my program (<a href="mfb-filter.exe">download here</a>), but since it is only applicable to Windoze machines, some of you will have to do it the hard way.  Note that you will also need the Visual Basic 4 (VB4) runtime library, which can be obtained from <a href="http://www.annoyances.org/exec/software/vb4rt" target="_blank">Annoyances.org</a> (easy) or the Microsoft support Website (less easy).</p>
+
+<p>Based on the circuit above, select an appropriate capacitance first (both capacitors must be the same value), then these are the formulae ...</p>
+
+<table><tr><td> &nbsp; </td>
+<td>Input resistance</td><td> &nbsp; </td><td><i>R1 = Q / (G * 2 * &pi; * f * C)</i></td></tr>
+<tr><td></td>
+<td>Attenuator resistance</td><td></td><td><i>R2 = Q / ((2 * Q&sup2; - G) * 2 * &pi; * f * C)</i></td></tr>
+<tr><td></td>
+<td>Feedback resistance</td><td></td><td><i>R3 = Q / (&pi; * f * C)</i></td></tr>
+<tr><td></td>
+<td>Passband Gain</td><td></td><td><i>G  = 1 / ((R1 / R3) * 2)</i></td></tr>
+<tr><td></td>
+<td>Centre Frequency</td><td></td><td><i>f = (1 / (2 * &pi; * C)) * &radic;((R1 + R2) / (R1 * R2 * R3))</i></td>
+</tr></table>
+
+<p>In each case, <i>G</i> is gain, <i>Q</i> is quality factor and <i>f</i> is frequency. Capacitors are in Farads, resistors in Ohms and frequency in Hertz.
+
+<p>This process can hardly be regarded as trivial, especially if there is a significant number of filters to design. The program also allows you to apply standard resistor values and then calculate backwards to see how far out the final design will be from the design ideal. This applies to frequency, gain and Q. Capacitor selection will come with experience, but as a guide, the following table will help ....</p>
+
+<p align="center"><table border=1 style="border-collapse:collapse;" width=500>
+<tr><th width="33%">f <sub><small>(min)</small></sub></th><th width="33%">f<sub><small>(max)</small></sub></th><th width="33%">Capacitance</th></tr>
+<tr><td align="right">20 Hz</td><td align="right">80 Hz</td><td align="right">330 nF</td></tr>
+<tr><td align="right">80 Hz</td><td align="right">300 Hz</td><td align="right">82 nF</td></tr>
+<tr><td align="right">300 Hz</td><td align="right">1,200 Hz</td><td align="right">22 nF</td></tr>
+<tr><td align="right">1200 Hz</td><td align="right">4,800 Hz</td><td align="right">5.6 nF</td></tr>
+<tr><td align="right">4,800 Hz</td><td align="right">20 kHz</td><td align="right">1.5 nF</td></tr>
+</table>
+
+<p>Increasing capacitance decreases the resistance values, and especially with multiple filters, care must be taken to ensure that the loading on the input buffer opamp is not excessive. At the same time, low values of capacitance cause problems due to stray capacitance on the board, and resistor values become too high. The above is a reasonable set of values, and will give satisfactory results for most applications.
+
+<p>Naturally, any spreadsheet program (OpenOffice for example) can be used to calculate the values, and this is a much easier way than using a pocket calculator. Of course, you <i>do</i> have to program the spreadsheet, but that only needs to be done once. TI also has a program called "FilterPro" (see <a href="http://focus.ti.com/docs/toolsw/folders/print/filterpro.html" target="_blank">TI Website</a>) that works quite well. It's not easy to drive unless you understand the terminology though, so be prepared to learn the program's quirks as you learn about filters.
+
+<p>The TI application has a few more bells and whistles, tells you the required minimum gain-bandwidth product of the opamp and is all-in-all a very good design program. It includes many different types of filters and is very flexible, but beginners will find it heavy going at first.</p>
+
+<hr><b>Equalisers and Analysers</b>
+<p>For both equalisers and analysers, there are commonly accepted frequencies that are normally used. The exact frequencies depend on the octave division, the application and some degree of manufacturer preference, but nearly all share the basic octave boundaries which are based on a centre frequency of 1000Hz.</p>
+<p>For an octave band EQ or analysis instrument (10 Band) the frequencies are usually as follows ...</p>
+
+<p align="center">
+<small><b>31 &nbsp; 63 &nbsp; 125 &nbsp; 250 &nbsp; 500 &nbsp; 1k0 &nbsp; 2k0 &nbsp; 4k0 &nbsp; 8k0 &nbsp; 16k</b></small></p>
+
+<p>1/2 Octave band frequencies (20 Band) will be (typically) ...
+<p align="center"><small><b>
+31 &nbsp; 44 &nbsp; 63 &nbsp; 87 &nbsp; 125 &nbsp; 175 &nbsp; 250 &nbsp; 350 &nbsp; 500 &nbsp; 700 &nbsp; 1k0 &nbsp; 1k4 &nbsp; 2k0 &nbsp; 2k8 &nbsp; 4k0 &nbsp; 5k6 &nbsp; 8k0 &nbsp; 11k &nbsp; 16k &nbsp; 20k</b></small></p>
+
+<p>Finally, 1/3 Octave band instruments (30 Band) will typically follow this sequence ...</p>
+
+<p align="center">
+<small><b>25 31 40 50 63 80 100 125 160 200 250 315 400 500 630 800 1k0 1k2 1k6 2k0 2k5 3k2 4k0 5k0 6k3 8k0 10k 12k 16k 20k</b></small></p>
+
+<p>Naturally, it is possible to use wider bandwidth (and fewer filters) or narrower bandwidth and more filters. Although some 5 band 'graphic' equalisers have been made, they are of limited use for anything other than elaborate tone controls. Anything narrower than 1/3 Octave is rare, since the complexity of the filters increases for higher values of Q. This can get rather expensive, and in reality is of limited use for most applications in audio.</p>
+
+<hr><b>Projects Using MFB Filters</b>
+<p><img SRC="bpf.gif" height=61 width=75 align=LEFT>The symbol to the left is a standard representation of a band pass filter, and will be used in any future article or project using this building block. There are several projects that use bandpass filters, and this article simply describes the basic building block. Some of the projects I originally thought about are already published, and those remaining are fairly unlikely unless someone submits an article for publication. Several people have said they will do so, but none have delivered so far. Those I originally thought of are ...</p>
+
+<ul>
+	<li>Graphic Equaliser (1) - a conventional boost / cut equaliser featuring constant Q at each frequency (<a href="project84.htm"
+	target="_blank">Project 84</a>, a 1/3 octave subwoofer equaliser) <img src="tick.gif" /></li>
+	<li>Graphic Equaliser (2) - a frequency selective filter bank, with each band having its own volume control (<a href="project64.htm"
+	target="_blank">Project 64</a>)	<img src="tick.gif" /></li>
+	<li>Graphic Analyser - based on filters and LED VU meters, gives a display of the signal energy in each band (<a href="project136.htm"
+	target="_blank">Project 136</a>) <img src="tick.gif" /></li>
+	<li>Vocoder - a proper vocoder circuit, using filters and voltage controlled amplifiers (VCAs) (maybe one day, maybe not - there is a 
+	lot of work involved)</li>
+</ul>
+
+<p>The last circuit will represent a considerable commitment in time and money, but you will be able to build a basic version first, and expand it later as your needs and/or funds allow.</p>
+
+<hr><b>References</b>
+<ol>
+<li><small>Active Filter Cookbook, Don Lancaster (Howard W Sams &amp; Co., Inc.) ISBN 0-672-21168-8</small></li>
+<li><small>IC Opamp Cookbook, Walter G Jung (Howard W Sams &amp; Co., Inc.) ISBN 0-672-20969-1</small></li>
+<li><small><a href="http://focus.ti.com/docs/toolsw/folders/print/filterpro.html" target="_blank">TI Filter Pro</a></small>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr></table>
+<div class="t-sml">Page Created and Copyright (c) Rod Elliott 18 Jul 2000</div>
+</body>
+</html>

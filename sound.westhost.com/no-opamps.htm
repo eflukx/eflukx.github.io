@@ -1,0 +1,386 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="In the audio field, there are many who dislike opamps.  What are the alternatives, and do they work well enough to be useful?">
+	<!-- In the audio field, there are many who dislike opamps.  What are the alternatives, and do they work well enough to be useful? -->
+	<meta name="keywords" content="opamp,alternatives,audio,diy,hi-fi,electronic">
+	<title>Opamp Alternatives</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"> <!-- td { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+
+<script language="javascript" type="text/javascript">
+<!--
+/****************************************************
+     Author: Eric King
+     Url: http://redrival.com/eak/index.shtml
+     This script is free to use as long as this info is left in
+     Featured on Dynamic Drive script library (http://www.dynamicdrive.com)
+****************************************************/
+var win=null;
+function NewWindow(mypage,myname,w,h){
+{LeftPosition=(screen.width)?(screen.width-w)/2:100;TopPosition=(screen.height)?(screen.height-h)/2:100;}
+settings='width='+w+',height='+h+',top='+TopPosition+',left='+LeftPosition+',scrollbars=yes,location=no,directories=no,status=no,menubar=no,toolbar=no,resizable=no';
+win=window.open(mypage,myname,settings);}// -->
+</script>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Opamp Alternatives&nbsp;</td></tr></table>
+
+<p align="center">Copyright &copy; 2005 - Rod Elliott (ESP)<br />
+<small>Page Created 10 April 2005</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="articles.htm" OnMouseOver="document.t1.src='arrow.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br><a href="index2.html" OnMouseOver="document.t3.src='a.gif';" OnMouseOut="document.t3.src='a1.gif';">
+<img SRC="a1.gif" NAME="t3" ALT="ESP Home" BORDER=0 height=24 width=40></a><b>Main Index</b><br />
+
+<hr><b>Contents</b>
+<ul>
+	<li><a href="#s1.0">1.0 &nbsp; Introduction</a>
+	<li><a href="#s2.0">2.0 &nbsp; Single Transistor Amplifiers</a>
+	<ul>
+		<li><a href="#s2.1">2.1 &nbsp; How the Circuit is Designed</a>
+		<li><a href="#s2.2">2.2 &nbsp; Single Transistor Summary</a>
+	</ul>
+	<li><a href="#s3.0">3.0 &nbsp; Two Transistor Feedback Pair</a>
+	<ul>
+		<li><a href="#s3.1">3.1 &nbsp; Two Transistor Feedback Pair Summary</a>
+	</ul>
+	<li><a href="#s4.0">4.0 &nbsp; Buffers</a>
+	<ul>
+		<li><a href="#s4.1">4.1 &nbsp; Non-Inverting Buffers</a>
+		<li><a href="#s4.2">4.2 &nbsp; Inverting Buffers</a>
+		<li><a href="#s4.3">4.3 &nbsp; Buffers Summary</a>
+	</ul>
+	<li><a href="#s5.0">5.0 &nbsp; Tone Control</a>
+	<li><a href="#s6.0">6.0 &nbsp; Other Solutions</a>
+	<li><a href="#s7.0">7.0 &nbsp; Conclusion</a>
+	<li><a href="#ref">7.0 &nbsp; References</a>
+</ul>
+
+<hr><a id="s1.0"></a><b>1.0 - Introduction</b>
+<p>In the field of audio, there are many people who, for one reason or another, dislike opamps.  In some cases this is almost a passionate hatred, despite the vast number of extraordinary opamps available.  Some have been around for a long time, and although they replaced the circuits described in this article in 99% of all equipment, it is worth looking at the circuits that were used in the pre-opamp (but post valve/ tube) years.</p>
+
+<p>Of these circuits, Philips was responsible for many of the two transistor feedback amplifiers that were commonplace in high end equipment of the day. There is no denying that the performance of some of these circuits is/ was very good indeed, but it is exceeded (in many respects) by even mediocre opamps.</p>
+
+<p>This article cannot even hope to show all the variations, but the most common circuits are examined. This is an excellent way to learn more about transistors, how they work, and what you can do with them, and as such is recommended reading for anyone who is learning electronics or wants to brush up on what is now an 'ancient technology'.</p>
+
+<p>For all examples, an output voltage of 2V RMS will be used - this is for no other reason than to be able to show the difference between the circuits and to give a reasonably good idea of their relative performance. For the same reason, a supply voltage of 18V was chosen for all circuits that follow (and including the audio stage in Figure 1). Likewise, the gain has been set to 10 (or as close as standard value resistors will allow).  This is a voltage gain of 20dB.  All circuits are loaded by 10k, again for repeatable results.  This is also a reasonably representative load - perhaps a little on the low side, but chosen to give the most realistic result available from the SIMetrix [<a href="#ref">1</a>] simulator (or any simulator for that matter).</p>
+
+<hr><b><a id="s2.0"></a>2.0 - Single Transistor Amplifiers</b>
+<p>The simplest of all transistor amplifiers, these were used commonly in the very early days of transistor applications. They are very limited even today, and were much more limited when only germanium transistors were available. Unlike a valve (vacuum tube), input impedance is relatively low - this caused many of the early designs some grief because so many of the sources were high impedance.</p>
+
+<p>There are ways around anything, but noise performance was usually rather ordinary - in many cases worse than that obtained from valve circuits. However, the overall convenience of equipment that could be operated from a single (low voltage) battery was just too overwhelming, and the days of the valve were numbered when Sony released one of the first all transistor portable radios. This early radio was reliable, and had surprisingly good performance (germanium transistors, remember). Yes, I did have one <img src="bgrin.gif"></p>
+
+<p>The circuit in Figure 1 became the standard for single transistor amplification stages. There are other variants, but they either have poor thermal stability or poor tolerance for different transistor gains (or both).</p>
+
+<center><img src="noop-f1.gif" border="1" Alt="Fig 1"><br>
+<b><small>Figure 1 - Single Transistor Amplifier</small></b></center>
+
+<p>The drawing above shows a capacitor coupled AF (audio frequency) stage. Although transformer coupling was also used on occasion this was usually restricted to RF circuits. There were some instances where transformer coupling was used for audio, but the demands for lower cost and better performance saw the demise of transformers in this application. Transformer coupled audio stages will not be covered.</p>
+
+<p>As always, these 'simple' amplifiers are almost always biased so that the collector voltage is about &frac12; the supply voltage, so in the example above (AF only) the collector voltage is set to about 9V.</p>
+<p>With the standard load of 10k, the Fig 1 amp has a total harmonic distortion of 0.218% - not too shabby, but several orders of magnitude worse than even an 'ordinary' opamp. The output FFT spectrum is shown in Figure 2 - low order harmonics predominate, and it is worth noting that 1uV referred to 2V peak output is -126dB. This is well below the noise floor that can be expected for this type of circuit.</p>
+
+<center><a name="f2"></a><img src="noop-f2.gif" border="1" Alt="Fig 2"><br>
+<b><small>Figure 2 - Single Transistor Distortion Components</small></b></center>
+
+<p>The basic amplifier has many disadvantages.  Input impedance is rather low, and is only 16k for the circuit as shown. Output impedance is equal to the value of the collector resistance (2.2k in this case), and the local feedback provided by the emitter resistor does not affect this. Stage gain is (approximately) equal to the collector resistance divided by the emitter resistance. For the example shown the gain is actually only 7.95 - somewhat less than expected.</p>
+
+<p>Two small traps for the unwary -</p> 
+
+<ul>
+	<li>in nearly all simple transistor amplifier designs, the effective collector load resistance is actually the value of the physical collector resistor in parallel with the external load impedance - in the case of the Fig 1 amp, this works out to about 1.8k when it is loaded with 10k as shown.</li>
+	<li>The stage is inverting - a positive going input produces a negative going output (and vice versa, of course). Unless an inverted signal is acceptable, all such designs must be used in even numbers to provide a non-inverted output.</li>
+</ul>
+
+<hr><b><a id="s2.1"></a>2.1 - How the Circuit is Designed</b>
+<p>The design process for this amp is simple enough to explain (unlike most of the others shown below), and it gives a good insight into the way to approach analogue design. The key factor is the value of the collector resistance and the design voltage that will be across it under quiescent conditions.  In this case, the resistor is 2.2k and it will have 9V across it, so ...
+
+<blockquote>I = E / R = 9 / 2.2k = 4.09mA (4mA close enough).</blockquote>
+
+The next step is to decide on the gain - in this case I chose a gain of 10.  The gain is (in theory) determined by the ratio of the collector load (RL - resistor R3) to RE (the emitter resistor R4), so ...
+
+<blockquote>Av = R3 / R4 = 2.2k / 220 = 10</blockquote>
+
+As we saw though, the gain is less than this, so what went wrong? Two things - firstly (as noted above), the collector resistance (RL) is equal to the parallel combination of the actual resistance used, and the load resistor. Secondly, there is an intrinsic resistor inside the transistor - commonly referred to as re (literally 'little r e'), and its value is inversely proportional to the emitter current (IE) determined by
+
+<blockquote>re = 26 / IE (mA) = 26 / 4 = 6.5</blockquote>
+
+Recalculating the collector load resistance (the 10k load in parallel with the 2.2k collector resistor) ...
+
+<blockquote>RL = R3 * R<sub>load</sub> / (R3 + R<sub>load</sub>) = 1.8k</blockquote>
+
+Now we can recalculate the gain using the proper load resistance and the total emitter resistance ...
+
+<blockquote>Av = RL / RE + re = 1.8k / 220 + 6.5 = 7.96</blockquote>
+
+<p>That is almost exactly what was measured, so the design process actually does work <img src="grin.gif"></p>
+
+<p>Although the gain is less than the original target of 10, we shall accept that anyway for the purposes of this exercise. The next task is to determine the value of the bias resistors (R1 and R2). The first stage is to find out the lowest current gain for the selected transistor - let's assume that to be 200. The base current is equal to the collector current divided by the transistor gain.  That works out to ...
+
+<blockquote>Ib = Ic / h<sub>FE</sub> = 4 / 200 = 0.02mA (20uA)</blockquote>
+
+The general rule is that the bias circuit should carry between 2 and 5 times the base current, so we are looking for somewhere between 40 to 100uA through the bias network (this may go as high as 10 times if greater predictability is needed).  Before we can start on that, we need to know the base voltage.  Again, we need only Ohm's law and a simple addition to determine this.  Knowing that the emitter current is 4mA (plus the base current of 0.04mA which can be ignored for high gain transistors), the emitter voltage will be ...
+
+<blockquote>Ve = Re * Ie = 220 * 4mA = 880mV</blockquote>
+
+The base voltage is therefore the sum of the emitter voltage and the base to emitter voltage (typically taken as between 600 and 700mV). Assuming 600mV, the base voltage should therefore be ...
+
+<blockquote>Vb = Ve + Vbe = 880 + 600 = 1480mV (1.48V)</blockquote>
+
+R1 can now be found. The voltage across it is the supply voltage less the base voltage, the current through it is worked out using Ohm's law (again). We shall start with a value that is 10 times the collector resistance (always a good starting value), so let's try 220k ...
+
+<blockquote>I<sub>R1</sub> = V<sub>R1</sub> / R1 = (18 - 1.48) / 220k = 75uA</blockquote>
+
+That's 3.75 times more than the base current, so should be fine. Now, we only need to work out the value for R2 ...
+
+<blockquote>R2 = Vb / (I<sub>R1</sub> - Ib) = 1.48 / (75 - 20) = 26.9k (27k)</blockquote>
+
+<p>And that's it. The exercise is rather tedious (much more so before the advent of the calculator), and has to be re-calculated each time you change the supply voltage or the stage gain. The impedances are fixed by the component values and there is little you can do about it. It is possible to bypass R4 with a large value cap to get more gain (which can be very high even for a single stage), but then distortion goes through the roof.</p>
+
+<p>Output impedance is set by the value of the collector resistance (2.2k in this case), and input impedance is determined by the parallel combination of R1, R2 and Zb (the input impedance of the transistor's base). We need to know this so we know how much this circuit will load the source ...
+
+<blockquote>Zb = (RE + re) * h<sub>FE</sub> = (220 + 6.5) * 200 = 45.3k</blockquote>
+
+The total input impedance is the parallel combination of all three impedances ...
+
+<blockquote>Zin = 1 / (1 / R1 + 1 / R2 + 1 / Zb) = 1 / (1 /220k + 1 / 27k + 1 / 45.3k) = 15.7k</blockquote>
+
+<p>Since we measured (well, I did anyway) the input impedance at about 16k, it looks like everything has fallen into place nicely.</p>
+
+<p>It is worth noting that 'little re' can be ignored if its value is less than one tenth that of RE (the external resistance). For what it's worth, when RE is bypassed by a cap re becomes significant. I used a value of 2,200uF, and the circuit gain becomes roughly 220, but distortion rises rapidly - try 8.25% at 2V RMS output! The vast majority of that distortion is the result of the modulation of re as the collector voltage varies - as must the current through the load resistance and hence the emitter.  This is explained for interest value - feel free to examine this yourselves, you will learn a great deal in the process.</p>
+
+<p>You may have noticed that the vast majority of the design process involved only Ohm's law. It is commonly (but mistakenly) believed that all sorts of intricate maths are needed to design basic circuits. This is not the case at all.</p>
+
+<a id="s2.2"></a><hr><b>2.2 - Single Transistor Summary</b>
+<p>For many years, the single transistor stage was the fundamental building block of 'solid state' audio, and it must be admitted that these circuits did not compare particularly favourably (in some areas) to valves. Although the gain was more predictable, distortion was about equal for low levels, but the valve circuit with its much higher voltage had much greater headroom as well.</p>
+
+<p>The advantages of the circuit were that it consumed almost no power (by comparison to valve circuits), was not microphonic, and had an indefinite life. Added to this was the fact that it also occupied very little space (again compared to valves), and it used a single supply voltage (no heater) that was a nice safe low voltage.</p>
+
+<p>Compare the angst of having to perform all those calculations (and we didn't even consider noise contour curves or anything even remotely esoteric), with the ease of an opamp. There is no comparison. During the reign of germanium transistors things were even worse, because the leakage of germanium devices is so high (compared to silicon). Although the distortion is at a tolerable level, intermodulation products are higher than is desirable - 1kHz + 9kHz at 200mV input voltage each generates intermodulation at -53dB relative to the 1kHz signal level. This will almost certainly be audible.</p>
+
+<p>There is no reason to use circuitry of this type for any reason any more, as there are no benefits whatsoever.</p>
+
+<hr><b><a id="s3.0"></a>3.0 - Two Transistor Feedback Pair</b>
+<p>The increasing demands of customers and the need for circuits whose characteristics were fixed by resistors rather than device characteristics led to the design of better circuits. Device dependency was an issue that plagued valve equipment designers - if you wanted a different gain you often had to use a different valve. The ability to break away from that dependency was almost a miracle, and the improved circuits gained rapid acceptance.</p>
+
+<p>All of these amplifiers are pure Class-A (as is the single transistor version), but the addition of feedback allowed much higher performance than was ever achieved with <i>any</i> preceding (affordable) technology. It was these circuits that essentially brought hi-fi to the masses - people were no longer satisfied with the 'mantel radio' (so-called because it fit neatly on the mantelpiece over the fireplace), and wanted better reproduction for prices that were not out of reach.</p>
+
+<center><img src="noop-f3.gif" border="1" Alt="Fig 3"><br>
+<b><small>Figure 3 - Two Transistor Feedback Pair</small></b></center>
+
+<p>Under exactly the same drive conditions, this circuit has a distortion of 0.065%.  The spectrum is shown below, using the same axes as Fig 2. It is very apparent that it has greatly reduced distortion. Although the harmonics do extend a little further than the first example, they are all well below the noise floor. This extension of the harmonics is obviously typical of feedback circuits, but when they are at such a low level it is of no consequence.</p>
+
+<p>More interesting is intermodulation performance.  Using the same criteria as in the first example, primary intermodulation products are at -63dB, 10dB lower than the simple amp above. Since intermod is by far more irritating and obtrusive than harmonic distortion, it is important to minimise this wherever possible.</p>
+
+<p><small>It is worth pointing out at this stage that a simulated TL072 (not regarded as an audiophile opamp by any means) will give intermodulation figures under identical operating conditions that are <b>96dB</b> below the 1kHz or 9kHz levels. This is so much better than you will obtain with any of these circuits that it's just not worth considering them (IMHO). However, I have started this article, and will continue to the bitter end <img src="grin.gif"></small></p>
+
+<center><a href="noop-f4.gif" onclick="NewWindow(this.href,'','700','300');return false" onfocus="this.blur()"><img src="noop-f4.gif" border="1" Alt="Fig 4"></a><br><b><small>Figure 4 - Two Transistor Feedback Pair Spectrum</small></b></center>
+
+<p>The distortion components are reduced, and to make comparison easier, click on the above image to open it in a new window. Now, you can go back to <a href="#f2">Figure 2</a> and compare the two. Not so readily apparent is the fact that input impedance is much higher and output impedance much lower than a simple amplifier stage.</p>
+
+<p>These are important parameters for audio (and indeed for all amplification circuits). The input impedance of the Fig 3 amp is around 145k - not much less than the value of the bias resistor (R1).  The input impedance of the base of Q1 is about 4.6Meg with the circuit shown, and this is almost entirely due to the feedback (applied via R5 to the emitter of Q1). This feedback also defines the gain of the circuit, which is much closer to the design value (10 times, or 20dB). In theory, gain should be 11 - it can be worked out from ...
+
+<blockquote>Av = (R5 + R3) / R3) = (15k + 1.5k) / 1.5k = 11</blockquote>
+
+<p>While it is easy to tweak the values to get the gain to exactly 10, in all cases in this examination we will be satisfied if it is within 3dB of the target. The circuit shown is a direct translation from the circuits presented in <a href="#ref">Reference 1</a> below.</p>
+
+<p>Output impedance is harder to calculate than gain or input impedance, because you need to know the open loop gain of the amplifier. It was measured at about 82 ohms, a vast improvement, and this means that sensible load impedances will not change the gain of the amplifier. It is very important to understand that the output impedance of any amplifier does <i>not</i> mean that it can drive that impedance.</p>
+
+<p>I measured the open loop gain of the simulated circuit at 1,220, so (in theory) the output impedance is equal to ...
+
+<blockquote>Zout = R<sub>load</sub> / Av<sub>open loop</sub> = 1.8k / 2,220 = 81 Ohms</blockquote>
+
+<p>Note that the effective load resistance is <i>always</i> equal to the collector resistance in parallel with the external load resistance. This applies for all transistor topologies, and is independent of feedback or anything else you may imagine.</p>
+
+<p>Particularly with resistor loaded circuits, the peak current available is determined by the output resistor - for the Fig 3 circuit, this means that it cannot supply more than 4mA peak into any load, and it is important that this is not exceeded. In fact, the current demanded by the load (be it a following amplifier stage, a volume control or external equipment) should be no more than &frac12; the peak current available to maintain linearity. Ideally, it will always be much less than this. For the circuit shown, the minimum suggested load is around 10k, although it will tolerate less if the peak output voltage swing is restricted to no more than (say) &plusmn;3-4V.</p>
+
+<p>It is impractical to try to describe the design process for this circuit - not because it is hard, but because it is just time-consuming. Anyone who is interested enough can use the principles used in <a href="#2.2">2.2</a> to analyse the circuit. Despite the additional complexity, the basic analysis methods are the same.</p>
+
+<hr><b><a id="s3.1"></a>3.1 - Dual Transistor Feedback Pair Summary</b>
+<p>This class of circuit pretty much sealed the fate of simple stages, and also entrenched the use of feedback as an indispensable tool to obtain improved performance with predictable results despite device parameter spread. Variations on these feedback amps were used for equalisers (especially RIAA phono and tape head preamps), microphone preamps, and a great many others.</p>
+
+<p>Because of the tedious design process, Philips published a table of component values for different gains for the circuit of Fig. 3, although they probably could have saved themselves some trouble with a fairly simple design modification. By partially bypassing R3 (using a resistor and capacitor in series) the gain is easily modified, however, I have elected to reproduce the table below ...</p>
+
+<center><table width=640 border="1" style="border-collapse: collapse">
+<colgroup span=5 width="20%">
+<tr><td><b>Component</b></td><td><b>10dB Gain</b></td>
+<td><b>20dB Gain</b></td><td><b>30dB Gain</b></td><td><b>40dB Gain</b></td?</tr>
+<tr><td>R1</td><td>150k</td><td>150k</td><td>150k</td><td>150k</td></tr>
+<tr><td>R2</td><td>120k</td><td>120k</td><td>120k</td><td>120k</td></tr>
+<tr><td>R3</td><td>4.7k</td><td>1.5k</td><td>1.5k</td><td>1k</td></tr>
+<tr><td>R4</td><td>1.8k</td><td>2.2k</td><td>2.2k</td><td>2.2k</td></tr>
+<tr><td>R5</td><td>12k</td><td>15k</td><td>56k</td><td>180k</td></tr>
+<tr><td>R6</td><td>470R</td><td>560R</td><td>330R</td><td>680R</td></tr>
+<tr><td>R7</td><td>1.2k</td><td>470R</td><td>270R</td><td>220R</td></tr>
+</table>
+<b><small>Table 1 - Component Values for Different Gains (Figure 3)</small></b></center>
+
+<p>It is recommended that a 10pF cap be wired in parallel with R5 for the 40dB gain version.</p>
+
+<p>It is worth noting that there are two feedback loops in this design. One is DC only, and uses the voltage divider formed by R6 and R7. This biases the input transistor. The second feedback loop is via R5 and R3 - this is both AC and DC, so stabilises the DC operating conditions as well as the AC circuit gain.</p>
+
+<p>All in all, this circuit was a breakthrough in the early days of transistor circuits, and I learned a great deal about the design process by analysing circuits such as this when I first became serious about electronics. That circuits such as this will never be the equal of one of today's opamps is readily apparent, but given the resurgence of people wanting to use discrete circuitry someone will hopefully find this information interesting. Even today (after so many years of electronics) it is still fascinating to see the ways that were used to solve the problems that are inherent in all basic circuits.</p>
+
+<hr><b><a id="s4.0"></a>4.0 - Buffers</b>
+<p>Buffers were always a tricky issue before opamps, but the emitter follower is probably one of the best known single transistor circuit known. It is still used to this day in some cases, and is perfectly ok where extreme precision is not needed.
+
+<p>Emitter follower buffers can be improved considerably by using a current source in the emitter circuit, but this was very uncommon with early transistor circuits. While other (more complex) buffer circuits were sometimes used, this only applied for either seriously up-market applications, test equipment and some professional equipment.</p>
+
+<hr><b><a id="s4.1"></a>4.1 - Non-Inverting Buffers</b>
+<p>The emitter follower is non-inverting, has very good linearity for a simple circuit, but does not have unity gain. Typically, the gain is quoted as being between about 0.90 to 0.99.</p>
+
+<p>Figure 5 should be easily recognisable - this is a classic emitter follower. Gain is 0.98 and the circuit has very low distortion at 0.059%. The highest intermodulation product is at -65dB (using the same parameters as before). While not as good as an opamp, these figures are fairly respectable, and the circuit is very cheap and almost infinitely reliable. The distortion spectrum is not shown, but is almost identical to that in Figure 4.</p>
+
+<center><img src="noop-f5.gif" border="1" Alt="Fig 5"><br>
+<b><small>Figure 5 - Emitter Follower (non-Inverting Buffer)</small></b></center>
+
+<p>The emitter follower is the easiest transistor circuit to design, requiring the absolute minimum of maths to get a working circuit. Indeed, in most cases you can simply grab a handful of resistors, a transistor and a couple of caps and be in business. It is important to make sure that the emitter resistor is capable of supplying the current needed by the load, but this is usually as simple as making its value equal to around one fifth of the expected load impedance. For a load of 10k, that means a 2.2k resistor is fine.</p>
+
+<p>Measurements of the Fig 5 circuit show that the input impedance at the base of Q1 is 390k. The calculation for this is simply (and roughly) ...
+
+<blockquote>Zb = (Ze + re) * h<sub>FE</sub> = 1.8k * 200 = 360k</blockquote>
+
+Remember that re can be ignored if it is less than one tenth the value of the external load in parallel with the transistor's load resistance (now in the emitter circuit).  Calculated and measured values are close enough. As before, total input impedance is
+
+<blockquote>Zin = 1 / (1 / R1 + 1 / R2 + 1 / Zb) = 1 / (1 / 220k + 1 / 220k + 1 / 360k) = 84k</blockquote>
+
+<p>Output impedance is (approximately) equal to the total impedance seen by the base divided by the transistor's gain. This means that output impedance depends on the source impedance. This level of dependency affects all simple transistor circuits, where inputs are dependent on outputs or vice versa.</p>
+
+<p>There is so little to the emitter follower that I have completely run out of things to say ... except that it must be remembered that an emitter follower operates with 100% local feedback, and the circuit will become unstable if a reactive load (such as a capacitor) is connected to the output. I always recommend that a series resistor be used at the output of any emitter follower that will drive a cable that is more than 100mm long.</p>
+
+<p>Despite my claim that I've run out of things to say, there actually are many more things that could be said about emitter followers, but this article is intended to cover the basics - if every variation were to be discussed it would become a book.</p>
+
+<hr><b><a id="s4.2"></a>4.0 - Inverting Buffers</b>
+
+<p>Inverting buffers are harder with discrete transistors without excessive circuit complexity. This rather paradoxical state of affairs occurs because of the very nature of the transistor and how it works. While a simple amp is inverting, a simple buffer (emitter follower) is non-inverting. It is possible to create an inverting buffer using the two circuits in tandem, as shown in Figure 6.</p>
+
+<center><img src="noop-f6.gif" border="1" Alt="Fig 6"><br>
+<b><small>Figure 6 - Inverting Buffer</small></b></center>
+
+<p>This circuit has many limitations, the main one being that voltage swing is rather limited. The absolute best that you can expect is about two thirds of the supply voltage (peak to peak), so for the circuit shown, about 12V P-P or about 4V RMS. Assume that you will actually get less than this - the circuit above will manage 3V RMS before clipping.</p>
+
+<p>Because Q1 has the same resistor value for both collector and emitter, the voltages on each are essentially equal and opposite. The first stage therefore has unity gain, but inverted at the collector, while the emitter follower also has unity gain, but non-inverting. There are other alternatives, but inverting buffers were not common with early transistor equipment.</p>
+
+<hr><b><a id="s4.3"></a>4.3 - Buffers Summary</b>
+<p>Simple transistor buffers are acceptable where one needs to provide a low output impedance with the minimum of fuss. The emitter follower is not good enough to use in accurate filters, as its gain of less than unity produces filters with a Q that is lower than expected, changing the filter characteristics.</p>
+
+<p>The inverting buffer is a travesty - IMO it is next to useless. Given the limitations and complexity of the circuit, it is difficult to think of a single area where it might be used to advantage.</p>
+
+<p>By comparison, even a cheap opamp will outperform either of these circuits in almost every respect, and with fewer components.</p>
+
+<hr><b><a id="s5.0"></a>5.0 - Tone Control</b>
+<p>The original Baxandall feedback tone control was based on a simple amplification stage. It was used with both valve and transistor circuits, and although it certainly works, it also has some bad habits when used this way. Again, the problem is mainly one of distortion - with only a limited amount of gain available, there is inevitably more distortion than is usually considered acceptable.</p>
+
+<p>Figure 7 shows the basic arrangement, but it must be admitted that there were a great many alternatives that performed far better than the circuit shown here. Again, it is impossible to give all the variants (or even a subset) because there are so many. <i>All</i> of the discrete versions have worse distortion characteristics than a similar circuit made using an opamp of reasonable specification.</p>
+
+<center><img src="noop-f7.gif" border="1" Alt="Fig 7"><br>
+<b><small>Figure 7 - Discrete Feedback Tone Control</small></b></center>
+
+<p>Distortion is only around 0.03% with the controls centred, and it manages to stay reasonably constant at 1kHz regardless of setting. At either frequency extreme things change radically though. Intermodulation rises dramatically at maximum treble cut or boost, with the first intermodulation products at -32dB below the 9kHz tone at either extreme.  It must be considered that if the system has to be used with maximum treble boost or cut, then intermodulation is probably the least of your problems.</p>
+
+<center><img src="noop-f8.gif" border="1" Alt="Fig 8"><br>
+<b><small>Figure 8 - Tone Control Frequency Response</small></b></center>
+
+<p>The response is shown above. It is quite obvious that there is much more treble boost (especially) than you will ever need (or hear), with the boosted signal extending to 100kHz and well beyond. Bass is reasonably well behaved, but with the peak boost at 42Hz, it needs to be extended to work with a system with a subwoofer.</p>
+
+<hr><b><a id="s6.0"></a>6.0 - Other Solutions</b>
+<p>There is a lot to be said for discrete opamps - or at least circuits that have better performance than those looked at earlier in this article. With 0.024% THD and a very clean spectrum, the Project 37 amplifier is better than all of the alternatives shown previously.  The main reason is the use of a current source (Q2) as the transistor load. Simply replacing Q2 with a 2.2k resistor increases THD to 0.25%.</p>
+
+<p>To obtain the required gain (20dB), R5 had to be reduced to 1.5k - with 2.2k (theoretical gain of 11), the gain was well down from what it should have been. As we saw in previous examples, this is quite normal where the open loop gain is not high enough.</p>
+
+<p>Although the circuit looks much more complex, it is only marginally worse in this respect than the circuit of Fig 3. The simple fact of the matter is that this level of performance is just not available from less complex circuits. As Einstein said, "All things should be as simple as possible, but no simpler". This is very true when it comes to circuits of this type, and in the author's opinion, far too many 'hi-fi' amplifiers are much simpler than they should be.</p>
+
+<center><img src="noop-f9.gif" border="1" Alt="Fig 9"><br>
+<b><small>Figure 9 - Discrete Amp (as used in Project 37)</small></b></center>
+
+<p>The spectrum is shown below. This shows that the harmonic structure is almost entirely second and third harmonic, and even the third is at -98dB. This is negligible, so it is not unreasonable to claim that distortion is almost entirely second harmonic. The intermodulation results are even better - the first intermodulation product is at -72dB, almost 10dB better than the Fig 3 circuit, and nearly 20dB better than the simple amp in Fig 1.</p>
+
+<center><img src="noop-f10.gif" border="1" Alt="Fig 10"><br>
+<b><small>Figure 10 - Distortion Spectrum</small></b></center>
+
+<p>The input impedance is about 96k - note the biasing arrangement, which is designed to minimise noise and maximise input impedance. C2 decouples any supply noise, and bias current is applied via R1. Q1's base input impedance is greater than 2.8 Meg, so R1 could be increased if desired.</p>
+
+<p>It is fairly obvious that the small increase in complexity has yielded a large benefit - much lower distortion being the major improvement. This is particularly important for intermodulation distortion, and this is markedly improved from any of the alternatives.</p>
+
+<hr><b><a id="s7.0"></a>7.0 - Conclusion</b>
+<p>From the details here, it is easy to see that it is not easy to obtain good performance from simple discrete circuits. While improved versions (such as the P37 preamp we looked at in section 6) do perform very well, in general the 'old' circuits do not.</p>
+
+<p>They were certainly an enormous improvement in their day, but that day has passed. Modern opamps are so superior that there is no reason to look elsewhere, unless you wish to experiment and learn more about the design processes involved. While there is certainly some historical value in the circuits shown, they are no longer to the standard expected of true high fidelity.</p>
+
+<p>Where the simulator shows that the first intermodulation product using a TL072 is 109dB below the 9kHz tone, none of the circuits shown come even close to this.  The P37 amp is certainly better than any of the others, but it is still significantly worse then the opamp. It is probable that the intermod from P37 is inaudible (after all, many people have commented on just how good it sounds), and it is equally probable that the simulator over-estimated the TL072's quality - it <i>is</i> a simulator, after all.  I ran a new intermodulation test using an LM324 opamp (hardly a renowned device for audio), and SIMetrix said that intermod was at -68dB. From that, we can deduce that the models are reasonable so the simulated results will not be too far from reality.</p>
+
+<p>There is no doubt that devices such as the OPA2134 or the venerable NE5534 (or the dual version, NE5532) will be much better than anything shown here, but will they <i>sound</i> as good, better or worse? This is something that can only be determined with a proper blind AB test. Logically, it probably should not be possible to hear the difference between either opamp, or the P37 circuit. As for the others ... I don't know, but if you ever find out, be sure to let me know.</p>
+
+<hr><b><a name="ref"></a>References</b>
+<p>1. &nbsp; <a href="http://www.simetrix.co.uk/" target="_blank">SIMetrix</a> &nbsp; SIMetrix circuit simulator (UK)<br>
+2. &nbsp; Audio Amplifier Systems &nbsp; Philips Application Book , MD Hull, Third Edition, June 1972<br>
+3. &nbsp; <a href="project37.htm" target="_blank">Project 37</a> &nbsp; Elliott Sound Products , Rod Elliott, November 1999</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 10 Apr 2005</div>
+</body>
+</html>

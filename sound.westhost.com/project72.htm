@@ -1,0 +1,143 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Rod Elliott">
+<meta name="description" content="ESP Project Pages - Single Chip 25W Amp. Make your own Gainclone, or just a nice, reliable low power amplifier.">
+<!-- ESP Project Pages - Single Chip 25W Amp. Make your own Gainclone, or just a nice, reliable low power amplifier. -->
+
+<meta name="keywords" content="audio,project,diy,amp,preamp,crossover,test,power,supply,circuit,schematic,diagram,gaincard">
+<title>Single Chip 25W Amplifier (Project 72)</title>
+<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 72&nbsp;</td></tr></table>
+
+<p align="center"><b>20 Watt / Channel Stereo Power Amplifier</b><br />
+<small>Rod Elliott - ESP (From Design Notes from National Semiconductor)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for the latest revision of this project. Click the image for details.<br>
+
+<hr><b>Circuit Description</b>
+<p>There are many instances where a simple and reliable power amplifier is needed - rear and centre channel speakers for surround-sound, beefing up the PC speakers, low powered tweeter amplifier, etc. For those who want to build their own 'Gainclone' amplifier, this will certainly do the job :-)
+
+<p>This project (unlike most of the others, but in a similar vein to Project 19) is based almost directly on the typical application circuit in the National Semiconductor specification sheet. You can also use the TDA2050 (from SGS-Thompson), which has almost identical performance and (remarkably) the same pinouts! As it turns out, the amp in the NS application circuit is pretty good, as is the (very similar) one from SGS. The amp is also remarkably simple to build - if you have a PCB! These ICs are a cow to wire on Veroboard - it is possible, but results are unpredictable.</p>
+
+<p>Figure 1 shows the schematic - this is almost the same as in the application note (redrawn), and with added RF protection at the input.&nbsp; Note that the speaker must return to the central 'star' earth (ground) point. If connected to the amplifier's earth bus, you <b><i>will</i></b> get oscillation and/or poor distortion performance.</p>
+
+<a id="fig1"></a><center><p><img SRC="p72-f1.gif" ALT="Figure 1" BORDER=1 height=293 width=616>
+<br><b><font size=-1>Figure 1 - LM1875 / TDA2050 Power Amplifier Circuit Diagram (One Channel)</font></b></center>
+
+<p>Voltage gain is 27dB as shown, but this can be changed by using a different value resistor for the feedback path (R4, currently 22k, between pins 2 and 4).&nbsp; The amplifier must not be operated at any gain less than 10 (20dB) as set by R4 and R5, as it will oscillate. In some cases, an inductor may be needed in series with the output to prevent instability with capacitive loads (10 turns of 0.5mm wire wound around a 10 Ohm 1W resistor). The most common capacitive load is the speaker cable itself, and 'audiophile' leads are often worse than standard grade cables in this respect.</p>
+
+<p>The 1 Ohm resistor (R6) should be a 1W or 0.5W type, and all others should be 1/4W 1% metal film (as I always recommend). All electrolytic capacitors should be rated at 50V if at all possible, and the 100nF (0.1uF) caps for the supplies should be as close as possible to the IC to prevent oscillation. C1 should be a bipolar (non-polarised) electrolytic, or may be plastic film if you prefer.</p>
+
+<p>The supply voltage should be about &plusmn;25 Volts at full load, which will let this little guy provide a maximum of 25 Watts (rated minimum output at 25&deg;C). To enable maximum power, it is important to get the lowest possible case to heatsink thermal resistance. This will be achieved by mounting with no insulating mica washer, but be warned that the heatsink will be at the -ve supply voltage and will have to be insulated from the chassis. For more info on reducing thermal resistance, read the article on the design of heatsinks - the same principles can be applied to ICs - even running in parallel. I haven't tried it with this unit, but it is possible by using a low resistance in series with the outputs to balance the load.</p>
+
+<p>Note that the supply voltage must not exceed &plusmn;30V at any time - this is the absolute maximum voltage rating for the LM1875. Note that the TDA2050 is rated for a maximum of &plusmn;25V.</p>
+
+<center><img SRC="p72-f2.gif" ALT="Figure 2" HSPACE=10 VSPACE=10 BORDER=1 height=175 width=329>
+<br><b><font size=-1>Figure 2 - IC Pinouts</font></b></center>
+
+<p>Figure 2 shows the pinouts for the LM1875, and it should be noted that the pins on this device are staggered to allow adequate sized PCB tracks to be run to the IC pins.</p>
+
+<p>The PCB for this amp is for a stereo amplifier, is single sided, and supply fuses are located on the PCB. The entire stereo board including four fuses is 115mm x 40mm (i.e. really small). The heatsink needs to be bigger than you might expect, largely because of the relatively high thermal resistance of the TO-220 case.&nbsp; National recommend that the heatsink should be no smaller than 1.2&deg;C / Watt (it is actually suggested that the heatsink be 0.6&deg;C / W, but this is a very large heatsink indeed, and is not necessary for normal audio into reasonably well behaved loads.</p>
+
+<p>Never operate these ICs with no heatsink, even without any load connected. The quiescent dissipation will cause them to overheat very quickly, and may damage the internal circuitry.</p>
+
+<p>Output power is rated at 20W per channel, but with music signals you will probably be able to get a peak power of about 25W into an 8 ohm load. Refer to the data sheet (see link below) for the full specification on the IC. Note that the TDA spec sheet claims 50W, but this is overly optimistic and cannot be achieved in practice.</p>
+
+<center><p><img SRC="p72-pic.jpg" ALT="Photo of completed amplifier" BORDER=1 height=335 width=640>
+<br><b><font size=-1>Photo of Completed Amp (On Heatsink)</font></b></center>
+
+<hr><b>How Does It Sound?</b>
+<br>The sound quality is very good - as I said at the beginning, I would not call it audiophile hi-fi (but then again - I might, with caveats), and provided the amp is never allowed to clip it sounds excellent. Because of the overload protection (which I have never liked in any form) this amp provides somewhat nastier artefacts as it clips than most discrete amplifiers.
+
+<p>For those who think an incredibly short feedback path length is actually important, a surface mount resistor can be used for R5, either soldered directly to the leads (pins 2 and 4) or the pads on the copper side of the board. This will provide a feedback path of less than 20mm in total, and could be made less than 10mm (at the risk of damaging the IC with excess heat).</p>
+
+<p>This amp is ideal for Hi-Fi PC speakers, and could also be used as a midrange and/or tweeter amp in a tri-amped system - there are a lot of possibilities, so I will leave it to you to come up with more.</p>
+
+<hr><b>Power Supply</b>
+<br>A suitable power supply diagram is shown below. This is adequate for as many amplifiers as needed, simply by increasing the size of the transformer. 18-0-18 volt transformers are available (they are commonly used for 12V lead-acid battery chargers), and this provides the required +/-25V.<br /><br />
+
+<table BORDER WIDTH="100%">
+<tr><td><img SRC="mains.gif" alt="Mains" height=26 width=33></td>
+<td BGCOLOR="red" class="t-wht"><big><b>WARNING:</b> Mains wiring must be performed by a qualified electrician - Do not attempt the power supply unless suitably qualified. Faulty or inadequate mains wiring may result in death or serious injury.</big></td></tr>
+</table><br /><br />
+
+<center><img SRC="p72-f3.gif" ALT="Figure 3" BORDER=1 height=184 width=538>
+<br><b><font size=-1>Figure 3 - Power Supply</font></b></center>
+
+<p>Although 10,000uF capacitors are shown, the amplifier will operate quite happily with less - I do not recommend anything less than 4,700uF for a pair of amps. The transformer rating is up to you. It should not be less than 150VA, and more than 300VA is unwarranted - the regulation improves with greater VA ratings, but the law of diminishing returns comes into play quite quickly.</p>
+
+<p>Signal earth (the triangle) and mains earth should be tied together at a common point, which will become the 'star' earthing point for the whole amplifier. This should be as close as possible to the common of the filter capacitors. The main earth must connect to the chassis to prevent electric shock in case of a transformer "meltdown".</p>
+
+<table WIDTH="100%">
+<tr><td><img SRC="pdficon.gif" alt="PDF"><a href="http://www.national.com/pf/LM/LM1875.html#Datasheet"> &nbsp; Download the data sheet</a></td>
+<td>(Copyright National Semiconductor) - <font size=-1>This is a direct link to the National Semiconductor page for the LM1875T.</font></td></tr></table>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott and National Semiconductor, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Created 13 Jan 2001</div>
+</body>
+</html>

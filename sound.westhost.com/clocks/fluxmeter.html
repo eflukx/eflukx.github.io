@@ -1,0 +1,136 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="description" content="ESP Clock Information - Build a flux meter (magnetometer) to test clock magnets and verify 'recharge' effectiveness.">
+<!-- Build a flux meter (magnetometer) to test clock magnets and verify 'recharge' effectiveness -->
+<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+<meta name="ROBOTS" content="all">
+<title>Flux Meter</title>
+<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img src="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table width="100%" bgcolor="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td align="right" class="hdrr">Flux Meter&nbsp;</td>
+</tr></table>
+
+<p align="center">Rod Elliott<br>
+<small>Page Created 28 November 2008</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr />A fluxmeter (aka magnetometer or Gaussmeter) is not an essential tool, but is very useful for verifying that a magnet "recharge" has worked. Not only with increased magnet strength, but for Bulle clocks in particular, you can tell if the magnet has the correct polarity. This project is quite simple to build, and can be made on a piece of Veroboard or similar without any problems.
+
+<p>There are a few magnetometers on the Net, but most are either too simple or too complex. This version is designed to have the right balance, and rather than using an external meter has a traditional analogue meter to show the magnet strength and polarity. Naturally, you can use an external meter if you prefer. This will reduce the overall cost, but personally, I prefer a self-contained unit if possible.</p>
+
+<hr><b>The Flux Meter</b>
+<p>The heart of the flux meter is the <a href="http://www.allegromicro.com/hall/" target="_blank">Allegro Microsystems</a> UGN3503UA Hall-effect sensor IC, U1. These devices are available for only a few dollars, and are more than sensitive enough for anything we may need to do with clock magnets. They do have one failing, and that's that the maximum flux density is rather limited. A very strong magnet won't cause any damage, but it <i>will</i> cause the Hall sensor to saturate. Once the sensor is saturated, a further increase of magnetic field strength does not cause the output to change proportionally, so a large flux change may only cause a small change of output level.
+<p>Some magnets that we might use today (such as neodymium-iron-boron) are more than strong enough to saturate the IC, but this isn't normally a problem. By spacing the sensor a suitable distance from the magnet (with a piece of plastic, wood or brass for example), the flux density is reduced sufficiently to ensure an accurate comparative reading.</p>
+
+<center><img src="fluxm-f1.gif" border=1><br><b><small>Figure 1 - Magnetometer Schematic</small></b></center>
+
+<p>The circuit is quite straightforward. It uses a dual operational amplifier (opamp), and a simple zener diode regulator for the Hall sensor. Layout is not critical, and all parts are low cost. The meter is the most expensive single component. The entire circuit is powered from a 12V power supply - either a small "laboratory" type or a 12V plug-pack (wall wart) supply is fine. Current consumption is about 35mA, so even the smallest supply you can find is more than adequate.</p>
+
+<hr><b>Circuit Description</b>
+<p>The Hall sensor is powered from the 5.1V supply created by R10 and D1. The small (typically 1.3mV/G) signal is amplified by U2B, to create a usable current through the meter. U2A is used to buffer the zero offset pot VR1 - this is needed because the amplifier stage needs a stable, low impedance reference.
+<p>Because the output of the Hall sensor can be either positive or negative with respect to the voltage at U2 pin 1, the switch SW1 is included to allow you to reverse the meter movement's polarity. While you can also flip the sensor IC to do the same thing, it's not always as convenient as a switch. The meter will give a reading of 1mA (full scale) with a total voltage of 1V across the meter and R9 (820 ohms).
+<p>Current through R10 is about 32mA. The UGN3503U draws a worst case current of 13mA, and with no magnetic field, the sensor's output will be at around 2.5V above earth (ground). The sensor output typically varies by 1.3mV/G (one Gauss is 100uT - micro Tesla). D2 is a LED to show that power (+12V) is available. The LED and its resistor (R11) are optional.
+<p>The first thing to do is zero the meter. VR1 is used for this. To set zero, the gain control (VR2) should be set to maximum, and VR1 adjusted until the meter reads zero. Operate the Nor./Rev. switch (SW1) to make sure that the meter needle remains at zero for both polarities. Make sure that the meter still shows zero as gain is reduced from maximum. Normally, the zero indication should drift by no more than one small division on the meter scale as the gain is changed.
+<p>When the Hall sensor is brought near a magnet, the output voltage will change depending on the field strength and polarity (North or South). Adjust the gain control to obtain a reference reading.
+<p>R6 should be selected so that the total resistance of the meter movement and R6 is 1k. A typical 1mA movement will have a DC resistance of about 200 ohms, so 820 ohms is a reasonable starting point. This sets the minimum sensitivity such that a field strength of 380 Gauss will give full scale deflection on the meter.
+<p>With the gain set to maximum, a flux density of 65 Gauss represents full scale. The gain is therefore variable by a factor of almost 6:1 - this will normally be more than enough for the intended application. It is possible to increase the gain further - there is no theoretical limit. However, the circuit complexity increases dramatically, and setting and maintaining the zero point becomes very difficult.
+<p>The hall sensor will give a positive (&gt;2.5V) voltage when a South pole is brought close to the branded face. This is the IC face that has the Allegro logo and part number. When the IC is flipped over or the magnetic polarity is reversed (either, not both), the output will become negative (&lt; 2.5V). Because the amplifier is inverting, this is reversed at the meter. When the meter switch in the Normal position, a North pole applied to the branded face causes the meter reading to increase.
+<p>There's nothing difficult about the circuit. The opamp is a very common (and cheap) low power device, and the only thing that may be hard to get is the Hall sensor itself. They should be available from any of the many electronics parts resellers though.</p>
+
+<table width="700" align="center" border=1 style="border-collapse: collapse">
+<tr><td colspan=4 align="center"><b>ELECTRICAL CHARACTERISTICS at TA = +25°C, V<sub>CC</sub> = 5 V</b>
+<tr><td valign="bottom"><b>Characteristic</b><td valign="bottom"><b>Symbol</b><td valign="bottom"><b>Test Conditions</b>
+<td align="center"><b>Limits</b><br><table width="100%">
+  <colgroup span=4 width="25%"><tr><td><b>Min</b><td><b>Typ</b><td><b>Max</b><td><b>Units</b></table>
+<tr><td>Operating Voltage<td>V<sub>CC</sub><td><td><table width="100%"><colgroup span=4 width="25%"><tr><td>4.5<td> - <td>6.0<td>V</table>
+<tr><td>Supply Current<td>I<sub>CC</sub><td><td><table width="100%"><colgroup span=4 width="25%"><tr><td> -<td>9<td>13<td>mA</table>
+<tr><td>Quiescent Output Voltage<td>V<sub>OUT</sub><td>B = 0 G<td>
+  <table width="100%"><colgroup span=4 width="25%"><tr><td>2.25<td>2.50<td>2.75<td>V</table>
+<tr><td>Sensitivity<td>&Delta;V<sub>OUT</sub><td>B = 0 G to &plusmn;900 G<td>
+  <table width="100%"><colgroup span=4 width="25%"><tr><td>0.75<td>1.30<td>1.75<td>mV/G</table>
+<tr><td>Bandwidth (-3 dB)<td>BW<td> -<td>
+  <table width="100%"><colgroup span=4 width="25%"><tr><td>-<td>23<td>-<td>kHz</table>
+<tr><td>Broadband Output Noise<td>V<sub>out</sub><td>BW = 10 Hz to 10 kHz<td>
+  <table width="100%"><colgroup span=4 width="25%"><tr><td>-<td>90<td>-<td>&micro;V</table>
+<tr><td>Output Resistance<td>R<sub>OUT</sub><td> -<td>
+  <table width="100%"><colgroup span=4 width="25%"><tr><td>-<td>50<td>220<td>&Omega;</table>  
+</table>
+
+<p>The above table shows the electrical characteristics of the Allegro UGN3503 series of linear Hall effect sensors. There are others from other manufacturers, but they seem to be far less commonly available through normal outlets.
+<p>Note that these devices are normally not calibrated. While fully calibrated Hall sensors may be available from some suppliers, they are far more expensive. This is not necessary for testing magnet strength - the most common use will be before/after comparisons, and a calibrated system is not necessary. If you do get a calibrated version, the "calibration" usually consists of a graph showing the measured output voltage for a number of known magnet strengths.</p>
+
+<hr><b>The Hall Effect</b>
+<p>If a conductive plate of minimal thickness is subjected to a magnetic field that passes through the plate at right angles, some of the input current is deflected by the magnetic flux, and appears as a voltage differential at the adjacent edges of the plate - see Figure 2. The effect was discovered by Edwin Hall in 1879. Modern Hall effect sensors use a semiconductor (such as "doped" silicon, where additives are included to adjust the conductivity), and this improves the sensitivity dramatically compared to metallic conductors.</p>
+
+<center><img src="fluxm-f2.gif" border=1><br><b><small>Figure 2 - Hall Sensor Operation</small></b></center>
+
+<p>The output voltage and current are directly proportional to flux density, input current and film/plate thickness. When metallic conductors are used, the output voltage is extremely small, typically measured in fractions of a microvolt. They do have one significant advantage over a semiconductor though, in that the saturation flux density is massively higher. A metallic Hall sensor can be expected to remain linear with any magnet that is currently available.</p>
+
+<hr><b>References</b>
+<ul>
+<li>A slightly more expensive Gaussmeter - <a href="http://my.execpc.com/~rhoadley/magmetr1.htm" target="_blank">Magnet Man</a>
+<li>Hall Effect - <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/magnetic/Hall.html#c2" target="_blank">HyperPhysics</a>
+<li>I also recommend a Google search - there is quite a bit of information available.
+</ul>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="index.html" onmouseover="document.b1.src='a.gif';" onmouseout="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt=">" border="0" height="24" width="40"></a><b>Clocks</b><br>
+<a href="../index2.html" onmouseover="document.b2.src='a.gif';" onmouseout="document.b2.src='a1.gif';">
+<img src="a1.gif" name="b2" alt=">" border="0" height="24" width="40"></a><b>Main Index</b><br><br>
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2008. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page created and &copy; 31 August 2008./ Updated 04 Sep 08 - Added new photo of completed board, added C4.</div>
+
+</body>
+</html>

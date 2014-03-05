@@ -1,0 +1,540 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Distortion and feedback - is feedback as bad as some people claim?">
+	<!-- Distortion and feedback - is feedback as bad as some people claim? -->
+	<meta name="keywords" content="distortion, feedback, fb, harmonics, intermod, intermodulation, power, amplifier, opamp, audio, diy, hi-fi,electronic">
+	<title>Distortion and Feedback</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } --> </style>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Distortion &amp; Feedback&nbsp;</td></tr></table>
+
+<p align="center"><small>Copyright &copy; 2006 - Rod Elliott (ESP)<br>
+Page Published 06 May 2006</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t1" alt="Articles" BORDER="0"></a> <b>Articles Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="t2" alt="Index" BORDER="0"></a><b>Main Index</b>
+
+<hr><b>Contents</b>
+<ul>
+<li><a href="#a0">0 &nbsp; Preamble</a></li>
+<li><a href="#a1">1.0 &nbsp; Introduction</a></li>
+<li><a href="#a2">2.0 &nbsp; What <i>Is</i> Distortion?</a><ul>
+  <li><a href="#a21">2.1 &nbsp; How a Transistor Causes Distortion</a></li>
+  <li><a href="#a22">2.2 &nbsp; Historical Perspective</a></li></ul>
+  <li><a href="#a3">3.0 &nbsp; Principle of Negative Feedback</a><ul>
+    <li><a href="#a31">3.1 &nbsp; Oh No, Not a Water Analogy!</a></ul></li>
+  <li><a href="#a4">4.0 &nbsp; Distortion Analysis</a></li>
+  <li><a href="#a5">5.0 &nbsp; Examining the Feedback Loop</a><ul>
+    <li><a href="#a51">5.1 &nbsp; TIM/TID - Transient Intermodulation Distortion</a></ul></li>
+<li><a href="#a6">6.0 &nbsp; Amplifier Circuit Delay</a></li>
+<li><a href="#a7">7.0 &nbsp; Local vs. Global Feedback</a></li>
+<li><a href="#a8">8.0 &nbsp; Conclusion</a></li>
+<li><a href="#a9">9.0 &nbsp; References</a></li>
+<li><a href="#a10">10.0 &nbsp; Simulation Download</a></li>
+</ul>
+
+<hr><a id="a0"></a><b>0 - Preamble</b>
+<p>Let's make something completely clear before we continue. Yes, negative feedback <i>can</i> increase the level of higher order harmonics. Low order harmonic content is reduced, but harmonics that were previously below measurement thresholds may suddenly raise their ugly little heads to annoy and frustrate the designer. This generally only happens when small amounts of feedback are used around amplifiers that have limited gain and often rather poor performance to start with, but there might be exceptions (I've not found any so far).
+
+<p>The point of this article is to show that when <i>properly implemented</i>, negative feedback will invariably reduce distortion to levels that are well below audibility. Not just harmonic distortion, but the much more intrusive intermodulation distortion. If done <i>incorrectly</i> the results can be awful. There are many exciting possibilities that generally employ overly simplified circuitry, often in the mistaken belief that "simple is better". Albert Einstein is credited with saying that "Everything should be as simple as possible, but no simpler." Some attempts at amplifiers violate this rule, being either overly complex or too simple to be effective. Neither is useful.
+
+<hr><p>Needless to say, this article seems to have annoyed some people. One who posted anonymously on the ESP forum raised the issue (and even went to the trouble of 'proving' his point) and insists that established wisdom is correct, and therefore I am mistaken. Established wisdom is indeed correct if one approaches the problem the way it has been described (in great detail by Boyk and Sussman [<a href="#a9">5</a>] for example). However, this is not the way amplifiers are designed, and is not the way they are normally used. While interesting, the findings are (IMO) rather pointless, because they do not describe a real-world use of the amplifying devices. Using 0.4mV input to a BJT amplifier with little or no feedback is not a normal application in a modern high fidelity system.</p>
+
+<p>As for the criticisms raised, the first of these is terminology - degeneration vs. feedback. Although it is commonly accepted that emitter (source or cathode) degeneration is feedback, this is only partially true. It reduces gain and raises input impedance (as does negative feedback), but it has no effect on effective bandwidth or output impedance. Harold Black invented negative feedback, <i>not</i> degeneration (which pre-dated his invention). Degeneration is a form of feedback because it injects a portion of the output signal in series with the input (thus improving linearity), however, it provides no error <i>correction</i> facilities.</p>
+
+<p>Harold Black's invention incorporated the error amplifier concept, although the term was not used at the time. It is worthwhile to examine the actual patent (U.S. Patent 2,102,671 filed in 1932, issued in 1937). Prior to Black's invention, a usually tiny amount of negative feedback was used to stabilise amplifiers against oscillation caused by positive feedback - this is more commonly known now as 'neutralisation'.  It was (is) applied locally, not globally, and is mainly used with RF amplifiers.</p>
+
+<p>The second criticism is based on the impossible - the perfect square-law device does not exist other than in mathematics. No real amplification device can produce a waveform with <i>only</i> second harmonic distortion. Using a simulation to prove a point and testing with something that does not exist in nature is at best pointless, and proves nothing.  This point was covered (but ignored) in the initial version of this article, and obviously requires emphasis.</p>
+
+<p>Of the possible options, using degeneration with a FET or BJT <b>can</b> introduce harmonics that did not appear before degeneration was applied. There have been some exhaustive examinations of this effect [<a href="#a9">5</a>], but in general it only occurs at extremely low levels. Once the device is used in a real-world application, the effects generally become insignificant. This is something that has to be physically tested - throwing maths at it to get the result you first thought of is not helpful. The tests described apply to degeneration, not global negative feedback, and are not representative of most modern amplifiers.</p>
+
+<p>Much of this work has been purely theoretical. In practice, any additional harmonics created by degeneration are likely to be below the noise floor, and are of limited significance.</p>
+
+<p>The focus of the article is on 'true' negative feedback, <i>not</i> degeneration. The general principles described for negative feedback are not something I pulled out of my hat - I have seen countless claims that global feedback recirculates the signal (including Cheever, whose findings are suspect at best). The feedback loop recirculates an instantaneous voltage - <b>not</b> the 'signal'. The (true analogue) signal consists of an infinite number of instantaneous voltages, and it is the designer's responsibility to ensure that the loop reacts quickly enough to be able to treat the input signal (at the highest frequency of interest) as an infinite number of instantaneous voltages.</p>
+
+<p>In reality, this will never really be the case, but for the audio range one can come remarkably close. At no time does the 'signal' (assuming a discrete portion of a continuous waveform) pass through the feedback loop, as is often assumed. DIY audio critics have cited square waves, and these are dealt with in the article. Unless slow enough to remain within the amp's bandwidth, <i>of course</i> they will cause problems. Tests, claims or assertions based on irrelevant signals are equally irrelevant - not a difficult concept to grasp I would have thought.</p>
+
+<p>In most cases where additional harmonics are realised by test or simulation, the feedback ratios are very low. That this is unrealistic and rather useless should be obvious, but that is exactly what the person who complained on the ESP forum did to 'prove' his point. The whole idea of negative feedback is that the circuit should have the highest practicable open loop gain. While performing tests where the open loop gain is only marginally higher than the closed loop gain will certainly prove the point (yes, additional harmonics <i>can</i> be produced under some conditions), the end result is not representative of the way that we use feedback. This is as meaningless as demanding that an amplifier should respond perfectly to signals that have components well outside the audio band (fast risetime squarewaves, for example).</p>
+
+<p>The circuit shown in Figure 3 of the article is real. It works exactly as described, and this has been verified by simulation <i>and</i> experiment. This is probably one of the most compelling tests, yet has been ignored because 'conventional wisdom' has been challenged. If you doubt that it can be so, build it!  I did, and it does just what I say it does.</p>
+
+<p>Just because something is taught at university or technical college, this does not make it so. I was taught that a common emitter/cathode amplifier had 'medium' output impedance, and common base/grid amps had 'high' output impedance. This was almost universally accepted (and probably still is in some cases), and is simply false. In both cases, the output impedance is the same as the collector/plate resistor - no more, no less. Only by testing, working with the devices and taking careful measurements will you find out what really happens. Relying on maths formulae (regurgitated ad nauseam) or 'common wisdom' is not always the best way to get to the truth.</p>
+
+<p>The whole idea of the article was to debunk some of the more preposterous claims (Cheever, et al), and to stimulate further thought. Posts such as that by the anonymous poster show clearly that further thought has not been stimulated at all, but the same old claims are simply being re-voiced. Until such time as people look beyond the mantra and examine the situation in real-life, no progress is made.</p>
+
+<p>Now, you can either go back to what you were doing, or read the article (again), do some experiments (making sure that they represent real life), and then make comments. Nothing is set in stone, but I feel that the details given represent a shift from the way the issue is normally approached - hopefully for the better.</p>
+
+<hr><a id="a1"></a><b>1.0 - Introduction</b>
+<p>Claims abound regarding how bad negative feedback is, how it ruins the sound, and how zero feedback amplifiers with comparatively vast amounts of distortion sound so much better with music. Entire papers have been written on the topic, new methods described to quantify the audibility of different harmonics, and new measurement techniques are suggested and described ad nauseam.</p>
+
+<p>Of those papers, articles and semi-advertisements, many make completely incorrect assumptions as to how feedback actually functions in an amplifier, and some extrapolate these false assumptions to arrive at a completely non-sensical final outcome. Before continuing, we need to clear up one very important point ...</p>
+
+<blockquote>Feedback does not - repeat <i>does <u>not</u></i> - cause the <i>signal</i> to travel from the output, back into the inverting input, and continue through the amplifier several (or multiple) times.At any instant in time, only a single voltage level is of interest.</blockquote>
+ 
+<p>Feel free to re-read the last statement as many times as you need to. This is a claim that has been made on numerous occasions, and it is simply false. The whole idea of feedback is that it is as close as possible to instantaneous - feedback is applied to the input of an amplifier in direct proportion to the signal at the output, and for all intents and purposes at <i>exactly</i> the same time. (This means that the amplifier must be fast enough to keep up with the input signal at all times.) Only a voltage exists at any point in time, not a 'signal', and the feedback works to make the instantaneous voltage as close as possible to a replica of the instantaneous voltage at the input.</p>
+
+<p>Once you have grasped the logic of how feedback actually works (as opposed to the way some people think it works), you are a long way towards understanding that many of the evils attributed to feedback are due to a lack of understanding, and have nothing to do with feedback itself. It has been claimed that applying feedback can actually increase the levels of higher order harmonics [<a href="#ref">1</a>], however, this claim does not stand up to scrutiny (at least for any practical application). It is reasonable to expect that measurement errors or flawed assumptions are almost certainly the cause of this 'problem', but some parts of the industry will never let the truth get in the way of a good story. While it is true that in some (rather specific) cases application of feedback (or degeneration) can cause an increase of higher order harmonics [<a href="#ref">5</a>], this is not (or should not be) the way the semiconductor (or valve) devices are generally used, so relevance is very limited.</p>
+
+<p>Application of negative feedback (i.e. from output back to input, as opposed to degeneration) on single stage amplifiers with (often very) limited open loop gain and relatively high distortion will reduce the amplitude of low-order harmonics. With the small amount of feedback available, such circuits may indeed increase the levels of higher order harmonics.
+
+<p>However, it must be understood that such a circuit has very poor performance to start with. If a circuit has perhaps 3-5% THD without feedback, and has a gain of maybe 20 times, this cannot be considered a good start. Such a circuit will sound bad whether feedback is used or not - it's immaterial if some higher order harmonics are increased slightly. If you start with a bad circuit, you'll end up with a bad circuit. Feedback cannot (and does not) cure all ills, and expecting it to do so is unrealistic in the extreme. In such cases, it may be better not to use feedback - perhaps zero feedback makes such an amp sound "less bad". No amplifier with inherently poor linearity and low gain will ever sound good even if measured distortion is reduced by adding small amounts of feedback.
+
+<p>For this article, it is expected (at least for the most part) that the circuit we start with has reasonably good linearity, and in particular has sufficient open loop gain for the feedback to be effective. Adding small amounts of feedback applied to already poor circuits is simply not sensible, and is not generally the way feedback is intended to be used. On occasion, feedback might be added <i>just</i> to reduce output impedance, and while this does work with low gain circuits, it's still comparatively ineffective. Just like distortion reduction, sufficient gain must be available to ensure that the circuit's parameters are determined by the feedback components rather than the amplifying devices.
+
+<p>When low gain circuits are used, applying feedback does not reduce the gain or output impedance by the expected amount. Gain is not a simple ratio defined by a pair of resistors, but becomes a complex interaction between the amplifying device and the feedback ratio.
+
+<p>For the majority of the tests described, the effects were simulated rather than measured. There are some very good reasons for this, with the primary reason being that the simulator has access to 'ideal' amplifiers. These have infinite bandwidth, infinite input impedance, zero distortion and zero output impedance. Being perfect, they also contribute zero noise. This enables one to perform experiments that simply cannot be done in the real world, and provide a level of accuracy that is also unattainable using real circuits. Likewise, the signal sources have zero distortion, so resolution exceeds anything attainable using actual circuitry.</p>
+
+<hr><b><a id="a2"></a>2 - What <i>Is</i> Distortion?</b>
+<p>It is useful to understand what distortion is, and how it is produced. The generation of harmonics is not a weird function of a valve, transistor or MOSFET, but is a physics phenomenon that occurs whenever a waveform is not a pure sinewave. A pure tone contains only one frequency - the fundamental. By definition, this pure tone is a sinewave - no other waveform satisfies the criterion for purity. As soon as a sinewave is modified, the waveform that now exists is created by adding harmonics. Likewise, anything that adds harmonics changes the waveform - the two are inextricably intertwined. Amplifying devices do not add harmonics per se! Amplifying devices modify the waveshape, and this <i>requires</i> that harmonics are added to create the 'new' waveform. The creation of harmonics is a physics requirement, and has nothing (directly) to do with the type of device that caused the modification to the waveform. Devices with high linearity modify the sinewave less than devices with lower linearity, so fewer harmonics are created in the process.</p>
+
+<p>Because the sinewave is a pure tone, it has long been used as a measure of the amount of non-linearity for amplifying devices. Even very small wave shape modifications can cause a large amount of distortion (and hence harmonic generation), and it is for this reason that sinewave THD (total harmonic distortion) tests are still used. Despite many claims to the contrary, a sinewave is not an 'easy' test - quite the reverse. Less than 1% distortion of a sinewave is easily heard (depending on the exact type of distortion), while it may be completely inaudible with some music or barely audible with others. Any device that amplifies will also distort, and the purity or otherwise of the output signal shows non-linearities very clearly. Interpretation of the test results does take some background knowledge though, and simply quoting a percentage with no qualifying parameters is completely useless.</p>
+
+<p>Strictly speaking, simply turning a sinewave on or off causes distortion, because a truly pure tone is not only without harmonics, but has existed (and will continue to exist) for eternity. While this is real, no-one will ever take it to that extreme.</p>
+
+<p>Because of the nature of a non-linear device which modifies the waveshape and thus causes the creation of harmonics, it should be obvious that it is not the amplifying device that generates the harmonics directly - it <i>only</i> modifies the waveshape. The harmonics are the result of the modified waveform - nothing more. To explain how a device modifies the waveform it is necessary only to look at the device's transfer function, and understand the process of amplification.</p>
+
+<p>Amplification is an (almost) instantaneous process. An amplifier does not 'see' a complex waveform any more than we can experience all of last week simultaneously. As the Compact Disk medium has demonstrated, time can be separated into discrete fragments, and digital data can be derived that describes the instantaneous voltage at that point in time. This process is repeated 44,100 times each second.  Compared to an analogue amplifier, this is very slow. The analogue domain does not use time fragments - all processing is done on a continuous basis - <i>but</i>, the amplifier is only capable of processing one instantaneous voltage level at any one time. The input voltage is a moving target, and the output signal follows it as closely as possible.</p>
+
+<p>If an amplifying device has a gain of 10 when its (instantaneous) input voltage is 100mV, the output voltage will be 1V. If the device is non-linear, then the gain may fall to 9.5 when the input voltage is 1V, so the output will be 9.5V instead of 10V. This is distortion! That's it! The amplifying device does nothing more than change its gain slightly depending on the amplitude of voltage or current it has to deal with at any value of input voltage.</p>
+
+<p>Intermodulation distortion (IMD) is another very interesting (and far more intrusive) effect of non-linear circuits. While this is covered in some detail below, it's still worth noting that this is another physical phenomenon. It doesn't matter if the non-linearity is caused by a transistor, valve, diode or corroded wires twisted together - the effect is the same for a given degree of non-linearity. Wherever there is harmonic distortion, there is also intermodulation distortion. The two cannot be separated, and if harmonic distortion is reduced, so too is intermodulation distortion (and of course, vice versa).
+
+<p>Of the forms of distortion that might be discussed, intermodulation is by far the worst. There simply is no "nice" sounding intermodulation distortion, regardless of the topology of the amplifier. In very small amounts, and with some programme material, some listeners may like the sound of IMD, as it imparts a "wall of sound" effect. High levels of IMD just sound dreadful with any recorded or reinforced music source.</p>
+
+<hr><b><a id="a21"></a>2.1 - How a Transistor Causes Distortion</b>
+<p>Let's look at a common bipolar transistor as an example. The primary (but by no means only) form of distortion is caused by the internal emitter resistance of the transistor. Figure 1 shows a simple single transistor amplifier. A bias resistor is shown -  it must be pointed out that this biasing method is never used in practice, because it is too dependent on device gain, temperature and supply voltage. Proper biasing that allows for thermal effects, device parameter spread, etc. is beyond the scope of this article.</p>
+
+<p align="center"><img src="dfb-f1.gif" border="1" alt="Figure 1"><br><b><small>Figure 1 - Basic Single Transistor Amplifier</small></b></p>
+
+<p>This is a very basic amplifier, but it embodies all the issues that face other amplifying devices as well - valves, JFETs and MOSFETs all have similar non-linearities, but for different reasons. It just happens that with a transistor it is easy to describe in simple terms. The output waveform is also shown, and distortion measures 12%, being second (-18.5dB), third (-52dB) and fourth (-56dB) harmonics. All others are over 90dB below the fundamental. It is generally taken that ...
+
+<blockquote>re = 26 / Ie (mA) &nbsp; &nbsp; <small>where re is the internal emitter resistance and Ie is the emitter current</small></blockquote>
+
+The gain is determined by the ratio of the collector resistance to the emitter resistance, and is approximately ...
+
+<blockquote>Av = Rc / ( Re + re ) &nbsp; &nbsp; <small>where Av is voltage amplification, Rc is collector resistance, Re is external emitter resistance, and re as above</small></blockquote>
+
+<p><i>Re</i> (the external emitter resistance) has not been included in the circuit of Figure 1, which has a gain of about 390. As we shall see, this varies over the output voltage range, so the measured value gives a false impression because of waveform modifications. Table 1 shows how much the circuit of Figure 1 will vary the emitter current and hence the (theoretical) gain, depending on signal level. The base current has been ignored, but this also has an influence - albeit rather small.</p>
+
+<center><table border width="50%" style="border-collapse: collapse">
+<tr><td width="20%"><b>Vc (Volts)</b></td><td width="20%"><b>Ie (mA)</b></td><td width="20%"><b>re (Ohms)</b></td>
+  <td width="20%"><b>Voltage Gain</b></td></tr>
+<tr><td>29</td><td>1</td><td>26</td><td>38</td></tr>
+<tr><td>25</td><td>5</td><td>5.20</td><td>192</td></tr>
+<tr><td>21</td><td>9</td><td>2.89</td><td>346</td></tr>
+<tr><td>17</td><td>3</td><td>2.00</td><td>500</td></tr>
+<tr><td>13</td><td>17</td><td>1.53</td><td>654</td></tr>
+<tr><td>9</td><td>21</td><td>1.24</td><td>807</td></tr>
+<tr><td>5</td><td>25</td><td>1.04</td><td>962</td></tr>
+<tr><td>1</td><td>29</td><td>0.89</td><td>1115</td></tr>
+</table><b><small>Table 1 - Gain Variation of Figure 1 Circuit</small></b></center>
+
+<p>You can see from the table how the waveform of Figure 1 comes about. When the collector voltage is high, the current and gain are lower, and the waveform is flattened. When the collector voltage is low, the current and gain are much higher, so the waveform becomes elongated. As is obvious, the gain varies over a wide range, and any voltage waveform applied to the base must become distorted. Transistors show a logarithmic response when the base to emitter junction is driven from a voltage source, and table 1 shows this effect quite clearly.</p>
+
+<p>Because the transfer function is non-linear, it must alter the wave shape. If the wave shape is altered, harmonics are produced. To reduce distortion (of all forms), the application of negative feedback will make the amplifier more linear, and this results in fewer harmonics. There is no mystery and no magic. It doesn't matter if the feedback is global (applied around a complete circuit) or local (applied to each device individually). In general, global feedback gives better results than local feedback, but only if the amplifier has high open loop gain (i.e. gain without feedback).</p>
+
+<p>Prior to adding feedback, it is advantageous to improve the circuit's linearity by other means if possible. Since the gain of a transistor varies widely with emitter current, maintaining a constant current (via the collector) will help. Since transistors are current controlled, using a variable current for the input will also help - distortion can be halved by this alone, but voltage gain is reduced. In the case of the above circuit, using a 15mA constant current source instead of the 1k resistor increases the voltage gain to 3227, and reduces distortion to 4% - using current input (via a series resistor) reduces gain, but also reduces distortion even further.</p>
+
+<p>The additional gain from the use of a current source load allows us to apply feedback - if the gain is set at 400 (close enough to the 390 measured before), distortion is reduced to 0.7%. The second harmonic is now -43dB, the third is -70dB and fourth is at -95dB (all with respect to the fundamental). Compare these figures with those obtained for the circuit as shown - no comparison! This is covered in more detail in <a href="#a6">Section 6</a>.</p>
+
+<p>Alternatively, <i>Re</i> (the external emitter resistance) can be added to create 'local feedback'. By adding an external resistor, we actually do nothing more than (partially) swamp the variation of <i>re</i> with emitter current. While this makes the circuit more linear, it is not really feedback at all - the correct term is degeneration. Gain variation (and hence distortion) is reduced because <i>Re</i> + <i>re</i> is much greater than just <i>re</i> alone and base current is also more linear, but one of the benefits that feedback (as opposed to emitter degeneration) gives is reduced output impedance. Emitter, cathode or source degeneration does not lower output impedance.</p>
+
+<hr><b><a id="a22"></a>2.2 - Historical Perspective</b>
+<p>There is a great deal of information that was compiled a long time ago that seems to have been forgotten, dismissed, or simply neglected. Of particular interest is the section on distortion in the Radiotron Designer's Handbook [<a href="#ref">2</a>]. Since some (many) of the detractors of negative feedback advocate single ended triode operation, one would expect that they would have examined what was considered 'high fidelity' back in 1957, rather than claim that amplifiers that were considered low fidelity back then represent high fidelity today. This is not a tenable position!</p>
+
+<p>Of some interest is a table of harmonics based on a fundamental of C - taken for convenience as 250Hz. The table is reproduced below. It shows the musical relationship of each harmonic up to the 25th with respect to the fundamental, based on the natural or just musical scale (as opposed to the equally tempered scale that is used for most instrument tuning).</p>
+
+<center><table width="50%" border=1 style="border-collapse: collapse">
+<tr><td width="25%"><b>Harmonic</b></td><td width="25%"><b>Frequency</b></td>
+  <td width="25%"><b>Note</b></td><td width="25%"><b>Comment</b></td></tr>
+<tr><td>1st</td><td>250</td><td>C</td><td>Fundamental</td></tr>
+<tr><td>2nd</td><td>500</td><td>C<sup>1</sup></td><td></td></tr>
+<tr><td>3rd</td><td>750</td><td>G</td><td></td></tr>
+<tr><td>4th</td><td>1000</td><td>C<sup>2</sup></td><td></td></tr>
+<tr><td>5th</td><td>1250</td><td>E</td><td></td></tr>
+<tr><td>6th</td><td>1500</td><td>G</td><td></td></tr>
+<tr><td>7th</td><td>1750</td><td>-</td><td>Dissonant</td></tr>
+<tr><td>8th</td><td>2000</td><td>C<sup>3</sup></td><td></td></tr>
+<tr><td>9th</td><td>2250</td><td>D</td><td></td></tr>
+<tr><td>10th</td><td>2500</td><td>E</td><td></td></tr>
+<tr><td>11th</td><td>2750</td><td>-</td><td>Dissonant</td></tr>
+<tr><td>12th</td><td>3000</td><td>G</td><td></td></tr>
+<tr><td>13th</td><td>3250</td><td>-</td><td>Dissonant</td></tr>
+<tr><td>14th</td><td>3500</td><td>-</td><td>Dissonant</td></tr>
+<tr><td>15th</td><td>3750</td><td>B</td><td></td></tr>
+<tr><td>16th</td><td>4000</td><td>C<sup>4</sup></td><td></td></tr>
+<tr><td>17th</td><td>4250</td><td>-</td><td>Dissonant</td></tr>
+<tr><td>18th</td><td>4500</td><td>D</td><td></td></tr>
+<tr><td>19th</td><td>4750</td><td>-</td><td>Dissonant</td></tr>
+<tr><td>20th</td><td>5000</td><td>E</td><td></td></tr>
+<tr><td>21st</td><td>5250</td><td>-</td><td>Dissonant</td></tr>
+<tr><td>22nd</td><td>5500</td><td>-</td><td>Dissonant</td></tr>
+<tr><td>23rd</td><td>5750</td><td>-</td><td>Dissonant</td></tr>
+<tr><td>24th</td><td>6000</td><td>G</td><td></td></tr>
+<tr><td>25th</td><td>6250</td><td>G#</td><td>Dissonant</td></tr>
+</table>
+<b><small>Table 2 - Harmonic Distortion on the Musical Scale</small></b></center>
+
+<p>Obviously, harmonic distortion that extends to the 7th or beyond is to be avoided. It is (or was) well known to guitar amp manufacturers that the seventh harmonic and above should not be reproduced if possible (even during overdrive conditions) because of just this issue - discordant (or dissonant) harmonics simply don't sound nice.</p>
+
+<p>Another table shows the levels of distortion that were considered objectionable, tolerable and perceptible for various frequency limits and triode or pentode valves. This table is also reproduced, but I have only included the 15kHz bandwidth results - other bandwidths were listed, but no-one would consider a bandwidth of 3750Hz acceptable these days.</p>
+
+<center><table width="50%" border=1 style="border-collapse: collapse">
+<tr><td width="25%"><b>Source</b></td><td width="25%"><b>Mode</b></td>
+  <td width="25%"><b>Distortion</b></td><td width="25%"><b>Comments</b></td></tr>
+<tr><td rowspan="2">Music</td><td>Triode</td><td>2.5%</td><td rowspan="4">Objectionable</td></tr>
+<tr><td>Pentode</td><td>2.0%</td></tr>
+<tr><td rowspan="2">Speech</td><td>Triode</td><td>4.4%</td></tr>
+<tr><td>Pentode</td><td>3.0%</td></tr>
+<tr><td colspan=4>
+<tr><td rowspan="2">Music</td><td>Triode</td><td>1.8%</td><td rowspan="4">Tolerable</td></tr>
+<tr><td>Pentode</td><td>1.35%</td></tr>
+<tr><td rowspan="2">Speech</td><td>Triode</td><td>2.8%</td></tr>
+<tr><td>Pentode</td><td>1.9%</td></tr>
+<tr><td colspan=4>
+<tr><td rowspan="2">Music</td><td>Triode</td><td>0.75%</td><td rowspan="4">Perceptible</td></tr>
+<tr><td>Pentode</td><td>0.7%</td></tr>
+<tr><td rowspan="2">Speech</td><td>Triode</td><td>0.9%</td></tr>
+<tr><td>Pentode</td><td>0.9%</td></tr>
+</table>
+<b><small>Table 3 - Comparative Distortion Tests (Olson)</small></b></center>
+
+<p>These figures are interesting compared to amplifiers of today. Both triode and pentode amplifiers used in the test had an output of 3W, and were conducted in a 'typical' listening environment. While modern (competent) transistor amps will invariably beat the distortion criteria by a wide margin (at any level or frequency), some modern SET amps seem to be considerably worse than one would hope, many having distortion that rates as objectionable - and this table was compiled was a very long time ago indeed.</p>
+
+<p>For those who have access to the complete text of the Designer's Handbook (or at least Chapter 14 which concentrates on fidelity and distortion) I strongly recommend that it be read in its entirety. There is a great deal more to it than I have the space to reproduce here, and the fundamental principles have not really changed, despite the passing of the decades since it was written.</p>
+
+<p>There is an informative section covering intermodulation distortion, in which it is pointed out that there is no direct correlation between THD and IMD. It is also pointed out that no actual amplifier has <i>only</i> second or third harmonic distortion - every form of distortion is accompanied by multiple harmonics, although either second or third harmonics can be the most dominant.</p>
+
+<hr><b><a id="a3"></a>3.0 - Principle of Negative Feedback</b>
+<p>Negative feedback (or just feedback) has been used for many years to linearise amplifiers. Between 1935 and 1937, Harold Black of AT&amp;T received three U.S. patents relating to his work on the problem of reducing distortion in amplifiers by means of negative feedback. The invention caused little controversy for many years, but eventually this happy situation had to end - at least in the hi-fi industry. Feedback is used extensively in medical, military, aerospace and industrial applications and seems not to cause any problems there, despite its bad reputation amongst some audiophiles.</p>
+
+<p>Although many of the early attempts were less than perfect, it must be understood that the results without the feedback would have been many times worse. Negative feedback cannot make a dreadful amplifier sound good, but may make it sound acceptable. There is no possibility that the use of feedback will make a good amplifier sound bad. Not only are distortion components reduced, but negative feedback also increases the input impedance, reduces output impedance, and linearises frequency response. It is not a panacea, but it does come very close.</p>
+<p>So, let us examine what feedback really does. Figure 2 shows the basics of a gain block - in this case, an operational amplifier (opamp). It may be comprised of any number of devices, and the active components can be valves (tubes), transistors, FETs, MOSFETs or any combination thereof. The gain block will be assumed to have infinite gain and infinite bandwidth for the initial analysis - we all know this is not possible, but it makes understanding the principle easier.</p>
+
+<p align="center"><img src="dfb-f2.gif" border="1" alt="Figure 2"><br><b><small>Figure 2 - Basic Feedback Analysis Circuit</small></b></p>
+
+<p>An amplifier (power amplifier of conventional topology, opamp, etc), consists of three discrete stages. These are ...</p>
+
+<ol>
+	<li>Error amplifier (commonly referred to as the input stage)</li>
+	<li>Voltage amplifier stage (VAS)</li>
+	<li>Current amplifier (output stage)</li>
+</ol>
+
+<p>Each of these may be as simple or complex as desired or needed, and each can use a different technology. The functions of each stage are (or will become) self explanatory, and a quick look at any of the project amplifiers (e.g. P101, P3A, etc.) will show that the same basic stages are used in most amplifiers.</p>
+If you have read the article <a href="../dwopa.htm">Designing With Opamps</a>, you will know the two rules of opamps (a typical semiconductor power amplifier may be thought of as an opamp for all intents and purposes). These rules are ...
+
+<ol>
+	<li>An opamp will attempt to make both inputs exactly the same voltage (via the feedback path)</li>
+	<li>If it cannot do so, the output will assume the polarity of the most positive input</li>
+</ol>
+
+<p>In any linear circuit, rule #2 is inapplicable unless there is a fault or overload condition, so only rule #1 needs be considered for this discussion. As shown below, a voltage of 1V is applied to the non-inverting input - the normal input for an audio amplifier. I will state at the outset that only one thing is important - the value of the voltage presented. We need not concern ourselves with frequency - indeed, time is utterly inconsequential.</p>
+
+<p>Referring to the practical circuit shown in <a href="#f9">Figure 9</a>, in order to fulfil rule #1, the amplifier's output voltage must be exactly 11V. This figure is simply derived from the voltage divider formula ...
+
+<blockquote>V<sub>out</sub> = V<sub>in</sub> * (R1 / R2 +1) &nbsp; <small>Where V<sub>out</sub> is the voltage at the -ve input and V<sub>in</sub> is the voltage at the amplifier output</small></blockquote>
+
+Therefore, at the inverting input we should measure ...
+
+<blockquote>V<sub>-in</sub> = 11 / (10k / 1k +1) = 11 / 11 = 1V</blockquote>
+
+<p>The first rule is satisfied, and the system is stable. The error amplifier is the critical element here. If the input voltage changes, the error amplifier simply detects that its two inputs are no longer the same, so commands the VAS to correct the output until equilibrium is restored. This is <i>not</i> an iterative process, which is to say that the amplifier does not keep feeding the input signal (meaning a significant part of the input waveform) into the inverting input to be re-amplified, re-distorted and re-compared. This is where some of those who criticise negative feedback have made their first error.
+
+<p>The output of the amplifier simply keeps changing in the appropriate direction until the error amp detects that the voltages are again identical, at which point the output of the error amp ideally just stops where it is, and so does the rest of the chain. In reality, there will be a small amount of instantaneous correction as the two voltages approach equality, but this <i>must</i> happen much faster than the input signal can change with normal programme material.</p>
+
+<p>The fact that the correction is usually done well before the input voltage has even changed significantly clearly means that no part of the feedback signal is fed through the amplifier over and over again - that just doesn't happen. In our ideal device, the change is instant, in a real device it is possible to measure the time it takes for the correction to be made. For an audio amplifier, the correction must be completed faster than the highest frequency of interest can change - how much faster is open to some conjecture, and that will be looked at later in this article.</p>
+
+<p>All amplifying devices have some distortion. Desirable though it may be, a distortion free amplifier doesn't exist - other than in a simulator. Some opamps come very close (with feedback), but inherent non-linearities within the amplification chain are inevitable. Without feedback, the distortion components tend to be low order (i.e. second, third, fourth, etc., with diminishing amplitudes as the order increases. The application of negative feedback reduces the amplitude of these harmonics (hence the term harmonic distortion), in direct proportion to the amount of feedback applied.</p>
+
+<p>A common claim is that, because the feedback signal is re-amplified, the distortion components are subjected to additional distortion. This supposedly creates high order harmonics that did not exist as a result of the original distortion mechanism in the amplifier. Since the feedback acts as an ultra-high-speed servo system, it is difficult to imagine why it is assumed that high-order harmonics are 'generated'. They are not generated at all, but simply become more easily measured because all the lower harmonic clutter is removed (in part at least).</p>
+
+<p>Also notable is that <i>any</i> signal that is created within the feedback loop (most commonly noise) is also cancelled by global feedback. Because this generates signals that did not exist at the input, the error amplifier 'sees' any such extraneous signal as a deviation from the input signal, and cancels it to the best of its abilities. Note that input device noise is <i>not</i> cancelled, because the error amplifier cannot differentiate between noise it has created and the input signal.</p>
+
+<p>That this works was amply demonstrated many years ago when the only cheap opamp was the venerable uA741 and a few others of similar noise performance. These are (still) notoriously noisy, so many designers added an external input stage using low noise transistors. This addition reduced the noise to acceptable levels, even for sensitive high-gain amplifiers as used for phono preamps and tape head amplifiers. The external transistors formed the error amplifier, and being low noise types were able to cancel out much of the opamp's internally generated noise - the additional gain also improved distortion performance.</p>
+
+<p>This ability of the feedback loop to cancel internally generated signals (be it noise or distortion products) is so critical to your understanding of feedback that I have included a circuit and simulation results. These probably show more clearly than any other method how feedback works to remove anything that is not in the original input signal, by using the error amplifier to correct the output by applying an 'anti-distortion' component to the amplification stages within the feedback loop.</p>
+
+<p align="center"><img src="dfb-f3.gif" border="1" alt="Figure 3"><br><b><small>Figure 3 - Injection of Harmonics Into Feedback Loop</small></b></p>
+
+<p>All signal sources have the frequency indicated, and all are set for an output of 1V peak (707mV RMS). Because of the simulator, there is no concern with frequency drift, so the distortion waveform will remain the same - this test can be run easily with real opamps, but attempting any harmonic relationship is pointless because the frequencies will drift. If you have access to synchronised oscillators it's not a problem, but I don't, and I doubt many others will either.</p>
+
+<p align="center"><img src="dfb-f4.gif" border="1" alt="Figure 4"><br><b><small>Figure 4 - Output Waveforms vs. Open Loop Gain</small></b></p>
+
+<p>The first waveform is with E1 set for unity gain. There is some degeneration, but no feedback. If the feedback loop is disconnected, the waveform remains the same, but at a higher amplitude. As gain is increased (only the gain of the first stage (error amplifier) is changed), the distortion is reduced in direct proportion to the error amplifier's gain. There is no point reproducing a spectrum for this test, as the relationships are fixed by the 2, 3 and 4kHz signal sources. Only the total amplitude of the 'harmonics' is reduced with respect to the fundamental.</p>
+
+<p>Although the circuit shown is configured as a unity gain buffer, adding feedback resistors to give the circuit gain makes no difference to its ability to remove the injected harmonics. To verify this, the error amp was set to a gain of 10, and the gain of the whole stage was increased to 10 by means of a 9k resistor from output to inverting input, and 1k from inverting input to ground. There was a significant gain error (Av = 5 rather than 10 as set by the resistors), but the rejection of the extraneous signals was just as effective.</p>
+
+<p>Likewise when the error amp's gain was 100 (Av = 9.09) and 1000 (Av = 9.9). This is normal behaviour for an opamp - the open loop gain ideally needs to be 1,000 times greater than the required gain to achieve gain accuracy of 0.1%. While interesting and useful to know, that is not relevant to this article.</p>
+
+<p>The above circuit will work with opamps too. Voltage controlled voltage sources are convenient in the simulator because their gain can be changed where one has no control over the open loop gain of an opamp, and some changes are needed to make a 'real' opamp work. However, the same distortion reduction is clearly evident - this has been tested and verified using real opamps.</p>
+
+<hr><b><a id="a31"></a>3.1 - Oh No, Not a Water Analogy!</b>
+<p>Sorry, but yes <img src="grin.gif" alt="Grin">. A negative feedback system may be thought of as a servo, but that won't help anyone who is not familiar with servos. A toilet cistern is another matter - everyone has seen one, although not everyone has looked inside. I encourage you to do so <img src="grin.gif" alt="Grin">. The cistern is a good example of a simple negative feedback system. Unlike an amplifier (which is bipolar - it can generate positive and negative output voltages), a cistern is more like a regulated power supply - these also use negative feedback to maintain a stable voltage.</p>
+
+<p>When water is let out of a cistern, the water level falls, and this in turn opens a valve. The water is replaced until such time as the level is restored to its original preset level. If water is allowed to escape at a low (but variable) rate, the float valve (ball cock) will regulate the water level perfectly, maintaining the same level even as you allow more or less water to escape. This is a simple example of negative feedback at work in your bathroom. For expedience, I have neglected the uncertainties of the mechanical linkages and valves (as well as the inertia of the water itself), but you knew that already.</p>
+
+<p align="center"><img src="dfb-f5.gif" border="1" alt="Figure 5"><br><b><small>Figure 5 - Water Analogy of Feedback System</small></b></p>
+
+<p>Should the water be allowed to escape faster than it can be replenished, the system is in an overload condition. This is no different from an amplifier where the input signal changes faster than the output - the system cannot keep up, so the output is 'distorted'. I am unsure if this will help, but if it does improve your understanding of negative feedback, then it was worth it.</p>
+
+<p>For those in Australia, be aware that the above analogy cannot be used because our water reserves are too small to allow the luxury of playing with water. We will just have to imagine that it works <img src="bgrin.gif" alt="LOL">.</p>
+
+<hr><b><a id="a4"></a>4.0 - Distortion Analysis</b>
+<p>So, having established that the output signal is not re-amplified over and over again instantly removes one of the criticisms of negative feedback - that it creates frequencies that didn't exist before feedback was added. Since there is no re-amplification of the signal, there can be no new frequencies created, other than the distortion of the waveform caused by device non-linearity. Figure 6 shows a simulation circuit, using a diode to create distortion [<a href="#ref">3</a>]. The distorted signal is enclosed within the feedback loop (Feedback) of a pair of VCVS (voltage controlled voltage sources - 'perfect' amplifiers in the world of the simulator). A second circuit (Open Loop) applies the same distortion, but simply amplifies the distorted signal to obtain the same RMS voltage. C1 and C2 provide DC blocking to remove the diode's forward voltage.</p>
+
+<p align="center"><img src="dfb-f6.gif" border="1" alt="Figure 6"><br><b><small>Figure 6 - Distortion Analysis Circuits</small></b></p>
+
+<p>The applied input signal is 2V peak at 200Hz + 500mV peak at 7kHz, so we can see both harmonic and intermodulation products as generated by the non-linear element - a forward biased diode, passing ~15mA. This attenuates the signal greatly, and applies a controlled amount of distortion, measuring at 8.5% for a single frequency. In each case (feedback and open loop) the input voltage to the distortion cell was maintained at as close as practicable to the same level, although quite wide variations do not cause significant changes to the distortion level.</p>
+
+<p align="center"><img src="dfb-f7.gif" border="1" alt="Figure 7"><br><b><small>Figure 7 - Distortion Analysis Spectra (Red = Feedback, Green = Open Loop)</small></b></p>
+
+<p>Looking closely at the FFT analysis of both the feedback and open loop circuits shows clearly that the distortion is reduced by the application of negative feedback. There is no evidence that any individual harmonic frequency is at a greater amplitude when feedback is applied, but you can see some signals that are not affected either way - these are simulation artefacts, and should be ignored. Note that the base level is -240dBV - this can never be achieved in reality, so you can ignore any value below -120dBV. Even this is rather adventurous, and -100dBV is more realistic.</p>
+
+<p>Note the peaks at and around 14kHz, 21kHz, 28kHz and 35kHz. These are highly affected by feedback because they are harmonics and intermodulation products of the 200Hz and 7kHz input frequencies, and are virtually eliminated by applying feedback.</p>
+
+<p>The spikes at 26.92kHz and 40.92kHz are not affected, because these are artefacts of the sampling rate (a simulator works in a manner similar to any digital system, and uses sampling to convert the 'analogue' signal into digital for processing).</p>
+
+<p>For reference, I have also included a spectrum analysis for a single 1kHz sinewave. This makes the picture clearer, and is the way THD is measured using spectrum analysis. The harmonics are seen clearly, and it is notable that a circuit that one may assume would produce only even harmonics also produces odd harmonics. There is a school of 'thought' that is convinced that single-ended triode amplifiers (for example) produce only even ('nice') harmonics, while yucky push-pull amps produce only odd harmonics. This is not the case. While it is true that push-pull amps do indeed cancel the even harmonics, if the first claim were true, a push pull amp using triodes would cancel the even harmonics (which they do), leaving no distortion at all at the output (which they don't). Even-order harmonic distortion in isolation does not happen - it is invariably accompanied by odd-order harmonics, as demonstrated by the open loop response shown below. Taking the 'even order distortion only' argument to extremes, in order to obtain <i>only</i> even order harmonic distortion, the first harmonic (the fundamental) cannot be present because it is an odd number! While a bridge rectifier can achieve this, the sound is unlikely to gain wide acceptance <img src="grin.gif" alt="Grin">.</p>
+
+<p align="center"><img src="dfb-f8.gif" border="1" alt="Figure 8"><br><b><small>Figure 8 - Harmonic Distortion - 1kHz (Red = Feedback, Green = Open Loop)</small></b></p>
+
+<p>Note that the open loop distortion products show diminishing amounts of both odd and even harmonics. Only those up to the seventh harmonic (7kHz) are relevant - all others are more than 100dB below the fundamental. When feedback is applied, <i>all</i> of the distortion products are greater than 114dB below the fundamental. Also, note that not <i>one</i> distortion product is at a greater level than in the open loop circuit. The spectra shown only extend to 10kHz because there are no significant harmonics above that frequency. Reducing the gain of E1 reduces the feedback ratio and increases the level of the harmonics as one would expect. Changing from 100k to 10k (20dB) increases the amplitude of the harmonics by 20dB. If E1 is reduced to a gain of 1k, the second harmonic is increased to -74dB with respect to the fundamental. This effect is quite linear over a significant range.</p>
+
+<p>As with the intermodulation test above, there are artefacts of the simulation and FFT process. The small peaks at 4.44kHz and 6.44kHz are not related to the 1kHz input signal, but are so far below the noise floor that it wouldn't matter if they were real. These signals exist in both cases (and at the same amplitude).</p>
+
+<hr><b><a id="a5"></a>5.0 - Examining the Feedback Loop</b>
+<p>Having looked at some examples using ideal amplifying devices with no real-world limitations, it is now time to examine real circuits. Unlike their simulated counterparts, real amplifiers have finite bandwidth and slew rate (maximum rate of change), finite input and output impedances, and are not free of distortion. For the audio frequency range, this makes very little difference, despite claims that these limitations lead to Transient Intermodulation Distortion or 'TIM' - now pretty much universally discredited, but still quoted by some [<a href="#ref">4</a>].</p>
+
+<p>An amplifier simply needs to be somewhat faster than needed for the highest frequency of interest. Just as in the explanation given above, real amplifiers don't care if the input is AC, DC, or a mixture of multiple frequencies. The only things of interest are the instantaneous voltage level and the highest frequency of interest (and its relative amplitude). The latter determines how quickly the output must change to prevent it from losing control.</p>
+
+<p>One major limitation in any amplifier is propagation delay - how long it takes for a signal applied to the input to reach the output. Propagation delay depends on actual semiconductor delays, as well as phase shift introduced by the dominant pole capacitor. This component is almost invariably needed to maintain stability, because the amplifier must have less than unity gain when the total phase shift through the amp is 180&deg;, otherwise it will oscillate.</p>
+
+<p>Without the dominant pole compensation, propagation delays will be sufficient to cause a 180&deg; phase shift while the amp still has significant gain. For example, if an amplifier has a propagation delay of 1us, this causes the phase to be reversed at 500kHz, so the amp will oscillate strongly unless the gain is reduced to slightly less than unity for any frequency of 500kHz or above.</p>
+
+<a id="f9"></a><p align="center"><img src="dfb-f9.gif" border="1" alt="Figure 9"><br><b><small>Figure 9 - Practical Feedback Amplifier</small></b></p>
+
+<p>In order to obtain approximately equal slew rate for positive and negative going signals, the circuit of Figure 9 was used. Q1, Q2 and Q3 form the error amplifier, Q4, Q5 and Q6 make up the VAS, and Q7, Q8 is the current amplifier. Open loop gain is 20,000 (86dB), and the HF compensation caps (220pF) cause the open loop frequency response to be 3dB down at 2.4kHz. As is typical with such circuits, there is less feedback available at high frequencies because of the requirement for the dominant pole capacitors. They are not needed for open loop operation, but all linear (audio) applications will use the amplifier as a closed loop (feedback) circuit.</p>
+
+<p>At an output voltage of 1kHz / 3.7V RMS, open loop distortion is 2.3%. Input impedance is about 7k, with output impedance at about 200 ohms. The distortion components are low order as expected, with only second and third harmonics at significant levels. The fourth harmonic is at -85dB relative to the fundamental.</p>
+
+<p>Adding feedback, but maintaining the output at the same voltage, things change much as we would expect. Distortion at 1kHz now measures 0.0014%, and only the fundamental is above -98dB (the level of the second harmonic with feedback). What happened to all the high order harmonics 'generated' by the addition of feedback? As fully expected from previous tests, they simply don't appear - <i>all</i> harmonics are suppressed to much the same degree, but with some dependence on the open loop gain (and hence feedback ratio). In this case, closed loop voltage gain is 11 times.</p>
+
+<p>With feedback, frequency response is -3dB at 4.3MHz (no, I don't really believe that either), input impedance a more respectable 5.8M&Omega; at low frequencies, falling to a bit under 1M at 20kHz. Output impedance is well under 1 ohm. Apart from the rather optimistic frequency response reported by the simulator, the figures are pretty much what I would expect.</p>
+
+<p>The slew rate is 11.5V/us positive and 18V/us negative - not exactly equal, but it will have to do. The maximum slew rate for a sinewave is determined by ...
+
+<blockquote>Slew Rate = ( 2 * &pi; * V<sub>peak</sub> * f ) / 10<sup>6</sup> V/us </blockquote>
+
+So, it we want to get 10V RMS output at 100kHz, the required slew rate is ...
+
+<blockquote>V<sub>peak</sub> = V <sub>RMS</sub> * 1.414 = 10 * 1.414 = 14.14V<br>
+Slew Rate = ( 2 * &pi; * 14.14 * 100k ) / 10<sup>6</sup> = 8.9 V/us </blockquote>
+
+Despite the gain rolloff after 2kHz and the relatively low slew rate for the desired frequency (it's not even double that needed for a positive going signal), the distortion measures 0.038%, and no harmonic exceeds a level of -70dB (with respect to the output of 10V RMS). The fifth harmonic is at -85dB. Remember that this is for a frequency of 100kHz.
+
+<hr><b><a id="a51"></a>5.1 - TIM/TID - Transient Intermodulation Distortion</b>
+<p>The concept of TIM (Transient InterModulation distortion) was first proposed in the 1970s by Otala, and although it created a stir for a while, most designers realised fairly quickly that it does not happen in any sensibly designed amplifier. The 'dark side' of the industry seized upon TIM as their 'proof' that feedback was bad, and the debate has raged ever since. Some supposedly objective works on the topic have glaring errors, or have completely ignored other factors [<a href="#ref">4</a>], such as amplifier output impedance and its effect on the response of a loudspeaker. It is notable that almost without exception, driving a speaker with higher than normal impedance sounds 'better'. Frequency response is less linear, damping factor is (much) lower, but somehow it sounds really good - at least in the short term. However, it is a grave error not to eliminate this variable from a test, because the sound difference is usually unmistakable.</p>
+
+<p>According to the theory, when an amplifier has feedback around it, the delays between the input and output changes will be such that <i>huge</i> amounts of TIM will be produced. Naturally, a sinewave will never show the effect (at any frequency), and traditional measurement techniques will be useless for identification of this mysterious distortion mechanism. A useful test is to apply a squarewave at (say) 1kHz, with a sinewave superimposed upon it. This test will certainly let you know if there is a problem, but although I have used the test many times on amplifiers that should have vast amounts of TIM, no problems have ever been seen.</p>
+
+<p align="center"><img src="dfb-f10.gif" border="1" alt="Figure 10"><br><b><small>Figure 10 - TIM Test Waveform</small></b></p>
+
+<p>Figure 10 shows the output waveform of the Figure 9 amplifier, which consists of a 10kHz squarewave whose slew rate is limited by the amplifier, with a 100kHz sinewave superimposed. This combined signal forces the amplifier into slew rate limiting, where the output cannot keep up with the input. The rise and fall times for the input squarewave are set at 1ns - many times faster than the amplifier can accommodate. Regardless of that, the sinewave shows very little modification - certainly there is a small section that is simply not reproduced at all, but this is with input frequencies and rise times that <i>do not occur in <u>any</u> type of music !</i></p>
+
+<p>Although a CD is capable of full output level at 20kHz (a slew rate of 5V/us for a 100W / 8 ohm amplifier), such a signal will <i>never</i> occur in music. This is a good thing, because tweeters cannot take that much power anyway. An examination of the maximum level of any music signal vs. frequency will show that the level at 20kHz is at least 10dB below that in the mid band - 10W for the amplifier above, or a slew rate of 1.6V/us. No sensible designer will ever limit an amplifier to that extent, but allowing 5V/us is easy, and will let the amplifier match the maximum rate of change of the CD source. In case you were wondering, vinyl can't hope to match a CD for output level at high frequencies, because at the first playing with the best cartridge and stylus available the high amplitude high frequency groves would be damaged forever. That vinyl can reach higher frequencies than CD is not disputed, but the level is very low. Fortunately, very high frequencies are never present in music at very high amplitudes.</p>
+
+<p>As for claims that local feedback is 'good' and global feedback is 'bad' this is generally false. Global feedback around a competently designed amplifier will generally give much better results than multiple local feedback loops. Remember that waveform modification causes distortion, so a number of low gain stages with local feedback <u>will</u> generate additive distortion because <i>each stage applies its own amount of modification to the signal</i>! This is real, and the exact opposite of what may be claimed by local feedback proponents.</p>
+
+<p>An amplifier with a single gain block and one global feedback loop will, provided it has reasonably good open loop linearity, simultaneously remove a significant amount of distortion from all stages at once, and there is no additive effect due to cascaded stages. This point is rarely (if ever) mentioned.</p>
+
+<hr><b><a id="a6"></a>6.0 - Amplification Circuit Delay</b>
+<p>It is obvious that nothing in life is instantaneous. When a signal is applied to the input of an amplifier, there is a delay before the amplifier can react to the change, and this is determined by the speed of the devices used. Logic circuits typically have nanosecond delays from input to output, and this is also the order of delay one can expect before an amplifier as shown in Figure 9 will react to a change of input. According to the simulator, it takes about 5ns for the amp to respond to the fact that the input has changed - this is still using the very fast squarewave as an input. The output then swings in the appropriate direction at its maximum slew rate until the voltage at the inverting input again equals that at the non-inverting input. Once the voltages are equal, it takes about 220ns for the output to stabilise, settling so that the two input voltages are exactly the same. These times are very short - it takes the output 1.3us to change from +11V to -11V, so the 'reaction' time is close to negligible. It would be pointless to try to reproduce all the waveforms, so I suggest that you download the simulations. The files are in SIMetrix format, and are ready to run.</p>
+
+<table width="100%"><tr><td valign="top"><img src="note.gif" alt="Note"></td>
+<td><big>Note that any delay has nothing to do with electrons 'slowing down' - there is typically nothing in an amplifier circuit that does any such thing. The delays are simply the result of the devices taking a finite time to conduct (or switch off) after a signal has been applied or removed, an issue that affects all amplifying devices. While painstaking engineering is needed to minimise these delays (especially for very high speed switching), it is generally not needed for audio - not because audio is slow (although it <i>is</i> very slow compared to the logic in a fast micro-processor), but because analogue amplifiers are not switching, so are normally inherently fast. We actually have to slow them down deliberately with a capacitor (the Miller or dominant pole cap) to prevent oscillation.</big></td></tr></table>
+
+<p>However, the above test was all done with a signal that is much faster than the amplifier can handle (and much faster than any signal it is expected to handle for music reproduction), and it is more useful to examine what happens when the input slew rate is limited to something sensible. By adding a filter to the squarewave signal, the rise time can be limited to a somewhat more realistic value. A 32kHz, 24dB/octave filter was used, and this limits the output signal from the amplifier to 1.85V/us - well within its range, but still a great deal faster than any real music signal will create. Everything is now within the linear capability of the amplifier. The output is delayed by 46ns compared to the input, but this is inconsequential. Of more importance is how the amplifier reacts to the combined sine and square wave signal. It is not immediately apparent from the output, but in fact the sinewave is almost completely unaffected - the portion that would otherwise be cut off due to slew rate limiting now simply 'rides' the slope of the squarewave - if compared (after correcting for the level difference), the input and output are virtually identical - there is no evidence whatsoever of anything that could be classified as transient distortion - even with a 100kHz signal.</p>
+
+<p align="center"><img src="dfb-f11.gif" border="1" alt="Figure 11"><br><b><small>Figure 11 - Realistic TIM Test Waveform (Expanded)</small></b></p>
+
+<p>There are two graphs in Figure 11 - green is the scaled input (increased in level to match the output) and red is the output signal. They are perfectly overlaid, indicating that the difference between them is very small indeed. Differences can be seen if the graph is expanded far enough, but the resolution of any oscilloscope will be such that the two waveforms will appear identical. The simulator can resolve details that are imperceptible with real test equipment. It is worth pointing out that the ESP sound impairment monitor (SIM) will detect the difference in real time using real world signals. Even the modified waveform of Figure 9 does not represent <i>any</i> signal that can be recorded or produced by any musical instrument (or combinations thereof).</p>
+
+<p>Once the combined input signal is made sensible, the difference between the input and output signals can be seen, and it is primarily the result of the time delay (mainly phase shift) through the amplifier circuit. By using the SIM technique (measuring the difference voltage between the two inputs), all that remains is a residual signal that correlates with the gain of the amplifier at the frequencies used. The residual signal contains no non-linearities whatsoever, and is shown in Figure 12. The input stimulus this time is a 5kHz squarewave, filtered at 24dB/octave with a filter having a -3dB frequency of 32kHz. Superimposed on this is the same 100kHz signal used for the previous tests. The signal shown is the difference between the inverting and non-inverting inputs of the amplifier. Some of the signal shown is the result of the amplifier's error correction stage (the long-tailed pair) and VAS over-reacting slightly, and is also affected by the amplifier's total propagation delay and phase shift.</p>
+
+<p align="center"><img src="dfb-f12.gif" border="1" alt="Figure 12"><br><b><small>Figure 12 - Residual Signal Voltage From ESP SIM Circuit.</small></b></p>
+
+<p>The important point here is that the amplifier <i>must</i> be maintained within its linear range. All amplifiers, including 'zero feedback' designs, can be forced outside their linear range. The whole idea of an amplifying circuit is that it should be linear, so no test signal should be used that dramatically exceeds the parameters of those of a normal source (such as music). To do so highlights 'problems' that do not exist in reality, so their inclusion is pointless at best, and grossly misleading at worst. The test signal used to obtain the above waveform is still a savage test - far more so than any music signal will produce, and deliberately much closer to the amplifier circuit's own limitations.</p>
+
+<p>One can also measure the difference between an amplified version of the input signal, and that passing through the real circuit. In this case, the error signal is ~58dB down from the amplifier output, but is mainly the result of phase shift and very small gain errors - it is not a non-linear (distortion) component. At the upper test frequency of 100kHz, the amplifier has an open loop gain of only 470. With a design gain of 11 and an open loop gain of 470, the <i>actual</i> gain works out to be about 10.75 - this (as well as phase shift and DC offset) will always cause some error. It is important to understand that this is simply a small gain error, and does not contribute towards non-linear distortion.</p>
+
+<p>These same tests have been performed (using test equipment, not the simulator) on various amplifiers shown in the project pages, with very similar results to those described above. There remains no evidence that any sensibly designed amplifier cannot keep up with recorded music, regardless of genre. The most common real amplifier fault one is likely to encounter in the listening room is clipping. Since clipping forces an amplifier out of its linear region, the main concern is how long the amp takes to recover from the overload.</p>
+
+<p>This is a test I always perform, and a well behaved amp should recover almost instantly. The simulated circuit of Figure 9 recovers in less than 500ns for both positive and negative peaks, clipped with an input signal +4.5dB above the maximum level at 10kHz. Normal maximum level is 1.75V, and the input was driven with 3V (both are peak input levels). Recovery from clipping is not substantially affected by the input level. The recovery time is substantially less than the sampling rate of a CD (44.1kHz = 22.675us), so the loss of information is only a fraction of one sample. Most amplifiers <i>should</i> recover in a few microseconds. If they do not, then there is a problem with the design.</p>
+
+<hr><b><a id="a7"></a>7.0 - Local vs. Global Feedback</b>
+<p>I must point out here that I have used the term 'local feedback', even though it is more correctly called degeneration. The difference is subtle, and the distinction between the two is not usually explained. Degeneration only provides <i>some</i> of the benefits of true feedback - while input impedance is increased and gain and distortion are reduced, there is no effect on output impedance. 'Real' feedback will reduce output impedance as well. Degeneration may also have the opposite effect from feedback on noise performance with valves in particular. In such circuits, degeneration can <i>increase</i> the noise level - the cathode resistor must be bypassed for best noise performance.</p>
+
+<p>There is a constant argument regarding the benefits of local rather than global feedback. The following two circuits show an essentially similar design, but one uses two stages with only local feedback, while the other has been optimised for global feedback. The value of the feedback resistor was adjusted to give identical overall gain, in this case 40 (32dB). Conventional transistor current sources were used in the second circuit, the only difference being the use of a voltage source instead of a pair of diodes. The difference is minimal.</p>
+
+<p>The strange resistor values in the global feedback circuit were a matter of expedience, and were used to set the gain and collector currents so that both circuits were run with the same current and collector voltage. Normally, one would not go to so much trouble, but for this experiment it was important to eliminate as many variables as possible.</p>
+
+<p align="center"><img src="dfb-f13.gif" border="1" alt="Figure 13"><br><b><small>Figure 13 - Test Circuits for Local &amp; Global Feedback</small></b></p>
+
+<p>There are some quite surprising results. The global feedback circuit has less than half the distortion of the local feedback version (0.035% vs. 0.082%), but there are many other advantages as well. Input impedance is higher, output impedance lower, and global feedback makes the circuit faster and with better frequency response. The full listing is shown in Table 4, and it is obvious that global feedback is superior to local feedback in every respect.</p>
+
+<center><table width="50%" border=1 style="border-collapse: collapse">
+<tr><td width="33%"><b>Parameter</b></td><td width="33%"><b>Local FB</b></td><td width="33%"><b>Global FB</b></td></tr>
+<tr><td>Distortion</td><td>0.082%</td><td>0.035%</td></tr>
+<tr><td>Input Impedance</td><td>17k&Omega;</td><td>37k&Omega;</td></tr>
+<tr><td>Output Impedance</td><td>1k&Omega;</td><td>&lt;26&Omega;</td></tr>
+<tr><td>-3dB Bandwidth</td><td>10.4MHz</td><td>24.7MHz</td></tr>
+<tr><td>Open Loop Gain</td><td>40</td><td>286,000</td></tr>
+<tr><td>Rise Time</td><td>28.8ns</td><td>11.9ns</td></tr>
+<tr><td>Fall Time</td><td>32.3ns</td><td>10.6ns</td></tr>
+</table>
+<small><b>Table 4 - Local vs. Global Feedback</b></small></center>
+
+<p>One would think that there <i>must</i> be a down side. Something so simple can't possibly be that much better without a sacrifice. Can it? Yes, it can. Figure 12 shows the spectrum of the two circuits. As you can see, global feedback reduces all the harmonics, and the 'nasty' third harmonic is reduced far more effectively by global feedback than local. Not what you might expect, but there it is.</p>
+
+<p align="center"><img src="dfb-f14.gif" border="1" alt="Figure 14"><br><b><small>Figure 14 - Distortion Spectra for Local (Red) &amp; Global (Green) Feedback</small></b></p>
+
+<p>On the basis of this, global feedback wins on all counts. If you were to build the two circuits, you would find that the overall situation will not change, although some of the parameters will. This is due to component tolerance, but will not affect the final outcome.</p>
+
+<p>It is notable that global feedback works best when there is lots of it. The claims that global feedback should be used in moderation are just silly, and have never considered the reality of good circuit design. The higher the open loop gain the better, but eventually you will run into stability issues, so some form of frequency compensation becomes essential.</p>
+
+<p>Designing for stability and high open loop gain can be a challenge at times - especially for power amplifier circuits. However, when it is done (and done properly), there is no doubt that global feedback lives up to all the claims for it, with virtually no down side at all.</p>
+
+<hr>
+Well, there <i>is</i> a down side, but we have to look for it and know what we are looking for. Because nearly all opamp style amplifiers require a dominant pole capacitor to prevent oscillation, this causes a loss of open loop gain as frequency increases. Less open loop gain means less feedback, so upper harmonics are not attenuated as well as low order harmonics.
+
+<p>This could lead one to imagine that the application of feedback has indeed increased the level of the high order distortion components, but in fact it has done no such thing. What <i>has</i> happened is that the feedback at higher frequencies is insufficient to reduce the upper harmonics as effectively as those at lower frequencies. Their amplitudes have been reduced, but not by as much as the low order harmonics. High order distortion products can therefore be seen extending out well past the audio band, at a similar level to the lower order components. For example, we may find that the tenth harmonic is reduced to perhaps -80dB, but the eleventh is only at -81dB, the twelfth at perhaps -81.5dB and so on.</p>
+
+<p>Examining the spectrum may show that the relative levels of all subsequent harmonics remain at much the same level, well beyond the audio band. In this respect, the addition of feedback can easily be blamed for all the upper harmonics. The problem really lies with the gain of the amplifier, which rolls off the frequency response at a lower frequency than we may desire.</p>
+
+<p>This effect can be seen plainly with crossover distortion on an unbiased P101 MOSFET power amp. At 1kHz, there is virtually no visible crossover distortion, even when the output stage has zero quiescent current. At 10kHz, the distortion is clearly visible on the oscilloscope, even though it is not audible with a single tone (the 3rd harmonic being at 30kHz). Needless to say there is zero visible (and almost zero measurable) crossover distortion at 10kHz once the amp is biased correctly, but this highlights the open loop gain issue.  At 10kHz there isn't enough feedback to be able to correct the crossover distortion, but there is more than sufficient at 1kHz.</p>
+
+<p>The solution is simple enough - make sure the amp is as linear as possible before feedback is added (which in the above case means setting the bias current correctly). While there is no doubt that a wider open loop bandwidth is beneficial, this must never be at the expense of amplifier stability. A small amount of distortion at the uppermost frequency range is far better than an amp with marginal stability - oscillating amplifiers definitely don't sound very nice at all.</p>
+
+<hr><b><a id="a8"></a>8.0 - Conclusion</b>
+<p>Read any articles about distortion you may come across (including this!) with care. Like death and taxes, distortion is inevitable, however it can be minimised with careful design and a proper understanding of how feedback can be used most effectively to ensure that distortion doesn't spoil your listening experience.</p>
+
+<p>Loudspeakers contribute far more distortion than the vast majority of amplifiers, but some forms of distortion can be very intrusive - especially crossover distortion in transistorised amps. Fortunately, it is a simple matter to design an amp using sensible circuitry and modern transistors where crossover distortion is (for all intents and purposes) non-existent. Total harmonic distortion figures of well below 0.1% at any normal power level from a few milliwatts to several hundred Watts are easy to obtain. The distortion of most modern amps will contain only a few low order harmonics at all power levels up to the onset of clipping.</p>
+
+<p>Of far more concern is the addition of distortion to the recording, either deliberately or by accident. Nothing that you do in your home system can eliminate that - once a signal is distorted, you are basically stuck with it.</p>
+
+<p>Another trap is to measure THD using a conventional distortion measuring set, but without monitoring the distortion residual. Early transistor amps gained a very bad reputation, because although the distortion <i>measured</i> much better than the valve amps they tried to replace, many had audible crossover distortion. Had the residual signal been examined with an oscilloscope, the designers of the day would have seen the problem immediately. Regrettably, this didn't happen (either by accident or intent is unknown), and this has provided endless ammunition for anti-solid state and anti-feedback proponents for over three decades.</p>
+
+<p>To avoid the use of global feedback based on some of the so-called 'research' is most unwise. As demonstrated above (and by many others), correctly used, global feedback is as close to a panacea as we are ever likely to find. The idea of any hi-fi system is to reproduce the source material as faithfully as possible, and to deliberately add distortion to everything you hear (due to amplifier deficiencies) because it sounds 'nice' is simply not high fidelity. If that is what you want to hear then there is no problem with that, but by adding so much additional material (by way of harmonics and intermodulation) you have a tailored sound system, not a hi-fi.</p>
+
+<p>Harmonic distortion and intermodulation are linked together (although not in any mathematically predictable manner), so much so that it is virtually impossible to have one without the other. By ensuring that each element in the amplification chain is as linear as possible, you minimise both THD and IMD, both of which are easily demonstrable. This is a far better option than trying to minimise TIM, the very existence of which has been called into question countless times since it was 'discovered'.</p>
+
+<p>Finally, I have included a pair of simple circuits that can be used to create distortion. Testing these using my workshop speaker system, the distortion of a 400Hz sinewave was (just) audible at &lt; 0.5%. This same level would be inaudible on most music, being primarily low order as seen on the residual of my distortion meter. It is probable that had I used headphones or a better speaker system, low order distortion would be found to be audible at lower levels, but this simple test shows just how revealing a sinewave really is. While those trying to 'prove a point' will claim that a sinewave test is too simple and reveals little, this is obviously <i>not</i> the case. As noted above in Section 2, a sinewave is not an easy test at all, and anyone who claims otherwise is seriously mistaken.</p>
+
+<p align="center"><img src="dfb-f15.gif" border="1" alt="Figure 15"><br><b><small>Figure 15 - Distortion Test Circuits</small></b></p>
+
+<p>The circuits shown will need to be carefully tweaked to suit your test equipment and amplifier, so consider them to be more of a general idea than a definitive test circuit. The amount of distortion for both A (symmetrical) and B (Asymmetrical) is adjusted by varying the input level, and no attempt has been made to level match the distorted and undistorted signals. The distortion itself is sufficiently prominent that full blind AB testing is not needed to get a general idea, but would be essential for a scientific study. The day after I did these tests, a friend came to my place, and I repeated the test with him. The distortion meter was disabled so we had no visual cue, and we arrived at almost exactly the same result with both test circuits.</p>
+
+<p>Be aware that you may find that you can't hear any distortion until it is greater than the 0.5% I measured. Try moving around (even a few centimetres or so will be enough). Why? When listening to a steady tone, standing waves and reflections can combine to make a single frequency much louder than it should be, or almost inaudible. This effectively changes the distortion spectrum, making it sound much greater or less than the actual value. While this effect may have contributed to my hearing only 0.5% distortion on a sinewave, I did move around to make sure that the distortion was audible in more than one position. I neglected to measure the sound level when the test was done, but it would have been around 75dB SPL - any louder becomes very irritating.</p>
+
+<p>For around 0.5% distortion measured and using an asymmetrical diode clipping circuit (B), the harmonic levels will be pretty close to the following (note that all harmonics are referenced to the level of the fundamental, all voltages are peak) ...
+
+<center><table width="50%" border=1 style="border-collapse: collapse">
+<tr><td>Fundamental 400Hz &nbsp; </td><td>448mV</td><td>0dB (reference)</td></tr>
+<tr><td>2nd harmonic</td><td>1.35mV &nbsp; </td><td>-50dB</td></tr>
+<tr><td>3rd</td><td>942uV</td><td>-53dB</td></tr>
+<tr><td>4th</td><td>599uV</td><td>-57dB</td></tr>
+<tr><td>5th</td><td>348uV</td><td>-62dB</td></tr>
+<tr><td>6th</td><td>167uV</td><td>-68dB</td></tr>
+<tr><td>7th</td><td>68uV</td><td>-76dB</td></tr>
+</table></center>
+
+<p>It is probable that only the first couple of harmonics would have been audible. Those above the fifth are approaching my hearing threshold, and anything above the third is below the ambient noise floor in my workshop.</p>
+
+<p>Sine waves are too simple to use as a test?  We think not!</p>
+
+<hr><b><a id="a9"></a>9.0 - References</b>
+<ol>
+	<li>Negative feedback doesn't always decrease amplifier distortion! John Atkinson  <a href="http://stereophile.com/news/10065/" target="_blank">stereophile.com/news/10065/</a></li>
+	<li>Radiotron Designer's Handbook, F. Langford-Smith, Fourth Edition, 1957, pp603-616</li>
+	<li>Zero Distortion?  Ian Hickman  Electronics World, March 1999, pp224-228</li>
+	<li>New Methodology for Audio Frequency Power Amplifier Testing ... Daniel H. Cheever - University of New Hampshire, December 2001</li>
+	<li>Small-Signal Distortion in Feedback Amplifiers for Audio ... James Boyk and Gerald Jay Sussman</li>
+</ol>
+
+<hr><b><a id="a10"></a>10.0 - Simulation Download</b>
+<p><a href="distortion-sim.zip">SIMetrix Simulation Files</a> Right click, and select "save link as" from the menu.</p>
+<p>To view or run these simulations, you need the SIMetrix simulator on your PC. The freeware version of the simulator can be downloaded from <a href="http://www.simetrix.co.uk/" target ="_blank">SIMetrix</a>. Other simulators can also be used, but you will have to reconstruct the schematics.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../articles.htm" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+ <img SRC="a1.gif" alt="Articles" NAME="b1" BORDER="0"></a> <b>Articles Index</b>
+<br /><a href="../index2.html" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+ <img SRC="a1.gif" NAME="b2" alt="Index" BORDER="0"></a><b>Main Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 04 May 2006./ Updated 17 Oct 2006 - added preamble.</div>
+</body>
+</html>

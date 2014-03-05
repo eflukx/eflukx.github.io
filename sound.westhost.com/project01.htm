@@ -1,0 +1,165 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott">
+	<meta name="description" content="ESP Project Pages - Simple volume control using inear pot gives improved performance">
+	<!-- ESP Project Pages - Simple volume control using linear pot gives improved performance -->
+	<meta name="keywords" content="audio,project,diy,volume,circuit,schematic,diagram,potentiometer,taper,pot">
+	<title>ESP - A Better Volume Control</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right" valign="bottom">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 01&nbsp;</td></tr></table>
+
+<center><br /><b>Better Volume (and Balance) Controls</b>
+<br><small>Rod Elliott - ESP / Bernd Ludwig</small></center>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Better Volume Control (Pt 1)</b>
+<p>The volume control in a hi-fi amp or preamp (or any other audio device, for that matter), is a truly simple concept, right? Wrong. In order to get a smooth increase in level, the potentiometer (pot) must be logarithmic to match the non-linear characteristics of our hearing. A linear pot used for volume is quite unsatisfactory.</p>
+
+<p>Unless you pay serious money, the standard "log" pot you buy from electronics shops is not log at all, but is comprised of two linear sections, each with a different resistance gradient. The theory is that between the two they will make a curve which is "close enough" to log (or audio) taper. As many will have found out, this is rarely the case, and a pronounced 'discontinuity' is often apparent as the control is rotated.</p>
+
+<center><table>
+<tr><td ALIGN=CENTER><img SRC="p01-f1.gif" ALT="Figure 1" BORDER=1 height=229 width=293></td>
+<td ALIGN=CENTER><img SRC="p01-f2.gif" ALT="Figure 2" BORDER=1 height=229 width=293></td></tr>
+<tr><td ALIGN=CENTER><b><small>Figure 1 - Circuit of the Log Pot Approximation</small></b></td>
+<td ALIGN=CENTER><b><small>Figure 2 - The Transfer Curve in dB</small></b></td>
+</tr></table></center>
+
+<p>Take a 100k linear pot (VOL), and connect a 15k resistor (R) as shown above, to achieve the curve shown. It should be a straight line, but is actually still far more logarithmic than a standard log pot. For stereo, use a dual-gang pot and treat both sections the same way. Use of a 1% resistor for R is recommended. Different values can be used for the pot, but keep the ratio between 6:1 to 10:1 between the value of VOL and R respectively. While 6.7:1 is close to a real log curve, it may still allow excessive sensitivity at low levels. Higher ratios than 10:1 can be used, but will cause excessive loading of the driving stage, or necessitate the use of a pot whose resistance is too high.</p>
+
+<p>As can be seen, provided the gain structure of the preamp is set up properly, a good approximation to true log pot operation is obtained over at least a 25dB range, which is sufficient for the normal variations one requires.</p>
+
+<p>The gain structure of the preamp is correct when the pot spends the vast majority of its time between the 10 and 2 o'clock positions. If the volume is often below or above this range, consider changing the preamp gain.</p>
+
+<p>The other advantage of the 'fake' log pot is that linear pots usually have better tracking (and power handling) than commercial log pots, so there will be less variation in the signal between left and right channels. This is improved even further by the added resistor, which will allow a cheap carbon pot to equal a good quality conductive plastic component (at least for accuracy - I shall not enter the sound quality debate here).</p>
+
+<p>Make sure that the source impedance is low (from a buffer stage) and that it can drive the final impedance when the control is fully advanced (13k Ohms). Use of a high impedance drive will ruin the law of the pot, which will no longer resemble anything useful.</p>
+
+<hr /><b>Better Volume Control (Pt. 2 - Further Ideas)</b>
+<p>Originally designed by Peter Baxandall (of feedback tone control fame, amongst many other designs), there is also an active version of the 'Better Volume Control', which uses an opamp and a pot in the feedback loop. The log law is almost identical to that for the passive design above, but it can provide gain as well as attenuation. An example of this design may be found in Project 24, and the circuit for the basic idea is shown in Figure 3.</p>
+
+<center><img SRC="p01-f3.gif" ALT="Figure 3" BORDER=1 height=237 width=583>
+<br><b><small>Figure 3 - Active Logarithmic Volume Control</small></b></center>
+
+<p>The input buffer enables the inverting stage (needed so the circuit can work) to have a very high input impedance. This would otherwise not be possible without the use of extremely high value resistors, which would increase the noise level considerably. The maximum gain as shown is 10 (20dB) and minimum gain is 0 (maximum attenuation). The input impedance is variable, and is dependent on the pot setting. At minimum gain, input impedance is the full 50k of the pot, falling to about 27k at 50% travel, and around 4k at maximum gain.</p>
+
+<p>These impedance figures are very similar to the simple passive version (if a 100k pot is used), and again, a low impedance drive is required or the logarithmic law will not apply properly. The actual value for VR1 does not matter, and anything from 10k to 100k will work just as well, although it will influence the input impedance. The error at 50% of pot travel is less than 5% with values from 10k to 100k.</p>
+
+<p>The additional benefit of improved tracking does not apply to the active version (at least not to the same extent), so use the best pot you can afford to ensure accurate channel balance.</p>
+
+<hr /><b>Better Balance Control </b>(Contributed by Bernd Ludwig)
+<p>Bernd, a reader of The Audio Pages, has contributed a useful variation - in this case, a "better balance" control. Note that the configuration described requires a high impedance load, and the passive "Better Volume Control" cannot be used in this circuit. Used in the manner shown, it is a very similar concept to the better volume control of Figure 1, except it is (in a sense) the same idea in reverse.</p>
+<p>Bear in mind that many (especially Japanese) designs use a specially designed pot for balance, and these are not suitable for the circuits shown below. These pots commonly have a centre detent, and the resistance of each track remains very low from the centre position to one end (or the other) of travel. These "special" pots are characterised by the level remaining constant in one channel or the other as the balance pot is moved. The overall law of these controls is (IMHO) unsatisfactory for hi-fi.</p>
+<p>A standard configuration of Balance/Volume control using conventional pots (1 channel) is shown below:</p>
+
+<center><img SRC="p01-f4.gif" ALT="Figure 4" BORDER=1 height=229 width=293>
+<br><b><small>Figure 4 - Conventional Balance / Volume Control</small></b></center>
+
+<blockquote>
+	BAL = 2,5 * VOL<br>
+	For example: VOL = 10k log, BAL = 25k lin
+</blockquote>
+
+<p>Adding a resistor R gives opportunity for two interesting improvements of the standard balance-volume-control networks.&nbsp; Note that the switch is optional, and may safely be left out.</p>
+
+<center><img SRC="p01-f5.gif" ALT="Figure 5" BORDER=1 height=229 width=293>
+<br><b><small>Figure 5 - Improvement With Added Resistor</small></b></center>
+
+<blockquote>
+	<b>A)</b> R = VOL (for example, 10k)
+</blockquote>
+
+<p>The BAL-pot is 'virtually absent' when in centre position:
+
+<p>In centre position the resistive track of BAL only affects the load for the previous stage, since there is no current through the sliding contact (so you could open switch 'S' without changing anything at all - if you please). This seems to be reasonable: As long as you don't manipulate the balance control it is virtually absent from the circuit (no signal passes through its sliding contact). Hence quality (or age) of the BAL-pot doesn't matter at all then.</p>
+<p>Sonic detriments can only come into play for two reasons:
+
+<ul>
+	<li>If the resistive tracks of BAL are not absolutely symmetrical current through at least one of the sliding contacts will not be exactly zero at centre position (adding the switch 'S' would cure this entirely - but I doubt that there is any need for it).</li>
+	<li>If track resistance of a carbon pot (worst case scenario!) changes due to varying pressure of the sliding contact (induced by acoustical resonance, just like in the carbon microphones of veteran telephones), the load on the previous stage will change (but I suspect it might be really difficult to find a stage that will 'feel' it).</li>
+</ul>
+
+<p>Thanks to R, the balance control operates conveniently slowly near the centre position and overall volume is affected significantly less than without it. This leads to another option:
+
+<blockquote>
+	<b>B)</b> R = 4k7 (R = ~0.47*VOL)
+</blockquote>
+
+<p>The balance knob works without affecting the overall volume</p>
+
+<p>This will give best operating convenience since the sound stage then moves from the left to the right without significant overall volume change. Input voltage on both channels constant and equal, the sum of left- and right-channel power remains approximately (+-0.2dB) constant across about 80% of the dial (which still works conveniently slowly about the centre position).&nbsp; I decided on the .47-factor after some PC-simulation and checked it by implementation in my preamp afterwards:</p>
+
+<p>It works as expected indeed (there is just a slight increase of overall volume at the extreme right and left positions).&nbsp; I don't want to miss out on having a balance control any more, since there <i>are</i> in fact records which suffer from severe channel imbalance.&nbsp; Moving the armchair or the speakers is not a convenient cure for that.&nbsp; Moving
+the soloist two feet to the left or right without changing the overall volume, just by activating the balance knob, is the way to go.</p>
+
+<p>Any compromise between 'golden-ear-' and 'maximum-convenience-' versions is possible by selecting a suitable 'R/Vol
+factor' between 1.0 and 0.47. :-).</p>
+
+<p>The impedance of these "enhanced" networks is approximately&nbsp; that of 'VOL' alone (if R = Vol and BAL ~ 2 * VOL),
+so you can add BAL and R to any "purist's" design without changing critical parameters of the circuit (4-6dB attenuation by R will occur, of course, so you will have to add about 5 or 10 degrees of arc on the volume dial in future).&nbsp; Even when BAL is set to the extremes there is only a moderate change of load (max.: -30%) which will not upset any reasonable preamp.</p>
+
+<p>If there already is a standard network in your amp, it is easy to add the Rs: Just solder them across the corresponding
+pins of the balance pot (on one channel from centre to the left and on the other from centre to the right!) The volume pot is not involved.</p>
+
+<p><b><i><small>Bernd Ludwig</small></i></b>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Updated 02 Jan 2001 - Added active control and balance control sections./ 29 Sep 2005 - Additional info for pot-resistor ratio</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott">
+   <meta name="description" content="ESP Project Pages - Simple Bridging Adapter. Visit my other pages for even more!">
+   <meta name="keywords" content="btl, bridge, amplifier, audio, project, diy, amp, preamp, crossover, circuit, schematic, diagram">
+   <title>Simplest Ever Bridging Adapter for Amplifiers</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 20&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Simplest Ever Amplifier Bridging</b><br />
+<small>Rod Elliott - ESP (Original Design)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr>
+<p>In another of my project pages (see <a href="project14.htm">14 - Power Amplifier Bridging Adapter</a>), there is a design for a simple add-on bridging adapter for stereo power amplifiers. There is, however, an even simpler way, provided you have (or can trace out) the appropriate section of the amplifier circuit.</p>
+
+<p>Nearly all modern amplifiers use a long-tailed pair as the input and error amplifier (the error amp is the LTP, which detects any variation between its inputs - an error voltage - and corrects it). The input is connected to the base of one of the LTP transistors, and the feedback to the other. The feedback signal is attenuated by the network, by an amount equal to the gain of the amplifier.</p>
+
+<p>By connecting the output of one amplifier to the feedback point in the other, using a resistance equal to that for the feedback resistor, the second amp will have a signal gain of unity, and will be inverted, since the feedback is always applied to the inverting input.</p>
+
+<p align="center"><img SRC="p20_fig1.gif" ALT="Figure 1" BORDER=1 height=329 width=461>
+<br><b><small>Figure 1 - 'Cross Wiring' Power Amplifiers to Achieve Bridging</small></b></p>
+
+<p>Figure 1 shows how this is done, and for clarity, the power amps are shown as opamps (which they are, except they use discrete components and are a bit bigger). To make this work, you must be able to positively identify 2 important things:</p>
+
+<ul>
+  <li>The inverting input of the second amplifier</li>
+  <li>The exact value of the feedback resistor used</li>
+  <li>The actual output point of the amplifier (where the speaker output connects, or at the input of the inductor if used)</li>
+</ul>
+
+<p>Do not be tempted to disconnect the feedback attenuator network, since no power amp that I have ever seen is stable at unity gain. "Yes, but ...". I know - I just said that we will make the second channel operate at unity gain, in inverting mode. This is not a problem, since the amplifier still <i>thinks</i> it is operating at its
+normal gain (typically about 30dB), and we are attenuating the input signal by using a resistor that is the same value as the feedback resistor.</p>
+
+<p>This is the 'Added Resistor' in Figure 1. Make sure that this resistor is taken from the output point of the amplifier (but <i>before</i> the output inductor if one is used). If taken from an electrically connected point that is not actually the output itself, distortion can be introduced. For example, the end of one or the other power resistor might look as if it is the output, but may have 20 to 50mm of PCB track before reaching the point where the lead to the speaker terminal is taken from. This might not sound like much, but it can make a big difference in distortion.</p>
+
+<p>If you are confused, don't worry. Look at the circuit in Figure 1 again, and you can see what is done. The input of the second amp should be grounded as shown (using a 100 ohm resistor), to prevent noise pickup.</p>
+
+<p>I originally used this technique 20 odd years ago, and the results were excellent. Many amplifiers were built specifically as bridge amps, with the cross-feedback resistor and secondary input grounding built into the PCB.</p>
+
+<p>The primary advantage of this method of bridging is that no additional components are needed (which means that it is cheap), and there is no signal degradation from additional opamps in the circuit path. The results are at least as good as using an external circuit, but you have to be prepared to modify your amplifier. This is
+not a good idea if it is under warranty<b><i>!</i></b> There <u>is</u> a negative though. Most amplifiers have a small and usually almost inaudible thump at turn-on and off, and the thump is accentuated by this technique. If this is a problem, use the method described in Project 14.</p>
+
+<p>Always remember that when an amplifier is operated in bridge mode, it appears to be driving <i>1/2</i> the normal load impedance, so make sure each channel of your stereo amp is capable of driving 4 Ohms if you are planning to operate into a standard 8 Ohm loudspeaker. If a 4 Ohm load is contemplated, then each amp must be able to operate with a 2 Ohm load. Check the specifications for the amp before you proceed, or the smoke will escape from the transistors, which will
+then no longer work. **</p>
+
+<p>If desired, a SPDT switch may be used to allow the amp to be switched from bridge back to normal mode. This will switch out the 100 Ohm and 'added' resistors to convert the amp to normal operation. Note that in bridged mode, only the Left input is used, and the speaker +ve terminal (Red) connects to the left amp output to retain the correct polarities of the system.</p>
+
+<blockquote><small>** &nbsp; There is a popular theory that all electronic equipment actually uses smoke internally to function, so when it escapes, the device can no longer work. Practical experience seems to bear this out, and I have never seen a device work after the smoke got out. So much for all that university stuff about "holes", "majority carriers" and electrons. (Note: Insulated wire must have a huge amount of smoke in it, because it will continue to work even after it has filled the entire workshop with escaping smoke.)</small></blockquote>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+
+</body>
+</html>

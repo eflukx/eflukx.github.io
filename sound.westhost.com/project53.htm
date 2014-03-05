@@ -1,0 +1,158 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   	<meta name="keywords" content="peak limit, compressor, limiter,  audio, project, diy, amp, preamp, crossover, test, power, supply, circuit, schematic, diagram">
+   	<meta name="description" content="ESP Project Pages - Audio Amp Power Limiter. Visit my other pages for more audio projects and articles">
+	<title>Audio Amp Power Limiter</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 52&nbsp;</td>
+</tr></table>	
+
+<p align="center"><b>Audio Amp Output Power Limiter</b><br />
+<small>Rod Elliott (ESP)<br />
+Updated 13 Feb 2000</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>If you hire out audio equipment, or just don't want the kids to blow up your speakers when you are not home, this is the project for you. It is a very simple little project, but will protect the speakers from being overdriven. Any attempt at overdrive will simply cut the amp gain back - the more overdrive, the more the input signal is reduced.
+<p>This is a simple peak limiter - performance is quite respectable, and it can be used with conventional amps using bipolar transistors, MOSFETs, valves, etc, as well as BTL (Bridge Tied Load) amplifiers in car audio systems or for hi-fi. It will work with any amplifier from about 10W up to the highest power you are likely to encounter.
+
+<hr><b>Description</b>
+<p>The gain control element is a Light Dependent Resistor (LDR). These are blessed with a few very useful features for our purposes, one of which is low distortion even at quite high signal levels. Being light activated, all we need is a LED to provide illumination when the preset power level is reached.
+<p>Once this point is reached, a very small increase in amplifier output voltage (and power) will cause the LED to provide much more light, reducing the value of the LDR, and thus reducing the input voltage. The effect is to keep the level more or less constant. This will prevent the amp from clipping (although a small amount on transients is unavoidable), and increase the apparent loudness because the signal is compressed.
+<p>The entire circuit can be built inside the amplifier chassis, or can be in a small external box - For obvious reasons, I suggest the former, since it cannot be defeated as readily. The circuit is simplicity itself, but some precautions must be taken to ensure that the amplifier's output signal is not coupled back to the input, as this will cause oscillation.</p>
+
+<table BORDER="0" WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE" height=37 width=108></td>
+<td>Any oscillation may cause the instant destruction of tweeters, and may damage the amplifier by overheating. Do not try to simplify the mechanical construction unless you are sure of what you are doing, and can test the results with an oscilloscope.</td></tr></table>
+
+<p>The mechanical (light pipe) assembly is simply a piece of clear plastic rod (e.g. Perspex or similar). The LDR is glued to one end with clear glue, and the LED fits into a hole drilled in the other end. Aluminium foil around the tube provides an earthed protective barrier, preventing any of the output signal from reaching the amplifier's input. Two are needed for stereo.
+
+<center><img SRC="p53-f1.gif" ALT="Figure 1" BORDER=1 height=190 width=489>
+<br><b><small>Figure 1 - The Light Pipe Assembly</small></b></center>
+
+<p>It will be seen that this is identical to the light pipe used for the bass guitar compressor, except a LED is used instead of a light bulb. We could use a small filament lamp here, but the response is too slow for a protective circuit.
+<p>When the light pipe is completed, wrap the LDR end with aluminium foil, and tightly twist a bare wire around the foil to make good contact. Tape the assembly firmly so that nothing comes undone. This acts as a shield, and is connected to the earth (ground) connection on the input connector. Make sure that the foil does not short circuit the LDR leads, or you will get no signal at all. Note that one of the LDR leads will be connected to ground anyway - it does not matter which one.
+
+<p>The complete assembly must be totally shielded from light. I will leave the exact method to the individual constructor, but you might consider heatshrink tubing, a black 35mm film can, or anything else that comes to hand that is light proof. If metal, it must be earthed along with the shield around the light pipe - make sure that the LED leads are well insulated - a short to earth may damage the amp, and will almost certainly do something unpleasant and / or undesirable.
+
+<p>Figure 2 shows the circuit of the unit. A 10k resistor was selected for the input, and although this is lower than I would like, many power amps have a relatively low input impedance and too much signal would be lost. The LDR simply shunts the signal to earth when it is illuminated. A single unit should control both channels of the power amp as shown. If only one channel is needed, then delete the components for "Right", including the associated light pipe. Use the input circuit shown in Figure 3 to improve limiting by using a higher input resistance.</p>
+
+<table BORDER=0 WIDTH="100%">
+<tr><td VALIGN=TOP><a NAME="note"></a><img SRC="note.gif" ALT="NOTE 1" height=37 width=108></td>
+<td>IMPORTANT- If your amp is operating in bridge mode, the terminal marked "Com" must go to earth - not one or the other of the speaker leads. For automotive use (or any other single supply bridged amplifier), you <i>must</i> use two completely separate circuits, since the speakers operate with a quiescent voltage of about 7V above the chassis (earth) voltage, and there is no usable common terminal available.</td></tr></table>
+
+<center><img SRC="p53-f2.gif" ALT="Figure 2" BORDER=1 height=246 width=542>
+<br><b><small>Figure 2 - The Complete Limiter Circuit</small></b></center>
+
+<p>The value of R3 must be selected based on the amplifier power. For a 100W amp, a value of 1.8k is about right, but it is likely that a little experimentation will be needed.&nbsp; As a rough guide, the table below will be helpful, and it is probable that the value from the table will be OK. The idea is to limit the current through the LED to a sensible maximum.</p>
+
+<center><table BORDER width="33%">
+<tr><td><b>Amp Power</b></td><td><b>R3</b></td></tr>
+<tr><td>20W</td><td>820 R / 0.5W</td></tr>
+<tr><td>50W</td><td>1.5k / 1W</td></tr>
+<tr><td>100W</td><td>1.8k / 1W</td></tr>
+<tr><td>200W</td><td>2.7k / 2W</td></tr>
+<tr><td>500W</td><td>4.7k / 2W</td></tr>
+
+<caption ALIGN=BOTTOM><b><small>Table 1</small></b></caption></table></center>
+
+<p>Amplifier power in Table 1 for an 8 Ohm load. All diodes are 1N4004 or similar. The voltage rating on the caps should be 63V, and R2-L and R2-R should be rated at at least 1W. VR1 should be a multi-turn trimpot. High brightness LEDs will improve sensitivity and are recommended (but not essential).</p>
+
+<table BORDER=0 WIDTH="100%">
+<tr><td><img SRC="note.gif" ALT="NOTE 2" height=37 width=108></td>
+<td>Amplifiers with more than 200W will need a MJE340 transistor to get the voltage rating, which will be too high for a BD139. The caps will also need to be higher voltage - 100V is recommended.</td></tr></table>
+
+<p>LED current is set at a maximum of about 20mA by R3, however this should never be reached for more than a few milliseconds - if that. In most cases, the LED current will be zero, and there will only ever be just enough LED current to reduce the LDR resistance sufficiently to lower the amp's input signal to retain the maximum preset power level.
+
+<p>The transistor may need a heatsink, but if so, this will only need to be a simple flag type affair for even the most powerful of amps. Remember to check that the transistor and heatsink are not overheating while you are testing the circuit operation. If you can't keep your finger on the transistor, it is too hot!
+
+<p>The polarity of the connection to the power amp output does not matter (but see <a href="#note">Note 1</a>, above), since a bridge rectifier is used. Very little current is drawn from the power amp output, and the whole circuit is self limiting, so it is not critical. When complete, advance the volume until you figure that this is a loud as you want the amp to be, and adjust the trimpot until the external LED just flashes. Use a multi-turn trimpot, as the setting is quite touchy.&nbsp; It could
+be made much less so, but at the expense of circuit flexibility.
+
+<p>Now, if you try to drive the amp harder, the external LED shows that the circuit is working, by flashing brighter, but the volume should remain quite stable. This can be checked with an oscilloscope (ideally), but otherwise just set it by ear. As more signal is driven into the amp, it may <i>sound</i> louder, but this is only because the input signal is being compressed.
+
+<p>One of the great benefits of this circuit is that it will be fairly unobtrusive even for hi-fi applications. Since the amplifier should never be driven to the extreme, the circuit will never operate, so nothing is lost. On those occasions when "someone" winds up the volume too far, then the limiter will do its job, protecting the rest of your precious equipment. You might like to label the external limit indicator LED as "Overload" or something similar. This will frighten the timid user (others will naturally ignore it completely).
+
+<p><b>Update 13 Feb 2000</b>
+<br>The circuit has been changed to incorporate C2, as I found that with fast LDRs the distortion at low frequencies is excessive. The connection to the base of the transistor was also changed to increase the circuit gain and provide a better limiting action. This includes the reduction of R4 from the original value to 10k. With this arrangement, I was able to set the limiter on a 100W amp to about 80W, and could drive up to 10V RMS into the amp without clipping.
+
+<p>I also found that the resistor power ratings are probably over the top. I used 0.25W resistors, no heatsink and nothing got even slightly warm .... however, I suggest that the power rating on R3 be 1W, since there is a likelihood that with less sensitive LDRs (or standard LEDs) the average power will increase. Drive the amp hard, and make sure the transistor does not get hot. If it does, a heatsink is needed.
+
+<p>The LDR I used is an encapsulated unit with integral high brightness LED, and is extremely sensitive. These are very hard to get (they are made in the US by a company called Vactrol) since they are not stocked by any known supplier. Unless you need 100 or more, you will have a tough battle! As a result, you are limited to using my light pipe, and this will be less efficient.
+<p>For those who don't mind a bit of extra work, you can use an opamp buffer after the circuit to drive the amp's input. This will allow R1 to be a higher value, which will improve the unit's limiting action, but will not reduce the amp's sensitivity. If you decide on this, make R1 (Left and Right) 47k, as shown in Figure 3.</p>
+
+<center><img SRC="p53-f3.gif" ALT="Figure 3" BORDER=1 height=246 width=542>
+<br><b><small>Figure 3 - Using A Buffer To Improve Sensitivity</small></b></center>
+
+<p>The opamps can be whatever you want. Since they are acting as buffers only, even the lowly 1458 dual opamp will be quite adequate for PA or mobile disco work. For hi-fi you might want to use something a little better, such as TL072 or OPA2604 devices.</p>
+
+<table BORDER=0 WIDTH="100%">
+<tr><td VALIGN=TOP><img SRC="note.gif" ALT="NOTE 3" height=37 width=108></td>
+<td>This circuit cannot protect equipment from distortion caused by an overloaded preamp. I suggest that the gain of the preamp be set so that no sensible input level can cause overload. This might require that you modify the preamp's gain structure to ensure that clipping is not possible.<br><br>
+<b>It is vitally important that the (limited) amplifier power is within the maximum <i>continous</i> power rating of your speakers. As the input level is increased, the average power also increases. A 500W amplifier will cheerfully destroy 500W (peak) speakers, even if the amplifier never clips. Please refer to the article "<a href="tweeters.htm">Why Do Tweeters Blow When Amplifiers Distort?</a>" for a full explanation.</b></td></tr></table>
+
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright (c) 1999. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Updates:&nbsp; Page Created and Copyright (c) 12 Feb 2000./ 13 Feb 2000 - added Fig 3 and update text, modified Fig 2./ 13 Feb 2006 - page reformat, added final note.</div>
+</body>
+</html>

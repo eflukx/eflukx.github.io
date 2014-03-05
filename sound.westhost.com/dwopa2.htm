@@ -1,0 +1,413 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP - Designing with opamps, Part 2. More information about how to design circuits using op-amps.">
+	<meta name="keywords" content="opamp, design, audio, preamp, stereo, amp, diy, fi-fi, electronic">
+	<title>Audio Designs With Opamps -2</title>
+	<!-- ESP - Designing with opamps, Part 2. More information about how to design circuits using op-amps. -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Audio Designs With Opamps - 2&nbsp;</td></tr></table>
+
+<p align="center">Copyright &copy; 2000 - Rod Elliott (ESP)</p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="articles.htm" OnMouseOver="document.t1.src='arrow.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br><a href="index2.html" OnMouseOver="document.t3.src='a.gif';" OnMouseOut="document.t3.src='a1.gif';">
+<img SRC="a1.gif" NAME="t3" ALT="ESP Home" BORDER=0 height=24 width=40></a><b>Main Index</b><br /><br />
+
+<hr><b>Contents</b>
+<ul>
+	<li><a href="dwopa.htm#top">Part 1 - Opamp Basics</a></li>
+	<li><a href="articles/dwopa3.htm">Part 3 - More Filters, Comparators, Etc.</a></li>
+	<li><a href="#pureaudio">Pure Audio Circuits</a></li>
+	<li><a href="#baxandall">Active (Baxandall) Tone Control Circuit</a></li>
+	<li><a href="#filters">Active Filters and Crossovers</a></li>
+	<li><a href="#references">References</a></li>
+	<li><a href="#copyright">Copyright Notice</a></li>
+</ul>
+
+<hr><a NAME="pureaudio"></a><b>Pure Audio</b>
+<p>The next set of circuits are pure audio, and include tone controls, equalisers and filters, as well as balanced line driver and receivers. There is also a simple power amplifier suitable for use with headphones or low powered speakers.
+
+<p>When we speak of audio, the commonly accepted range is from 20Hz to 20kHz, and at some point someone decided that the centre frequency is 1kHz. I have never known why, since if you look at the octaves covered by the audio range we have a sequence like this ...</p>
+
+<center><table WIDTH=640>
+<colgroup span=11 width="9%">
+<tr><td>20</td><td>40</td><td>80</td><td>160</td><td>320</td><td>640</td>
+<td>1280</td><td>2560</td><td>5120</td><td>10240</td><td>20480</td>
+</tr></table></center>
+
+<p>This is a total of 10 octaves, so the centre frequency must actually be 640Hz, and indeed this is much closer to reality than 1kHz. If we were to divide the musical spectrum based on energy content, the centre frequency is about an octave lower, or 320Hz (approximately - it depends to a large degree on the style of music).
+
+<p>I am going to break with tradition and suggest that the 640Hz frequency is the midpoint, and 1kHz shall be ignored for other than comparative purposes.
+
+<p>So that the limitations of opamps in an audio circuit can be fully understood, we shall also look at the compensation curves typical of standard and high quality opamps, and examine the alternatives for very wide bandwidth.
+
+<hr><a NAME="baxandall"></a><b>Baxandall Tone Controls</b>
+<p>This is the most common of all modern tone control circuits, and was named after PJ Baxandall who came up with the idea many years ago. The original design article was entitled "Negative Feedback Tone Control - Independent Variation of Bass and Treble Without Switches", and was published in Wireless World (now Electronics World) in 1952. This type of control is fully symmetrical, and there is no interaction between the controls, unlike the older passive controls. When centred, there is neither loss nor gain, and the opamp acts as a buffer. Frequency response is absolutely flat, provided the pots centre precisely.
+
+<p align="center"><img SRC="dwop-f12.gif" ALT="Figure 12" BORDER=1><br>
+<b><small>Figure 12 - Modified Baxandall Tone Controls</small></b></p>
+
+<p>The circuit is a frequency dependent feedback arrangement, and provides boost and cut for high and low frequencies. It is common for designers to make the turnover frequency for both treble and bass centred around 1kHz, but this is essentially a stupid thing to do (IMHO). Ideally, bass boost/cut should start from no higher than about 160Hz, and treble boost/cut should start at no lower than around 2.5kHz - this is two octaves either side of the 640Hz nominal centre frequency for audio. In practice it will be found that this is more natural, and provides the boost where it will do the most good (or harm, for the purists!).
+
+<p>Figure 12 shows a more or less conventional circuit, with the turnover frequencies set to my preferred values. This has the effect of limiting the maximum boost and cut within the audible spectrum to somewhat less than the 20dB often quoted. IMO, this is an outrageous amount of control, and far exceeds what is needed for normal system balancing. If 20dB of anything is needed, then I suggest that the system is grossly inadequate, and should be replaced!
+
+<p>The maximum boost is about 14dB, which is still far more than necessary, the lower turnover frequency is about 150Hz, and the upper turnover frequency is about 2.5kHz. These can be changed by modifying the values of the bass and treble capacitors, and the amount of boost and cut is varied by changing the series resistors for each pot.
+
+<p>This circuit must be driven from a low impedance, so connecting it after the volume control (for example) is a no-no. Ideally, the output of an opamp will be the source, thus ensuring the required low impedance.
+
+<p>The formulae for designing these active tone control circuits are fairly simple, but can be quite inaccurate under some circumstances. At least it will give you a starting point to have the formulae, so the formulae for the bass control lower turnover frequency (Fb0) and +/-3dB frequency (Fb1) are (respectively) ....</p>
+
+<blockquote>
+	Fb0 = 1 / (2 * &pi; * C * Rv) ... &nbsp; where C is the cap across the pot, and Rv is the pot value<br>
+	Fb1 = 1 / (2 * &pi; * C * Rs) ... &nbsp;  where C is the cap, and Rs is the series resistance to the pot
+</blockquote>
+
+<p>These give (again, respectively) ...</p>
+
+<blockquote>
+	Fb0 = 1 / (2 * &pi; * 47nF * 100k) = 33 Hz<br>
+	Fb1 = 1 / (2 * &pi; * 47nF * 22k) = 154 Hz
+</blockquote>
+
+<p>The treble is a little trickier, since there is an interaction with the bass control, due to the bass feed resistance from the bass pot wiper. In theory (ha ha) the frequency is determined by ...</p>
+
+<blockquote>
+	Ft = 1 / ( 2 * &pi; * C * Rb)  ... &nbsp; where C is the treble cap (560pF above) and Rb is the bass feed resistor from the pot wiper.
+</blockquote>
+
+<p>While this seems reasonable, the formula comes up with a frequency of nearly 13kHz, which is obviously wrong. There are series resistances in the entire treble control network, and the interactions are interesting to say the least. In fact, the +/- 3dB frequency for the treble control changes with the pot setting. For example,
+at 80% of rotation, treble boost is +3dB at just over 3.5kHz, with a maximum boost of 6.3dB at 20kHz. This may seem to be a bad thing, having the frequency shifting about as the pot is varied, but in practice  it works very well. To obtain the results <i>you</i> want, I suggest that experimentation is in order !
+
+<p>A final word about the tone control circuit. Note that it is a 'virtual earth' circuit, so the feedback at all times will maintain the -ve input at zero volts. The bass and treble content of the input waveform will force the amplifier to provide just the amount of boost or cut at any frequency to maintain the 0V condition on -in. You will find this useful as you work towards an understanding of the complete circuit.
+
+<hr><a NAME="filters"></a><b>Active Filters and Crossovers</b>
+<p>The active filter is one of the most common opamp applications after basic amplifiers. There are essentially four different types of filter, but each can be constructed using a myriad of different techniques. I shall only use the most common arrangements, since the complete array is truly mind-boggling. The area of filters is the subject of complete books (from a number of authors) and I cannot hope to cover any but the most common.
+
+<p>Firstly, there are many different possibilities for filters. We shall look at each of the different responses, orders and types before anything else. The filter "order" gives us essential information about how well (or otherwise) a given filter will reject unwanted frequencies. The standard ones are:</p>
+
+<center><table BORDER=1 WIDTH=640 style="border-collapse: collapse">
+<tr><td width="33%"><b>Order</b></td><td width="33%"><b>Sections</b></td><td><b>Nominal Rolloff</b></td></tr>
+<tr><td>First</td><td>1</td><td>6 dB / Octave</td></tr>
+<tr><td>Second</td><td>2</td><td>12 dB / Octave</td></tr>
+<tr><td>Third</td><td>3</td><td>18 dB / Octave</td></tr>
+<tr><td>Fourth</td><td>4</td><td>24 dB / Octave</td></tr>
+<tr><td>"n"</td><td>Where n > 4</td><td>6 dB / Octave / section</td></tr>
+</table>
+<b><small>Table 1 - Filter Orders</small></b></center>
+
+<p>In audio work, the first four are most commonly used, since as the filter order increases, the transient response becomes worse and greater phase disturbances become evident. All filters affect the phase of the signal, and all filters have some effect on transient response. These are unavoidable, regardless of whether the filter uses valves, transistors or opamps, or is completely passive, using only capacitors, resistors and/or inductors.
+<p>There are 4 main responses that are obtainable from filters. Some are - or can be - derived from others, so the base types are given first. In particular, band pass and band stop filters can be simple filters with a narrow response (typically used for equalisation circuits), or band pass filters made from a combination of a low frequency high pass filter, followed by a higher frequency low pass section. These are commonly used in crossover networks.
+
+<center><table BORDER=1 WIDTH=640 style="border-collapse: collapse">
+<tr><td width="33%"><b>Response</b></td><td width="33%"><b>Passes ...</b></td><td><b>Blocks ...</b></td></tr>
+<tr><td>Low Pass</td><td>Low frequencies</td><td>High frequencies</td></tr>
+<tr><td>High Pass</td><td>High frequencies</td><td>Low frequencies</td></tr>
+<tr><td>Band Pass</td><td>Selected frequency</td><td>All other frequencies</td></tr>
+<tr><td>Band Stop</td><td>All other frequencies</td><td>Selected frequency</td></tr>
+</table>
+<b><small>Table 2 - Filter Responses</small></b></center>
+
+<p>Low and high pass filters are usually conventional enough, but band pass and band stop filters can be made in many different ways. 
+<p>Essentially, there are also a few basic filter alignments, which are as follows (not all are included, and many are applicable to filters of more than one section, or more complex arrangements):
+
+<center><table BORDER=1 WIDTH=640 style="border-collapse: collapse">
+<tr><td width="33%"><b>Filter Type</b></td><td width="33%"><b>Q (Typ)</b></td><td><b>Characteristics</b></td></tr>
+<tr><td>Bessel</td><td>0.57</td><td>Best time delay</td></tr>
+<tr><td>Butterworth</td><td>0.707</td><td>Flattest amplitude</td></tr>
+<tr><td>Chebychev</td><td>0.8 - 1.3</td><td>Fast initial rolloff</td></tr>
+<tr><td>Cauer / Elliptical</td><td>0.7 - 1.3</td><td>Very fast initial rolloff</td></tr>
+</table>
+<b><small>Table 3 - Filter Types</small></b></center>
+
+<p>Of the above, the Butterworth is the most common in audio. Although some filter's responses may be closer to Chebychev, this is commonly more by accident than design. A Chebychev alignment is very common in acoustical filters (a loudspeaker - box - port combination, for example), but is not generally considered desirable in electronic filters for crossovers or other purposes.
+
+<p>You may have noticed that the Linkwitz-Riley filter was not mentioned in the above table. This is because it is an alignment between filters, and not an alignment type itself. The Linkwitz-Riley filter is a rearrangement of two cascaded 2nd order Butterworth filters, and relies on the characteristics of the two sections (high pass and low pass) to provide the total amplitude and phase response.
+
+<p>Finally, there are different circuit arrangements that are commonly used in audio to create the filters described above. As you can see by now, the combinations and permutations of all of these different possibilities is immense.
+
+<center><table BORDER=1 WIDTH=640 style="border-collapse: collapse">
+<tr><td width="33%"><b>Circuit Type</b></td><td width="33%"><b>Gain</b></td><td><b>Characteristics</b></td></tr>
+<tr><td>Sallen-Key</td><td>Unity</td><td>Simple design</td></tr>
+<tr><td>Equal component value</td><td>Depends on Q</td><td>Simpler design</td></tr>
+<tr><td>Multiple feedback</td><td>Depends on Q</td><td>Relatively complex</td></tr>
+<tr><td>State Variable</td><td>Depends on Q</td><td>Relatively complex</td></tr>
+<tr><td>Biquadratic</td><td>Depends on Q</td><td>Relatively complex</td></tr>
+<tr><td>Passive</td><td>&lt; unity</td><td>Simple or complex</td></tr>
+</table>
+<b><small>Table 4 - Circuit Types</small></b></center>
+
+<p>This is a condensed listing, and there is some overlap between the topologies in some cases. Indeed, in some cases it is difficult to see any appreciable difference at all. For the sake of simplicity (and to keep this section to a readable length), I shall concentrate on the Sallen-Key filter type, using Butterworth alignment.
+<p>Before we go there, we need to define some of the terms you will see. Again, I have kept this list to the minimum for the sake of simplicity, but armed with this knowledge you will be able to understand the circuits and descriptions that follow.
+
+<p><b>Terms and Definitions</b>
+
+<ul>
+	<li><b>Cascading:</b> Simple filters can be made with one (or none) active devices. As filter orders become greater, it is no longer feasible, so filters are joined together in series to obtain the desired response. This complicates the design (often dramatically).</li>
+
+	<li><b>Cutoff Frequency:</b> Also shown as Fo, this is the -3dB frequency of the filter, relative to the highest peak (if any exist) in the passband.</li>
+	
+	<li><b>Decade:</b> A 10:1 (or 1:10) ratio of frequency. For example 100Hz to 1000Hz is one decade.</li>
+
+	<li><b>Decibel:</b> (dB) - the most common way to describe amplitude in audio. The dB scale is logarithmic, and describes the amplitude as we hear it. A 3dB drop in gain equates to half the power in an amplifier.</li>
+
+	<li><b>Quality Factor:</b> Commonly known as Q, this is the inverse of the filter's damping. For example, a Butterworth filter has a Q of 0.707, which equals a damping of 1.414. Higher Q gives more ripple for low and high pass filters, or makes a bandpass or band stop filter more selective.</li>
+
+	<li><b>Octave:</b> A 2:1 (or 1:2) ratio of frequency. For example, 440Hz to 880Hz is one octave (Musical "A" note).</li>
+
+	<li><b>Order:</b> The order of any filter determines its rolloff frequency response. First order filters roll of at 6dB per octave, and as the order increases, so too does the rolloff rate. An additional 6dB / octave is gained for each additional order, starting from first. A 3rd order filter will therefore roll off at 18dB/octave, for example.</li></ul>
+
+<hr><a NAME="firstfilter"></a><b>Designing Our First Filter</b>
+<p>The first active filter must be the first order low pass. By simply reversing the filter components, this becomes a first order high pass. In each case, the filter only consists of the resistance and capacitance, with the opamp simply isolating the filter from the following stages. Q is not variable in a first order filter, and the only options are high pass and low pass. A bandpass filter can only be created by cascading a high and low pass filter. Although the least useful of all filters, they are easy to understand, so make a good starting point.
+
+<p align="center"><img SRC="dwop-f13.gif" ALT="Figure 13" BORDER=1><br>
+<b><small>Figure 13 - 1st Order Low Pass Filter</small></b></p>
+
+<p>As you can see, at low frequencies, the capacitor has little effect on the signal, which is simply passed through the resistance and buffered by the opamp. As the frequency increases, the capacitor will shunt more and more of the signal to earth, until at very high frequencies, no appreciable amount of the signal is passed. As the capacitor's reactance becomes significant with respect to the resistance, the signal will be subjected to a phase shift as well as reduction in amplitude. When the capacitive reactance is equal to the resistance, the amplitude will be 3dB lower than at low frequencies.</p>
+
+<blockquote>
+	Rc = 1 / (2 * &pi; * F * C) ... &nbsp; where Rc is capacitive reactance
+</blockquote>
+
+<p>This is the cutoff frequency of the filter, and is determined with the formula ...</p>
+
+<blockquote>
+	Fo = 1 / (2 * &pi; * R * C) commonly shown simply as ...<br>
+	Fo = 1 / (2 &pi; R C)
+</blockquote>
+
+<p>Note that the input of this filter <i>must</i> have a low impedance return to earth at the input, or the opamp will not have any bias current or voltage, and will not work. This rule applies to low pass filters in all cases without exception.
+
+<p>For the filter in Figure 13, the frequency is determined by ...</p>
+
+<blockquote>
+	Fo = 1 / (2 &pi; * 10k * 100nF) = 159 Hz<br>
+	Rc = 1 / (2 &pi; * 159 * 100nF) = 10k ohms
+</blockquote>
+
+<p>By reversing the positions of R and C, we obtain a high pass filter. The formula remains the same, and the two filters will have a complementary response centred at the 159Hz frequency. There is no need for an earth return at the input for a high pass section, as this is provided by the resistor.
+
+<p align="center"><img SRC="dwop-f14.gif" ALT="Figure 14" BORDER=1><br>
+<b><small>Figure 14 - 1st Order High Pass Filter</small></b></p>
+
+<p>In their simplest forms, these two filter sections are also known as integrators (low pass) and differentiators (high pass). This is of some consequence, as these terms are commonly used in electronics.
+
+<p>A bandpass filter is created by cascading a high pass and a low pass, as shown in Figure 15. An opamp may be used in between the two sections to prevent any interaction. As shown, it is also possible to scale the first filter so that interaction is minimised. This works well enough in practice to be a useful technique.  Scaling merely means that the ratio of values remains the same, but the resistance is reduced and the capacitance increased to make a lower impedance filter with the same characteristics. The generally accepted scaling factor is one decade (an "order of magnitude", or a 1:10 ratio). For Figure 15, I simply selected the lowest sensible resistor value of 1k, and the capacitor was chosen more or less at random to give an acceptable graph of the response.
+
+<p align="center"><img SRC="dwop-f15.gif" ALT="Figure 15" BORDER=1><br>
+<b><small>Figure 15 - Scaled Cascaded Bandpass Filter Saves One Opamp</small></b></p>
+
+<p>In reality, it may be found that the value of capacitance becomes so great that the capacitor will be more expensive than a section of an opamp. Alternatively, the resistance may become so low that no opamp can drive the load. In all cases, it is essential to ensure that impedances are within the acceptable range for the opamps used. Generally, impedances of less than 1k at any frequency are not recommended. For noise considerations, very high resistance values are also not recommended, and I suggest that 100k is a reasonable compromise. There will be occasions where this is not practicable and higher values may be the only sensible solution, but these should be few and far between.
+
+<p>If the high pass section of Figure 15 is verified by calculation, it is discovered that the cutoff frequency (Fo) should be 7234Hz, and not 6400Hz as shown. The difference is caused because the second filter loads the first, shifting the frequency. This is a very good reason to isolate the sections using an opamp.
+
+<hr><a NAME="component_selection"></a><b>Component Selection</b>
+<p>All following filter sections will use resistance within the range of 1k to 100k. This gives two decades of freedom, and this is more than enough to allow capacitors of sensible sizes to be used. Very low capacitance values are to be avoided, since the capacitance of wiring (PCB tracks etc.) will modify the filter characteristics to a possibly unacceptable degree. I generally try to keep capacitance above 1nF wherever possible, and this may save you some grief as we progress. Likewise, any capacitance above 1uF becomes large and relatively expensive, but within this range we also have two decades of freedom, and there is virtually no audio filter that cannot be designed within these constraints.
+<p>Generally, it is sensible to select the capacitor value first, as these have less available values within a decade than resistors. Capacitors have 12 values per decade (the E12 series), while resistors have up to 96 values per decade (E96 series). The latter are not usually easy to get, but the E24 series is now very common, and has (surprise!) 24 values per decade. The E12 and E24 series are shown in Table 5.</p>
+
+<center><table BORDER=1 WIDTH=800 style="border-collapse: collapse">
+<colgroup span=25 width="4%">
+<tr><td><b>E12</b></td><td>1.0</td><td></td><td>1.2</td><td></td><td>1.5</td>
+<td></td><td>1.8</td><td></td><td>2.2</td><td></td><td>2.7</td><td></td>
+<td>3.3</td><td></td><td>3.9</td><td></td><td>4.7</td><td></td><td>5.6</td>
+<td></td><td>6.8</td><td></td><td>8.2</td><td></td></tr>
+<tr><td><b>E24</b></td><td>1.0</td><td>1.1</td><td>1.2</td><td>1.3</td>
+<td>1.5</td><td>1.6</td><td>1.8</td><td>2.0</td><td>2.2</td><td>2.4</td>
+<td>2.7</td><td>3.0</td><td>3.3</td><td>3.6</td><td>3.9</td><td>4.3</td>
+<td>4.7</td><td>5.1</td><td>5.6</td><td>6.2</td><td>6.8</td><td>7.5</td>
+<td>8.2</td><td>9.1</td></tr>
+</table>
+<b><small>Table 5 - E12 and E24 Component Values</small></b></center>
+
+<p>These values are multiplied or divided as needed for any decade range from 0.1 Ohm up to 10M Ohms, and from 10pF up to 10uF. Generally it will be found that at the extremes of the ranges (such as from 10pF to 100pF), most stockists do not have the full range of values. This is another good reason to stay within reasonable limits for all component values wherever possible - not just for filter designs.
+
+<hr><a NAME="second_order"></a><b>Second Order Filters</b>
+<p>Note that all response graphs shown in this section cover the frequency range from 10Hz to 10kHz, and all but the Chebychev response are from 0dB to -20dB (the Chebychev is from +10dB to -20dB). The reference input voltage is 1V RMS, or 0dBU.
+
+<p>By using multiple feedback paths, a second order filter can now be designed. These are the first genuinely useful filters for crossovers and the like, and are the most commonly used in both electronic and passive crossover networks. There are some unpleasant side effects to the second order high and low pass filters, but this has never stopped anyone from using them. As we shall see, these effects can be cancelled to some extent, but unless exotic configurations are used you can never get phase coherency.
+
+<p>A phase coherent filter gives the design some special characteristics that are extremely useful in audio. This simply means that at any frequency within the pass band or stop band of either filter, the output signal from each is in phase, preventing any peaks or dips in the combined response. These will be covered in more detail a little later.
+
+<p>Of all the topologies available, I will concentrate on the Sallen-Key (also known as unity gain) Butterworth filter. The equal component value filter is useful in some areas, but is a nuisance because of the gain that each section adds. This is sometimes useful, but mostly is not necessary, and the filter section needs more components. They are easier to design, but the difference is slight, and often the resistor needed to set the gain precisely will work out to be impossible to obtain. For the values I am using, a 14.414k resistor would be needed, which as you can see from Table 5 is not a standard value.
+
+<p align="center"><img SRC="dwop-f16.gif" ALT="Figure 16" BORDER=1><br>
+<b><small>Figure 16 - Second Order Unity Gain Low Pass Filter</small></b></p>
+
+<p>As you can see, the opamp is used only as a buffer, contributing no gain. For Butterworth alignment, the component values are as shown. The filter can be made into anything from Bessel to Chebychev by changing the component values about, but these other alignments are not generally as useful in audio work.
+
+<p>If R has been selected first, the capacitor values for C1 and C2 are chosen from the equations
+
+<blockquote>
+	C1 = 4 / d&sup2; * C2 = 2 * C2 ... &nbsp; where d = 1 / Q<br>
+	C2 = 0.707 / (2 * &pi; * F * R)
+</blockquote>
+
+<p>The formula for calculating the value of C1 <i>only</i> applies to a Butterworth filter. Of course if you were to follow my advice from above and select the capacitance first, you need a different formula ...</p>
+
+<blockquote>
+	R1 = 0.707 / (2 * &pi; * F * C2)
+</blockquote>
+
+<p>Again, the equation for resistance or capacitance for each example <i>only</i> works for Butterworth filters! For a Q of 0.707 or damping of 1.414 (Butterworth) it works out that C1 is exactly double the value of C2. R1 and R2 must be equal in value, or the filter's response will be something other than that desired.</p>
+
+<table WIDTH="100%"><tr><td><img SRC="note.gif" ALT="Note Carefully" height=37 width=108></td>
+<td>Any change of Q by varying the resistance ratio or capacitor ratio also changes the frequency. The formulae become quite complex, and I am not going into further detail.</td></tr></table>
+
+<p>For example, if the C1 is four times as great as C2, this creates a Chebychev filter with a Q of 1, as shown in Figure 17 for the sake of example. Equal capacitor values would be used for a 'sub-Bessel' alignment with a Q of 0.5 - the possibilities are endless, as I am sure you can now appreciate.
+
+<p align="center"><img SRC="dwop-f17.gif" ALT="Figure 17" BORDER=1><br>
+<b><small>Figure 17 - Second Order Chebychev Filter</small></b></p>
+
+<p>The filter of Figure 17 clearly shows the peaking obtained from a Chebychev filter. The peak amplitude is +1.25dB from the nominal 0dB value, and the cutoff frequency is determined to be 3dB below this maximum. I remain unconvinced that this is the right way to measure the cutoff frequency - I think I prefer to use the "genuine" -3dB point. Either way, the cutoff frequency is not easy to calculate, and although it would be no great strain for me to give you all the equations, I doubt that you would want to know!
+
+<p>The high pass equivalent of the Butterworth low pass filter is shown in Figure 18, and as you can see is a re-arrangement of the other design. Frequency is the same as for the low pass filter, but note that now C1 and C2 are the same value, and R2 is double the value of R1. Frequency is calculated on C1 and R1, and it is easy to become confused when designing the circuits just which values determine the frequency.
+<p>In both cases it is nearly always easier to use paralleled capacitors and series resistors as I have shown, since these will be more accurate than simply doubling (or halving) the values - especially so since the standard values do not always have exact double or half values. Any variation of these values will shift the response away from Butterworth and towards either Bessel or Chebychev responses, and will change the frequency.
+
+<p align="center"><img SRC="dwop-f18.gif" ALT="Figure 18" BORDER=1><br>
+<b><small>Figure 18 - Second Order Unity Gain High Pass Filter</small></b></p>
+
+<p>Second order filters can also be used for bandpass and band stop, but are generally of limited use in audio circuits. They are sometimes used as equalisation circuits, and indeed the simple inductor / capacitor (LC) filters shown in Figure 8 are 2nd order types. A second order filter requires that there are two reactive elements, with an filter LC there is the capacitance and the inductance, and with an active filter there are two capacitors.</p>
+
+<hr><a NAME="crossovers"></a><b>Crossover Networks</b>
+<p>When combined, high pass and low pass filters are commonly used to create electronic crossover networks. There are many different ways to do this, but the most common is still the second order Butterworth filter. Although these are essentially at least as good as the passive speaker level counterpart (but not all that much better), the results are often vastly superior. The reasons for this are discussed at great length in my article <a href="bi-amp.htm">Bi-Amplification - Not Quite Magic (but Close)</a> and I shall not repeat them here.
+
+<p>In a nutshell, using an electronic crossover eliminates many of the problems that beset loudspeaker designers when they have to design and build the crossover network. The passive crossover is influenced by any aberration in the driver's impedance, especially at or near the crossover frequency. Since the electronic crossover supplies the signal to a separate amplifier for each frequency band, there is no interaction and each amp only needs to be concerned with a much smaller bandwidth.
+
+<p>All crossover networks are a combination of high pass and low pass filters, although this is not always achieved in the same way. Some crossovers use an opamp as a subtracting amplifier, so rather than using a separate filter, the bass (for example) is subtracted from the main signal to provide the midrange and high frequency. Alternatively, the mid+high output from the filter is subtracted from the main signal to separate the bass, and this configuration is shown below. These crossovers are phase coherent (both outputs are always in phase at any frequency), but are asymmetrical. A typical design is shown in Figure 19, and the response clearly shows that the high pass rolloff is 12dB/octave, but the low pass is only 6dB/octave.
+
+<p align="center"><img SRC="dwop-f19.gif" ALT="Figure 19" BORDER=1><br>
+<b><small>Figure 19 - Subtracting Electronic Crossover</small></b></p>
+
+<p>Although these networks can be capable of excellent results, great care is needed to ensure that the driver getting the 6dB/octave rolloff can handle the increased power levels created by such a low rolloff rate. Notice that the LF rolloff peaks, and that the crossover frequency does not coincide with the actual -3dB frequency of the high pass section. Although this looks really bad, because of the phase differences the combined frequency response is completely flat. With loudspeaker drivers this will often not be the case, especially when listening off axis. Because of this, the subtracting crossover is really only useful at low frequencies
+(IMHO), where phase is less likely to cause major problems because the wavelength is so long. Personally I have never been a fan of this type of crossover, but the circuit is interesting, and shows the versatility of opamps.
+
+<p>Rather than show a multitude of crossover designs here, you can look at the <a href="projects.htm">Projects Pages</a> to see a suitable sampling of crossover networks. Of these, the 24dB/octave Linkwitz-Riley is by far the best, and is highly recommended.
+
+<p>Notice the cunning way I introduced a new opamp configuration - the subtracting (or difference) amplifier. This (and other useful topologies) will be discussed in greater detail a little later.
+
+<hr><a NAME="bandpass"></a><b>Band Pass Filters</b>
+<p>The band pass filter (as a single filter) is not normally very useful in audio reproduction. The frequency range passed is too narrow to be useful for anything other than equalisation circuits, or for test and analysis equipment. Having said this, there are many uses for bandpass filters that are very common in the <i>production</i> of music - the synthesiser, guitar wah-wah pedals, Vocoder, etc.
+
+<p>The range is far too great to cover in any real detail, but we can at least look at the fundamental principles, as these are common to all of the applications. The two most common parameters quoted for bandpass filters are frequency (f<sub>o</sub>) and Q ("quality factor"). The latter may be inverted and referred to as damping.
+
+<p>A simple bandpass filter consisting of two reactive elements has an ultimate rolloff of 6dB/octave. When one looks at resonance, the slope appears to be much greater than this, which is fair and reasonable, since it is. Eventually, the high slope due to resonance effects cannot be maintained, and the final slope is at 6dB/octave, as shown in Figure 20. But wait! This is an article about opamp designs, and there is no opamp there, just a stupid inductor and capacitor. True, but we need to be able to understand the concept of resonance before delving into the opamp version of the circuit.
+
+<p align="center"><img SRC="dwop-f20.gif" ALT="Figure 20" BORDER=1 height=187 width=577><br>
+<b><small>Figure 20 - Parallel Resonant Circuit</small></b></p>
+
+<p>There are essentially two forms of resonant circuit - series and parallel. When only passive components are used (resistor, inductor and capacitor), the series resonant circuit has minimum impedance at resonance, and the parallel resonant circuit has maximum impedance. The formula is actually slightly different for each (the resistance of the coil changes the resonant frequency slightly in a parallel resonant circuit), but for all intents and purposes the following formula can be used with little error ....</p>
+
+<blockquote>
+	f<sub>o</sub> = 1 / (2 * &pi; * &radic;LC)
+</blockquote>
+
+<p>Where f<sub>o</sub> is resonant frequency, L is inductance in Henrys and C is capacitance in Farads. Any error caused by the series resistance of the coil will generally be less than that caused by component tolerance.
+
+<p>In all cases, the resonant frequency is that where the capacitive and inductive reactance is equal. In the example of Figure 20, only when Xc (capacitive reactance) and Xl (inductive reactance) are the same will the circuit be at resonance. As the frequency is reduced, the inductive reactance decreases, and shunts more of the signal to earth. When the frequency is increased above resonance, the capacitor will be responsible for shunting the signal to earth. Since in each case there is the resistance and a single capacitor or inductor to bypass the signal, this is a single pole filter and will have 6dB/octave rolloff. As shown, the reactances at resonance are equal to the series resistance, so the rolloff slope is 6dB/octave. The initial slope can be increased by increasing the series resistance (and thus the Q of the circuit), but eventually the rolloff will go back to 6dB/octave.
+
+<p>Series resonance is especially interesting. At resonance, the circuit is almost a short circuit, so the input signal will be heavily loaded. At the junction of the inductor and capacitor there will be a voltage that is many times that at the input. This effect is described below. If enough current is available, incredibly high voltages may be obtained, and great care is needed to ensure that the voltage rating of the components is sufficiently high to withstand the voltage. Since the laws of physics and the taxman dictate that we cannot get something for nothing, the available current is very limited at the high voltage point. A circuit with a very high Q will generate much greater voltages than a circuit with low Q. The voltage magnification is equal to the Q of the circuit.
+
+<p>With the component values as shown in Figure 21, the voltage at the output will be about 0.5 mV at resonance, but there will be 1V across both the inductor and capacitor. At resonance, the reactance of the capacitor and inductor are equal and opposite, so the circuit will appear to be almost a short circuit - input current is limited only by the wiring resistances and source impedance.
+
+<p>The maximum possible Q of an LC filter is dictated by the series resistance of the inductor. The Q may be reduced by adding resistance, but cannot be increased. The circuit Q is determined by the reactance of the cap or coil at resonance and the series resistance (for parallel resonance) or shunt resistance for series resonant circuits.
+
+<p align="center"><img SRC="dwop-f21.gif" ALT="Figure 21" BORDER=1 height=187 width=577><br>
+<b><small>Figure 21 - Series Resonant Circuit</small></b></p>
+
+<p>At very high frequencies, the so-called "skin effect" increases the apparent resistance of the inductor. The skin effect is where the electrons tend to want to occupy the outer section of the wire and are not evenly spread through the conductor. This gets progressively worse as the frequency increases. Likewise, the dielectric absorbtion of capacitors reduces their efficiency and lowers the overall Q. We shall not investigate these effects further, since they are unrelated
+to audio frequencies generally, and especially to opamps.
+
+<p>A quick word about Q. In both cases above, resonance is at 159Hz. The reactance of either the inductor (Xl) or capacitor (Xc) at this frequency is 100 ohms, so with a 1k series resistance (parallel resonance) or 10 ohm shunt resistance (for series resonance), the circuit Q will be 10. The reactance can be calculated from ....</p>
+
+<blockquote>
+	Xc = 1 / (2 * *pi; * f * C)<br>
+	Xl = 2 * &pi; * f * L
+</blockquote>
+
+<p>This basic understanding of the ratios is essential in the design of bandpass and band stop filters, and is also very much a part of the design process for passive loudspeaker crossover networks. The latter have absolutely nothing to do with opamps, but I just thought I'd mention it :-)
+
+<p>The Q of a resonant circuit determines its bandwidth. With a Q of 10, bandwidth of our filters above is 15.9Hz. This places the -3dB frequencies at 151Hz and 167Hz (near enough), so it is apparent that the range of frequencies allowed through is very limited. In practical audio work, this is far too narrow to be useful, so lower Qs are far more common. This is fortunate, because high Q opamp bandpass filters are difficult to design, and require opamps with very high bandwidth for proper operation at the upper end of the audio band.</p>
+
+<p align="right"><a href="dwopa.htm">Part 1</a> &nbsp; <a href="articles/dwopa3.htm">Part 3</a></p>
+
+<hr><a NAME="references"></a><b>References</b>
+<p>I have used various references while compiling this article, with most coming from my own accumulated knowledge. Some of this accumulated knowledge is directly due to the following publications:
+
+<p><small>National Semiconductor Linear Applications (I and II), published by National Semiconductor
+<br>National Semiconductor Audio Handbook, published by National Semiconductor
+<br>IC Op-Amp Cookbook - Walter G Jung (1974), published by Howard W Sams &amp; Co., Inc. ISBN 0-672-20969-1
+<br>Active Filter Cookbook - Don Lancaster (1979), published by Howard W Sams &amp; Co., Inc. ISBN 0-672-21168-8
+<br>Data sheets from National Semiconductor, Texas Instruments, Burr-Brown, Analog Devices, Philips and many others.</small>
+
+<p><small><b>Recommended Reading</b>
+<br><a href="http://focus.ti.com/lit/an/slod006b/slod006b.pdf">Opamps For Everyone</a> - by Ron Mancini, Editor in Chief, Texas Instruments, Sep 2001</small></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="articles.htm" ONMOUSEOUT="document.b1.src='a1.gif';" ONMOUSEOVER="document.b1.src='a.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles" BORDER=0></a><b>Articles Index</b>
+<br /><a href="index2.html" ONMOUSEOUT="document.b2.src='a1.gif';" ONMOUSEOVER="document.b2.src='a.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Main Index" BORDER=0></a><b>Main Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright (c) Rod Elliott, 08 May 2000</div>
+</body>
+</html>

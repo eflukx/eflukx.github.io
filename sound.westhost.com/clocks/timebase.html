@@ -1,0 +1,132 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="ESP Clock Information - Build a 1 second timebase using a quartz clock circuit board.">
+	<!-- Build a 1 second timebase using a quartz clock circuit board -->
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="ROBOTS" content="all">
+	<title>1 Second Timebase</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img src="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table width="100%" bgcolor="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td align="right" class="hdrr">Build a 1 Second Timebase&nbsp;</td></tr>
+</table>
+
+<p align="center">Rod Elliott<br>
+<small>Page Created 26 July 2010</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr />There are many reasons that one might want a timebase, and it could be as simple as providing a means to drive a slave dial, or any number of other applications in horology. Some of the requests I've seen on newsgroups seem very odd indeed, but there's usually a good reason for the poster to want whatever it is that's asked for.  I freely admit that this is not an original idea, but it has been extended to cover real world applications - something that another project I've seen fails to achieve in a few areas.
+
+<p>While it's easy enough to use a mains synchronous circuit (see the synchronous clock project in the clock section of my site), there is rather a lot of messing about. While many who have read my articles will know that I don't consider (cheap) quartz clocks to be especially accurate, they are still pretty good if a small error can be tolerated.  The best part is that it is so easy to make a simple timebase, because almost everything is already done.</p>
+
+<hr><b>Quartz Clock Timebase</b>
+<p>Quartz clocks are cheap - insanely so in fact. As most people have discovered, they are fairly accurate, but can be expected to drift a few seconds each week, and sometimes a lot more. Compared to most mechanical clocks, they are very good timekeepers, but are fundamentally useless as a reference time standard. Be that as it may, even the most average quartz clock is surprisingly good, and a simple timebase is easy to make using the board pinched from a quartz clock movement.
+
+<center><img src="tb-f1.jpg" border=1><br><b><small>Figure 1 - Quartz Clock Movement</small></b></center>
+
+<p>The movement shown above had been modified to bring out the coil leads and PCB coil connections. This was used for demonstrations, but has been sacrificed in the interests of this article.  I can always put it back together, but it almost certainly won't happen. The buzzer has since been removed, along with all wiring. Most clock movements are similar, but at times it can be hard to track down which is positive and negative on the board. It's usually visible, but not always.  It is important that you get this right, although most ICs will tolerate reverse polarity at 1.5V without damage. Best not to risk it though.</p>
+
+<center><img src="tb-f2.jpg" border=1><br><b><small>Figure 2 - Quartz Clock Printed Circuit Board</small></b></center>
+
+<p>Here we see the printed circuit board after removal from the clock mechanism shown in Figure 1. The board shown has the extra bells and whistles as described, but we ignore these. The connections for the buzzer and alarm contacts are left unused. For most common movements, these extras won't be present anyway. The above photo is an example - there are countless different layouts, but two sets of connections will <i>always</i> be present ... 1.5V DC and the motor coil.  These are best traced out as you dismantle the movement, as there are many variations.
+
+<p>When dismantling, be careful not to flex the board. The epoxy covering the IC itself can crack, and this may allow moisture inside the IC which will almost certainly destroy it.  If anything need to be desoldered, use a temperature controlled soldering station and work quickly so the IC and PCB is not overheated. These boards are cheaply made and most are easily damaged by heat.
+
+<p>If we look at either of the clock coil terminals (referred to the negative terminal of the 1.5V cell), we see one positive pulse every 2 seconds. If the two are combined, we get one pulse every second. The trick is not only to combine the two pulses, but to raise their amplitude to something useful. In terms of 99.9% of older clock systems, 1.5V at a couple of milliamps is useless.  No fancy ICs are needed here - we can easily obtain pulses of 12V or more at several hundred milliamps if necessary. The <i>only</i> thing we can't do easily is make the pulses longer - it can be done, but not reliably if we stay with simple circuitry.</p>
+
+<hr><b>Combining The Outputs</b>
+<p>One would normally expect that the outputs would be combined using diodes. While this is trivial (and it does work), you lose close to half the available output voltage because of the diode's forward voltage. Alternative diodes can be used (Schottky or germanium for example), but they aren't necessary. By far the easiest way to combine the outputs is shown in Figure 3 - a pair of resistors driving the base of a transistor. The first transistor (Q1) combines the pulses and provides a level-shifting function, converting the 1.5V clock outputs to whatever voltage you need (12V in this instance). The supply voltage is shown as 12V, but can range from 3.3V to about 30V without modification.</p>
+
+<center><img src="tb-f3.gif" border=1><br><b><small>Figure 3 - Pulse Generation From The Clock PCB</small></b></center>
+
+<p>Above, we see the separate pulses that the clock IC generates, referred to the negative of the 1.5V supply to the clock electronics. Each pulse train produces 2 second pulses, with a pulse duration of about 50ms (although this can vary). "B" is delayed by one second, so that when the two are combined, the result is one pulse every second. Should you happen to require two second impulses, simply don't connect one of the coil terminals (it doesn't matter which). It may not be immediately apparent how this arrangement provides an alternating (true AC) signal to the motor, but consider that when both signals are low, there is no voltage across the motor coil. When <i>Pulse1</i> goes high, one end of the coil is positive, and the other remains at zero. When <i>Pulse2</i> is high, the opposite end of the coil is positive. The result is true AC with current flow alternating in the coil once every second.</p>
+
+<center><img src="tb-f4.gif" border=1><br><b><small>Figure 4 - Basic Pulse Combination Circuit</small></b></center>
+
+<p>There is no doubt that the scheme above will work, and it gives clean pulses to the full supply voltage. It also is inverting, so the signal "rests" at the supply voltage, and pulses to close to zero volts. There are a few places where this might be needed, and by adding an optional emitter follower as shown (Q2 and R4) the circuit can pulse a reasonable current - although it's still only a few milliamps. A general-purpose booster is shown later that can be used with either pulse polarity, and can drive a significant current.</p>
+
+<center><img src="tb-f5.gif" border=1><br><b><small>Figure 5 - Non-Inverting Pulse Combination Circuit</small></b></center>
+
+<p>In contrast, the Figure 5 circuit is non inverting, so the voltage is normally at zero, and pulses high (to your designated voltage) once a second. Like the Figure 3  version, this is not designed for high current, but it will happily drive pretty much any following electronic circuit.</p>
+
+<center><img src="tb-f6.gif" border=1><br><b><small>Figure 6 - High Current Output Stage</small></b></center>
+
+<p>Both versions of the circuit have limited output current, so where you really do need 100 or 200mA (or more) output current, the addition of Q3 and Q4 as shown will do the job nicely. The extra transistors can be used with either the Figure 4 or Figure 5 circuits. As with the other circuitry shown, the high current output will work at up to 30V or so. More is possible (up to 60V with the transistor types shown), but resistor values would need to be changed to prevent excessive power dissipation.</p>
+
+<hr><b>Powering The Circuit</b>
+<p>You need to determine the final requirements for the application before continuing. There's not much point building a complete system that gives 5V pulses at 10mA if you really need 48V pulses at 500mA. You also need to decide how good to make the 1.25V supply for the quartz clock IC. While many of these will operate over a fairly wide range, some won't, and timekeeping will suffer if the voltage isn't stable. It has been claimed elsewhere that some new "quartz" clocks use something called a ceramic resonator instead of a crystal, and these have much worse accuracy and are affected by temperature.  I've not come across a clock using one so can't comment either way, but if you don't see the familiar crystal in its aluminium can with two leads, don't use the clock.
+
+<p>It is possible to use a LED or perhaps 3 diodes in series to make a very simple regulator, but both have marginal thermal stability and the voltage is too high (typically about 1.8V). It won't hurt the clock IC, but it may cause timekeeping to be rather poor. Adjustable 3-terminal regulators are complete overkill for this application, but they are reasonably priced and have excellent performance. Despite the overkill, this is by far the best way to power the circuit, and in the end it adds little to the cost.
+
+<center><img src="tb-f7.gif" border=1><br><b><small>Figure 7 - Recommended 1.5V Regulator circuit</small></b></center>
+
+<p>As a side benefit, this power supply will happily run any number of quartz clocks (perhaps 100 or more), although I must confess that this probably isn't an advantage. VR1 is adjustable to enable the voltage to be set to exactly 1.5V.There is always some variation in the regulator itself, and it becomes significant at very low voltages. The output voltage will be very stable - far more so than a 1.5V cell over its normal lifetime. The 10uF caps are not optional - they must be used, and mounted as close to the regulator IC as possible. Without them, the regulator IC will almost certainly oscillate.
+
+<p>The only reason for making the supply adjustable is that in some cases (but not all), a small adjustment might improve long-term accuracy. This is not guaranteed and is extremely hard to test without waiting a long time for a result.</p>
+
+<hr><b>Conclusion</b>
+<p>The techniques shown here all work well, and hopefully will help anyone needing a reasonably accurate 1 second timebase. As noted above, if you need a 2 second timebase, simply disconnect one of the clock motor leads.
+
+<p>The circuit is not restricted to clocks by any means. Any application where a fairly accurate 1 second timebase is needed can use this arrangement. It is highly doubtful that you'll find anything that gives the accuracy of the methods shown here for anything like the cost (which really is peanuts).  Needless to say, you can delve into TCXOs (temperature controlled crystal oscillators), crystal ovens, etc. For extreme accuracy these techniques will be needed, but for most people's needs one of the circuits shown here should be just the thing.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index.html" onmouseover="document.b1.src='a.gif';" onmouseout="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt=">" border="0" height="24" width="40"></a><b>Clocks</b><br>
+<a href="../index2.html" onmouseover="document.b2.src='a.gif';" onmouseout="document.b2.src='a1.gif';">
+<img src="a1.gif" name="b2" alt=">" border="0" height="24" width="40"></a><b>Main Index</b><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2010. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page created and &copy; 28 July 2010.</div>
+
+</body>
+</html>

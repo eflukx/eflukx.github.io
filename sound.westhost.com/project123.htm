@@ -1,0 +1,168 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="filter, active, crossover, 18dB, odd-order, simple, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - 18dB/octave active Crossover">
+	<!-- ESP Audio Projects - 18dB/octave active Crossover -->
+	<title>Project 123</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table><td align="right" class="tap" valign="bottom">The Audio Pages</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 123&nbsp;</td></tr></table>
+
+<p align="center"><b>18dB/Octave Electronic Crossover</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<!-- hr><a href="pcb/pp122.htm" target="blank"><img src="pcb.gif" alt="PCBs"></a>
+ &nbsp; &nbsp; &nbsp; <small><b>PCBs are available for this project</b></small><br -->
+
+<hr><b>Introduction</b>
+<p>The Linkwitz-Riley crossover is one of the most popular topologies these days, and there is no doubt that is well behaved, and provides excellent performance. It also has very good driver protection, because the roll-off is very fast. However, it is this fast rolloff that makes some people rather wary - after all, a fast rolloff also means an equally fast phase shift. In many cases, an 18dB/octave filter may just fit the bill perfectly. It has a better rolloff characteristic than a 12dB filter, but is less radical than 24dB types. At the crossover frequency, both the high and low pass sections are -3dB, not -6dB as with the Linkwitz-Riley configuration. Odd order crossovers still sum flat, because there is a 90&deg; phase shift between the two outputs that removes the peak that would otherwise be created. It is worth noting that the tweeter (in particular) will have 3dB more power at the crossover frequency that with a 24dB/ octave L-R design, and this must be considered if you try to push the xover frequency too low.</p>
+
+<hr><b>Description</b>
+<p>The modified 18dB filter is shown in Figure 1. Because the second opamp is configured to have a gain of two, this has the major advantage of using identical resistor and capacitor values. There is an inherent gain of 2 (6dB) for each output, but this will rarely be a problem. It is normal to provide trimpots for setting the output levels for the high and low pass sections, so the gain is easily removed. Where cost is critical or minimum size is desirable, this version shown in Figure 1 is ideal. The circuit as shown produces an absolutely flat summed output, with no peaks or dips.</p>
+
+<center><img src="p123-f1.gif" alt="Fig 1" border=1><br><b><small>Figure 1 - Simplified 3rd Order High Pass Filter</small></b></center>
+
+<p>Above, the complete 2-way crossover is shown, and using 10nF caps and 6.8k resistors has a crossover frequency of 2.34kHz. Note that the values are exactly the same for both high and low pass filters. The formulae are provided below, and again, these are simplified to make it simpler to determine the correct values for your application. Wherever possible, I suggest that caps be no less than 2.2nF, and resistors should be no less than around 4.7k to minimise opamp loading. The maximum resistance should be ideally kept below 100k for minimum noise. You may choose the resistance or capacitance first, then calculate the other. Use the table below to select a reasonable starting value.</p>
+
+<blockquote>
+	Crossover Frequency ...<br><br>
+	C1 = C2 = C3 = 1 / ( 2 * &pi; * f * R ) ... or<br>
+	R2 = R3 = R4 = 1 / ( 2 * &pi; * f * C )<br><br>
+	<small>(Where R and C are the basic frequency determining components.)</small>
+</blockquote>
+
+<p>As is typical with odd-order crossovers, the two outputs are 90&deg; out of phase at all frequencies. At any frequency far enough away from the crossover, this is immaterial. The slope is 60dB/ decade across the stop band as is expected from an 18dB/ octave filter.
+
+<p>Note that in each circuit shown here, R1 is used to ensure there is a DC part to earth. Without this, the low-pass filter has no earth reference voltage, so will swing to one or the other supply rail. It may be omitted if the crossover is connected directly to another opamp (such as an input buffer, or balanced to unbalanced input stage). The 100 ohm output resistors must not be omitted, as many opamps will oscillate when directly connected to a shielded (coaxial) cable because of the cable's capacitance.
+
+<p>For your convenience, I have included the following table that covers some common crossover frequencies. There are many, many more combinations, but the calculation is not at all difficult so it's easy to work out the values yourself if the table doesn't include your preferred crossover frequency.</p>
+
+<center><table width=800 border=1 style="border-collapse: collapse">
+<colgroup span=6 width="16%">
+<tr><td><b>Frequency</b><td><b>Resistance</b><td><b>Capacitance</b><td><b>Frequency</b><td><b>Resistance</b><td><b>Capacitance</b>
+<tr><td>72 Hz<td>22 k<td>100 nF<td>603 Hz<td>22 k<td>12 nF
+<tr><td>88 Hz<td>18 k<td>100 nF<td>737 Hz<td>18k<td>12 nF
+<tr><td>106 Hz<td>15 k<td>100 nF<td>884 Hz<td>15 k<td>12 nF
+<tr><td>133 Hz<td>12 k<td>100nF<td>1.105 kHz<td>12 k<td>12 nF
+<tr><td>159 Hz<td>10k<td>100nF<td>1.326 kHz<td>10 k<td>12 nF
+<tr><td>219 Hz<td>22 k<td>33 nF<td>1.592 kHz<td>10 k<td>10 nF
+<tr><td>268 Hz<td>18 k<td>33 nF<td>1.941 kHz<td>8.2 k<td>10 nF
+<tr><td>322 Hz<td>15 k<td>33 nF<td>2.341 kHz<td>6.8 k<td>10 nF
+<tr><td>402 Hz<td>12 k<td>33 nF<td>2.842 kHz<td>5.6 k<td>10 nF
+<tr><td>482 Hz<td>10 k<td>33 nF<td>3.386 kHz<td>4.7 k<td>10 nF
+</table>
+<b><small>Table 1 - Some Example Crossover Frequencies and Component Values</small></b><br><br>
+</center>
+
+<p>All the values shown above are very opamp friendly, and will not cause any significant output loading which can result in increased distortion. Likewise, the values are all consistent with low noise, since resistor values never exceed 22k. There are countless other combinations of course, some of which will be very close to the examples shown, while others will give in-between frequencies.</p>
+
+<hr><b>The "Traditional" 18dB/ Octave Crossover</b>
+<p>The traditional 18dB Sallen-Key unity gain filter is shown in Figure 2. This has the distinct disadvantage of requiring often impossible resistor and capacitor values, and input impedance is often much lower than may be desirable. To illustrate this point, the filter shown below has an input impedance of less than 400 ohms at 10kHz, and it's still only 850 ohms at 1kHz. Input impedance doesn't exceed my suggested minimum of 2.2k until the frequency has dropped below 350Hz. Few (if any) normal signal sources will be able to drive such a low impedance without either excessive distortion and/or a severe reduction in the signal level (typically less than 1V RMS at any frequency). When used as a crossover, the source must drive the two filters, and the low impedance at high frequencies is especially troublesome for most opamps.
+<p>Even within a purpose-built unit this is unacceptable, because few opamps can drive such a low impedance at more than a volt or so (RMS). The loading also increases distortion well before the opamp clips. While resistances can be increased and capacitors reduced accordingly, this may increase noise - especially if the opamps use bipolar transistor inputs (e.g. NE5532). Resistance will become very high indeed for a low frequency crossover network, otherwise the capacitance values will be very large.
+<p>While odd values can be created by using series and parallel networks as required, this adds to the component cost and, more importantly, makes the board bigger and increases the chance of errors. Where cost is critical or minimum size is desirable, the alternate version shown in Figure 1 should be used. While it does use an extra opamp, the extra cost is negligible and performance is improved. The "traditional" filter also (usually) has a small dip in the summed response (around 0.5dB) because the alignment is not quite perfect. This is due to the fact that the output impedance of the first filter section is non-zero, so the following filter is affected, and also loads the first - the effect is therefore compounded.</p>
+
+<center><img src="p123-f2.gif" alt="Fig 2" border=1><br><b><small>Figure 2 - Traditional 3rd Order Crossover</small></b></center>
+
+<p>Although the same basic formula used for the modified version applies, you can see from the above that ...</p>
+
+<blockquote>
+	R2 = R / 10, R3 = R / 2 and R4 = R * 2 &nbsp; &nbsp; and ... <br>
+	C1 = C4 = C * 10, C5 = C * 2, C6 = C / 2<br><br>
+	<small>(Where R and C are the basic frequency determining components.)</small>
+</blockquote>
+
+<p>The response dip and low input impedance can both be resolved by adding a buffer after the first filter stage as shown in Figure 1. C1, R2 and R5, C4 are then restored to the same value as the tuning frequency dictates (in this case, 6.8k and 10nF). You still have the disadvantage that you need R and C * 2 and R and C / 2 values. Using the nearest E12 series parts may not give an acceptable response across the crossover frequency. However in the above example, making R3 = 3.3k, R4 = 12k, C5 = 22nF and C6 = 4.7nF gives very good results.
+
+<p>For the circuit as shown, the maximum deviation from flat response is less than 0.2dB using these values, but you can't guarantee that this will always be the case. Some combinations of values simply won't provide a satisfactory "fit" to the filters - especially for the capacitors, which are generally only available in the E12 series.</p>
+
+<hr><b>Lowest Possible Cost 18dB/ Octave Crossover</b>
+<p>Finally, we can have a look at an arrangement that initially looks as if it can't work very well at all. By modifying the first filter (passive) section to present a higher impedance to the signal source, the filter becomes usable without risk of overloading the source opamp. Doing so increases the impedance to the second (active) section, so there are compromises.
+
+<p>Note the comments above about the second filter loading the first and having a non-zero input impedance to see what I mean. So, if the (passive) input filter uses the same values as the active filter, we should expect that the end result will be pretty poor, but it's somewhat better than one might imagine. The schematic is shown below, and it really is the simplest 18dB crossover ever. It's not precision, but for a "quick and dirty" network suitable for basic sound reinforcement or perhaps an active surround speaker, it should do quite nicely.</p>
+
+<center><img src="p123-f3.gif" alt="Fig 3" border=1><br><b><small>Figure 3 - Simplest Possible 3rd Order Crossover</small></b></center>
+
+<p>The same frequency formulae apply as for those above, but to find out just how much of a compromise we have introduced, it's necessary to show the response curves. Although <i>you</i> can't measure the exact deviations from flat response on the graph below, the peaks on either side of the xover frequency are +0.9dB, and the dip at crossover is -1.9dB (assuming exact values for all caps and resistors). At the crossover frequency, each output is -7dB with respect to the level at a couple of octaves either side of the crossover. While this might seem rather odd, that's just the way it works out.
+
+<p>In addition, each filter has a 1dB peak just before rolloff. While not exactly perfect, it is unreasonable to expect many budget loudspeaker drivers to come even close to this degree of flatness. Overall, this is absolutely the easiest and cheapest way to build an 18dB/ octave active filter, yet it can give results that are surprisingly good for such a simple arrangement.</p>
+
+<center><img src="p123-f4.gif" alt="Fig 4" border=1><br><b><small>Figure 4 - Simplest Possible 3rd Order Crossover Response</small></b></center>
+
+<p>Note that the (electrical) sum of the two outputs is shown displaced by 6dB for clarity. You can see the peaks on each filter, and the slight "wobble" in the summed response. There are a great many high-priced loudspeakers that do a lot worse, and the major artefact is a very broad dip - dips are far less audible than peaks, and you might not even pick it in a double-blind test. Naturally, the actual drivers used will either make the overall response better or worse, depending on their behaviour at the crossover frequency.
+
+<p>It is important to point out that the "simplest possible" circuit <i>only</i> works as described if the opamps are designed to have a gain of 6dB. If you try it with the traditional filter topology, performance is a great deal worse, having a very pronounced dip of about 4dB at the crossover frequency, rather than a gentle "wobble".</p>
+
+<hr><b>Conclusion</b>
+<p>For serious applications, the Figure 1 circuit is close to perfect. While it does exhibit some component sensitivity, it's no better or worse in this respect than any other filter type. As a nice compromise between the (comparatively) very slow rolloff of a 12dB filter and the (also comparatively) radical slope of a 24dB Linkwitz-Riley crossover it's hard to beat. By eliminating all odd values, component matching is a lot easier if you choose to do so, and there is no requirement for series and parallel components to get the exact values you need. The gain of two (6dB) is easily removed with a voltage divider if necessary, but since most people will use pots or trimpots anyway, this minor objection is of no consequence.
+
+<p>There really isn't a lot to recommend the traditional approach, since it requires odd values and has an input impedance that is generally too low to be easily driven by most opamps. If the passive input filter section is made using higher values, then the active section will end up using values that are too high and may cause noise problems.
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2009. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott, 15 August 2009</div>
+</body>
+</html>

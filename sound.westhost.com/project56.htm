@@ -1,0 +1,259 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="variable, impedance, negative, audio, project, diy, amp, test, power, supply, circuit, schematic, diagram">
+	<meta name="description" content="ESP Project Pages - Variable Amplifier Impedance. Visit the other ESP pages for more audio projects and articles">
+	<title>Variable Amplifier Impedance</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 56&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Variable Amplifier Impedance</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr />
+<b>Introduction</b>
+<p>Is this a project or an article? Since you may have arrived here from either index, you might be a little confused. This is fine, as it has elements of both, but lacks the in-depth analysis of other articles, and also lacks the application of a final design that is common to my projects. This is for the experimenter. No further work will be done to refine formulae or produce "magic" spreadsheets to allow you to determine the impedance that is best for a speaker / enclosure combination or anything else. Readers' contributions are of course welcome, and I would be interested to hear about any massive improvements that were made to systems using these techniques. (Or minor improvements, for that matter.)
+
+<hr />
+<p>The idea of being able to vary the output impedance of a power amplifier has been around for a long time. I have used these techniques since the early 1970s in various designs, and much as I would like to be able to claim otherwise, I was by no means the first.
+
+<p>The technique has been (and still is) used to drive spring reverb units, and various other transducers where current drive is either preferable or essential, and where voltage drive is inappropriate. For many years (even before transistor amps), voltage drive has been what we all strive for with power amplifiers - a perfect (ideal) voltage amplifier has zero ohms output impedance, and the amplitude does not change as the load varies. Loudspeakers are very non-linear loads, and the impedance will change at different frequencies for all sorts of reasons. Voltage drive has an advantage, because it is easy to achieve (well, at least down to less than 0.5 ohm) and, most importantly, <i>it is easy to achieve consistency</i>.
+
+<p>Voltage drive maintains a constant voltage across the load, while a current drive circuit will produce exactly the same current into the load - in both cases regardless of impedance. In reality neither approach is ideal ...</p>
+
+<ul>
+	<li>Voltage drive will produce greater power into the load as the impedance falls, since the load voltage remains constant, and a lower
+	impedance means more current and thus more power.</li>
+	
+	<li>Current drive has exactly the opposite effect, so when the load impedance rises, a greater voltage is needed to maintain the same current.
+	So with the same current but a greater voltage there is again more power, but now it is with higher impedances rather than lower.</li>
+</ul>
+
+<p>Most loudspeaker systems are optimised for voltage drive, however in many cases "optimised" is overly optimistic, since they are just assembled and the builder hopes for the best. A tweak here, an attenuator there, and a Zobel network somewhere else rounds off the process and yet another "world's best" loudspeaker system is born.
+
+<p>Not so much a real project as a field day for experimenters, this article describes the methods you can use to tailor an amplifier to a specific driver. Much is empirical (i.e. design by experiment, trial and error), and although formulae are possible, the load presented by a typical loudspeaker is very complex and leaves big holes in the final result if the maths are allowed to take over. Having said that, good results can be obtained by either method (theoretical or practical), so here goes ...
+
+<hr />
+<b>Description</b>
+<p>Figure 1 shows two amplifiers (shown as opamps), with (a) being conventional voltage drive, and (b) is current drive. The output impedances are in the order of zero ohms and infinite ohms in each case (this IS a theoretical discussion at the moment!). The gain will appear to be exactly the same for each into an 8 ohm resistive load, but will change based on load
+for the current amp. We shall see that this is not really the case - some power is lost in the series feedback resistor. The voltage amp has the same gain regardless of load.</p>
+
+<p class="t-pic"><img SRC="p56-f1.gif" ALT="Figure 1" BORDER=1 height=300 width=640>
+<br />Figure 1 - Voltage and Current Amplifiers</p>
+
+<p>The feedback is applied differently to achieve the desired result, as can be seen, although the difference is not at all subtle at first glance, as you look more closely you will see that it really is a simple rearrangement of feedback resistances. With the 8 ohm load, both amps have a gain of 11, but the series feedback in (B) actually means that the gain to the load is 10. With 1V AC signal applied, the voltage amp will develop 15.125W (11V at 8 ohms) into the load. The current amp will develop 12.5W (10V at 8 ohms) into the load, with 1.25W dissipated as heat in R1. This will remain constant for all load impedances.
+
+<p>Where things get interesting is when the load impedance changes. Should the load increase to 16 ohms (such as near resonance), the voltage amp will produce the same voltage, so power is halved. The current amp will provide the same current, so power into the load is doubled to 25W, with the same 1.25W lost in the series feedback resistor. This of course assumes that the power supply voltage is high enough to allow the amp to do this without clipping.
+
+<p>Likewise, with a dip in impedance to 4 ohms, the voltage amp will provide double the power (30.25W - again assuming the supply can now provide the necessary current), but the current amp will only produce 6.25W under the same conditions.
+
+<p>Which of these approaches is correct? For resistive loads it does not matter - both will perform identically except for the slightly lower gain of the current amp (this is easily compensated for). With loudspeaker loads, neither is ideal. Power to the load will vary widely depending on the impedance, which in turn depends upon frequency. The voltage amp will create a dip in response at each frequency where the impedance rises (and a rise wherever there is a lower impedance), and the current amp will do exactly the opposite.
+
+<p>It is worth pointing out that the current drive system shown above should <i>never</i> be used in practice.  The open loop gain is effectively infinite, and it will be prone to pick up radio and other interference. While the technique is still perfectly valid, it can only work properly with instrumentation systems where everything is enclosed in the one case.  For audio, use the following method ...</p>
+
+<hr />
+<b>Mixed Mode Feedback</b>
+<p>By applying a mixture of both forms of feedback, it is possible to define the output impedance at any value between the two extremes. To emulate a valve amp for example, an output impedance of about 4 to 6 ohms is needed, assuming an 8 ohm load (this is the assumed nominal load impedance for all examples cited).
+
+<p>Figure 2 shows the arrangement used, and with the values shown the output impedance is a bit under 4 ohms. We could simply use a 4 ohm resistor in the amp's output, but this will waste much of the amplifier power, which will be dissipated in the resistor instead of the load. The same power output is available from a current amp as a voltage amp (give or take a fraction of a dB to account for the series feedback resistor).</p>
+
+<p class="t-pic"><img SRC="p56-f2.gif" ALT="Figure 2" BORDER=1 height=300 width=640>
+<br />Figure 2 - A Four Ohm Output Impedance Amplifier</p>
+
+<p>As can be seen, there is minimal additional complexity to achieve this result, and in my experience the final exact impedance is not overly critical, given the "real world" variations of a typical loudspeaker.
+
+<p>The no-load voltage is 18.8V with an input of 1V, and this drops to 12.8 at 8 ohms, and 9.7V with a 4 ohm load. These voltages are measured across the load, ignoring the voltage drop of the series feedback resistor.
+
+<p>From this, we can calculate the exact output impedance from ...</p>
+
+<table>
+	<tr><td width="20"></td><td width="200">I <sub>L</sub> = V<sub>L</sub> / R<sub>L</sub></td>
+	<td><small>(where I <sub>L</sub>=load current, V<sub>L</sub>=load Voltage and R<sub>L</sub>=load resistance)</small></td></tr>
+	<tr><td></td><td>Zo = (Vu - V<sub>L</sub>) / I <sub>L</sub></td>
+	<td><small>(where Zo=output impedance, Vu=unloaded voltage, V<sub>L</sub>=loaded voltage)</small></td></tr>
+	<tr><td>&nbsp;</td></tr>
+	<tr><td></td><td>I <sub>L</sub> = 12.8 / 8 = 1.6</td></tr>
+	<tr><td></td><td>Z<sub>out</sub> = (18.8 - 12.8) / 1.6</td><td>= 6 / 1.6 = 3.75 ohms</td></tr>
+</table>
+
+<p>Note that I have deliberately not developed a single formula to calculate impedance, because no-one will remember it. By showing the basic calculations (using only Ohm's law), it becomes easier to understand the process and remember the method used. For those who prefer a single formula, an approximate formula (provided by a reader) is shown below. According to this formula, Z<sub>out</sub> is 3.77 ohms. This is not entirely in agreement with the result I obtained above, nor with a simulation, but it will be more than acceptable for the normal range of desired impedances.</p>
+
+<table>
+	<tr><td width="20"></td><td width="200">Z<sub>out</sub> = R3 * ( R1 + R2 ) / R2</td>
+	<td><small>(where R1, R2 and R3 are in the locations shown in Figure 2)</small></td></tr>
+</table>
+
+<p>So we have created an amp with an output impedance of 3.75 ohms, with very little loss (just over 0.5W is lost in the 0.2 ohms series feedback resistor with 20W output into 8 ohms). To see if this is useful, we will now have a look at what happens when the load impedance doubles or halves.
+
+<p>With a 16 ohm load, the power into the load falls to 14.6W, or about 1.37 dB. Contrast this with the conventional low impedance amp whose power will fall by 3dB (i.e. half).
+
+<p>When the impedance is reduced to 4 ohms, the output power is now 23.5W (an increase of 0.7dB), while a conventional amp would be producing 40W - an increase of 3dB.
+
+<p>Somewhere, there is a magical impedance that will give almost the same power into any load from double to half the nominal, give or take a dB or so. I am not about to test all possibilities, but having experimented with the concept for many years I am quite convinced that there are practical benefits to the use of modified current drive, where the impedance is defined. The exact impedance will depend to a very large degree on just what you are trying to achieve.</p>
+
+<hr />
+<b>Further Applications</b>
+<p>It has been suggested that loudspeaker intermodulation distortion is dramatically reduced by using a high impedance source (but by whom I cannot recall - I do know that one site I looked at was Russian, and a reader sent me a translation many months ago). I have experimented with this idea to some extent, but have been unable to prove that this is the case - at least with the drivers I tried it with.
+
+<p>This does not mean that the claim is false, but I am unable to think of any valid reason that could account for such driver behaviour. It is interesting anyway, and some of you might like to carry out a few experiments of your own. I would be most interested to hear about your results should you decide to test this theory - preferably more thoroughly than I did.
+
+<p>By adjusting the impedance of an amplifier, the total Q (Qts) of a loudspeaker can also be altered, so driver behaviour in a given sized box can be changed. This can be used to adapt an otherwise unsuitable loudspeaker to a speaker enclosure, but does have limitations in terms of the overall variation that can be achieved.
+
+<p>More variation can be achieved by virtue of the fact that it is now possible to either retain or increase the power delivered to a loudspeaker at resonance, so that the ultimate -3dB frequency may be lowered from that theoretically claimed for a loudspeaker / enclosure combination. Care is needed, since too much additional power will make the speaker boomy,
+and usually additional internal damping is needed to compensate for the minimal damping factor provided by the amplifier. With the amplifier output impedance set at 4 ohms, damping factor into an 8 ohm load is 2 - a far cry from the figures of several hundred typically quoted. These (of course) fail to take into consideration the resistance of the speaker leads, and loudspeakers themselves are usually compromised by the crossover network, so the damping factor is not always as useful as it might seem.
+
+<p>The results of using modified impedance can be very satisfying, allowing a useful extension of the bottom end. My own speakers are driven from a 2 ohm amplifier impedance, and there is no boominess or other unpleasantness, but a worthwhile improvement in bass response is quite noticeable.</p>
+
+<hr />
+<b>Negative Impedance</b>
+<p>Again, this has been about for many years, but I have only found one driver type that seems to obtain any improvement from its use - horn loaded compression drivers. All cone speakers (including horn loaded) sound worse with negative impedance, but you might have some weird driver that can benefit from a negative impedance amp.
+
+<p>As the name suggests, when a negative impedance amp is loaded, the output voltage rises. The greater the load, the more output is applied. This is very risky, and negative impedance amplifiers are intrinsically unstable, and can easily oscillate when connected to a reactive load such as a loudspeaker. Indeed, negative impedance oscillators have been with us for many years in RF (and other) work, and there are quite a few electronic components that exhibit negative impedance. So, not new, but interesting.
+
+<p>Figure 3 shows how the circuit is rearranged to accomplish this most bizarre of ideas. By simply substituting the "real" earth connection for the junction of load and series feedback resistor, the voltage developed across the resistor now increases the gain by adding to the input signal voltage.</p>
+
+<p class="t-pic"><img SRC="p56-f3.gif" ALT="Figure 3" BORDER=1 height=300 width=640>
+<br />Figure 3 - Conceptual Negative Impedance Amplifier</p>
+
+<p>This circuit with the values as shown will provide an open circuit load with 11V (as with a conventional amplifier as shown above), but when the load is applied the voltage increases as the load resistance is reduced. With the values shown, the load voltage will increase from 11V to 14.7V with an 8 ohm load, rising to 22V with a 4 ohm load. A quick calculation using the formulae above will show that the output impedance is about -2 ohms.
+
+<p>The negative impedance amp is by its very nature unstable - the output voltage will continue to rise as the load is reduced, until at some point positive feedback exceeds negative feedback and the circuit will oscillate. Another undesirable side-effect is that distortion is increased, because negative feedback (which reduces distortion) is being counteracted by positive feedback. Again, this is a non-linear function, and the results are unpredictable at best. Reactive loudspeaker loads can cause a negative impedance amp to oscillate, either at the box resonance frequency (where impedance falls to a minimum), or at some other frequency determined by crossover components. Such oscillation can damage speakers (and ears!), so care is needed to ensure that this cannot happen. Low values of negative impedance (not less than -4 ohms) are strongly recommended.
+
+<p>I have found that only relatively small amounts of negative impedance are useful in practice. For example, one could use negative impedance to remove the resistance of the speaker cable and crossover components, although the results will not be as good as expected, and probably far worse. Even with a negative impedance of about 1 ohm, most speakers will show signs of "displeasure", and amplifier distortion will be increased - usually by an amount that is disproportionate to the feedback factor.</p>
+
+<p class="t-pic"><img SRC="p56-f4.gif" ALT="Figure 4" BORDER=1 height=300 width=640>
+<br />Figure 4 - Practical Negative Impedance Amplifier</p>
+
+<p>The circuit shown in Figure 3 is impractical in reality, as it requires a floating input where neither side of the input source may be earthed. To get around this, we can use an opamp as shown above to simply invert the polarity of the current feedback. As before, this results in positive feedback, so as the load resistance (or impedance) is reduced, the gain of the amplifier increases.
+
+<p>Performance is otherwise very close to that of Figure 3, and the impedance can be varied easily by changing the value of R4 or R5. I leave it to the interested reader to work out which resistor variations increase or decrease the output impedance. As noted, this is not a trivial exercise, and anyone who wishes to experiment must be prepared to deal with the potentially 'interesting' effects that negative impedance can create.</p>
+
+<hr /><b>Howland Current Pump</b>
+<p>There is one other topology that is commonly used to create a high impedance (current drive) output, and that's called the Howland Current Pump [<a href="#ref">1</a>]. It has an advantage over the version I showed above in that the load is earth-referenced, and there is no need to have a fully floating load. While this can be important for laboratory work, it's not an issue with loudspeakers (for example) as they are already a floating load.
+
+<p>The basic Howland circuit is shown below. While this circuit is very accurate (as good as the tolerance of the resistors used and the accuracy of the trim), it is limited to low currents. With 9,950 ohm (plus 50 ohms = 10k) feedback resistors as shown, and with (say) a &plusmn;20V voltage swing, the current is limited to 2mA. Not much use for audio power amplifiers.</p> 
+
+<p class="t-pic"><img SRC="p56-f5.gif" ALT="Figure 5" BORDER=1 height=300 width=640>
+<br />Figure 5 - Basic Howland Current Pump</p>
+
+<p>This circuit is capable of sourcing bipolar (positive and negative) current. If carefully trimmed using VR1 and assuming the use of 0.1% resistors throughout, it can have an extraordinarily high output impedance - at least within the frequency range where the opamp has sufficient gain. 
+
+<p>The improved version can easily drive far more current, but because the resistor ratios are so great (10,000:1 in the circuit below) it may be found to be temperamental if operated with very high output impedance. Actually, I'll rephrase that - it <u>will</u> be temperamental. The circuit can be trimmed to provide a wide range of output impedances, including negative impedance. Beware though - at close to infinite impedance with all resistances perfectly balanced, the circuit is <i>extremely</i> sensitive to small resistance value changes.</p>
+
+<p class="t-pic"><img SRC="p56-f6.gif" ALT="Figure 6" BORDER=1 height=300 width=640>
+<br />Figure 6 - 'Improved' Howland Current Pump</p>
+
+<p>If R2 is made less than R4 the output impedance is positive, but less than infinite. The exact impedance can be adjusted by varying R2, but ensuring that it is always less than R4. This is stable and appears to have no bad habits, but only at fairly modest impedances. Because of the positive feedback loop, the overall stability of the circuit is far less predictable than the version shown in Figure 2. With the (exact) values shown, output impedance is about 10k, but a variation of only 1 ohm in any one of the resistors will make an enormous change.
+
+<p>If one were to use this arrangement, I would not even try to obtain very high impedance - a sensible limit is up to perhaps 22 ohms, but even to achieve that the resistors must be close tolerance. As an example, if R2 is 9.5k, output impedance is about 18 ohms. To achieve about 100 ohms output impedance, R2 has to be increased to 9.9k, only a 100 ohm reduction from the nominal 10k value. It's actually effectively 101 ohms because of the extra 1 ohm in the positive feedback path, but the difference is immaterial in reality.  
+
+<p>To get negative output impedance, make R2 <i>greater</i> than R4, but be very careful - the circuit is extremely sensitive to even tiny variations - it's safe to say that using a Howland current pump for negative impedance is a really bad idea. It is simply too unstable when used this way.</p>
+
+<p>While the Howland pump might seem like a good idea, the more traditional approach (Figure 3) to making a power amplifier with a defined output impedance is preferable and vastly more predictable because there is no positive feedback. Positive feedback <i>is</i> used when configured for negative impedance, but even that is well controlled.</p>  
+
+<hr /><b>Conclusions</b>
+<p>This 'project' is not really a project at all (which is why it has also been included in the articles index), but more of a starting point for experimenters. The circuits shown will all work with "real" amplifiers, but great care and considerable testing are needed to ensure that the results you actually obtain are providing a real benefit.
+
+<p>It is too easy to make a change such as shown here, and fully believe that the result is an improvement, where in reality (as eventually discovered after extensive listening and comparison) the opposite is true. While negative impedance <i>may</i> be found useful for horn compression drivers, it is unlikely (in my experience) to provide any benefit at all to cone loudspeakers.
+
+<p>Positive impedance can produce an improvement in bass response, but the cost can be high - boomy, over-accentuated bass around resonance, usually accompanied by a loss of definition. There will be more freedom for the speaker cone to waffle about after the signal has gone ("overhang"), and it is rare that a speaker driven by a higher than normal impedance will perform well without additional damping material in the enclosure.
+
+<p>There is no doubt that at output impedances in the order of 4 to 6 ohms your amp will sound more like a valve amp (but without the distortion), but it is up to you to decide if this is what you really want to do. The technique works well for guitar amps, as it allows the speaker to add its own colouration to the sound, which adds to the overall combination of distortion and other effects to produce pleasing results. For Hi-Fi the case is less clear, and experimentation is the only way you will ever find out for sure.
+
+<p>There have been many claims over the years that current drive is the best (some claim <i>only</i>) way to drive loudspeakers, as it reduces distortion and allows the speaker to work the 'way it was intended'. While there is some discussion of this on the Net (see [<a href="#ref">2</a>] as an example), there is little real evidence that the benefits are anywhere near as great as claimed. Tests I've run show little or no improvement, but I admit that my test equipment is not really laboratory standard, so maybe I missed subtle effects? Not really ... I don't think that I missed anything at all. Remember that I've been messing with current drive for over 40 years at the time of writing this update. <i>All</i> loudspeaker drivers are designed and made based on the high probability that they will be connected to a voltage amp, <i>not</i> a current amp. 
+
+<p>A claim that you may see is that current drive eliminates power compression in loudspeaker drivers, because the change of voicecoil resistance doesn't affect the amplifier current. While this is true in theory, in reality as the voicecoil heats you actually get <i>more</i> power with pure current drive, thus guaranteeing that the driver will be destroyed without human intervention. This can be mitigated by using modified impedance, but why? The reduced power delivered to speakers when they get hot is often the <i>only</i> thing that saves them from destruction, and current drive ceases as soon as the amplifier clips anyway.
+
+<p>Naturally, there are a great many outrageous and/or ill thought claims made by the ever present audio nut-cases - 'new' and 'revolutionary' are but two of the silly terms used to describe what they have found. Well, sorry chaps, it was actually never lost, is anything but new, and isn't even a little bit revolutionary. Discoveries in this area are pretty much old-hat now, because so many people have played with current drive for so long.
+
+<p>Many full-range loudspeakers are likely to sound better with current drive (extended bass and treble in particular), but cabinet size, internal damping and (more than likely) parallel filters have to be optimised to account for the loss of amplifier damping and to minimise peaks or excessive high frequency output. Using mixed mode amplifiers can allow a speaker to work at its best in a larger than normal enclosure, because the use of a defined source impedance affects the Thiele-Small parameters.
+
+<p>It is also possible to adapt a bridged amplifier to use current drive, but there are some interesting obstacles to overcome. This will not be covered here unless there is overwhelming interest.</p>
+
+<hr /><p>I've been using current drive in various forms since the early 1970s, with typical output impedances of up to 200 ohms. Over the years many people have heard what they initially thought were huge improvements in the sound of individual drivers and/or complete systems. In reality, only some effects were ultimately found to be useful, and almost identical results can often be achieved with fairly basic equalisation. This doesn't negate the process though, and as you'll see in the next section, there are some who think that current drive is worthy of taking out a silly patent on a process that is already well known to a great many people, and for a very long time.
+
+<p>For myself, I still like playing around with variable impedance. I have a 3-way active test amplifier with two channels that can be varied from -8 to +32 ohms, and I use it regularly - it drives my workshop 3-way active sound system. It has been used in the past to test many, many drivers, enclosures and compression drivers + horns, and it remains a useful tool for testing, despite its age (it was built sometime in the 1980s!).
+
+<p>Useful tool, major improvement in loudspeaker driver performance or just a fun thing to play with? I leave it to the reader to decide <img src="grin.gif" />.</p>
+
+<hr />
+<p><b>Some Mothers Do 'Ave 'Em</b><br />
+Interestingly, some lunatics from the Tymphany Corporation in the US have decided that they are entitled to a patent on the general ideas shown here. Despite the copyright notice below that specifically prohibits commercial use, and without asking permission or thinking rationally, Tymphany has used this article as a reference in the patent, and the US Patents Office <i>granted it!</i> Well apart from the fact that the idea is common knowledge, their idea is quite obviously not appropriate for a patent - <i>everything</i> they claim has been done before. They do rabbit on about using DSP to tailor the amp behaviour depending on frequency, but so what? Others have done the same things long ago, although without the DSP in most cases.
+
+<p>That the patent would fall like a house of cards in a court of law is quite obvious. I for one cannot believe the gall and audacity of anyone to obtain a patent based on material that fully describes the patent in prior art and/or websites. In typical patent verbiage, they basically claim that the patent is for a mixed-mode amplifier (as shown in Figure 2). If you want to read the patent (so that it may be violated in full and without fear of recrimination) I have a copy <a href="7053705.pdf" target="_blank">right here</a>. Enjoy <img src="grin.gif" alt=":-)"></p>
+
+<hr /><a id="ref"></a><b>References</b>
+<ol class="t-sml">
+	<li><a href="http://www.ti.com/lit/an/snoa474/snoa474.pdf">Application Note 1515</a> - A Comprehensive Study of the Howland 
+	Current Pump, Texas Instruments (formerly National Semiconductor), SNOA474, 2008 Robert A Pease</li>
+	<li><a href="http://www.essex.ac.uk/csee/research/audio_lab/malcolmspubdocs/J12%20Distortion%20reduction%20MC%20current%20drive.pdf"
+	target="_blank">Distortion Reduction in Moving-Coil Loudspeaker Systems Using Current-Drive Technology</a> - P. G. L. Mills And M. O. J.
+	Hawksford, 1988</li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br /><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright (c) 22/23 April 2000./ Updated 25 Nov 03 - Corrected error in negative impedance section./ 26 Jun 07 - added simplified formula, reformatted images, included Tymphany "patent"./ 04 Apr 12 - added Howland pump, Figures 4,5 &amp; 6, more detail for negative impedance, updated text.</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="mosfet, power, follower, audio, project, diy, amp, hi-fi">
+   <meta name="description" content="ESP Project Pages - MOSFET Power Follower Class A amplifier">
+   <title>Project 83 - MOSFET Power Follower</title>
+<!-- This is a true Class-A power amplifier, and is very simple to build.  Using a source follower and a current sink, the amp has zero global feedback. -->
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 83&nbsp;</td></tr></table>
+
+<p align="center"><b>MOSFET POWER FOLLOWER</b><br />
+<small>Pavel Macura</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>I have been trying for years to find high quality solution for power audio amplifier. I have tried valves (tubes), bipolar transistors, MOSFETs, Class-B, AB, A push-pull, A single-ended ... you know what stuff I speak about.</p>
+<p>Nelson Pass describes those terms perfectly (see <a href="http://www.passlabs.com" target="_blank">www.passlabs.com</a>). He also describes why he prefers the solution of single-ended class A MOSFET power stage with common Source (S-electrode). I think that his thoughts can be broadened even more. From my point of view a power MOSFET follower is a still better solution. It has benefits of single-ended class A amplifiers with common Source plus something more - less distortion, lower output impedance, higher input resistance and ... no feedback.</p>
+<p>With one drawback - voltage gain is only +1 **, so it needs preamplifier able to deliver up to 12V RMS. The sound impression is perfect, surpassing the common Source MOSFET circuit. You can see schematic that I have tested in Fig.1.</p>
+
+<p>** The actual voltage gain is in fact 0.98 (for RL=8 Ohm), as the IRF350 MOSFET transconductance is 6 [1/Ohm] and&nbsp; therefore ...
+
+<blockquote>Gain = 6 / (6 + 1 / 8) = 0.979</blockquote>
+
+<p>Measurement gave the same number.</p>
+
+<hr><b>Description</b>
+<p>The circuit consists of an N-Channel MOSFET voltage follower T1 (common Drain) and current source T2 (NPN Darlington). Current source is set to 2.2 Amps. With 40V of supply voltage the circuit is able to deliver about 17W into an 8 Ohm loudspeaker. The amplifier will take 88W from the power supply all the time.</p>
+
+<p align="center"><img SRC="p83-f1.gif" ALT="Figure 1" BORDER="1">
+<br><b><small>Figure 1 - MOSFET Power Follower</small></b></p>
+
+<p>Bandwidth (-3dB) is from 4Hz to 250kHz. Rise time is 1.5 us. Output resistance 0.16 Ohm. The circuit is very tolerant of different kinds of load. Input resistance is 10 kOhm (R0), but can be increased up to 100 kOhm (R4) by omitting R0.&nbsp; Input capacitance remains relatively high, about 1500 pF.&nbsp; For this reason, the preamp should not have higher output impedance than 1 kOhm to maintain high frequency limit about 100 kHz. An input potentiometer can be used instead of R0.</p>
+
+<blockquote><b><small>The drawings shown are slightly different from Pavel's original.&nbsp; A fixed resistor has been used for the zener feed, and I made a couple of minor changes so the schematic was more like my standard style. <img src="esp-eot.gif"></small></b></blockquote>
+
+<p>If the value of the potentiometer is 5 k Ohm then the high frequency limit will be about 70 kHz. The power follower can be connected directly to the output of CD player, and for reduction of volume potentiometer 5 kOhm can be used. As a preamplifier you may use Nelson Pass's projects "Bride of Zen" or "Balanced Line Stage" (see passlabs.com).</p>
+
+<blockquote><b><small>Note: The <a href="project37.htm">DoZ preamp</a> will also drive this amplifier well, especially if the supply voltage is increased slightly.&nbsp; Although it is specified for +30V, it will operate quite happily at up to +40V.&nbsp; It may also be possible to direct couple the preamp's output to the power follower - omit R0, R2, R3, R4, C1 and C2 - as well as the output capacitor on the preamp.&nbsp; Needless to say, this would be my recommendation as the ideal preamp for Pavel's circuit - especially with direct coupling (<a href="#below">see below</a>). There are some changes needed to use the latest revision of the DoZ preamp, because it uses dual power supplies. More info below. &nbsp; <img src="esp-eot.gif"></small></b></blockquote>
+
+<p>How does it sound? Wonderful, regardless low or high volume. Entire spectrum from bass to high is perfect. It only needs a good preamplifier.</p>
+
+<p>I have tested an amp for a considerable amount of time and there was never problem with thermal runaway.&nbsp; Normally, the thermal coefficient of zener voltage of 3V type is negative, and so is Ube voltage of the Darlington transistor. As Ube is reduced by -2mV/&deg;C, zener voltage also goes down with increasing temperature inside a box (but the zener is not on the heat sink of the MOSFET and should not be). In fact there was a fluctuation of 40mA at 2A constant current, from my point of view it is negligible. Of course the heatsink for T1 and T2 should be better than 0.5&deg;C/W for each transistor, so four such heatsinks are needed for stereo.</p>
+
+<p><b>PROS:</b>
+<ul><li>simplicity, easy as a DIY project (Do It Yourself)</li>
+<li>low distortion</li>
+<li>no feedback</li>
+<li>lower output impedance compared to common Source circuit</li>
+<li>higher input resistance compared to common Source circuit</li>
+<li>crossover distortion eliminated</li>
+<li>wide bandwidth</li>
+<li>fast response</li>
+<li>no overshoot, no ringing</li>
+</ul>
+
+<b>CONS:</b>
+<ul><li>voltage gain is only +1</li>
+<li>runs pretty hot, so needs a very good heatsink</li>
+<li>high input capacitance of power MOSFET (about 1500pF)</li>
+<li>because of high input capacitance the preamplifier must have output impedance no higher than 1kOhm</li>
+</ul>
+
+<p>KD367B! -&nbsp; very funny thing.&nbsp; I am from Prague, Czech Republic.&nbsp; The KD367B is a product of the former TESLA of Czechoslovakia, now they are a part of Motorola and are not produced any more ...&nbsp; TIP141 or TIP142 will do the same work without any problem.</p>
+
+<blockquote><small>KD367B's parameters:<br>
+NPN Darlington<br>
+U<sub>cbo</sub> &lt;= 100V<br>
+U<sub>ceo</sub> &lt;= 100V<br>
+Ic&nbsp; &lt;=&nbsp; 8A<br>
+Ib&nbsp; &lt;= 0.15A<br>
+P<sub>tot</sub>&nbsp; &lt;= 60W<br>
+h<sub>FE</sub> = 1000 approx.<br>
+Rthjc&nbsp; &lt;= 2.1&deg;C/W<br>
+f<sub>T</sub> = 7MHz<br>
+TO3 case</small></blockquote>
+
+<p>Comments: &nbsp; &nbsp; <a href="mailto:macura@centrum.cz">macura@centrum.cz</a></p>
+
+<hr><a NAME="below"></a><b>Using the DoZ Preamp as a Driver <img src="esp-eot.gif"></b>
+<p>To get the voltage gain needed for a normal installation, the DoZ preamp can be used.&nbsp; Everyone who has built this circuit has commented on the exceptional sound quality, and it is ideally suited to this application.&nbsp; Pavel has tried the combination, and he says ...</p>
+
+<blockquote><small>I have already checked the DoZ with the Follower. Both original versions, with caps (not direct coupled). The DoZ being supplied from external 30V power supply. The DoZ and the Follower interconnected by 5 kOhm potentiometer. Works perfectly, sounds wonderful.</small></blockquote>
+
+<p align="center"><img SRC="p83-f2.gif" ALT="Figure 2" BORDER="1">
+<br><b><small>Figure 2 - DoZ Preamp as Driver</small></b></p>
+
+<p>Figure 2 shows the modified version of the preamp, the output of which would be connected directly to R1 in Pavel's circuit.&nbsp; The quiescent output voltage is now set by VR1 in the preamp, and the voltage at the source of T1 should be set to 19.8V as shown in Figure 1 by means of VR1 -&nbsp; the voltage at the gate (preamp output) should be 4V higher, i.e. 23.8V.&nbsp; The DoZ preamp board is stereo, and can drive a pair of Pavel's power followers with ease.&nbsp; Q2 and Q3 should be fitted with small "flag" heatsinks to allow them to dissipate the increased power caused by the higher operating voltage. Note that the current version of the DoZ preamp is normally operated from a split supply (positive and negative supply rails), but it is reasonably easy to modify it as shown above. I will provide full modification details if there is sufficient interest.</p>
+
+<p>As shown, the gain is 3.2, so it will require nearly 4V RMS input for full power.&nbsp; To change the gain, I suggest that R5 be changed to 3k3 to obtain a gain of 7.7 (17.7dB), which will give an input sensitivity of about 1.5V for maximum output.&nbsp; C3 will also need to be changed, and a value of 100uF will be more than adequate.&nbsp; I do not recommend that R4 be reduced to less than 2k7, which will give a gain of 9.15 (19.2dB).&nbsp; To maintain good low frequency response, C2 will need to be about 100uF, although even with 25uF, the low frequency response is maintained to 2Hz.&nbsp; Ideally, the input network should define the low frequency limit, so the higher value is recommended if R5 is reduced. The capacitor marked C* does not normally exist on the PCB, so needs to be added.</p>
+
+<p>Unless a preamp is used in front of the amp, a pot will be needed at the input for gain control.&nbsp; 10k is fine here, and will not cause excessive loading on the source.</p>
+
+<p>Figure 3 shows what Pavel's amplifier looks like after it is modified for direct coupling to the DoZ preamp.&nbsp; The complete circuit is deceptively simple, but should give a very good account of itself.</p>
+
+<p align="center"><img SRC="p83-f3.gif" ALT="Figure 3" BORDER="1"><br>
+<b><small>Figure 3 - Power Follower Modified for Direct Coupling</small></b></p>
+
+<p>The amplifier can also be used to drive headphones, and the quiescent current may be reduced considerably.&nbsp; R6 controls the current, and may be increased to 10 Ohms for use as a headphone amp.&nbsp; This will reduce the current to about 200mA and dramatically reduces the heatsinking requirements.&nbsp; 120 Ohm resistors should be used in series with the headphone output, and C3 can be reduced to 220uF for a single headphone output, or 470uF for dual outputs (using 2 x 120 ohm resistors). Smaller (and cheaper) MOSFETs can be used at the lower power, but they need to be carefully selected to ensure that there is no oscillation (continuous or parasitic).</p>
+
+<p align="center"><img SRC="p83-f4.gif" ALT="Figure 4" BORDER="1"><br>
+<b><small>Figure 4 - Direct Coupled Power Follower Using MOSFET Current Source</small></b></p>
+
+<p>A further modification that a reader (thanks Shaan) has tried and tested is shown above. Using IRFP150N MOSFETs as both the amplifier and current source, the problem of finding a suitable Darlington transistor goes away. While the lower MOSFET increases the available voltage swing by a couple of volts, this doesn't make it sound any different or produce any audible power increase. R6 may be a single 0.33 ohm resistor, or 3 x 1 ohm resistors in parallel. Total dissipation of R6 is 1.6W, so 3 x 1W resistors will work fine. Non-inductive resistors are highly recommended to prevent any possibility of RF oscillation. It may be necessary to reduce the value of R6 to obtain the specified 2.2A quiescent current. Any reduction of resistance will be small - the theoretical resistance for 2.2A is 0.295&Omega;
+
+<p>The specified IRFP150N MOSFETs are rated at 160W, and use the TO-247 package so heat transfer to the heatsink is better than average (although not as good as the TO-3 package). It is also a good substitute for the original IRF350, which is very expensive and/or difficult to obtain now. There are differences as one would expect, but these are unlikely to make a great deal of difference to the measured or audible performance.
+
+<p><i>Note:</i> Do not attempt to use any TO-220 packaged MOSFET regardless of claimed performance, because heat transfer is not good enough for continuous operation at these power levels (about 44W for each device). The TO-220 package should not be expected to handle more than about 20W continuous power.
+
+<p>While you would expect that a gate "stopper" resistor would be needed for the lower MOSFET, Shaan tells me that it caused the current source to oscillate. Once removed the circuit behaved itself perfectly and there is no signal degradation cause by the use of the MOSFET. Note that I have not tested this variation, but I expect that it will work without any problems.</p>
+
+<hr>
+<p>Pavel has also sent me his version of the power follower using discrete transistors as the current source. Rather than the Darlington transistor, it uses an MJE15030 driver and MJL21194 power transistor. An extra resistor has been added in series with the gate, as this was found to be necessary under some conditions and with some wiring layouts.</p>
+
+<p align="center"><img SRC="p83-f5.gif" ALT="Figure 5" BORDER="1"><br>
+<b><small>Figure 5 - Pavel's Latest Version Direct Coupled Power Follower</small></b></p>
+
+<p>Pavel quotes distortion figures of 0.065% THD at 400mW, rising to 0.43% at 10W output. From a regulated 37.5V supply, you can expect about 30V peak-to-peak into a 10 ohm load (about 11W), or 20V p-p into 5 ohms (10W).
+
+<p>Note that Pavel specifies an 18V zener diode for gate protection, but I suggest either 12V or 15V. There is no conceivable audio signal that can ever reach more than about 6V between the gate and source, and allowing a higher maximum voltage will not improve performance. It will allow extremely high current to flow though, so there is no disadvantage in lowering the zener voltage.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Pavel Macura and Rod Elliott, and is Copyright &copy; 2001. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Pavel Macura) and editor (Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Pavel Macura and Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Pavel Macura and Rod Elliott 14 Nov 2001./ Updated 29 Jan 2010 - Added MOSFET current source, corrected HTML errors./ 28 Feb 2010 - included Pavel's latest version. </div>
+</body>
+</html>

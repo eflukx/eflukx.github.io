@@ -1,0 +1,359 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.01 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="ESP Power and Energy Info - Active power factor correction (PFC) - how it works">
+	<!-- Active power factor correction (PFC) - how it works -->
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="ROBOTS" content="all">
+	<title>Active PFC</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img src="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table width="100%" bgcolor="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td align="right" class="hdrr">Active Power Factor Correction&nbsp;</td></tr></table><br />
+
+<p align="center">Rod Elliott (Elliott Sound Products)<br />
+<small>Page Created and Copyright &copy; 28 January 2012<br />
+Updated 06 February 2012</small></p>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="index.html" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles" BORDER=0 height=24 width=40></a><b>Lamps &amp; Energy Index</b>
+<br><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Index" BORDER=0></a><b>Main Index</b><br />
+
+<hr /><b>Contents</b>
+<ul>
+	<li><a href="#intro">Introduction</a>
+	<li><a href="#capin">Capacitor-Input Off-Line SMPS</a>
+	<li><a href="#need">The Need For Power Factor Correction</a>
+	<li><a href="#basic">Basic PFC Power Supply</a>
+	<li><a href="#hiperf">High Performance PFC Power Supply</a>
+	<li><a href="#how">How It Works</a>
+	<li><a href="#alt">Alternative PFC Circuits</a>
+	<li><a href="#neut">Neutral Currents In 3-Phase Systems</a>
+	<li><a href="#outro">Conclusions</a>
+	<li><a href="#ref">Credits &amp; References</a>
+	<ul>
+		<li><a href="reactance.html" target="_blank">Reactance - Capacitive &amp; Reactive</a>
+	</ul>
+</ul>
+
+<hr /><a id="intro"></a><b>Introduction</b>
+<p>This article should be read in conjunction with <a href="reactance.html" target="_blank">Reactance - Capacitive &amp; Reactive</a>, as the two concepts are both a manifestation of the same thing, but for different reasons. There is some overlap between the two articles, because there is so much at stake and the concepts are widely misunderstood.
+ 
+<p>In many places I have discussed active power factor correction (active PFC), but it's about time that I explained the principles and benefits of the technique. Off-line - direct to the AC mains - switchmode power supplies (SMPS) have been with us for many years now, with the best known example being the standard computer power supply. For a long time, these have presented an awful load to the mains supply, drawing current only briefly at the very peak of the AC mains waveform. This applies to both desktop and portable PCs, as well as many other external supplies used in their millions worldwide.</p>
+
+<table width="100%"><tr><td valign="top"><img src="note.gif" /><td>The same problem exists with conventional transformer based power supplies, as used for hi-fi power amplifiers for many years. The current spikes are only very slightly mitigated by the transformer winding resistance. The only exception to this is a supply used in some valve amps - the choke input filter. This is very uncommon now, and was never a popular choice due to the cost of the choke (inductor) needed. Needless to say, this is not an option that will be explored here.
+</table> 
+
+<p>Because the current peaks of a capacitor input filter are (more-or-less) in phase with the voltage waveform, many people (engineers included!) have erroneously assumed that the power factor must be ok. Well, it's not - it's rarely better than around 0.6 - meaning that RMS volts times amps is at least 1.6 times greater than it should be. Depending on the design, it may be even worse. A supply that draws 1A RMS may be able to be corrected so it only uses 600mA, just by correcting the non-linear power factor.
+
+<p>Another complete falsehood is that because these power supplies have a capacitor after the bridge rectifier, the load must be capacitive (to explain the poor power factor). Again, this is nonsense - the load seen by the mains (and ultimately the alternators at the power stations) is non-linear. A non-linear load is particularly nasty, because it's very hard to fix elsewhere in the distribution grid. 
+
+<p>The much more widely known 'lagging' (inductive) power factor is relatively easy to fix by adding the right amount of capacitance to ensure that the leading power factor of the cap exactly cancels the lagging power factor of electric motors, magnetic fluorescent ballasts and other similar loads. To be effective, the capacitors are hard wired directly to the inductive load they are correcting, and are switched on and off with the load.
+
+<p>So-called 'power savers' that consist of a capacitor that's permanently connected to the mains, whether at the switchboard or elsewhere, are a waste of a perfectly good capacitor. They don't save you a cent, and can't do anything even remotely useful, but when everything in your house is turned off (or there are only resistive loads), you end up with a <i>leading</i> overall power factor. This is not a benefit to anyone. These fraudulent devices are discussed <a href="power-savers.html" target="_blank">here</a> if you want more info.</p>
+
+<center><img src="pfc-f1.gif" border=1><br><b><small>Figure 1 - Voltage &amp; Current Waveforms For Different Loads</small></b></center>
+
+<p>Above, we see the voltage waveform (which doesn't change) and current waveforms for three different loads. Of these, the lagging and non-linear loads are the most common. A leading power factor is unusual with any normal equipment, although it <i>will</i> be caused if PF corrected LED tube lights (for example) are installed into power factor corrected fluorescent fittings (i.e. if the PFC capacitor is not removed).
+
+<p>It's also worth mentioning that active PFC is completely incapable of creating a power factor other than slightly less than unity, with the 'slightly less' component caused by inherent non-linearities. Active PFC cannot create a lagging or leading power factor of any consequence, as it has no reactance and is unable to return energy to the power grid, as is the case with inductive or capacitive (reactive) loads. There seems to be a misconception that by somehow 'tuning' the circuit it can magically behave as a reactive load, but there's one small problem with this - the bridge rectifier at the input prevents any power from being returned to the grid.
+
+<p>There are many misconceptions about power factor, and none stand up to even the most rudimentary scrutiny. Unfortunately for everyone, many of these misconceptions come from engineers who should know better, but seem locked into the past where electronic loads were unknown, and Cos&Phi; could explain everything. Not so - Cos&Phi; is a <u>shortcut</u> that <i>only works when voltage and current waveforms are sinusoidal</i>. Power factor is defined as actual power (Watts) divided by 'apparent power' (Volt-Amps or VA). Unlike the shortcut method, this works regardless of the current waveform or phase angle, and is the <i>only</i> method that should be used.
+
+<p>If a load draws 1A at 230V, that's 230VA. If the <i>power</i> consumed (as measured by the electricity meter) is 115 Watts, then the power factor is 0.5, and it does not matter one iota whether the load is lagging (reactive), leading (reactive) or non-linear (non-reactive), or a combination of reactive (leading or lagging) and non-linear. I don't understand how some people keep missing this very important point, but they do, and it's confused the whole situation and a great many discussions very badly.
+
+<p>One simple phrase sums it up - "<i>It's not hard, please get it right</i>."</p>
+
+<hr /><a id="capin"></a><b>Capacitor-Input Off-Line SMPS</b>
+<p>The most basic of switchmode supplies uses a bridge rectifier followed by a filter capacitor. This produces a DC voltage that's roughly equal to the peak of the AC voltage waveform, but with some ripple - anything up to 10V peak-peak ripple at double the mains frequency is not at all uncommon. In some cases (especially with some CFLs for example) the ripple voltage is even greater, but this also increases the ripple current in the filter capacitor(s), causing more internal heating. Remember - for a given load power, lower capacitance means <i>higher</i> ripple current, not less as you might have imagined.
+
+<p>Lower capacitance also causes the power factor to get worse, until the capacitor value is so low that the ripple voltage is very high indeed. At this point, there is no longer a passably smooth supply voltage. This makes the job of the switchmode converter so much harder - that is the part of the circuit that reduces the mains voltage to useable voltages for common electronic equipment. Where a widely varying output voltage isn't a major concern, it's common for the filter cap to be quite small, and this is standard in CFL power supplies (for example).
+
+<p>It's worth mentioning that if the load after the bridge rectifier is resistive (with little or no capacitance at all), the power factor is very close to unity. It's entirely possible to get an overall power factor of 0.97 or better. This is because there is only minimal current waveform distortion, so the mains current is very close to sinusoidal, with distortion typically less than 5%. This is actually the principle behind active PFC - to make the switchmode supply appear to be a resistive load.</p>
+
+<center><img src="pfc-f2.gif" border=1><br><b><small>Figure 2 - Block Diagram Of Switchmode Power Supply</small></b></center>
+
+<p>A generalised block diagram of any SMPS is shown in Figure 1. Although shown with three outputs, the actual number can be anywhere between one and seven or more. The EMI filter is needed to limit high frequency noise from the circuit from the mains, and is a requirement in almost all countries. It usually consists of a common-mode choke and two or more capacitors. The caps should always be rated for continuous AC duty (typically 275V AC, 'X' Class), but many cheaper circuits use ordinary 400V or 600V DC caps, in the mistaken assumption that they will withstand the applied AC. If used with 120V mains they <i>might</i> survive, but with 230V they <i>will</i> fail.
+
+<p>The rectifier is usually just a simple bridge, rated for the applied mains voltage and expected load current. The following filter section will either be a capacitor and nothing else, or perhaps two caps to allow 120 and 230V operation. This is the section that is replaced by the PFC circuit as we shall see further along.
+
+<p>The converter is well outside the scope of this article. Depending on cost constraints and output power, the converter type may be any of the following (in more-or-less ascending order of power output ....</p>
+
+<ul>
+	<li>Flyback Converter ... common in small 'wall wart' type supplies
+	<li>Forward Converter ... less common than a few years ago, but still widely used
+	<li>Self-Oscillating Converter ... some are surprisingly high output
+	<li>Resonant/ Quasi-Resonant Converter ... covers a range of different types (not a converter topology in itself)
+	<li>Half Bridge ... typically up to 1kW or more
+	<li>Full Bridge ... very high power, hundreds of Watts to many kW
+</ul> 
+
+<p>The type of converter used also determines the way the transformer is wound, the core material, number of turns used, and whether an air-gap is included. The design of switchmode converters is a science unto itself, and pity the constructor who attempts this without the detailed knowledge needed of all aspects of the design. The design of the magnetic circuit (the transformer itself) is close to being an art form as much as a science, and cannot be trivialised or smoke will be the inevitable result. Great care is always needed to minimise leakage inductance - any magnetic flux that 'leaks' from the core increases leakage inductance, and causes unwanted spikes on the switching waveform. Because the spikes must be tamed by one means or another (usually involving 'snubber' networks), this increases losses, reduces efficiency and means that higher voltage parts must be employed. 
+
+<p>Most converters generally operate at somewhere between 30kHz and 100kHz, although lower or higher frequencies may be also used. As the frequency increases, the transformer can be smaller for the same power throughput, but switching losses in the transistors or MOSFETs increase. For high power and high switching speeds, MOSFETs are preferred, but IGBTs (insulated gate bipolar transistors) are often chosen where extremely high power is needed. 
+
+<p>Secondary rectifier(s) and filter(s) are also determined by the converter used, and will not be covered here either. Likewise, the regulation system and isolation - these vary widely, and in some cases there is no isolation as such. If the output(s) can operate at mains potential (such as with many SMPS used for lighting), then isolation is not needed. In many cases it's included because it makes the design easier, even though the output(s) are still nominally at mains potential.</p>
+ 
+<p>The basis for many older (and some current) SMPS was the capacitor input filter, as shown in Figure 3. This has the benefit of extreme simplicity, but at the expense of a very poor power factor and considerable mains waveform distortion where large numbers are used or the unit is reasonably powerful.</p> 
+
+<center><img src="pfc-f3.gif" border=1><br><b><small>Figure 3 - Capacitor Input Filter</small></b></center>
+
+<p>The circuit shown used to be a very common configuration, and is easily recognised by the mains voltage (aka 'no bang') switch. If the switch is set for 120V and the supply is connected to a 230V outlet, the result is a very loud bang, and the instantaneous demise of the power supply. The arrangement used is clever though - by using a single jumper or switch, the supply is transformed from being a simple bridge rectifier with a capacitor filter into a full-wave voltage doubler. Contrary to popular belief, a voltage doubler is not particularly inefficient, and doesn't necessarily have poor regulation.
+
+<p>Working from left to right, the fuse is obvious, and the NTC resistor is intended to reduce the inrush current to something passably sensible. Use of an NTC for a supply that always has close to full load works well enough, but the values typically used are too small to be really useful. Consider what happens if 230V is applied, and it's switched right at the voltage peak (325V). The caps show close to a dead short when discharged, the mains (from substation to your wall outlet) will have a typical impedance of ~0.8 ohms. Diode forward resistance can be ignored. The worst case peak current is therefore ...</p>
+
+<blockquote>
+	R = 0.8 + 2.5 = 3.3 ohms<br />
+	I = V / R<br />
+	I = 325 / 3.3 = 98A
+</blockquote> 
+
+<p>Definitely not trivial. A far more sensible value for the NTC would be at least 10 ohms, but that has to dissipate more power and is more expensive, so manufacturers won't go there. <a href="../project39.htm" target="_blank">Project 39</a> shows my solution to taming inrush current, and this is (IMO) a far better option. The extra cost means that no-one will do it in a low-cost commercial product though.
+
+<p>The next items to discuss are the caps themselves. There is a tradeoff between the capacitor size (which influences cost), and the amount of ripple that can be tolerated. In some cases, a specification is given for 'hold-up time' - this is how long the supply can run if there is a momentary interruption to the mains. Longer hold-up time means bigger caps, but also lower ripple voltage and a greater duration inrush current. 
+
+<p>With the values shown, the ripple voltage is about 10V peak-peak with 80W drawn by the load (these are not exact figures). The peak mains current with a 230V supply is 2.32A, with an RMS value of 673mA. This is a crest factor (Peak/RMS) of 3.52 - compare this with the crest factor of a sinewave, at 1.414.
+
+<p>The capacitor ripple current is 620mA RMS, but well over 2A peak-peak. It is vitally important that the ripple current does not exceed the maximum specified by the capacitor manufacturer and that it is maintained at the lowest practicable temperature, but it seems that this is overlooked for many designs. Either that, or the applications note (etc.) simply assumes that the designer knows about such things. Based on many of the CFL and other SMPS boards I've dissected, this is a false assumption <img src="sad.gif" />.</p>
+
+<center><img src="pfc-f4.gif" border=1><br><b><small>Figure 4 - Capacitor Input Filter DC Voltage &amp; Input Current</small></b></center>
+
+<p>Figure 3 shows the voltage and current waveforms (steady state) with a an input voltage of 230V 50Hz, and a load of 80W. Voltage is in red, and mains current in green. It's also worth mentioning (although it's not actually useful) that the current waveform has a total harmonic distortion (THD) of 150% or more. This means that the summed RMS value of all the harmonics is <i>greater</i> than that of the fundamental (note that no distortion meter can measure this, it has to be calculated or simulated).
+
+<p>At 120V 60Hz, the results are very similar, but of course the peak current is double and the peak voltage is a little lower (the mains impedance was set for 0.8 ohms in each case). In 120V countries, the mains impedance is usually lower than elsewhere, because the lower voltage means that current is increased by the same factor, so wiring has to be larger to accommodate the higher current.
+
+<p>This tends to make inrush current less of a problem with 120V mains, because the peak voltage is much lower - 170V vs. 325V. Circuit breakers are all rated for higher currents too, and a even a small NTC thermistor (such as 2.5 ohms) is sufficient to limit the worst case peak current to something a bit more sensible.</p>
+
+<hr /><a id="need"></a><b>The Need For Power Factor Correction</b>
+<p>In general, householders only pay for the <i>power</i> they use, as so many cents per kWh (kilo-Watt hour). Any reactive (linear but out-of-phase) component is not measured, and nor is any non-linear current that isn't providing power to the load. In short, power factor (or kVA) is not measured or charged for. The supplier generally has no capacity to charge for poor power factors, however caused, because the meter doesn't register anything other than real power. 
+
+<p>Industrial and commercial premises are treated differently though, and if the power factor is below a set limit (typically from around 0.8 to 0.95), then penalties apply for kVAr - kilovolt amps (reactive/Wattless power usage). This applies whether the load is actually reactive or is non-linear. Old style Wattmeters (the ones with a spinning disc) can't measure kVA, but the new 'smart' meters can, and it's only a matter of time before households are also charged extra for a poor power factor.
+
+<p>The additional charges and the point where poor power factor penalties are introduced depends on the supplier. The charges for reactive (or non-linear, although this is rarely mentioned) power in kVAr can be anywhere between a minor irritation to crippling, dependent on the energy provider's policies. These charges can only be expected to rise, because a poor overall power factor on the distribution grid means that much of the infrastructure is not being utilised to its potential.  
+ 
+<p>Even if there were no financial penalties for large electricity users for producing a poor power factor, there is one important point that will be noticed ... load current! In Australia, the standard rating for a 'power point' (wall outlet) is 10A. This means that you can have 2,300W without overloading the socket, plug or cable. However, this assumes that the load has a good power factor - to obtain the full 2.3kW the power factor must be unity - as good as it gets. Only resistive loads will always give unity PF - everything else is going to be marginally less, although 0.9 or better is so close that it's academic (this means the difference between real power and VA is only 10%, and we can usually live with that).
+
+<p>If we assume a load with a power factor of 0.5 for simplicity, the maximum <i>power</i> is now limited to 1.15kW, even though the full 10A is drawn from the outlet. It doesn't matter if the poor power factor is caused by a lagging (inductive) or leading (capacitive) current, or is due to a badly distorted current waveform. The net result is that although the wiring still carries the full 10A (RMS), only half of it is doing useful work - the remaining 5A is just heating the premises wiring. Included in this is the distribution system cables, transformers and alternators - all for no purpose or benefit whatsoever!
+
+<p>For this reason alone, using a power supply with power factor correction makes a lot of sense. Consider the power amplifier racks used for large concert sound systems as a perfect example. There are amps that are so powerful that they exceed the rating of a standard power outlet even if the overall efficiency were 100%. If these also have a poor power factor and allowing for losses within the system, it's quite obvious that the only way these amps can function on any power outlet is because they are never called upon to provide full power on a continuous basis. When the losses considered, just <i>one</i> 2kW amplifier operating on a 10A outlet may exceed the average current rating for the power outlet.
+
+<p>By using power factor corrected power supplies, the current can be reduced to perhaps 0.5 to 0.6 of that which would be drawn without any form of PFC. This also applies to amplifiers or other systems that use a conventional mains transformer before the rectifiers and filters. While it might be assumed that the transformer improves matters, any 'improvement' is only slight, and is mainly due to the resistive losses in the transformer itself. Capacitor input filters are still just as nasty when a transformer is used, but this is commonly either ignored, or treated as if everyone (somehow) must already know this.
+
+<p>Ensuring that equipment has a good power factor means that the building wiring may need fewer individual circuits. There is a potential cost saving for any new installation or refurbishment of existing buildings. Especially for lighting, this could mean that the overall number of lighting circuits could be reduced, although it is still very important to make allowances for inrush current as the main capacitor charges at power-on. This is another topic altogether, and is covered in the <a href="../articles/inrush.htm" target="_blank">inrush current</a> article on the ESP website.
+
+<p>Low power factor also means that you cannot make full use of any backup generator, UPS (uninterruptible power supply) or PV (Photo-Voltaic - solar cell) inverter. All generating systems - mechanical (such as petrol/diesel powered) or electronic (PV or backup battery powered inverters) produce a specified voltage and are limited to a maximum current. They don't care if your load uses that current to perform real work (Watts) or not - the current limit is an absolute value. Most of these units are not rated in Watts - they are rated in VA or kVA. If your load uses in excess of the available current, then the unit's circuit breaker or other protective feature will operate. High power factor is desirable in all cases - it's simply the best way to get the full benefit from any power source - including the national grid. 
+
+<p>EN 61000-3-2 (Europe) and IEC 61000-3-2 (US) are two of several standards that specify power factor and harmonic content of the current waveform. In the US, 'EnergyStar' requires that any lighting power supply above 25W and any other supply over 75W must have power factor correction to obtain certification. Predictably, there is no worldwide standard though, so most countries have slightly (or perhaps widely) differing requirements.
+
+<p>Harmonic currents, caused by non-linear loads with a non-sinusoidal current waveform, are another source of great concern to energy suppliers. There is neither the space nor is it appropriate to try to discuss this in detail here, but harmonic current is becoming a major headache for suppliers, and within industrial installations is known to cause motors to overheat and draw excessive current through power factor correction systems. Naturally, it also affects the distribution grid infrastructure, and other users connected to the supply system. Some large electricity users are required to install harmonic filters to reduce the level of these harmonic currents through to the national grid. One mine in Australia that I know of (from discussions with their electrical engineers) was threatened with disconnection if they exceeded the limits set by the supplier.
+
+<p>There is another form of PFC known as passive power factor correction. While simple to implement, it is not cost effective when compared to active systems. It's difficult to achieve a PF better than about 0.7 so it will not be discussed further. In all of the great many lighting power supplies I've looked at over the past few years, I've not seen a single example of passive PFC. For LED tube lights, it may be included 'accidentally' if the fluorescent ballast is left in circuit, but since most now have active PFC this is redundant.</p>
+
+<hr /><a id="basic"></a><b>Basic PFC Power Supply</b>
+<p>For low power applications, there's a rectifier circuit known as a 'valley-fill' rectifier. It's simple to implement, but is only suitable where a very high effective ripple voltage can be tolerated. This limits its usefulness, but it is found in some low-end LED lighting circuits, and is also suitable for some CFLs and similar lighting products where the ripple is not likely to cause a problem.
+
+<p>The power factor improvement is much greater than one might expect, and a PF of 0.9 or thereabouts is possible. The current waveform is still quite distorted though, and it's unrealistic to expect too much from such a simple circuit. THD measured 31% in the simulation of the circuit shown.</p>
+
+<center><img src="pfc-f5.gif" border=1><br><b><small>Figure 5 - Valley-Fill Power Factor Correction</small></b></center>   
+
+<p>Essentially, the two capacitors are charged in series, but discharged in parallel. This means that when the peak of the applied AC falls, so too does the output voltage, until it reaches a voltage that's roughly half the AC peak (162V less a few diode voltage drops) and is actually the voltage across the capacitors in parallel. The output 'DC' therefore has half the applied voltage of ripple - 158V peak-peak in the circuit shown. As you can imagine, the applications for any rectifier/filter with this much ripple are limited.
+
+<p>It's interesting to see the waveforms, and they are shown below.</p>
+
+<center><img src="pfc-f6.gif" border=1><br><b><small>Figure 6 - Valley-Fill PFC Waveforms</small></b></center>
+
+<p>As before, voltage is in red, and mains current in green. The 'DC' voltage can be seen to be varying from 158 to about 318V - that's a lot of ripple. The mains current waveform looks pretty bad, but it's much, much better than that shown for the standard rectifier and capacitor supply. The power factor is far better than expected, and although there are still some significant harmonics (which result from the distorted waveform), THD is far better than the previous version as well.
+
+<p>As noted though, this type of supply is only suitable where the high ripple is tolerable, and you won't find it used much any more. It's basically an idea that came too late, because cheap PFC ICs that are a great deal better in all respects came along only a short while after this circuit was first used. Until I started working with LED tube lights, I'd never seen it before, and now, only a few years later, I don't see it used in any of the new designs.</p>  
+
+<hr /><a id="hiperf"></a><b>High Performance PFC Power Supply</b>
+<p>The power supply circuit shown below is based on an application note by ST Microelectronics [<a href="#ref">1</a>], and uses the <a href="l6562.pdf" target="_blank">L6562</a> IC - it's a mere 8 pin device, and seems to be quite unassuming, but the performance is excellent. The resulting circuit is considerably more complex than a simple rectifier followed by a capacitor (or a pair of caps in series as shown above). However, it has an extremely good power factor, and is just one of many similar devices made by most of the major IC manufacturers.
+
+<p>In common with 99% of power factor correction circuits, the basic topology is a boost regulator, but with some extreme cleverness applied to ensure that the total current waveform is as close to sinusoidal as possible. The output voltage is always higher than the maximum peak voltage available from the mains, and 400V is a common choice. It can be lower, but cannot be lower than the AC peak voltage - that would require a buck/boost regulator, and would be far more complex.</p>
+
+<center><img src="pfc-f7.gif" border=1><br><b><small>Figure 7 - Active Power Factor Correction Circuit [<a href="#ref">1</a>]</small></b></center>
+
+<p>The pin descriptions are important to understand the operation ...</p>
+
+<ol>
+	<li>Inv - Inverting input of error amplifier
+	<li>Comp - Output of error amp (to allow compensation)
+	<li>Mult - Multiplier input
+	<li>CS - Input to PWM (pulse width modulation) comparator
+	<li>ZCD - Zero crossing detector (detects zero inductor current)
+	<li>GND - Circuit common (Not connected to protective earth!)
+	<li>GD - MOSFET gate drive
+	<li>Vcc - Supply voltage
+</ol>
+	
+<p>In order to describe the circuit properly, I have numbered various sections to make reference easier. We start with item 1, which is just a simple diode rectifier. Note that EMI filters have not been included, nor has the DC-DC converter section. These are required regardless of the topology of the rectifier circuit (and that's really what the whole circuit does). Note that there is only a small capacitance directly across the rectified AC - 470nF in this case. This cap is not for energy storage, but to ensure the remainder of the circuit is stable.
+
+<p>Next in the lineup is Item 2. This is a signal feed to the IC, so that the internal circuitry always knows the instantaneous voltage, which varies from close to zero to the peak of the AC waveform, either 100 or 120 times a second. The two 750k resistors are used to ensure that the voltage rating of each is not exceeded, and you see the same arrangement used in two more places as well.
+
+<p>Item 3 (2 x 180k resistors) is there to provide a voltage for the IC so it can start. Normally, power is derived from a winding on the main inductor (7), but this needs the IC to be operating before a 'proper' supply voltage is available. Directly related to this is Item 4 - a very basic power supply that's used to keep the IC functioning once it's started. The supply voltage is maintained at 18V by the zener diode. Although technically the inductor really is an inductor, it becomes a transformer due to the second winding that's used to power the IC and provide inductor current information to the controller.
+
+<p>Item 5 is the feedback network (which includes the 2 x 750k resistors and the 9.53k resistor). It tells the IC that the output voltage is correct, and includes capacitor networks to ensure phase stability so the output voltage doesn't 'bounce' up and down. This part of the circuit is quite critical, despite its apparent simplicity. The voltage regulation ensures that the MOSFET and inductor current is only ever exactly what's needed to keep the voltage stable at 400V DC.
+
+<p>Next is Item 6, the MOSFET. This simply shorts the end of the inductor to common, and causes a current build-up in the coil (7). At a time determined by the actual voltage present and the MOSFET/inductor current (monitored by Item 8), the MOSFET switches off again, and the voltage on the MOSFET's drain rises to 400V (regardless of the input voltage, but with some limitations), forward biasing the diode (10) and flowing to the load and filter capacitor (11) via the NTC thermistor. 
+
+<p>A boost regulator relies on the energy stored in the inductor, and when the switch (MOSFET) turns off, there is a flyback voltage that is determined by the load current and stored charge. The IC must monitor every parameter - input voltage, inductor and MOSFET current, as well as the output voltage
+
+<hr /><a id="how"></a><b>How It Works</b>
+<p>As discussed briefly above, the active PFC circuit is a highly evolved boost regulator. But, how does a boost regulator work anyway? The boost regulator is so fundamental to the operation of PFC circuits from many, many manufacturers, it's worth a brief description of the basic topology. This description is based on a steady DC supply (as opposed to a constantly varying supply ranging from zero to the AC waveform peak).
+
+<p>The only real difference is in the ability of the PFC IC to instantly compensate for the input voltage variation, and this is tied up inside the chip itself. Most data sheets provide quite a bit of information about how they work and their benefits. Of course, every maker claims their device to be better than the rest for one reason or another.</p>
+
+<center><img src="pfc-f8.gif" border=1><br><b><small>Figure 8 - Basic Boost Regulator Circuit</small></b></center>
+
+<p>The general idea is shown above. The oscillator runs at 50kHz, so has a period of 20us. The MOSFET is turned on for a very short period (just under 650ns), and the inductor current rises from zero to 4.5A during that period. When the MOSFET switches off, the voltage rises to 400V,  and the inductor supplies the load and recharges the 47uF capacitor. The inductor current can be seen to fall from the peak down to zero over the next 3us. The 1k resistor and 100pF capacitor form a snubber network, which damps oscillation caused by the leakage inductance of the inductor and stray capacitance.
+
+<p>Many of the commercial ICs designed for active PFC operate with a variable frequency. This helps to spread the high frequency noise over a wider bandwidth (but reduces the quasi-peak value at any given frequency), and also allows the IC to change its mode of operation on the fly to maximise efficiency and maintain the best possible power factor.</p>
+
+<center><img src="pfc-f9.gif" border=1><br><b><small>Figure 9 - Basic Boost Regulator Waveforms</small></b></center>
+
+<p>The waveforms for the switching cycles are shown in Figure 9. When the MOSFET is switched on, its drain voltage falls to zero (close enough), and current flows through the inductor, rising linearly as seen. The drain voltage can be seen to start at 325V (the applied voltage), and when it switches off, it rises to 400V and stays there for about 3us. After that, the stored energy in the inductor is depleted, and the voltage returns to 325V ... after a period of oscillation (which is damped by the snubber network).
+
+<p>Should the load current increase or input voltage decrease, the MOSFET needs to be switched on for longer, and conversely, if the load current falls or input voltage rises, the on time will be reduced. There are many ICs available that are suitable for boost regulator circuits, but they expect a reasonably steady input voltage. It can (and will) vary, but over a comparatively small range.
+
+<p>For an active PFC circuit, the MOSFET's on time is constantly adjusted as the input voltage changes, such that the inductor stores the same energy regardless of the instantaneous input voltage. This is the task of the PFC chip - it needs to be able to track the input waveform in real time, making adjustments for both the input voltage and load current. The ultimate goal is that the AC current waveform will be ...</p>
+
+<ul>
+	<li>Sinusoidal, with low distortion
+	<li>Perfectly in-phase with the applied voltage
+</ul>
+
+<p>In reality, there is almost always a discontinuity near the zero-crossing point of the AC waveform, and this looks just like crossover distortion in a power amplifier. The degree of discontinuity depends greatly on the design of the IC. The ST L6562 is particularly good in this respect - a point that's made in detail in the data sheet. The discontinuity is also affected by the input voltage and load current, and although any discontinuity does cause greater distortion of the current waveform, the power factor is usually not badly affected.
+
+<p>Compare this with the circuit in Figure 2, where very high peak current is drawn, but only at the very peak of the AC waveform. Distortion is extremely high (typically well in excess of 100%), and the power factor is so bad that the circuit draws almost twice as much current than it needs to.</p>
+
+<hr /><a id="alt"></a><b>Alternative PFC Circuits</b>
+<p>The circuit shown above is just one example, but was selected because the schematic is easy to follow. For lighting in particular, there are several ICs designed to perform all the functions needed for a complete solution. The active PFC and DC-DC converter functions are combined into one device, simplifying the overall design. The converter shown below is a flyback type.</p>
+
+<center><img src="pfc-f10.gif" border=1><br><b><small>Figure 10 - TPS92210 Based PFC Supply [<a href="#ref">2</a>]</small></b></center>
+
+<p>The above is shown as a conceptual example. Essentially, one IC controls everything, providing both PFC functions and LED current regulation. There are component values shown, but they are examples derived from the application note. Everything you need to know is available should you have the burning desire to design a LED lighting power supply. Please see the data sheet for an explanation of the pin designations. 
+
+<p>The way the MOSFET is driven is very different from most driver ICs. There is a low voltage MOSFET in the IC that switches the drain of the external device, and that's why the gate of the external MOSFET is bypassed by a capacitor. Because of this, the IC is limited to relatively low power applications, but you'd need to look a the application note (e.g. <a href="http://www.ti.com/lit/ug/sluu478/sluu478.pdf" target="_blank">SLUU478</a>) to get more information about the configuration and typical component values for a 13W supply. Note that in this supply as well as that shown in Figure 7, the 'Common' connection is <i>not</i> protective earth. The secondary of the circuit (the LEDs and current sensing) may be connected to earth if desired, as that part of the circuit is fully isolated by the transformer - provided it is a suitable type made to the applicable standards.</p>
+
+<table width="100%"><tr><td valign="top"><img src="note.gif" /></td><td>The Y2 capacitor shown (in subdued hues) between primary and secondary is usually required to meet EMI standards. Y2 caps are designed to be intrinsically safe - failure must never cause the secondary to be come live. These caps are common in most switchmode power supplies - personally, I think it's a really bad idea, but the EMI regulators will just state that electrical safety isn't their problem - it belongs to the safety regulators. I've been told this directly! I've seen examples of 'fake' Y2 caps used in imported supplies - some are just 3kV ceramic types (not marked Y2), but there are several reports of caps that are marked as Y2, but are no such thing. 
+</table>
+
+<p>There are many other examples of integrated SMPS with PFC, and a Web search will find a vast amount of information. Much of it is not in a form that actually explains very much though, so it can be very time-consuming trying to track down useful data - I know this from my own searches to find material for this article.</p>  
+
+<hr /><a id="neut"></a><b>Neutral Currents IN 3-Phase Systems</b>
+<p>It's worthwhile spending a bit of time on the topic of neutral current, because it's already caused several fires after the wholesale replacement of incandescent lamps with CFLs, and remains a concept that's not easy to grasp. Active PFC solves the problem rather neatly, hence the inclusion here.
+
+<p>With a properly balanced 3-phase system as shown in Figure 11A, the neutral current is zero. If one or two of the phases fail (tripped circuit breakers for example), the neutral current rises, but it can never exceed the current in the most heavily loaded phase (A, B or C). Each phase to neutral gives 230V RMS, and between phases is 398V (&nbsp;230V&nbsp;*&nbsp;&radic;3&nbsp;). 
+
+<p>The example below shows what happens when three phases loaded equally with linear loads are converted to non-linear loads - for example, changing from close to 530W of incandescent lamps to 201W of CFLs. Naturally, one expects the current to be reduced, but RMS current actually <i>increases</i> slightly, from 2.30A to 2.37A
+
+<p>Power <i>is</i> reduced though, but the current increase is due to the poor power factor. The scary part is the neutral current, which increases from <i>zero</i> with a linear load to 4.11A with the non-linear load. This is 1.7 times the individual phase current, and infinitely greater than the phase current with the linear load! There is no cancellation at all, because the waveform is no longer linear, and only linear currents can cancel in the neutral wire of a 3-phase system.</p> 
+
+<center><img src="pfc-f11.gif" border=1><br><b><small>Figure 11 - 3-Phase System, Linear &amp; Non-Linear Loads</small></b></center>
+
+<p>This is an ongoing problem, because most 3-phase installations are wired with the same gauge cable for the phase and neutral conductors, although in some cases it will be smaller because everyone knows that the neutral current cancels. This may even be allowed for in some wiring regulations, although normally the neutral conductor shall not be smaller than the phase conductors. With non-linear loads, the neutral current can still be well in excess of the cable's rated current, so it will overheat. Whether or not that causes a fire is dependent on the specific circumstances.</p>
+
+<center><img src="pfc-f12.gif" border=1><br><b><small>Figure 12 - 3-Phase System, Neutral Current Waveform</small></b></center>
+
+<p>The waveform is similar to the single-phase current waveform, but note that the effective frequency is now tripled, at 150Hz (the 3<sup>rd</sup> harmonic of 50Hz). Needless to say, all other odd harmonics are also much greater than normal, and this is not a grid friendly waveform by any stretch of the imagination.
+
+<p>This has been just a brief introduction to the issues faced in large commercial installations, where 3-phase power is the rule rather than the exception. It is very uncommon to have 3-phase power available in the home, although the 2-phase system (a 240V centre-tapped distribution system) is common in the US and Canada, but is not used in most other countries. This cannot be compared to a 3-phase system - it's a topic all on its own.</p>
+
+<hr /><a id="outro"></a><b>Conclusions</b>
+<p>I hope that this article has provided the reader with some insight into the inner workings of PF corrected power supplies. While the circuitry appears complex (and the design process is definitely not for the faint-hearted), the results are so good that most power supplies will have full PFC circuitry before too long. It's generally not worth the extra cost for small (less than 10W or so) supplies, but it is now common with LED lamps with a rated power as low as 12W.
+
+<p>With modern surface mount manufacturing, you get a power grid friendly power supply, that already provides a regulated output, so the converter design is simplified. Most will have some basic regulation for critical voltages (such as the 3.3V and 5V rails for computers), but the overall regulation scheme is greatly simplified by having a fully regulated voltage to start with.
+
+<p>These same manufacturing techniques also mean that the extra cost is minimal. Large electrolytic filter caps aren't needed, and that in itself is a saving. The ICs and MOSFETs are cheap, and the inductor (with its additional winding) is the most expensive part of the circuit. Regulatory bodies worldwide are beginning to insist that mains harmonics are minimised because of the problems they create within the power grid, and using a PFC supply is the only way to pass their requirements. Even well-informed customers have found the pitfalls of a poor power factor, and now ask some potentially embarrassing questions before they will purchase products (especially lighting).
+
+<p>I know this personally, as I've had to supply the answers to the questions. Fortunately, my lab setup is such that I can test and record measurements of waveform distortion, harmonics, inrush current (I had to design and build my own tester for that) and many other things that savvy customers want to know before purchase. Speaking of which, it would be remiss of me if I didn't include a capture of the current waveform and spectrum of a power supply that I've tested.</p>
+
+<center><img src="pfc-f13.gif" border=1><br><b><small>Figure 13 - Current Waveform &amp; Harmonics, PFC Supply</small></b></center>
+
+<p>The above shows clearly that there can be a significant discontinuity at the zero crossing point of the waveform. It's unrealistic to expect the power supply to draw normal current with virtually no voltage to work with, but this is a rather extreme example, selected to show the problem clearly. The waveform is quite distorted, but still provides a power factor of 0.89 and the harmonic content is acceptable, with only the 3<sup>rd</sup> harmonic above -20dB. This measurement was taken on a 100W power supply running at 40W, with 230V mains derived from a lab sinewave power supply (used so that mains distortion did not affect the measurement).
+
+<p>It's worth noting that only odd harmonics are permitted above very low levels, because the presence of even harmonics signifies an asymmetrical waveform that has a DC component. Any power supply that imposes DC onto the mains will not pass compliance testing, because the effects have very serious consequences for the grid infrastructure and other users.
+
+<p>So, that finishes a hopefully easily digested foray into the mysterious world of power factor correction circuits. Fortunately, most of the hard work has been done by the chip designers, and there's one thing that's certain - they wouldn't have gone to all that trouble if there was no market for their ICs. Active power factor correction is here to stay, and it will only get better as IC designers refine their circuits even further.
+
+<p>See 'Further Reading' below for some in-depth material. Naturally, IC makers will always use their own devices in application notes and 'handbooks', but the information provided is excellent in both suggested documents. Both go into considerable detail and have several demonstration circuits, but also have good introductory info as well.</p> 
+ 
+<hr /><a id="ref"></a><b>Credits &amp; References</b>
+<ol>
+	<li><a href="http://www.st.com" target="_blank">ST Microelectronics</a> The PFC power supply shown in Figure 7 and described in this article is
+	based on information from the L6562 PFC chip data sheet.
+	<li><a href="http://www.ti.com/lit/ds/symlink/tps92210.pdf" target="_blank">Texas Instruments TPS92210</a> Figure 10 is based on information
+	from the TI TPS92210 datasheet, and from the SLUU478 application note.
+	<li>Other PFC ICs and detailed information is available from most of the major IC manufacturers. (See below.)
+	<li><a href="http://www.entergy-texas.com/Global/your_business/installation_standards/power_quality_standards.pdf">Entergy</a> Power quality
+	standards (example only).
+	<li>This article also includes information from other ESP material, and from 'accumulated knowledge', along with simulations and data from
+	measurements taken on products submitted for test and evaluation.
+</ol>
+<p>Further reading ...</p>
+<ul>
+	<li><a href="http://www.fairchildsemi.com/an/AN/AN-42047.pdf" target="_blank">Fairchild</a> - Power Factor Correction Basics (AN-42047)
+	<li><a href="http://www.onsemi.com/pub_link/Collateral/HBD853-D.PDF" target="_blank">On-Semi</a> - Power Factor Correction Handbook
+</ul>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="index.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles" BORDER=0 height=24 width=40></a><b>Lamps &amp; Energy Index</b>
+<br><a href="../index2.html" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Index" BORDER=0></a><b>Main Index</b><br><br>
+  
+<table border bgcolor="#000000"><tr>
+<td><font color="#ffffff" size="-1"><b>Copyright Notice.</b> This material, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2012. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use in whole or in part is prohibited without express written authorisation from Rod Elliott.</font></td>
+</tr></table>
+<font size="-2">Page created and copyright &copy; 28 Jan 2012./ Updated 06 Feb 12 - added 3-phase info and link to reactance page.</font>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP - Compound Pair Vs. Darlington Pair">
+	<meta name="keywords" content="sziklai, darlington, transistor, compound, emitter, follower, cfp, amplifier, output, stage, , sound, music, loudspeaker, speaker, design, audio, power, diy, hi-fi, electronic">
+	<title>Compound vs Darlington</title>
+	<!-- ESP - Compound Pair Vs. Darlington Pair -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Compound Vs. Darlington&nbsp;</td></tr></table>
+
+<p align="center"><b>Compound Pair Vs. Darlington Pair</b><br />
+<small>Copyright &copy; 2011 - Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles Index" BORDER="0" height="24" width="40"></a><b>Articles Index</b>
+<br /><a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Main Index" BORDER="0"></a><b>Main Index</b>
+
+<hr><b>Contents</b>
+<ul>
+	<li><a href="#intro">Introduction</a>
+	<li><a href="#s1">1 - Basic Configurations</a>
+	<li><a href="#s2">2 - Switching Circuits</a>
+	<li><a href="#s3">3 - Linear Operation</a>
+	<li><a href="#s4">4 - Thermal Stability</a>
+	<li><a href="#s5">5 - Quasi Complimentary Symmetry</a>
+	<li><a href="#s6">6 - Output Stages</a>
+	<li><a href="#s7">7 - Low Signal Level Applications</a>
+	<li><a href="#outro">Conclusions</a>
+	<li><a href="#ref">References</a>
+</ul>	
+	
+<hr /><a id="intro"></a><b>Introduction</b>
+<p>There are many reasons that designers need very high gain transistors, and although they are available in a single package, it is generally better to build your own using discrete devices. This gives much greater flexibility, and allows you to create configurations that are optimised for the specific task required.
+
+<p>To create a high gain transistor, it is a matter of connecting two or more transistors such that the collector current of the first is amplified by the second. Thus, if two devices have a current gain (&beta; or h<sub>FE</sub>) of 100, the two devices connected together can give an overall current gain of as much as 10,000 - this will be looked at in greater detail later.
+
+<p>For a variety of reasons, current gains of more than 2,000 or thereabouts are rarely achieved in practice, but a &beta; of well over 1,000 is easily achieved - even for high current configurations. These discrete compounded transistors are found in power supply and power amplifier designs, as solenoid drivers and general purpose high current switches or other linear applications.
+
+<p>For many applications, I have always considered the "compound pair" as the preferred option, but both circuits are essential to the development of modern linear ICs, power supplies and power amplifiers (to name but three applications). Although the Darlington pair was discovered/ invented first, in this article, I shall break with tradition and place the less well known configuration first in all diagrams. I do this because it is a better arrangement IMO, having greater linearity (less distortion if used for audio), and far greater thermal stability than the older and better known Darlington Pair. The configuration I refer to is called a Sziklai [<a href="#ref">1</a>] or compound pair, and this combination has also been referred to in the past as a "Super Transistor". The differences between the two different topologies are often rather subtle, but in most applications the compound pair gives better performance.</p>
+
+<hr /><a id="s1"></a><b>1 - Basic Configurations</b>
+<p>The compound/ Sziklai pair is a configuration of two bipolar transistors of opposite polarities, so will always consist of one NPN and one PNP transistor. The configuration is named after its Hungarian born inventor, George Sziklai. It is also sometimes known as a CFP (complementary feedback pair). The composite device takes the polarity of the driver transistor, so if a compound pair is made with an NPN driver and PNP output device, the overall device behaves like an NPN transistor. This will become clearer as we progress.
+
+<p>A Darlington pair always consists of two transistors of the <i>same</i> polarity. An NPN Darlington will have two NPN transistors connected as shown below, and a PNP device will use two PNP transistors. The Darlington configuration was invented by Bell Laboratories engineer Sidney Darlington in 1953. He patented the idea of having two or three transistors on a single chip, sharing a collector.</p>
+
+<center><img src="dcp-f1.gif" border="1"><br /><b><small>Figure 1 - Basic Configurations Of Devices</small></b></center>
+
+<p>As you can see from the above, the compound pair polarity is determined by the <i>driver</i> transistor, so an NPN driver with PNP output transistor behaves like an NPN transistor and vice versa. It is a little disconcerting to see that the emitter of the power transistor is really the collector of the compound pair, and this subtle distinction has trapped a few designers over the years. Although it is not immediately obvious, the gain of the two different topologies is slightly different, because the compound pair has a small amount of in-built negative feedback which reduces the gain.
+
+<p>For the sake of convenience, let's assume that the driver transistors in both configurations have a gain (&beta;) of 10, and the output transistors have a gain of 5. For the compound pair, 1mA of base current will cause 10mA of collector current in Q1, and (ignoring the resistor), this will cause 10mA base current in Q2. This will become 50mA collector current for Q2. The total overall collector current is 60mA, and the emitter current is 61mA (it includes the base current of Q1).
+
+<p>Looking at the Darlington pair, with 1mA of base current into Q1, the collector current of Q1 is 10mA, and the base current for Q2 is 11mA, because the base current is included in the current flowing from the emitter. Collector current of Q2 is therefore 55mA, and the <i>total</i> collector current is the sum of both transistors (the collectors are tied together). Collector current is therefore 65mA and emitter current is 66mA (Q1's base current is added).
+
+<p>Therefore, the &beta; (aka h<sub>FE</sub>) of the compound pair is 60 and that of the Darlington pair is 65. This relationship is maintained regardless of the actual gains of the two transistors (remember that gains of 10 and 5 were used for convenience only). The actual formulae are ...</p>
+
+<blockquote>
+  Compound Pair &beta; = &beta;<sub>Q1</sub> * &beta;<sub>Q2</sub> + &beta;<sub>Q1</sub><br />
+  Darlington Pair &beta; = &beta;<sub>Q1</sub> * &beta;<sub>Q2</sub> + &beta;<sub>Q1</sub> + &beta;<sub>Q2</sub>
+</blockquote>
+
+<p>The small gain difference is immaterial and normal component variations will be far more significant. Likewise, a temperature change of only a few degrees will completely override any measurable gain difference.</p>
+
+<hr /><a id="s2"></a><b>2 - Switching Circuits</b>
+<p>Apart from the negligible gain reduction, the only real disadvantage of the compound pair configuration over the Darlington Pair is the saturation voltage. This is important for high current switching applications, because a higher saturation voltage means a greater thermal dissipation. This can make the difference between needing a heatsink or not, or needing a bigger heatsink that would otherwise be necessary. There are many different ways around this problem of course, but such a discussion is outside the scope of this article.</p>
+
+<table width="100%">
+<tr><td valign="top"><img src="note.gif" /></td><td><big>Note that for all the following examples, generic transistors from the SIMetrix [<a href="#ref">2</a>] simulator are used. NPN devices are 2N2222 and PNP are 2N2904. These are both nominally rated for around 625mW dissipation and have a claimed minimum gain of 100, although this varies widely (as do all transistors) and is dependent on temperature and current.</big></td></tr>
+</table>
+
+<p>The compound pair has a slightly higher saturation voltage than a Darlington pair, as shown in Figure 2. This is actually somewhat counter-intuitive, and you may find descriptions that claim that the opposite is true. The difference is not great - 765mV for the Darlington pair and 931mV for the compound pair as shown below, but that's enough to make a significant difference in a high current switch. The input signal is a pulse waveform, with a minimum value of 0V and a maximum of 12V. Base current is therefore around 1.14mA for the compound pair, and 1.05mA for the Darlington. The reason for the small difference is explained below.</p>
+
+<p>In the case above, the power dissipation in the compound pair is 52mW and 44mW for the Darlington. The difference is trivial here, but becomes much more important as current increases. When the current is 10 times or 100 times as great as the ~330mA used in this example it is easy to see that the dissipation will become very high. To a significant extent, this is no longer a problem in modern high current switches, because MOSFETs or IGBTs (insulated gate bipolar transistors) are now used for most serious switching applications.</p>
+
+<center><img src="dcp-f2.gif" border="1"><br /><b><small>Figure 2 - Switching Saturation Voltage Test</small></b></center>
+
+<p>One area where the compound pair wins easily is the required turn-on voltage. The compound pair needs only 625mV vs. 1.36V for the Darlington pair (this is subtracted from the base supply voltage to calculate the current through the 10k base resistors). Again, this might not seem significant, but there will always be applications in electronics where a low turn-on voltage is advantageous because of other circuit constraints. While this is rarely a major issue with modern switching systems, it influenced many earlier designs before MOSFETs and IGBTs were available.  
+
+<p>So far there is really not much between the two circuits, but it seems that overall the Darlington has a slight advantage. For this reason, Darlington connected transistors are still the most common for any form of switching that does not warrant the use of MOSFETs or IGBTs. It is a very useful circuit, and there are many integrated Darlington transistors available (the TIP141 is one of the best known examples).</p>
+
+<hr /><a id="s3"></a><b>3 - Linear Operation</b>
+<p>Both Darlington and Sziklai pairs are used in linear circuits, and overall Darlington pairs are the most common. Readers of The Audio Pages will have noticed that almost without exception, I have used complementary pairs for power amplifier output stages. This is a relatively uncommon approach, but there are good reasons for this choice. I used the complementary output stage in the second amplifier I ever designed, and have continued to use it ever since.
+
+<p>It was determined and demonstrated long ago [<a href="#ref">3, 4, 5</a>] that the compound pair has greater linearity than the Darlington pair, and although this information seems to have been ignored by most people for a very long time, it is still true. One of the interesting things about facts is that they don't go away, even if ignored <img src="grin.gif" />.
+
+<p>Figure 3 shows a pair of simple emitter followers, one using the compound pair and the other a Darlington. This is a fairly easy job for any transistor circuit, and one would not expect a significant difference in a circuit that has almost 100% degenerative feedback. The input signal is a 1V peak (707mV RMS) sinewave, with a 6V DC bias to place the output voltage at the approximate half-supply voltage.</p> 
+
+<center><img src="dcp-f3.gif" border="1" /><br /><b><small>Figure 3 - Compound And Darlington Emitter Followers</small></b></center>
+
+<p>The first thing you notice is that the compound pair has a higher output voltage - it's 99.5% of the input voltage, vs. the Darlington pair which only manages 98.7%. Admittedly, this is hardly a vast difference, but it is notable nonetheless.
+
+<p>Of more interest is the distortion contributed by the two configurations, and this is demonstrated below. Quite obviously, the compound pair (green trace) has fewer harmonics above the -120dB noise floor, and they are all at a lower level - by 20dB or more!</p>
+
+<center><img src="dcp-f4.gif" border="1" /><br /><b><small>Figure 4 - Distortion Performance of Compound And Darlington Emitter Followers</small></b></center>
+
+<p>A FFT (Fast Fourier Transform) of the output waveform lets us see the harmonic structure of the signal. Simulators have a real advantage here because they can generate perfect waveforms (zero distortion) and have infinite dynamic range. Any harmonic that's more than 120dB below the fundamental is not only buried in the noise floor of even 24-bit digital systems, but is well below audibility for any system.
+
+<p>The THD (Total Harmonic Distortion) figures are a good indicator of linearity. A perfect system contributes no distortion at all. As you can see, the Darlington pair has 3 times as much distortion as the compound pair. Both figures are excellent and are well below audibility, but remember that every stage of a system contributes some distortion, so keeping overall linearity as high as possible is important.
+
+<p>As I have noted in many of the articles on this site, I consider the THD of an amplifier to be an important measurement, not necessarily because we can hear low levels of distortion, but because it gives a good indication of overall linearity. Any non-linearity causes intermodulation distortion, and it is this that is almost always considered the most objectionable.
+
+<p>The so-called TID (Transient Intermodulation Distortion) is largely a crock - there is no evidence whatsoever that any competent amplifier fed with real music signals generates TID. This was probably one of the most elaborate hoaxes that the audio community has seen so far, largely because it was widely reported and cane from seemingly credible audio designers. The fact is that TID is real, but only if the amplifier is subjected to test signals that <i>never</i> occur in any recorded or live programme material.
+
+<hr /><a id="s4"></a><b>4 - Thermal Stability</b>
+<p>In some classes of electronic equipment, thermal stability never needs to be considered. There are many designs where even quite radical changes to base-emitter voltages (for example) are simply and easily compensated by a feedback network, so never cause a problem. Of course, this assumes that adequate heatsinking is provided so that transistors remain within their safe operating areas.
+
+<p>For other designs such as push-pull power amplifiers, thermal stability is paramount. Depending on the design and the designer, the thermal feedback circuit can be quite complex and hard to get exactly right, although it usually looks quite simple in the schematic. The phenomenon of thermal runaway is invariably caused by insufficient attention to the thermal characteristics of the output stage. For many industrial applications this is easily solved by operating the output stage with no bias at all, thus preventing any possible issues.
+
+<p>However, this is usually not feasible in an audio circuit, because zero bias output stages cause "crossover distortion" (sometimes called "notch" distortion). This is very audible - especially with low level signals - and was part of the reason that many transistor amps got a bad name when they were first released into the market. They might have measured better than their valve counterparts, but only because the measurement was not done correctly at the time, or the person taking the measurement failed to notice where the problem(s) lay. A great many people hated the sound of many early transistor amps, but it took a while before the reason was understood.</p>
+
+<center><img src="dcp-f5.gif" border="1" /><br /><b><small>Figure 5 - Bias Stability Test Circuits</small></b></center>
+
+<p>A transistor's gain varies with temperature, and when the temperature increases, so too does the gain. This temperature dependency is maintained up to temperatures that will cause device failure. In addition, the base-emitter voltage decreases by approximately 2mV / &deg;C, so some means of stabilising bias current is mandatory.
+
+<p>In a compound pair, the influence of the output device is considerably less than that of the driver. There is some effect as the output transistor gets hotter, but it is somewhat smaller. The primary device that determines the bias current is the <i>driver</i> transistor, and it is much easier to maintain a reasonably constant temperature for a transistor that dissipates comparatively little power. The overall sensitivity of the compound pair is significantly better than that for a Darlington pair, and the power transistor sensitivity is far lower.
+
+<p>In contrast, a Darlington device is highly dependent on the base-emitter voltage of two cascaded junctions, so the effect is doubled. If both the driver and power transistor get hot, the current increases markedly, and is much harder to control. This is compounded by the fact that most amplifiers using a Darlington output stage have the driver and power transistors mounted on the same heatsink, along with the bias servo transistor. In general, this is may be a mistake regardless of output stage topology as shown below.</p>
+
+<table width="700" align="center" border="1" style="border-collapse:collapse;">
+<tr><td colspan="2"><b>Transistor Temperature</b><td width="30%"><b>Compound Pair</b><td width="30%"><b>Darlington Pair</b>
+<tr><td width="20%"><b>Q1 (Driver)</b><td width="20%"><b>Q2 (Output)</b><td><b>Total Current</b><td><b>Total Current</b>
+<tr><td>25 &deg;C<td>25 &deg;C<td>41 mA<td>41 mA
+<tr><td>75 &deg;C<td>25 &deg;C<td>123 mA<td>96 mA
+<tr><td>25 &deg;C<td>75 &deg;C<td>44 mA<td>87 mA
+<tr><td>75 &deg;C<td>75 &deg;C<td>126 mA<td>148 mA</tr>
+<caption align="bottom"><b><small>Table 1 - Current Vs. Temperature</small></b></caption></table>
+
+<p>The temperature dependence of the two circuits in Figure 5 is shown in Table 1. Because it is much easier to keep the driver transistors at a consistent temperature, it is apparent that it will be far easier to maintain a stable bias current using the compound pair than can ever be the case with a Darlington pair. This has been proven in practice - none of my original designs presented on this website has an issue with thermal stability, and all bipolar designs use the compound pair output stage. The bias servo transistor must be in thermal contact with the <i>driver</i> transistor(s) in a compound pair output stage. Deciding on the optimum location is harder when a Darlington output stage is used.</p>
+
+<table width="100%">
+<tr><td valign="top"><img src="note.gif" /></td><td><big>Note that the figures shown in the table show far less variation that you will experience in a typical power amplifier. This is because of the 1 ohm emitter resistors, which provide a far greater stabilising influence than the more common 0.1 or 0.22 ohm resistors typically used. The 1 ohm resistors were used for consistency and convenience for the purposes of explanation, and were not selected to be specifically representative of reality. There are too many variables in a real amplifier, so the idea was to show the <i>trend</i>, not absolute values.</big></td></tr>
+</table>
+
+<p>There have been (spurious and mostly nonsensical in my opinion) claims that thermal effects cause distortion in amplifiers and output stages [<a href="#ref">6</a>]. While this does appear to have some effect in an integrated amplifier (power "opamp" ICs for example), it should be negligible in any discrete power stage, and is likely to remain well below audibility in any design. Assuming that there is some substance to the claims as applied to discrete designs, it is likely that there will be smaller and less problematic thermal variations in the driver stages than the output devices. In general, I consider claims about thermal distortion to be 99% complete nonsense, and contrary to the reference noted above, explain nothing of any importance.
+
+<p>Because of the known problems with thermal stability, some manufacturers have released power transistors with integral (but isolated) diodes to form part of the bias stabilisation network when the transistors are used. Personally, I think this is a stupid idea - the constructor ends up with a completely non-standard transistor, and when (not if!) it becomes discontinued there will be no replacement and an entire amplifier will have to be scrapped if a power transistor fails and a (genuine) replacement device can't be located.</p>
+
+<hr /><a id="s5"></a><b>5 - Quasi Complimentary Symmetry</b>
+<p>In the early days of silicon transistors it was difficult to make decent PNP power transistors, so the compound pair was used in a great many amplifier output stages, leading to the then common "quasi-complementary symmetry" output stage. One of the early amp designs described in the ESP projects section uses this output stage [<a href="#ref">7</a>]. Over the years, there have been many schemes to improve on the basic quasi-complementary stage, but in reality nothing really needs to be done.</p>
+
+<center><img src="dcp-f6.gif" border="1" /><br /><b><small>Figure 6 - Quasi Complimentary Symmetry Output Stage</small></b></center>
+
+<p>At various stages, various people have added diodes to the compound pair so both sides of the push-pull stage have the same bias voltage and turn on in a more similar manner. While this can make a big difference, these days it's not worth the effort. Some attempts to "improve" the circuit only managed to make it worse. These days, almost no-one makes quasi complementary symmetry amps because excellent NPN and PNP pairs are now readily available and it would be silly <i>not</i> to make an amplifier that's fully complementary symmetry.
+
+<p>The scheme has been described in some detail here because it is an important milestone in the evolution of modern amplifiers, not because it is currently suggested for a new design. Having said that, there are undoubtedly situations that could arise that make the general scheme potentially useful. For this reason alone, it is worth remembering - one never knows when such information will come in handy.</p>
+
+<hr /><a id="s6"></a><b>6 - Output Stages</b>
+<p>The three common power output stages are shown in Figure 7.  There are obviously others, but they are generally based on one or another of the above.  To make things more interesting, there are also variations that use a combination of compound pair and Darlington configurations, but these will not be covered here.</p>
+
+<center><img src="dcp-f7.gif" border="1" /><br /><b><small>Figure 7 - Three Common Output Stages</small></b></center>
+
+<p>The oldest of the three is <b>A</b>, the quasi-complementary symmetry stage. As noted above, this was common before true complements to high-power NPN transistors existed. Once at least passable PNP power devices were available (albeit at higher cost), full complementary symmetry (<b>B</b>) using Darlington pairs became common. This type of output stage has remained the most common for many, many years.
+
+<p>The least common is that shown in <b>C</b> - full complementary symmetry using compound pairs. I saw this used first in a little 30W(?) amplifier that if I recall correctly was one designed by Sir Clive Sinclair [<a href="#ref">8</a>] in the early 1970s, and thought it was extremely clever. Try as I might, I've not been able to find the schematic on-line though. I promptly built an amp to test the output stage, and was pleasantly surprised in all respects. With few exceptions, every bipolar output amp I have designed since then has used this configuration, because I found it's linearity and thermal stability to be markedly superior to the traditional Darlington stage. 
+
+<p>For reasons that I have always found obscure and somewhat mysterious, I've found that every amp I've designed using this configuration has parasitic oscillations on the negative half, and the addition of a small capacitor has been necessary every time. Strangely, I've never had an issue with parasitic oscillation with quasi-complementary amps, even though the negative side uses an identical compound pair. It makes no difference which side is driven (NPN or PNP voltage amplifier transistor) and which has the current source, and nor does it matter if the current source is active or bootstrapped.  Only the negative side ever shows any sign of parasitic instability, and a small cap (typically 220pF) installed as shown stops it completely. 
+
+<p>The final configuration is a fairly clever modification of the compound pair. Personally (and the obvious cleverness notwithstanding), I consider it an abomination - it has high distortion, extreme thermal sensitivity and very poor transient overload recovery characteristics. Despite this, there have been some commercial amps using the circuit shown, and there are even some who consider the sound to be "better" than conventional output stages. This is not an argument I will entertain.</p>
+
+<center><img src="dcp-f8.gif" border="1" /><br /><b><small>Figure 8 - Output Stage With Gain</small></b></center>
+
+<p>As shown above, the output stage has a nominal gain of about 2, based on the 100 ohm resistors from the output to the driver emitters and then to earth. In reality, gain will be considerably less, because the stage has a relatively high output impedance (it's around 4 ohms as shown). This is in contrast to the other configurations shown above, which all have a low output impedance - typically 1 ohm as set by the emitter resistors in these examples.
+
+<p>Thermal stability of these stages is always a nightmare - I've only ever worked on a couple (and built one to test the idea many, many years ago), and found all of them to be highly thermally unstable. It is possible to design a bias servo (based on Q1) that will keep the stage from thermal runaway, but it's by no means easy to do, and the results are never completely satisfactory. Quiescent current typically varies by up to three times the nominal, and sometimes seems to have a mind of its own. Excellent heatsinking is mandatory!  
+
+<p>Unlike the complementary symmetry stages (including quasi-complementary), open loop distortion performance is dreadful. Even operating at low gain as shown, distortion is close to 4% with over 150mA of output device quiescent current, almost 5 times as great as that from a Darlington pair output stage with roughly similar output stage bias current. If readers have twigged that I'm not fond of this arrangement then I've done my job  <img src="grin.gif" />.
+
+<p>It's also worth noting the worst case dissipation in the 100 ohm resistors to earth (or other value as determined by the design). It can be a great deal higher than expected - in the case of the amp shown and with &plusmn;25V supplies, these resistors can dissipate over 3W each if the amp is driven into hard clipping. Under normal operation with music, dissipation is usually minimal. This is a design that requires extraordinary care in design, because there are so many things to get wrong. 
+
+<p>However, like everything else in electronics, it may be ideal for some obscure application. Because of the gain structure, it is capable of fully saturating the output transistors in clipping. This means that if you happen to need a full level (rail to rail) squarewave output but also require the amp to be capable of linear operation, then this is the ideal circuit. I have found one (and only ever one) application for this for a client project, and in this rather odd role it performs perfectly.</p> 
+
+<hr /><a id="s7"></a><b>7 - Low Signal Level Applications</b>
+<p>There is only one instance on the ESP site where a compound pair is used for low level amplification, and that's for a microphone preamp [<a href="#ref">9</a>]. Figure 8 shows two highly simplified versions, one using compound pairs and the other using Darlington pairs for comparison. The complete circuit is a long-tailed pair in both cases, and one might expect that the two versions would have roughly similar performance.</p> 
+
+<center><img src="dcp-f9.gif" border="1" /><br /><b><small>Figure 9 - Long-Tailed Pair Circuits</small></b></center>
+
+<p>This is an area where the term "super transistor" really comes into its own, because the compound pair version shown above has over 7 times as much gain in an otherwise identical circuit using Darlington pairs (the voltage gain is 460 vs. 64). According to the simulator, compound pair distortion is also slightly lower for the same output signal level than with the Darlington pair, but the difference is inconsequential in real terms. 
+
+<p>In reality, there are not many requirements for the high gain and linearity of the compound pair in discrete circuits, but it is extremely common in power amplifier ICs, where it is still difficult to fabricate high power PNP transistors on the silicon substrate. Accordingly, most of the PNP power transistors are actually compound (Sziklai) pairs in typical power IC circuits.</p>
+
+<hr /><a id="outro"></a><b>Conclusions</b> 
+<p>A common comment of mine is that all electronics devices are made from compromises, and the circuits described here are just that. The Darlington pair is a very popular topology, and there are many transistors that are in fact a basic integrated circuit - this is certainly the case with Darlington transistors. Built into the standard 3-lead package are two transistors, one or two resistors and sometimes a power diode as well.
+
+<p>As far as I'm aware, no-one has ever integrated a compound pair as a single transistor. I don't know why it's not been done, but there probably isn't much point. The compound pair works best when the driver is thermally separated from the power transistor, and this cannot be done if the two are on the same piece of silicon (or even just in the same encapsulation).
+
+<p>As far as making audio power amplifiers is concerned, both configurations work very well if properly designed, and there is no reason to believe that there will be any audible difference in a properly conducted double-blind test. It goes without saying that non-blind tests have consistently "proven" that one or the other configuration is "better" - which one depends entirely on the prejudices of the listener(s).
+
+<p>Many highly acclaimed amps have been made using both topologies, so audibility claims are obviously frivolous at best.
+
+<p>It is hoped that this article has provided some additional (and useful) information for anyone wanting to know more about these popular circuits. It's fair to say that without both the Darlington and compound/ Sziklai pair, the proliferation of high quality transistor power amplifiers would have been severely curtailed.</p>
+
+<hr /><a id="ref"></a><b>References</b>
+<blockquote>
+	1 - <a href="http://en.wikipedia.org/wiki/Sziklai_pair" target="_blank">Sziklai Pair - Wikipedia, the free encyclopedia</a><br />
+	2 - <a href="http://www.simetrix.co.uk/" target="_blank">Analogue Circuit Simulation Software from SIMetrix Technologies</a><br />
+	3 - The Audio Power Interface, Douglas Self, Electronics World September 1997, p717<br />
+	4 - <a href="../amp_design.htm#op-stage">Power Amplifier Design Guidelines - Output Stages</a>, Rod Elliott<br />
+	5 - Intermodulation at the amplifier-loudspeaker interface, Matti Otala and Jorma Lammasneimi, Wireless World, December 1980, p42<br />
+	6 - <a href="http://peufeu.free.fr/audio/memory/memory-1-theory.html" target="_blank">Memory Distortion - Part 1 : Theory</a><br />
+	7 - <a href="../project12a.htm" target="_blank">Project 12A - El-Cheapo, presented in more or less original form</a><br />
+	8 - <a href="http://en.wikipedia.org/wiki/Clive_Sinclair" target="_blank">Clive Sinclair (Wikipedia)</a><br />
+	9 - <a href="../project66.htm" target="_blank">Project 66 - Low Noise Balanced Mic Preamp</a>, Phil Allison &amp; Rod Elliott<br />
+</blockquote>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../articles.htm" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles Index" BORDER="0" height="24" width="40"></a><b>Articles Index</b>
+<br /><a href="../index2.html" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Main Index" BORDER="0"></a><b>Main Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2011. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; Rod Elliott, 06 January 2011</div>
+</body>
+</html>

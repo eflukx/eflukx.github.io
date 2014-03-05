@@ -1,0 +1,196 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="description" content="Digital Delay For Surround Sound. This delay circuit uses the Princeton Technology PT2399 digital delay IC, and is ideal for surround sound applications">
+   <!-- Digital Delay For Surround Sound. This delay circuit uses the Princeton Technology PT2399 digital delay IC, and is ideal for surround sound applications -->
+   <meta name="keywords" content="digital, delay, surround, sound, diy, projects, audio, circuit, schematic, diagram, vinyl, preamp, pre-amp">
+   <title>Surround Sound Digital Delay</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue">
+<tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 26A&nbsp;</td>
+</tr></table>
+
+<p align="center"><b>Digital Delay Unit For Surround Sound, Reverb &amp; Echo</b><br />
+<small>Rod Elliott (ESP), Created 15 January 2012</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pp26a.htm" target="blank"><img src="pcb.gif" alt="PCBs" width="33" height="26"></a>
+<img src="filler.gif" alt="" width="32" height="8">
+<small><b>PCBs are available for this project, and the purchase includes the PT2399 IC</b></small><br>
+
+<hr /><b>Introduction</b>
+<p>This is a project that's been waiting for some time, but I finally got my act together, purchased some ICs, and started experimenting. I found quite a few things that no-one else has mentioned (the PT2399 is a <i>very</i> popular delay IC) - some good, some not-so-good. All in all though, this is a capable chip, that does what's needed well and without a great deal of effort. It's also a great deal of fun to play with <img src="grin.gif" />.
+
+<p>One application that really needs a delay is the Surround Sound Processor (Project 18) - a standard Hafler matrix that will provide a passable rear channel signal. Even many so-called home-theatre amps use just this to generate the rear channels! In order to confuse the brain, we really need to delay the signal, which makes it sound as if it were further away. This principle is used in virtually all commercial units, but the 'real' ones have a tendency to be somewhat more complex than a simple passive unit (although you may be surprised if you analyse some of these 'specialised' ICs).</p>
+
+<p>The digital delay presented here is expected to be sufficient for most applications, both for home theatre and music production. It provides a variable delay - the minimum is a little over 30ms - fractionally longer than ideal, but I doubt that anyone will hear it as a problem. With a delay of 50ms, this is the equivalent of being about 17 metres away from the rear speakers, and they will have a suitably 'distant' sound, even when relatively close to the listening position. The delay can be extended to over 1 second, but high frequency response is woeful - to put it kindly. 
+
+<p>The apparent 'distance' created by a delay can be calculated easily - sound travels at about 345mm/ms so 50ms gives 17 metres</p>
+
+<p>Many commercial units include extra features (different delay periods, reverberation, etc), which can be easily applied to this project if desired. Reverb is generally not useful (it simply clutters the sound, and if reverb is part of the original sound source (from the DVD for example), it will be included anyway. Such effects are great to impress your friends, but will become tiresome after a relatively short time, and end up detracting from the program material - you end up listening to the effects instead of the sound.
+
+<p>To include the repeat function, it's simply a matter of feeding the output signal (via a pot and resistor) to the point marked 'A' on the circuit. A 20k pot and 10k resistor will work well - this is shown in Figure 4. To disable 'reverb', simply set the pot to minimum. Other than for guitar effects, I expect that the vast majority of people will simply leave this out.</p>
+
+<center><img SRC="p26a-pix.jpg" ALT="Photos" BORDER=1>
+<br><b><small>PT2399 Digital Delay Unit Photos</small></b></center>
+
+<p>A photo of the two versions is shown above. The one on the left has the minimum filtering, and is suitable for short delays (no more than ~100ms), and that on the right shows the full version. You will note that I used Greencaps for the filter - the PCB layout is designed for MKT style caps as always, but I didn't have any 4.7nF MKT caps in stock. You may also note that the regulator ICs (78L05) appear to be installed backwards. This is a small error on the PCB overlay - and the regulators <i>must</i> be installed as shown in the construction article.</p>  
+
+<hr><b>The Delay Circuit</b>
+<p>The delay circuit is shown in Figure 1, and uses the Princeton Technology PT2399 digital delay chip. This replaces the original Mitsubishi device described in <a href="project26.htm" target="_blank">Project 26</a>. The PT2399 has been around for a while now, and for ages I have planned a project based on it. Until now, I was unable to get any further - however I have now found a source of ICs, so it is worthwhile. 
+
+<p>The circuit as described in the data sheet is relatively simple and effective, but I've found that it can be dramatically simplified, with very little loss of performance. The <a href="pt2399.pdf" target="_blank">PT2399</a> data sheet has complete circuit diagrams, but they are rather messy and most of the pin functions are not explained. Likewise, many of the internal functions of the IC aren't explained either - I've been able to decode some, but it's still guesswork on a couple of functions.
+
+<p>The first circuit shown (Figure 1) is (almost) a direct adaptation from the PT2399 data sheet, but with some significant simplifications. As shown it will give good performance over a reasonably wide frequency range. The filters are tuned to around 8.5 kHz (-3dB), and although this could be reduced or increased, there does not seem to be any good reason to do so. This seems to be the optimum response for rear channel speakers, so should be left alone. The filter circuits use internal opamps, and only require the external components shown in Figure 1.</p>
+
+<center><img SRC="p26a-f1.gif" ALT="Figure 1" BORDER=1>
+<br><b><small>Figure 1 - PT2399 Digital Delay Unit</small></b></center>
+
+<p>The above schematic is based on the one in the application note, but is changed in quite a few areas. Component values are simplified, and large value electrolytic caps have been replaced by 10uF. Smaller value electrolytic caps have been replaced by 10uF as well. This arrangement has been tested, and there is no apparent noise penalty, despite the reduced filter capacitor values. Having an on-board regulator helps a lot, because it presents the delay IC with a low impedance supply, without the need for large value electrolytic caps. 
+
+<p>The 5 Volt supply <b>must</b> be regulated, as anything over 6 Volts will destroy the delay chip. Because of the regulator, it can handle any voltage from 9V up to a maximum of ~15V or so. If a 5V supply is available, the 5V regulator may be omitted and the existing 5V supply used instead. The PT2399 draws a maximum of about 30mA (supply current falls as the clock frequency is reduced and delay is increased). Any existing supply must have enough reserve to supply the extra current. It is essential that the 5V supply has a low impedance, or the internal clock oscillator may not even start, meaning that you get no output at all.</p>
+
+<p>Something that isn't explained at all in the data sheet is the filter topology. The filters are low pass, multiple feedback types, and have a rolloff of 12dB/ octave. The final filter (using R5 and C8) adds an extra pole, making the output filter 18dB/ octave. The actual filters are shown below, so it makes a bit more sense. Showing parts hanging off an IC is not useful to determine exactly what's going on.</p> 
+
+<center><img SRC="p26a-f2.gif" ALT="Figure 2" BORDER=1>
+<br><b><small>Figure 2 - PT2399 Filter Circuits</small></b></center>
+
+<p>The filters shown above are using the PT2399's internal opamps, and are based on (but <i>not</i> identical to) those shown in the data sheet. The simplification I used here is to make all filter resistors 10k, rather than a mix of 10k and 15k. Why? Because the version shown above actually works better, and reduces the chance of errors caused by component mix-ups.
+
+<p>While the data sheet provides a value of 100nF (or inexplicably 82nF for the echo circuit) for C4 and C9, it's hard to justify such a high value. I recommend that you use 33nF caps in these locations, but you can go as low as 10nF. 
+
+<p>This is one thing that is rates barely a mention, even though it is covered briefly in one version of the data sheet. C4 and C9 (in Figure 1 &amp; 3) appear to be used for switched capacitor filters, which track (more or less) the clock frequency. The second data sheet I located describes the function of these as 'modulated integrator' and 'demodulated integrator' by adding a capacitor, but has zero details of how this is done in the IC. The block diagram provided in the (slightly) more complete data sheet is not useful (although it <i>does</i> specify that the power supply should be nominally 5V. It also claims that the maximum output is 2V RMS ... in someone's dreams <img src="grin.gif" />. 
+
+<p>With the recommended values of 100nF, the IC starts slew-rate limiting from about 1kHz and above. This means that the signal level at any frequency above 1kHz has to be below the slew rate threshold, so it falls at 6dB/octave from 1kHz. I've tested the delay with these caps reduced to 10nF, and while there is certainly a bit more HF noise, the delay also shows an improved high frequency response and far less slew-rate limiting. 33nF is not a bad compromise, but feel free to experiment.
+
+<p>As it transpires, the circuit can be simplified quite dramatically. So much so, that I've tested the delay with no filters at all, and there is no audible noise. There is quite a bit of visible noise, but it's well outside the audio spectrum and is easily removed with the most rudimentary filter. This is not so effective with very long delays, but the maximum recommended is around 300ms (I've extended it to over 1 second, but high frequency response is severely affected when the delay exceeds a few hundred milliseconds.
+
+<p>Although you may see the input and output multiple feedback filters referred to elsewhere as 'anti-aliasing' filters, they're not. I tested the circuit with the highest audio signals that the delay IC would pass, then beyond ... nothing. There was no aliasing at all. Once the signal passes a frequency determined by the clock (and presumably C4 and C9), the signal first goes into slew-rate limiting, then stops completely at a somewhat higher frequency.
+
+<p>At 2kHz and with the suggested 100nF caps, the maximum signal level is about 500mV RMS, at 4kHz it's 250mV, and so on. If you plan to use the circuit for short delays only, the value of C4 and C9 can be reduced - tests with 10nF gave good results and low noise (without any additional filtering) with delay times up to about 50ms. For longer delays - as used for an echo pedal for example - I recommend that C4 and C9 should not be reduced below 47nF.
+
+<p>Also not mentioned anywhere ... if total value of R10 and the optional pot is less than around 2k, the oscillator probably won't start, and you'll get no signal. If you need less than 50ms delay, it might prove necessary to include a relay across an external resistor (say 3.3k or thereabouts), so the oscillator will start reliably. The relay shorts out the external resistor after a short delay. Once the oscillator is running, it seems to be quite stable. There is also a transistor solution that I've tested, and it works fine - this is shown in Figure 4. Note that this may or may not be a problem, depending on the batch of ICs you get.</p>
+
+<center><img SRC="p26a-f3.gif" ALT="Figure 3" BORDER=1>
+<br><b><small>Figure 3 - Super-Simple PT2399 Delay Circuit</small></b></center>
+
+<p>The version shown above is suitable for use as a fixed short delay, and makes a surprisingly good account of itself. As you can see, the circuit is dramatically simplified, with most of the filter components simply deleted. Because it's expected to be operating at a clock frequency of around 15MHz, the simplifications do not cause any loss of audio quality - if anything, it's better than with the fully configured filters. Response extends down to about 10Hz - it can go even lower, but there's no point.
+
+<p>High frequency response is considerably better than the full version shown in Figure 1, and easily extends to 12kHz. Believe it or not, but it's even possible to leave out C3 (1nF) and C8 (10nF). I have tested the circuit extensively with no filters at all (apart from what I assume to be the switched capacitor filters using C4 and C9), and with short delays there is almost no visible noise, and no audible noise. With long delays, if there is considerable HF content in the audio signal, you will hear distorted sibilances and some other artefacts. In general though, I'd be perfectly happy to use it just as shown. For guitar (or other musical instrument applications), it would be better to increase the value of R5 back to 2.7k. This will roll off the higher frequencies, but the echo/reverb effect is more natural, Real echoes usually have a rapidly diminishing HF content, as these signals are absorbed easily - even by the air itself.
+
+<p>I included the 'repeat' pot and connections in this, and it's done in exactly the same for the version shown in Figure 1, except it's not shown. This is the basis for a reverb or echo effect, but as noted below, a single delay does not make a nice sounding reverb or echo. Also not shown is a method of modulating the clock frequency and hence delay time. This can become the basis for a tremolo circuit, but if used for that there will be a delay between striking a note and hearing it - this is surprisingly easy to hear (and makes it hard to play, even with only 50ms delay). Try standing 17 metres from the speakers and trying to play normally - it's not easy!
+
+<p>I'd love to be able to claim that it can be used for flanging effects as well, but the minimum delay is simply too great, and it won't work in this role. This is the one major complaint I have with the PT2399 - the minimum delay is too long, precluding it from many applications.</p> 
+
+<center><img SRC="p26a-f4.gif" ALT="Figure 4" BORDER=1>
+<br><b><small>Figure 4 - Simple Transistor Timing Delay Circuit</small></b></center>
+
+<p>If you <i>really</i> want to use the minimum possible delay time (and your IC refuses to start with a low value timing resistor), you can add this simple transistor delay to the timing circuit. The 47uF cap is charged via R1 (10k resistor), and the base is supplied from the R2 (also 10k). Interestingly, the oscillator won't run if the timing resistor is open circuit, but it will start once a connection is made. This is in contrast to operation with a value below 2k - it not only won't start, but it cannot start itself even if the resistance is increased. A lockout condition such as this is unacceptable, so the above circuit was devised to get around it. The delay is about 25ms - long enough for the PT2399 to get its act together. This has been tested fairly extensively, and I'm satisfied that it will solve startup problems with very low values for R10.</p>
+
+<hr><b>Input And Output Considerations</b>
+<p>The circuit as shown needs to be driven from a low impedance - no more than perhaps 1k. Output impedance is fairly low, but the 2.7k (or 1k) final filter resistor means that the load should be at least 10k. There is one thing that has considerable nuisance value, and that's the limited voltage that the IC can handle. In many cases, it will be necessary to attenuate the signal before it gets to the delay circuit, and boost it again afterwards.  
+
+<p>There is no specified maximum level in the data sheet, but testing reveals that it needs to be kept to no more than around 1 Volt RMS. The level must be below the maximum or distortion will be plainly evident. The output from a CD/DVD player is generally about 2V, so you may need to attenuate the input signal by around 10dB, and provide 10dB gain afterwards to get the level back again. It can be reduced (and amplified) more, but at the expense of noise.</p>
+
+<p>The necessary gain (and optional mixing) stages can use basic opamp circuits, or <a href="project94.htm" target="_blank">Project 94</a> ('universal' preamp/ mixer) can be employed for everything</p>
+
+<hr /><b>Delay Timing</b>
+<p>The following table is taken from the data sheet, and shows the delay time for various values of the timing resistor. I remain unconvinced that the figures shown are necessarily very accurate, and it's certain that there will be variations from one IC to the next.</p>
+
+<center><table width="640" border="1" style="border-collapse:collapse;">
+<colgroup span=11 width="9%">
+<tr><th>R<sub>t</sub></th><td>27.6 k<td>21.3 k<td>17.2 k<td>14.3 k<td>12.1 k<td>10.5 k<td>9.2 k<td>8.2 k<td>7.2 k<td>6.4 k
+<tr><th>f<sub>clock</sub></th><td>2.0 M<td>2.5 M<td>3.0 M<td>3.5 M<td>4.0 M<td>4.5 M<td>5.0 M<td>5.5 M<td>6.0 M<td>6.5 M
+<tr><th>Delay</th><td>342 ms<td>273 ms<td>228 ms<td>196 ms<td>171 ms<td>151 ms<td>137 ms<td>124 ms<td>114 ms<td>104 ms
+<tr><th>THD</th><td>1%<td>0.8%<td>0.63%<td>0.53%<td>0.46%<td>0.41%<td>0.36%<td>0.33%<td>0.29%<td>0.27%
+<tr><td colspan="11">&nbsp;</td>
+<tr><th>R<sub>t</sub></th><td>5.8 k<td>5.4 k<td>4.9 k<td>4.5 k<td>4.0 k<td>3.4 k<td>2.8 k<td>2.4 k<td>2.0 k<td>1.67 k
+<tr><th>f<sub>clock</sub></th><td>7.0 M<td>7.5 M<td>8.0 M<td>8.5 M<td>9.0 M<td>10 M<td>11 M<td>12 M<td>13 M<td>14 M
+<tr><th>Delay</th><td>97 ms<td>92 ms<td>86 ms<td>81 ms<td>76 ms<td>68 ms<td>62 ms<td>57 ms<td>52 ms<td>48 ms
+<tr><th>THD</th><td>0.25%<td>0.25%<td>0.23%<td>0.22%<td>0.21%<td>0.19%<td>0.18%<td>0.16%<td>0.15%<td>0.15%
+<tr><td colspan="11">&nbsp;</td>
+<tr><th>R<sub>t</sub></th><td>1.47 k<td>1.28 k<td>1.08 k<td>894<td>723<td>519<td>288<td>0.5<td><td>
+<tr><th>f<sub>clock</sub></th><td>15 M<td>16 M<td>17 M<td>18 M<td>19 M<td>20 M<td>21 M<td>22 M<td><td>
+<tr><th>Delay</th><td>46 ms<td>43 ms<td>41 ms<td>38 ms<td>37 ms<td>34 ms<td>33 ms<td>31 ms<td><td>
+<tr><th>THD</th><td>0.15%<td>0.14%<td>0.14%<td>0.14%<td>0.13%<td>0.13%<td>0.13%<td>0.13%<td><td>
+</table></center>
+
+<p>As noted earlier, if the value of R<sub>t</sub> (the timing resistor) is less than 2k, the oscillator may not start when power is applied. There does not appear to be a way to fix this (within the chips internal architecture) if it happens, other than ensuring that the value is always high enough to ensure a reliable start. This means that the delay is going to be around 50ms - some may consider that to be too long. A basic relay circuit as described above is one fix, or you can just live with a 50ms delay (which is actually not too bad based on listening tests). Of course, you can include a pot to change the delay, but you have to remember to set it for a reasonably long delay before powering on the unit. The transistor solution is the best, and is configured to be open-circuit initially, and turns on (shorting the 'earth' end of the pot to earth) after a delay (see Figure 4). 
+
+<p>For what it's worth, I also measured the clock frequency on pin 5. I obtained 24.25MHz with 100 Ohms, 13.05MHz with 1.4k and 1.58MHz with 27k (the frequency with 100 Ohms is higher than claimed, and that with 27k is quite a bit lower than claimed). Don't be misled into thinking that the delay clock is also used for the A/D and D/A conversion - it isn't. I measured the clock residual at the output to be 34.7kHz with 25k, and 540kHz with 100 ohms. The A/D and D/A (CODEC - coder/decoder) clock frequency also varies with signal amplitude (much like with self oscillating Class-D amplifiers), as does the residual signal level. The CODEC clock frequency is at its highest at low amplitudes, and falls as the signal voltage reaches the positive or negative peaks.</p>
+
+<hr><b>Complete Surround System</b>
+<p>A complete surround system would consist of a power supply, the decoder matrix, optionally a stereo width controller, perhaps a <a href="project09.htm" target="_blank">Project 09</a> electronic crossover, and the delay unit. I have not provided a diagram here, as there are so many possibilities that a single diagram can't hope to cover the available options. There is a 'full surround' system block diagram in the original <a href="project26.htm" target="_blank">Project 26</a> article, and most of that is relevant - at least up to a point.</p>
+
+<hr /><b>Echo/ Reverb Unit</b>
+<p>This module is ideal for a digital echo machine, and can also handle reverb. However, most musicians will have heard a typical (basic) digital echo/reverb, and they sound awful. Because there is only one time delay, the reverb sounds very unnatural, as does echo. To duplicate an old analogue multi-head tape echo (the holy grail for some), you need two or three delays, with each set according to the sound you want. Each can have individual or shared feedback, and it becomes possible to get a wide variety of sounds, with a much more natural effect than with a single delay. Not only that, but you also get some great effects. And yes, the PT2399 can have a voltage controlled time delay as well - more fun.
+
+<p>While a complete description of how this can be done is outside the scope of this project article, if enough people are interested I'll develop the system and publish it as a separate project. Suffice to say that 3 delay units and a P94 universal preamp/ mixer is all you need, but there are many varying levels of sophistication and complexity that can be applied. Even in its simplest form, the results can be expected to be at least as good as one of the better analogue tape units - with the added benefit of not having to replace tapes!</p>
+
+
+<hr><b>Power Supply Unit</b>
+<p>The power supply described in <a href="project05b.htm" target="_blank">Project 05</a> is ideal for this project. It will power everything easily. The P94 (or other) preamp/ mixer board needs +/-15V, and the +15V supply can also run the delay unit.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott (with Princeton Technology the owner of copyright on the conceptual circuit of Figure 1), and is Copyright &copy; 2012. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<br>
+</body>
+</html>

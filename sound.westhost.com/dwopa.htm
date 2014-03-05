@@ -1,0 +1,448 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP - Designing with opamps. Learn the basics of designing audio and other circuits using opamps as an electronic building block.">
+	<meta name="keywords" content="opamp, design, audio, preamp, stereo, amp, diy, fi-fi, electronic, op-amp">
+	<title>Audio Designs With Opamps</title>
+	<!-- ESP - Designing with opamps. Learn the basics of designing audio and other circuits using opamps as an electronic building block. -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Audio Designs With Opamps&nbsp;</td></tr></table>
+
+<p align="center">Copyright (c) 2000 - Rod Elliott (ESP)</p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="articles.htm" OnMouseOver="document.t1.src='arrow.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br /><a href="index2.html" OnMouseOver="document.t3.src='a.gif';" OnMouseOut="document.t3.src='a1.gif';">
+<img SRC="a1.gif" NAME="t3" ALT="ESP Home" BORDER=0 height=24 width=40></a><b>Main Index</b><br />
+
+<hr /><b>Contents</b>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#formula">Essential Formulae</a></li>
+<li><a href="#rules">Basic Rules Of Opamps</a></li>
+<li><a href="#examples1">Essential Opamp Information</a><ul>
+  <li><a href="#configs">Configurations</a></li>
+  <li><a href="#power">Applying Power</a></li>
+  <li><a href="#ideal">The Ideal Opamp</a></ul></li>
+<li><a href="#circuits1">Basic Opamp Circuits</a><ul>
+  <li><a href="#noninv">Non-Inverting Amplifier</a></li>
+  <li><a href="#invert">Inverting Amplifier</a></li>
+  <li><a href="#buffers">Inverting And Non-Inverting Buffers</a></ul></li>
+<li><a href="#basicvariation">Interesting Variations Of Basic Circuits</a><ul>
+  <li><a href="#highz">High Impedance Amplifiers</a></li>
+  <li><a href="#inductor">Simulated Inductor</a></li>
+  <li><a href="#allpass">All-Pass Filter</a></li>
+  <li><a href="#phaseshiftosc">Phase Shift Oscillator</a></li>
+  <li><a href="#schmitt">Schmitt Trigger Oscillator</a></ul></li>
+<li><a href="dwopa2.htm">Part 2 - Pure Audio Circuits</a></li>
+<li><a href="articles/dwopa3.htm">Part 3 - More Filters, Comparators, Etc.</a></li>
+<li><a href="#references">References / Suggested Reading</a></li>
+<li><a href="#copyright">Copyright Notice</a></li>
+</ul>
+
+<hr /><a id="intro"></a><b>Introduction</b>
+<p>There are few audio designs today that do not use operational amplifiers (opamps). Over the years, the poor opamp has been much maligned, with mainly spurious claims about 'audibility', distortion, and other so-called defects.
+
+<p>Although some of the more basic opamps do have limitations which make them less than desirable in some cases, most of the new breed are unsurpassed for linearity, with total harmonic distortion figures as low as 0.00008%. Even the basic types still have their uses in control circuits and other non-demanding applications.
+
+<p>The operational amplifier was first used in the 1940's, as the basis of analogue computers. Since integrated circuits were unknown at the time (this was before the invention of the transistor), the earliest versions were made using valves. The basic concept is to have an amplifier with differential inputs, whose operation is controlled only by the external feedback components. By rearrangement of the feedback circuit, different "operations" could be performed. Typically, these
+early opamps could add and subtract, and these are essential functions to this day (even in audio). With the advent of the IC and mass production techniques, the opamp became very popular and remains so - with considerable justification.
+
+<p>This article will concentrate mainly on audio applications, but there are some configurations that are just so wonderful that I cannot resist the temptation to include them. For the most part, any of the configurations shown can use the simplest (and cheapest) opamp you can get (especially for testing), unless extremely wide bandwidth or low noise is a prime consideration. For any of the test circuits this is not an issue.
+
+<p>I also suggest that you build up the Opamp Design and Test Board (Project 41), which is ideal for the experimenter. Most of the circuits shown can be built using this test board, and will function perfectly, although there will be limitations as to bandwidth and noise because of the LM1458 dual opamps recommended for the project.</p>
+
+<hr /><a id="formula"></a><b>Essential Formulae</b>
+<p>To understand this article, you need to know Ohm's law and its derivatives. Ohm's law is fundamental to electronics, and with little more it is possible to derive most of the other resistance based formulae. Ohm's law states that a potential of 1 Volt through a resistance of 1 Ohm will cause a current of 1 Ampere to flow. This is expressed as:</p>
+
+<blockquote>R = V / I ... &nbsp; where R is resistance, V is voltage and I is current, or ...<br />
+I = V / R ... &nbsp; or ...<br />
+V = I * R</blockquote>
+
+Later on, we will also use the formulae for inductive reactance and capacitive reactance, as well as calculating frequency response and some filter design. These will be presented as needed. 
+
+<p>You will also see references to 'an instantaneous level of "x" volts AC'. At any point in time, an AC voltage has an instantaneous voltage - this is the voltage that is present at that moment, and for analysis can be treated as DC. This is valid only when we consider this 'DC' level as a transient thing, since many of the circuits do not operate down to DC at all (many others do, but this is beside the point :-)
+
+<hr /><a id="rules"></a><b>Basic Rules of Opamps</b>
+<p>Many years ago I used to teach electronics, and I devised what I called the 'Basic Rules of Opamps' for the purposes of explanation. There are two Rules, and although real life is never like theory (I could fill the page with suitable examples, but shall refrain), they describe the operation of all opamp circuits very accurately:
+
+<ol><li>An opamp will attempt to make both inputs exactly the same voltage (via the feedback path)</li>
+<li>If it cannot do so, the output will assume the polarity of the most positive input</li></ol>
+
+Needless to say, this requires some explanation. So let's look at Rule #1 ("No Poo....", oops, sorry, wrong Monty Python sketch).
+
+<p><b>An opamp will attempt to make both inputs exactly the same voltage</b>
+<br />When an opamp is operated in its linear mode (which is most of the time for audio), the feedback circuit will cause a voltage to appear on the inverting input (-in) that is almost exactly equal to that present on the non-inverting input (+in). Any change of voltage on the +in terminal is reflected by a change in the output that causes more or less current to flow in the feedback circuit to maintain equilibrium. 
+
+<p>If this is unclear to you, see the further explanations below - but remember the 1st Rule !
+
+<p><b>If Rule #1 cannot be satisfied, the output will assume the polarity of the most positive input</b>
+<br />There are many circuits that use opamps in non-linear mode, and this can also happen if the output cannot swing its voltage fast enough. In these cases, should the +in terminal be the most positive, then the output will (or attempt to) swing positive. If the -in terminal is more positive, the output will swing negative.
+
+<p>There is almost no opamp circuit that you cannot understand once these Rules are firmly established in your thinking. Even circuits that use external transistors in strange ways will obey the Rules. An opamp that does not perform as above is being used outside of its normal operating parameters, and the results will be unpredictable and almost always unsatisfactory.
+
+<p>It is more often explained that an opamp reacts only to the difference between the two inputs, and not to their common voltage. The ability to ignore the common voltage is called the Common Mode Rejection Ratio (CMRR), and will be covered later in this article.
+
+<hr /><a id="examples1"></a><b>Some Essential Opamp Information</b>
+<p>Before we cover the circuits themselves, we need to look at some of the parameters you will come across, how to apply power and bypass the supply rails and so on.
+
+<p>There are many parameters that you will see in data sheets, and these are covered in more detail a little later. There is no point doing it now, as the importance will be lost until you know more about the opamp itself.
+
+<hr /><a id="configs"></a><b>Configurations</b>
+<p>Opamps come in a variety of configurations, but the most common are:
+<blockquote>
+	Single - one opamp in an 8 pin DIL (Dual In Line) package<br />
+	Dual - Two separate opamps, sharing only the power supply pins - commonly in an 8 pin DIL package<br />
+	Quad - Four separate opamps, again sharing the power supply - most commonly in a 14 pin DIL package
+</blockquote>
+
+<p>Amazingly, nearly all opamps use the same pinouts, and these were established many years ago by the venerable uA741 for single opamps, and the likes of the LM1458 dual opamps set the stage for the others that followed. Many of the quads use the same pinouts as well, and this has enabled people to swap opamps for 'better' ones for a very long time.
+
+<p>However - Don't count on it! There are some variations, and although uncommon, they do exist. I shall not be concerned with any of the different devices - only the common pinout versions will be shown.
+
+<p align="center"><img SRC="dwop-f01.gif" ALT="Figure 1" BORDER=1>
+<br /><b><small>Figure 1 - Common Opamp Pinouts</small></b></p>
+
+<p>Figure 1 shows the standard connections for single, dual and quad opamps, but be aware that the remaining pins on the common single devices can occasionally have uses other than those shown. Single opamps have additional connections available. These are most commonly:
+
+<ul><li>Offset Null - used to adjust the amplifier to ensure that the input transistors are perfectly balanced, so that with no input signal, there is zero volts output. This is important for DC amplifier circuits.</li>
+<li>Compensation - Some single opamps do not have inbuilt frequency compensation capacitors, and these are connected externally instead. This allows the designer more freedom, and the opamp's high frequency performance can be optimised for the design objective.</li>
+</ul>
+
+<p>You may at times see these connections used in unconventional ways. This may be to obtain greater bandwidth than might normally be available, or perhaps just so the designer can show how clever s/he is. Either way, I shall not be delving into these aspects of the design process <img src="grin.gif" />.
+
+<hr /><a id="power"></a><b>Applying Power</b>
+<p>No (active) circuit works without power, so this has to be the first step. Most opamps will operate with a maximum of 36V between the supply terminals. As this is the absolute maximum, operation at a lower voltage is the general rule, and the most common is to use +/-12V to +/-15V to power the circuit. Some opamps are rated for higher voltages, and others for less, so consult the spec sheet from the manufacturer.
+
+<p>A dual supply is not required, but it does simplify the design, and is recommended for most applications. A dual supply has the advantage that all inputs and outputs are earth (ground) referenced. This can eliminate a great many capacitors from a complex design, and is the most common way to power most opamp circuits. Note that from a commercial perspective, elimination (or reduction) of capacitors is done for economic reasons rather than any great desire to simplify the signal path.
+
+<p>Since the pinouts are nearly always the same, Figure 1 will be applicable in most cases, but as I said earlier "Don't count on it!". When in doubt, get the specification sheet from the manufacturer. When not in doubt, get the specification sheet anyway.
+
+<p><b>Power Supply Rejection Ratio</b>
+<br />The PSRR (Power Supply Rejection Ratio) of an opamp is a measure of the amount of power supply noise that finds its way into the output signal. Most specification sheets give the test conditions for this measurement, and this should be consulted if an unusual design is contemplated. Mostly it can be ignored.
+
+<p><b>Bypassing</b>
+<br />Although most opamps have a very good PSRR, it is always recommended that the supply be bypassed with capacitors - especially with high speed opamps. Bypassing should always use capacitors with good high frequency performance, and ceramics are probably the best in this regard. It is common for designs to use electrolytic capacitors, themselves bypassed by low value (100nF) capacitors. This ensures that all noise sources are minimised, and helps to prevent oscillation. When this occurs with a high speed (HS) opamp, it will commonly be in the MHz region, and is extremely hard to see on most  oscilloscopes.
+
+<p>A sure sign is inexplicable distortion, that mysteriously disappears (or appears) when you touch the opamp, or a component in its immediate vicinity.
+
+<p align="center"><img SRC="dwop-f02.gif" ALT="Figure 2" BORDER=1>
+<br /><b><small>Figure 2 - Bypassing The Opamp Supplies</small></b></p>
+
+<p>Even with HS opamps, electrolytic capacitors are not needed for each device (generally needed only on each board), but the use of ceramic bypass caps between the supply pins of each device is highly recommended. Figure 2 shows the most common method of bypassing power supplies for opamp circuits (A), but there are others. In some cases, the supplies may not be bypassed to earth (ground), but just to each other. This has the advantage of not coupling supply noise into the earth (ground) system (B).
+
+<p>Claims have been made that supply bypassing ruins the sound (rubbish), or that ceramic caps should never be used in audio, even for bypassing (more rubbish), and even that high value capacitors (> 1uF) slow down the sound (unmitigated drivel). These claims are made by frauds and charlatans, and should be completely ignored - they have no basis in fact whatsoever, and indeed, quite the reverse may be true in each case.
+
+<hr /><a id="ideal"></a><b>The Ideal Opamp</b>
+<p>An ideal opamp has an infinitely high input impedance, and therefore needs no bias current. It is also capable of infinite gain without feedback, so there are no errors between the two inputs (i.e. Rules 1 &amp; 2 will hold for all cases). The ideal opamp also has zero ohms output impedance, and is capable of supplying as much current as you will ever need. The ideal opamp does not exist :-(
+
+<p>Although it does not exist, the ideal opamp is the common model for nearly all opamp circuits, and few errors are encountered in practice as a result of designing for the ideal, and actually using a real (non-ideal) device. The tolerance of even the best resistors will ultimately limit the accuracy of any opamp circuit at low frequencies (where gain is highest).
+
+<p>The primary practical limitations are:</p>
+
+<ul>
+	<li>Input Impedance - Typically from one to several hundred Megohms. FET inputs are used for very high impedance inputs</li>
+	<li>Gain - 100dB at up to a few hundred Hertz is common</li>
+	<li>Common Mode Input Voltage - typically limited to the supply voltages, but may be up to 0.6V greater with some designs</li>
+	<li>Bandwidth - opamps with a usable high frequency limit of 1MHz at unity gain are now common</li>
+	<li>Output Current - most common opamps are limited to about 20mA of output current.</li>
+</ul>
+
+<p>There are others, such as input offset voltage and current, but we shall not concern ourselves with these parameters just yet. Power opamps may be capable of up to 10A, but these are outside the scope of this section of the article.
+
+<p>The use of ideal opamps is assumed for much of the following, but all are designed to function properly with real world devices. In practice the difference between an ideal opamp and the real thing are so small as to be ignored, but with one major exception - bandwidth. This is the one area where most opamps show their limitations, but once properly understood, it is quite easy to maintain a more than adequate frequency response from even basic opamps.</p>
+
+<p>The common mode input voltage can be important in some applications. Ideally, an opamp only reacts to the voltage difference between its inputs. Provided this does not change, in theory, the actual voltage between the two inputs and the common (zero volt line) may be anywhere within the specified range <i>with no change in the output voltage</i>. In other words, the inputs can assume any voltage between the negative and positive supplies, and there will be (almost) no change at the output.</p>
+
+<p>With a real (as opposed to ideal) opamp, there will be some change, and this is specified as the common mode rejection ratio. An opamp with a CMRR of 100dB (not uncommon) will ensure that the change in output voltage is 100dB less than the change of input voltage (as applied to <i>both inputs simultaneously</i>. Any <i>difference</i> between the inputs is amplified normally. CMRR is affected by the open loop gain of the opamp, so is usually worse at high frequencies.</p>
+
+<hr /><a id="circuits1"></a><b>The Basic Opamp Circuits</b>
+<p>The following collection shows the most common configurations for amplifiers. These are intended as linear amplifiers, in that they are essentially distortion free (within the capabilities of the opamp itself, of course). 
+
+<p>As we progress, most of these original circuits will be seen over and over again, since they are the very foundations of building an audio circuit using opamps.
+
+<p>In all cases, a dual power supply is assumed, and this is not shown on the circuits. This partly for clarity, since the additional circuitry makes the diagrams harder to understand, and partly because it is a convention not to show all the supply connections anyway. We all know they have to be there, so there is little point in showing the obvious over and over again. Likewise, bypass capacitors and other support components are not shown - only the basic opamp and its associated components.
+
+<p>You will also see reference to the "instantaneous value of the AC waveform". This is like a snapshot, and we simply freeze time while we analyse the operation of the circuit. At any point in an AC waveform, it can have only one value of voltage and current, <i>regardless</i> of the complexity of the signal source. A sinewave is no different from any other signal - <u>provided its amplitude and frequency are within the capabilities of the opamp</u>.
+
+<hr /><a id="noninv"></a><b>The Non-Inverting Amplifier</b>
+<p>The most common of all configurations is the non-inverting amplifier. I will therefore use this as a starting point, because it is also the simplest to understand. Figure 3 shows a completely conventional non-inverting opamp voltage amplifier.
+
+<p align="center"><img SRC="dwop-f03.gif" ALT="Figure 3" BORDER=1>
+<br /><b><small>Figure 3 - Non-Inverting Opamp Amplifier</small></b></p>
+
+<p>Rin is the input resistor, and is needed because an opamp needs a reference voltage at the input. In this case the reference voltage is the zero volt (earth) bus. Input impedance is equal to the value of Rin in parallel with the opamp input impedance. Generally the latter can be ignored because it is so high.
+
+<p>The gain (Av - Amplification, Voltage) is set by the ratio of R1 and R2, and is equal to:
+
+<blockquote>Av = (R1 + R2) / R2</blockquote>
+
+The gain of this stage cannot be less than unity, regardless of the resistor values used. As shown in the diagram, the gain is 11 times, so a 100mV input will become a 1.1V output. To re-examine Rule #1, it is obvious that if 100mV (instantaneous AC or DC) appears at +in, the amplifier must have 1.1 volts at the output, since the voltage divider R1/R2 will ensure that 100mV also appears at -in. This is obtained from the simple voltage divider formula, which is strangely familiar ...
+
+<blockquote>Vd = (R1 + R2) / R2</blockquote>
+
+This will hold for any gain and any output within the capabilities of the power supply and the opamp's ability. A signal at 10MHz will not follow the rule, since the opamp will almost certainly be incapable of amplifying such a high frequency. An input voltage of 10V with a gain of 11 will also break the rule, since the opamp has only +/-15V supplies, and the output cannot exceed the supply voltage. Likewise, an 8 ohm load will break the rule, since the opamp cannot supply the current needed to drive such a load.
+<p>To see how the opamp behaves in these abnormal conditions, I suggest that the circuit be built, and run the tests if you have access to an oscilloscope. Examine the inputs as well as the output, since the inputs are by far the most interesting when the opamp is appearing to break the Rules.
+
+<hr /><a id="invert"></a><b>Inverting Amplifier</b>
+<p>Once, all amplifiers were inverting. A single valve or transistor stage (other than a cathode or emitter follower buffer stage) always inverts the signal, and this is how it must be (see <a href="amp-basics.htm">Amplifier Basics - How Amps Work</a> for more info).
+
+<p>With the advent of the opamp, all this changed, and the inverting amp is a very different beast from the simple discrete designs. The gain ratio is again set by a pair of resistors, but the +in terminal is earthed, either directly, or via a resistor. This configuration is also called a virtual earth stage, and is common in mixing consoles and many other signal processing circuits.
+
+<p align="center"><img SRC="dwop-f04.gif" ALT="Figure 4" BORDER=1>
+<br /><b><small>Figure 4 - Inverting Amplifier</small></b></p>
+
+<p>Since +in is earthed and Rule #1 says that both inputs must be the same, -in will "appear" to be at earth potential as well (i.e. zero volts). Assume an input of 100mV DC. The output will be at -1V DC, a gain of -10 (the minus indicates only that it is inverting, not that the circuit has "negative gain" which is actually a loss).
+
+<p>Input impedance is equal to the value of R2, and voltage gain is R1/R2, or 10 as shown. Note that this configuration is capable of negative gain (loss). If R2 is larger than R1 (say 20k), then the gain is equal to R1/R2 as before, so is now -0.5.
+
+<p>With the input at 100mV (again instantaneous AC or DC), the input current will be 100mV / 1000 (using Ohm's law), which is 100uA. The current through the feedback resistor must be exactly equal and opposite to ensure that zero volts is at the -in terminal (so we don't break Rule #1). As it happens, 1V / 10k equals 100uA, so the requirement is satisfied, since the output is negative.
+
+<p>As before with the non-inverting amp, the limitations of the opamp and its supply may cause Rule #1 to be broken, but the amp is now no longer operating in its linear mode, and Rule #2 will take over. Observation of the -in terminal will show a distorted waveform when the opamp can no longer operate in linear mode.
+
+<hr /><a id="buffers"></a><b>Inverting and Non-Inverting Buffers</b>
+<p>A very common opamp application is the buffer stage, which (for the non-inverting configuration) can have an extraordinarily high input impedance, and a low output impedance. As with all opamp circuits, the output impedance may be very low (typically &lt; 10 ohms), but the output current capability will not allow the circuit to drive such an impedance at more than the 20mA or so that is typical of most opamps. This would limit the output voltage (before clipping) to a maximum of +/-160mV, or about 113mV RMS into 8 ohms. Distortion will be unacceptably high, and the end result is not worthy of further consideration.
+
+<p align="center"><img SRC="dwop-f05.gif" ALT="Figure 5" BORDER=1>
+<br /><b><small>Figure 5 - A) Inverting and B) Non-Inverting Buffer</small></b></p>
+
+<p>In many cases the non-inverting buffer can be replaced by an emitter follower, but performance is nowhere near as good. Input impedance is lower, output impedance is higher, and the gain is not quite unity. In addition there is more distortion and lower output drive capability.
+
+<p>The inverting buffer is more of a convenience than anything else, and is simply a normal inverting amplifier with unity gain. Input impedance is the same as R1, and very high values are not possible without excessive circuit noise.
+
+<hr /><a id="basicvariation"></a><b>Some Interesting Variations On Basic Circuits</b>
+<p>It is now time to look at a few of the many variations on the basic circuits discussed above. It is not possible to cover all the different circuits that have been made using opamps, since there are so many that I could easily end up with the world's longest web page. I doubt that this would be appreciated by most of you :-)
+
+<p>I shall only cover the more common, or most interesting, as this will give a better appreciation of how versatile these building blocks really are. All of the circuits that follow will work - they are not theoretical, but real designs, and can all be made on the opamp test board.
+
+<hr /><a id="highz"></a><b>High Impedance Amplifiers</b>
+<p>The inverting buffer has been used in some very interesting ways. For example, a standard low cost TL071 opamp has an input bias current of about 65pA, and a claimed input resistance of 10<sup>12</sup> ohms. To put this into perspective - assuming we have a way to supply the bias current without affecting input resistance - the input  impedance could be as high as 10,000,000,000,000 ohms. That is 10Tohms (1 Tera-Ohm is 1000 Gig-Ohms ). We will be completely unable to achieve this in practice, since the insulation resistance of a PCB is nowhere this figure, and the smallest amount of contamination will reduce the impedance dramatically.
+
+<p>In reality, we can easily expect to be able to get an input impedance of 100M ohms or more, but care is needed, since with high value resistors additional noise is produced. Since noise in a resistor is proportional to the voltage across the resistor and its resistance, it is easy to see how a simple circuit can become a real noise generator. Figure 6 shows the circuit and PCB layout for a very high impedance amplifier.
+
+<p align="center"><img SRC="dwop-f06.gif" ALT="Figure 6" BORDER=1>
+<br /><b><small>Figure 6 - High Impedance Amplifier</small></b></p>
+
+<p>The bias resistor is 'bootstrapped' from the output, and this allows a lower resistance (for lower noise), while maintaining an extraordinarily high input impedance. A circuit such as this could be used for a capacitor microphone (for example), which will typically have such a small capacitance that any loading will reduce the low frequency performance to an unacceptable degree. The guard track can be seen encircling the input and the input end of R1. What on earth is a guard track? Read on ....
+
+<p>To prevent the resistance of the PCB from causing a problem, the input section may be 'guarded' with a section of track connected back to the output. Bootstrapping and guarding work in the same way. The guard track works by maintaining a voltage from a low impedance source around the input circuit that is the same voltage as the input. If they are the same voltage, no leakage current will flow. In reality it is not quite that simple.
+
+<p>Assume that the opamp has 100dB of gain at 1kHz (our test frequency). This equates to 100,000 - a little shy of infinity! Since the opamp has a finite gain, the 'unity gain' buffer will actually have a gain of 0.99999 - not 1 as we had assumed. This error reduces the ability of the opamp to bootstrap the circuit perfectly, so the 100k input resistance will only be effectively increased to 10G ohms.
+
+<p>But wait .... how does it increase the effective resistance at all? This is very simple. Assume an instantaneous AC voltage of 1 volt input to the amp. Normally, this would cause a current of 10uA into the 100k resistor of Figure 6. Because the bootstrapping action causes the voltage at the junction of R1 and R2 (Fig 6B) to be 0.99999V, there is actually only 1 - 0.99999 = 10uV across the resistor. The input current is now 10uV / 100k = 100pA (1 pico-amp is 10<sup><font size=-2>E-12</font></sup>A). We can now calculate the equivalent resistance as R = 1V / 100pA = 10G ohms. This will fall at increasing frequencies as the opamp starts to run out of gain.
+
+<p>Oh yes, the term "bootstrap" comes from the unlikely picture of a man "lifting himself off the floor by his own bootstraps". As you might have guessed, the term is somewhat antiquated, but there has never been any move to change it (thank goodness). It is intended to show that the impossible can be done, but it is not really impossible, and is just a very clever example of lateral thinking.
+
+<br /><br /><table BORDER=0><tr><td><img SRC="note.gif" ALT="Note !" height=37 width=108></td>
+<td>The bootstrapped circuit cannot be used at DC, since it requires a capacitor for its operation. This is not as much of a limitation as may first be thought, since DC is quite inaudible <img src="grin.gif" alt="Grin"></td></tr></table>
+
+<p>Many common transducers use capacitance as their mechanism. "Condenser" microphones are the most common example, but there are many others. These are normally supplied from a high voltage (50-200V) via an extremely high value resistor. One would expect noise, but they are usually much quieter than expected. This is actually easily explained ...
+
+<p>The capacitance may only be small, but the resistor is such a high value (commonly 10M or more) that the transducer itself acts as a filter capacitor. For example, even a 100pF capacitor makes an excellent low pass filter when fed with an impedance of 100M&Omega;, having an upper -3dB frequency of 16Hz. Any noise is effectively filtered out by the capacitance of the transducer. Remember too that there should be no voltage across the resistor, as that implies that something is drawing current (unacceptable for a capacitive transducer).</p>
+
+<hr /><a id="inductor"></a><b>Simulated Inductor</b>
+<p>This circuit has to be one of the all-time classics. Although it can also be done with a single transistor, the performance of the opamp version is so much better that the alternative is not really worth considering. 
+
+<p>Inductors have always been a problem in electronics, as they are by nature relatively large, and being made from a coil of wire, tend to pick up mains hum as well as other noise in the electromagnetic spectrum. The idea of simulating an inductor using an opamp has been about for a long time. The inventor was apparently a Dutchman named Bernard Tellegen, see <a href="http://en.wikipedia.org/wiki/Bernard_Tellegen" target="_blank">Wikipedia</a> for more info.
+
+<p align="center"><img SRC="dwop-f07.gif" ALT="Figure 7" BORDER=1>
+<br /><b><small>Figure 7 - Simulated Inductor</small></b></p>
+
+<p>The circuit is so much smaller than a real inductor (at least for the larger values), and does not suffer from noise pickup. It does have a limited Q (quality factor), but it is rare that very high Q circuits are needed in audio, so this is not really a problem. It is also variable over a moderately wide range, something that is very difficult with the wire wound genuine article. So, how does it work?
+
+<p>The idea is very simple, but operation is less easy to understand. Essentially the circuit uses a capacitor, and 'reverses' its operation, thus making an 'inductor'. The essential character of an inductor is that it resists any change in its current, so if a DC voltage is applied to an inductance, the current will rise slowly, and the voltage will fall as the external resistance becomes more significant.
+
+<p>An inductor also passes low frequencies more readily than high frequencies - the opposite of a capacitor. An ideal (that word again) inductor has zero resistance, so will pass DC with no limitation, but will have an infinitely high impedance at infinite frequency. These limits are generally considered to be outside the audio range.
+
+<p>To understand how the circuit works, remember that the output of the opamp is (almost) exactly the same as the non-inverting input. Imagine a DC voltage of 1V is suddenly applied to the input, via resistor R1. The opamp will ignore the sudden load because the change is coupled directly to the input via C1. The opamp will represent a high impedance. Just as an inductor would do.
+
+<p>With the passage of time, C1 charges via R2, the voltage across R2 falls, so the opamp sees less and less of the input signal, and starts to draw current from the input via R1. This continues as the capacitor approaches full charge, and the opamp has close to zero input, so the output is also close to zero volts.
+
+<p>Eventually resistor R1 becomes the only limiting factor to current flow, and this appears as a series resistance within the inductor in the same way as the resistance of the wire in a real inductor behaves. This series resistance limits the available Q of both the simulated and real inductor, with the main difference being the magnitude - real inductors generally have much less resistance than the simulated variety.
+
+<p>Inductance is measured in Henrys, and for the simulated inductor is equal to ....
+
+<blockquote>L = R1 * R2 * C1</blockquote>
+
+A more accurate version of the formula (due to Siegfried Linkwitz) is shown below, but normally the error from the simple version will be very low with typical values - a ratio of 100:1 would normally be the lowest one would use, and this will have an error of only 1%. Component tolerance will have more effect, but for completeness, here is the accurate version ...
+
+<blockquote>L = C1 * R1 * (R2 - R1)</blockquote>
+
+so for the circuit shown is 1 Henry. This is a large inductance, and would be very expensive and bulky if made conventionally. The real inductance will have lower resistance and higher Q, but will need to have a large iron core to be able to withstand even a small amount of DC, and the inductance will change depending on how much DC is present. The simulated inductor is limited by the current capability of the opamp, so can handle up to +/-20mA with no change in performance.
+
+<p>There are some limitations to the simulated inductor ...</p>
+
+<ul>
+<li>First (and most annoying) is that one end of the inductor is earthed. Although simulated inductors have been made that are floating (can be connected in any way you like), these are expensive and uncommon. Fortunately the standard version is quite suitable for many audio applications, so this is not too great a burden.</li>
+<li>The simulated inductor cannot be made with high Q, since the value of R1 cannot be made low enough to allow a Q of more than about 10. This is due to the limitations of the opamp - a minimum value of 100 ohms is usually specified for R1, although lower values are sometimes used. This represents a series resistance (equivalent to wire resistance in a real inductor.</li>
+<li>There is also a resistance effectively in parallel with the simulated inductor, equal to the value of R1 + R2. Although this can be measured, it is not generally a hindrance to practical circuit design.</li>
+<li>Although the simulated inductor acts in many ways like the real thing, it does not have the same energy storage, and cannot respond like a proper wound inductor. When the input voltage is suddenly removed from a real inductor, the collapse of the magnetic field causes a large voltage pulse of the opposite polarity - this does not happen properly with a simulated
+inductor, since there is no magnetic field involved. The simulated inductor will still try, but is limited to the voltage swing of the opamp, so the flyback pulse is limited to this value.</li>
+</ul>
+
+<p>Figure 8 shows two simple LC filters. One is using a real inductor, and the lower circuit has a simulated inductor. They are both series resonant circuits, and are tuned to the same frequency (159Hz). The reference level (near the top of the graph) is 0dB, and neither circuit exhibits any appreciable loss outside the stop band.
+
+<p align="center"><img SRC="dwop-f08.gif" ALT="Figure 8" BORDER=1>
+<br /><b><small>Figure 8 - LC Filters, Real And Simulated</small></b></p>
+
+<p>The performance of both is almost identical as a simple filter as seen from the response plot, except the thing you don't see (mainly because I didn't include it) is that the simulated inductor has a slightly shallower notch, at about 37dB instead of 40dB. The frequency is calculated from ...</p>
+
+<blockquote>F = 1 / (2 * &pi; * &radic;(LC)) Hz</blockquote>
+
+<p>A series resonant circuit has minimum impedance at resonance, and in the configuration shown will act as a notch filter, reducing the level at the resonant frequency. Because of the relatively low Q, the notch is not very sharp, but the simulated inductor is an important building block for equalisers and spectrum displays, and is quite common in audio.
+
+<p>Note that at the junction of Cin and the inductor, the voltage is higher than the input voltage. This is normal behaviour for a series resonant circuit.</p>
+
+<hr /><a id="allpass"></a><b>All-Pass Filter</b>
+<p>The all-pass filter is one of the strange ones. It passes all frequencies perfectly, with no attenuation at all within the capabilities of the opamp used. All it does is change the phase of the signal, and this circuit is used in everything from phase correction circuits for sub-woofers to guitar effect pedals. It is a versatile and useful building block, and the circuit is shown in Figure 9.
+
+<p align="center"><img SRC="dwop-f09.gif" ALT="Figure 9" BORDER=1>
+<br /><b><small>Figure 9 - All-Pass Filter</small></b></p>
+
+<p>The circuit shown will have a 90 degree phase shift at 159Hz. At DC, phase shift is 180&deg;, and at high frequencies it is 360&deg; (note that 360&deg; phase shift is <i>almost</i> the same as 0&deg; - there is a subtle difference for transient signals, so the two can be considered identical only for steady state signal conditions). The shift of phase about the centre frequency is completely inaudible, but if a pot is substituted for R2, the phase can be swept back and forth. This is audible, and by cascading a number of these circuits "phaser" or vibrato (frequency modulation) effects pedals can be made. One of the latter is described in my projects pages.
+
+<p>The input signal is effectively applied to both opamp inputs, but there is always a small phase difference except at DC or infinite frequency. The value of C1 and R2 determine the frequency at which there is a 90&deg; (or 270&deg;) shift, and the frequency is determined with the formula ...</p>
+
+<blockquote>Fo = 1 / (2 * &pi; * R2 * C1)  ... &nbsp; where Fo is the 90&deg; phase shift frequency</blockquote>
+
+<p>A quick analysis will show how this works. Assume a DC input of 1V; at DC the cap has no effect, so the circuit operates just like an inverting buffer. The output is therefore -1V, so there is a 180&deg; phase shift. At high frequencies, the reactance of C1 is negligible, and the full input is supplied to the opamp's +in terminal. Remembering Rule #1, the opamp output will be such that both inputs will have the same voltage, and in order to do this, the output must be equal to the input at high frequencies.
+
+<p>At intermediate frequencies, the combination of C1 and R2, along with R1 and R3 will ensure that the output amplitude remains constant, but the phase will change. The relative positions of C1 and R2 may be reversed, which will modify the characteristics of the circuit.</p>
+
+<hr /><a id="phaseshiftosc"></a><b>Phase Shift Oscillator</b>
+<p>There are many things in life I do not understand, but one of the simpler ones is the phase shift oscillator implemented using an opamp. Don't get me wrong - the circuit I understand perfectly. The bit I <i>don't</i> understand is how come (up until recently) I have never seen this circuit published - anywhere ??? 
+
+<p>In its heyday, this circuit was used almost anywhere a simple sine wave oscillator was needed, and I have seen it made with valves, transistors and even FETs. What I had <i>not</i> seen until I designed one was a phase shift oscillator using an opamp. As it transpires, although <i>I</i> had not seen this done, my trusty editor in the UK has.
+
+<p>He has seen it in a number of publications including John Linsley-Hood's "The Art of Linear Electronics". JLH also supplies the equation for frequency calculation ...</p>
+
+<blockquote>Fo = &radic; 6 / (2 * &pi; * C * R)</blockquote>
+
+<p>Loop gain must be 29.25 dB according to Mr Linsley-Hood, and lacking further information I must assume that the formula only applies if all resistors and capacitors are equal, and gain would be the minimum required for the circuit to oscillate.
+
+<p align="center"><img SRC="dwop-f10.gif" ALT="Figure 10" BORDER=1>
+<br /><b><small>Figure 10 - Phase Shift Oscillator</small></b></p>
+
+<p>The frequency stability of this circuit is quite good, but as with all phase shift oscillators the amplitude varies when the frequency is changed. Any resistor can be varied to change the frequency, and the use of a pot allows continuous variation over a 5:1 range (or more if you experiment with the component values).
+
+<p>This is a perfect example of an opamp being unable to obey Rule #1, and its operation is governed by Rule #2. The circuit is essentially unstable, and the opamp is always trying to play catch-up (without success, or the circuit would stop oscillating).
+
+<p>The frequency is a cow to determine if different values are used for R or C, and although I believe there <i>is</i> a formula, it is apparently a very tedious process (I've not seen it myself). The circuit shown above will run at about 420Hz, with a sinewave output of around 500mV (with +/-15V supplies) - although JLH's formula seems to indicate that it should oscillate at 390Hz. If you <i>really</i> want to know, you will have to build one. Changing the value of any resistor or capacitor will change both frequency and amplitude. The square wave at the output is at almost the full +/-15V supply voltage (limited only by the output circuit of the opamp).
+
+<p>The sinewave shown on the oscilloscope trace is obtained from the Vout terminal, and the square wave is obtained from the opamp's output (these are not to scale). The string of resistors and caps acts as a phase shift network, and oscillation takes place at that frequency where there is an exact 180 degree shift, converting negative feedback into positive feedback. The circuit is stable at DC, since it has negative feedback through the string of resistors.
+
+<p>Let's have a look at how it works. Remember Rule #2? Now have a look at the signal at the inverting input. As you can see, the output takes the polarity of the most positive input, so when the -in terminal is positive, the output is negative. Over a period of time based on the resistance and capacitance, the voltage on the -in terminal will fall towards zero volts, and will eventually become negative - the output promptly swings positive, and the cycle repeats. Like all
+filter circuits, the resistor / capacitor (R/C) network introduces a time delay, and it is this (plus the simple low-pass filter formed) that produces a sinewave with less than 1% distortion. By no means wonderful, but quite adequate for a number of simple applications.
+
+<p>The sinewave output is at relatively high impedance, and should be buffered with an opamp before use. Any loading will alter both amplitude and frequency.</p>
+
+<hr /><a id="schmitt"></a><b>Schmitt Trigger Oscillator</b>
+<p>Also known as a free-running multivibrator, the Schmitt trigger oscillator is one that is much more conventional in terms of opamp designs. Like the phase shift oscillator (indeed, like all oscillators) it is an inherently unstable circuit. Also like the preceding example, this circuit cannot obey Rule #1 (since that would make it stable), so follows Rule #2 instead.</p>
+
+<p align="center"><img SRC="dwop-f11.gif" ALT="Figure 11" BORDER=1>
+<br /><b><small>Figure 11 - Schmitt Trigger Oscillator</small></b></p>
+
+<p>This circuit is very common where an oscillator is needed, but as shown produces a triangular waveform that is quite high in harmonic content. Note the use of positive feedback, via R2 and R3. This particular connection creates a Schmitt trigger, a useful but fairly inscrutable circuit for the beginner. Although this is a simple circuit, understanding how it works is not.
+<p>Assume a supply voltage of +/-15V, and ignore the losses in the opamp output stage. We shall start at the point where the opamp's output is at +15V. The +in terminal will be at 7.5V, since there is a voltage divider from the output to earth. C1 will therefore charge to a positive voltage, until such time as the voltage is very slightly greater than 7.5V. Since Rule #2 must be obeyed, the -ve input is now the more positive, so the output will swing negative. The cap now must discharge its positive voltage and start charging to a negative voltage. Once the negative voltage is less than (more negative than) -7.5V, the output will swing positive and the cycle repeats.
+
+<p>At least it is possible to determine the frequency of this oscillator, and it is approximately equal to ....</p>
+
+<blockquote>
+	X = R3 / (R2 + R3)
+	<br />Fo = 1 / (2 * R1 * C1 * log<sub>e</sub> ((1 + X) / (1 - X))
+</blockquote>
+
+<p>For the example above (after noting that it is the natural log <i>not</i> base 10 :-) frequency is ...
+
+<blockquote>
+	X = 100 / 200 = 0.5
+	<br />Fo = 1 / (2 * 100k * 10nF * log<sub>e</sub> (1.5 / 0.5))
+	<br />Fo = 1 / (0.002 * log<sub>e</sub> (3))
+	<br />Fo = 455 Hz
+</blockquote>
+
+<p>The triangle wave output is at relatively high impedance, and should be buffered with an opamp before use. Any loading will alter frequency, but not amplitude (this is fixed by the voltage divider of R2 and R3).
+
+<hr />
+<p align="right"><a href="dwopa2.htm">Part 2</a> &nbsp; <a href="articles/dwopa3.htm">Part 3</a></p>
+
+<hr /><a id="references"></a><b>References</b>
+<p>I have used various references while compiling this article, with most coming from my own accumulated knowledge. Some of this accumulated knowledge is directly due to the following publications:
+
+<p><small>National Semiconductor Linear Applications (I and II), published by National Semiconductor
+<br />National Semiconductor Audio Handbook, published by National Semiconductor
+<br />IC Op-Amp Cookbook - Walter G Jung (1974), published by Howard W Sams &amp; Co., Inc. ISBN 0-672-20969-1
+<br />Data sheets from National Semiconductor, Texas Instruments, Burr-Brown, Analog Devices, Philips and many others.</small></p>
+
+<p><small><b>Suggested Reading</b><br /><br />
+<a href="an166.pdf">AN166</a> - Basic Feedback Theory, Philips Semiconductors Application Note, Dec 1988<br />
+<a href="http://focus.ti.com/lit/an/slod006b/slod006b.pdf">Opamps For Everyone</a> - by Ron Mancini, Editor in Chief, Texas Instruments, Sep 2001</small></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="articles.htm" ONMOUSEOUT="document.b1.src='a1.gif';" ONMOUSEOVER="document.b1.src='a.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles" BORDER=0></a><b>Articles Index</b>
+<br /><a href="index2.html" ONMOUSEOUT="document.b2.src='a1.gif';" ONMOUSEOVER="document.b2.src='a.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Main Index" BORDER=0></a><b>Main Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; Rod Elliott, 25 Apr 2000./ Updated 03 May-Added more info</div>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="How Amplifiers Work. Learn the basics of how audio amplifiers work.  Valve (tube), transistor and MOSFET designs are discussed in detail">
+	<!-- How Amplifiers Work. Learn the basics of how audio amplifiers work.  Valve (tube), transistor and MOSFET designs are discussed in detail -->
+	<meta name="keywords" content="basic, beginner, audio, amp, power, stereo, fi-fi, valve, tube, transistor, mosfet">
+	<title>ESP Amplifier Basics - How Audio Amps Work</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table width="100%" bgcolor="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td align="right" class="hdrr">Amplifier Basics - How Amps Work (Intro)&nbsp;</td></tr></table>
+
+<p align="center"><small><b>Copyright (c) 1999 - Rod Elliott (ESP)</b>
+<br />Page Last Updated 06 Apr 2005</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="articles.htm" ONMOUSEOUT="document.t1.src='a1.gif';" ONMOUSEOVER="document.t1.src='a.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br /><a href="index2.html" ONMOUSEOUT="document.t2.src='a1.gif';" ONMOUSEOVER="document.t2.src='a.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Index" BORDER=0></a><b>Main Index</b><br />
+  
+<hr /><a id="introduction"></a>
+<b>Introduction</b>
+<p>The term 'amplifier' has become generic, and is often thought (at least by some) to mean a power amplifier for driving loudspeakers. This is not the case (well, it <i>is</i>, but it is not the <i>only</i> case), and this article will attempt to explain some of the basics of amplification - what it means and how it is achieved. This article is not intended for the designer (although designers are more than welcome to read it if they wish), and is not meant to cover all possibilities. It is a primer, and gives fairly basic explanations (although some will no doubt dispute this) of each of the major points.
+
+<p>I will explain the basic amplifying elements, namely valves (vacuum tubes), bipolar transistors and FETs, all of which
+work towards the same end, but do it differently. This article is based on the principles of audio amplification - radio frequency (RF) amplifiers are designed differently because of the special requirements when working with high frequencies.
+
+<p>Not to be left out, the opamp is also featured, because although it is not a single "component" in the strict sense, it
+is now accepted as a building block in its own right.
+
+<p>This article is not intended for the complete novice (although they, too, are more than welcome), but for the intermediate electronics or audio enthusiast, who will have the most to gain from the explanations given.</p>
+
+<hr /><a NAME="contents"></a>
+<b>Contents</b>
+<ul>
+<li><a href="#terminology">Basic Terminology</a>
+<ul>
+  <li><a href="#Z">Impedance</a></li>
+  <li><a href="#Units">Units</a><br /><br />
+</ul>
+<li><a href="#amp-basics">Amplification Basics</a>
+<ul>
+  <li><a href="#Zin">Input Impedance</a>
+  <li><a href="#Zout">Output Impedance</a>
+  <li><a href="#Feedback">Feedback</a>
+  <li><a href="#Signal">Signal Inversion</a>
+  <li><a href="#designphase">Design Phase</a><br /><br />
+</ul>
+  
+<li><a href="#amp-types">Types Of Amplifier Devices</a>
+<li><a href="#limiting">Common Limiting Ratings</a>
+<li><a href="#essential">Essential Electronics Formulae</a><br /><br />
+
+<li><a href="amp-basics1.htm"><b>Part 1 - Valves (Vacuum Tubes)</b></a>
+<ul>
+  <li><a href="amp-basics1.htm#v2">Valve Characteristics</a>
+  <li><a href="amp-basics1.htm#v3">Valve Current Amplifier</a>
+  <li><a href="amp-basics1.htm#v4">Valve Power Amplifiers</a>
+  <li><a href="amp-basics1.htm#v5">Summary</a><br /><br />
+</ul>
+
+<li><a href="amp-basics2.htm"><b>Part 2 - Bipolar Transistors</b></a>
+<ul>
+  <li><a href="amp-basics2.htm#characteristics">Transistor Characteristics</a>
+  <li><a href="amp-basics2.htm#current">Transistor Current Amplifier</a>
+  <li><a href="amp-basics2.htm#power">Transistor Power Amplifiers</a>
+  <li><a href="amp-basics2.htm#summary">Summary</a><br /><br />
+</ul>
+
+<li><a href="amp-basics3.htm"><b>Part 3 - Field Effect Transistors and MOSFETs</b></a>
+<ul>
+  <li><a href="amp-basics3.htm#characteristics">FET Characteristics</a>
+  <ul>
+      <li><a href="amp-basics3.htm#jfet">Junction FETs</a></li>
+      <li><a href="amp-basics3.htm#mosfet">MOSFETs</a>
+  </ul>
+  <li><a href="amp-basics3.htm#feti">FET Current Amplifier</a>
+  <li><a href="amp-basics3.htm#fetp">FET Power Amplifiers</a>
+  <li><a href="amp-basics3.htm#fets">Summary</a>
+  <ul>
+    <li><a href="amp-basics3.htm#jfet2">Junction FETs</a>
+    <li><a href="amp-basics3.htm#mosfet2">MOSFETs</a><br /><br />
+  </ul>
+</ul>
+<li><a href="amp-basics4.htm"><b>Part 4 - Operational Amplifiers (Opamps)</b></a><ul>
+  <li><a href="amp-basics4.htm#pwropamp">Power Opamps</a><br /><br />
+</ul>
+
+<li><a href="amp-basics5.htm"><b>Part 5 - Some Basic Linear Circuit Building Blocks</b></a>
+<ul>
+  <li><a href="amp-basics5.htm#s5.1">Current Sources and Sinks</a>
+  <li><a href="amp-basics5.htm#s5.2">Current Mirror</a>
+  <li><a href="amp-basics5.htm#s5.3">Long Tailed Pair</a>
+  <li><a href="amp-basics5.htm#s5.4">Grounded Grid (Gate or Base) Circuits</a>
+  <li><a href="amp-basics5.htm#s5.5">Cascode</a><br /><br />
+</ul>
+
+<li><a href="amp-basics6.htm"><b>Part 6 - Conclusions</b></a>
+  <li><a href="amp-basics6.htm#references">References</a>
+  <li><a href="amp-basics6.htm#copyright">Copyright &amp; Update Info</a><br /><br />
+</ul>
+
+<hr /><a id="terminology"></a><b>Basic Terminology</b>
+<p>Before we continue, I must explain some of the terms that are used. Without knowledge of these, you will be unable to follow the discussion that follows.</p>
+
+<table  WIDTH="700" align="center" border=1 style="border-collapse: collapse">
+<colgroup span=4 width="25%">
+<tr><td colspan=4 align="center"><b>Electrical Units</b>
+<tr><td><b>Name</b></td><td><b>Measurement of</b></td><td><b><acronym title="Also Known As">A.K.A.</acronym></b></td><td><b>Symbol</b></td></tr>
+<tr><td>Volt</td><td>electrical "pressure"</td><td>voltage</td><td>V</td></tr>
+<tr><td>Ampere</td><td>the flow of electrons</td><td>current</td><td>A, I</td></tr>
+<tr><td>Watt</td><td>power</td><td></td><td>W, P</td></tr>
+<tr><td>Ohm</td><td>resistance to current flow</td><td></td><td>&Omega;, R</td></tr>
+<tr><td>Ohm</td><td>impedance, reactance</td><td></td><td>&Omega;, X</td></tr>
+<tr><td>Farad</td><td>capacitance</td><td></td><td>F, C</td></tr>
+<tr><td>Henry</td><td>inductance</td><td></td><td>H, L</td></tr>
+<tr><td>Hertz</td><td>frequency</td><td></td><td>Hz</td></tr>
+</table>
+
+<p>Note: A.K.A. means "Also Known As". Although the Greek letter omega (&Omega;) is the symbol for Ohms, I shall use the word Ohm or the letter "R" to denote Ohms. Any resistance of greater than 1,000 Ohms will be shown as (for example) 1k5, meaning 1,500 Ohms, or 1M for 1,000,000 Ohms. The second symbol shown in the table is that commonly used in a formula.</p>
+<p>When it comes to Volts and Amperes (Amps), we have alternating current and direct current (AC and DC respectively). The power from a wall outlet is AC, as is the output from a CD or tape machine. The mains from the wall outlet is at a high voltage and is capable of high current, and is used to power the amplifying circuits. The signal from your audio source is at a low voltage and can supply only a small current, and must be amplified so that it can drive a loudspeaker.</p>
+
+<p><a id="Z"></a><b>Impedance</b>
+<br />A derived unit of resistance, capacitance and inductance in combination is called impedance, although it is not a requirement that all three be included. Impedance is also measured in Ohms, but is a  complex figure, and often fails completely to give you any useful information. The impedance of a speaker is a case in point. Although the brochure may state that a speaker has an impedance of 8 Ohms, in reality it will vary depending on frequency, the type of enclosure, and even nearby walls or furnishings.</p>
+
+<p><a id="Units"></a><b>Units</b>
+<br />In all areas of electronics, there are smaller and larger amounts of many things that would be very inconvenient
+to have to write in full. For example, a capacitor might have a value of 0.000001F or a resistor a value of 150,000 Ohms. Because of this, there are conventional units that are applied to make our lives easier (well, once we are used to using them, anyway). It is much easier to say 1uF or 150k (the same as above, but using standard units). These units are described below.</p>
+
+<table width=700 align="center" border=1 style="border-collapse: collapse">
+<colgroup span=3 width="33%">
+<tr><td align="center" colspan=3><b>Conventional Metric Units</b>
+<tr><td><b>Symbol</b></td><td><b>Name</b></td><td><b>Multiplication</b></td></tr>
+<tr><td>p</td><td>pico</td><td>1 x 10<sup><font size=-2>-12</font></sup></td></tr>
+<tr><td>n</td><td>nano</td><td>1 x 10<sup><font size=-2>-9</font></sup></td></tr>
+<tr><td>&mu;</td><td>micro</td>
+<td>1 x 10<sup><font size=-2>-6</font></sup></td></tr>
+<tr><td>m</td><td>milli</td><td>1 x 10<sup><font size=-2>-3</font></sup></td></tr>
+<tr><td>k</td><td>kilo</td><td>1 x 10<sup><font size=-2>3</font></sup></td></tr>
+<tr><td>M</td><td>Mega</td><td>1 x 10<sup><font size=-2>6</font></sup></td></tr>
+<tr><td>G</td><td>Giga</td><td>1 x 10<sup><font size=-2>9</font></sup></td></tr>
+<tr><td>T</td><td>Tera</td><td>1 x 10<sup><font size=-2>12</font></sup></td></tr>
+</table>
+
+<p>Although commonly written as the letter "u", the symbol for micro is actually the Greek letter mu (&mu;) as shown. Because this would require the continuing use of a small graphic or unicode, I shall use the letter "u".</p>
+
+<p>In audio, Giga and Tera are not commonly found (not at all so far - except for specifying the input impedance of some opamps!). There are also others (such as femto - 1x10<sup>-15</sup>) that are extremely rare and were not included. Of the standard electrical units, only the Farad is so large that the defacto standard is the microFarad (uF). Most of the others are reasonably sensible in their basic form.
+
+<p><small><b>It is important to understand that the symbol for microfarad is &micro;F (more commonly uF), <i>not</i> mF - a millifarad is 1,000 uF.</b></small></p>
+
+<hr /><a id="amp-basics"></a><b>Amplification Basics</b>
+<p>The term "amplify" basically means to make stronger. The strength of a signal (in terms of voltage) is referred to as amplitude, but there is no equivalent for current (curritude?, nah, sounds silly). This in itself is confusing, because although "amplitude" refers to voltage, it contains the word "amp", as in ampere. Maybe we should introduce "voltitude" - No?&nbsp; Just live with it.</p>
+<p>To understand how any amplifier works, you need to understand the two major types of amplification, and a third "derived" type:</p>
+
+<ul><li>Voltage Amplifier - an amp that boosts the voltage of an input signal</li>
+<li>Current Amplifier - an amp that boosts the current of a signal</li>
+<li>Power Amplifier - the combination of the above two amplifiers</li></ul>
+
+In the case of a voltage amplifier, a small input voltage will be increased, so that for example a 10mV (0.01V) input signal might be amplified so that the output is 1 Volt. This represents a "gain" of 100 - the output voltage is 100 times as great as the input voltage. This is called the voltage gain of the amplifier.
+
+<p>In the case of a current amplifier, an input current of 10mA (0.01A) might be amplified to give an output of 1A. Again, this is a gain of 100, and is the current gain of the amplifier.</p>
+
+<p>If we now combine the two amplifiers, then calculate the input power and the output power, we will measure the power gain:</p>
+
+<table border=0 width="700">
+<tr><td width="5%"><br /></td><td width="20%"><big>P = V x I</big></td><td>(where I = current, note that the symbol changes in a formula)</td></tr></table>
+
+<p>The input and output power can now be calculated:</p>
+
+<table border=0 width="700">
+<tr><td width="5%"></td><td width="20%"><big>P<sub>in</sub> = 0.01 x 0.01</big></td><td>(0.01V and 0.01A, or 10mV and 10mA)</td></tr>
+<tr><td></td><td><big>P<sub>in</sub> = 100uW</big></td><td></td></tr>
+<tr><td></td><td><big>P<sub>out</sub> = 1 x 1</big></td><td>(1V and 1A)</td></tr>
+<tr><td></td><td><big>P<sub>out</sub> = 1W</big></td><td><br /></td></tr></table>
+
+<p>The power gain is therefore 10,000, which is the voltage gain multiplied by the current gain. Somewhat surprisingly
+perhaps, we are not interested in power gain with audio amplifiers. There are good reasons for this, as shall be explained in the remainder of this page. Having said this, in reality all amplifiers are power amplifiers, since a voltage cannot exist without power unless the impedance is infinite or zero. This is never achieved, so some power is always present. It is convenient to classify amplifiers as above, and no harm is done by the small error of terminology.
+
+<p>Note that a voltage or current gain of 100 is 40dB, and a power gain of 10,000 is also 40dB.
+
+<p><a id="Zin"></a><b>Input Impedance</b>
+<br />Amplifiers will be quoted as having a specific input impedance. This only tells us the sort of load it will place on preceding equipment, such as a preamplifier. It is neither practical nor useful to match the impedance of a preamp to a power amp, or a power amp to a speaker. This will be discussed in more detail later in this article.
+
+<p>The load is that resistance or impedance placed on the output of an amplifier. In the case of a power amplifier, the load is most commonly a loudspeaker. Any load will require that the source (the preceding amplifier) is capable of providing it with sufficient voltage and current to be able to perform its task. In the case of a speaker, the power amplifier must be capable of providing a voltage and current sufficient to cause the speaker cone(s) to move the distance required. This movement is converted to sound by the speaker.
+
+<p>Even though an amplifier might be able to make the voltage great enough to drive a speaker cone, it will be unable to do so if it cannot provide enough current. This has nothing to do with its output impedance. An amplifier can have a very low output impedance, but only be capable of a small current (an operational amplifier, or opamp is a case in point). This is very important, and needs to be fully understood before you will be able to fully appreciate the complexity of the amplification process.
+
+<p><a id="Zout"></a><b>Output Impedance</b>
+<br />The output impedance of an amplifier is a measure of the impedance or resistance "looking" back into the amplifier. It has nothing to do with the actual loading that may be placed at the output.
+
+<p>For example, an amplifier has an output impedance of 10 Ohms. This is verified by placing a load of 10 Ohms across the output, and the voltage can be seen to decrease to &frac12; that with no load. However, unless this amplifier is capable of substantial output current, we might have to make this measurement at a very low output voltage indeed, or the amplifier will be unable to drive the load. 
+<p>Another amplifier might have an output impedance of 100 Ohms, but be capable of driving 10A into the load. Impedance and current are completely separate, and must not be seen to be in any way equivalent. Both of these possibilities will be demonstrated later in this series.
+
+<p><a id="Feedback"></a><b>Feedback</b>
+<br />Feedback is a term that creates more and bloodier battles between audio enthusiasts than almost any other. Without it, we would not have the levels of performance we enjoy today, and many amplifier types would be unlistenable without it.
+
+<p>Feedback in its broadest sense means that a certain amount of the output signal is "fed back" into the input. An amplifier - or an element of an amplifying device - is presented with the input signal, and compares it to a "small scale replica" of the output signal. If there is any difference, the amp corrects this, and ideally ensures that the output is an exact replica of the input, but with a greater amplitude. Feedback may be as a voltage or current, and has a similar effect in either case.
+
+<p>In many designs, one part of the complete amplifier circuit (usually the input stage) acts as an error amplifier, and supplies exactly the right amount of signal to the rest of the amp to ensure that there is no difference between the input and output signals, other than amplitude. This is (of course) an ideal state, and is never achieved in practice. There will always be some difference, however slight.
+
+<p><a id="Signal"></a><b>Signal Inversion</b>
+<br />When used as voltage amplifiers, all the standard active devices invert the signal. This means that if a positive-going signal goes in, it emerges as a larger - but now negative-going - signal. This does not actually matter for the most part, but it is convenient (and conventional) to try to make amplifiers non-inverting. To achieve this, two stages must be used (or a transformer) to make the phase of the amplified signal the same as the input signal.
+
+<p>The exact mechanism as to how and why this happens will be explained as we go along.
+
+<p><a id="designphase"></a><b>Design Phase</b>
+<br />The design phase of an amplifier is not remarkably different, regardless of the type of components used in the design itself. There is a sequence that will be used most of the time to finalise the design, and this will (or should) follow a pattern.</p>
+
+<ul><li><b>Power Output vs. Impedance</b>
+<br />The power output is determined by the load impedance and the available voltage and current of the amplifier. An amplifier that is capable of a maximum of 2A output current will be unable to provide more just because you want it to. Such an amp will be limited to 16W "RMS" into 8 ohms, regardless of the supply voltage. Likewise, an amp with a supply voltage of +/-16V will be unable to provide more than 16W RMS into 8 ohms, regardless of the available current. Having more current available will allow the amp to provide (for example) 32W into 4 ohms (4A peak current) or 64W into 2 ohms (8A peak current), but will give no more power into 8 ohms than the supply voltage will allow.<br /><br /></li>
+
+<li><b>Driver Current</b>
+<br />Especially in the case of bipolar transistors, the driver stage must be able to supply enough current to the output transistors - with MOSFETs, the driver must be able to charge and discharge the gate-source capacitance quickly enough to allow you to get the needed power at the highest frequencies of interest. With valves, the driver needs to be able to supply enough current to supply the bias resistors only, since the valve grid draws little or no current (except for the special case of Class-AB2).
+<br /><br />For the sake of simplicity, if bipolar output transistors have a gain of 20 at the maximum current into the load, the drivers must be able to supply enough base current to allow this. If the maximum current is 4A, then the drivers must be able to supply 200mA of base current to the output devices.<br /><br /></li>
+
+<li><b>Prior Stages</b>
+<br />The stages that come before the drivers must also be able to supply sufficient current for the load imposed. The Class-A driver of a bipolar or MOSFET amp must be able to supply enough current to satisfy the base current needs of bipolar drivers, or the gate capacitance of MOSFETs.<br /><br />
+Again, using the bipolar example from above, the maximum base current for the output transistors was 200mA. If the drivers have a minimum specified gain of 50, then their base current will be ...
+
+<br /><br /><img src="filler.gif" alt="">200 / 50 = 4mA.
+
+<br /><br />Since the Class-A driver must operate in Class-A (what a surprise), it will need to operate with a current of 1.5 to 5 times the expected maximum driver current, to ensure that it never turns off. The same applies with a MOSFET amp that will expect (for example) a maximum gate capacitance charge (or discharge) current of 4mA at the highest amplitudes and frequencies.<br /><br />
+This is not normally an issue with valve amps, as the early stages of the amp are not loaded with any significant impedance. No further determinations are needed (other than the normal loading effects of valve stages in general).<br /><br /></li>
+
+<li><b>Input Stages</b>
+<br />The input stages of all transistor amps must be able to supply the base current of the Class-A driver. This time, a margin of between 2 and 5 times the expected maximum base current is needed. If the Class-A driver needs to supply a quiescent current of (say) 8mA, the maximum current will be 12mA (quiescent + driver base current. Assuming a gain of 50 (again), this means that the input stage has to be able to supply 12 / 50 = 240uA, so it must operate at a minimum current of 240uA * 2 = 480uA to preserve linearity. <br /><br /></li>
+
+<li><b>Input Current</b>
+<br />The input current of the first stage determines the input impedance of the amplifier. Using the above figures, with a collector current of 480uA, the base current will be 4.8uA for input devices with a gain of 100. If maximum power is developed with an input voltage of 1V, then the impedance is 208k (R = V/I). 
+
+<br /><br />Since the stage must be biased, we apply the same rules as before - a margin of between 2 and 5, so the maximum value of the bias resistors should be 208 / 2 = 104k. A lower value is preferred, and I suggest that a factor of 5 is more appropriate, giving 208 / 5 = 42k (47k can be used without a problem).</li></ul>
+
+<p>These are only guidelines (of course), and there are many cases where currents are greater (or smaller) than suggested. The end result is in the sound of the amp, and the textbook approach is not always going to give the expected result. Note that there are some essential simplifications in the above - it is an overview, and is only intended to give you the basic idea.</p>
+
+<hr /><a id="amp-types"></a><b>Types Of Amplifier Devices</b>
+<p>For the purposes of this article, there are three different types of amplifying devices, and each will be discussed in turn. Each has its strengths and weaknesses, but all have one common failing - they are not perfect.
+
+<p>A perfect amplifier or other device (known generally as "ideal") will perform its task within certain set limits, without adding or subtracting anything from the original signal. No ideal amplifying device exists, and as a result, no ideal amplifier exists, since all must be built with real-life (non-ideal) devices. 
+
+<p>The amplifying devices currently available are:</p>
+
+<ul>
+<li>Vacuum Tube (Valve)</li>
+<li>Bipolar Junction Transistor (BJT)</li>
+<li>Field Effect Transistor (FET)</li></ul>
+
+<p>There are also some derivatives of the above, such as Insulated Gate Bipolar Transistors (IGBT), and Metal Oxide Semiconductor Field Effect Transistors (MOSFET). Of these, the MOSFET is a popular choice among many designers due to some desirable characteristics, and these will be covered in their own section.
+
+<p>All of these devices are reliant on other non-amplifying ("support") components, commonly known as passive components. The passive devices are resistors, capacitors and inductors, and without these, we would be unable to build amplifiers at all.
+
+<p>All the devices we use for amplification have a variable current output, and it is only the way that they are used that allows us to create a voltage amplifier. Valves and FETs are voltage controlled devices, meaning that the output current is determined by a voltage, and no current is drawn from the signal source (in theory). Bipolar transistors are current controlled, so the output current is determined by the input current. This means that no voltage is required from the signal source, only current. Again, this is in theory, and it is not realisable in practice.
+
+<p>Only by using the support components can we convert the current output of any of these amplifying devices into a voltage. The most commonly used for this purpose is a resistor.</p>
+
+<hr /><a id="limiting"></a><b>Common Limiting Ratings</b>
+<p>All active devices have certain parameters in common (although they will have different naming conventions depending on the device). Essentially these are ...
+
+<ul>
+<li><b>Maximum Voltage</b> - The maximum voltage that may be applied between the main terminals of the device. This varies from perhaps as low as 25V (sometimes even less) for small signal transistors and FETS, and up to 1,200V or more for some valves and high voltage transistors. MOSFET voltages are typically up to about 600 to 800V for switching devices for use in power supplies.<br />
+<li><b>Maximum Current</b> - The maximum current that the device may pass safely. Ranges from a few mA up to many amps. This will <u>never</u> be while the device also has the maximum voltage across it, as this would result in power dissipation far in excess of ...<br />
+<li><b>Maximum Power Dissipation</b> - The maximum power that the device may dissipate (in mW or W), under any condition of voltage and current. (Called plate dissipation for valves).<br />
+<li><b>Heater Voltage/Current</b> - (Valves).&nbsp; The operating voltage and / or current for the filament (directly heated cathodes) or heater (for indirectly heated cathodes). This should always be within 10% of the quoted value, or cathode life will be severely shortened.<br />
+<li><b>Maximum Junction Temperature</b> - (Semiconductors)&nbsp; The maximum temperature that the semiconductor die will tolerate without failing. At this temperature, most semiconductors will be unable to perform any work, as this would raise the temperature above the maximum permissible.<br />
+<li><b>Temperature Derating</b> - (Semiconductors).&nbsp; Above a specified temperature, the allowable power rating of semiconductor devices must be reduced to remain below the maximum allowable junction temperature. The power is normally derated above 25&deg; C.<br />
+<li><b>Thermal Resistance</b> - (Semiconductors).&nbsp; The thermal resistance between junction and case (high power) or junction and air (low power). Measured in Degrees C/W, This allows a suitable heatsink to be determined.
+</ul>
+
+<p>This is by no means all of the ratings, there are many more, and vary from device to device. Some MOSFETs for example will have Peak Current ratings, which will be many times the continuous rating, but only for very limited time. Bipolar  transistors have a Safe Operating Area (SOA) graph, which indicates that in some circumstances you must not operate the device anywhere near its maximum power dissipation, or it will fail due to a phenomenon called second breakdown (described later).
+
+<p>With most semiconductors, in many cases it will not be possible to operate them at anywhere near the maximum power dissipation, because thermal resistance is such that the heat simply cannot be removed from the junction and into the heatsink fast enough. In these cases, it might be necessary to use multiple devices to achieve the performance that can (theoretically) be obtained from a single component. This is very common in audio amplifiers.</p>
+
+<hr /><a id="essential"></a><b>Essential Electronics Formulae</b>
+<p>There are some things that you just can't get away from, and maths is one of them. (Sorry.) I will only include the essentials here, but will describe any others that are needed as we go. I am not about to give a lesson in algebra, but the best reason for ever doing the subject is to learn how to transpose electronics formulae !&nbsp; Transposition is up to you (unless I am forced to do it for a calculation here or there).
+
+<p><b>Ohm's Law</b>
+<br />The first of these is Ohm's Law, which states that a voltage of 1V across a resistance of 1 Ohm will cause a current of 1 Amp to flow. The formula is ...</p>
+
+<blockquote>R = V / I &nbsp; &nbsp; (where R = resistance in Ohms, V = Voltage in Volts, and I = current in Amps)</blockquote>
+
+<p>Like all such formulae, this can be transposed (oops, I said I wasn't going to do this, didn't I),
+
+<blockquote>V = R * I &nbsp; &nbsp; (* means multiplied by), and<br />
+I = V / R</blockquote>
+
+<p><b>Reactance</b>
+<br />Then there is the impedance (reactance) of a capacitor, which varies inversely with frequency (as frequency is increased, the reactance falls and vice versa). 
+
+<blockquote>Xc = 1 / (2 * &pi; * f * C)</blockquote>
+
+<p>where Xc is capacitive reactance in Ohms, &pi; (pi) is 3.14159, f is frequency in Hz, and C is capacitance in Farads.
+
+<p>Inductive reactance, being the reactance of an inductor. This is proportional to frequency.
+
+<blockquote>X<sub>l</sub> = 2 * &pi; * f * L</blockquote>
+
+<p>where X<sub>l </sub>is inductive reactance in Ohms, and L is inductance in Henrys (others as above).
+
+<p><b>Frequency</b>
+<br />There are many different calculations for this, depending on the combination of components. The -3dB frequency for resistance and capacitance (the most common in amplifier design) is determined by
+
+<blockquote>f<sub>o</sub> = 1 / (2 * &pi; * R * C) &nbsp; &nbsp; where f<sub>o</sub> is the -3dB frequency</blockquote>
+
+<p>When resistance and inductance are combined, the formula is
+
+<blockquote>f<sub>o</sub> = R / (2 * &pi; * L)</blockquote>
+
+<p><b>Power</b>
+<br />Power is a measure of work, which can be either physical work (moving a speaker cone) or (much more commonly in audio), thermal work - heat. Power in any form where voltage, current and resistance are present can be calculated by a number of means:
+
+<blockquote>P = V * I<br />
+P = V&sup2; / R<br />
+P = I&sup2; * R</blockquote>
+
+<p>where P is power in watts, V is voltage in Volts, and I is current in Amps.
+
+<p><b>Decibels (dB)</b>
+<br />It has been known for a very long time that human ears cannot resolve very small differences in sound pressure. Originally, it was determined that the smallest variation that is audible is 1dB - 1 decibel, or 1/10 of 1 Bel. It seems fairly commonly accepted that the actual limit is about 0.5dB, but it is not uncommon to hear that some people can (or genuinely believe they can) resolve much smaller variations. I shall not be distracted by this!
+
+<blockquote>dB = 20 * log (V1 / V2)<br />
+dB = 20 * log (I1 / I2)<br />
+dB = 10 * log (P1 / P2)</blockquote>
+
+<p>As can be seen, dB calculations for voltage and current use 20 times the log (base 10) of the larger unit divided by the smaller unit. With power, a multiplication of 10 is used. Either way, a drop of 3dB represents half the power and vice versa.
+
+<p>There are many others, but these will be sufficient for now. I do not intend this to be a complete electronics course, so I will give you that which is needed to understand the remainder of the article - for the rest, there are lots of excellent books on electronics, and these will have every formula you ever wanted.</p>
+
+<hr /><p align="right"><a href="amp-basics1.htm">Next</a></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="articles.htm" ONMOUSEOUT="document.b1.src='a1.gif';" ONMOUSEOVER="document.b1.src='a.gif';">
+  <img SRC="a1.gif" NAME="b1" ALT="Articles" BORDER=0></a><b>Articles Index</b>
+<br /><a href="index2.html" ONMOUSEOUT="document.b2.src='a1.gif';" ONMOUSEOVER="document.b2.src='a.gif';">
+  <img SRC="a1.gif" NAME="b2" ALT="Main Index" BORDER=0></a><b>Main Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 1999-2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+</body>
+</html>

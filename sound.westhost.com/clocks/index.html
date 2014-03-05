@@ -1,0 +1,188 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="ESP Clock Information - a few bits of information about clocks and horology in general.">
+	<!-- ESP Clock Information - a few bits of information about clocks and horology in general. -->
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="ROBOTS" content="all">
+	<title>Clock Information</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body style="color: rgb(0,0,0); background-color: rgb(255,255,255);">
+<table border="0" width="100%">
+<tr><td valign="bottom"><img src="esp.jpg" border="0" height="81" width="215" alt="ESP Logo"></td>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table border="0" cellspacing="0" cellpadding="3" width="100%" bgcolor="blue">
+<tr><td><b><font color="white">&nbsp;Rod Elliott</font></b></td>
+<td align="right"><b><font color="white" size="+1">Clock Information&nbsp;</font></b></td>
+</tr></table>
+
+<p align="center">Last Updated 28 July 2010<br /><br />
+<form name="y_datetime" action="">
+<input type=text size=32 name="textbox1" style="text-align:center">
+</form>
+
+<script language="javascript" type="text/javascript">
+
+ydate = new Object();
+
+ydate.days1  = new Array("Sun","Mon","Tues","Wed","Thur","Fri","Sat");
+ydate.days2  = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+ydate.months1 = new Array("Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec");
+ydate.months2 = new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+
+function datedisplay() {
+
+  ydate.now   = new Date();
+  ydate.year  = ydate.now.getFullYear();
+  ydate.month = ydate.now.getMonth();
+  ydate.date  = ydate.now.getDate();
+  ydate.day   = ydate.now.getDay();
+  ydate.hour  = ydate.now.getHours();
+  ydate.min   = ydate.now.getMinutes();
+  ydate.sec   = ydate.now.getSeconds();
+  ydate.ampm  = "";
+
+  if (ydate.hour > 11) {
+        ydate.ampm = "pm";
+        ydate.hour = ydate.hour - 12;
+  }
+  else { ydate.ampm = "am"; }
+
+  if (ydate.hour == 0) { ydate.hour = 12; }
+  if (ydate.min < 10)  { ydate.min = "0" + ydate.min; }
+  if (ydate.sec < 10)  { ydate.sec = "0" + ydate.sec; }
+
+  ydate.txt = ydate.days1[ydate.day]+" "+ydate.date+" "+ydate.months1[ydate.month]+" "+ydate.year+", "+ydate.hour+":"+ydate.min+":"+ydate.sec+" "+ydate.ampm;
+
+  document.y_datetime.textbox1.value = ydate.txt;
+  ydate.id=setTimeout("datedisplay()",1000);
+}
+
+datedisplay();
+</script>
+
+<table><tr><td valign="top"><!-- script type="text/javascript" src="http://www.clocklink.com/embed.js"></script><script type="text/javascript" language="JavaScript">obj = new Object;obj.clockfile = "0002-white.swf";obj.TimeZone = "AEDT";obj.width = 150;obj.height = 150;obj.Place = "Sydney";obj.wmode = "transparent";showClock(obj);</script --></td>
+
+<td align="justify">Welcome to my clock pages. The reader may detect a bias here towards electric or electronic clocks, and that is unlikely to change - after all, I've been involved in electronics all my working life and it's an area where I can contribute the most.
+
+<p>I don't have a vast amount to offer as yet, but new material does pop up at reasonable intervals. While I could take a whole lot of photos of the clocks I've collected so far, I fear that this would be less than enchanting - there are already countless sites on the Net where one can see clocks far more exciting than mine.
+
+<p>As noted, the articles here are (and will probably continue to be) primarily covering aspects of electrical and electronic based mechanical clocks that are not covered elsewhere. While I have many purely mechanical clocks, there are many people who know far more about them than I do, so I'll mainly stick to the areas where my electronics background comes in handy.
+
+<p>For those who think they might be interested in this rather fascinating hobby, the National Association of Watch and Clock Collectors (<a href="http://www.nawcc.org/" target="_blank">NAWCC</a>) is definitely the organisation to join. The Australian site is called <a href="http://www.aussieclocks.com" target="_blank">Aussie Clocks</a> (NAWCC First Australian Chapter No. 72 Inc), and meets every two months.
+</td></tr></table>
+
+<hr>
+<table width="100%" cellspacing="0">
+<tr bgcolor="#dddddd"><td width="40"><td width="250"><b>Title</b></td><td><b>Description</b></td><td width="80"><b>Date</b></td></tr>
+<tr><td>&nbsp;
+
+<tr><td><a href="clock-components.html" onmouseover="document.cc1.src='a.gif';" onmouseout="document.cc1.src='a1.gif';">
+<img src="a1.gif" name="cc1" alt="Components" border="0"></a></td><td><b>Components</b></td>
+<td>Passive components in electric / electronic horology</td><td>14 Feb 08</td></tr>
+
+<tr><td><a href="motors.html" onmouseover="document.m1.src='a.gif';" onmouseout="document.m1.src='a1.gif';">
+<img src="a1.gif" name="m1" alt="Motors" border="0"></a></td><td><b>Clock Motors</b></td>
+<td>Explanation of the many types of motor &amp; how they work</td><td>30 Aug 07</td></tr>
+
+<tr><td><a href="kundo.html" onmouseover="document.k1.src='a.gif';" onmouseout="document.k1.src='a1.gif';">
+<img src="a1.gif" name="k1" alt="Kundo" border="0"></a></td><td><b>Kundo Battery Clocks</b></td>
+<td>Details of the repair of a Kundo Electronique clock motor</td><td>04 Jun 07</td></tr>
+
+<tr><td><a href="ocm.html" onmouseover="document.ocm1.src='a.gif';" onmouseout="document.ocm1.src='a1.gif';">
+<img src="a1.gif" name="ocm1" alt="Old Sync" border="0"></a></td><td><b>Old Synchronous Motors</b></td>
+<td>Many are extremely unsafe, but this article shows how to make them safe to use</td><td>28 Jan 09</td></tr>
+
+<tr><td><a href="freq-changer.html" onmouseover="document.fch1.src='a.gif';" onmouseout="document.fch1.src='a1.gif';">
+<img src="a1.gif" name="fch1" alt="Old Sync" border="0"></a></td><td><b>Frequency Changer</b></td>
+<td>50Hz clocks on 60Hz or vice versa. How to do it and maintain mains accuracy </td><td>28 Jan 09</td></tr>
+
+<tr><td><a href="sync.html" onmouseover="document.sy1.src='a.gif';" onmouseout="document.sy1.src='a1.gif';">
+<img src="a1.gif" name="sy1" alt="Build a Sync Clock" border="0"></a></td><td><b>Build a Synchronous Clock</b></td>
+<td>Using a quartz clock motor and motion works, you can make a synchronous clock </td><td>31 Aug 08</td></tr>
+
+<tr><td><a href="quartz-motor-drive.html" onmouseover="document.qm1.src='a.gif';" onmouseout="document.qm1.src='a1.gif';">
+<img src="a1.gif" name="qm1" alt="Quartz Motors" border="0"></a></td><td><b>Driving Quartz Motors</b></td>
+<td>Quartz clock motors can be useful, but are not always as easy to drive as you might imagine </td><td>13 Oct 07</td></tr>
+
+<tr><td><a href="free-pendulum.html" onmouseover="document.f1.src='a.gif';" onmouseout="document.f1.src='a1.gif';">
+<img src="a1.gif" name="f1" alt="Free Pendulum" border="0"></a></td><td><b>Free Pendulum Clock</b></td>
+<td>Construction details of my battery operated "free pendulum" clock</td><td>08 Sep 07</td></tr>
+
+<tr><td><a href="1v5supply.html" onmouseover="document.mb1.src='a.gif';" onmouseout="document.mb1.src='a1.gif';">
+<img src="a1.gif" name="mb1" alt="Supply" border="0"></a></td><td><b>Mains Supply</b></td>
+<td>1.5V regulated power supply for battery clocks</td><td>27 Sep 09</td></tr>
+
+<tr><td><a href="spark-q.html" onmouseover="document.sq1.src='a.gif';" onmouseout="document.sq1.src='a1.gif';">
+<img src="a1.gif" name="sq1" alt="Spark Quench" border="0"></a></td><td><b>Spark Quench Circuits</b></td>
+<td>How to kill the small arc that erodes contacts - tricks and pitfalls.</td><td>15 Apr 10</td></tr>
+
+<tr><td><a href="timebase.html" onmouseover="document.tb1.src='a.gif';" onmouseout="document.tb1.src='a1.gif';">
+<img src="a1.gif" name="tb1" alt="Timebase" border="0"></a></td><td><b>Timebase</b></td>
+<td>Build a 1 second timebase, using a cheap quartz clock circuit board  &nbsp;</td><td>28 Jul 10</td></tr>
+
+<tr><td><a href="alternate.html" onmouseover="document.al1.src='a.gif';" onmouseout="document.al1.src='a1.gif';">
+<img src="a1.gif" name="al1" alt="Alternate" border="0"></a></td><td><b>Alternate Impulse Motors</b></td>
+<td>Alternating polarity clock motors - how they work and how to drive them  &nbsp;</td><td>23 Jan 10</td></tr>
+
+<tr><td>&nbsp;
+<tr bgcolor="#dddddd"><td><td colspan=2><b>Magnets, Magnet Tools and Techniques</b></td><td width="80"></td></tr>
+<tr><td>&nbsp;
+
+<tr><td><a href="demagnetiser.html" onmouseover="document.dm1.src='a.gif';" onmouseout="document.dm1.src='a1.gif';">
+<img src="a1.gif" name="dm1" alt="Magnet" border="0"></a></td><td><b>Demagnetiser</b></td>
+<td>Build a demagnetiser that can demagnetise most things in 50 milliseconds flat!  &nbsp; <img src="new.gif" /></td><td><font color="red">15 May 10</font></td></tr>
+
+<tr><td><a href="magnet-charger.html" onmouseover="document.mc1.src='a.gif';" onmouseout="document.mc1.src='a1.gif';">
+<img src="a1.gif" name="mc1" alt="Magnet" border="0"></a></td><td><b>Magnet "Charger"</b></td>
+<td>A powerful magnet revitaliser, using large electrolytic capacitors</td><td>24 Jun 08</td></tr>
+
+<tr><td><a href="fluxmeter.html" onmouseover="document.fm1.src='a.gif';" onmouseout="document.fm1.src='a1.gif';">
+<img src="a1.gif" name="fm1" alt="Fluxmeter" border="0"></a></td><td><b>Fluxmeter</b></td>
+<td>Now that you've recharged you magnet, measure the results</td><td>28 Nov 08</td></tr>
+
+<tr><td>&nbsp;
+<tr bgcolor="#dddddd"><td><td colspan=2><b>Miscellaneous</b></td><td width="80"></td></tr>
+<tr><td>&nbsp;
+
+<tr><td><a href="clocklinks.html" onmouseover="document.z1.src='a.gif';" onmouseout="document.z1.src='a1.gif';">
+<img src="a1.gif" name="z1" alt="Links" border="0"></a></td><td><b>Clock Links</b></td>
+<td>Links to numerous clock / horology related websites</td><td>23 Jul 07</td></tr>
+</table>
+
+<!-- BR><BR><TABLE align="center" BORDER="2" bordercolor=brown bgcolor=#FFFFFF ><TR><TD>
+<object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0">
+<embed src="anc2.swf" height=300 width=300 type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed></object>
+</TD></TR></TABLE><BR><BR -->
+
+<hr><a href="../u-and-m.htm" onmouseover="document.b1.src='a.gif';" onmouseout="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt=">" border="0" height="24" width="40"></a><b>Useful &amp; Miscellaneous</b><br>
+<a href="../index2.html" onmouseover="document.b2.src='a.gif';" onmouseout="document.b2.src='a1.gif';">
+<img src="a1.gif" name="b2" alt=">" border="0" height="24" width="40"></a><b>Main Index</b>
+
+<hr><center><script src="http://www.clocklink.com/embed.js" type=""></script><script type="text/javascript" language="JavaScript">obj=new Object;obj.clockfile="world001-blue.swf";obj.TimeZone="AEDT";obj.width=720;obj.height=375;obj.wmode="transparent";showClock(obj);</script>
+</center><hr />
+
+<center><img src="bestview.gif" alt="1024x768" height="31" width="88"><br><font size="-1">Best Viewed at 1024 x 768 Screen Resolution</font></center>
+<font size="-2">The ESP logo is a registered trade mark of Elliott Sound Products.</font><hr>
+</body>
+</html>
+

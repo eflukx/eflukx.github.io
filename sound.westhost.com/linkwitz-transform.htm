@@ -1,0 +1,251 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="ESP - The Audio Pages.  A complete description of the Linkwitz Transform Circuit - find out how it works.">
+	<meta name="keywords" content="linkwitz,transform,sub,woofer,audio,crossover,diy,fi-fi,electronic,elf,eas">
+	<title>ESP - The Linkwitz Transform Circuit</title>
+	<!-- ESP - The Audio Pages.  A complete description of the Linkwitz Transform Circuit - find out how it works. -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Linkwitz Transform Circuit&nbsp;</td></tr></table>
+
+<p align="center">Copyright &copy; 2001 - Jeremy Wolf<br />
+<small>Additional Material by Gareth Abrey<br />
+(Edited by Rod Elliott - ESP)<br />
+Updated 20 Jan 2002 <a href="#update">*</a></small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="articles.htm" onmouseover="document.t1.src='a.gif';" onmouseout="document.t1.src='a1.gif';">
+  <img src="a1.gif" name="t1" alt="Index" border="0" height="24" width="40"></a><b>Articles Index</b><br>
+<a href="index.html" onmouseover="document.t2.src='a.gif';" onmouseout="document.t2.src='a1.gif';">
+  <img src="a1.gif" name="t2" alt="Main Index" border="0"></a><b>Main Index</b><br>
+  
+<hr><a name="contents"></a><b>Contents</b>
+<ul>
+<li><a href="#intro">Introduction</a>
+<li><a href="#how-works">How The Linkwitz Transform Circuit Works</a>
+<li><a href="#example">An Example System</a>
+<li><a href="#compromise">Compromises</a>
+    <ul><li><a href="#pwr-comp">Power Compression</a></ul>
+<li><a href="#guidelines">Woofer Selection Guidelines</a>
+<li><a href="#power">Power Distribution</a><br>
+<li><a href="#ednote">Editor's Notes</a>
+<li><a href="#thanks">Special Thanks</a>
+<li><a href="#update">Update</a></li>
+</ul>
+
+<hr><a id="intro"></a><b>Introduction</b>
+<p>From the editor ...</p>
+<p><a href="project71.htm">Project 71</a> has been a very popular project, and with good reason. Unfortunately, most people who have built it, don't actually know how it works. Jeremy Wolf wrote this article with some considerable consultation from Siegfried Linkwitz and a small amount from me. Since the Linkwitz transform circuit seems so mysterious (which it is), it is assumed by many readers of The Audio Pages (and others) that it must be complex. The mathematics certainly are, but the principle is not, as Jeremy explains.</p>
+<p>There are caveats (of course) and compromises (which are a base requirement in every speaker ever made), but this article explains the overall benefit. I know the benefits well - a sealed equalised subwoofer will simply wipe the floor with anything else, provided that you have done your homework. Now, you don't even have to do that, since Jeremy has done it for you.</p>
+
+<hr><a id="how-works"></a><b>How The Linkwitz Transform Circuit Works</b><br>
+&nbsp;
+<blockquote><table width="100%">
+<tbody><tr><td width="5%"><b>Q</b></td>
+<td>What is a Linkwitz Transform?</td></tr>
+<tr><td valign="top"><b>A</b></td>
+<td>The Linkwitz transform was developed by Siegfried Linkwitz. It allows you to take a driver in a sealed enclosure that has an Fc and Qtc for that box and lets you "transform" or simulate a new Fc and Qtc for that driver in that box.<br><br></td></tr>
+<tr><td><b>Q</b></td><td>How does it work?</td></tr>
+<tr><td valign="top"><b>A</b></td><td>Magic<br><br></td></tr>
+<tr><td><b>Q</b></td><td>No seriously, how does it work?</td></tr>
+<tr><td valign="top"><b>A</b></td>
+<td>It works by creating a precise equalisation curve to compensate for any peaking or rolling off that the driver is encountering. By doing this, a new Fc and Qtc can be assigned to that system.</td></tr></tbody></table></blockquote>
+
+<p>Actually it is a simulation because you cannot physically change the Fc and Qtc of a closed system without actually making the box bigger or smaller or putting stuffing in the box and making it appear bigger. The following is an example of the above explanation with graphs to help clarify what is being said.</p>
+
+<hr><a name="example"></a><b>An Example System</b>
+<p>Ok, let's assume that you have a driver with the following specifications.</p>
+
+<blockquote><b><font size="-1">Fs = 33.5 Hz</font></b>
+<br><b><font size="-1">Qts = 0.75</font></b><br>
+<b><font size="-1">Vas = 46.1 litres (1.647 ft&sup3;)</font></b></blockquote>
+
+<p>Now we are going to put this driver in a 38 litre (1.378 ft&sup3;) box. This will net us a Qtc of 1.0 This speaker in this box will yield the following results (these data can all be obtained from the Linkwitz Transform spreadsheet on the <a href="download.htm">downloads</a> page, courtesy of True Audio) ...</p>
+
+<blockquote><b><small>Fc = 49.6 Hz
+  <br>F3 = 37.6 Hz<br>
+  Qtc = 1.12<br>
+  Vb = 38 litres</small></b></blockquote>
+
+<center><img src="ltc-f1.gif" alt="Figure 1" border="1">
+<br><b><small>Figure 1 - Unequalised Speaker in 38 Litre Box</small></b></center>
+
+<p>If you notice in this graph, there is a 1.2 dB hump before the roll off occurs. While this response is ok for your average listener, we are not satisfied with it and want to change the response. Wouldn't it be nice if we could simply move the Fc down to say 20 Hz and have the Qtc = 0.707 to get a response that looked more like this ...</p>
+
+<blockquote><b><small>Fc = 20.0 Hz<br>
+  F3 = 20.0 Hz<br>
+  Qtc = 0.707</small></b></blockquote>
+
+<center><img src="ltc-f2.gif" alt="Figure 2" border="1">
+<br><b><small>Figure 2 - Equalisation (Transformation) to Qtc = 0.707</small></b></center>
+
+<p>As you can see, the green trace is the newly transformed response. It is much more suited for low frequency reproduction after being transformed. There will now be a much greater output in the lower octaves.</p>
+<p>To show that the Fc is actually down at 20 Hz, here is a response of the same driver in that same box with after being transformed to a Qtc of 1.00 and Fc of 20 Hz. The slight peak causes the response to be 0 dB at 20 Hz, and this response is easily created by the Linkwitz transform spreadsheet if desired.</p>
+
+<blockquote><b><small>Fc = 20.0 Hz
+  <br>F3 = 20.0 Hz
+  <br>Qtc = 1.000</small></b></blockquote>
+  
+<center><img src="ltc-f3.gif" alt="Figure 3" border="1" height="297" width="448">
+<br><b><small>Figure 3 - Equalisation (Transformation) to Qtc = 1.0</small></b></center>
+
+<p>Getting back to our desired response of Qtc .707 and Fc of 20 Hz. The graph in Figure 4 shows the compensation that the Linkwitz transform is using in order to flatten out the response curve of our driver.</p>
+
+<center><p><img src="ltc-f4.gif" alt="Figure 4" border="1" height="297" width="448">
+<br><b><small>Figure 4 - Equalisation Applied by Linkwitz Transform Circuit</small></b></p></center>
+
+<p>The red line represents the original driver with a Qtc of 1.0 and an Fc 49.6 Hz, F3 of 39 Hz. The blue line represents the equalisation curve that the Linkwitz transform is supplying to the amplifier in order to compensate for the new Qtc and Fc. The green trace is the combined response which now has a -3dB frequency of 20Hz. The transform is cutting out 1.2 dB in order to compensate for the Qtc of 1.0, which is causing a 1.2 dB, boost around 70 Hz. It is then providing boost at the lower frequencies at a rate that is equal to the natural roll off of a sealed enclosure. Instead of rolling off at 12 dB an octave, the speaker is being forced to maintain a flatter response due to the amplifier giving it a lot more power at the lower frequencies. For example at 20 Hz, the amplifier is giving the speaker an additional 12 dB of gain, or 16 times more power than at frequencies above 50 Hz.</p>
+<p>Getting this kind of response out of a sealed enclosure setup requires some tradeoffs. You will be giving up some of the overall SPL producing capability of the driver because of the excursion overhead needed at the lower frequencies.</p>
+
+<hr><a id="compromise"></a><b>Compromises</b>
+<p>If your speaker is flat down to 50 Hz and you want to extend one octave below that to 25 Hz then you will lose 12 dB of overall output capability when producing sound at 25 Hz because you are using up all of the driver's excursion and most likely power handling capability too.</p>
+<p>We'll say that we have an imaginary speaker that has these basic parameters ...<br>
+&nbsp;
+<table><tbody>
+  <tr><td> &nbsp; &nbsp; </td>
+  <td>Efficiency&nbsp;</td><td>88 dB/m/W</td></tr>
+  <tr><td><br></td><td>Xmax</td><td>4 mm</td></tr>
+  <tr><td><br></td><td>Max Power&nbsp;</td><td>250W</td></tr>
+  </tbody>
+</table>
+
+<p>The driver is in a sealed box with a Qtc of 0.707 (optimally flat). We'll also say that it is flat down to 50 Hz, and at 50 Hz it is capable of producing (just under) 112dB SPL at full rated power. Let's say that the speaker is in a sealed enclosure, and an equaliser will be used to obtain the last octave (down to 25 Hz).</p>
+<p>Below the Fc of 50 Hz the speaker will roll off at 12 dB / octave. That means at 25 Hz, the output of the speaker will only be 100 dB. To obtain the same 112dB output as before, you will need 4 times the excursion and 16 times the power (i.e.4,000 Watts!) as at 50Hz. This is because for every octave lower that you want the speaker to produce you need 4 times the excursion, and in order to obtain the excursion in an equalised system, you must have 16 times the power. To put this another way, excursion is equal to the inverse square of frequency. Half the frequency, four times the excursion, one quarter the frequency, <i>sixteen</i> times the excursion (etc.). The power requirement is the square of the excursion. To lower the response by two octaves (&frac14; frequency) you need 16 times the excursion and <i>256 times as much power</i>. In general, try not to exceed one octave if possible, as excursion and power requirements rapidly get out of control.</p>
+<p>So, now that our speaker does not roll of at 12 dB / octave (because of the equaliser) and maintains a flat response to 25 Hz, it will need to use 4 times more excursion and 16 times the power to produce 25 Hz at 112 dB.</p>
+<p>Now comes that tradeoff part that I was talking about before. The driver is using all of its power rating and 1 mm of its 4 mm of Xmax to produce 112dB at 50Hz. Now we want to achieve a flat response down to 25Hz by using the Linkwitz transform. That means we will be trading off some of our 112 dB SPL to gain some low frequency flat response. The speaker will be using 4 times the 1 mm Xmax or 4 mm of excursion to produce this 25 Hz frequency. The power needed is well in excess of the speaker ratings, so must be limited to 250W.</p>
+<p>If we want to use this speaker in the transform, we now need to trade off 12 dB total maximum output for a total maximum output of 100 dB that is flat from 25 Hz up. That's not too bad of a trade in my opinion. But remember, this is only an imaginary driver that I made up, not a real world example, although in reality, most "real" speaker drivers will not be all that far off. Every 3 dB increase in SPL requires double the previous amount of power. And in our case we needed 12 dB of gain which is 16x more power.</p>
+<p>The two things to remember from this example are ...</p>
+
+<ul><li>every 6 dB increase in loudness requires 2x the excursion and 4 times the power</li>
+<li>every octave lower you go requires 4x the excursion and 16 times the power</li></ul>
+
+<hr><a id="pwr-comp"></a><b>Power Compression</b>
+<p>Power compression is another aspect that should be considered. This occurs when any loudspeaker is driven with a  significant amount of power. The voice coil heats up, and the available power is reduced accordingly. Depending on the program material, you may easily lose 6 dB of SPL because of power compression (assuming that the system is being pushed to its limits). Power compression cannot be compensated for by using more power, as it is dynamic in nature. The effects are
+(perhaps surprisingly) not as noticeable as one might expect, since sustained high power at extremely low frequencies is rare in virtually all normal program material.</p>
+<p>Fortunately, this is not as big a problem as may be imagined, since typical low frequency energy levels are actually surprisingly low most of the time (see <a href="#power">Power Distribution</a> below). Home theatre systems will be called upon to reproduce large amounts of relatively deep bass, but only for short periods at a time.</p>
+<p>With most music, there is very little energy below 40 Hz, so power and excursion are not normally a problem. Pipe organ music is an exception - the 64' pipe on a full pipe organ is 16 Hz, but it is not used a great deal - in some cases because of the structural damage it does to the building housing the organ! If you are an aficionado of such music, I suggest that you use the largest box you can, with a very large driver. It may be wise to reinforce your home while you are at it (and no, I'm not joking).</p>
+
+<hr><a id="guidelines"></a><b>Guidelines</b>
+<p>With the explanation and examples out of the way, you might be wondering what kind of specs to look for when choosing a driver. Here are some guidelines that should help you.</p>
+
+<ul>
+  <li>Look for a driver with a BIG linear Xmax. The driver should have a one-way Xmax of over 12 mm (0.5").</li>
+  <li>Look for a driver that is 300 mm (12 inches) or bigger. Remember, that producing low frequencies is all about displacing large quantities of air.</li>
+  <li>The driver should have a high power handling capability, in my opinion at least 300 watts RMS. The driver will need a lot of power to hit those low frequencies.</li>
+  <li>The driver should also have a low Fs. It should be the lowest you can find. The reason for this is because you want the transform to use as little gain as possible to reach the lower frequencies. The lower the Fs of your driver, the lower the Fc of the closed box system will be and the lower overall gain the circuit needs to apply.</li>
+  <li>And finally the driver should have a high sensitivity rating, unless you have a really big amp to power it. The higher the efficiency rating of the driver is, the less power it will take to reach those insanely low frequencies. If you have a driver that is 89 dB sensitivity and a driver that is 92 dB sensitivity, the 92 dB driver will require half as much power
+as the 89 dB unit, for the same sound pressure level.</li>
+</ul>
+
+<p>These guidelines are just that, only guidelines. One thing that you need to be careful of is the excursion and the power the driver can handle. I say this because these are the two that <b><i>will</i></b> damage your precious driver if you exceed them by too much. When I first did my setup, I thought that a single 300 mm (12") driver would be more than adequate based on my equations for excursion and amount of surface area they had. I was wrong because of my seating location and the room that I was placing them in. Don't get me wrong, a single 300 mm sounds awesome, but 3 x 300s is absolutely unreal because I can hit 105 dB at 25 Hz from my listening position. My listening position also happens to be the place with the best bass response in my room.</p>
+
+<hr><a id="power"></a><b>Power Distribution</b> (by Gareth Abrey)
+<p>I was in the process of building a Linkwitz Transform cct for my 305mm (12") sub. &nbsp;ESP said in the articles about ELF and EAS that low frequency content in music has much lower power levels than the power calculations would suggest. I decided to investigate this, and digitised some tracks off various CDs with various styles of music.
+<p>My sound editor gives the WAVE graph amplitude in 16bits (-32000 to 32000). I then performed a low pass filter of 40hz on the track and found the highest peaks, then compared them to the highest peaks of the full range signal, and did a dB calculation ... </p>
+
+<blockquote>20 log ( V )&nbsp; (where V is the 16bit amplitude)</blockquote>
+
+<p>Typically, I got (digital) peaks of +/-30,000 for the full range signal, and only +/-4,000 for the &lt; 40hz signal. This is a 17.5dB difference. The results are tabulated below.</p>
+
+<table width= "50%"><tbody>
+<tr><td width="10%"></td><td><small><b>Music Type</b></small></td><td><small><b>Relative Level at &lt;40Hz</b></small></td></tr>
+<tr><td></td><td><small>Rock music</small></td><td><small>- 13dB</small></td></tr>
+<tr><td></td><td><small>Maria Carey Song</small></td><td><small>- 15dB</small></td></tr>
+<tr><td><br></td><td><small>Rap Music</small></td><td><small>- 14dB</small></td></tr>
+<tr><td></td><td><small>R&amp;B song</small></td><td><small>- 12dB</small></td></tr>
+<tr><td></td><td><small>Rave track</small></td><td><small>- 12dB</small></td></tr>
+<tr><td></td><td><small>Second Rave Track</small></td><td><small>- 21dB</small></td></tr>
+<tr><td></td><td><small>Vinyl Bass Track</small></td><td><small>- 11dB</small></td></tr>
+<tr><td></td><td><small>Rave track with bass sweep</small></td><td><small>- 9 dB</small></td></tr>
+<tr><td></td><td><small><b>Average</b></small></td><td><small><b>- 11.875 dB (12dB)</b></small><br></td></tr>
+</tbody></table>
+
+<p>These figures would suggest that boosts of around 10-12dB are possible with the Linkwitz circuit, before any extra amplifier power is needed above that which is required for the frequencies above 40hz.</p>
+
+<hr><a id="ednote"></a><b>Editor's Notes</b>
+<p><b>1. </b>There is a strong case for applying a highpass filter at between 5 and 15 Hz. This prevents excessive excursions at sub-audible frequencies, and offers a measure of driver protection. Ideally, this filter would have a steep slope (12 dB / octave minimum), but a simple 6 dB (first order) filter can still be used. The filter may be before or after the Linkwitz transform circuit, having the same effect regardless of physical position.</p>
+<p>Use of any filter will have an effect on the actual response of the completed system, however this is generally small, causing perhaps a 2 dB error at 20 Hz. It is probable that virtually <b><i>any</i></b> room will create errors many times this figure, so it can generally be discounted.</p>
+<p><b>2. </b>There is a recommendation in the spreadsheet (see <a href="download.htm">downloads</a>&nbsp;page) that great
+care is needed with a maximum boost over 20 dB. I think that this is understatement, and care is needed with any boost above about 10 dB. The increase in power and cone excursion becomes extreme, although with most music, the actual energy level of signals below 40 Hz is relatively low.</p>
+<p>There are some exceptions to this, and it should never be assumed that you won't need the power or excursion - someone <b><i>will</i></b> eventually prove you wrong.</p>
+<p><b>3. </b>You must remember that the box is sealed. The pressure exerted by a 380 mm (15") cone with an Xmax of 10 mm will literally split the seams of a box that is not sturdy enough (it apparently happens quite regularly with a certain well known subwoofer using a similar principle). The box must be as strong as you can make it - screwed, glued, and substantial internal cleats at all joins are essential. There is no such thing as a box that is too strong, but make sure that you account for the volume occupied by the strength members when you do the calculations). Bracing is usually not needed, since the frequencies are so low that panel resonance is unlikely if the unit is a self contained subwoofer. All panels should be of 18 mm (minimum) sturdy ply or medium density fibreboard (MDF) - do not use chipboard, the box will not hold together!</p>
+<p><b>4. </b>The use of a small (say 5 mm) vent stoppered with felt to present a significant resistance to airflow is also a good idea - especially if the woofer does not use a vented polepiece (via the dustcap). This allows air pressure to equalise slowly, since you will have to expend considerable effort to make sure that the box has no air leaks. If present, any leaks may whistle or make some other equally undesirable noise when the subwoofer is in use. It is unlikely that you will be able to blame the dog for these noises (in case you thought you might get away with that excuse <img src="grin.gif" alt=":-)"> )</p>
+<p><b>5. </b>The Linkwitz transform circuit is available as a PCB with full construction details. The board incorporates a 15 Hz filter (this can be changed) and uses one dual opamp. To have a look, see <a href="project71.htm">Project 71</a>.</p>
+<p><b>6. </b>My thanks to Jeremy for putting this article together. His efforts have saved me an enormous amount of time, and the article is written directly for the beginner or relatively non-technical reader. As many of you may have noticed, this is something I often have trouble with <img src="grin.gif" alt=":-)"></p>
+<p><b>7.</b> I would also like to thank Gareth for his contribution, which is a useful addition. The power calculations he did are somewhat more scientific that the "gut feel" method I had applied - even though the net result is much the same. &nbsp; <img src="esp-eot.gif" alt="EOT"></p>
+
+<hr><a name="thanks"></a><b>Special Thanks</b>
+<p>A special thanks goes to Siegfried Linkwitz for verifying this document and helping me explain in simpler terms what his circuit is doing.</p>
+<p><a href="mailto:zombiestang@yahoo.com">Jeremy Wolf</a></p>
+
+<hr><a id="update"></a><b>Update Information</b>
+<p>Jeremy sent me an e-mail from a reader, who pointed out a couple of errors in the calculations for excursion and power. I have amended the "offending" section, which is now (hopefully) correct.</p>
+<p>14 Sept 2002 - Added Gareth's power calculation information. &nbsp; <img src="esp-eot.gif" alt="EOT"></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Jeremy Wolf, Gareth Abrey and Rod Elliott, and is Copyright &copy; 2001 /2002. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The authors (Jeremy Wolf, Gareth Abrey) and editor (Rod Elliott) grant the reader the right to use this information for personal use only, and further allow that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page created and copyright (c) 06 Jun 2001 - Updated 16 Sept 2002, added Gareth's power measurement details</div>
+</body>
+</html>

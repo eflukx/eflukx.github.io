@@ -1,0 +1,178 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Taking the Mystery Out of the Neville Thiele Method (NTM) Crossover Network">
+	<!-- Taking the Mystery Out of the Neville Thiele Method (NTM) Crossover Network -->
+	<meta name="keywords" content="neville thiele method, ntm, crossover, network, audio, diy, fi-fi, electronic">
+	<title>NTM Crossovers</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">NTM&trade; Crossovers&nbsp;</td></tr></table>
+
+<p align="center">Copyright &copy; 2005 - Rod Elliott (ESP)<br />
+<small>Page Created 13 September 2005</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" alt="Articles" BORDER=0></a><b>Articles Index<br />
+<a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" alt="Index" BORDER=0></a>Main Index</b><br />
+
+<hr /><b>Contents</b>
+
+<ul>
+  <li><a href="#p1">1.0 &nbsp; Introduction</a></li>
+  <li><a href="#p2">2.0 &nbsp; Description</a><ul>
+  <li><a href="#p21">2.1 &nbsp; Circuit Diagram</a></li>
+  <li><a href="#p22">2.2 &nbsp; Circuit Explanation</a></ul></li>
+  <li><a href="#p3">3.0 &nbsp; Conclusion</a></li>
+  <li><a href="#ref">4.0 &nbsp; References</a></li>
+</ul>
+
+<hr><a id="p1"></a><b>1.0 - Introduction</b>
+<p>The Neville Thiele Method&trade; * (or simply NTM&trade; *) crossover network has been described in AES papers and elsewhere, but there is scant information available to most of us about exactly what it is and how it works. There have been claims that it is anything from 48dB/octave to 100dB/octave, and that it may replace the Linkwitz-Riley crossover for general use.</p>
+
+<p>What is not generally available is a description of the filter type, or any information about how it works. This article hopes to rectify that, and de-mystify the hype that inevitably builds up when something new and exciting is first introduced, but with little supporting data to allow an informed choice.</p>
+
+<p>I must confess that I was mightily perplexed when I saw my first NTM crossover - it was claimed to be 100dB/octave, the published frequency response I saw first showed 24dB/octave, and the circuit had far too few opamps and caps to approach any conventional filter greater than 24dB/octave. There was no opportunity to try to analyse the circuit or run any tests, since it didn't belong to me, wasn't in my workshop, and I only had the opportunity to have a brief look inside the case.</p>
+
+<p>It was only when I saw the real frequency response graph of an NTM crossover that the penny dropped, and I recognised that it was probably an elliptical filter.</p>
+<p><small>* NTM&trade; and Neville Thiele Method&trade; are trademarks of Precision Audio Pty Ltd (2 Seismic Drv, Rowville VIC 3178, Australia)</small></p>
+<p align="center"><b><small>For further information, licensing, etc., please contact Precision Audio Pty Ltd.</small></b></p>
+
+<hr><b><a id="p2"></a>2.0 - Description</b>
+<p>The descriptions that one usually finds describe a filter network and a notch filter.  These are combined to produce a filter with a greatly accelerated rolloff slope. Part of the description from a brochure by BSS audio [<a href="#ref">1</a>] states the following ...
+
+<blockquote><small>A Neville Thiele Method&trade; Crossover Filter (NTM&trade;) is a new type of electrical/acoustical filter offering significant performance advantages over all previous crossover filter types in audio applications.</small></blockquote>
+
+The article continues with a description of 'how it works' - while not actually giving any figures whatsoever - just the diagram referred to ...
+
+<blockquote><small>The NTM crossover uses a unique notched response to achieve a very steep roll-off rate outside the pass-band. The 4th order Thiele crossover amplitude response looks like the diagram overleaf. You will see that notches in the responses speed-up the rate of roll-off. Beyond the notch, the response rises again, but remains respectably attenuated.</small></blockquote>
+
+I object (a bit) to the term 'unique' in the above. The filter type is described in 'The Active Filter Cookbook [<a href="#ref">2</a>], and is commonly known as an elliptical or Cauer filter. There is no denying that this filter type is rather obscure (not too many will have heard of it), but it is neither new nor unique. It is however, an <i><u>extremely</u></i> clever application of an old technique, with some lateral thinking and necessary adaptation to maintain a <i>flat</i> summed response. Its use in a crossover network is certainly new, and the application is unique (if not the filter type itself).
+
+<p>The frequency response is shown below, and this is an almost perfect match to that shown in the BSS brochure. The frequency and amplitude scales are different (from the BSS graph), but the response is virtually identical. For comparison, the response of a Linkwitz-Riley filter is also shown. Not shown is the summed response, which is completely flat for both filters.</p>
+
+<p align="center"><img src="ntm-freq.gif" alt="Fig 1" border="1"><br><small><b>Figure 1 - NTM and L-R Crossovers Compared</b></small></p>
+
+<p>The NTM crossover response is shown in green (high pass) and red (low pass), while the L-R equivalent is in a yellowish colour (high pass) and blue (low pass). It is undeniable that at one octave either side of the 1kHz crossover frequency shown, the response is better than 60dB down from the nominal output level. Looking at the L-R filter by comparison, at the same frequency it is only 30dB down. Unfortunately, the response of an elliptical filter rises again after the notch - again readily visible.</p>
+
+<p>About &frac12; an octave above and below each notch, response is back up to about -36dB (equal to the L-R), and beyond that performance is inferior to the Linkwitz-Riley implementation. Ultimate rolloff for a fourth order elliptical filter is 12dB/octave. None of this is shabby by any means, but it does show that some of the descriptions used in advertising literature are rather misleading once the full details are known.</p>
+
+<p align="center"><img src="ntm-phase.gif" alt="Fig 2" border="1"><br><small><b>Figure 2 - NTM and L-R Crossover Phase Response</b></small></p>
+
+<p>There is not much phase difference between the two - they are (for all intents and purposes) the same in this respect. The red graph is the NTM filter, and the L-R is shown in green. Both filters have a 360 degree shift across the band, with the NTM filter being <i>very</i> slightly worse in this respect than the L-R filter.</p>
+
+<p>In real terms, the difference is marginal only, and should not be audible. Despite the apparently radical phase shift, both drivers remain in phase with both filter types, and the phase shift in itself is normally inaudible (despite some claims to the contrary). While there are circumstances that can make phase shift audible, such a discussion is outside the scope of this article.</p>
+
+<hr><b><a id="p21"></a>2.1 - The Circuit Diagram</b>
+<p>Please note that the diagram shown below is taken directly from my simulation. It is not (and does not purport to be) the actual circuit of an NTM filter, but I strongly suspect that it will be rather similar. I have not seen the actual circuit, nor has it been traced from an actual working NTM crossover, so the 'real thing' could possibly be completely different.</p>
+
+<p>The general principle of an elliptical filter is/should be pretty well known in engineering circles where filters are used extensively, and it consists of a conventional second order filter, followed by a second order state-variable filter.</p>
+
+<p>The high pass and low pass outputs of each state-variable filter are summed to give the response shown above. The values shown are those used in the simulation. The hardest part of implementing a filter such as this is component 'sensitivity' - the requirement for close tolerance is increased compared to (say) a more conventional Linkwitz-Riley crossover network.</p>
+
+<p align="center"><img src="ntm-sch.gif" alt="Fig 3" border="1"><br><b><small>Figure 3 - Elliptical Filter Crossover Network Schematic</small></b></p>
+
+<p>As you can see, the capacitor values are non-standard, but that was done to obtain a nominal 1kHz crossover frequency. This was selected because it is a defacto standard when showing general filter responses.  It is not a useful crossover frequency for real use.  Phase response is shown above, and is almost identical for both filters (NTM and L-R), and the ripple in the summed outputs is less than 0.2dB.</p>
+
+<hr><b><a id="p22"></a>2.2 - Circuit Explanation</b>
+<p>The circuit itself is relatively conventional for this filter type, but there are some important variations and points that need some explanation. The first stage (around U1) is what is known as an 'equal component value' Sallen-Key filter. Unlike the standard circuit such as that shown in <a href="../project09.htm" target="_blank">P09</a>, the Q of the circuit is determined by the gain of the opamp, rather than the filter component values. This allows the circuit to use the same capacitor values as the next stage.</p>
+
+<p>The second filter is a state variable type, using U2, 3 and 4. The filter frequency is set by R10, R11, C3 and C4, and the Q is adjusted by R6. The Q needs to be somewhat higher than for a standard filter, because the summing amplifier (U5) adds a selected amount of (out of phase) high pass to the low pass filter (and vice versa). This creates the notch, and R12 determines the notch frequency.</p>
+
+<p>For such a complex filter, it is remarkably tolerant to component variations, but predictably less so than a fourth order L-R filter of the type used for Project 09.</p> 
+
+<p>In case you were wondering, the circuit shown will work, but the frequency determining components will have to be changed to get the frequencies needed rather than the 1kHz shown. In answer to the question (which <i>will</i> get asked at some stage) "How do I change the frequency?", the answer is that you will have to figure that out for yourself. This is not (and is definitely not intended to be) a construction project ... it is an explanation of how the circuit works. No more, no less.</p>
+
+<hr><b><a id="p3"></a>3.0 - Conclusion</b>
+<p>This article has hopefully removed some of the mystery behind the NTM crossover network, and shows what can be achieved using some lateral thinking. The rise in amplitude beyond the notch is rather unfortunate, but at -35dB represents an effective power that is over 3,000 times (3,162 to be exact) less than the maximum applied.</p>
+
+<p>This means that for an applied 100W input power to a loudspeaker driver (via the crossover of course), the worst case out-of-band power level (&gt; 1 octave) is only 31mW. This is further attenuated at a rate of 12dB/octave. At 3 octaves from the crossover frequency, (125Hz and 3kHz), the out-of-band power level is down by 48dB - 1.58mW for 100W input. This is insignificant.</p>
+
+<p>By comparison, the L-R crossover is at -24dB one octave from crossover frequency (400mW), at two octaves it is at -48dB (as above - 1.58mW), and at three octaves it has an output of -72dB (6.3uW) - again, assuming 100W input power to the loudspeaker drivers. For all practical purposes, this is also insignificant.</p>
+
+<p>The end result is that loudspeaker drivers can be pushed closer to their limits, because the out-of-band power is reduced. There is usually no good reason to push any driver that hard in a domestic system, but it can result in a useful improvement for high powered professional applications.</p>
+
+<p>The greatest benefit is obtained at between &frac12; octave to 1 octave either side of the crossover frequency, with an improvement of around 10dB at the &frac12; octave frequency, increasing dramatically to the 1 octave point. This represents a significant improvement, but only where drivers are being pushed to their limits. In a domestic system, all drivers will (or <i>should</i>) generally have sufficient 'spare' bandwidth to be able to cope with the out-of-band power levels with no stress whatsoever.</p>
+
+<p>Overall, the circuit is very impressive though - not so much because of the cunning application of elliptical filters, but more because of a complete re-think about the way such filters are normally designed and tuned. The Neville Thiele Method&trade; certainly delivers a very worthwhile improvement in overall crossover network performance.</p>
+
+<table width="100%" border="0"><tr><td valign="top"><img src="note.gif" alt="NOTE!"></td><td><small>Please note that the NTM crossover network is patented, so commercial use of the information presented here will infringe patent rights and may result in a law suit or other potentially expensive unpleasantness.<br><br>
+
+Also, as pointed out above, the circuit shown is <b>not</b> taken from any literature, service manual, physical crossover or anywhere else. It is my interpretation of a circuit that will achieve the same result as an NTM crossover produced by a licensed manufacturer.<br><br>
+
+Based on extensive searches, it would appear that this is the <u>first</u> published circuit (for general viewing) that achieves the results claimed for the NTM crossover network. This page has been seen by Precision Audio, and a couple of minor changes made at their request. I have provided them with an undertaking that I will not (under <u>any</u> circumstances) [my emphasis] provide tuning formulae or any additional information that would allow patent infringement.</small></td></tr></table>
+
+<hr><b><a id="ref"></a>4.0 - References</b>
+<ol>
+  <li>Neville Thiele Method&trade; Crossover Filters, BSS Audio, www.bss.co.uk</li>
+  <li>Active Filter Cookbook, Don Lancaster, ISBN 0-672-21168-8, Howard W Sams &amp; Co., Inc (1979 Edition)</li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 13 September 2005</div>
+</body>
+</html>

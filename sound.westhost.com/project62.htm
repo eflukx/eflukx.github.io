@@ -1,0 +1,141 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="description" content="ESP Project Pages - LX800 Lighting Controller - a DIY project for a full featured lighting desk">
+   <!-- ESP Project Pages - LX800 Lighting Controller - a DIY project for a full featured lighting desk -->
+   <meta name="keywords" content="light, strobe, triac, dimmer, control, schematic, project, lx800">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <title>ESP - Project 62 - LX-800 Lighting Controller</title>
+   <link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+   <style TYPE="text/css"><!-- th { font-size: 10pt } --> </style>
+   <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 62&nbsp;</td></tr></table>
+
+<p align="center"><b>LX-800 LIGHTING SYSTEM</b><br />
+<small>Brian Connell<br>(Editorial Content, Schematic Re-design and Redraw by Rod Elliott)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+<p>There is, and always has been, a marked lack of good, inexpensive lighting controllers for small theatre groups or musicians.&nbsp; The LX-800 Lighting System was designed with these applications in mind.</p>
+<p>It is an ambitious project, but if you attack it in a logical and thorough manner, you'll have no problems putting it together and making it work.</p>
+
+<table BORDER WIDTH="100%" ><tr BGCOLOR="red">
+<td><font color="white"><b>HAZARD:</b> This system connects directly to, and operates at, mains voltages. It is <b>potentially lethal</b>. Always be aware that the output stages in particular are <b>live</b> and never work on the system while it is plugged into the mains. All mains wiring must be completed only by authorised persons where this is a requirement. Do not attempt construction unless you are fully aware of all regulations and applicable laws in your country.</font></td></tr></table>
+
+<hr><b>Specifications</b>
+<p><b>Note:</b> The mains system in South Africa (the origin of the project) is a 240VAC 50Hz supply, fed domestically from 3-pin 16A sockets. All mains voltage references in the text will imply this supply voltage. If your mains supply differs, it is a simple matter to modify the circuits to suit.
+I'll supply details at the end of the project pages.</p>
+
+<b>Console</b>
+
+<ul><li>Two banks of eight channel controllers, each bank with its own master fader.</li>
+<li>Eight-channel sound-to-light (S2L) converter *</li>
+<li>Eight-lamp chaser with level control *</li>
+<li>Strobe light controller *</li>
+<li>Eight on/off remote switches</li>
+<li>Eight flash buttons</li>
+</ul>
+
+<p>The items marked with * are optional.&nbsp; If desired, the main unit can be built and these added later as time and finances permit.</p>
+<p>In the ideal situation, each module will control its own power box, but this can be a tad expensive for struggling musicians and amateur theatrical
+groups :-).&nbsp; So - a compromise design evolved. The simplest system would comprise one console (obviously) and one power box. All the module outputs are linked back through jumper cables on the rear panel. What this achieves is that the larger signal takes precedence over the other.&nbsp; Neat hey?&nbsp; So- if you've got some nice, low, mellow mood lighting on the band, and you turn up the chaser level, for instance, then the lamps will happily chase along, but their brightness will never drop below that of the console fader settings.&nbsp; Clear?&nbsp; I hope so.</p>
+<p>Likewise, the chaser could be switched off and the sound-to-light be turned on. In this case, the mood lighting will determine the minimum brightness, and the S2L will "bounce" the light level in time to the music.&nbsp; Clearer? Read on, all becomes clear as you get deeper into the project ..... I hope.</p>
+<p>The chaser and the strobe can be triggered from a bass-line extractor which, as its name implies, extracts the bass beat from the audio feed.&nbsp; This circuit is more complex, perhaps, than it could be, but it works like a charm - no double-triggering, which is the bane of simpler circuits.&nbsp; Both of these modules can also free-run from their own oscillators.
+
+<p><b>Power Unit</b></p>
+
+<ul><li>Eight triac-controlled zero-crossing-triggered phase controlled output: 240V / 110VAC 10A each.</li>
+<li>Console power supply</li></ul>
+
+<p>Although each channel is rated at 10A, simple mathematics will indicate that with all channels running at maximum output, the mains supply will
+have to supply 80A. Way beyond the capabilities of wall plugs! The output rating is there a safety measure - offering plenty of overhead and allowing everything to run cool and calm.</p>
+<p>I use common PAR38 floods and spots, which for smaller venues are quite adequate. These lamps are rated at between 80 and 150 watts, so a fair number can be connected up without overloading the supply.</p>
+
+<center><table BORDER WIDTH="100%">
+<tr BGCOLOR="red">
+<td><font color="white"><b>WARNING:</b> It is <b>ESSENTIAL</b> that all fusing specifications are followed precisely. Because of its capabilities, the LX-800 <b>CAN</b> overload the local mains supply found in small clubs and theatres. Rather have the fuse blow than the whole darned place go into instantaneous blackout!</font></td></tr></table></center>
+
+<p><b>Circuit Description</b></p>
+<p>As I said, this is an ambitious project, and as such has a fair amount of circuit complexity. The easiest way to present the whole thing is to
+describe it the way I designed it - piece by piece - and then show you how the whole thing goes together.</p>
+<p>Before heading off to the next section, though, here's a (revised) drawing of the console.</p>
+
+<table WIDTH="100%">
+<tr><td><img SRC="p62con.gif" alt="console" BORDER="0"></td>
+<td valign="top">On the extreme left is a column of switches - toggle switches (or you could use push-on/push-off if you prefer)  with indicator LEDs.
+<br><br>Then comes the dimmer section itself. There are two banks of 8 slide controls. Right at the top is a row of 8 flash buttons.
+<br><br>The two controls to the right of the bottom row are the channel masters. The switch between A&amp;B reverses the B fader so that down is maximum. This allows cross-fades to be made by moving both masters together.
+<br><br>The column of controls on the right of the console are as indicated, from bottom to top, Sound to Light (S2L) level control, bass-beat trigger level, strobe and chaser routing switches (free running - set by speed control, or controlled by the S2L circuit), chaser level control, and lastly the chaser and strobe speed control.</td></tr></table>
+
+<p>I recommend that you look at the console layout above carefully, as much of the circuitry you encounter on following pages will make a lot more sense when you can see exactly where it fits into the overall scheme. The drawing has recently been re-drawn to make sure that everything you see on the panel is reflected in the circuits (and vice versa). An overall understanding of the operational controls and the underlying circuits will go a long way towards a full appreciation of the project.</p> 
+<p>The power-control section is in a separate housing and connected to the console by a multi-core cable. Details will be given a bit later in the article.</p>
+<p>The next few pages will display schematics of the circuitry. The construction page will show how it all goes together. If you want to build the LX-800, the boards will eventually be available, but none are ready for sale at this time.&nbsp; The circuitry can be built on Veroboard (with the exception
+of the mains switching), which is not as neat as a PCB, but will work just fine.</p>
+
+<center><table BORDER WIDTH="100%">
+<tr><th width="16%"><b>Overview</b></th>
+<th width="16%"><a href="project62a.htm">Channels &amp; S2L</a></th>
+<th width="16%"><a href="project62b.htm">Strobe &amp; Chaser</a></th>
+<th width="16%"><a href="project62c.htm">Power Control</a></th>
+<th width="16%"><a href="project62d.htm">Connections</a></th>
+<th width="16%"><a href="project62e.htm">Miscellaneous</a></th></tr>
+</table></center><br /><br />
+
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Brian Connell and Rod Elliott, and is Copyright &copy; 2000. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author/editor (Brian Connell/Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Brian Connell and Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott/Brian Connell 14 Jul 2000./ Updated 21 Mar 2005 - revised text and console drawing</div>
+</body>
+</html>

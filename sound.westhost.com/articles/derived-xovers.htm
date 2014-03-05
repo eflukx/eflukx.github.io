@@ -1,0 +1,217 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Derived (or Subtractive) Crossovers - are they any good? Why aren't they used everywhere?">
+	<!-- Derived (or Subtractive) Crossovers - are they any good? Why aren't they used everywhere? -->
+	<meta name="keywords" content="derived, subtractive, crossover, network, loudspeaker, audio, diy, fi-fi, electronic">
+	<title>Subtractive Crossover Networks</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Subtractive Crossover Networks&nbsp;</td></tr></table>
+
+<center><p><small>Copyright &copy; 2005 - Rod Elliott (ESP)<br>
+Page Created 20 September 2005</small></center>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm" OnMouseOver="document.art1.src='arrow.gif';" 
+ OnMouseOut="document.art1.src='arrow1.gif';"><img SRC="arrow1.gif" NAME="art1" BORDER="0"></a> <b>Articles Index</b>
+<br><a href="../index2.html"  OnMouseOver="document.home1.src='arrow.gif';"
+ OnMouseOut="document.home1.src='arrow1.gif';"><img SRC="arrow1.gif" NAME="home1" BORDER="0"></a><b>Main Index</b>
+
+<hr><b>Contents</b>
+<ul>
+	<li><a href="#s1.0">1.0 &nbsp; Introduction</a>
+	<li><a href="#s2.0">2.0 &nbsp; Basic Subtractive Crossover</a>
+	<ul>
+		<li><a href="#s2.1">2.1 &nbsp; First Order Filters</a>
+		<li><a href="#s2.2">2.2 &nbsp; Second Order Filters</a>
+		<li><a href="#s2.3">2.3 &nbsp; Fourth Order Filters</a>
+	</ul>
+	<li><a href="#s3.0">3.0 &nbsp; L-R Filter Comparison</a>
+	<li><a href="#s4.0">4.0 &nbsp; Conclusion</a>
+	<li><a href="#ref">References</a>
+</ul>
+
+<hr><a id="s1.0"></a><b>1.0 - Introduction</b>
+<p>A class of electronic crossover is variously described as a 'derived' or 'subtractive' filter is hailed by some users as the ideal. They have (apparently) perfect transient response, in that the summed output is not only flat, but a squarewave is also passed intact. This implies that they are the Holy Grail of electronic crossover networks. Almost by definition, no other crossover network should even be considered.</p>
+
+<p>So, are they any good? Why aren't they used everywhere?</p>
+
+<p>These questions are best answered by a full examination of the network, so that all the facts are available.</p>
+
+<hr><b><a id="s2.0"></a>2.0 - Basic Subtractive Crossover</b>
+<p>The general idea of the subtractive crossover is quite simple. If we have a filter, and subtract the filtered signal from the input, the result is a filter with the opposite effect (i.e. a low pass filter is 'derived' from a high pass filter and vice versa). Because of the subtraction process, the result must be perfectly in phase, and the sum must (by definition) be flat response.</p>
+
+<p>There have been many variations on the general theme, some of which are claimed to provide better performance than others. Subtractive filters have been discussed in Elektor magazine [<a href="#ref">1</a>] and some I have seen are quite complex. While the added complexities may suit a particular arrangement of specific loudspeakers, they generally don't add anything that changes the overall performance.</p>
+
+<p align="center"><img src="dxo-f1.gif" alt="fig 1" border="1"><br><b><small>Figure 1 - Block Diagram of a Derived (Subtractive) Filter</small></b></p>
+
+<p>While all circuits shown in this article are configured as shown in Figure 1, the filter itself can be a low pass section. No other changes are needed, but this connection may give rise to performance limitations that at the very least must be classified as undesirable (see below for more information).</p>
+
+<p>In the circuit diagrams below, all buffers are unity gain, and all circuits are driven from a low impedance (voltage) source. This is a requirement for all filters, so the input buffer is not shown for clarity. The voltage source shown is an ideal voltage source - zero ohms output impedance.</p>
+
+<p>Likewise, for clarity, the power supplies are not shown. All the results below are from the SIMetrix simulator, and while somewhat idealised, are representative of reality with any reasonable opamp in a real world circuit - especially within the audio band.</p>
+
+<p>Within this article and for the simulations used to get the graphs shown, the same values were used for filter tuning, regardless of the filter order. While this does change the crossover frequency, as you will see it is actually of little consequence.</p>
+
+<hr><b><a id="s2.1"></a>2.1 - First Order Filters</b>
+<p>While there is little point looking at a first order (6dB/octave) network, it <i>is</i> the simplest to examine, and this will make it easier to follow the more complex filters. A first order crossover is already 'phase perfect', so making a subtractive version should give an identical result.</p>
+
+<p>As shown below, this is the case. The only advantage of the subtractive method is that only one reactive element (the capacitor) is used, and this is highly debatable as an 'advantage'. This is especially true with the increase of overall complexity of the circuit.</p>
+
+<p align="center"><img src="dxo-f2.gif" alt="fig 2" border="1"><br><b><small>Figure 2 - First Order Subtractive Crossover Network</small></b></p>
+
+<p>Figure 2 shows the schematic of the subtractive filter, and for comparative purposes, a conventional filter is also shown. A conventional high pass first order filter is used, although a low pass filter can also be used and gives identical overall results. The subtraction circuit is simply a common balanced amplifier, which only amplifies the difference between its two inputs. The frequency and phase responses are shown below, and they are identical to a 'normal' 6dB filter response. The summed output is flat, having no peaks or dips at the crossover frequency. Since a straight line is hardly inspiring to look at, this has not been included for this or any of the graphs that follow.</p>
+
+<p align="center"><img src="dxo-f3.gif" alt="fig 3" border="1"><br><b><small>Figure 3 - First Order Amplitude Response</small></b></p>
+
+<p>The amplitude response is as one would expect, and requires little or no further comment. As stated above, this is identical to a conventional first order filter response.</p>
+
+<p align="center"><img src="dxo-f4.gif" alt="fig 4" border="1"><br><b><small>Figure 4 - First Order Phase Response</small></b></p>
+
+<p>Phase response again shows the normal behaviour for a first order filter. In all cases in this article, the red curve is for the high pass filter, and the green curve is the low pass. As noted earlier, there is no point using the subtractive method for a 6dB/octave crossover - the above is by way of example only.</p>
+
+<hr><b><a id="s2.2"></a>2.2 - Second Order Filters</b>
+<p>When we look at second and higher orders, we start to see real difference between the subtractive filter and other more conventional crossover networks. Figure 5 shows the schematic, and it must be admitted that it is a little simpler than a standard Linkwitz Riley filter (for example). While the difference in complexity is not great, the summed response is better, and unlike nearly all filter networks above first order, it is not only phase coherent, but the summed signal reproduces a perfect squarewave.</p>
+
+<p>It is at this point that some people get excited - any filter that can pass a squarewave <i>must</i> be better than one that cannot, and in truth, virtually no conventional filter above first order can reconstruct a squarewave. The subtractive versions therefore must be better.</p>
+
+<p>As we will see later on, this is not necessarily true, and the ability to reproduce a true squarewave is vastly overrated. Apart from anything else, we rarely listen to any audio signal that even approaches a squarewave, but there are other relevant factors that will wait until the conclusion of this article.</p>
+
+<p align="center"><img src="dxo-f5.gif" alt="fig 5" border="1"><br><b><small>Figure 5 - Second Order Subtractive Crossover Network</small></b></p>
+
+<p>Above, we see the schematic for a second order (12dB/octave) derived crossover. A single second order Butterworth highpass section is used, with the difference amplifier subtracting the filter's response from the input signal. One would think that by doing this, the derived filter would match the rolloff characteristics of the filter, but this is thwarted by phase shift. It is phase shift that causes the derived rolloff slope to remain at 6dB/octave, and although it is possible to include a phase shift network to equalise the slopes, this will no longer allow the filter to recreate a squarewave, and it will behave the same as any other filter network.</p>
+
+<a name="note"></a><table width="100%" border="0"><tr>
+<td valign="top"><img src="note.gif" alt="NOTE"></td>
+<td><small>In fact, various magazines (Elektor being one that I know of - thanks to a reader) have published projects that use a combination of a standard subtractive crossover with a phase shift (all pass) network. This does equalise the rolloff slopes, but the network behaves in the same way as a conventional crossover network.<br><br>
+The 'saving' is two capacitors, but you need more resistors and one additional opamp (not much of a saving). The circuit complexity is greater than a conventional filter because the repetition is replaced by a relatively complex phase shift network plus a summing amp. This makes it more likely that a mistake will be made while wiring the circuit. IMO there is absolutely no benefit, and it is far easier to build a conventional Sallen-Key based filter network such as that shown in Project 09.<br><br>
+Unless there is significant demand, no further details will be provided for this design. It is interesting from an acedemic perspective, but contributes very little in real terms.</small></td></tr></table>
+
+<p>Look carefully at the graph below ... as explained above, while the high pass section certainly rolls off at 12dB/octave, the derived low pass section is indeed only 6dB/octave. This is one of the greatest disadvantages of the subtractive crossover. The derived filter is <i>always</i> 6dB/octave, regardless of the rolloff slope of the filter itself. (However, see <a href="#note">note</a> above.)</p>
+
+<p align="center"><img src="dxo-f6.gif" alt="fig 6" border="1"><br><b><small>Figure 6 - Second Order Amplitude Response</small></b></p>
+
+<p>Potentially of some concern is the peak in the low pass response, just before it starts to roll off. This can be reduced by reducing the Q of the filter. While it is not serious, the expectation is that the tweeter will have sufficient output at this frequency to cancel the acoustic peak, thus restoring flat response. As discussed in greater detail below, this may be wishful thinking.</p>
+
+<p align="center"><img src="dxo-f7.gif" alt="fig 7" border="1"><br><b><small>Figure 7 - Second Order Phase Response</small></b></p>
+
+<p>The phase response is shown above. It is seemingly impossible that two outputs with such frequency and phase responses could possibly be summed to a flat response, but they do, and this filter (just like the first order network) can pass a perfect squarewave when the outputs are summed. Likewise, the summed response is completely flat, with no peaks or dips.</p>
+
+<p>It is rather unlikely that the acoustic outputs from the drivers will be able to match an electrical summing network, so it is less likely that the acoustic output will be flat. Electrical and acoustic summing are not the same thing, and although electrical summing is an effective way to find out the ideal response of the system, what happens in reality is likely to be altogether different.</p>
+
+<hr><b><a id="s2.3"></a>2.3 - Fourth Order Filters</b>
+<p>Finally, the circuit diagram below shows a derived 24dB/octave (fourth order) network. Where this should offer the best response, in fact it is the worst of the three shown.</p>
+
+<p align="center"><img src="dxo-f8.gif" alt="fig 8" border="1"><br><b><small>Figure 8 - Fourth Order Subtractive Crossover Network</small></b></p>
+
+<p>The amplitude response (below) shows that there is a substantial rise in the response of the low pass section (the derived part of the network). If (and that is a very big ask indeed) the drivers sum as flat as an electrical network, then there isn't much of a problem. It is highly unlikely that the drivers will be able to produce a flat response in reality.</p>
+
+<p align="center"><img src="dxo-f9.gif" alt="fig 9" border="1"><br><b><small>Figure 9 - Fourth Order Amplitude Response</small></b></p>
+
+<p>The response peak is about 4dB, and that represents more than double the power applied to the driver over that frequency band. The amount of frequency overlap is (IMO) completely unacceptable, and a system built using this crossover would have to use accurate time alignment. Great care would also be needed to ensure that the polar response of the drivers is very similar over at least 3 octaves across the crossover frequency.</p>
+
+<p align="center"><img src="dxo-f10.gif" alt="fig 10" border="1"><br><b><small>Figure 10 - Fourth Order Phase Response</small></b></p>
+
+<p>The phase response also shows a peak, but this is of less consequence than the amplitude peak. In all subtractive filters, they are <i>not</i> phase coherent. That is to say that the phase of the signal applied to each driver varies, and the two are not in phase across the crossover region. Unless the phase response of the drivers is very predictable (no phase shift from voicecoil inductance or resonances) the two signals can no longer sum flat - even electrically. Acoustic summing will be worse than electrical summing in all cases.</p>
+
+<hr><b><a id="s3.0"></a>3.0 - Linkwitz-Riley Filter Comparison</b>
+<p>So that everything can be seen in the one article, I have included a schematic of a 24dB/octave crossover, along with the amplitude and phase response. The first thing you will see is that there is actually little additional complexity. Rather than a complex circuit, it is simply repetitious. This is the simplest of the topologies that will give the desired overall response.</p>
+
+<p align="center"><img src="dxo-f11.gif" alt="fig 11" border="1"><br><b><small>Figure 11 - Fourth Order L-R Filter Schematic</small></b></p>
+
+<p>The high pass section is at the top, with the low pass section at the bottom. This is identical to the circuit used in <a href="../project09.htm" target="_blank">Project 09</a>, which has been a popular project from the time it was first published.</p>
+
+<p align="center"><img src="dxo-f12.gif" alt="fig 12" border="1"><br><b><small>Figure 12 - L-R Amplitude Response</small></b></p>
+
+<p>Amplitude response is exactly as we would expect. A nice steep rolloff for both sections, and a clearly defined crossover frequency. Because of the Linkwitz-Riley alignment, the summed output is completely flat (just like the subtractive filters), but without any of the associated problems of excessive overlap. No, it won't pass a squarewave, but the summed output still contains every frequency that made up the original squarewave, and testing by ear reveals that it is not possible to positively identify the squarewave from the modified version. While there is almost always a difference, the nature of the difference has more to do with the loudspeakers than the crossover.</p>
+
+<p align="center"><img src="dxo-f13.gif" alt="fig 13" border="1"><br><b><small>Figure 13 - L-R Phase Response</small></b></p>
+
+<p>In case you wondered, no, I didn't leave out the high frequency phase response. It is simply overwritten by the low frequency graph - they are perfectly overlaid. That means that the two drivers remain in phase over the entire frequency range. This filter network relies on proper filtering, rather than hoping that the acoustic outputs of the drivers will complete the job that in reality is only half done by a subtractive filter.</p>
+
+<hr><b><a id="s4.0"></a>4.0 - Conclusion</b>
+<p>The first - and possibly the most important - thing that must be understood is that electrical and acoustical summing are <u>not</u> the same thing. Just because a crossover network sums flat electrically, this does not imply that it must also sum flat acoustically. With subtractive crossovers, the very worst scenario is presented to the drivers, where there is considerable frequency overlap between the adjacent loudspeaker drivers, and unless they have identical polar response over the entire overlap region (and at least an octave either side), the combined acoustic output will be anything <i>but</i> flat. This seems to have been missed by many of the proponents of these filters.</p>
+
+<p>Unlike conventional filters, where the higher the order sections have less overlap than low order, the subtractive networks present the opposite case. The derived section using a 24dB/octave high pass section has the greatest overlap, and we can see from the above that the 6dB network is actually the best in this respect. Let us simply say that this is less than desirable (note careful use of understatement).</p>
+
+<p>The next issue is the derived filter section's rolloff slope - 6dB/octave. All the circuits above derived the low pass section, because that gives the greatest protection for tweeters (and midrange) drivers against excessive excursion. Quite a few published circuits over the years have derived the high pass section, and this places extreme demands on the drivers because of the power delivered below the crossover frequency.  In addition, there is the peak at the very frequency where it is least desirable - at the lowest frequency the driver is meant to handle. It gets additional power at that frequency, increasing excursion and hence intermodulation distortion.</p>
+
+<p>Speaking of crossover frequency, it is almost impossible to predict exactly where it is. It is obvious in the first order example, but as the filter order is increased, so too is the overlap region. One might want to use the -3dB frequency of the actual filter as a guide, but that's all it really is - a guide.</p>
+
+<p>So, it should now be obvious that subtractive crossovers are most certainly not the Holy Grail, and in my opinion are virtually useless. Increased overlap at crossover may cause excessive beaming because the drivers are working as a mini-array, poor rolloff slope of the derived filter section can allow cone breakup (or if reversed, will probably cause excessive intermodulation), all because they can reproduce a squarewave. I think not.</p>
+
+<p>The phase shifts caused by conventional crossover networks may seem extreme, but they are generally inaudible. Provided the phase of each driver is controlled and maintained (such as with a Linkwitz-Riley crossover), there are no audible effects. While phase anomalies may be audible if two different speaker systems are operated alongside each other, this is not a problem for home audio systems. The subtractive crossover network still has overall phase shift between drivers, so it doesn't solve that particular problem anyway.</p>
+
+<p>So, if anyone was ever mildly curious, now you know why I have not (and will not) publish a project based on what I consider to be a seriously flawed design.</p>
+
+<hr><b><a name="ref"></a>References</b>
+<p>"Active Phase-Linear Crossover Network" , Elektor Electronics, September 1987</p>
+<p><small>The above may not be entirely correct - I have not been able to verify the exact article title nor the year of publication. Unfortunately, the Elektor site only maintains its on-line index to 1998.</small></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 20 Sep 2005</div>
+</body>
+</html>

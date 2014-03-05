@@ -1,0 +1,117 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Rod Elliott - Elliott Sound Products">
+   <meta name="keywords" content="guitar,bass,compressor,sustain,limiter,effect,audio,project,diy,circuit,schematic,diagram">
+   <meta name="description" content="ESP Audio Projects - A limiter/ compressor for excellent distortion free sustain for guitar or bass.  This simple circuit gives excellent performance">
+   <title>Guitar and Bass Sustain Unit</title>
+<!-- ESP Audio Projects - A limiter/ compressor for excellent distortion free sustain for guitar or bass.  This simple circuit gives excellent performance -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 92&nbsp;</td></tr></table>
+
+<p align="center"><b>Guitar and Bass Sustain Unit</b><br />
+<small>Rod Elliott (ESP), Updated 06 Feb 2007</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><b>Introduction</b>
+
+<p>We have all heard that wonderful sound of a guitar, where the note just hangs there seemingly forever (or at least until next Thursday). Sustain can be obtained by turning the amp up full, but the rest of the band will just kill you - they need to be able to hear themselves too! This little project is best used in the effects loop of a guitar amp (if it has one - not all do). It can be used direct from the guitar, but the effect is not as good, since it is designed for relatively high levels (around 1 Volt).
+
+<p>The circuit is very simple to build, and mine is on a piece of Veroboard. Because it can easily be built as a pedal or even into a guitar amp (such as that described in Project 27), I do expect to make PCBs available in the not too distant future, since the circuit (Figure 2 version) will be used in an upcoming commercial project. (Yes, I know I said boards would be available back in 2002, but there's more likelihood now <img src="grin.gif" alt=":-)">)</p>
+
+<hr><b>Description</b>
+<p>The complete schematic is shown in Figure 1. There is not a lot to it, but the LED and LDR (Light Dependent Resistor) are critical - they must be completely enclosed in a light proof enclosure of some kind. Vactrol make some very nice little LDR opto-isolators, but unfortunately they are not easy to get, and are fairly expensive. The next best thing is a couple of pieces of black heatshrink tubing. The LED and LDR must be as close to each other as possible, and a flat topped LED is recommended if you can get one.</p>
+
+<center><img SRC="p92-f1.gif" ALT="Figure 1" BORDER=1 height=342 width=758>
+<br><b><small>Figure 1 - Guitar and Bass Compressor</small></b></center>
+
+<p>Note the rather unusual earth (ground) connection. This is not a mistake in the drawing. U2A is used to buffer the 1/2 supply voltage created by R3 and R4, and instead of using the 12V supply negative as earth, the output of U2A is used instead. This gives a balanced supply from a single voltage source. Note that the AC/DC adapter (plug pack or wall wart - select the term you are most comfortable with :-) must not be used to power other equipment as well, since this may cause problems. If you wish, a conventional +/-15V supply may be used instead (see below).
+
+<p>All resistors are 1/4 or 1/2 Watt, and may be 1% or 5%. R1 and R2 should be metal film for lowest noise. Although the TL072 is suggested for the audio path, other opamps may be used as well. Likewise, the LM1458 can also be substituted if you like. Caps are 16V types, but higher voltage units can be used if desired. D7 is a power on indicator, and D6 is there to prevent damage to the circuit if the polarity of the applied 12V DC is incorrect. Be warned that the AC/ DC adapter will
+be damaged if the polarity is wrong, and it is left connected for any length of time.
+
+<p>VR1 is a simple volume control, and is used to set the output level. VR2 is the limiting threshold control - as it is adjusted to a higher setting, the volume will decrease. You may wish to wire the pot "backwards", so that maximum output is obtained when VR2 is set to the fully clockwise position.
+
+<p>U1A is the gain control stage. Maximum gain as shown is unity, but R2 can be increased if you find that the gain is too low. When the signal level is high enough for D1 - D4 to conduct, the LED illuminates, and reduces the gain of the input stage. Any further increase of input voltage will just cause the LED to glow brighter, which reduces the gain further. In this way, a constant output level is maintained, since as the input signal reduces, so does the LED brightness and the stage gain
+increases again.
+
+<p>The connections shown will be fine for most purposes, but some LDRs may give distortion at low frequencies. A 100uF cap in parallel with the LED will probably help if this is a problem. LDRs typically have a slow "release" time. After illumination, they take some time to return to their full dark resistance. This characteristic is exploited here, to allow a very simple circuit with an almost perfect attack and release time for musical instrument use.
+
+<p>I have also used mine on music, and it gives a very good account of itself - so much so that I would recommend this unit as a simple compressor for almost any application.</p>
+
+<hr><b>Alternative Version</b><br>
+An alternative is offered below. This version is designed specifically for operation from &plusmn;15V supplies (&plusmn;12V supplies can also be used with no changes). This version can be used as a full range limiter for music, and might typically be applied in an amp rack to prevent amps from being overdriven (and distorting). While the Figure 1 version can also be used, it is less convenient because of the single supply, and the rectifier is not quite as good as the unit shown here.<br><br>
+
+<center><img SRC="p92-f2.gif" ALT="Figure 2" BORDER=1>
+<br><b><small>Figure 2 - Alternative Guitar and Bass Compressor</small></b></center>
+
+<p>Because of the arrangement of the rectifier, it is much easier to add a cap (C1) to increase the attack and decay time. Note that using a value much higher than that shown will not help much, because the opamps cannot supply enough current to charge a higher value, and the results can be less than satisfactory.
+<p>There are many alternatives, but when wired as shown, the circuit gives a very good account of itself. Operation is unchanged from that described above, despite the re-arrangement of the LDR wiring. If you need more input gain (to increase the limiting effect), simply increase the value of R3. I don't recommend that it be greater than around 4.7k though.
+<p>Likewise, increased output level is obtained by increasing the value of R6, and again, I suggest a maximum of 4.7k.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2002-2007. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 09 Jun 2002./ Updated 06 Feb 2007 - added figure 2 with text.</div>
+</body>
+</html>

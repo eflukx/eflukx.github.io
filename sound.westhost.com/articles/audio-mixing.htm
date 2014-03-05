@@ -1,0 +1,227 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="The essential principles of mixing audio signals are straightforward, but strangely are not explained 
+	very well at all on the Net.  This article should fill the gaps.">
+	<meta name="keywords" content="audio, mixer, mixing, virtual earth, inverting, passive, signals, amplifier, sound, hi-fi">
+	<title>Audio Signal Mixing</title>
+	<!-- ESP - The Audio Pages.  The essential principles of mixing audio signals are straightforward, but strangely are not explained very well 
+	at all on the Net.  This article should fill the gaps. -->
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Audio Signal Mixing&nbsp;</td></tr></table>
+
+<p align="center">By Rod Elliott (ESP)<br />
+<small>Page Created 27 September 2010</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="../articles.htm" OnMouseOver="document.t1.src='a.gif';" OnMouseOut="document.t1.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t1" ALT="Articles" BORDER="0"></a><b>Articles<br>
+  <a href="../index2.html" OnMouseOver="document.t2.src='a.gif';" OnMouseOut="document.t2.src='a1.gif';">
+  <img SRC="a1.gif" NAME="t2" ALT="Index" BORDER="0"></a>Main Index</b><br>
+
+<hr><b>Contents</b>
+<ul>
+  <li><a href="#intro">Introduction</a>
+  <li><a href="#s1">1.0 - Why Do We Need Mixers?</a>
+  <li><a href="#s2">2.0 - Passive Mixing</a>
+  <li><a href="#s3">3.0 - Active Mixing</a>
+  <li><a href="#s4">4.0 - Balanced Mix Bus</a>
+  <li><a href="#outro">Conclusion</a>
+</ul>
+  
+<hr><a id="intro"></a><b>Introduction</b>
+<p>The mixing of a number of audio signals is such a common thing to do that one would expect the Net to be riddled with articles on how and why signals are mixed. There are plenty of circuits that show how it can be done, but very little that explains the benefits or drawbacks of any particular scheme. 
+
+<p>In the early days, there was little or no requirement for mixing. In most cases, the band or (small) orchestra used one microphone, and the amplified output went straight to air for broadcasts or direct to the cutting lathe for recordings. This was before tape or wire recording was used. 
+Because there was so little need for mixing, very simple schemes could be used. Peoples' expectations were low too - at the time it was sufficiently amazing that recordings or "wireless" were even possible, so no-one was listening for any of the issues discussed below.
+
+<p>Even though there <i>were</i> issues, there were also ways to ensure that they did not impinge in any way on the listeners' enjoyment of the programme material. If audio circuits had to be switched, master level controls would be reduced momentarily to minimise switching noises for example. As audio broadcasts and recordings became more complex, simple manual techniques were no longer suitable because of the number of channels.
+
+<p>Many of the earliest mixers may have had perhaps 4 channels at most. Even such a small mixer started to become problematical though. As channels were switched in or out there would be level changes on the remaining channels. Likewise, even adjusting a level control (fader) could cause the overall programme level from other channels to change.
+
+<p>To understand the reasons, we need to look at the circuits that were used (and still are in many applications).</p>
+
+<hr /><a id="s1"></a><b>1.0 - Why Do We Need Mixers?</b>
+<p>For the uninitiated, it may seem a little silly that we need to use a whole bunch of circuitry to mix signals. Surely if we just connect the outputs of the various sources together they will mix just fine, no? <i>No!</i>
+
+<p>In fact, many people have done just this and managed to get away with it, but it's purely good luck rather than good management. Consider that most modern equipment uses opamps or other "solid state" output circuits, and these generally have a very low output impedance. 100 Ohms is typical, but some are a little more, others less.
+
+<p>A 1V signal fed from a 100 ohm output (A) into another 100 ohm output (B) will do two things ...</p>
+
+<ol>
+	<li>Form a voltage divider, so instead of 1V we only get 0.5V
+	<li>Present a total load of 200&Omega; to the driving equipment, causing a current of 5mA to flow between A and B. Few opamps can drive 
+	this much current without excessive distortion, and there is no longer any useful headroom.  
+</ol>
+
+<p>At a peak voltage of 5V (a perfectly normal transient for example), the driving equipment will be expected to provide 25mA. This exceeds the ability of most opamps, so the signal will distort. Needless to say, equipment "B" sees the same problem. Worst case is when "A" has a positive-going transient and "B" has a negative-going transient. The maximum expected current flow can be very high, and opamps will distort badly. The issues are shown simplified in Figure 1, with 3 pieces of equipment simply joined (perhaps using a couple of Y-Splitters in reverse).</p> 
+ 
+<center class="pix"><img src="audmix-f1.gif" border=1><br>Figure 1 - How Not To Mix Signals</center>
+
+<p>Interestingly, direct mixing may work with some older valve (vacuum tube) equipment, but in general the same issues apply - despite the relatively high output impedance. While the impedance is high and the expected current is low, valve equipment simply cannot provide much current at all, and even light loading by today's standards (say 10k) can easily cause a significant increase of distortion and premature clipping.
+
+<p>It would be possible to make the output impedance of all equipment much higher, so direct mixing would not cause any circuit stress. The problem would then be that we are back to the position we had when valve gear ruled ... high impedance causes high frequency rolloff with long cables. Cables can also become microphonic, and this is why so many pieces of valve kit used output transformers - to provide a low impedance (optionally balanced) output to prevent the very problems described. Low output impedance is here to stay, as are mixers, so now we can examine the methods in more detail.</p>
+
+<hr /><a id="s2"></a><b>2.0 - Passive Mixing</b>
+<p>The simplest passive mixer known is two (or more) resistors - one for each input signal. This is shown in Figure 2, and I have used 3 inputs to enable a full understanding of the possible issues. Indeed, all following examples will use 3 channels, because it's a good number to show the effects properly. 
+
+<p>A simple resistive mixer as shown below is a </i>voltage</i> mixer. All inputs are assumed to come from low impedance voltage sources. If the source impedance is higher than expected the signal loss for that channel will be higher than for the other channels. The external resistance (which is assumed to exist inside the source equipment as part of its output impedance) is in series with the mixing resistor, so there is more attenuation. The amplifier stage that follows is commonly referred to as the mix recovery amplifier - it is shown for completeness, but plays no part in the mixing process itself - the mixer is passive, despite the opamp. Note the possibility for crosstalk between channels - this is shown between channels 1 and 2.</p>
+
+<center class="pix"><img src="audmix-f2.gif" border=1><br>Figure 2 - Simple Passive Mixer Circuit</center>
+
+<p>Each source is assumed to generate an open circuit output signal voltage of 1V RMS. Because of the mixing resistors, the output from each is 333mV when any one signal is present. When all signals are present at once, the output voltage depends entirely on the instantaneous voltage and phase of each input signal. With typical 1V RMS music signals present at each input (e.g. vocals and a couple of guitars) the output will be between 300mV and 600mV RMS. This relationship is unpredictable though, because it depends on the instantaneous voltage and phase of the signal at each input. Note that the peak output voltage at the mix point cannot - <i>ever</i> - exceed the peak value of the input signals, even when peaks align perfectly for phase and amplitude.
+
+<p>To understand the limitations, we need to look at what happens if an input is disconnected using the switch in Channel 2 (but ignoring the switch in Channel 3 for the time being). When 3 inputs are connected to low impedance external sources, the circuit acts as a voltage divider for each input. Just looking at input #1, it is apparent that R1 forms a voltage divider with R2 in parallel with R3. Since each resistor is 10k, we have a voltage divider consisting of 10k and 5k. Voltage division is ...</p>
+
+<blockquote>
+	V<sub>D</sub> = ( R1 / ( R2 || R3 )) + 1 &nbsp; &nbsp; <small>... Where V<sub>D</sub> is voltage division, and || means "in parallel
+	with".</small><br />
+	V<sub>D</sub> = ( 10k / 5k )) + 1 = 3
+</blockquote>
+
+<p>The output is therefore 333mV for a 1V input (as noted above). If input #2 is simply disconnected from the source by unplugging it, or by using a simple switch as shown in Channel 2, the voltage division ratio changes ...</p>
+
+<blockquote>
+	V<sub>D</sub> = ( R1 / R3 ) + 1<br />
+	V<sub>D</sub> = ( 10k / 10k ) + 1 = 2
+</blockquote>
+
+<p>... so the output level is now 500mV instead of 333mV - a 3.5dB increase. This is one of the problems with passive mixing - any change of inputs (the number or impedance) changes the output level. The change becomes smaller as more channels are added, but so does the signal level from each individual input. As shown for Channel 3, a switch can be used that doesn't simply disconnect an input from the source. With this switching, the unused mixing input is shorted to earth when the source is disconnected. This maintains the normal voltage division ratio, so inputs can be connected or disconnected at will. As always, doing so may cause momentary level "surges", clicks or pops if the switch is operated while programme material is being mixed.
+
+<p>If there are 16 channels (not a large mixer by today's standards), with 1V of input the output from each individual input would only be 59mV. More channels means less signal. The relationship described above still tends to hold though, so provided all channels are used the output will still tend to be between 300mV and 600mV (assuming a 1V input to each channel). Disconnecting an input as shown with the Channel 3 switch provides no noise advantage, and the mix recovery amp operates at normal gain at all times.</p>
+
+<center class="pix"><img src="audmix-f3.gif" border=1><br>Figure 3 - Passive Mixer With Channel Level Controls</center>
+
+<p>Things become even more irksome when we add level controls (or faders) for the input channels. Unless buffer amplifiers are used, changing one fader affects the level of the final mix. This is clearly unacceptable. Even with a large number of inputs, there will still be a small change just by operating <i>one</i> fader, and there is still the issue of crosstalk when stereo channels are used. 
+
+<p>In Figure 3 you can see that the faders change the impedance seen by the mixing resistors. The effective source impedance is maximum when the fader is (electrically) centred, and will have a value of half the fader's total resistance. Needless to say, there are ways around all of the issues faced, but passive mixing is rarely used in any professional equipment. If all mix sends are buffered, there is no longer a limitation, but the controlled sends for <i>every</i> send on <i>every</i> channel must be buffered. This could easily add 4 or more opamps to each channel of a mixer - 64 extra opamps just for a 16 channel mixer with 4 sub-mix buses! Quite clearly, this is unacceptable.
+
+<p>The passive mixing technique is still useful though, for example to sum the bass outputs of an electronic crossover to allow the use of a single subwoofer. There are also a few simple mixing tasks for which a pair of resistors is ideal, and it would be silly to add a whole bunch of extra circuitry for such a simple task.</p>  
+
+<hr><a id="s3"></a><b>3.0 - Active Mixing</b>
+<p>The biggest issues with passive mixing are interaction between channels, crosstalk (important for stereo mixers) and noise. The voltage from each channel is attenuated by the number of channels plus one - so a 24 channel mixer has a signal attenuation of 25 for each individual channel. 1V input gives a 40mV output for a single channel. While this is not a major issue because a low noise amplifier can recover the signal easily, interaction and crosstalk cannot be tolerated in a professional mixer.
+
+<p>Imagine the result of using a passive mixer, but rather than simply connecting the mix resistors together, they are all connected to earth (ground). Crosstalk is no longer possible because the mix output voltage is zero. Likewise, interaction is equally impossible because all mixed signals are shorted to earth. Shorting out the mix bus (to earth/ ground)is not useful, but what if we could use a <i>virtual</i> earth that could make use of the current flowing from each mix resistor?
+
+<p>Active mixing relies on exactly that principle. The idea is to use a current amplifier, with an input impedance of close to zero ohms. The amplifier relies only on the <i>current</i> through the mixing resistors, and because the mixer amplifier is a virtual earth (hence the name "virtual earth mixer"), there can be no crosstalk or interaction between channels. Each input resistor connects to the virtual earth, so there is almost no voltage present at the mixing point.<p>
+
+<center class="pix"><img src="audmix-f4.gif" border=1><br>Figure 4 - Active Mixing Circuit ("Virtual Earth")</center>
+
+<p>The general scheme is shown in Figure 4, and the opamp is an inverting stage, with all mixed signals connected to the inverting input. While it's not commonly described as such, an opamp connected this way is a current amplifier (inverting). Whatever current flows into (or out of) the input is balanced by the current flowing through the feedback resistor (R4), such that the difference between the two inputs is close to zero. In essence, the opamp causes the instantaneous current <i>I4</i> to be exactly equal and opposite to the sum of instantaneous currents <i>I1</i>, <i>I2</i> and <i>I3</i>.
+
+<p>Since the non-inverting input is connected to earth (aka ground), the inverting input therefore becomes a "virtual earth". In reality, it will have measurable impedance - for it to be a true virtual ground would require that the opamp has infinite gain over the audio frequency range. If one uses a TL072 (for example), you can expect the impedance at the inverting input to remain below 100 ohms up to around 32kHz. The signal voltage at the virtual earth will be well below 1mV up to 1kHz, and remain below 30mV at 30kHz. Better opamps will obviously provide better performance. Capacitance between the mix bus and ground must be minimised, or the mixer may become unstable at very high frequencies.
+
+<p>It is not uncommon to use external transistors to increase the performance of the opamp. This was a common trick many years ago, where transistors were added to the front end of &micro;A741 opamps to obtain more gain and (more to the point) much lower noise. These days there's often no need, because there are many exceptionally low noise opamps available. These will almost always beat a fully discrete circuit in all respects - especially input impedance (which must be as low as possible) and distortion. Discrete (or hybrid) circuits may be better for noise, but should not be necessary unless you exceed 16 channels or so.
+
+<p>Virtual earth mixers have an interesting characteristic that will seem strange at first. Even though the gain for a signal from each individual channel may be unity (a common approach), the circuit has a far greater gain for noise. This "noise gain" is created because all of the input (mixing) resistors are effectively in parallel. So while the signal gain for one channel may be unity, the noise gain is ...</p>
+
+<blockquote>
+	A<sub>n</sub> = R<sub>fb</sub> / ( R<sub>mix</sub> / N )<br />
+	... <small>where A<sub>n</sub> is noise gain, R<sub>fb</sub> is the value of the feedback resistors, R<sub>mix</sub> is the value of the 
+	mixing resistors and N is the number of channels.</small> 
+</blockquote>
+
+<p>For the 3 channel mixer shown, the noise gain is therefore 3, and this applies whenever the inputs are connected to a source. <i>Noise</i> gain is minimised by disconnecting all mixing resistors that are not being used. The <i>signal</i> gain is not affected when channels are connected or disconnected because of the virtual earth mixing scheme, and there are no clicks or pops provided there is no DC in any of the channels.
+
+<p>However ... while signal gain at <i>mid</i> frequencies may not be affected as channels are switched in and out, the frequency response of the mixing amplifier is what you would normally expect with it operating at the noise gain obtained using the above formula.
+
+<p>For example, using 10k mixing resistors and a 10 channel mixer, the individual channel gain is -1 (unity, but inverted), the noise gain is 10, and the mix amp will have the frequency response you'd expect of the same opamp operating with a gain of 10. If more channels are added, the high frequency -3dB point will reduce, exactly as it does if you try to operate any opamp with high gain. While this is rarely a limitation in practice, it needs to be considered as part of the process.
+
+<p>Thermal noise is created by the mixing resistors themselves, and it becomes significant because of the sheer number of them in a large mixer. Low values are best, but there is a practical minimum - this is generally considered to be between around 3.9k&Omega; to 5.6k&Omega; - below 3.9k is usually not practical due to excessive opamp loading with multiple buses, and much above 5.6k means more noise. For a 3 channel mixer, 10k is perfectly reasonable, although I used 10k here more for convenience than anything else.
+
+<p>Use of virtual earth (or virtual ground if you prefer) mixing is almost universal now. I know of no commercial mixers that use a passive mix bus, because they just doesn't work very well. Before opamps (or even transistors for that matter), extremely low input impedances suited for current input amplifiers were still available. While these circuits were more common for RF designs, they were actually well suited to virtual earth mixing.</p>
+
+<center class="pix"><img src="audmix-f5.gif" border=1><br>Figure 5 - Common Base &amp; Common Grid Current Amplifier Stages</center>
+
+<p>The most common low input impedance stage is a common base/ common grid (aka grounded base/ grid) stage. These are shown above. I'm unable to simulate the grounded grid stage, but the grounded base circuit shown has an input impedance of less than 14 ohms across the full frequency range. Signal voltage at the mix point will typically be around 4mV with the values shown, and total gain is almost the same as for the opamp circuit. The transistor stage is designed for a single 30V DC supply. Unlike an opamp, this circuit (and the common grid valve stage) are non-inverting. While interesting and potentially useful, as far as I'm aware these circuits were not commonly used. I used the common base circuit in some PA amp heads I built many years ago, but most of the others around at the time used a passive (voltage) mixer.
+
+<p>Note that the valve (tube) grounded grid circuit is not the only way to achieve this result, nor is the grounded base transistor circuit. There are several options for both solid and vacuum state mixers, however these are (for the most part) outside the scope of this article. Those shown are for information only.</p>
+
+<center class="pix"><img src="audmix-f6.gif" border=1><br>Figure 6 - Alternative Early Current Amplifier Stages</center>
+
+<p>However, it would be remiss of me not to include the stages shown above. These are reasonable equivalents to the standard opamp stage, and work in a similar manner (they are inverting, too). The input impedance is somewhat higher than the stages shown in Figure 5 - for the transistor stage mid-band input impedance is around 20 ohms. Low frequency impedance can be improved with higher value caps for C1 and C2 if necessary. The valve stage input impedance will be higher still because there is far less open loop gain. Again, I was unable to simulate this, but I know it is the case because I've worked with valve circuits for many years.</p>
+
+<hr /><a id="s4"></a><b>4.0 - Balanced Mix Bus</b>
+<p>Because the virtual earth mixing system is extremely low impedance, it is very susceptible to induced noise current. The mix bus(es) usually run the full width of the mixer, and become extremely sensitive simply because of the length of the bus itself. Anything that generates a magnetic field that's close to the mixer will cause noise at the output. The most common types of noise are hum (from nearby transformers) and/or buzz (from transformers that supply rectifiers). If the mixer chassis is not completely shielded RF noise may also be a problem in some cases. The standard way that this type of noise is eliminated is to use a balanced mix bus. Any external noise will be injected into both the +ve and -ve mix bus, and is cancelled out by the balanced mixing amplifier. If RF is a problem, a balanced mix bus is unlikely to be very helpful, because RF will affect many other parts of the circuitry as well.</p> 
+
+<center class="pix"><img src="audmix-f7.gif" border=1><br>Figure 6 - Balanced Mix Bus &amp; Mixing Amp</center>
+
+<p>The switching shown is naturally optional. One of the nice things about virtual earth mixing (whether balanced or unbalanced) is that channels can be connected and disconnected at will. Provided there is absolutely no DC in the audio circuit, switching is generally silent. If a signal is switched while it is at maximum level, there may be a slight click. Some mixers use "soft switching" to ensure that there are no clicks or pops no matter when the signal is switched - this usually involves using FETs as switching devices. 
+
+<p>Although there is a great deal more circuitry involved to create a balanced mix bus for a large mixer, there is also a useful reduction of noise.  The mixed output has 6dB more signal output because of the balanced bus, but noise is only increased by 3dB. While 3dB lower noise may not seem like much, it is still a worthwhile improvement. The extra parts are of little consequence in a top-of-the-line mixer - these are often of the "if you have to ask the price you can't afford one" category.</p>
+
+<hr /><a id="outro"></a><b>Conclusion</b>
+<p>The virtual earth (or virtual ground) mixer stage is almost universal, and has fewer limitations than the apparently simpler passive mixing technique. Like most things in electronics, both methods are compromises. As is probably obvious by now, the benefits of the virtual earth mixer generally outweigh any disadvantages. This is shown by the fact that it is almost universal for any mixer with more than two channels.
+
+<p>For very simple mixers, simple resistor mixing stages are common and are well suited to the task. Common uses for such simple circuits are to convert a stereo signal into mono - either full range or only the bass frequencies. For any application where the separate channels need individual gain controls, then even for the simplest of mixers the virtual earth stage is preferred.
+
+<p>There is little advantage using valve (vacuum tube) circuits for mixing - although interesting from a nostalgic perspective, they don't work very well and can't be recommended. For most hobbyist applications, a simple unbalanced virtual earth mixer will do everything that is needed, and performance will be very good indeed if a reasonably good opamp is used (OPA134 or NE5534 for example).</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="../index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br /><a href="../articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';">
+	<img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott (Elliott Sound Products), and is Copyright &copy; 2010 - all rights reserved. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and Copyright &copy; 27 Sept 2010 Rod Elliott.</div>
+</body>
+</html>

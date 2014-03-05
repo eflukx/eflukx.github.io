@@ -1,0 +1,123 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="led, lighting, dimmer, 12v, lamp, motor, speed, control, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Projects - LED Lighting Dimmer/ Motor Speed Controller">
+	<!-- ESP Projects - LED Lighting Dimmer/ Motor Speed Controller -->
+	<title>Project 126</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 126&nbsp;</td></tr></table>
+
+<p align="center"><b>PWM Dimmer/ Motor Speed Controller</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pricelist.html#p126" target="_blank"><img SRC="pcb.gif" alt="PCB" border=0 align="left"></a>
+ &nbsp; <b>Please Note:</b>&nbsp; PCBs are available for this project. Click the image for details.<br>
+
+
+
+<hr><b>Introduction</b>
+<p>This is yet another project born of necessity. It's a simple circuit, but does exactly what it's designed to do - dim LED lights or control the speed of 12V DC motors. The circuit uses <acronym title="Pulse Width Modulation">PWM</acronym> to regulate the effective or average current through the LED array, 12V incandescent lamp (such as a car headlight bulb) or DC motor. The only difference between the two modes of operation is the addition of a power diode for motor speed control, although a small diode should be used for dimmers too, in case long leads are used which will create an inductive back EMF when the MOSFET switches off.
+
+<p align="center"><img src="p126-pic.jpg" border="1" alt="Photo"><br><b><small>Photo of Completed PWM Dimmer/ Speed Control</small></b></p>
+
+<p>The photo shows what a completed board looks like. Dimensions are 53 x 37mm, so it's possible to install it into quite small spaces. The parts used are readily available, and many subsitiutions are available for both the MOSFET and power diode (the latter is only needed for motor speed control). The opamps should not be substituted, because the ones used were chosen for low power and their ability to swing the output to the negative supply rail.
+
+<p>Note that if used as a motor speed controller, there is no feedback, so motor speed will change with load. For many applications where DC motors are used, constant speed regardless of load is not needed or desirable, but it is up to you to decide if this will suit your needs.</p>
+
+<hr><b>Description</b>
+<p>First, a description of PWM is warranted. As the pot is rotated clockwise, the input voltage changes linearly with rotation. At first, the voltage is such that the comparator output is just narrow spikes, which turn the MOSFET on for a very short period. Average current is low, so connected LEDs will be quite dim, or a motor will run (relatively) slowly. As the input voltage coming from the pot increases, the MOSFET is on for longer and longer, so increasing power to the load.</p>
+
+<p align="center"><img src="p126-f1.gif" border="1" alt="Figure 1"><br><b><small>Figure 1 - PWM Waveform Generation</small></b></p>
+
+<p>Figure 1 shows how the PWM principle works. The red trace is the triangle wave reference voltage, and the green trace is the voltage from the pot. When the input voltage is greater than the reference voltage, the MOSFET turns on, and current flows in the load. Because the frequency is relatively high (about 600Hz), we don't see any flicker from the LEDs, but the tone is audible from a motor that's PWM controlled. The PWM signal is shown in blue. The average current through the load is determined by the ratio of on-time to off-time, and when both are equal, the average current is exactly half of that which would be drawn with DC.</p>
+
+<p align="center"><img src="p126-f2.gif" border="1" alt="Figure 2"><br><b><small>Figure 2 - Dimmer/ Speed Controller Schematic</small></b></p>
+
+<p>The circuit is shown in Figure 2. U1 is the oscillator, and generates a triangular waveform. R4 and R5 simply set a half voltage reference, so the opamps can function around a 6V centre voltage. U2A is an amplifier, and its output is a 10V peak to peak triangle wave that is used by the comparator based on U2B. This circuit compares the voltage from the pot with the triangle wave. If the input voltage is at zero, the comparator's output remains low, and the MOSFET is off. This is the zero setting.
+
+<p>In reality, the reference triangle waveform is from a minimum of about 1.5V to a maximum of 9.5V, so there is a small section at each end of the pot's rotation where nothing happens. This is normal and practical, since we want a well defined off and maximum setting. Because of this range, for lighting applications, an industry standard 0-10V DC control signal can be used to set the light level. C-BUS (as well as many other home automation systems) can provide 0-10V modules that can control the dimmer.
+
+<p>While a 1N4004 diode is shown for D2, this is only suitable if the unit is used as a dimmer. For motor speed control, a high-current fast recovery diode is needed, such as a HFA15TB60PBF ultra-fast HEXFRED diode. There are many possibilities for the diode, so you can use whatever is readily available that has suitable ratings. The diode should be rated for at least half the full load current of the motor, and the HFA15TB60PBF suggested is good for 15A continuous, so is fine with motors drawing up to 30A.</p>
+
+<hr><b>Construction</b>
+<p>While it's certainly possible to build the dimmer on veroboard or similar, it's rather fiddly to make and mistakes are easily made. Also, be aware that because of the current the circuit can handle, you will need to use thick wires to reinforce some of the thin tracks. This is even necessary for the PCB version. Naturally, I recommend the PCB, and this is available from ESP. The board is small - 53 x 37mm, and it carries everything, including the screw terminals. The PCB is double-sided with plated-through holes, and has solder masks on both sides.
+
+<p>The MOSFET will need a heatsink unless you are using the dimmer for light loads only. It is necessary to insulate the MOSFET from the heatsink in most cases, since the case of the transistor is the drain (PWM output). For use at high current and possible high temperatures, the heatsink may need to be larger than expected. Although the MOSFET should normally only dissipate about 2W or so at 10A, it will dissipate a lot more if it's allowed to get hot. Switching MOSFETs will cheerfully go into thermal runaway and self destruct if they have inadequate heatsinking. You may also use an IGBT (insulated gate bipolar transistor) - most should have the same pinouts, and they do not suffer from the same thermal runaway problem as MOSFETs.
+
+<p>As noted above, there are many different MOSFETs (or IGBTs) and fast diodes that are usable. The IRF540 MOSFET is a good choice, and being rated 27A it has a generous safety margin. There are many others that are equally suitable - in fact any switching MOSFET rated at 10A or more, and with a maximum voltage of more than 20V is quite ok.</p>
+
+<hr><b>Testing</b>
+<p>Connect to a suitable 12V power supply. When powering up for the first time, use a 100 ohm "safety" resisor in series with the positive supply to limit the current if you have made a mistake in the wiring. The total current drain is about 2.5mA with the pot fully off, rising to 12.5mA when fully on.  Most of this current is in the LED, which is also fed from the PWM supply so you can see that everything is working without having to connect a load.
+
+<p>Make sure that the pot is fully anti-clockwise (minimum), and apply power. You should measure no more than 0.25V across the safety resistor, rising to 1.25V with the pot at maximum. If satisfactory, remove the safety resistor and install a load. High intensity LED strip lights can draw up to ~1.5A each, and this dimmer should be able to drive up to 10 of them, depending on the capabilities of the power supply and the size of the heatsink for the MOSFET.</p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2006. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott dd Mmm 2006</div>
+</body>
+</html>

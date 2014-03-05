@@ -1,0 +1,217 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="description" content="Phase Angle Vs. Transistor Dissipation">
+	<!-- Phase Angle Vs. Transistor Dissipation -->
+	<meta name="keywords" content="phase,angle,transistor,dissipation,amplifier,loudspeaker,audio,diy,fi-fi,electronic">
+	<title>Phase Angle Vs. Transistor Dissipation</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+	<style TYPE="text/css"> <!-- td { font-size: 10pt } --> </style>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Phase Angle Vs. Transistor Dissipation&nbsp;</td></tr></table>
+
+<p align="center"><small>Copyright &copy; 2005 - Rod Elliott (ESP)<br>
+Page Created 02 March 2005</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr /><a href="articles.htm" OnMouseOver="document.t1.src='arrow.gif';" OnMouseOut="document.t1.src='a1.gif';">
+<img SRC="a1.gif" NAME="t1" ALT="Index" BORDER=0 height=24 width=40></a><b>Articles Index</b>
+<br><a href="index2.html" OnMouseOver="document.t3.src='a.gif';" OnMouseOut="document.t3.src='a1.gif';">
+<img SRC="a1.gif" NAME="t3" ALT="ESP Home" BORDER=0 height=24 width=40></a><b>Main Index</b><br /><br />
+
+<hr><b>Contents</b>
+<ul>
+	<li><a href="#s1">1.0 &nbsp; Introduction</a>
+	<li><a href="#s2">2.0 &nbsp; The Loudspeaker Load</a>
+	<ul>
+		<li><a href="#s21">2.1 &nbsp; Phase Angle Vs. Transistor Dissipation</a>
+		<li><a href="#s22">2.2 &nbsp; Test Design</a>
+	</ul>
+	<li><a href="#s3">3.0 &nbsp;Conclusion</a>
+</ul>
+
+<hr><a id="s1"></a><b>1.0 - Introduction</b>
+<p>This article will help those who have built an amplifier that just blew up for no apparent reason. It will also help those who are planning to build an amplifier, either from the ESP projects pages or elsewhere. Contained herein are answers to questions such as "why can't I use the P3A amplifier at +/-56V, or a single board P68 at +/-70V". These questions are common, and it is always good to know why something is so.</p>
+
+<p>While this topic is also covered in the <a href="soa.htm">Safe Operating Area</a> article, there is less detail in this present version, making it somewhat easier to read - especially for novices. In this case, I have concentrated on the specific effects of phase, and once this is understood, I suggest that you tackle the full version above.</p>
+
+<p>While it is generally understood that a typical loudspeaker has an impedance (as opposed to resistance), the implications of this are not widely understood. Many of the designs featured on The Audio Pages appear to be over-engineered, and the number of output devices seems excessive for the claimed output power.</p>
+
+<p>This is entirely true! ... and for a very good reason ...</p>
+
+<hr><b><a id="s2"></a>2.0 - The Loudspeaker Load</b>
+<p>The problem with real loudspeakers is that they refuse to act like nice, well behaved resistors, and the impedance changes from being resistive, inductive and capacitive, depending on the frequency. Let's look at a typical speaker, whose equivalent circuit and impedance response are shown in Figures 1 and 2.</p>
+
+<p align="center"><img src="patd-f1.gif" border="1" /><br /><small><b>Figure 1 - Loudspeaker Equivalent Circuit</b></small></p>
+
+<p>While it may look complex, it is simply a reasonable representation of a typical 2-way loudspeaker, having an impedance correction network to eliminate problems caused by the tweeter's resonance, and a basic Zobel across the woofer to damp the rising impedance cause by its voicecoil inductance. The crossover network is a conventional 12dB/octave parallel design.</p>
+
+<p align="center"><img src="patd-f2.gif" border="1" /><br /><small><b>Figure 2 - Impedance Response of Simulated Speaker</b></small></p>
+
+<p>Well below resonance, the system appears mildly inductive, with the inductive reactance component rising with frequency. At resonance, the load is purely resistive, and is at a relatively high value (typically from 20 to 50 ohms).  Power at this frequency is very low - a 100W amplifier (8 ohms) will deliver less than 20W (19.6W to be exact) into an impedance of 40 ohms.</p>
+
+<p>Above resonance, the load seen by the amplifier becomes capacitive, and impedance falls rapidly, eventually 'bottoming out' at some frequency (typically around 200Hz or so). This is the loudspeaker's 'nominal impedance' as quoted by the manufacturer. The impedance then starts to rise again as the voice coil inductance becomes significant. The crossover will almost always introduce further phase anomalies, and as you will see, any time the impedance changes, so too does the phase.</p>
+
+<p>As long as the impedance is predominantly resistive, the amplifier has a relatively easy job, with voltage and current in phase, and amplifier dissipation is at the minimum possible for a given output power. The problems arise close to resonance - either above or below, where the load is highly reactive, or anywhere else where the impedance changes.  Note that a vented enclosure has a second low frequency resonant peak, and the amplifier sees exactly the same reactive loading around the peak introduced by the vent tuning.</p>
+
+<p>The worst case is that the amplifier sees either pure inductance or pure capacitance. Under those conditions, the voltage and current output from the amplifier are 180 degrees out of phase. Fortunately, this never happens with a loudspeaker.</p>
+
+<hr /><a id="s21"></a><b>2.1 - Phase Angle Vs. Transistor Dissipation</b>
+<p>Although it may seem impossible (or at least highly unlikely), the voltage and current into anything other than a resistive load will not be in phase. Capacitive loads have a 'leading' phase, where the current waveform occurs first, followed by the voltage. Inductive loads have a 'lagging' phase shift, meaning that the current lags (is behind) the voltage.</p>
+ 
+<p align="center"><img src="patd-f3.gif" border="1" /><br /><small><b>Figure 3 - Phase of Voltage Vs. Current With Reactive Load</b></small></p>
+ 
+<p>As you can see, the voltage comes first, followed by the current (lagging power factor because of inductive load).  In this case, the phase angle is a little over 45&deg;, and was simulated by placing a 700uH inductor in series with the 4 Ohm load resistor. While not exactly the same as a loudspeaker load, it is good for simulations as it enables accurate determination of the peak transistor dissipation.</p>
+
+<p>It must be understood that these conditions are steady state - the signal has to be present for a sustained period before the voltages and currents achieve their steady state values and relative phases. The actual time needed varies, based on the damping applied to the system, and many other factors, but in general, about 3 to 4 cycles will actually be enough. Normal music will easily be able to set up the necessary conditions for the voltage and current to be out of phase with any loudspeaker system. Let's have a look at the phase response of the speaker system shown in Fig 1.</p>
+
+<p align="center"><img src="patd-f4.gif" border="1" /><br /><small><b>Figure 4 - Phase Response of Simulated Speaker</b></small></p>
+
+<p>The phase varies over approximately +/-50 degrees, and while this is fairly realistic, some speakers will exceed this. The majority (and especially mid-woofers as used in most 2-way systems) will have a phase response of +/-45 degrees or so, and some will be even less. It is worth noting just how little of the frequency range appears resistive - the phase angle over the majority of the frequency range is greater than 10&deg; in one direction or the other.</p>
+
+<p>Assume a 100W amplifier and a nominal 8 ohm load. Full power output is reached at a voltage of 40V peak (28.29V RMS).  Maximum current is 40 / 8 = 5A peak or a little over 3.53A RMS. This is exactly the voltage and current at full power into a resistive load, and the peak transistor dissipation occurs at 1/2 the supply voltage.</p>
+
+<p>At an instantaneous level 20V into 8 ohms, current is 2.5A, and transistor peak dissipation is 20 * 2.5 = 50W. If voltage and current are out of phase, the power delivered to the load is decreased, and the power dissipated by the transistor is increased.</p>
+
+<p>Worst case (never achieved with any loudspeaker), is a 90 degree phase shift. This means that when the voltage across the transistors is at the minimum (turned fully on), the current is also at a minimum. That seems pretty good - zero dissipation can't be all bad. The problem is that the converse also applies, so when the voltage across the transistor is at the maximum, <u>so is the current!</u></p>
+
+<p>Assuming zero losses, that means that when the transistor has the full 40V supply across it, it is simultaneously supplying the peak current of 5A. Instantaneous dissipation is therefore 40 * 5 = 200W.</p>
+
+<p>So, where it appeared that a 50W transistor was quite adequate, it is obvious that it will fail under these conditions. Add to this the fact that transistors have a SOA (Safe Operating Area) that limits the peak dissipation to the maximum rating or less (depending on voltage and current), and it is easily seen that more powerful transistors must be used.</p>
+
+<p>Now, I stated earlier that the 'worst case' was never achieved in practice, and this is the only thing that saves us. In reality, the voice coil resistance is always in circuit, and this limits the maximum phase angle.</p>
+
+<p>Looking back to Fig. 1, you can see that the voice coil resistance is not 8 ohms as you might expect, but 6.8 ohms. This resistance is the only factor that stands between your amplifier and a 100% reactive load, and the typical phase angle as a result is a little over 45 degrees. The speaker in Fig. 1 has a maximum phase angle of about 50&deg; - not an unrealistic figure.</p>
+
+<p>At 45 degrees, the transistor peak dissipation is doubled, compared to the case with a resistive load. This means that for our 100W 8 ohm amp, the transistor dissipation will be 100W instead of 50W - any increase of phase angle over 45 degrees increases the peak dissipated power vs. the power delivered to the load.  It is fair to assume that the 'real life' worst case phase angle will be around 60 degrees, and will occur only near (above or below) resonance, or around the crossover frequency.</p>
+
+<p>Table 1 shows the relationship between phase angle (the difference between voltage and current, measured in degrees), peak power dissipated in the amplifier and average power delivered to the load, normalised to 1W.  The type of amplifier is unimportant - transistors, MOSFETs, valves or magic - all are affected equally.</p>
+
+<p>Note that peak power is <i>not</i> the average power - these are entirely different things. Average power is used to determine the heatsink requirements, but peak power is the killer of bipolar junction transistors (BJTs) due to second breakdown. MOSFETs and valves will survive these momentary peaks without complaint - BJTs will not!</p>
+
+<p>This table is for peak dissipation at the onset of clipping, and the situation is very different at worst case output level (&frac14; the maximum power, or &frac12; total voltage swing).</p>
+
+<center>
+<table width=640 border=1 style="border-collapse: collapse">
+<colgroup span=4 width="25%">
+<tr><td><b>Phase Angle</b></td><td><b>Power Factor</b></td><td><b>Power (Amp)</b></td><td><b>Power (Load)</b></td></tr>
+<tr><td>0</td><td>1.000<td>1</td><td>1</td></tr>
+<tr><td>15</td><td>0.966</td><td>1.38</td><td>0.94</td></tr>
+<tr><td>30</td><td>0.866</td><td>1.76</td><td>0.75</td></tr>
+<tr><td>45</td><td>0.707</td><td>2</td><td>0.5</td></tr>
+<tr><td>60</td><td>0.500</td><td>1.66</td><td>0.24</td></tr>
+<tr><td>75</td><td>0.259</td><td>1.2</td><td>0.08</td></tr>
+<tr><td>90</td><td>0.00</td><td>4</td><td>0</td></tr></table>
+<small><b>Table 1 - Power Factor, Normalised Amplifier/Load Dissipation Vs. Phase</b></small></center>
+
+<p>Power Factor has been included, not so much because it is something you specifically need to know, but because some knowledge of it is likely to be useful. Power factor is determined by taking the cosine of the phase angle, and is essentially a 'figure of merit' for an AC load.</p>
+
+<p>The 'magic' figure of 45&deg; is worst case with typical systems, where the transistors must dissipate double the normal peak power, while the load only receives half the power it would normally get. Note that the amplifier peak dissipation <i>appears</i> to fall after 45 degrees - this is only because of the increased impedance presented because of the reactance. While these figures are reasonably accurate, it must be understood that the situation varies depending on output power and supply voltage - there are a great many variables, and it is not practical to try to cover them all.</p>
+
+<p>The load power is interesting. Notice that at 90 degrees, there is zero power delivered to the load! There is voltage and current (referred to as VA with transformers), but no power, so no physical work is done - the speaker would be silent. This phenomenon is well known in the power industry, and is called power factor. The ideal case is a power factor of 1, where every volt and amp is converted into work - heat, light or rotation (for example).</p>
+
+<p>Obviously, the worst case is a power factor of zero. Volts and amps are readily measured, yet no work is done, and the electricity meter remains still. The majority of real loads are somewhere in between, and the loudspeaker is no exception.</p>
+
+<p>This is all the proof that is needed that a 90 degree phase shift never occurs with a loudspeaker load (i.e. the load is never pure inductance or capacitance). Although the sound output from a subwoofer at 20kHz is very low, this is due to many factors - none of which involves a power factor of zero. It is beyond the scope or intent of this article to discuss this further, so I won't.</p>
+
+<p>The essential point here is that any power amplifier must have sufficient reserve power in the output (and to a lesser extent, the driver transistors as well) devices to handle the maximum possible dissipation. In real terms, this always means more output devices than you anticipated.</p>
+
+<hr /><a id="s22"></a><b>2.2 - Test Design</b>
+<p>Let's assume that we want 100W into 4 ohms, based on the design of P3A. That means 20V RMS, or 28.2V peak. Assuming no losses, we shall use a power supply of +/-35V. Peak output transistor dissipation at 110W into a 4&Omega; resistive load is 70W, at an average of just under 23W (each transistor - 46W for the pair). This represents an easy load for the amp, and could easily lull one into a false sense of security.</p>
+
+<p align="center"><img src="patd-f5.gif" border="1" /><br /><small><b>Figure 5 - Power With Resistive Load</b></small></p>
+
+<p>Worst case power dissipation (resistive) is actually at around 0.707 of the maximum output voltage (&frac12; power), or 14V RMS. Peak transistor dissipation is still 70W, but the average power increases to a little over 28W because of the way amplifiers work (this topic is covered in greater depth in the <a href="amp-design.htm" target="_blank">Amplifier Design</a> article). This is not a large increase, but every Watt that needs to be disposed of means a greater load on the heatsink.</p>
+
+<p>It is not unreasonable to design for a worst case phase angle of 45&deg;, and as shown in the table above, power actually falls slightly above this. At 45&deg; the peak dissipation is as shown in Figure 6 - this is where things can go pear-shaped in a hurry if you underestimate the operating conditions of a real-world amplifier. Transistor dissipation just before clipping is a bit over 120W (with an average of 28W). Any increase of the supply voltage will push the repetitive peak dissipation into the danger zone - especially when the power transistors are at an elevated temperature.</p>
+
+<p>The above is based on a &plusmn;35V supply, but if you increase this to &plusmn;42V, at 4 Ohms reactive the peak dissipation will be over 200W ... the maximum rating for the transistors ... <i><u>at 25&deg;C!</u></i>. Since it is highly unlikely (impossible, more like it) that the transistor die will be maintained at 25&deg;C, the device must also be derated accordingly. Therefore, P3A <u>cannot</u> be used at 4 Ohms with a &plusmn;42V supply (something I have been claiming all along <img src="grin.gif" /> ).</p>
+
+<p>The bottom line is that to deliver 100W safely into 8 ohms, and allow 4 ohm operation, you need 400W of available transistor dissipation to ensure that the transistor SOA will not be exceeded at any time.</p>
+
+<p align="center"><img src="patd-f6.gif" border="1" /><br /><small><b>Figure 6 - Power With Reactive Load</b></small></p>
+
+<p>Now you know why P3A (for example) is designed for operation at +/-35V, and the suggested upper limit (8 Ohms only) is +/-42V.  When losses are taken into consideration, this is the absolute maximum recommended operating voltage.  Under these conditions, using 200W output transistors, it is perfectly fine if the recommended supply is used, but is at risk if you go for the upper limit.  The amp <i>might</i> be saved from destruction into 4 ohms (at the maximum voltage) by the fact that the supply voltage will collapse, and although this is common feature with many amplifiers, it is not recommended. Alternatively, you can always try your luck - it is amazing just what some people have managed to get away with, but this is not an approach that I am comfortable with.</p>
+
+<p>It is quite obvious that the heatsink is of paramount importance, as is the transistor mounting. Maintaining the lowest possible thermal resistance keeps the transistors cool, and limits the amount of derating that must be applied. Other techniques that may be used include protection circuits, but these must also take the maximum operating temperature into account to be effective. It is widely believed that protection circuits contribute additional distortion and are 'audible', even when not activated. While this is possible with some designs, there is no doubt that aggressive protection most certainly <i>is</i> audible, as evidenced by many IC power amps - these must be kept below the protection threshold at all times.</p>
+
+<hr><b><a id="s3"></a>3.0 - Conclusion</b>
+<p>While this article has taken a somewhat simplistic approach to the issue, it is a reasonable description of reality. Real loudspeakers in enclosures will invariably make the amplifier's job harder than any resistive load, and even more so with a vented box. Few loudspeakers will present anything that looks even remotely like a resistive load, so amplifier dissipation will always be worse than simple analysis would indicate.</p>
+
+<p>Of enclosures, the transmission line will usually present the easiest load to an amplifier, but unfortunately these are much larger than a conventional sealed or vented box. In all cases, a passive crossover network will also present additional phase shift. In some cases this can be extreme (usually due to poor design IMO).</p>
+
+<p>At high frequencies, the amplitude is much lower than at low and mid frequencies, and even quite radical phase shifts do not cause undue amplifier stress.</p>
+
+<p>The thing that saves some amplifiers is the power supply impedance, and careful design (hint - the cheapest alternative) ensures that there is enough power available for transients, but it will collapse sufficiently to allow for worst case conditions. This is not a good method to rely on.</p>
+
+<p>Some commercial amplifiers use a tapped power transformer, and have settings for 8 and 4 ohms. The voltage is reduced for 4 ohm operation to make sure that the transistor SOA is not exceeded. Others take a more simplistic approach (many subwoofer amps fall into this category), where the transformer is simply too small for the job. If loaded heavily and driven hard, the supply voltage will collapse because of the under-rated transformer, and the amp will survive. Fortunately, music is dynamic, so the transformer will not have to suffer a sustained overload, and will usually live a long and happy life.</p>
+
+<p>Remember, see the <a href="soa.htm">Safe Operating Area</a> article for more detail on this topic.</p>
+
+<p><small>All graphs shown were captured from <a href="http://www.simetrix.co.uk/">SIMetrix</a> circuit simulation software.</small></p>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr><a href="index2.html" OnMouseOver="document.b1.src='a.gif';" OnMouseOut="document.b1.src='a1.gif';"><img SRC="a1.gif" NAME="b1" ALT="Index" BORDER=0 height=24 width=40></a><b>Main Index</b>
+<br><a href="articles.htm" OnMouseOver="document.b2.src='a.gif';" OnMouseOut="document.b2.src='a1.gif';"><img SRC="a1.gif" NAME="b2" ALT="Articles" BORDER=0 height=24 width=40></a><b>Articles Index</b><br /><br />
+
+<table border bgcolor="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b> This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2004. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro- mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal 
+use only, and further allows that one (1) copy may be made for reference. Commercial use is prohibited without express written authorisation from Rod Elliott.</td>
+</tr></table>
+<div class="t-sml">Page created and copyright &copy; 02 Mar 2005</div>
+</body>
+</html>

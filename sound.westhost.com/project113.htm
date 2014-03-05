@@ -1,0 +1,186 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Author" content="Rod Elliott - Elliott Sound Products">
+	<meta name="keywords" content="headphone, amplifier, hi-fi, high, quality, audio, project, diy, circuit, schematic, diagram">
+	<meta name="description" content="ESP Audio Projects - Headphone amplifier for hi-fi listening. The performance of this amplifier is extremely good - just the thing for dedicated listening">
+	<!-- ESP Audio Projects - Headphone amplifier for hi-fi listening. The performance of this amplifier is extremely good - just the thing for dedicated listening -->
+	<title>Headphone Amplifier</title>
+	<link rel="StyleSheet" href="esp.css" type="text/css" media="screen, print">
+	<style TYPE="text/css"><!-- td { font-size: 10pt } th { font-size: 10pt } --> </style>
+	<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<table width="100%"><tr><td><img SRC="esp.jpg" alt="ESP Logo" height=81 width=215>
+<td align="right">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td></table>
+
+<table WIDTH="100%" BGCOLOR="blue"><tr><td class="hdrl">&nbsp;Elliott Sound Products</td>
+<td ALIGN=RIGHT class="hdrr">Project 113&nbsp;</td></tr></table>
+
+<p align="center"><b>Headphone Amplifier</b><br />
+<small>Rod Elliott (ESP)</small></p>
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+    data_track_clickback: true
+}
+</script>
+
+<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+<div class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=rode" class="addthis_button_compact">Share</a>
+<span class="addthis_separator">|</span>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_myspace"></a>
+<a class="addthis_button_google"></a>
+<a class="addthis_button_twitter"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=rode"></script>
+<!-- AddThis Button END -->
+
+<hr><a href="pcb/pp113.htm" target="blank"><img src="pcb.gif" alt="PCBs" width="33" height="26"></a>
+<img src="filler.gif" alt="" width="32" height="8">
+<small><b>PCBs are available for this project now</b></small><br>
+
+<hr><b>Introduction</b>
+<p>Firstly, I'd like to stress that the intended use of this circuit is only one of many possible applications. Apart from the obvious usage as a headphone amplifier, the circuit can be used for a range of applications where a wide bandwidth low power amplifier is needed. Some of the options include ...</p>
+
+<ul>
+	<li>Reverb drive amplifier - ideal for low and medium impedance reverb tanks</li>
+	<li>High current line driver - suitable for very long balanced lines</li>
+	<li>Low power speaker amplifier - better performance than small integrated amps</li>
+	<li> ... and of course, a headphone amp.</li>
+</ul>
+
+<p>In short, the amp can be used anywhere that you need an opamp with more output current than normally available. Since most are rated for around &plusmn;20-50mA, general purpose opamps are not suitable for driving long cables or anywhere else that a relatively high output current is needed.
+
+<p>As a headphone amplifier, this design is very similar to others on the ESP site, but the main difference is that this one (and P70) has been built and fully tested. The design is fairly standard, and every variation was checked out before arriving at the final circuit. A photo of the prototype is shown below, and at only 76 x 42mm (3 x 1.6 inches) it is very small - naturally, the heatsink is not included in the dimensions.
+
+<p>The amplifier is capable of delivering around 1.5W into 8 ohm headphones, and 2.2W into 32 ohms - this is vastly more than will ever be needed in practice. The use of a 120 Ohm output resistor is recommended, as this is supposed to be the standard source impedance for headphones. Unfortunately, many users have found that their 'phones perform better when driven from a low impedance source.</p>
+
+<p align="center"><img src="p113-pic.jpg" border="1" alt ="Photo"><br><b><small>Prototype Headphone Amplifier</small></b></p>
+
+<p>The circuit is based on an opamp, with its output current boosted by a pair of transistors. Distortion is well below my measurement threshold at all levels below clipping into any impedance. Noise is virtually non-existent - even with a compression driver held to my ear, I could barely hear any, and I couldn't hear any with headphones.</p>
+
+<table width="100%" border="1"><tr><td bgcolor="red" class="t-wht"><center><b>WARNING</b></center>
+<big>Headphones are rated in dB SPL at 1mW, and this amplifier (like many other similar headphone amps) is capable of producing <i>extreme</i> SPLs. The levels obtainable are sufficient to cause almost instantaneous <i>permanent</i> hearing damage!  Never operate the amp at very high levels, and never switch the amplifier on with signal while wearing you headphones.<br><br>Always start with the volume control at minimum, and gradually increase the level until it is comfortable, but not too loud. Because of the very low distortion, it is easy to increase the level too far without noticing. Your ears are precious - safeguard them at all times.</big></td></tr>
+</table>
+
+<p>Note the warning above - this is serious. Most headphones are capable of at least 94dB SPL at 1 mW, with some as high as 107dB SPL. Even 10mW is enough to create sound levels capable of causing hearing damage, so you must be very careful to avoid damaging levels.</p>
+
+<center>
+<table width="35%" border=1 style="border-collapse: collapse">
+<colgroup span=2 width="50%">
+<tr><td><b>Continuous dB SPL</b><td><b>Maximum Exposure Time</b>
+<tr><td>85</td><td>8 hours</td></tr>
+<tr><td>88</td><td>4 hours</td></tr>
+<tr><td>91</td><td>2 hours</td></tr>
+<tr><td>94</td><td>1 hour</td></tr>
+<tr><td>97</td><td>30 minutes</td></tr>
+<tr><td>100</td><td>15 minutes</td></tr>
+<tr><td>103</td><td>7.5 minutes</td></tr>
+<tr><td>106</td><td>&lt; 4 minutes</td></tr>
+<tr><td>109</td><td>&lt; 2minutes</td></tr>
+<tr><td>112</td><td>~ 1 minute</td></tr>
+<tr><td>115</td><td>~ 30 seconds</td></tr>
+</table><small><b>Table 1 - Maximum Exposure to SPL</b></small></center>
+
+<p>Note that the exposure time is for any 24 hour period, and is halved for each 3dB SPL above 85dB. The above shows the accepted standards for recommended permissible exposure time for continuous time weighted average noise, according to NIOSH (National Institute for Occupational Safety and Health) and CDC (Centers for Disease Control) [<a href="ref">1</a>]. Although these standards are US based, they apply pretty much equally in most countries - hearing loss does not respect national boundaries.</p>
+
+<hr><b>Description</b>
+<p>The amplifier itself is fairly conventional, and is very similar to another shown on this site (see Project 24). This amplifier does not include the active volume control, because in general it is far easier to get a good log pot (or simply 'fake' the pot's law as described in Project 01). Likewise, it does not include the cross-feed described in Project 109. If this is desired, it is very easy to implement on a small piece of tag board, or even 'sky hook' the few components off the bypass switch. Full details of how to do this will be included in the construction guide when PCBs are available.
+
+<p>The output transistors are biased using only resistors, rather than constant current sources. Extensive testing showed that using current sources made no discernible difference to performance, but increased the complexity and PCB size. Using separate caps for each biasing diode <i>does</i> make a difference though - and although it is relatively minor, the use of the two caps is justified IMHO.
+
+<p>The bias diodes should be 1N4148 or similar - power diodes are <i>not</i> recommended, as their forward voltage is too low. This may result in distortion around the crossover region, where one transistor turns off and the other on. As shown, crossover distortion is absolutely unmeasurable with the equipment I have available.</p>
+
+<p align="center"><img src="p113-f1.gif" border="1" alt ="Figure 1"><br><b><small>Figure 1 - Headphone Amplifier Circuit Diagram</small></b></p>
+
+<p>Above is the schematic of one channel. Resistors and caps use the suffix 'R' for the right channel. The second half of the dual opamp powers the right channel. Note that the volume control shown is optional, and is not on the PCB. If needed, it may be mounted in a convenient location and the output connected to the inputs of the  board as shown. D1 and D2 (L and R) are 1N4148 or similar.
+
+<p>One of the reasons the amp is so quiet is that the entire board runs from a regulated supply, so hum (in particular) is eliminated. Although an unregulated supply can be used, this is not recommended. The supply should be separate from that used for your preamp, because of the relatively high current drawn by the amplifier (at least with low impedance 'phones). A P05 preamp supply can be used, and will ensure optimum performance.
+
+<p>The prototype amplifier has flat frequency response from 10Hz to over 100kHz. Distortion is below my measurement threshold with any level or load impedance, and output impedance is almost immeasurably low. Your headphones may be designed to operate from a 120&Omega; source impedance (many are), so this may be added if it improves sound quality. Adding any series resistance will reduce the available power, but it is already far greater than you can use. Without series resistance, the minimum power into various load impedances is given below (based on &plusmn;15V supplies).</p>
+
+<center>
+<table width="35%" border=1 style="border-collapse: collapse">
+<colgroup span=3 width="33%">
+<tr><td><b>Impedance</b><td><b>Power (Direct)</b><td><b>120 Ohm Feed</b>
+<tr><td>8 Ohms</td><td>1.5 W</td><td>35 mW</td></tr>
+<tr><td>32 Ohms</td><td>2.2 W</td><td>99 mW</td></tr>
+<tr><td>65 Ohms</td><td>1.1 W</td><td>136 mW</td></tr>
+<tr><td>120 Ohms</td><td>595 mW</td><td>149 mW</td></tr>
+<tr><td>300 Ohms</td><td>238 mW</td><td>121 mW</td></tr>
+<tr><td>600 Ohms</td><td>119 mW</td><td>82 mW</td></tr>
+</table><small><b>Table 2 - Output Power Vs. Impedance</b></small></center>
+
+<p>This is not especially comprehensive, but will cover the majority of headphones in common use. In all cases, the available power is more than needed ... not so you can damage your hearing, but to allow adequate headroom for transients.</p>
+
+<hr><b>Construction</b>
+<p>As noted, PCBs will be available for this project soon, and this is the recommended way to make the amplifier. While it may be possible to build it using Veroboard or similar, there is a high risk that it will oscillate because of the very wide bandwidth of the amplifier. A capacitor may be added in parallel with R4 (L and R) to reduce the bandwidth if stability problems are encountered. Although I used an NE5532 opamp for the prototype, the circuit will also work with a TL072, but at reduced power. You may also substitute an OPA2134 or your favourite device, taking note of the following ...</p>
+
+<table border="0" width="100%"><tr>
+<td valign="top"><img src="opamp.gif"></td>
+<td valign="top"><p>The standard pinout for a dual opamp is shown on the left. If the opamps are installed backwards, they will almost certainly fail, so be careful.</p>
+<p>The suggested NE5532 opamp was used for the prototype, and performance is exemplary. Devices such as the TL072 will be quite satisfactory for most work, but if you prefer to use ultra low noise or wide bandwidth devices, that choice is yours.</p></td></tr></table>
+
+<p>Construction is fairly critical. Because of the wide bandwidth of the NE5532 and many other audio grade opamps, the amplifier may oscillate (the prototype initially had an oscillation at almost 500kHz), so care is needed to ensure there is adequate separation between inputs and outputs. Even a small capacitive coupling between the two may be enough to cause problems.</p>
+
+<p>As shown in the photo, this amplifier needs a heatsink. While it can operate without one at low power using high impedance headphones, you need to plan for all possibilities (after all, you may purchase low impedance 'phones sometime in the future). The heatsink does not need to be massive, and the one shown above is fine for normal listening levels. An aluminium bracket may be used to attach to the chassis - I recommend 3mm material. Note that the heatsink should always be earthed (grounded).</p>
+
+<p>The output transistors <i>must</i> be insulated from the heatsink. Sil-Pads&trade; are quite suitable because of the relatively low dissipation, but greased mica or Kapton can be used if you prefer. If you use the suggested 3mm aluminium, you can drill and tap threads into the heatsink, removing the need for nuts.</p>
+
+<hr><b>Testing</b>
+<p>Connect to a suitable power supply - remember that the supply earth (ground) must be connected! When powering up for the first time, use 56 ohm "safety" resistors in series with each supply to limit the current in case you have made a mistake in the wiring. These will reduce the supply voltage considerably because of the bias current of the output transistors.</p>
+
+<p>If the voltage at the amplifier supply pins is greater than &plusmn;6V and the output voltage is close to zero, then the amplifier is probably working fine. If you have an oscilloscope, check for oscillation at the outputs ... at <i>all</i> volume control settings. Do this without connecting your headphones - if the amp oscillates, it may damage them.</p>
+
+<p>Once you are sure that all is well, you may remove the safety resistors and permanently wire the amplifier into your chassis.</p>
+
+<hr><a name="ref"></a><b>References</b><br>
+<ol>
+	<li>Information Center - <a href="http://www.dangerousdecibels.org/hearingloss.cfm" target="_blank">Hearing Loss</a></li>
+</ol>
+
+<hr />
+<center>&nbsp;
+<script type="text/javascript"><!--
+google_ad_client = "pub-1947877433449191";
+/* 468x60, created 20/08/10 */
+google_ad_slot = "7119701939";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<hr /><a href="projects.htm" OnMouseOver="document.b1.src='arrow.gif';" OnMouseOut="document.b1.src='a1.gif';">
+<img src="a1.gif" name="b1" alt="Index" border=0 height=24 width=40></a><b>Projects Index</b>
+<br><a href="index2.html" OnMouseOver="document.b3.src='a.gif';" OnMouseOut="document.b3.src='a1.gif';">
+<img src="a1.gif" name="b3" alt="ESP Home" border=0></a><b>Main Index</b><br /><br />
+
+<table BORDER BGCOLOR="black">
+<tr><td class="t-wht"><a id="copyright"></a><b>Copyright Notice.</b>This article, including but not limited to all text and diagrams, is the intellectual property of Rod Elliott, and is Copyright &copy; 2005. Reproduction or re-publication by any means whatsoever, whether electronic, mechanical or electro-mechanical, is strictly prohibited under International Copyright laws. The author (Rod Elliott) grants the reader the right to use this information for personal use only, and further allows that one (1) copy may be made for reference while constructing the project. Commercial use is prohibited without express written authorisation from Rod Elliott.</td></tr>
+</table>
+<div class="t-sml">Page Created and Copyright &copy; Rod Elliott 08 Dec 2005</div>
+</body>
+</html>
