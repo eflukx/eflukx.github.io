@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
@@ -6,62 +6,62 @@
 <link rel="start" title="Site Top" href="../../index_j.html">
 <link rel="up" title="Tech Notes" href="../../cc.html">
 <link rel="stylesheet" href="../junk.css" type="text/css" media="screen" title="ELM Default">
-<title>I/F���t�^LPC2000��̎��H</title>
+<title>I/F誌付録LPC2000基板の試食</title>
 </head>
 
 <body>
 <div class="header">
 <p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
-<h1>I/F���t�^LPC2000��̎��H</h1>
+<h1>I/F誌付録LPC2000基板の試食</h1>
 <p class="hdd"><small><a href="http://babel.altavista.com/babelfish/trurl_pagecontent?lp=ja_en&amp;url=http%3A%2F%2Felm-chan.org%2Fjunk%2Fcq_lpc%2Freport.html">Translate this page</a> with Babelfish Translation</small><br>2009. 3. 25</p>
 <hr class="hds">
 </div>
 
 <div class="abst">
 <img class="rset" src="pcb1.jpeg" alt="lpc2k pcb" width="409" height="307">
-<p>�����������ꂽ<a href="http://www.cqpub.co.jp/interface/default.asp">�C���^�[�t�F�[�X��</a>(2009/5)�ɕt�^�ŃW�����N����t���Ă����̂ŁA�������H���Ă݂܂����B���ڃf�o�C�X�́ANXP��32-bit RISC�}�C�R��<em>LPC2388</em>�ł��B�����72MHz�����ARM7TDMI�R�A��������A512K-8K(=496K)�o�C�g�̃t���b�V���E�������A64K+16K+16K+2K(=98K)�o�C�g��SRAM�ƖL�x�Ȏ��Ӌ@�\��144�s��TQFP�ɏW�ς��ꂽ�}�C�R���E�`�b�v�ł��BARM7TDMI�͌��݂̂Ƃ���g�ݍ��݌���32�r�b�g�E�A�[�L�e�N�`���Ƃ��Ă͎�����̕W���Ƃ������鑶�݂ŁANXP�̂ق��ɂ�STM��Atmel�Ȃǔ��ɑ����̃}�C�R���E���[�J���̗p���Ă��܂��B�g�ݍ��݉��Ȃ�K���}�X�^���Ă����ׂ��}�C�R���Ƃ�����ł��傤�B</p>
-<p>�t�^��ɂ�USB-�V���A���ϊ�IC���ڂ��Ă��ēd����USB�o�R�ŋ��������̂ŁA��y�Ɏ����ł���悤�ɂȂ��Ă��܂��B�܂��A����͂��̂܂܂̏�Ԃł�(����������)����ɓ��삵���̂ŁA�ŋ߂̕t�^��̒��ł͏o�����ǂ��悤�ł��B���̂��߁A���S�҂ɂ����S�H�ł��BLPC2388�͂Ƃɂ��������y���t�F�������Ă񂱐����RAM���L�x�Ȃ̂ŁA���낢��c�u�V�̌����W�����N����Ǝv���܂��B�������͑�l�������Ă����̂����������m��܂���B</p>
+<p>今月発売された<a href="http://www.cqpub.co.jp/interface/default.asp">インターフェース誌</a>(2009/5)に付録でジャンク基板が付いてきたので、早速試食してみました。搭載デバイスは、NXPの32-bit RISCマイコン<em>LPC2388</em>です。これは72MHz動作のARM7TDMIコアを内蔵し、512K-8K(=496K)バイトのフラッシュ・メモリ、64K+16K+16K+2K(=98K)バイトのSRAMと豊富な周辺機能が144ピンTQFPに集積されたマイコン・チップです。ARM7TDMIは現在のところ組み込み向け32ビット・アーキテクチャとしては事実上の標準とも言える存在で、NXPのほかにもSTMやAtmelなど非常に多くのマイコン・メーカが採用しています。組み込み屋なら必ずマスタしておくべきマイコンといえるでしょう。</p>
+<p>付録基板にはUSB-シリアル変換ICが載っていて電源もUSB経由で供給されるので、手軽に実験できるようになっています。また、今回はそのままの状態でも(改造せずに)安定に動作したので、最近の付録基板の中では出来が良いようです。このため、初心者にも安心？です。LPC2388はとにかく内蔵ペリフェラルがてんこ盛りでRAMも豊富なので、いろいろツブシの効くジャンク基板だと思います。今月号は大人買いしておくのもいいかも知れません。</p>
 </div>
 
 <div class="para">
-<h3>�������炦(H/W)</h3>
-<p>����{�ɒԂ����܂�Ă���֌W��A�w�̍������i�͍ڂ��Ă��܂���B���������āA���Ɏ������̂����O�ɗp�ӂ��Ēǉ��������Ă����K�v������܂��B</p>
+<h3>下ごしらえ(H/W)</h3>
+<p>基板が本に綴じ込まれている関係上、背の高い部品は載っていません。したがって、次に示すものを事前に用意して追加実装しておく必要があります。</p>
 <ul>
-<li>CN5 USB-B�R�l�N�^ (PC��USB-�V���A���Ƃ��Đڑ�����ꍇ)</li>
-<li>CN6 USB-A�R�l�N�^ (USB�f�o�C�X��ڑ�����ꍇ)</li>
-<li>CN7 USB-B�R�l�N�^ (PC��USB�f�o�C�X�Ƃ��Đڑ�����ꍇ)</li>
-<li>JP2,JP5 �W�����p (���[�h�A���Z�b�g)</li>
-<li>CN3 20x2�s���E�w�b�_ (�������E�J�[�h�AEthernet����ڂ���ꍇ)</li>
-<li>CN1,CN2 20x2�\�P�b�g�E�w�b�_ (�g���{�[�h�ɍڂ���ꍇ)</li>
+<li>CN5 USB-Bコネクタ (PCにUSB-シリアルとして接続する場合)</li>
+<li>CN6 USB-Aコネクタ (USBデバイスを接続する場合)</li>
+<li>CN7 USB-Bコネクタ (PCにUSBデバイスとして接続する場合)</li>
+<li>JP2,JP5 ジャンパ (モード、リセット)</li>
+<li>CN3 20x2ピン・ヘッダ (メモリ・カード、Ethernet基板を載せる場合)</li>
+<li>CN1,CN2 20x2ソケット・ヘッダ (拡張ボードに載せる場合)</li>
 </ul>
-<p>�s���E�w�b�_�A�\�P�b�g�E�w�b�_�AUSB�R�l�N�^�͏H���ɂ�����̂������܂��BCN1��CN2�̃Y����150&mu;m���x�ɉ��P?����Ă���̂ŁA�ƍ���Ԃł͂񂾕t������΃v���g��ɂ��܂��ڂ��邱�Ƃ��ł��܂��B���̂ق��ARTC�̎���������ꍇ(���̃��|�[�g�ł͎g�p���Ȃ�)�́AX2�Ɏ��v�N���X�^��(32768Hz,C<small>L</small>=12.5pF)��t���܂��B�������AV<small>BAT</small>�s����V<small>DD</small>�ɒ�������Ă���̂ŁA�c�O�Ȃ���o�b�N�A�b�v���ꂽRTC�Ƃ��Ďg�����Ƃ͂ł��܂���B</p>
+<p>ピン・ヘッダ、ソケット・ヘッダ、USBコネクタは秋月にあるものが合います。CN1とCN2のズレは150&mu;m程度に改善?されているので、嵌合状態ではんだ付けすればプロト基板にうまく載せることができます。このほか、RTCの実験をする場合(このレポートでは使用しない)は、X2に時計クリスタル(32768Hz,C<small>L</small>=12.5pF)を付けます。ただし、V<small>BAT</small>ピンがV<small>DD</small>に直結されているので、残念ながらバックアップされたRTCとして使うことはできません。</p>
 </div>
 
 <div class="para">
-<h3>�������炦(S/W)</h3>
-<p>�t�^�ɂ͊�̂ق��ɊJ����(IAR��C�R���p�C���A�f�o�b�K�A�t���b�V���������݃c�[����)��USB�h���C�o(CP210x�p)�̓�����CDROM��6�����ɕt���Ă����̂ŁA������PC�ɃC���X�g�[�����Ă����܂��B�����AIAR�̃c�[���͎��p�ł̂��ߎg�p������R�[�h�E�T�C�Y�����������A���p����p�I�ȃv���W�F�N�g�ɂ͎g���܂���B���̃��|�[�g�ł̓R�[�h�E�T�C�Y��90KB�ȏ�ɂȂ�̂ŁA�J���c�[����WinARM(Windows�ɈڐA���ꂽarm-gcc)���g�p���܂��B</p>
+<h3>下ごしらえ(S/W)</h3>
+<p>付録には基板のほかに開発環境(IARのCコンパイラ、デバッガ、フラッシュ書き込みツール等)とUSBドライバ(CP210x用)の入ったCDROMが6月号に付いてきたので、これらをPCにインストールしておきます。ただ、IARのツールは試用版のため使用条件やコード・サイズ制限がきつく、商用や実用的なプロジェクトには使えません。このレポートではコード・サイズが90KB以上になるので、開発ツールにWinARM(Windowsに移植されたarm-gcc)を使用します。</p>
 </div>
 
 <div class="para">
-<h3>�H��</h3>
+<h3>食す</h3>
 <img class="rset" src="pcb34.jpeg" alt="mp3player" width="355" height="266">
-<p>����LED�̃t���b�V���ŏI���ł͗]��ɂ��܂�Ȃ��̂ŁA������x�̋@�\���������v���W�F�N�g�Ƃ���MP3�v���[���̎��������Ă݂܂����B���������΁A<a href="../cq_v850/report.html">�O���V850���</a>�̂Ƃ��̃T���v���E�v���W�F�N�g��MP3�v���[���ł�����(^_^;�B���̃v���W�F�N�g�ł͓����y���t�F�����̂����AGPIO�A�^�C�}�AUART�ASSI�AMCI�AGPDMA�AADC�Ɗ��荞�݂��g���Ă��܂��B</p>
-<p>MP3�v���[������������ɂ́A�������E�J�[�h�E�\�P�b�g��MP3�f�R�[�_�E�`�b�v��ڑ�����K�v������܂��B�����̃A�^�b�`�����g�Ƃ��āAMP3�f�R�[�_���V850��Ŏg�������̂����̂܂ܗ��p���Ă��܂��B�������E�J�[�h���MMC/SD���[�h�Ŏg�p���邽�ߐV���ɍ쐬���܂��B</p>
-<p>�T���v���E�v���W�F�N�g�́AFatFs���W���[���̃T���v����MP3�v���[���̋@�\(�^�X�N)�𑫂��������̂�����v���W�F�N�g�ł�(^_^;�B�Đ������f�o�b�O�E���j�^�̃t�@�C������R�}���h�����s�ł��܂����A�݂��Ɋ�����悤�Ȑ��������Ɖ����r�؂ꂽ�肵�܂��B�t�@�[���E�F�A���r���h�����珑�����݃c�[����HEX�t�@�C�����t���b�V���E�������ɏ������݂܂��BJP2���V���[�g������ԂŃ��Z�b�g�����������ISP���[�h�Ɉڍs����̂ŁA���̌㏑�����݋@�\���N�����܂��B�c�[���̑��삪�߂�ǂ��ꍇ�͑����<a href="../../works/sp78k/report.html">LPCSP</a>���g���Ɨǂ��ł��傤�B�f�o�C�X�E�^�C�v�������F�����AAVRSP��SP850ES�Ɠ��l��D&amp;D�ŏ������߂܂��B�ȉ���MP3�v���[���̓���d�l�Ǝ����������܂��B��H�}���̃R�l�N�^�̂Ƃ���ɋL������Ă���L���́A���̃v���W�F�N�g�ł̐ڑ���(�t�^��̒[�q�ԍ�)�ł��B</p>
+<p>基板上のLEDのフラッシュで終わりでは余りにもつまらないので、ある程度の機能を持ったプロジェクトとしてMP3プレーヤの実験をしてみました。そういえば、<a href="../cq_v850/report.html">前回のV850基板</a>のときのサンプル・プロジェクトもMP3プレーヤでしたね(^_^;。このプロジェクトでは内蔵ペリフェラルのうち、GPIO、タイマ、UART、SSI、MCI、GPDMA、ADCと割り込みを使っています。</p>
+<p>MP3プレーヤを実験するには、メモリ・カード・ソケットとMP3デコーダ・チップを接続する必要があります。これらのアタッチメントとして、MP3デコーダ基板はV850基板で使ったものをそのまま流用しています。メモリ・カード基板はMMC/SDモードで使用するため新たに作成します。</p>
+<p>サンプル・プロジェクトは、FatFsモジュールのサンプルにMP3プレーヤの機能(タスク)を足しただけのやっつけプロジェクトです(^_^;。再生中もデバッグ・モニタのファイル操作コマンドを実行できますが、互いに干渉するような制御をすると音が途切れたりします。ファームウェアをビルドしたら書き込みツールでHEXファイルをフラッシュ・メモリに書き込みます。JP2をショートした状態でリセットを解除するとISPモードに移行するので、その後書き込み機能を起動します。ツールの操作がめんどい場合は代わりに<a href="../../works/sp78k/report.html">LPCSP</a>を使うと良いでしょう。デバイス・タイプを自動認識し、AVRSPやSP850ESと同様にD&amp;Dで書き込めます。以下にMP3プレーヤの動作仕様と資料を示します。回路図中のコネクタのところに記入されている記号は、このプロジェクトでの接続先(付録基板の端子番号)です。</p>
 <ul>
-<li>�Ή��t�H�[�}�b�g: MP3(�`320kbps)�AADPCM(�`384kbps)�ALPCM(�`1536kbps)</li>
-<li>�Ή����f�B�A: MMC/SDSC/SDHC (FAT12/16/32)</li>
-<li>���[�g�E�f�B���N�g�����ɂ���f�B���N�g�����ꂼ����u�A���o���v�Ƃ��Ĉ���</li>
-<li>�ő�50�A���o���A1�A���o��������100�g���b�N�܂�</li>
-<li>�Đ����͑S�A���o���̑S�g���b�N�𖳌����[�v�A�e�A���o���E�g���b�N�̓t�@�C�����Ń\�[�g</li>
-<li>PLAY�{�^���ōŏ��̃A���o���̐擪�g���b�N����X�^�[�g</li>
-<li>�Đ�����PLAY�{�^���Ń|�[�Y/�ĊJ</li>
-<li>NEXT�{�^���Ŏ��̃g���b�N�A�_�u���N���b�N�Ŏ��̃A���o���̐擪�g���b�N��</li>
-<li>PREV�{�^���őO�̃g���b�N�A�_�u���N���b�N�őO�̃A���o���̐擪�g���b�N��</li>
-<li>�{���E���ŉ��ʒ���</li>
-<li>STOP�{�^���Œ�~</li>
+<li>対応フォーマット: MP3(～320kbps)、ADPCM(～384kbps)、LPCM(～1536kbps)</li>
+<li>対応メディア: MMC/SDSC/SDHC (FAT12/16/32)</li>
+<li>ルート・ディレクトリ下にあるディレクトリそれぞれを「アルバム」として扱う</li>
+<li>最大50アルバム、1アルバム当たり100トラックまで</li>
+<li>再生順は全アルバムの全トラックを無限ループ、各アルバム・トラックはファイル名でソート</li>
+<li>PLAYボタンで最初のアルバムの先頭トラックからスタート</li>
+<li>再生中のPLAYボタンでポーズ/再開</li>
+<li>NEXTボタンで次のトラック、ダブルクリックで次のアルバムの先頭トラックへ</li>
+<li>PREVボタンで前のトラック、ダブルクリックで前のアルバムの先頭トラックへ</li>
+<li>ボリウムで音量調整</li>
+<li>STOPボタンで停止</li>
 </ul>
-<p><a href="sock_decode.jpeg">�\�P�b�g��ƃf�R�[�_���</a> | <a href="mmc2.png">�\�P�b�g���H�}</a> | <a href="vs1011e.png">�f�R�[�_���H�}</a> | <a href="mplpc.zip">�t�@�[���E�F�A(WinARM�v���W�F�N�g)</a></p>
+<p><a href="sock_decode.jpeg">ソケット基板とデコーダ基板</a> | <a href="mmc2.png">ソケット基板回路図</a> | <a href="vs1011e.png">デコーダ基板回路図</a> | <a href="mplpc.zip">ファームウェア(WinARMプロジェクト)</a></p>
 </div>
 
 <p class="foot"><img alt="Sign" src="../../p/sign.png"></p>

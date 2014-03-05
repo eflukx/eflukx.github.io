@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
@@ -6,78 +6,78 @@
 <link rel="start" title="Site Top" href="../../index_j.html">
 <link rel="up" title="Tech Notes" href="../../cc.html">
 <link rel="stylesheet" href="../junk.css" type="text/css" media="screen" title="ELM Default">
-<title>L�`�J��printf�ƃf�o�b�O��</title>
+<title>Lチカとprintfとデバッグと</title>
 </head>
 
 <body>
 <div class="header">
 <p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
-<h1>L�`�J��printf�ƃf�o�b�O��</h1>
+<h1>Lチカとprintfとデバッグと</h1>
 <p class="hdd"><small><a href="http://www.microsofttranslator.com/bv.aspx?from=ja&to=en&a=http://elm-chan.org/junk/ledebug/report.html">Translate this page</a> with Microsoft Translator</small><br>2011. 6. 20</p>
 <hr class="hds">
 </div>
 
 <div class="abst">
 <img class="rset" src="led.jpeg" alt="" width="295" height="250">
-<p>LED��_��(�`�J�`�J)�����邱�Ƃ�L�`�J�ƌ����܂��B�d�q�H��A���Ƀ}�C�R����H�ɂ����Ă͎n�߂̈���A�܂�A�v���O���~���O����Ō���<tt>"Hello World!"</tt>�ƌ����Ă��܂��B���̃W�����N�E���|�[�g�ł�L�`�J����}�C�R���E�V�X�e���ɂ�����f�o�b�O��@�Ɏ���܂ł��ȒP�ɉ�����܂��B</p>
+<p>LEDを点滅(チカチカ)させることをLチカと言います。電子工作、特にマイコン回路においては始めの一歩、つまり、プログラミング言語で言う<tt>"Hello World!"</tt>と言われています。このジャンク・レポートではLチカからマイコン・システムにおけるデバッグ手法に至るまでを簡単に解説します。</p>
 </div>
 
 <div class="para">
-<h3>L�`�J�ւ̓�</h3>
-<p><tt>Hello World!</tt>�����Ƃ͌����Ă��APC��̂���Ƃ͈Ⴂ�AL�`�J�ɓ��B����܂łɂ͎��Ɏ����悤�ɃN���A���Ȃ���΂Ȃ�Ȃ��n�[�h�����������񂠂�܂��B</p>
+<h3>Lチカへの道</h3>
+<p><tt>Hello World!</tt>相当とは言っても、PC上のそれとは違い、Lチカに到達するまでには次に示すようにクリアしなければならないハードルがたくさんあります。</p>
 <ol>
-<li>�V�����n�[�h�E�F�A(�}�C�R�����)�����(����܂��͍w��)����B</li>
-<li>���̃}�C�R���ɑΉ������J������PC��ɍ\�z����B</li>
-<li>�}�j���A���𗊂��L�`�J�E�v���O�������쐬����B</li>
-<li>������r���h(�R���p�C���A�����N)���āA�o�C�i�����쐬����B</li>
-<li>������^�[�Q�b�g(�}�C�R��)�ɏ������ށB</li>
-<li>�^�[�Q�b�g��Ńv���O����������AL�`�J����!</li>
+<li>新しいハードウェア(マイコン基板)を入手(自作または購入)する。</li>
+<li>そのマイコンに対応した開発環境をPC上に構築する。</li>
+<li>マニュアルを頼りにLチカ・プログラムを作成する。</li>
+<li>それをビルド(コンパイル、リンク)して、バイナリを作成する。</li>
+<li>それをターゲット(マイコン)に書き込む。</li>
+<li>ターゲット上でプログラムが走り、Lチカ完成!</li>
 </ol>
-<p>�܂��̓n�[�h�E�F�A���Ȃ����Ƃɂ͉����n�܂�Ȃ��̂ŁA���i�𔃂��Ă��ă}�C�R�����g�ݗ��Ă܂��B�d�q�H��̒��j�ƂȂ��Ƃł����A����҂ɂƂ��Ă͂����Ń��^�C�����邱�Ƃ�������(��)�ł��B�ŋ߂͊�{�I�ȋ@�\��g�ݍ��񂾏o�������̊�����������Ă���̂ŁA����҂݂̂Ȃ炸�㋉�҂�������w�����邱�Ƃ������悤�ł��B�ǂ���ɂ��Ă���ԂƂ�����������̂ŁA�Ⴍ�͂Ȃ��n�[�h���Ƃ����܂��B</p>
-<p>���ɊJ������PC��ɃC���X�g�[�����A�v���O�������J���ł�������������܂��B�ŋ߂̓}�C�R���E���[�J���@�\�𐧌��������p��(�Ƃ����Ă���Ŏg���ɂ͏\���ȋ@�\)��񋟂��邱�Ƃ������A�����ꍇ������GCC���T�|�[�g���Ă���̂ŁA�����𗘗p����Ζ����ŊJ�������\�z�ł��܂��B</p>
-<p>�����Ď��ۂ�L�`�J�E�v���O�������쐬���܂��B���ꂪ�ő�̓�ւŁA�}�C�R���̃}�j���A��(�p�������Ȃ����Ƃ�����)��ǂ�ł��̋@�\�𗝉����v���O�����ł���K�v������܂��B�p�ꂪ���Ȃ�}�C�R���U���{�𕹂��ēǂނ̂��ǂ��ł��傤���ǁA��{�͌��T�ł��B�܂��A�s���̓d���𑀍삷�邽�߁AGPIO�̋@�\��ݒ肵���䂵�Ȃ���΂Ȃ�܂���B�����Đ��m�Ȏ�����LED��_�ł����邽�߁A�^�C�}���荞�݂ɂ��^�C�~���O������K�v�ɂȂ�܂��B���̂悤�ɁAL�`�J�����ł����Ȃ��Ƃ�GPIO�Ɗ��荞�ݎ���̗����͕K�{�ł��B���d�����̃X�^�[�g�A�b�v�E���[�`�����p�ӂ���Ă��Ȃ��ꍇ�́A�v���Z�b�T�E�A�[�L�e�N�`����u�[�g�E�v���Z�X�̒m�����K�v�ɂȂ�܂��B</p>
-<p>�쐬�����v���O�����E�o�C�i����ΏۂƂ���}�C�R��(�^�[�Q�b�g)�ɏ������݂܂��B8�r�b�g�E�}�C�R���ł͏������݂ɓ���ȑ��u(���C�^�Ƃ�ISP�P�[�u���ƌĂ΂��)�Ƃ��̐���c�[�����K�v�ŁA�n�[�h�E�G�@���l�Ɏ��삩�w�����ē��肵�Ă����K�v������A������x�̃R�X�g��������܂��B32�r�b�g�E�}�C�R���̑����̓��C�^�͕K�v����܂���B</p>
-<p>�����āA�^�[�Q�b�g�����s���[�h�ŋN�����AL�`�J������m�F���܂��B�s�K�ɂ����܂������Ȃ�������A�Ӑ}�������������܂Ńf�o�b�O���J��Ԃ��܂��B</p>
-<p>������L�`�J�ȂǂƏ��n���ɂ���邱�Ƃ�����悤�ł����A����Ɏ���܂łɂ̓}�C�R���E�V�X�e���̊J���ɍŒ���K�v�ȃv���Z�X���S�Ċ܂܂�Ă���̂ł��B��l��L�`�J��B���ł�����A���͂₻�̃}�C�R���̃}�X�^�͊m���Ȃ��̂ƌ����Ă��ߌ��ł͂���܂���B���S���ăW�����N���ɕ��荞��ŐV���ȃ}�C�R���ł�L�`�J�ɐi�ނ��Ƃ��ł��܂��B</p>
+<p>まずはハードウェアがないことには何も始まらないので、部品を買ってきてマイコン基板を組み立てます。電子工作の中核となる作業ですが、入門者にとってはここでリタイヤすることもある難関(笑)です。最近は基本的な機能を組み込んだ出来合いの基板が安く売られているので、入門者のみならず上級者もそれを購入することが多いようです。どちらにしても手間とお金がかかるので、低くはないハードルといえます。</p>
+<p>次に開発環境をPC上にインストールし、プログラムを開発できる環境を準備します。最近はマイコン・メーカが機能を制限した試用版(といっても趣味で使うには十分な機能)を提供することが多く、無い場合も大抵はGCCがサポートしているので、これらを利用すれば無償で開発環境を構築できます。</p>
+<p>そして実際にLチカ・プログラムを作成します。これが最大の難関で、マイコンのマニュアル(英文しかないことが多い)を読んでその機能を理解しプログラムできる必要があります。英語が苦手ならマイコン攻略本を併せて読むのも良いでしょうけど、基本は原典です。まず、ピンの電圧を操作するため、GPIOの機能を設定し制御しなければなりません。そして正確な周期でLEDを点滅させるため、タイマ割り込みによるタイミング制御も必要になります。このように、Lチカだけでも少なくともGPIOと割り込み周りの理解は必須です。お仕着せのスタートアップ・ルーチンが用意されていない場合は、プロセッサ・アーキテクチャやブート・プロセスの知識も必要になります。</p>
+<p>作成したプログラム・バイナリを対象とするマイコン(ターゲット)に書き込みます。8ビット・マイコンでは書き込みに特殊な装置(ライタとかISPケーブルと呼ばれる)とその制御ツールが必要で、ハードウエァ同様に自作か購入して入手しておく必要があり、ある程度のコストがかかります。32ビット・マイコンの多くはライタは必要ありません。</p>
+<p>そして、ターゲットを実行モードで起動し、Lチカ動作を確認します。不幸にもうまくいかなかったら、意図した動作をするまでデバッグを繰り返します。</p>
+<p>たかがLチカなどと小馬鹿にされることがあるようですが、それに至るまでにはマイコン・システムの開発に最低限必要なプロセスが全て含まれているのです。一人でLチカを達成できたら、もはやそのマイコンのマスタは確実なものと言っても過言ではありません。安心してジャンク箱に放り込んで新たなマイコンでのLチカに進むことができます。</p>
 
 </div>
 
 <div class="para">
-<h3>�}�C�R���̃f�o�b�O��</h3>
-<p>�}�C�R���E�V�X�e���ł́APC�̃R���\�[�����o�͂̂悤�ȍ����ȓ��o�̓f�o�C�X�������Ȃ����Ƃ��w�ǂȂ��߁APC�A�v���Ƃ͈قȂ����f�o�b�O���@���K�v�ɂȂ�܂��B�}�C�R���E�V�X�e���̃f�o�b�K�Ƃ��Ă͎��Ɏ����悤�ȕ����g���܂��B</p>
+<h3>マイコンのデバッグ環境</h3>
+<p>マイコン・システムでは、PCのコンソール入出力のような高級な入出力デバイスを持たないことが殆どなため、PCアプリとは異なったデバッグ方法が必要になります。マイコン・システムのデバッガとしては次に示すような物が使われます。</p>
 <ul>
-<li>ICE(�C���E�T�[�L�b�g�E�G�~�����[�^)</li>
-<li>ROM�G�~�����[�^</li>
-<li>JTAG�f�o�b�K</li>
-<li>printf�f�o�b�O</li>
-<li>L�`�J�E�f�o�b�O</li>
+<li>ICE(イン・サーキット・エミュレータ)</li>
+<li>ROMエミュレータ</li>
+<li>JTAGデバッガ</li>
+<li>printfデバッグ</li>
+<li>Lチカ・デバッグ</li>
 </ul>
-<p>ICE�Ƃ����̂́A�^�[�Q�b�g�E�}�C�R���������ւ��ăG�~�����[�V���������p�n�[�h�E�F�A�Ńf�o�b�O������̂ł��B����͂ƂĂ������ŁA���\���~����100���~�ȏ�����܂��B�̂̓f�o�b�K�Ƃ����΂��ꂾ�����̂ł����A�}�C�R���̑��i��E���W�ω���Z�k���鐻�i�T�C�N���ɒǂ������A���ނ��Ă����܂����B</p>
-<p>ROM�G�~�����[�^�́A�v���O����ROM�������ւ��ăG�~�����[�V����������̂ł��B�P��ROM���ւ��邾���̕�����A�X�e�b�v�E�u���[�N�Ȃ�ICE�ɕC�G����f�o�b�O�@�\�������̂�����܂����B�����ROM���}�C�R���ɓ��������悤�ɂȂ��ď����Ă����܂����B</p>
-<p>ICE��ROM�G�~�����[�^�ɑ����Č��݂̎嗬�ɂȂ��Ă���̂�JTAG�f�o�b�K�ł��B�ŋ߂̃}�C�R���ɂ̓f�o�b�O��H����������Ă���̂ŁA���̋@�\���g���ăf�o�b�O���s���܂��BJTAG�Ƃ����̂̓e�X�g�E�f�o�b�O�p�C���^�[�t�F�[�X�K�i�̈�ŁA�����̃}�C�R���ŃT�|�[�g����Ă��܂��BICE��JTAG�f�o�b�K�Ȃǂ̃f�o�b�O�E�c�[���ł̓X�e�b�v���s��u���[�N�E�|�C���g�̐ݒ�Ȃ�PC�A�v���̃f�o�b�O�Ɣ�ׂĂ����F�̂Ȃ����x���ł̃f�o�b�O���\�ɂȂ��Ă��܂��B</p>
-<p>printf�f�o�b�O�Ƃ����̂́A�f�o�b�K���g���Ȃ��Ƃ��Ɏg�����@�ł��B�v���O�����̗v���ɕϐ��Ȃǂ̓����Ԃ��O���ɏo�͂���R�[�h���d����ł����A���̕\�������Đ��������삵�Ă��邩�ǂ����m�F���܂��B�o�͐��UART�Ȃǂ̃V���A���E�|�[�g��CLCD�Ȃǂ̃f�B�X�v���C�E�f�o�C�X�ł��B</p>
-<p>L�`�J�E�f�o�b�O�́Aprintf�f�o�b�O�̊ȈՔłŁALED�̓_�łŃv���O�����̓����Ԃ�m����̂ł��B�\���ł�����͔��Ɍ����Ă��܂����A����ł��������͂͂邩�Ƀ}�V�ł��B�e�X�^��I�V���E�X�R�[�v�Ő���o�͂��m�F����̂�L�`�J�E�f�o�b�O�̈��Ƃ�����ł��傤�B</p>
-<p>���ۂ̂Ƃ���A�}�C�R���E�V�X�e����PC�V�X�e���ƈقȂ�_�̓f�o�b�O�������ł͂���܂���B�v���O�����̐������炵�ĈقȂ��Ă���̂ł��B����͊ȒP�Ɍ����ƁA�o�b�`����(PC�A�v��)�ƃ��A���^�C������(�}�C�R���E�A�v��)�̈Ⴂ�ŁA���R�Ȃ���f�o�b�O��@���قȂ��Ă��܂��B�Ⴆ�΁A���A���^�C���������K�v�ȃR�[�h���X�e�b�v���s�����肵����A�V�X�e���͐���ȏ������s�����f�o�b�O�ɂȂ�܂���B���̂悤�Ȏ��́Aprintf�f�o�b�O��g�ݍ��킹��ȂǏ_��ȑΉ����K�v�ɂȂ��Ă��܂��B</p>
+<p>ICEというのは、ターゲット・マイコンを差し替えてエミュレーションする専用ハードウェアでデバッグするものです。これはとても高価で、数十万円から100万円以上もします。昔はデバッガといえばこれだったのですが、マイコンの多品種・高集積化や短縮する製品サイクルに追いつけず、衰退していきました。</p>
+<p>ROMエミュレータは、プログラムROMを差し替えてエミュレーションするものです。単にROMを代替するだけの物から、ステップ・ブレークなどICEに匹敵するデバッグ機能を持つものもありました。これもROMがマイコンに内蔵されるようになって消えていきました。</p>
+<p>ICEやROMエミュレータに代わって現在の主流になっているのがJTAGデバッガです。最近のマイコンにはデバッグ回路が内蔵されているので、その機能を使ってデバッグを行います。JTAGというのはテスト・デバッグ用インターフェース規格の一つで、多くのマイコンでサポートされています。ICEやJTAGデバッガなどのデバッグ・ツールではステップ実行やブレーク・ポイントの設定などPCアプリのデバッグと比べても遜色のないレベルでのデバッグが可能になっています。</p>
+<p>printfデバッグというのは、デバッガが使えないときに使われる手法です。プログラムの要所に変数などの動作状態を外部に出力するコードを仕込んでおき、その表示を見て正しく動作しているかどうか確認します。出力先はUARTなどのシリアル・ポートやCLCDなどのディスプレイ・デバイスです。</p>
+<p>Lチカ・デバッグは、printfデバッグの簡易版で、LEDの点滅でプログラムの動作状態を知るものです。表示できる情報は非常に限られていますが、それでも無いよりははるかにマシです。テスタやオシロ・スコープで制御出力を確認するのもLチカ・デバッグの一種といえるでしょう。</p>
+<p>実際のところ、マイコン・システムがPCシステムと異なる点はデバッグ環境だけではありません。プログラムの性質からして異なっているのです。これは簡単に言うと、バッチ処理(PCアプリ)とリアルタイム処理(マイコン・アプリ)の違いで、当然ながらデバッグ手法も異なってきます。例えば、リアルタイム処理が必要なコードをステップ実行したりしたら、システムは正常な処理が行えずデバッグになりません。このような時は、printfデバッグを組み合わせるなど柔軟な対応が必要になってきます。</p>
 </div>
 
 <div class="para">
-<h3>L�`�J�E�f�o�b�O</h3>
-<p>LED�̏�Ԃ͓_���������A�܂�1������1�r�b�g�̏��ʂ�������܂���B�������A����ł��f�o�b�O�̏����i�K�ł͈ӊO�ɖ𗧂��̂ł��B�Ⴆ�΁ALED��_��������R�[�h���d����ł����΁ALED�̓_���Ńv���O�����̎��s��������ʉ߂������Ƃ������܂��B����Ȃ���΂��̎�O�Ńo�O���Ă��邱�Ƃ��킩��܂��Bprintf�f�o�b�O����ɂ�UART�𐳂������������Ȃ���΂Ȃ�Ȃ��̂ŁA�����ɓ��B����܂ł�L�`�J�E�f�o�b�O�ɗ��邱�ƂɂȂ�܂��B�܂��A���퓮��̃��[�v�œ_�ł���悤�ɂ��Ă����Ζ\���Ȃǂُ̈�œ_�ł��~�܂�̂ł��ꂪ������܂��B</p>
+<h3>Lチカ・デバッグ</h3>
+<p>LEDの状態は点灯か消灯、つまり1個あたり1ビットの情報量しかありません。しかし、それでもデバッグの初期段階では意外に役立つものです。例えば、LEDを点灯させるコードを仕込んでおけば、LEDの点灯でプログラムの実行がそこを通過したことを示します。光らなければその手前でバグっていることがわかります。printfデバッグするにもUARTを正しく初期化しなければならないので、そこに到達するまではLチカ・デバッグに頼ることになります。また、正常動作のループで点滅するようにしておけば暴走などの異常で点滅が止まるのでそれが分かります。</p>
 </div>
 
 <div class="para">
-<h3>printf�f�o�b�O</h3>
-<p>printf�f�o�b�O�ł̓f�o�b�O���̃R�[�h�Ɏd����printf�֐��ȂǂŊm�F�������ϐ����O���ɏo�͂��܂��B�������A�g�ݍ��݃V�X�e���ł͕W����printf�֐������̂܂܎g�p���邱�Ƃ͂���܂���B�t���@�\��printf�͐�KB���x�̏��K�͂ȃ}�C�R���ɂƂ��Ă͏d�����邵�A���������}�C�R���ɂ͕W���o�̓f�o�C�X�����݂��Ȃ�����ł��B���̂��߁Aprintf�ɑ���ȒP�ȃf�o�b�O�o�͊֐���g��ł�����g�p���邱�ƂɂȂ�܂�(<a href="../../fsw/strf/xprintf_j.html">�g�ݍ��݌����ėp������o�̓��W���[��</a>)�B</p>
-<p>�f�o�b�O���̏o�͐�͑��̏ꍇ��UART(�񓯊��V���A���E�|�[�g)�ɂȂ�܂��B�񓯊��V���A���Ȃ�ȒP��PC�ɐڑ��ł��AROM�������݂Ɏg�p����|�[�g�Ƌ��p�ł���ꍇ�������̂ŁA�f�o�b�O�o�͂Ƃ��Ă悭�g���܂��B�܂��A�������K�͂ȃ}�C�R���ł͎g����UART�������ꍇ������A���̂悤�ȂƂ��̓\�t�g�E�F�AUART�ŏo�͂��邵������܂���B�\�t�g�E�F�AUART�Ȃ�n�[�h�E�F�AUART�ɔ�ׂĂ����炩�̐�����������̂́A�󂢂Ă���C�ӂ�GPIO�|�[�g���g���܂�(<a href="simple_rs232c.png">�Ȉ�RS-232C I/F��H�̗�</a>)�B</p>
-<p>�^�[�Q�b�g��GLCD��CLCD�Ȃǂ̕\��������ꍇ�́A�����փf�o�b�O�����o�͂��邱�Ƃ��悭����܂��B�����A7-seg LED��CLCD�ł͂��̕\���\�͂��瓾����f�o�b�O����UART�ɔ�ׂČ���I�ł��B</p>
-<p>printf�f�o�b�O�̔��W�^�Ƃ��āA�v���O�����̈�@�\�Ƃ��ăf�o�b�O�E���W���[����g�ݍ��݁A�Θb�^�C���^�[�t�F�[�X�ł�荂�x�ȃf�o�b�O������������@������A��K�͂ȃv���W�F�N�g�ł悭�g���Ă��܂��B�f�o�b�O�E���W���[���͎ז��łȂ���΃v���W�F�N�g��������g�ݍ��܂ꂽ�܂܂ɂ���A��̃����e�i���X�Ɋ��p����邱�Ƃ������悤�ł��B</p>
+<h3>printfデバッグ</h3>
+<p>printfデバッグではデバッグ中のコードに仕込んだprintf関数などで確認したい変数を外部に出力します。しかし、組み込みシステムでは標準のprintf関数をそのまま使用することはありません。フル機能のprintfは数KB程度の小規模なマイコンにとっては重すぎるし、そもそもマイコンには標準出力デバイスが存在しないからです。このため、printfに代わる簡単なデバッグ出力関数を組んでそれを使用することになります(<a href="../../fsw/strf/xprintf_j.html">組み込み向け汎用文字列出力モジュール</a>)。</p>
+<p>デバッグ情報の出力先は大抵の場合はUART(非同期シリアル・ポート)になります。非同期シリアルなら簡単にPCに接続でき、ROM書き込みに使用するポートと共用できる場合が多いので、デバッグ出力としてよく使われます。また、ごく小規模なマイコンでは使えるUARTが無い場合もあり、このようなときはソフトウェアUARTで出力するしかありません。ソフトウェアUARTならハードウェアUARTに比べていくらかの制限があるものの、空いている任意のGPIOポートを使えます(<a href="simple_rs232c.png">簡易RS-232C I/F回路の例</a>)。</p>
+<p>ターゲットがGLCDやCLCDなどの表示器を持つ場合は、そこへデバッグ情報を出力することもよくあります。ただ、7-seg LEDやCLCDではその表示能力から得られるデバッグ情報はUARTに比べて限定的です。</p>
+<p>printfデバッグの発展型として、プログラムの一機能としてデバッグ・モジュールを組み込み、対話型インターフェースでより高度なデバッグを実現する方法もあり、大規模なプロジェクトでよく使われています。デバッグ・モジュールは邪魔でなければプロジェクト完成後も組み込まれたままにされ、後のメンテナンスに活用されることが多いようです。</p>
 </div>
 
 <div class="para">
-<h3>L�`�J�ʐM</h3>
-<div class="rset"><img alt="" src="optcouple.jpeg" width="187" height="182"><br><a href="pd_pcb.jpeg">���</a> | <a href="pd_sch.png">��H�}</a> | <a href="suart.c">�R�[�h</a></div>
-<p>L�`�J��printf��g�ݍ��킹��΁A�^�[�Q�b�g�Ɠd�C�I�ɐڑ������Ƃ��ʐM�ł��Ă��܂��܂��B�ǂ����������Ƃ����ƁAUART�o�͂�LED���쓮���A���̃p���X�������Z���T�ŏE���̂ł��B�܂�ALED�C���W�P�[�^�����g�����X�~�b�^�Ƃ��Ďg���킯�ł��ˁB�E�̐}��L�`�J���E����COM�|�[�g����PC�ɓ��͂���A�_�v�^�ƁA���ۂ�LPC2388�W�����N��Ŏ�������L�`�J���M�R�[�h�������܂��B���̏ꍇ�A115kbps�܂Ŗ��Ȃ���M�ł��܂����B</p>
-<p>������LED�C���W�P�[�^�͕��ʂ�GPIO�|�[�g�ɐڑ�����Ă���̂ŁAL�`�J�ʐM�ł̓\�t�g�E�F�AUART���g�p���邱�ƂɂȂ�܂��BPC����^�[�Q�b�g�ւ̒ʐM�͂ł��܂��񂪁A�^�[�Q�b�g�̓�����������j�^������x�Ȃ�Е����ŏ\���ł��傤�B���̂ق��A�d�C�I�ɐ≏����Ă��邱�ƂŁA��≏�d���̉�H�̓�������S�Ƀ��j�^�ł���Ƃ��������b�g������܂��BLED�����u�̕\����ɂȂ��Ă���Ƃ��́A�P�[�u������ڑ����邽�߂ɃP�[�X���J����K�v������܂���B�ĊO�A��������ӂɂ���@���LED�̓_�ł�L�`�J�ʐM�������Ȃ�Ă��Ƃ�...�����Ǝv���܂��B</p>
+<h3>Lチカ通信</h3>
+<div class="rset"><img alt="" src="optcouple.jpeg" width="187" height="182"><br><a href="pd_pcb.jpeg">基板</a> | <a href="pd_sch.png">回路図</a> | <a href="suart.c">コード</a></div>
+<p>Lチカとprintfを組み合わせれば、ターゲットと電気的に接続せずとも通信できてしまいます。どういう事かというと、UART出力でLEDを駆動し、そのパルス光を光センサで拾うのです。つまり、LEDインジケータを光トランスミッタとして使うわけですね。右の図にLチカを拾ってCOMポートからPCに入力するアダプタと、実際にLPC2388ジャンク基板で実験したLチカ送信コードを示します。この場合、115kbpsまで問題なく受信できました。</p>
+<p>既存のLEDインジケータは普通はGPIOポートに接続されているので、Lチカ通信ではソフトウェアUARTを使用することになります。PCからターゲットへの通信はできませんが、ターゲットの内部動作をモニタする程度なら片方向で十分でしょう。そのほか、電気的に絶縁されていることで、非絶縁電源の回路の動作を安全にモニタできるというメリットがあります。LEDが装置の表示器になっているときは、ケーブル等を接続するためにケースを開ける必要もありません。案外、そこいら辺にある機器のLEDの点滅はLチカ通信だったなんてことが...無いと思います。</p>
 </div>
 
 

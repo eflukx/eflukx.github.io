@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
@@ -6,68 +6,68 @@
 <link rel="start" title="Site Top" href="../../index_j.html">
 <link rel="up" title="Tech Notes" href="../../cc.html">
 <link rel="stylesheet" href="../junk.css" type="text/css" media="screen" title="ELM Default">
-<title>S9894 128�~48�t���\����̎��H</title>
+<title>S9894 128×48液晶表示器の試食</title>
 </head>
 
 <body>
 <div class="header">
 <p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
-<h1>S9894 128�~48�t���\����̎��H</h1>
+<h1>S9894 128×48液晶表示器の試食</h1>
 <p class="hdd"><br>2003. 9. 10</p>
 <hr class="hds">
 </div>
 
 <div class="abst">
 <img class="rset" src="tp1.jpeg" alt="S9894" width="450" height="284">
-<p>CoCoNet�t���H�[�i�H�t�ɍŋ߂ł���LCD�p�l������Ɉ����W�����N���j�ɂāA128�~48�h�b�g�\���̉t���\�����W���[���� \480��B���Ă̒ʂ���[�hSTN�ŁA�R���g���X�g�͂Ȃ��Ȃ��ǂ������������ł��B</p>
-<p>���āA�����f�[�^�t���Ƃ������ƂŔ����Ă݂����ǁA�t���f�[�^��<b>���̃��W���[����g�ݍ��񂾋@��</b>�̂��̂Ǝv����V�����m�ŁA�S�R���ɗ����Ȃ�(��)�B���ǁA��H�̉�͂�����n���ɂȂ��Ă��܂��܂���<tt>(-_-;</tt>�B�܂��A��̓��m�Ƃ��Ă͏����̏����Ȃ̂ŁA�����ȏ�͎��͉������Ă���ł��傤���ǁA�r���ɕ��Ă���������邩���m��Ȃ��̂ŉ�̓��������J���Ă����܂��B</p>
-<p>�H���Ŕ̔����Ă���O���t�B�b�NLCD���W���[��SG12864ASLB���قړ����\���ŁA�݊��R���g���[��(CS�M���̋ɐ��͋t)���g�p���Ă���悤�ł��B</p>
+<p>CoCoNet液晶工房（秋葉に最近できたLCDパネルを専門に扱うジャンク屋）にて、128×48ドット表示の液晶表示モジュールが \480也。見ての通り青モードSTNで、コントラストはなかなか良く応答も高速です。</p>
+<p>さて、私もデータ付きということで買ってみたけど、付属データが<b>このモジュールを組み込んだ機器</b>のものと思われるシロモノで、全然役に立たない(笑)。結局、回路の解析からやるハメになってしまいました<tt>(-_-;</tt>。まぁ、解析モノとしては初歩の初歩なので、半数以上は自力解決しているでしょうけど、途方に暮れている方もいるかも知れないので解析メモを公開しておきます。</p>
+<p>秋月で販売しているグラフィックLCDモジュールSG12864ASLBもほぼ同じ構成で、互換コントローラ(CS信号の極性は逆)を使用しているようです。</p>
 </div>
 
 
 <div class="para">
-<h3>S9894�̓�����H</h3>
+<h3>S9894の内部回路</h3>
 <img class="rset" src="s9894.png" alt="S9894 Block Diagram" width="580" height="588">
-<p>�E�̐}����͂���S9894�̓����u���b�N�}�ƃs���A�E�g�ł��B�R���g���[���Ƃ��� HD61202�i�\���������{�J�����h���C�o�j��2�� HD61203�i���[�h���C�o�j��1�g�p���Ă��܂��BHD61202��1��64�~64�h�b�g�̕\�����\�ŁA2��128�h�b�g���̃p�l���̍��E�����̗̈�����ꂼ��󂯎����Ă��܂��B������48�h�b�g�Ȃ̂ŁA����1/4�͎g���Ă��Ȃ����ƂɂȂ�܂��ˁB�H��LCD�ł̓t���Ɏg���Ă��܂��B</p>
-<p>�d���̓��W�b�N���d���Ƃ���VCC��+5V�A�t���p�l�����쓮���邽�߂̃o�C�A�X�d���Ƃ���VEE��-10V���K�v�ɂȂ�܂��B�܂��A�o�b�N���C�g�iCCFL�ǁj�̂��߂ɁA�O���ɃC���o�[�^���K�v�ł��B�H��LCD�̏ꍇ�̓o�C�A�X�d���͓�������Ă��āA�o�b�N���C�g��LED�ɂȂ��Ă��܂��B</p>
+<p>右の図が解析したS9894の内部ブロック図とピンアウトです。コントローラとして HD61202（表示メモリ＋カラムドライバ）を2個と HD61203（ロードライバ）を1個使用しています。HD61202は1個で64×64ドットの表示が可能で、2個で128ドット幅のパネルの左右半分の領域をそれぞれ受け持っています。高さは48ドットなので、下側1/4は使っていないことになりますね。秋月LCDではフルに使っています。</p>
+<p>電源はロジック部電源としてVCCに+5V、液晶パネルを駆動するためのバイアス電源としてVEEに-10Vが必要になります。また、バックライト（CCFL管）のために、外部にインバータも必要です。秋月LCDの場合はバイアス電源は内蔵されていて、バックライトはLEDになっています。</p>
 </div>
 
 
 <div class="para">
-<h3>HD61202�̕\��������</h3>
+<h3>HD61202の表示メモリ</h3>
 <img class="rset" src="sc_ram.png" alt="HD61202 RAM" width="365" height="380">
-<p>HD61202�̕\���������̍\�����E��IMG�Ɏ����܂��B�}���̃r�b�g�ʒu�Ɖt���p�l����̌����ڂ̈ʒu�����ꂼ���v����悤�ɏ����Ă����܂����B�ꌩ�ϑ��I�ł����A������`���ɂ͂��̕����D�s���ł���(Y�͎����C���N�������g�ł���)�B</p>
+<p>HD61202の表示メモリの構成を右のIMGに示します。図中のビット位置と液晶パネル上の見た目の位置がそれぞれ一致するように書いておきました。一見変則的ですが、文字を描くにはこの方が好都合ですね(Yは自動インクリメントですし)。</p>
 </div>
 
 
 <div class="para">
-<h3>HD61202�̖��ߕ\</h3>
-<p>�C���^�[�t�F�[�X�͂�����݂� HD44780�ƑS�������ł����A��{�ݒ肪��H�Ō��ߑł��Ȃ̂Ŗʓ|�ȏ��������K�v�Ȃ��� HD44780���ȒP�ł��B</p>
+<h3>HD61202の命令表</h3>
+<p>インターフェースはお馴染みの HD44780と全く同じですが、基本設定が回路で決め打ちなので面倒な初期化が必要ない分 HD44780より簡単です。</p>
 <table class="lst">
-<tr><td>����</td><td>R/W</td><td>D/I</td><td>DB7</td><td>DB6</td><td>DB5</td><td>DB4</td><td>DB3</td><td>DB2</td><td>DB1</td><td>DB0</td><td>�@�\</td>
-<tr><td>�\��ON/OFF�ݒ�</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>D</td><td>D = 1:�\��ON, 0:�\��OFF</td></tr>
-<tr><td>�\���J�n���C���ݒ�</td><td>0</td><td>0</td><td>1</td><td>1</td><td colspan="6">���C���ԍ�(0�`63)</td><td>�擪���C����I�� (�ʏ��0)</td></tr>
-<tr><td>X�A�h���X�ݒ�</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td colspan="3">X�A�h���X(0�`7)</td><td>X�A�h���X���W�X�^�ɒl���Z�b�g</td></tr>
-<tr><td>Y�A�h���X�ݒ�</td><td>0</td><td>0</td><td>0</td><td>1</td><td colspan="6">Y�A�h���X(0�`63)</td><td>Y�A�h���X���W�X�^�ɒl���Z�b�g</td></tr>
-<tr><td>�X�e�[�^�X�ǂݏo��</td><td>1</td><td>0</td><td>B</td><td>0</td><td>D</td><td>R</td><td>0</td><td>0</td><td>0</td><td>0</td><td>B = 0:�ҋ@��, 1:���s��<br>D = 0:�\��ON, 1:�\��OFF<br> R = 0:�ʏ�, 1:��������</td></tr>
-<tr><td>�f�[�^��������</td><td>0</td><td>1</td><td colspan="8">�\���f�[�^</td><td>�l��X,Y�Ŏ������A�h���X�ɏ������݁AY��+1����</td></tr>
-<tr><td>�f�[�^�ǂݏo��</td><td>1</td><td>1</td><td colspan="8">�\���f�[�^</td><td>X,Y�Ŏ������A�h���X����ǂݏo���AY��+1����</td></tr>
+<tr><td>命令</td><td>R/W</td><td>D/I</td><td>DB7</td><td>DB6</td><td>DB5</td><td>DB4</td><td>DB3</td><td>DB2</td><td>DB1</td><td>DB0</td><td>機能</td>
+<tr><td>表示ON/OFF設定</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>D</td><td>D = 1:表示ON, 0:表示OFF</td></tr>
+<tr><td>表示開始ライン設定</td><td>0</td><td>0</td><td>1</td><td>1</td><td colspan="6">ライン番号(0～63)</td><td>先頭ラインを選択 (通常は0)</td></tr>
+<tr><td>Xアドレス設定</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td colspan="3">Xアドレス(0～7)</td><td>Xアドレスレジスタに値をセット</td></tr>
+<tr><td>Yアドレス設定</td><td>0</td><td>0</td><td>0</td><td>1</td><td colspan="6">Yアドレス(0～63)</td><td>Yアドレスレジスタに値をセット</td></tr>
+<tr><td>ステータス読み出し</td><td>1</td><td>0</td><td>B</td><td>0</td><td>D</td><td>R</td><td>0</td><td>0</td><td>0</td><td>0</td><td>B = 0:待機中, 1:実行中<br>D = 0:表示ON, 1:表示OFF<br> R = 0:通常, 1:初期化中</td></tr>
+<tr><td>データ書き込み</td><td>0</td><td>1</td><td colspan="8">表示データ</td><td>値をX,Yで示されるアドレスに書き込み、Yを+1する</td></tr>
+<tr><td>データ読み出し</td><td>1</td><td>1</td><td colspan="8">表示データ</td><td>X,Yで示されるアドレスから読み出し、Yを+1する</td></tr>
 </table>
 <small>
-��1:�S�ẴR�}���h�E�f�[�^�̑O�Ƀt���O(B=0)���`�F�b�N����K�v������B<br>
-��2:�f�[�^��ǂݏo���Ƃ��́A�A�h���X�ݒ��ɂP��J���ǂ݂���K�v������B<br>
+※1:全てのコマンド・データの前にフラグ(B=0)をチェックする必要がある。<br>
+※2:データを読み出すときは、アドレス設定後に１回カラ読みする必要がある。<br>
 </small>
 </div>
 
 
 <div class="para">
-<h3>������H</h3>
-<p>���ꂾ������Ύg���ɂ͏\�����Ǝv���܂����A�����Ɏg������H�����Ƃ肠�����u���Ă����܂��B���̂ق��Ƀo�b�N���C�g��CCFL��_������C���o�[�^���K�v�ł��B�_�����Ȃ��Ă��\�������܂����BCCFL�ǂ������������Ĕ��F�`�b�vLED����ׂ��������Έ������y�ɂȂ�Ǝv���܂��B</p>
+<h3>実験回路</h3>
+<p>これだけあれば使うには十分だと思いますが、実験に使った回路等もとりあえず置いておきます。このほかにバックライトのCCFLを点灯するインバータも必要です。点灯しなくても十分見えますが。CCFL管を引っこ抜いて白色チップLEDを並べた基板を入れれば扱いが楽になると思います。</p>
 <ul>
-<li><a href="s9894ct.png">�R���g���[����H�}</a></li>
-<li><a href="s9894tst.zip">�R���g���[��F/W,���̑�</a></li>
+<li><a href="s9894ct.png">コントローラ回路図</a></li>
+<li><a href="s9894tst.zip">コントローラF/W,その他</a></li>
 </ul>
-<p>���ƁAHD61202�ł������Ă݂�ƃf�[�^�V�[�g�ɂ�����邩������܂��� :-)</p>
+<p>あと、HD61202でぐぐってみるとデータシートにありつけるかもしれません :-)</p>
 </div>
 
 

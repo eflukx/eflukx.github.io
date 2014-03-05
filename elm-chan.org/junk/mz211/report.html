@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
@@ -9,80 +9,80 @@
 <style type="text/css" media="screen" title="ELM Default">
 #smf {color: aquamarine; font-size: smaller;}
 </style>
-<title>STN�t�����W���[���̐H�ו�</title>
+<title>STN液晶モジュールの食べ方</title>
 </head>
 
 <body>
 <div class="header">
 <p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
-<h1>STN�t�����W���[���̐H�ו�</h1>
+<h1>STN液晶モジュールの食べ方</h1>
 <p class="hdd"><br>2003. 11. 2</p>
 <hr class="hds">
 </div>
 
 <div class="abst">
 <img class="rset" src="lcd1.jpeg" alt="" width="526" height="257">
-<p>�W�����N�Ŏ��XSTN�t�����W���[����ڂɂ���悤�ɂȂ�܂������A������x�̗ǂ��J���[�t�����W���[������ɓ������̂ŁA���H���Ă݂܂����B�E��IMG�Ɏ����A�Ίp4�C���`�A�𑜓x��320�~240�h�b�g�A���W���[���̌�����7mm�ACCFL�o�b�N���C�g������A����Ƀ^�u���b�g�t���Ƃ����V�����m�ŁAPDA�����̉t�����W���[���Ǝv���܂��BSTN�Ƃ�TFT�̌����Ƃ������t����ʂɂ��ẮA���̃T�C�g���Q�Ƃ��Ă��������B</p>
+<p>ジャンクで時々STN液晶モジュールを目にするようになりましたが、今回程度の良いカラー液晶モジュールが手に入ったので、試食してみました。右のIMGに示す、対角4インチ、解像度は320×240ドット、モジュールの厚さ約7mm、CCFLバックライトを内蔵、さらにタブレット付きというシロモノで、PDA向けの液晶モジュールと思われます。STNとかTFTの原理といった液晶一般については、他のサイトを参照してください。</p>
 </div>
 
 
 <div class="para">
-<h3>STN�t�����W���[���̐M��</h3>
+<h3>STN液晶モジュールの信号</h3>
 <img class="rset" src="lcd1.png" alt="" width="325" height="505">
-<p>�J�ł悭��������STN�t�����W���[���͑�̉E�Ɏ����悤�ȍ\���ɂȂ��Ă��āA����M�����ǂ���������̂ƂȂ��Ă��܂��B�}�Ɏ������̂́A����320�~240�h�b�g�A8�r�b�g�V���O��I/F�̍\���ƁA�擪���C���̓]���^�C�~���O�ł��B���Ɏ�ȐM���Ƃ��̈Ӗ��������܂��B</p>
+<p>巷でよく見かけるSTN液晶モジュールは大体右に示すような構成になっていて、制御信号もどれも似たものとなっています。図に示したのは、白黒320×240ドット、8ビットシングルI/Fの構成と、先頭ラインの転送タイミングです。次に主な信号とその意味を示します。</p>
 <h4>D0..Dn</h4>
-<p>�h�b�g�f�[�^���́B4�r�b�g�܂���8�r�b�g�P�ʁB����480���C���ȏ��STN�J���[�t���p�l���ł́A�쓮�f���[�e�B�������ăR���g���X�g�≞�����x�����P���邽�߁An�r�b�g+n�r�b�g�ł��ꂼ��t���p�l���̏㉺�����𓯎��X�L��������DSTN�Ƃ���2��1�^�C�v�̃��W���[���������悤�ł��B</p>
+<p>ドットデータ入力。4ビットまたは8ビット単位。特に480ライン以上のSTNカラー液晶パネルでは、駆動デューティを下げてコントラストや応答速度を改善するため、nビット+nビットでそれぞれ液晶パネルの上下半分を同時スキャンするDSTNという2個1タイプのモジュールが多いようです。</p>
 <h4>CL2(XSCL)</h4>
-<p>�h�b�g�f�[�^�iD0..Dn�j���J�����h���C�o�Ɏ�荞�ރV�t�g�p���X�ł��B�P���C�����̓]���ɗv����T�C�N�����́A�����h�b�g��/�f�[�^���Ƃ������ƂɂȂ�܂��B�ЃG�b�W�̂ق��A�p���X�̗��G�b�W�Ńf�[�^����荞�ރ^�C�v������܂��B</p>
+<p>ドットデータ（D0..Dn）をカラムドライバに取り込むシフトパルスです。１ライン分の転送に要するサイクル数は、水平ドット数/データ幅ということになります。片エッジのほか、パルスの両エッジでデータを取り込むタイプもあります。</p>
 <h4>CL1(LP)</h4>
-<p>���C���f�[�^���b�`�M���B�J�����h���C�o�Ɏ�荞�܂ꂽ1���C�����̃f�[�^�����b�`����A�����鐅�������M���̂悤�Ȃ��̂ł��B</p>
+<p>ラインデータラッチ信号。カラムドライバに取り込まれた1ライン分のデータをラッチする、いわゆる水平同期信号のようなものです。</p>
 <h4>FLM(YD)</h4>
-<p>�t���[���J�n�M���BCL1(LP)�̃^�C�~���O�ŎQ�Ƃ���A���̃��C�����t���[���̐擪���C���ł��邱�Ƃ������A�����鐂�������M���̂悤�Ȃ��̂ł��B</p>
+<p>フレーム開始信号。CL1(LP)のタイミングで参照され、そのラインがフレームの先頭ラインであることを示す、いわゆる垂直同期信号のようなものです。</p>
 <h4>M(MOD)</h4>
-<p>�t���p�l���쓮�g�`�̋ɐ���I������M���B1�`���t���[�����ɔ��]�����Ē��������t���p�l���ɉ����Ȃ��悤�ɂ��܂��B�ŋ߂̉t�����W���[���͓��������ŊO������͕K�v�Ƃ��Ȃ����̂������悤�ł��B</p>
+<p>液晶パネル駆動波形の極性を選択する信号。1～数フレーム毎に反転させて直流分が液晶パネルに加わらないようにします。最近の液晶モジュールは内部生成で外部からは必要としないものが多いようです。</p>
 <h4>DISP(/DISPOFF)</h4>
-<p>�������M�������͂���Ă��Ȃ��Ƃ��A�t���p�l���ɕs���ȋ쓮�d����������ă_���[�W��^����̂�h�����߁A�h���C�o�o�͂�OFF����M���B�\���J�n�㐔�t���[�����Ԍo���ċ쓮��H�����肵�Ă���ON���A�M����~�O��V�X�e�����Z�b�g����OFF����ȂǁA�t���p�l���ی�̂��ߓK�؂ɐ��䂷��K�v������܂��B������L���x����OFF�ł��B</p>
+<p>正しい信号が入力されていないとき、液晶パネルに不正な駆動電圧が加わってダメージを与えるのを防ぐため、ドライバ出力をOFFする信号。表示開始後数フレーム期間経って駆動回路が安定してからONし、信号停止前やシステムリセット時にOFFするなど、液晶パネル保護のため適切に制御する必要があります。多くはLレベルでOFFです。</p>
 <h4>V<sub>DD</sub></h4>
-<p>���W�b�N��H�d���B�̂�5V�n�A�ŋ߂�3V�n���嗬�̂悤�ł��B</p>
+<p>ロジック回路電源。昔は5V系、最近は3V系が主流のようです。</p>
 <h4>V<sub>EE</sub></h4>
-<p>�t���p�l���쓮�d���B320�~240�J���[�̉t���ł�+20�`+30V���x�������悤�ŁA�d���͐�mA���x�ł��B�쓮�d���͓����ŕ�������Ċe�쓮���x������������܂����A�Â��t�����W���[���ł͌ʂɗ^����K�v��������̂�����܂��B�܂��ADC-DC�R���o�[�^����������A�O��������K�v�Ƃ��Ȃ����̂�����܂��B���̓d����ς��邱�Ƃɂ���ĕ\���Z�x�𒲐����܂��B</p>
+<p>液晶パネル駆動電源。320×240カラーの液晶では+20～+30V程度が多いようで、電流は数mA程度です。駆動電源は内部で分圧されて各駆動レベルが生成されますが、古い液晶モジュールでは個別に与える必要があるものもあります。また、DC-DCコンバータが内蔵され、外部供給を必要としないものもあります。この電圧を変えることによって表示濃度を調整します。</p>
 </div>
 
 
 <div class="para">
-<h3>�J���[STN�t���p�l��</h3>
+<h3>カラーSTN液晶パネル</h3>
 <img class="rset" src="lcd2.png" alt="" width="284" height="180">
-<p>�J���[�p�l���́A���m�N���p�l���̐����h�b�g����P����3�{�ɂ��āARGB�̏c�X�g���C�v������������̂ƂȂ��Ă��܂��B���������āA<em>RGB�̃h�b�g�z��͓]���P�ʂɍ���Ȃ�</em>�����ɂȂ�̂ŁA�E�̐}�Ɏ����悤��RGB�f�[�^�����܂����בւ��ē]���f�[�^�̒��֐������p�b�L���O���Ă��K�v������܂��B</p>
+<p>カラーパネルは、モノクロパネルの水平ドット数を単純に3倍にして、RGBの縦ストライプを印刷したものとなっています。したがって、<em>RGBのドット配列は転送単位に合わない</em>順序になるので、右の図に示すようにRGBデータをうまく並べ替えて転送データの中へ正しくパッキングしてやる必要があります。</p>
 </div>
 
 
 <div class="para">
-<h3>STN�t���p�l���̑��K���\��</h3>
+<h3>STN液晶パネルの多階調表示</h3>
 <img class="rset" src="lcd3.png" alt="" width="240" height="220">
-<p>STN�t�����W���[���ɓ��͂����M���ɂ́A�h�b�g��ON/OFF�i2�K���j���邾���̏�񂵂�����܂���B����ő��K������������ɂ́A�R���g���[������<em>3����(���Ԏ�)�f�B�U�����O����</em>���s���K�v������܂��B��̓I�ɂ́A�h�b�g��ON����t���[�����̊�����ς��邱�Ƃɂ��Z�x�����j�A�ɐ��䂷��̂ł��B�Ⴆ�΁A15�t���[���V�[�P���X��ON/OFF��𐧌䂷���16�K���\���������ł��邱�ƂɂȂ�܂��BSTN�t���̉������x�͔�r�I�x���̂ő���������ON/OFF�͕��ω�����܂����A�f�B�U�p�^�[���̎�������������ƃt���b�J����������悤�ɂȂ�̂ŁA16�K�����x�܂ł������悤�ł��B</p>
+<p>STN液晶モジュールに入力される信号には、ドットをON/OFF（2階調）するだけの情報しかありません。これで多階調を実現するには、コントローラ側で<em>3次元(時間軸)ディザリング処理</em>を行う必要があります。具体的には、ドットをONするフレーム数の割合を変えることにより濃度をリニアに制御するのです。例えば、15フレームシーケンスでON/OFF比を制御すれば16階調表示が実現できることになります。STN液晶の応答速度は比較的遅いので速い周期のON/OFFは平均化されますが、ディザパターンの周期が長すぎるとフリッカが感じられるようになるので、16階調程度までが多いようです。</p>
 </div>
 
 
 <div class="para">
-<h3>STN�t�����W���[���̒�����</h3>
+<h3>STN液晶モジュールの調理例</h3>
 <a class="imglnk" href="lcd2.jpeg"><img class="rset" src="lcd2.jpeg" alt="" width="348" height="285"></a>
-<p>�������ɃJ���[�t�����W���[���ƂȂ�ƁARGB�̃p�b�N���⑽�K���\���Ȃǃ}�C�R���Œ��ɋ쓮����͍̂���ɂȂ��Ă��܂��B�f�o�I�^�Ȃ炱����PLD�̗ނ�SRAM����������o���Ă���Ƃ���ł��傤���ǁA��y�ɂ��ɂ͖��ʂȋ�J�͔����Đ�pIC���g���̂��X�}�[�g�ƌ������̂ł��B�Ƃ������ƂŁA����͎莝���ɂ������G�v�\���̉t���R���g���[�� <em>S1D13705</em>�i��SED1375�j���g���Ă݂܂����i�m���A�H�t��\3k���x���������ȁj�B����́A�e��o�XI/F�A80KB��SRAM�ALUT�A�ėpLCD I/F�Ȃǂ�������Ă��āA������STN/TFT�t�����W���[���ɑΉ��ł��܂��B320�~240�h�b�g�̉𑜓x�ł�4096�F��256�F�̕\�����\�ł��B</p>
-<p>���t���b�V�����g���́A�t���̉������x��K������̗L���ŉ��������܂��Ă��܂��B���̉t�����W���[���̐������t���b�V�����g���͊K��������l�����Ă�130Hz�ƂȂ��Ă��܂������A�K�����䂵�Ȃ��Ȃ�50Hz���x�ł��g����Ǝv���܂��B<br>
-�@�E��IMG�͎����ɕ\�����Ă݂��Ƃ���B�K�v�ȓd����VDD��3.3V�AVEE��+23V�A�����CCFL�̍����ł����B��̑O��TFT���̃R���g���X�g��������悤�ł����A�������x�͂������STN�̃g�����ł�(^_^;�B�܂��A�K������̊֌W��A���܂葬���Ă�����̂ł����B���āA���Ɏg����...</p>
+<p>さすがにカラー液晶モジュールとなると、RGBのパック化や多階調表示などマイコンで直に駆動するのは困難になってきます。デバオタならここでPLDの類とSRAMを引っ張り出してくるところでしょうけど、手軽にやるには無駄な苦労は避けて専用ICを使うのがスマートと言うものです。ということで、今回は手持ちにあったエプソンの液晶コントローラ <em>S1D13705</em>（旧SED1375）を使ってみました（確か、秋葉で\3k程度だったかな）。これは、各種バスI/F、80KBのSRAM、LUT、汎用LCD I/Fなどを内蔵していて、多くのSTN/TFT液晶モジュールに対応できます。320×240ドットの解像度では4096色中256色の表示が可能です。</p>
+<p>リフレッシュ周波数は、液晶の応答速度や階調制御の有無で下限が決まってきます。この液晶モジュールの推奨リフレッシュ周波数は階調制御を考慮してか130Hzとなっていましたが、階調制御しないなら50Hz程度でも使えると思います。<br>
+　右のIMGは試しに表示してみたところ。必要な電源はVDDに3.3V、VEEに+23V、それとCCFLの高圧でした。一昔前のTFT並のコントラストが得られるようですが、応答速度はもちろんSTNのトロさです(^_^;。まぁ、階調制御の関係上、あまり速くても困るのですが。さて、何に使おう...</p>
 </div>
 
 
 <div class="para">
-<h3>��R�����^�u���b�g</h3>
+<h3>抵抗膜式タブレット</h3>
 <img class="rset" src="tab1.png" alt="" width="400" height="240">
-<p>PDA�Ɏg���Ă���^�u���b�g�ɂ͂��낢��ȕ���������Ǝv���܂����A���̉t�����W���[���Ɏ��t�����Ă����̂�<em>��R����</em>�������̂ŁA�����H�ׂĂ݂܂����B���̃^�C�v�̃^�u���b�g�́A�\�����P���Ń}�C�R���ɒ������Ďg���邱�Ƃ������ł��B�\���͉E��IMG�Ɏ����悤�ɁA�����ȓ��d��R�����������ꂽ�K���X�Ǝ����t�B�������킸���Ȍ��Ԃ������Đϑw�������̂ƂȂ��Ă��܂��B���ꂼ��̒�R���ɂ́A���s�����ӂɓd�ɂ��݂����A�d���̌������݂��ɒ�������悤�ɂȂ��Ă��܂��B��R���̒�R�l�͐�100���ł��B</p>
+<p>PDAに使われているタブレットにはいろいろな方式があると思いますが、この液晶モジュールに取り付けられていたのが<em>抵抗膜式</em>だったので、早速食べてみました。このタイプのタブレットは、構造が単純でマイコンに直結して使えることが特徴です。構造は右のIMGに示すように、透明な導電抵抗膜が蒸着されたガラス板と樹脂フィルムをわずかな隙間をおいて積層したものとなっています。それぞれの抵抗膜には、並行する二辺に電極が設けられ、電流の向きが互いに直交するようになっています。抵抗膜の抵抗値は数100Ωです。</p>
 <br>
 <img class="lset" src="tab2.png" alt="" width="300" height="400">
-<p>����Ԃł͂��ꂼ��̒�R���͗���Ă��ēƗ�������H�ɂȂ��Ă��܂��B�����ŁA�����t�B�����̍����i�{�_�j���y���ŉ������Ă݂܂��B����Ƃ��̓_�̒�R�����ڐG���āA����IMG�̏�Ɏ����悤�ȉ�H���`������܂��B�|�C���g���ꂽ�ʒu�����o����ɂ́AX�w�ɓd����������Y�w���t���[�e�B���O��Ԃɂ���Y�w�Ɍ��ꂽ�d���𑪂��X�w�̍��W��������܂��B���l��Y�w�̍��W���m�邱�Ƃ��ł��܂��B</p>
-<p>��Ƃ��č���̎�����H��}�̉����Ɏ����܂��B���肽���w�̃|�[�g��H��L���o�͂��ēd���������A��������̑w�̓d����A/D�R���o�[�^�ő���܂��B���R�ł����A��荞�ލۂ͓K���ȕ��ω������Ńm�C�Y������������A�|�C���g�������W�Ǝ��ۂ̃h�b�g�ʒu�������悤�ɍZ������@�\���K�v�ɂȂ��Ă��܂��B���̂Ƃ��|�[�g�̓����v���A�b�v�i��R�����\���ɍ���R�j��ON�ɂ��邱�Ƃɂ��I�[�v����Ԃ�A/D�l���ő�ƂȂ�A������Ă��邩�ǂ����������ɔ��f�ł��܂��B</p>
+<p>定常状態ではそれぞれの抵抗膜は離れていて独立した回路になっています。ここで、樹脂フィルムの左下（＋点）をペンで押さえてみます。するとその点の抵抗膜が接触して、左のIMGの上に示すような回路が形成されます。ポイントされた位置を検出するには、X層に電圧を加えてY層をフローティング状態にしてY層に現れた電圧を測ればX層の座標が分かります。同様にY層の座標も知ることができます。</p>
+<p>例として今回の実験回路を図の下側に示します。測りたい層のポートにHとLを出力して電圧を加え、もう一方の層の電圧をA/Dコンバータで測ります。当然ですが、取り込む際は適当な平均化処理でノイズを除去したり、ポイントした座標と実際のドット位置が合うように校正する機能も必要になってきます。このときポートの内蔵プルアップ（抵抗膜より十分に高抵抗）をONにすることによりオープン状態でA/D値が最大となり、押されているかどうかも同時に判断できます。</p>
 <br>
 <a class="imglnk" href="lcd3.jpeg"><img class="rset" src="lcd3.jpeg" alt="" width="296" height="217"></a>
-<p>�E��IMG���^�u���b�g���g���Ă݂��Ƃ���B����Ōg�ь^���G�����p�b�h�Ȃ�Ă̂����̂�������������Ȃ�...�i�f���ɓd�q�蒠��������?(^_^;�j�B</p>
+<p>右のIMGがタブレットを使ってみたところ。これで携帯型お絵かきパッドなんてのを作るのもいいかもしれない...（素直に電子手帳買えって?(^_^;）。</p>
 </div>
 
 
